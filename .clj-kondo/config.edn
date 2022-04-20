@@ -1,0 +1,5 @@
+{:config-paths
+ ["babashka/sci"
+  "babashka/fs"
+  "rewrite-clj/rewrite-clj"
+  "sicmutils/sicmutils"]}

@@ -1,0 +1,18 @@
+{:deps true
+ :builds {:sicm-browser
+          {:asset-path "out"
+           :compiler-options
+           {:optimizations :advanced
+            :output-wrapper false
+            :source-map false}
+           :devtools {:http-root ".", :http-port 9000}
+
+           :modules
+           {:main
+            {:entries
+             [demo.viewers
+              nextjournal.clerk.sci-viewer
+              nextjournal.clerk.static-app]}}
+
+           :output-dir "out"
+           :target :browser}}}

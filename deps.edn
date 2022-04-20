@@ -1,0 +1,32 @@
+{:paths ["src" "dev"]
+ :deps {org.clojure/clojurescript {:mvn/version "1.10.914"}
+        thheller/shadow-cljs {:mvn/version "2.16.12"}
+
+        ;; SICMUtils computer algebra system!
+        sicmutils/sicmutils
+        {:mvn/version "0.22.0"}
+        #_{:local/root "../clerk"}
+
+        io.github.nextjournal/clerk
+        {:git/sha "d08c26043efe19a92fe33dd9eb4499e304e4cff7"}
+        #_{:local/root "../clerk"}
+
+        io.github.nextjournal/viewers
+        {:git/sha "d68f06d04feca3afe1d08eb190a4ef16c805c1d7"
+         :exclusions [io.github.nextjournal/markdown]}
+
+        io.github.babashka/sci-configs
+        {:git/sha "fd6a3332f358e56b96b5a791f75f97573e018580"}
+
+        applied-science/js-interop {:mvn/version "0.3.0"}
+        org.babashka/sci {:mvn/version "0.3.4"}
+        reagent/reagent {:mvn/version "1.1.0"}}
+
+ :aliases
+ {:nextjournal/clerk
+  {:exec-fn nextjournal.clerk/build-static-app!
+   ;; notebooks to be built, accepts globs patterns. This doesn't quite work
+   ;; yet!
+   :exec-args {:bundle? false :paths ["index.md"
+                                      "src/demo.clj"
+                                      "src/functions.clj"]}}}}
