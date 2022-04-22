@@ -10,6 +10,36 @@
             ["three/examples/jsm/controls/OrbitControls.js"
              :as OrbitControls]))
 
+(defn setup
+  "Returns a setup function that will only run ONE time."
+  [f]
+  (fn [^js box]
+    (when (and box (not (.-created box)))
+      (set! (.-created box) true)
+      (f box))))
+
+(defn opts->setup
+  "Some core options, tidied up."
+  [{:keys [background-color
+           camera-position
+           max-distance
+           scale focus]
+    :or {scale 720 focus 1}}]
+  (setup
+   (fn [^js box]
+     (.set box #js {:scale scale :focus focus})
+     (let [three (.-three box)]
+       (when max-distance
+         (-> three .-controls .-maxDistance (set! max-distance)))
+       (when-let [[x y z] camera-position]
+         (-> three .-camera .-position (.set x y z)))
+       (when background-color
+         (let [color (THREE/Color. background-color)]
+           (-> three .-renderer (.setClearColor color 1.0))))))))
+
+;; ## Old Stuff
+;;
+;; Goal: get this all deleted.
 (defn build-mathbox [opts]
   (MathBox/mathBox
    (clj->js opts)))

@@ -8,11 +8,12 @@
         #_{:local/root "../clerk"}
 
         io.github.nextjournal/clerk
-        {:git/sha "d08c26043efe19a92fe33dd9eb4499e304e4cff7"}
+        {:git/sha "dfe82af312b2aea91d1dc7d1cbbbadc4660be49c"}
+
         #_{:local/root "../clerk"}
 
         io.github.nextjournal/viewers
-        {:git/sha "d68f06d04feca3afe1d08eb190a4ef16c805c1d7"
+        {:git/sha "718ce95ff283bf51c0a73cc2401be286a8575b2a"
          :exclusions [io.github.nextjournal/markdown]}
 
         io.github.babashka/sci-configs
