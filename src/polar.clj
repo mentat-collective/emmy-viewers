@@ -17,20 +17,72 @@
 (def polar-viewer
   {:fetch-fn (fn [_ x] x)
    :render-fn
-   '(fn [value]
+   '(fn [{:keys [range scale samples f]}]
       (v/html
-       (reagent/with-let [!ref (reagent/atom nil)]
-         (when value
-           [:div {:id "mathbox"
-                  :style {:height "400px" :width "100%"}
-                  :ref
-                  (fn [el]
-                    (when el
-                      (mb/sync!
-                       el !ref value
-                       mb/polar-setup
-                       (fn [mathbox]
-                         (mb/polar-demo mathbox value)))))}]))))})
+       [mbr/Mathbox {:style {:height "400px" :width "100%"}
+                     :init {:background-color 0xffffff
+                            :focus 3}}
+        [box/Camera {:proxy true
+                     :position [0 0 3]}]
+        [box/Polar
+         {:bend 1
+          :range [[(* -2 Math/PI) (* 2 Math/PI)]
+                  [0 1]
+                  [-1 1]]
+          :scale [2 1 1]
+          :helix 0.1}
+         ;; radius axis with tickets.
+         [box/Transform {:position [0 0.5 0]}
+          [box/Axis {:detail 256}]
+          [box/Scale {:divide 10 :unit Math/PI :base 2}]
+          [box/Ticks {:width 2
+                      :classes ["foo", "bar"]}]
+          [box/Ticks {:opacity 0.5
+                      :width 1
+                      :size 50
+                      :normal [0 1 0]
+                      :classes ["foo", "bar"]}]]
+
+
+         ;; The polar axes.
+         [box/Axis {:axis 2}]
+         [box/Transform {:position [(/ Math/PI 2) 0 0]}
+          [box/Axis {:axis 2}]]
+         [box/Transform {:position [(- (/ Math/PI 2)) 0 0]}
+          [box/Axis {:axis 2}]]
+
+
+         ;; This is the opaque surface where the grid lives.
+         [box/Area {:width 256
+                    :height 2}]
+         [box/Surface {:color "#fff"
+                       :opacity 0.75
+                       :zBias -10}]
+
+         ;; This puts the grid on, but the opaque surface is already there.
+         [box/Grid {:divideX 5
+                    :detailX 256
+                    :width 1
+                    :opacity 0.5
+                    :unitX Math/PI
+                    :baseX 2
+                    :zBias -5
+                    :zOrder -2}]
+
+         ;; The function.
+         [box/Interval
+          {:width 256
+           :expr
+           (fn [emit theta _i t]
+             (let [r (+ 0.5
+                        (* 0.5
+                           (Math/sin
+                            (* 3 (+ theta t)))))]
+               (emit theta r)))
+           :channels 2}]
+         [box/Line {:points "<"
+                    :color 0x3090ff
+                    :width 5}]]]))})
 
 ;; And the interactive output:
 

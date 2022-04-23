@@ -5,6 +5,7 @@
              numerator denominator ref partial])
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
+            [pattern.rule :refer [template]]
             [sicmutils.env :refer :all]
             [sicmutils.expression.compile :as xc]
             [sicmutils.polynomial :as poly]))
@@ -18,9 +19,8 @@
 ;;
 ;; ### Function Compilation
 ;;
-;; Let's assume that the value we will send to the viewer is a map with the
-;; function we want to render stored under an `:f` keyword. How do we get the
-;; function over to the browser?
+;; Let's assume that the value we will send to the viewer is Clojure function.
+;; How do we get the function over to the browser?
 ;;
 ;; We can't serialize it directly. What we _can_ do is use SICMUtil's function
 ;; compiler in `:source` mode to generate a hygienic function literal.
@@ -28,26 +28,26 @@
 ;; Clojure is built out of its own data structures, so that will serialize
 ;; nicely.
 
-(defn- fn-transform [m]
+(defn- fn-transform [f]
   (binding [xc/*mode* :source]
-    (update m :f #(xc/compile-fn* % 2))))
+    (xc/compile-fn* f 2)))
 
 ;; Let's try it:
 
 (fn-transform
- {:f (fn [x _]
-       (+ (square x)
-          (cube x)))})
+ (fn [x _]
+   (+ (square x)
+      (cube x))))
 
 ;; Not too pretty. We can reuse `d/->pretty-str` here (and already it's obvious
 ;; that a better presentation would have made `fn-transform` act on the
 ;; function, not the FULL map, but whatever):
 
 (clerk/code
- (:f (fn-transform
-      {:f (fn [x _]
-            (+ (square x)
-               (cube x)))})))
+ (fn-transform
+  (fn [x _]
+    (+ (square x)
+       (cube x)))))
 
 ;; That will work.
 ;;
@@ -55,7 +55,7 @@
 ;; `sicmutils.expression.compile/sci-eval` function to evaluate (using SCI) this
 ;; code-shaped data structure into a proper procedure.
 ;;
-;; Look at `function-demo` in `src/demo/mathbox.cljs` to see what we will DO
+;; Look at `Function1` in `src/demo/mathbox_react.cljs` to see what we will DO
 ;; with this procedure in the browser.
 ;;
 ;; ### Rendering
@@ -83,21 +83,21 @@
 ;; Every time the incoming `value` changes, `(mb/function-demo mathbox value)`
 ;; will execute in the browser, redrawing the full scene.
 
+(def opts
+  {:style {:height "400px" :width "100%"}
+   :init {:background-color 0xffffff
+          :camera-position [2.3 1 2]}})
+
 (def fn-render-fn
-  '(fn [value]
+  (template
+   (fn [{:keys [range scale samples f]}]
      (v/html
-      (reagent/with-let [!ref (reagent/atom nil)]
-        (when value
-          [:div {:id "mathbox"
-                 :style {:height "400px" :width "100%"}
-                 :ref
-                 (fn [el]
-                   (when el
-                     (mb/sync!
-                      el !ref value
-                      mb/basic-setup
-                      (fn [mathbox]
-                        (mb/function-demo mathbox value)))))}])))))
+      [mbr/Mathbox ~opts
+       [mbr/Cartesian {:range range :scale scale}
+        [box/Axis {:axis 1 :width 3}]
+        [box/Axis {:axis 2 :width 3}]
+        [box/Axis {:axis 3 :width 3}]
+        [mbr/Function1 {:samples samples :f f}]]]))))
 
 ;; [[fn-render-fn]] also uses some reagent state internally; this is how it's
 ;; able to compare current and previous values and decide whether or not to
@@ -107,7 +107,7 @@
 
 (def fn-viewer
   {:fetch-fn (fn [_ x] x)
-   :transform-fn fn-transform
+   :transform-fn #(update % :f fn-transform)
    :render-fn fn-render-fn})
 
 ;; ### Demo
@@ -126,7 +126,7 @@
 ;; Then we'll call it with our new viewer:
 
 (clerk/with-viewer fn-viewer
-  {:range [[-6 6] [-1 1] [-1 1]]
+  {:range {:x [-6 6] :y [-1 1] :z [-1 1]}
    :scale [6 1 1]
    :samples 256
    :f my-fn})
@@ -135,7 +135,7 @@
 
 (defn ->mathbox [f]
   (clerk/with-viewer fn-viewer
-    {:range [[-6 6] [-1 1] [-1 1]]
+    {:range {:x [-6 6] :y [-1 1] :z [-1 1]}
      :scale [6 1 1]
      :samples 256
      :f f}))
@@ -146,9 +146,9 @@
 
 ;; And here's the equation:
 
-^{::clerk/visibility :hide}
-(clerk/with-viewer d/multiviewer
-  (my-fn 'x 't))
+^{::clerk/visibility :hide
+  ::clerk/viewer d/multiviewer}
+(my-fn 'x 't)
 
 ;; I used Clerk's `:hide` visibility to only show the result.
 
@@ -160,7 +160,8 @@
 (def compound-fn-viewer
   (d/literal-viewer
    (fn [{:keys [f args]}]
-     {:TeX     (clerk/tex (->TeX (simplify (apply f args))))
+     {:TeX     (clerk/tex
+                (->TeX (simplify (apply f args))))
       :mathbox (->mathbox f)})))
 
 (clerk/with-viewer compound-fn-viewer
@@ -179,8 +180,8 @@
         (square x)
         (cube x)))))
 
-(clerk/with-viewer fn-viewer
-  {:range [[-6 6] [-1 1] [-1 1]]
-   :scale [6 1 1]
-   :samples 256
-   :f my-poly})
+^{::clerk/viewer fn-viewer}
+{:range {:x [-6 6] :y [-1 1] :z [-1 1]}
+ :scale [6 1 1]
+ :samples 256
+ :f my-poly}

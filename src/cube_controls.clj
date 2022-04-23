@@ -37,7 +37,7 @@
 
 ^{::clerk/width :wide
   ::clerk/viewer cube-viewer}
-{:dimensions [8 5 11]
+{:dimensions [8 5 20]
  :size 20
  :opacity 1.0}
 

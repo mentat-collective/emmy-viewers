@@ -4,8 +4,7 @@
             [sicmutils.expression.compile :as xc]
             ["three" :as THREE]
             ["three/examples/jsm/controls/OrbitControls.js"
-             :as OrbitControls]
-            ))
+             :as OrbitControls]))
 
 ;; TODO take a key for orbitcontrols, trackballcontrols.
 (def default-options
@@ -26,11 +25,11 @@
   [{:keys [background-color
            camera-position
            max-distance
-           scale focus]
-    :or {scale 720 focus 1}}]
+           scale focus]}]
   (setup
    (fn [^js box]
-     (.set box #js {:scale scale :focus focus})
+     (when scale (.set box #js {:scale scale}))
+     (when focus (.set box #js {:focus focus}))
      (let [three (.-three box)]
        (when max-distance
          (-> three .-controls .-maxDistance (set! max-distance)))
@@ -80,7 +79,8 @@
     [:> MB/Volume opts]))
 
 ;; ## Demo-Specific Components
-(defn ColorCube [{:keys [dimensions size opacity]}]
+(defn ColorCube
+  [{:keys [dimensions size opacity]}]
   [:<>
    [Volume
     {:dimensions dimensions
@@ -95,33 +95,17 @@
      :color 0xffffff
      :size size}]])
 
-#_
-(defn function [{:keys [range scale samples f]
-                 :or {samples 256
-                      range [[-6 10] [-1 1] [-1 1]]
-                      scale [6 1 1]}}]
-  ;; TODO: extract a function, somehow, that is doing the xc/sci-eval just ONE
-  ;; time, and trying to hold back whenever the value changes.
+(defn Axes [])
+
+(defn Function1 [{:keys [samples f]
+                  :or {samples 256}}]
   (let [f' (xc/sci-eval f)]
-    [:> MB/Mathbox
-     {:options
-      {:plugins ["core" "controls" "cursor"]
-       :controls {:klass orbit}
-       :camera {}}
-      :style {:height "400px" :width "100%"}
-      :initialCameraPosition [2.3 1 2]}
-     [:> MB/Cartesian
-      {:range range
-       :scale scale}
-      [:> MB/Axis {:axis 1 :width 3}]
-      [:> MB/Axis {:axis 2 :width 3}]
-      [:> MB/Axis {:axis 3 :width 3}]
-      [:> MB/Interval
-       {:width samples
-        :items 1
-        :channels 2
-        :expr (fn [emit x _i time]
-                (let [d (f' x time)]
-                  (emit x d)))}
-       [:> MB/Line {:color 0x3090ff :width 4}]
-       [:> MB/Point {:color 0x3090ff :size 8}]]]]))
+    [:<>
+     [:> MB/Interval
+      {:width samples
+       :items 1
+       :channels 2
+       :expr (fn [emit x _ time]
+               (emit x (f' x time)))}]
+     [:> MB/Line {:color 0x3090ff :width 4}]
+     [:> MB/Point {:color 0x3090ff :size 8}]]))

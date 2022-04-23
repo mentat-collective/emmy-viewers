@@ -7,6 +7,11 @@
             [sicmutils.env :as e]
             [sicmutils.expression.compile :as xc]))
 
+(def opts
+  {:style {:height "400px" :width "100%"}
+   :init {:background-color 0xffffff
+          :camera-position [2.3 1 2]}})
+
 (def physics-xform
   (memoize
    (fn [{:keys [initial-state] :as m}]
