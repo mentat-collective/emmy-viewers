@@ -1,5 +1,5 @@
 ^{:nextjournal.clerk/visibility :hide-ns}
-(ns polar
+(ns examples.polar
   (:require [nextjournal.clerk :as clerk]))
 
 ;; ## Polar Example
@@ -12,12 +12,13 @@
 ;; Instead of repeating itself when the angle exceeds $2\pi$, the plot coils
 ;; upward in a helix.
 ;;
-;; Here's the viewer:
+;; Here's the viewer and the interactive output:
 
-(def polar-viewer
+^{::clerk/width :wide
+  ::clerk/viewer
   {:fetch-fn (fn [_ x] x)
    :render-fn
-   '(fn [{:keys [range scale samples f]}]
+   '(fn [{:keys [offset]}]
       (v/html
        [mbr/Mathbox {:style {:height "400px" :width "100%"}
                      :init {:background-color 0xffffff
@@ -74,17 +75,12 @@
           {:width 256
            :expr
            (fn [emit theta _i t]
-             (let [r (+ 0.5
-                        (* 0.5
-                           (Math/sin
-                            (* 3 (+ theta t)))))]
+             (let [r (+ offset (* 0.5
+                                  (Math/sin
+                                   (* 3 (+ theta t)))))]
                (emit theta r)))
            :channels 2}]
          [box/Line {:points "<"
                     :color 0x3090ff
-                    :width 5}]]]))})
-
-;; And the interactive output:
-
-(clerk/with-viewer polar-viewer
-  {:offset 0.7})
+                    :width 5}]]]))}}
+{:offset 0.5}

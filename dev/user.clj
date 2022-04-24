@@ -40,7 +40,6 @@
 
   ;; functions:
   (clerk/show! "src/functions.clj")
-  (clerk/show! "src/polar.clj")
 
   ;; symbolic physics:
   (clerk/show! "src/einstein.clj")

@@ -7,11 +7,6 @@
             [sicmutils.env :as e]
             [sicmutils.expression.compile :as xc]))
 
-(def opts
-  {:style {:height "400px" :width "100%"}
-   :init {:background-color 0xffffff
-          :camera-position [2.3 1 2]}})
-
 (def physics-xform
   (memoize
    (fn [{:keys [initial-state] :as m}]
@@ -36,8 +31,7 @@
       (v/html
        (reagent/with-let
          [!ref   (reagent/atom nil)
-          !local (reagent/atom
-                  (:initial-state value))]
+          !local (reagent/atom (:initial-state value))]
          (when value
            [:div {:id "mathbox"
                   :style {:height "400px" :width "100%"}

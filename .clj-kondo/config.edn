@@ -2,4 +2,5 @@
  ["babashka/sci"
   "babashka/fs"
   "rewrite-clj/rewrite-clj"
-  "sicmutils/sicmutils"]}
+  "sicmutils/sicmutils"]
+ :lint-as {reagent.core/with-let clojure.core/let}}
