@@ -9,13 +9,13 @@
 ;; This could use some abstraction!
 
 (def colors
-  {:x 0xff4136 ;; red
-   :y 0xffdc00 ;; yellow
-   :z 0x0074d9 ;; blue
-   :xy 0xff851b ;; orange
-   :xz 0xb10dc9 ;; purple
-   :yz 0x2ecc40 ;; green
-   :xyz 0x654321 ;; brown
+  {:x "#ff4136" ;; red
+   :y "#ffdc00" ;; yellow
+   :z "#0074d9" ;; blue
+   :xy "#ff851b" ;; orange
+   :xz "#b10dc9" ;; purple
+   :yz "#2ecc40" ;; green
+   :xyz "#654321" ;; brown
    })
 
 ^{::clerk/width :wide
@@ -109,7 +109,7 @@
                                      (* -2 d)
                                      (- d))))
                              (take 3 scaled-mins))}
-            [box/Point {:color 0x222222 :size 12}]
+            [box/Point {:color (:xyz colors) :size 12}]
 
             ;; these three are the points flattened against the planes.
             [box/Transform {:scale [1 1 0]
