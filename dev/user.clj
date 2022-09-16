@@ -1,13 +1,21 @@
 (ns user
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
-             numerator denominator ref partial])
+   :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [nextjournal.clerk.config :as clerk-config]
             [nextjournal.clerk :as clerk]
             [sicmutils.env :refer :all]
             [sicmutils.expression.render :as xr]))
 
+;; To get everything running, first follow the README instructions:
+;;
+;;```
+;; shadow-cljs watch sicm-browser
+;;```
+;;
+;; Then jack in, come here and run the commands in the comment.
+;;
 ;; Better rendering for slides.
+
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))

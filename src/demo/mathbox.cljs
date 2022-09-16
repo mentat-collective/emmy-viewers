@@ -59,6 +59,9 @@
 
 ;; Function Renderer
 
+
+
+
 (defn basic-setup [box]
   (doto (.-three ^js box)
     (-> .-camera .-position (.set 2.3 1 2))

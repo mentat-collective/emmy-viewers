@@ -24,10 +24,14 @@
       (assoc 'GUI (fn [options] (dg/GUI. (clj->js options))))))
 
 
+
 (swap! sv/!sci-ctx
        sci/merge-opts
        {:namespaces
         {"mathbox-react" mbr-ns
+
+         'demo.jsxgraph
+         (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
 
          'demo.mathbox
          (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
@@ -38,4 +42,5 @@
         :aliases {'mb 'demo.mathbox
                   'mathbox-react "mathbox-react"
                   'box "mathbox-react"
+                  'jsx 'demo.jsxgraph
                   'mbr 'demo.mathbox-react}})
