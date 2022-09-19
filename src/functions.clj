@@ -6,7 +6,7 @@
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
             [pattern.rule :refer [template]]
-            [sicmutils.env :refer :all]
+            [sicmutils.env :as e :refer :all]
             [sicmutils.expression.compile :as xc]
             [sicmutils.polynomial :as poly]))
 
@@ -106,8 +106,9 @@
 ;; The final viewer is a clojure map with these two pieces supplied:
 
 (def fn-viewer
-  {:fetch-fn (fn [_ x] x)
-   :transform-fn #(update % :f fn-transform)
+  {:transform-fn (comp clerk/mark-presented
+                       (clerk/update-val
+                        #(update % :f fn-transform)))
    :render-fn fn-render-fn})
 
 ;; ### Demo

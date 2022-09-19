@@ -1,12 +1,9 @@
 ^{:nextjournal.clerk/visibility :hide-ns}
 (ns demo
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
-             numerator denominator ref partial])
-  (:require [clojure.pprint :as pp]
-            [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as viewer]
-            [sicmutils.env :as e :refer :all]
+   :exclude [+ - * / = zero? compare numerator denominator ref partial])
+  (:require [nextjournal.clerk :as clerk]
+            [sicmutils.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
             [sicmutils.expression :as x]
             [sicmutils.value :as v]))
 
@@ -64,7 +61,6 @@
    ;; We have to preserve keys because we want to access the keys in the render
    ;; function, and by default everything gets recursively wrapped. This feels a
    ;; little wacky.
-   ;;
    :transform-fn (comp clerk/mark-preserve-keys
                        (clerk/update-val
                         (memoize xform)))
@@ -84,7 +80,10 @@
                     :on-click #(reset! !sel l)}
                    l])
                 x))
-          [v/inspect-presented (get x @!sel)]])))})
+          ;; I guess here the value is a data structure with its viewer info
+          ;; embedded.
+          [v/inspect-presented
+           (get x @!sel)]])))})
 
 (def multiviewer
   (literal-viewer transform-literal))
@@ -119,3 +118,5 @@
       (* -1 'C 'p_phi 'p_psi (cos 'theta))
       (* (/ 1 2) 'C (expt 'p_phi 2)))
    (* 'A 'C (expt (sin 'theta) 2)))
+
+;; Great! Let's move on.

@@ -91,7 +91,7 @@
 
 (defn Tperfect-fluid [rho p c metric]
   (let [basis (coordinate-system->basis spacetime-sphere)
-        inverse-metric (metric:invert metric basis)
+        inverse-metric (e/metric:invert metric basis)
         T (fn [w1 w2]
             (+ (* (+ (compose rho t)
                      (/ (compose p t)
