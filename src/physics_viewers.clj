@@ -7,7 +7,7 @@
             [sicmutils.env :as e]
             [sicmutils.expression.compile :as xc]))
 
-(def physics-xform
+(def physics-xform-fn
   (memoize
    (fn [{:keys [initial-state] :as m}]
      (let [compile #(binding [xc/*mode* :source]
@@ -22,9 +22,12 @@
                      (compile (e/Lagrangian->state-derivative L))))
            (update :state->xyz compile))))))
 
+(def physics-xform
+  (comp clerk/mark-presented
+        (clerk/update-val physics-xform-fn)))
+
 (defn physics-viewer [mb-sym]
-  {:fetch-fn (fn [_ x] x)
-   :transform-fn physics-xform
+  {:transform-fn physics-xform
    :render-fn
    (template
     (fn [value]
@@ -48,13 +51,14 @@
 
 (defn interactive-physics-viewer
   [mb-sym init]
-  {:fetch-fn (fn [_ x] x)
-   :transform-fn
-   (fn [{::clerk/keys [var-from-def]}]
-     {:var-name (symbol var-from-def)
-      ;; don't make it keep rebuilding, yikes!!
-      :value init
-      #_(physics-xform @@var-from-def)})
+  {:transform-fn
+   (comp clerk/mark-presented
+         (clerk/update-val
+          (fn [{::clerk/keys [var-from-def]}]
+            {:var-name (symbol var-from-def)
+             ;; don't make it keep rebuilding, yikes!!
+             :value init
+             #_(physics-xform @@var-from-def)})))
    :render-fn
    (template
     (fn [{:keys [var-name value]}]

@@ -32,8 +32,7 @@
 
 ;; well okay, here we are, getting this thing ready!
 (clerk/with-viewer
-  {:fetch-fn (fn [_ x] x)
-   :transform-fn pv/physics-xform
+  {:transform-fn pv/physics-xform
    :render-fn
    (template
     (fn [value]

@@ -47,7 +47,7 @@
 
 ^{::clerk/viewer (pv/interactive-physics-viewer
                   'mb/oscillator-demo
-                  (pv/physics-xform init-state))}
+                  (pv/physics-xform-fn init-state))}
 (defonce oscillator-state
   (atom init-state))
 
