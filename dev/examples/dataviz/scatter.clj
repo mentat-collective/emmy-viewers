@@ -1,4 +1,4 @@
-^{:nextjournal.clerk/visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.dataviz.scatter
   (:require [examples.dataviz.datasets :refer [iris-data]]
             [nextjournal.clerk :as clerk]

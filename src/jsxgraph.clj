@@ -1,4 +1,4 @@
-^{:nextjournal.clerk/visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns jsxgraph
   (:require [nextjournal.clerk :as clerk]
             [pattern.rule :refer [template]]))
