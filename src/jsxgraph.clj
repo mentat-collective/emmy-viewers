@@ -20,9 +20,9 @@
    :render-fn
    (template
     #(do (v/html
-          [mbr/Mathbox ~opts
-           [mbr/Cartesian {}
-            [mbr/ColorCube %]]])))})
+          [mb/Mathbox ~opts
+           [mb/Cartesian {}
+            [mb/ColorCube %]]])))})
 
 ;; We can then use the above viewer using metadata:
 

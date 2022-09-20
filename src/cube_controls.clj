@@ -22,7 +22,7 @@
           :camera-position [2.5 1 2.5]
           :scale 720 :focus 1}})
 
-;; the `mbr` forms live in [[demo.mathbox-react]] for now.
+;; the `mbr` forms live in [[demo.mathbox]] for now.
 
 (def cube-viewer
   ;; Note that if I want to just pass a data structure on unmodified I need to
@@ -31,9 +31,9 @@
    :render-fn
    (template
     #(v/html
-      [mbr/Mathbox ~opts
-       [mbr/Cartesian {}
-        [mbr/ColorCube %]]]))})
+      [mb/Mathbox ~opts
+       [mb/Cartesian {}
+        [mb/ColorCube %]]]))})
 
 ;; We can then use the above viewer using metadata:
 
@@ -112,9 +112,9 @@
       (v/html
        [:<>
         (~(cube-ui-fn :server) var-name value)
-        [mbr/Mathbox ~opts
-         [mbr/Cartesian {}
-          [mbr/ColorCube value]]]])))))
+        [mb/Mathbox ~opts
+         [mb/Cartesian {}
+          [mb/ColorCube value]]]])))))
 
 ^{::clerk/width :wide
   ::clerk/viewer server-cube-viewer}
@@ -139,9 +139,9 @@
         (v/html
          [:<>
           (~(cube-ui-fn :client) !v @!v)
-          [mbr/Mathbox ~opts
-           [mbr/Cartesian {}
-            [mbr/ColorCube @!v]]]]))))})
+          [mb/Mathbox ~opts
+           [mb/Cartesian {}
+            [mb/ColorCube @!v]]]]))))})
 
 ^{::clerk/width :wide
   ::clerk/viewer client-cube-viewer}

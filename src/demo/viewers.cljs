@@ -1,7 +1,7 @@
 (ns demo.viewers
   (:require ["dat.gui" :as dg]
+            ;; [demo.jsxgraph]
             [demo.mathbox]
-            [demo.mathbox-react]
             [nextjournal.clerk.sci-viewer :as sv]
             ["mathbox-react" :as MB]
             [reagent.core :as r]
@@ -23,24 +23,17 @@
       (assoc 'OrbitControls OC/OrbitControls)
       (assoc 'GUI (fn [options] (dg/GUI. (clj->js options))))))
 
-
-
 (swap! sv/!sci-ctx
        sci/merge-opts
        {:namespaces
         {"mathbox-react" mbr-ns
+         'demo.mathbox (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
 
-         'demo.jsxgraph
-         (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
-
-         'demo.mathbox
-         (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
-
-         'demo.mathbox-react
-         (sci/copy-ns demo.mathbox-react (sci/create-ns 'demo.mathbox-react))}
+         ;; 'demo.jsxgraph
+         ;; (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
+         }
         :classes {'Math js/Math}
         :aliases {'mb 'demo.mathbox
                   'mathbox-react "mathbox-react"
                   'box "mathbox-react"
-                  'jsx 'demo.jsxgraph
-                  'mbr 'demo.mathbox-react}})
+                  'jsx 'demo.jsxgraph}})
