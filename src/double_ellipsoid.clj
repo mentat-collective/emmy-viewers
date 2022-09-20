@@ -3,8 +3,9 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [nextjournal.clerk :as clerk]
-            [ellipsoid :as ell]
+  (:require [ellipsoid :as ell]
+            [nextjournal.clerk :as clerk]
+            [pattern.rule :refer [template]]
             [physics-viewers :as pv]
             [sicmutils.env :as e :refer :all]))
 
@@ -37,7 +38,19 @@
 
 ;; Final Demo:
 
-(clerk/with-viewer (pv/physics-viewer 'mb/double-physics-demo)
+(clerk/with-viewer
+  {:transform-fn pv/physics-xform
+   :render-fn
+   (template
+    (fn [value]
+      (v/html
+       [mb/Mathbox ~pv/opts
+        [mb/Cartesian (:cartesian value)
+         [box/Axis {:axis 1 :width 3}]
+         [box/Axis {:axis 2 :width 3}]
+         [box/Axis {:axis 3 :width 3}]
+         [mb/Ellipse (:ellipse value)]
+         [mb/DoubleMass (select-keys value [:L :state->xyz :initial-state])]]])))}
   (let [m 10, a 2, b 1, c 1]
     {:state->xyz (elliptical->rect a b c)
      :L          (L-central-triaxial m a b c)
@@ -45,9 +58,9 @@
                      [0.3 0.3 0 0]]
      :ellipse {:a a :b b :c c}
      :cartesian
-     {:range [[-10, 10]
-              [-10, 10]
-              [-10, 10]]
+     {:range {:x [-10 10]
+              :y [-10 10]
+              :z [-10 10]}
       :scale [3 3 3]}}))
 
 ;; ### The equations of Motion are too extreme!

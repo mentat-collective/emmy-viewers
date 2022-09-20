@@ -43,12 +43,12 @@
                       (range (inc n)))))]
       (fn [{:keys [data maxes mins ranges scaled-mins colors]}]
         (v/html
-         [mbr/Mathbox {:style {:height "400px" :width "100%"}
-                       :init {:background-color 0xfafaf8
-                              :max-distance 5
-                              :camera-position [2.3 1 2]}}
-          [mbr/Cartesian {:range {:x [0 2] :y [0 1] :z [0 1]}
-                          :scale [2 1 1]}
+         [mb/Mathbox {:style {:height "400px" :width "100%"}
+                      :init {:background-color 0xfafaf8
+                             :max-distance 5
+                             :camera-position [2.3 1 2]}}
+          [mb/Cartesian {:range {:x [0 2] :y [0 1] :z [0 1]}
+                         :scale [2 1 1]}
            ;; x axis
            [box/Scale {:divide 5
                        :origin [0 0 1 0]

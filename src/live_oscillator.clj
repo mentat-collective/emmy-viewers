@@ -5,6 +5,7 @@
              numerator denominator ref partial])
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
+            [pattern.rule :refer [template]]
             [physics-viewers :as pv]
             [sicmutils.env :as e :refer :all]))
 
@@ -37,19 +38,33 @@
                    [1 2 0]
                    [2 0 4]]
    :cartesian
-   {:range [[-10, 10]
-            [-10, 10]
-            [-10, 10]]
+   {:range {:x [-10 10]
+            :y [-10 10]
+            :z [-10 10]}
     :scale [3 3 3]}})
 
-;; Now we have the `interactive-physics-viewer`, which has a nice surprise for
-;; us.
+;; Now we have the interactive physics viewer, which has a nice surprise for us.
 
-^{::clerk/viewer (pv/interactive-physics-viewer
-                  'mb/oscillator-demo
-                  (pv/physics-xform init-state))}
+^{::clerk/viewer
+  {:transform-fn (pv/interactive-physics-xform
+                  (pv/physics-xform-fn init-state))
+   :render-fn
+   (template
+    (fn [{:keys [var-name value]}]
+      (v/html
+       ;; mbr here is MY wrapper, and `box` is the original mathbox.
+       [mb/Mathbox ~pv/opts
+        [mb/Cartesian (:cartesian value)
+         [box/Axis {:axis 1 :width 3}]
+         [box/Axis {:axis 2 :width 3}]
+         [box/Axis {:axis 3 :width 3}]
+         [mb/Mass
+          (-> value
+              (select-keys [:L :state->xyz :initial-state])
+              (assoc :var-name var-name))]]])))}}
 (defonce oscillator-state
-  (atom init-state))
+  (atom
+   (:initial-state init-state)))
 
 ;; Here's the state of the atom. Note that this will refresh every time the atom
 ;; changes server-side. And the viewer above can do that!

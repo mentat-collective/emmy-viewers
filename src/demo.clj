@@ -1,12 +1,9 @@
 ^{:nextjournal.clerk/visibility :hide-ns}
 (ns demo
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
-             numerator denominator ref partial])
-  (:require [clojure.pprint :as pp]
-            [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as viewer]
-            [sicmutils.env :as e :refer :all]
+   :exclude [+ - * / = zero? compare numerator denominator ref partial])
+  (:require [nextjournal.clerk :as clerk]
+            [sicmutils.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
             [sicmutils.expression :as x]
             [sicmutils.value :as v]))
 
@@ -14,8 +11,7 @@
 ;;
 ;; Is this thing on?
 
-(simplify
- (+ 'x 'x (expt 'y 4) 'x 'x))
+(+ 'x 'x (expt 'y 4) 'x 'x)
 
 ;; ##  Custom Viewers
 ;;
@@ -42,31 +38,36 @@
 ;; And that's fine! Great for a built-in viewer. But now I've lost the original
 ;; data structure!
 
-(defn ->pretty-str [expr]
-  (let [form (v/freeze expr)]
-    (with-out-str
-      (pp/pprint form))))
-
 (defn transform-literal [l]
   (let [simple (simplify l)]
     {:simplified_TeX (clerk/tex (->TeX simple))
-     :simplified     (clerk/code (->pretty-str simple))
+     :simplified     (v/freeze simple)
      :TeX            (clerk/tex (->TeX l))
-     :original       (clerk/code (->pretty-str l))}))
+     :original       (v/freeze l)}))
 
 ;; Try it out:
 
 (transform-literal
  (+ (square (sin 'x)) (square (cos 'x))))
 
+;; Okay, the tricky part here for me was that we are actually dealing with
+;; wrapped values all over, and we need to extract that and run updates there.
+;; Those are also what show up on the other side of the wire.
+
 (defn literal-viewer [xform]
-  {:pred x/literal?
-   :fetch-fn viewer/fetch-all
-   :transform-fn (memoize xform)
+  {;; Only apply to these forms.
+
+   :pred x/literal?
+   ;; We have to preserve keys because we want to access the keys in the render
+   ;; function, and by default everything gets recursively wrapped. This feels a
+   ;; little wacky.
+   :transform-fn (comp clerk/mark-preserve-keys
+                       (clerk/update-val
+                        (memoize xform)))
    :render-fn
    '(fn [x]
       (v/html
-       (reagent/with-let [!sel (reagent/atom (key (first x)))]
+       (reagent/with-let [!sel (reagent/atom (ffirst x))]
          [:<>
           (into
            [:div.flex.items-center.font-sans.text-xs.mb-3
@@ -79,7 +80,10 @@
                     :on-click #(reset! !sel l)}
                    l])
                 x))
-          (get x @!sel)])))})
+          ;; I guess here the value is a data structure with its viewer info
+          ;; embedded.
+          [v/inspect-presented
+           (get x @!sel)]])))})
 
 (def multiviewer
   (literal-viewer transform-literal))
@@ -90,10 +94,17 @@
   (+ (square (sin 'x))
      (square (cos 'x))))
 
-;; woohoo! We can set it as default for the namespace:
+;; woohoo! We can set it as default viewer for literals in this
+;; namespace. (Uncomment this form and run `clerk-show` again...)
 
 #_
-(clerk/set-viewers! [multiviewer])
+(clerk/add-viewers! [multiviewer])
+
+;; If you made a mistake you can totally replace or reset the viewer with:
+
+#_
+(clerk/reset-viewers! (into [multiviewer] (clerk/get-default-viewers)))
+
 
 (+ (square (sin 'x))
    (square (cos 'x)))
@@ -107,3 +118,5 @@
       (* -1 'C 'p_phi 'p_psi (cos 'theta))
       (* (/ 1 2) 'C (expt 'p_phi 2)))
    (* 'A 'C (expt (sin 'theta) 2)))
+
+;; Great! Let's move on.

@@ -6,7 +6,7 @@
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
             [pattern.rule :refer [template]]
-            [sicmutils.env :refer :all]
+            [sicmutils.env :as e :refer :all]
             [sicmutils.expression.compile :as xc]
             [sicmutils.polynomial :as poly]))
 
@@ -80,8 +80,8 @@
 ;; Note that this is a binding to a quoted functional form; this will not
 ;; execute on the JVM, but will be executed by SCI over in the browser.
 ;;
-;; Every time the incoming `value` changes, `(mb/function-demo mathbox value)`
-;; will execute in the browser, redrawing the full scene.
+;; Every time the incoming `value` changes, mathbox-react will redraw the full
+;; scene.
 
 (def opts
   {:style {:height "400px" :width "100%"}
@@ -92,12 +92,12 @@
   (template
    (fn [{:keys [range scale samples f]}]
      (v/html
-      [mbr/Mathbox ~opts
-       [mbr/Cartesian {:range range :scale scale}
+      [mb/Mathbox ~opts
+       [mb/Cartesian {:range range :scale scale}
         [box/Axis {:axis 1 :width 3}]
         [box/Axis {:axis 2 :width 3}]
         [box/Axis {:axis 3 :width 3}]
-        [mbr/Function1 {:samples samples :f f}]]]))))
+        [mb/Function1 {:samples samples :f f}]]]))))
 
 ;; [[fn-render-fn]] also uses some reagent state internally; this is how it's
 ;; able to compare current and previous values and decide whether or not to
@@ -106,8 +106,9 @@
 ;; The final viewer is a clojure map with these two pieces supplied:
 
 (def fn-viewer
-  {:fetch-fn (fn [_ x] x)
-   :transform-fn #(update % :f fn-transform)
+  {:transform-fn (comp clerk/mark-presented
+                       (clerk/update-val
+                        #(update % :f fn-transform)))
    :render-fn fn-render-fn})
 
 ;; ### Demo

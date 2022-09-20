@@ -25,27 +25,20 @@
 (def k 200)
 (def g 9.8)
 
-(def opts
-  {:style {:height "400px" :width "100%"}
-   :init {:background-color 0xffffff
-          :camera-position [2.3 1 2]}})
-
-;; well okay, here we are, getting this thing ready!
 (clerk/with-viewer
-  {:fetch-fn (fn [_ x] x)
-   :transform-fn pv/physics-xform
+  {:transform-fn pv/physics-xform
    :render-fn
    (template
     (fn [value]
       (v/html
-       [mbr/Mathbox ~opts
-        [mbr/Cartesian (:cartesian value)
+       ;; mbr here is MY wrapper, and `box` is the original mathbox.
+       [mb/Mathbox ~pv/opts
+        [mb/Cartesian (:cartesian value)
          [box/Axis {:axis 1 :width 3}]
          [box/Axis {:axis 2 :width 3}]
          [box/Axis {:axis 3 :width 3}]
-         [mbr/Mass (select-keys
-                    value
-                    [:L :state->xyz :initial-state])]]])))}
+         [mb/Mass
+          (select-keys value [:L :state->xyz :initial-state])]]])))}
   {:state->xyz coordinate
    :L (L-harmonic m k)
    :initial-state [0

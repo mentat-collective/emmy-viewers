@@ -22,16 +22,18 @@
           :camera-position [2.5 1 2.5]
           :scale 720 :focus 1}})
 
-;; the `mbr` forms live in [[demo.mathbox-react]] for now.
+;; the `mbr` forms live in [[demo.mathbox]] for now.
 
 (def cube-viewer
-  {:fetch-fn (fn [_ x] x)
+  ;; Note that if I want to just pass a data structure on unmodified I need to
+  ;; `mark-presented` here.
+  {:transform-fn clerk/mark-presented
    :render-fn
    (template
     #(v/html
-      [mbr/Mathbox ~opts
-       [mbr/Cartesian {}
-        [mbr/ColorCube %]]]))})
+      [mb/Mathbox ~opts
+       [mb/Cartesian {}
+        [mb/ColorCube %]]]))})
 
 ;; We can then use the above viewer using metadata:
 
@@ -50,12 +52,13 @@
 
 (defn atom-viewer [render-fn]
   {:render-fn render-fn
-   :fetch-fn (fn [_ x] x)
    :pred #(when-let [v (get % ::clerk/var-from-def)]
             (and v (instance? clojure.lang.IDeref (deref v))))
-   :transform-fn (fn [{::clerk/keys [var-from-def]}]
-                   {:var-name (symbol var-from-def)
-                    :value @@var-from-def})})
+   :transform-fn (comp clerk/mark-presented
+                       (clerk/update-val
+                        (fn [{::clerk/keys [var-from-def]}]
+                          {:var-name (symbol var-from-def)
+                           :value @@var-from-def})))})
 
 ;; First, our sliders:
 
@@ -105,13 +108,13 @@
 (def server-cube-viewer
   (atom-viewer
    (template
-    (fn [{:keys [var-name value]}]
+    (fn [{:keys [var-name value] :as v}]
       (v/html
        [:<>
         (~(cube-ui-fn :server) var-name value)
-        [mbr/Mathbox ~opts
-         [mbr/Cartesian {}
-          [mbr/ColorCube value]]]])))))
+        [mb/Mathbox ~opts
+         [mb/Cartesian {}
+          [mb/ColorCube value]]]])))))
 
 ^{::clerk/width :wide
   ::clerk/viewer server-cube-viewer}
@@ -124,9 +127,11 @@
 
 
 ;; ## Local State
+;;
+;; This is way faster since the only updates happen on client side.
 
 (def client-cube-viewer
-  {:fetch-fn (fn [_ x] x)
+  {:transform-fn clerk/mark-presented
    :render-fn
    (template
     (fn [value]
@@ -134,9 +139,9 @@
         (v/html
          [:<>
           (~(cube-ui-fn :client) !v @!v)
-          [mbr/Mathbox ~opts
-           [mbr/Cartesian {}
-            [mbr/ColorCube @!v]]]]))))})
+          [mb/Mathbox ~opts
+           [mb/Cartesian {}
+            [mb/ColorCube @!v]]]]))))})
 
 ^{::clerk/width :wide
   ::clerk/viewer client-cube-viewer}

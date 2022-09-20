@@ -5,6 +5,7 @@
              numerator denominator ref partial])
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
+            [pattern.rule :refer [template]]
             [physics-viewers :as pv]
             [sicmutils.env :as e :refer :all]))
 
@@ -22,7 +23,7 @@
 
 ;; First, prepare the viewers so that all literals render with the multiviewer:
 
-(clerk/set-viewers! [d/multiviewer])
+(clerk/add-viewers! [d/multiviewer])
 
 ;; The transformation to elliptical coordinates is very similar to the spherical
 ;; coordinate transformation, but with a fixed $a$, $b$ and $c$ coefficient for
@@ -85,18 +86,31 @@
 ;;
 ;; Lucky us!! Let's do it!
 
-(clerk/with-viewer (pv/physics-viewer 'mb/physics-demo)
+(clerk/with-viewer
+  {:transform-fn pv/physics-xform
+   :render-fn
+   (template
+    (fn [value]
+      (v/html
+       [mb/Mathbox ~pv/opts
+        [mb/Cartesian (:cartesian value)
+         [box/Axis {:axis 1 :width 3}]
+         [box/Axis {:axis 2 :width 3}]
+         [box/Axis {:axis 3 :width 3}]
+         [mb/Mass (select-keys value [:L :state->xyz :initial-state])]
+         [mb/Ellipse (:ellipse value)]]])))}
   (let [m 10000, a 1, b 2, c 1.5]
     {:degrees-of-freedom 2
      :state->xyz (elliptical->rect a b c)
      :L (L-central-triaxial m a b c)
-     :initial-state [0 [0.1 0.1] [0.4 1]]
+     :initial-state [0
+                     [0.1 0.1]
+                     [0.4 1]]
      :ellipse {:a a :b b :c c}
-     :cartesian
-     {:range [[-10, 10]
-              [-10, 10]
-              [-10, 10]]
-      :scale [3 3 3]}}))
+     :cartesian {:range {:x [-10 10]
+                         :y [-10, 10]
+                         :z [-10, 10]}
+                 :scale [3 3 3]}}))
 
 ;; ## Equations of Motion:
 
