@@ -1,4 +1,4 @@
-^{:nextjournal.clerk/visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns demo
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])

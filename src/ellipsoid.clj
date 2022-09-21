@@ -1,4 +1,4 @@
-^{:nextjournal.clerk/visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns ellipsoid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
