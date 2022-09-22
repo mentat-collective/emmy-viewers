@@ -16,13 +16,13 @@
 ;; the `mbr` forms live in [[demo.mathbox-react]] for now.
 
 (def cube-viewer
-  {:fetch-fn (fn [_ x] x)
+  {:transform-fn clerk/mark-presented
    :render-fn
    (template
-    #(do (v/html
-          [mb/Mathbox ~opts
-           [mb/Cartesian {}
-            [mb/ColorCube %]]])))})
+    #(v/html
+      [mb/Mathbox ~opts
+       [mb/Cartesian {}
+        [mb/ColorCube %]]]))})
 
 ;; We can then use the above viewer using metadata:
 
@@ -31,3 +31,29 @@
 {:dimensions [8 5 20]
  :size 20
  :opacity 1.0}
+
+(def jsx-viewer
+  {:transform-fn clerk/mark-presented
+   :render-fn
+   (template
+    (fn [value]
+      (v/html
+       (reagent/with-let [!id (reagent/atom
+                               (-> (Math/random)
+                                   (.toString 36)
+                                   (.substr 2 9)))]
+         (when value
+           [:div {:id @!id
+                  :style {:height "400px" :width "100%"}
+                  :ref
+                  ;; this is failing since jsxgraph is busted. See
+                  ;; https://github.com/jsxgraph/jsxgraph/pull/456. For now, on
+                  ;; to Mathlive!
+                  (fn [el]
+                    (when el
+                      (jsx/create @!id)))}])))))})
+
+;; We can then use the above viewer using metadata:
+^{::clerk/width :wide
+  ::clerk/viewer jsx-viewer}
+{}
