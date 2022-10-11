@@ -22,7 +22,7 @@
     "emoji-regex": "^10.0.0",
     "fraction.js": "^4.0.12",
     "framer-motion": "^6.2.8",
-    "jsxgraph": "^1.4.5",
+    "jsxgraph": "^1.4.6",
     "katex": "^0.12.0",
     "lezer-clojure": "1.0.0-rc.2",
     "markdown-it": "^12.2.0",
