@@ -13,7 +13,7 @@
   https://github.com/sritchie/jsxgraph, on this branch:
   https://github.com/jsxgraph/jsxgraph/pull/463"
   ;; this is the generated bundle I have. I should really just go to relative paths...
-  (:require ["jsxgraph/bundle/jsxgraph" :default jsx]))
+  (:require ["jsxgraph" :default jsx]))
 
 (defn create
   "NICE!!! Basic example, but it works!!"
@@ -27,17 +27,13 @@
         b (.create board "slider" #js [#js [1 1] #js [5 1] #js [0 (* 2 Math/PI) 10]] #js {:name "end"})
         f #(Math/sin %)
         _plot (.create board "functiongraph" #js [f #(.Value a) #(.Value b)])
-        _os (.create board "riemannsum" #js [f
-                                             #(.Value s)
-                                             (fn [] "left")
-                                             #(.Value a)
-                                             #(.Value b)]
-                     #js {:fillColor "#ffff00" :fillOpacity 0.3})]
+        r (.create board "riemannsum" #js [f
+                                           #(.Value s)
+                                           (fn [] "left")
+                                           #(.Value a)
+                                           #(.Value b)]
+                   #js {:fillColor "#ffff00" :fillOpacity 0.3})]
     (.create board
              "text"
-             #js [-6 -3
-                  (fn [] (str "Sum="
-                             (-> jsx (.-Math) (.-Numerics)
-                                 (.riemannsum f (.Value s) "left" (.Value a) (.Value b))
-                                 (.toFixed 4))))])
+             #js [-6 -3 (fn [] (str "Sum=" (.toFixed jsx (.Value r) 4)))])
     board))
