@@ -3,20 +3,15 @@
   reactish part and just blow away the full jsxgraph whenever the input
   change.
 
-  For any of this to work, you'll need to
-
-  ```
-  npm install canvas
-  ```
-
-  For this to work, you'll need to use my fork of JSXGraph:
-  https://github.com/sritchie/jsxgraph, on this branch:
-  https://github.com/jsxgraph/jsxgraph/pull/463"
-  ;; this is the generated bundle I have. I should really just go to relative paths...
+  This is currently using my fork of jsxgraph at
+  https://github.com/sritchie/jsxgraph and published to
+  https://www.npmjs.com/package/@mentatcollective/jsxgraph, but these changes
+  should appear upstream soon and we can back off to the official library."
   (:require ["@mentatcollective/jsxgraph" :default jsx]))
 
 (defn create
-  "NICE!!! Basic example, but it works!!"
+  "Creates an example jsxgraph instance with a plane, a sine wave and a Riemann
+  sum."
   [id]
   (let [board (-> (.-JSXGraph jsx)
                   (.initBoard id #js {:boundingbox #js [-8 4 8 -4]
