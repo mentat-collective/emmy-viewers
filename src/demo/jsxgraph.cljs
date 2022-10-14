@@ -13,7 +13,7 @@
   https://github.com/sritchie/jsxgraph, on this branch:
   https://github.com/jsxgraph/jsxgraph/pull/463"
   ;; this is the generated bundle I have. I should really just go to relative paths...
-  (:require ["jsxgraph" :default jsx]))
+  (:require ["@mentatcollective/jsxgraph" :default jsx]))
 
 (defn create
   "NICE!!! Basic example, but it works!!"
