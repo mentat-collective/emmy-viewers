@@ -1,6 +1,6 @@
 (ns demo.viewers
   (:require ["dat.gui" :as dg]
-            ;; [demo.jsxgraph]
+            [demo.jsxgraph]
             [demo.mathbox]
             [nextjournal.clerk.sci-viewer :as sv]
             ["mathbox-react" :as MB]
@@ -29,9 +29,8 @@
         {"mathbox-react" mbr-ns
          'demo.mathbox (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
 
-         ;; 'demo.jsxgraph
-         ;; (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
-         }
+         'demo.jsxgraph
+         (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))}
         :classes {'Math js/Math}
         :aliases {'mb 'demo.mathbox
                   'mathbox-react "mathbox-react"
