@@ -13,16 +13,12 @@
    (template
     (fn [value]
       (v/html
-       (reagent/with-let [!id (reagent/atom
-                               (-> (Math/random)
-                                   (.toString 36)
-                                   (.substr 2 9)))]
-         (when value
-           [:div {:id @!id
-                  :style {:height "400px" :width "100%"}
-                  :ref (fn [el]
-                         (when el
-                           (mathlive/create @!id)))}])))))})
+       (when value
+         [:div
+          {:style {:height "400px" :width "100%"}
+           :ref (fn [el]
+                  (when el
+                    (mathlive/create el)))}]))))})
 
 ;; We can then use the above viewer using metadata:
 ^{::clerk/width :wide
