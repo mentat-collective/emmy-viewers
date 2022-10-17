@@ -1,8 +1,10 @@
 (ns user
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
-  (:require [nextjournal.clerk.config :as clerk-config]
+  (:require [hiccup.page :as hiccup]
+            [nextjournal.clerk.config :as clerk-config]
             [nextjournal.clerk :as clerk]
+            [nextjournal.clerk.view]
             [sicmutils.env :refer :all]
             [sicmutils.expression.render :as xr]))
 
@@ -20,11 +22,29 @@
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
 
+(defn rebind [^clojure.lang.Var v f]
+  (let [old (.getRawRoot v)]
+    (.bindRoot v (f old))))
+
+;; my attempt at injecting the CSS for my viewers...
+(defonce binder
+  (rebind
+   #'nextjournal.clerk.view/include-viewer-css
+   (fn [old]
+     (fn []
+       (concat
+        (list
+         (hiccup/include-css
+          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css")
+         (hiccup/include-css
+          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
+        (old))))))
+
+
 (comment
   (swap! clerk-config/!resource->url
          assoc
-         "/js/viewer.js"
-         "http://localhost:9000/out/main.js")
+         "/js/viewer.js" "http://localhost:9000/out/main.js")
 
   ;; Activate this line to start the clerk server.
   (clerk/serve!

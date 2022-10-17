@@ -14,11 +14,19 @@
     (fn [value]
       (v/html
        (when value
-         [:div
-          {:style {:height "400px" :width "100%"}
-           :ref (fn [el]
-                  (when el
-                    (mathlive/create el)))}]))))})
+         [mathlive/Mathfield value]))))})
+
+;; CSS
+
+(clerk/html
+ [:link {:rel "stylesheet"
+         :href "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css"
+         :crossOrigin ""}])
+
+(clerk/html
+ [:link {:rel "stylesheet"
+         :href "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"
+         :crossOrigin ""}])
 
 ;; We can then use the above viewer using metadata:
 ^{::clerk/width :wide
