@@ -27,7 +27,7 @@
     (.bindRoot v (f old))))
 
 ;; my attempt at injecting the CSS for my viewers...
-(defonce binder
+(defonce _ignore
   (rebind
    #'nextjournal.clerk.view/include-viewer-css
    (fn [old]
@@ -39,7 +39,6 @@
          (hiccup/include-css
           "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
         (old))))))
-
 
 (comment
   (swap! clerk-config/!resource->url

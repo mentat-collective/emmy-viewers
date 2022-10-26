@@ -171,36 +171,37 @@
            (process
             (js->clj j))))
 
-(defn Mathfield [_]
-  (re/with-let [!state (re/atom nil)]
-    (let [mfe (ml/MathfieldElement.
-               #js {:fontsDirectory "https://unpkg.com/mathlive@0.83.0/dist/fonts/"})]
+(defn ->TeX [x] (e/->TeX x))
 
-      ;; Demo shows how to go back and forth... https://cortexjs.io/mathlive/demo/
+(defn Mathfield [!state]
+  (let [mfe (ml/MathfieldElement.
+             #js {:fontsDirectory "https://unpkg.com/mathlive@0.83.0/dist/fonts/"})]
 
-      ;; This is a slightly older react component, similar to what we should
-      ;; probably be building here.
-      ;; https://github.com/concludio/react-mathlive/blob/b3ffefb30f8b63448d925c47228b8d0befcaf898/src/MathfieldComponent.tsx
-      (.addEventListener
-       mfe "input" (fn [x]
-                     (js/console.log (.getValue (.-target x) "math-json"))
-                     (js/console.log (.-isValid ^js (.-expression (.-target x))))
-                     (js/console.log (.-errors ^js (.-expression (.-target x))))
-                     (reset! !state
-                             ;; weird, seems like a bug with isValid.
-                             (if (or (.-isValid ^js (.-expression (.-target x)))
-                                     (empty?
-                                      (.-errors ^js (.-expression (.-target x)))))
-                               {:valid? true
-                                :expr (.-json (.-expression (.-target x)))}
-                               {:valid? false}))))
-      (reset! !state (.getValue mfe "math-json"))
-      (fn []
-        [:div
-         [:div {:ref (fn [el]
-                       (when el
-                         (.replaceWith ^js el mfe)))}]
-         (let [s @!state]
+    ;; Demo shows how to go back and forth... https://cortexjs.io/mathlive/demo/
+
+    ;; This is a slightly older react component, similar to what we should
+    ;; probably be building here.
+    ;; https://github.com/concludio/react-mathlive/blob/b3ffefb30f8b63448d925c47228b8d0befcaf898/src/MathfieldComponent.tsx
+    (.addEventListener
+     mfe "input" (fn [x]
+                   (js/console.log (.getValue (.-target x) "math-json"))
+                   (js/console.log (.-isValid ^js (.-expression (.-target x))))
+                   (js/console.log (.-errors ^js (.-expression (.-target x))))
+                   (reset! !state
+                           ;; weird, seems like a bug with isValid.
+                           (if (or (.-isValid ^js (.-expression (.-target x)))
+                                   (empty?
+                                    (.-errors ^js (.-expression (.-target x)))))
+                             {:valid? true
+                              :expr (.-json (.-expression (.-target x)))}
+                             {:valid? false}))))
+    (reset! !state (.getValue mfe "math-json"))
+    (fn []
+      [:div
+       [:div {:ref (fn [el]
+                     (when el
+                       (.replaceWith ^js el mfe)))}]
+       #_(let [s @!state]
            (if-not (:valid? s)
              [:p "Invalid!"]
              ;; TODO right now we are ASSUMING that what comes through is either
@@ -218,4 +219,4 @@
                 [sv/inspect (v/tex (try (e/->TeX simple)
                                         (catch
                                             js/Error
-                                            _ "\\mathit{processing...}")))]])))]))))
+                                            _ "\\mathit{processing...}")))]])))])))
