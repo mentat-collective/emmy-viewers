@@ -16,16 +16,30 @@
    (template
     (fn [value]
       (v/html
-       (reagent/with-let [!state (reagent/atom
-                                  {:my-point
-                                   {:x -1 :y -2}})]
+       (reagent/with-let [!state (reagent/atom {:my-point {:x -1 :y -2}})]
          [:<>
           [v/inspect @!state]
-          #_[jsx/Point 1 2 4]
-          [jsx/JSXGraph {:boundingbox [-8 4 8 -4]
-                         :showCopyright false
-                         :axis true}
-           !state]]))))})
+          [jsx/JSXGraph2 {:boundingbox [-8 4 8 -5]
+                          :showCopyright false
+                          :axis true}
+           [jsx/Point
+            [1 2]
+            {:name "B"
+             :strokecolor "red"
+             :on-drag (fn [pt]
+                        (swap! !state assoc :my-point {:x (.X pt) :y (.Y pt)}))}]
+           [jsx/Point
+            [#(- (:y (:my-point @!state)))
+             #(- (:x (:my-point @!state)))]
+            {:key "pointB"
+             :name "A"
+             :strokecolor "blue"}]
+
+           [jsx/Point
+            [2 2]
+            {:key "pointB"
+             :name "A"
+             :strokecolor "blue"}]]]))))})
 
 ;; We can then use the above viewer using metadata:
 ^{::clerk/width :wide
