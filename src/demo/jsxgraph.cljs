@@ -22,18 +22,15 @@
   (.toFixed jsx x p))
 
 (defn JSXGraph
-  [& _]
-  (let [!container (atom nil)
-        !board     (re/atom nil)
-        id (-> (Math/random)
-               (.toString 36)
-               (.substr 2 9))
-        init (fn [props]
-               (-> (.-JSXGraph jsx)
-                   (.initBoard id (clj->js props))))
-        update-ref (fn [el]
-                     (js/console.log "ref called")
-                     (when el (reset! !container el)))]
+  [{:keys [id style]} & _]
+  (let [!board  (re/atom nil)
+        id (or id (-> (Math/random)
+                      (.toString 36)
+                      (.substr 2 9)))
+        style (or style {:height "400px" :width "100%"})
+        init  (fn [props]
+                (-> (.-JSXGraph jsx)
+                    (.initBoard id (clj->js props))))]
     (re/create-class
      {:display-name  "JSXGraph"
 
@@ -65,13 +62,11 @@
                      (init new-props))))))
 
       :reagent-render
-      (fn [& _] ;; remember to repeat parameters
+      (fn [& _]
         (let [this     (re/current-component)
               children (re/children this)]
           (js/console.log "rendering board")
-          [:div {:id id
-                 :style {:height "400px" :width "100%"}
-                 :ref update-ref}
+          [:div {:id id :style style}
            (into [:> Provider {:value @!board}]
                  children)]))})))
 
@@ -132,22 +127,17 @@
         :component-did-update
         (fn [this [_ old-elems old-props]]
           (when-let [board (.-context this)]
+            (js/console.log (str name "-did-update"))
             (let [[_ elems props] (re/argv this)]
               (if @!item
-                (if (and (:key props)
-                         (:key old-props)
-                         (= (:key props)
-                            (:key old-props)))
-                  ;; TODO horrible flow here but the idea is that if the KEY
-                  ;; does not change, don't do anything.
-                  nil
-                  (when (or (not= elems old-elems)
-                            (not= old-props props))
-                    (swap! !item
-                           (fn [item]
-                             (.removeObject board item)
-                             (add-item! name board elems props)))))
-                (do (js/console.log (str "creating " name "."))
+                (when (or (not= elems old-elems)
+                          (not= old-props props))
+                  (swap! !item
+                         (fn [item]
+                           #_((.-forceUpdate (.-context this)))
+                           (.removeObject board item)
+                           (add-item! name board elems props))))
+                (do (js/console.log (str "initially creating " name "."))
                     (reset! !item (add-item! name board elems props)))))))
 
         :reagent-render
