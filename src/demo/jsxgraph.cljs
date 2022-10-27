@@ -45,12 +45,14 @@
         (js/console.log "bye bye board")
         (swap! !board
                (fn [old]
+                 (.suspendUpdate old)
                  (-> (.-JSXGraph jsx) (.freeBoard old))
                  nil)))
 
       ;; Update if the props change. Not so bad!!
       :component-did-update
       (fn [this old-argv]
+        (js/console.log "board-did-update")
         (let [old-props (let [p (second old-argv)]
                           (if (map? p) p {}))
               new-props (or (re/props this) {})]
@@ -68,10 +70,15 @@
           (js/console.log "rendering board")
           [:div {:id id :style style}
            (into [:> Provider {:value @!board}]
+                 (map (fn [[a b c]]
+                        [a b (assoc c :board @!board)]))
                  children)]))})))
 
 (defn add-item! [name board elems props]
-  (let [p (.create board name (clj->js elems) (clj->js props))]
+  (let [p (.create board
+                   name
+                   (clj->js elems)
+                   (clj->js (dissoc props :board)))]
     ;; Okay, SO, we can definitely get updates. but we want to UNREGISTER these
     ;; if we can when the element gets taken out of commission.
     #_(if-let [coords (.-coords p)]
@@ -95,7 +102,7 @@
 
 (defn make-element [name]
   (fn [_elems _props]
-    (let [!item (atom nil)]
+    (let [!item  (atom nil)]
       (re/create-class
        {:display-name name
         :context-type board-context
@@ -106,6 +113,7 @@
           (when-let [board (.-context this)]
             (let [[_ elems props] (re/argv this)]
               (js/console.log (str name "-did-mount"))
+
               (reset! !item (add-item! name board elems props)))))
 
         :component-will-unmount
@@ -129,12 +137,13 @@
           (when-let [board (.-context this)]
             (js/console.log (str name "-did-update"))
             (let [[_ elems props] (re/argv this)]
+
               (if @!item
                 (when (or (not= elems old-elems)
                           (not= old-props props))
                   (swap! !item
                          (fn [item]
-                           #_((.-forceUpdate (.-context this)))
+                           (js/console.log (str "replacing " name "."))
                            (.removeObject board item)
                            (add-item! name board elems props))))
                 (do (js/console.log (str "initially creating " name "."))
