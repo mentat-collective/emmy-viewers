@@ -18,7 +18,10 @@
 (def Provider
   (.-Provider board-context))
 
-(defn JSXGraph2
+(defn to-fixed [x p]
+  (.toFixed jsx x p))
+
+(defn JSXGraph
   [& _]
   (let [!container (atom nil)
         !board     (re/atom nil)
@@ -27,7 +30,10 @@
                (.substr 2 9))
         init (fn [props]
                (-> (.-JSXGraph jsx)
-                   (.initBoard id (clj->js props))))]
+                   (.initBoard id (clj->js props))))
+        update-ref (fn [el]
+                     (js/console.log "ref called")
+                     (when el (reset! !container el)))]
     (re/create-class
      {:display-name  "JSXGraph"
 
@@ -65,18 +71,21 @@
           (js/console.log "rendering board")
           [:div {:id id
                  :style {:height "400px" :width "100%"}
-                 :ref (fn [el]
-                        (js/console.log "ref called")
-                        (when el (reset! !container el)))}
+                 :ref update-ref}
            (into [:> Provider {:value @!board}]
                  children)]))})))
 
 (defn add-item! [name board elems props]
   (let [p (.create board name (clj->js elems) (clj->js props))]
+    ;; Okay, SO, we can definitely get updates. but we want to UNREGISTER these
+    ;; if we can when the element gets taken out of commission.
+    #_(if-let [coords (.-coords p)]
+        (.on coords "update" (fn [_] (js/console.log (str (pr-str props) name " coords update fired"))))
+        (.on board "update" (fn [_] (js/console.log (str (.getType p) " update fired")))))
 
     ;; TODO what are the possible events for OTHER types??
     (when-let [f (props :on-drag)]
-      (js/console.log "adding")
+
       ;; events can be
       ;; drag, mousedrag, touchdrag
       ;; move, mousemove, touchmove
@@ -117,7 +126,9 @@
         ;; called if the INPUTS to the component change at all. I guess this
         ;; matters if the keyword etc or positions change.
         ;;
-        ;; TODO explain the KEY thing.
+        ;; TODO explain the KEY thing. Or remove it, is it no longer needed???
+        ;;
+        ;;
         :component-did-update
         (fn [this [_ old-elems old-props]]
           (when-let [board (.-context this)]
@@ -140,55 +151,19 @@
                     (reset! !item (add-item! name board elems props)))))))
 
         :reagent-render
-        (fn [_elems _props] nil)}))))
+        (fn [_elems _props]
+          nil)}))))
 
 
 (def Point (make-element "point"))
+(def Slider (make-element "slider"))
+(def FunctionGraph (make-element "functiongraph"))
+(def RiemannSum (make-element "riemannsum"))
+(def Text (make-element "text"))
+(def Angle (make-element "angle"))
 
-
-(defn demo [board]
-  board
-  #_(let [s (.create board "slider" #js [#js [1 3] #js [5 3] #js [1 10 50]] #js {:name "n" :snapWidth 1})
-          a (.create board "slider" #js [#js [1 2] #js [5 2] #js [-10 -3 0]] #js {:name "start"})
-          b (.create board "slider" #js [#js [1 1] #js [5 1] #js [0 (* 2 Math/PI) 10]] #js {:name "end"})
-          f #(Math/sin %)
-          _pt (let [{x :x y :y} (:my-point @state)]
-                (add-point board state [x y]
-                           {:state-k :my-point
-                            :name "A"
-                            :strokecolor "red"}))
-
-          _plot (.create board "functiongraph" #js [f
-                                                    ;; #(.Value a)
-                                                    ;; #(.Value b)
-                                                    #(-> @state :my-point :x)
-                                                    #(-> @state :my-point :y)])
-          r (.create board "riemannsum" #js [f
-                                             #(.Value s)
-                                             (fn [] "left")
-                                             ;; #(.Value a)
-                                             ;; #(.Value b)
-                                             #(-> @state :my-point :x)
-                                             #(-> @state :my-point :y)]
-                     #js {:fillColor "#ffff00" :fillOpacity 0.3})]
-      (.create board "text" #js [-6 -3 (fn [] (str "Sum=" (.toFixed jsx (.Value r) 4)))])
-      board))
-
-(defn JSXGraph
-  "Creates an example jsxgraph instance with a plane, a sine wave and a Riemann
-  sum.
-
-  TODO think about componentwillunmount, or update?"
-  [props & _children]
-  (js/console.log (pr-str [props _children]))
-  (let [id (-> (Math/random)
-               (.toString 36)
-               (.substr 2 9))]
-    (fn []
-      [:div {:id id
-             :style {:height "400px" :width "100%"}
-             :ref (fn [el]
-                    (when el
-                      (let [board (-> (.-JSXGraph jsx)
-                                      (.initBoard id (clj->js props)))]
-                        (demo board))))}])))
+;; More problems:
+;;
+;; some of the elements, like angles, need to mark OTHER angles as their parents. How do we keep a registry here... do we d it by name? What happens when those elements get recycled?
+;;
+;;

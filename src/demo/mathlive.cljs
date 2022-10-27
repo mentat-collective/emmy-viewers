@@ -196,27 +196,29 @@
                               :expr (.-json (.-expression (.-target x)))}
                              {:valid? false}))))
     (reset! !state (.getValue mfe "math-json"))
-    (fn []
-      [:div
-       [:div {:ref (fn [el]
-                     (when el
-                       (.replaceWith ^js el mfe)))}]
-       #_(let [s @!state]
-           (if-not (:valid? s)
-             [:p "Invalid!"]
-             ;; TODO right now we are ASSUMING that what comes through is either
-             ;; a structure or a literal number, and we wrap it all up at the
-             ;; end.
-             (let [clj    (mathjson->expression (:expr s))
-                   simple (e/simplify clj)]
-               [:<>
-                [sv/inspect (v/code clj)]
-                [sv/inspect (v/tex (try (e/->TeX clj)
-                                        (catch
-                                            js/Error
-                                            _ "\\mathit{processing...}")))]
-                [sv/inspect (v/code simple)]
-                [sv/inspect (v/tex (try (e/->TeX simple)
-                                        (catch
-                                            js/Error
-                                            _ "\\mathit{processing...}")))]])))])))
+    ;; TODO note that we do this to prevent a remount...
+    (let [ref (fn [el]
+                (when el
+                  (.replaceWith ^js el mfe)))]
+      (fn []
+        [:div
+         [:div {:ref ref}]
+         #_(let [s @!state]
+             (if-not (:valid? s)
+               [:p "Invalid!"]
+               ;; TODO right now we are ASSUMING that what comes through is either
+               ;; a structure or a literal number, and we wrap it all up at the
+               ;; end.
+               (let [clj    (mathjson->expression (:expr s))
+                     simple (e/simplify clj)]
+                 [:<>
+                  [sv/inspect (v/code clj)]
+                  [sv/inspect (v/tex (try (e/->TeX clj)
+                                          (catch
+                                              js/Error
+                                              _ "\\mathit{processing...}")))]
+                  [sv/inspect (v/code simple)]
+                  [sv/inspect (v/tex (try (e/->TeX simple)
+                                          (catch
+                                              js/Error
+                                              _ "\\mathit{processing...}")))]])))]))))
