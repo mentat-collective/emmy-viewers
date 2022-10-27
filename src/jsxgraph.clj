@@ -61,28 +61,29 @@
       ;;
       ;; - FIGURE OUT how to get a re-mount working well when the outer jsxgraph
       ;; - instance gets destroyed.
-      (reagent/with-let [!state (reagent/atom {:my-point m
-                                               :start -1
-                                               :end 10
-                                               :n 5})
-                         n-update (fn [s] (swap! !state assoc :n (.Value s)))
-                         start-update (fn [s] (swap! !state assoc :start (.Value s)))
-                         end-update (fn [s] (swap! !state assoc :end (.Value s)))
-                         riemann-update (fn [s] (swap! !state assoc :riemann (.Value s)))
-                         sin #(Math/sin %)
-                         x (:x (:my-point @!state))
-                         y (:y (:my-point @!state))
-                         on-drag (fn [point] (swap! !state assoc :my-point {:x (.X point) :y (.Y point)}))
-                         -yf #(- (:y (:my-point @!state)))
-                         -xf #(- (:x (:my-point @!state)))
-                         nf #(:n @!state)
-                         startf #(:start @!state)
-                         endf #(:end @!state)
-                         xf #(:x (:my-point @!state))
-                         yf #(:y (:my-point @!state))
-                         leftf (fn [] "left")
-                         sumf (fn [] (str "Sum=" (jsx/to-fixed (:riemann @!state) 4)))
-                         store-riemann (fn [r] (swap! !state assoc :riemann r))]
+      (reagent/with-let
+        [!state (reagent/atom {:my-point m
+                               :start -1
+                               :end 10
+                               :n 5})
+         n-update (fn [s] (swap! !state assoc :n (.Value s)))
+         start-update (fn [s] (swap! !state assoc :start (.Value s)))
+         end-update (fn [s] (swap! !state assoc :end (.Value s)))
+         riemann-update (fn [s] (swap! !state assoc :riemann (.Value s)))
+         sin #(Math/sin %)
+         x (:x (:my-point @!state))
+         y (:y (:my-point @!state))
+         on-drag (fn [point] (swap! !state assoc :my-point {:x (.X point) :y (.Y point)}))
+         -yf #(- (:y (:my-point @!state)))
+         -xf #(- (:x (:my-point @!state)))
+         nf #(:n @!state)
+         startf #(:start @!state)
+         endf #(:end @!state)
+         xf #(:x (:my-point @!state))
+         yf #(:y (:my-point @!state))
+         leftf (fn [] "left")
+         sumf (fn [] (str "Sum=" (jsx/to-fixed (:riemann @!state) 4)))
+         store-riemann (fn [r] (swap! !state assoc :riemann r))]
         (v/html
          [:<>
           [jsx/JSXGraph {:boundingbox [-8 4 8 -5]
@@ -104,45 +105,52 @@
             {:name "end"
              :on-drag end-update}]
 
-           [jsx/FunctionGraph [sin startf endf] {:on-drag on-drag}]
+           [jsx/FunctionGraph [sin startf endf] {}]
+           [jsx/RiemannSum [sin nf leftf startf endf] {}]
+           [jsx/Text [-6 -3 sumf] {}]
 
-           ;; will this work? TODO can we call the function by name??
-           [jsx/RiemannSum
-            [sin nf leftf startf endf]
-            {:on-drag riemann-update}]
+           [jsx/Point [x y] {:name "A" :strokecolor "red" :on-drag on-drag}]
+           [jsx/Point [-xf -yf] {:name "B" :strokecolor "red"}]
+           [jsx/Point [0 0] {:name "C" :strokecolor "blue" :on-drag on-drag}]
 
-           ;; TODO can we use select on the board to get the element we want??
-           ;; http://jsxgraph.org/docs/symbols/JXG.Board.html#select
-           [jsx/Text [-6 -3 sumf] {:on-drag on-drag}]
-
-           ;; my fun points...
-           [jsx/Point [x y]
-            {:name "A"
-             :strokecolor "red"
-             :on-drag on-drag}]
-
-           [jsx/Point [-xf -yf]
-            {:name "B"
-             :strokecolor "blue"
-             :on-drag on-drag}]
-
-           [jsx/Point [0 0]
-            {:name "C"
-             :strokecolor "blue"
-             :on-drag on-drag}]
-
-           ;; nice, this angle can reference other items by their names. TODO If
-           ;; I recreate one of the points above, the angle does indeed get
-           ;; killed if it's just going by name. So find a way to recreate the
-           ;; above... or ask Wasserman if there is some way to reconcile when
-           ;; things get recreated.
-           [jsx/Angle ["A" "C" "B"] {:cake on-drag}]]
+           ;; nice, this angle can reference other items by their names.
+           [jsx/Angle ["A" "C" "B"] {}]]
           [v/inspect @!state]])))})
 
 ;; We can then use the above viewer using metadata:
 ;;
 ;; TODO note that we have a clerk bug with viewer on metadata, forces a
-;; re-render every time.
+;; re-render every time. So here I use with-viewer.
 ^{::clerk/width :wide}
 (clerk/with-viewer jsx-viewer
-  {:x -1 :y -2})
+  {:x -4 :y -2})
+
+;; damn it, I don't know if this did anything at all!! I want to:
+
+;; - force all children to re-render whenever the PROPERTIES for anyone
+;;   change... basically if anyone is going to get re-added, they should all get
+;;   re-added.
+;;
+;; - if just the coordinate changes... externally... well that should probably
+;;   trigger a re-render as well. And you should probably be careful with your
+;;   functions etc when you do this to NOT mess with those. So if ANYTHING
+;;   changes then yes you should re-render everyone.
+;;
+;; - killing the context thing makes it easy to change if the board changes
+;;   without any special logic. This is importnt for a full remount.
+;;
+;; - so increment a COUNTER if the props for anyone change. Maybe that is the
+;;   right way to do things. That way dependencies get resolved correctly.
+;;
+;;
+;; - TODO imagine something harder; what if I want to make a function component
+;;   that uses sicmutils values? that is going to get them as props for sure.
+;;   and then when the prop comes in it is going to have to compile the function
+;;   and store it. So is that going to be a nightmare?
+;;
+;; - And am I going to have to do anything special to pass the stupid BOARD on
+;;   through? That is okay... pass the board through every time and I guess
+;;   that's that.
+;;
+;;  TODO so a function component that takes source code and compiles it. I can
+;;  start by just passing a quoted form and seeing what I get done.
