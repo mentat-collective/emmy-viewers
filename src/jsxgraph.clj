@@ -89,32 +89,30 @@
           [jsx/JSXGraph {:boundingbox [-8 4 8 -5]
                          :showCopyright false
                          :axis true}
-           [jsx/Slider
-            [[1 3] [5 3] [1 5 50]]
-            {:name "n"
-             :snapWidth 1
-             :on-drag n-update}]
+           [jsx/Slider {:name "n"
+                        :snapWidth 1
+                        :on-drag n-update}
+            [[1 3] [5 3] [1 5 50]]]
 
            [jsx/Slider
-            [[1 2]  [5 2]  [-10 -3 0]]
-            {:name "start"
-             :on-drag start-update}]
+            {:name "start" :on-drag start-update}
+            [[1 2]  [5 2]  [-10 -3 0]]]
 
            [jsx/Slider
-            [[1 1] [5 1] [0 (* 2 Math/PI) 10]]
-            {:name "end"
-             :on-drag end-update}]
+            {:name "end" :on-drag end-update}
+            [[1 1] [5 1] [0 (* 2 Math/PI) 10]]]
 
-           [jsx/FunctionGraph [sin startf endf] {}]
-           [jsx/RiemannSum [sin nf leftf startf endf] {}]
-           [jsx/Text [-6 -3 sumf] {}]
-
-           [jsx/Point [x y] {:name "A" :strokecolor "red" :on-drag on-drag}]
-           [jsx/Point [-xf -yf] {:name "B" :strokecolor "red"}]
-           [jsx/Point [0 0] {:name "C" :strokecolor "blue" :on-drag on-drag}]
+           [jsx/FunctionGraph [sin startf endf]]
+           [jsx/RiemannSum [sin nf leftf startf endf]]
+           [jsx/Text [-6 -3 sumf]]
+           [jsx/Point {:name "A" :strokecolor "red" :on-drag on-drag} [x y]]
+           [jsx/Point {:name "B" :strokecolor "red"} [-xf -yf]]
+           [jsx/Point
+            {:name "C" :strokecolor "blue" :on-drag on-drag}
+            [0 0]]
 
            ;; nice, this angle can reference other items by their names.
-           [jsx/Angle ["A" "C" "B"] {}]]
+           [jsx/Angle ["A" "C" "B"]]]
           [v/inspect @!state]])))})
 
 ;; We can then use the above viewer using metadata:
@@ -123,26 +121,8 @@
 ;; re-render every time. So here I use with-viewer.
 ^{::clerk/width :wide}
 (clerk/with-viewer jsx-viewer
-  {:x -4 :y -2})
+  {:x -4 :y -4})
 
-;; damn it, I don't know if this did anything at all!! I want to:
-
-;; - force all children to re-render whenever the PROPERTIES for anyone
-;;   change... basically if anyone is going to get re-added, they should all get
-;;   re-added.
-;;
-;; - if just the coordinate changes... externally... well that should probably
-;;   trigger a re-render as well. And you should probably be careful with your
-;;   functions etc when you do this to NOT mess with those. So if ANYTHING
-;;   changes then yes you should re-render everyone.
-;;
-;; - killing the context thing makes it easy to change if the board changes
-;;   without any special logic. This is importnt for a full remount.
-;;
-;; - so increment a COUNTER if the props for anyone change. Maybe that is the
-;;   right way to do things. That way dependencies get resolved correctly.
-;;
-;;
 ;; - TODO imagine something harder; what if I want to make a function component
 ;;   that uses sicmutils values? that is going to get them as props for sure.
 ;;   and then when the prop comes in it is going to have to compile the function
@@ -153,4 +133,8 @@
 ;;   that's that.
 ;;
 ;;  TODO so a function component that takes source code and compiles it. I can
-;;  start by just passing a quoted form and seeing what I get done.
+;;  start by just passing a quoted form and seeing what I get done
+;;
+;; TODO definitely get the on- working.
+;;
+;; TODO add all remaining elements.
