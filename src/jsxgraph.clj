@@ -112,6 +112,8 @@
             [0 0]]
 
            ;; nice, this angle can reference other items by their names.
+           ;; Actually by their IDs if you don't want to display a name. Any ID
+           ;; above you is fair game.
            [jsx/Angle ["A" "C" "B"]]]
           [v/inspect @!state]])))})
 
@@ -137,4 +139,4 @@
 ;;
 ;; TODO definitely get the on- working.
 ;;
-;; TODO add all remaining elements.
+;; TODO add a ref for each element.

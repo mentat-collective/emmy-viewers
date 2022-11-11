@@ -12,8 +12,6 @@
 ;; Here is the existing context:
 ;; https://github.com/nextjournal/clerk/blob/d08c26043efe19a92fe33dd9eb4499e304e4cff7/src/nextjournal/clerk/sci_viewer.cljs#L1013-L1023
 
-(sci/require-cljs-analyzer-api)
-
 (def mbr-ns
   (-> (into {} (map (fn [[k v]]
                       [(symbol k) (r/adapt-react-class v)]))

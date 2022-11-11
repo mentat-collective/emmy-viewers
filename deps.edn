@@ -1,27 +1,30 @@
 {:paths ["src" "dev"]
- :deps {org.clojure/clojurescript {:mvn/version "1.10.914"}
-        thheller/shadow-cljs {:mvn/version "2.16.12"}
-
-        ;; SICMUtils computer algebra system!
-        sicmutils/sicmutils {:mvn/version "0.22.0"}
-        io.github.nextjournal/clerk {:mvn/version "0.10.560"}
-
-        ;; All of the following seem to be required if you want to run the
-        ;; shadow build that compiles the viewers.
-        applied-science/js-interop {:mvn/version "0.3.3"}
-        org.babashka/sci {:mvn/version "0.3.5"}
-        reagent/reagent {:mvn/version "1.1.1"}
-        io.github.babashka/sci.configs {:git/sha "fcd367c6a6115c5c4e41f3a08ee5a8d5b3387a18"}
-        io.github.nextjournal/viewers {:git/sha "3284aae7379bde3fcf41d17c663bed421fb31d6d"}
-        metosin/reitit-frontend {:mvn/version "0.5.15"}}
+ :deps
+ {sicmutils/sicmutils {:mvn/version "0.22.0"}
+  io.github.nextjournal/clerk {:mvn/version "0.11.603"}}
 
  :aliases
- {:nextjournal/clerk
+ {:dev
+  {:extra-deps
+   {org.clojure/clojurescript {:mvn/version "1.11.4"}
+    thheller/shadow-cljs {:mvn/version "2.17.4"}}}
+
+  :nextjournal/clerk
   {:exec-fn nextjournal.clerk/build-static-app!
+   :extra-deps
+   {applied-science/js-interop {:mvn/version "0.3.3"}
+    org.babashka/sci {:mvn/version "0.4.33"}
+    reagent/reagent {:mvn/version "1.1.1"}
+    io.github.babashka/sci.configs {:git/sha "fcd367c6a6115c5c4e41f3a08ee5a8d5b3387a18"}
+    io.github.nextjournal/viewers {:git/sha "3284aae7379bde3fcf41d17c663bed421fb31d6d"}
+    metosin/reitit-frontend {:mvn/version "0.5.15"}}
+
    ;; notebooks to be built, accepts glob patterns. This doesn't quite work yet!
-   :exec-args {:bundle? false :paths ["index.md"
-                                      "src/demo.clj"
-                                      "src/functions.clj"]}}
+   :exec-args
+   {:bundle? false
+    :paths ["index.md"
+            "src/demo.clj"
+            "src/functions.clj"]}}
   :local
   {:replace-deps
    {io.github.nextjournal/clerk {:local/root "../clerk"}

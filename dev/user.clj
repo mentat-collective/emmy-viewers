@@ -1,12 +1,8 @@
 (ns user
-  (:refer-clojure
-   :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [hiccup.page :as hiccup]
-            [nextjournal.clerk.config :as clerk-config]
+            [nextjournal.clerk.config :as config]
             [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.view]
-            [sicmutils.env :refer :all]
-            [sicmutils.expression.render :as xr]))
+            [nextjournal.clerk.view]))
 
 ;; To get everything running, first follow the README instructions:
 ;;
@@ -16,17 +12,22 @@
 ;;
 ;; Then jack in, come here and run the commands in the comment.
 ;;
-;; Better rendering for slides.
+;; Better rendering for slides. NOTE that for now, until
+;; https://github.com/babashka/sci/issues/832 is fixed, this has to go in
+;; `demo.clj` or some non-user namespace. It has to be here so that SCI gets the
+;; change before setting its dynamic var.
 
-(alter-var-root
- #'xr/*TeX-vertical-down-tuples*
- (constantly true))
+#_[sicmutils.expression.render :as xr]
+#_(alter-var-root
+   #'xr/*TeX-vertical-down-tuples*
+   (constantly true))
+
+;; Same with my `[sicmutils.env :refer :all]` to get the REPL working.
 
 (defn rebind [^clojure.lang.Var v f]
   (let [old (.getRawRoot v)]
     (.bindRoot v (f old))))
 
-;; my attempt at injecting the CSS for my viewers...
 (defonce _ignore
   (rebind
    #'nextjournal.clerk.view/include-viewer-css
@@ -40,24 +41,45 @@
           "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
         (old))))))
 
-(comment
-  (swap! clerk-config/!resource->url
-         assoc
-         "/js/viewer.js" "http://localhost:9000/out/main.js")
+(def notebooks
+  ["src/demo.clj"])
 
-  ;; Activate this line to start the clerk server.
+(defn start! []
+  (swap! config/!resource->url
+         merge
+         {"/js/viewer.js" "http://localhost:9000/js/main.js"})
   (clerk/serve!
-   {:browse? true :port 7777})
+   {:browse? true
+    :watch-paths ["src"]
+    :port 7777})
+  (Thread/sleep 500)
+  (clerk/show! "src/demo.clj"))
 
-  ;; build the static app:
-  (clerk/build-static-app!
-   {:bundle? false
-    :paths ["index.md"
-            "src/demo.clj"
-            "src/functions.clj"]}))
+(defn github-pages! [_]
+  (swap! config/!resource->url merge {"/js/viewer.js" "/sicmutils-clerk/js/main.js"})
+  (clerk/build!
+   {:paths notebooks
+    :bundle? false
+    :browse? false
+    :out-path "public"}))
+
+(defn publish-local!
+  ([] (publish-local! nil))
+  ([_]
+   (swap! config/!resource->url merge {"/js/viewer.js" "/js/main.js"})
+   (clerk/build!
+    {:paths notebooks
+     :bundle? false
+     :browse? false
+     :out-path "public"})))
 
 (comment
-  ;; call clerk/show on files to be rendered:
+  (start!)
+  (clerk/serve! {:browse? true})
+  (publish-local!))
+
+(comment
+  ;; If the watcher's not running, call clerk/show on files to be rendered:
 
   ;; intro:
   (clerk/show! "src/demo.clj")

@@ -1,18 +1,18 @@
-{:deps true
- :builds {:sicm-browser
-          {:asset-path "out"
-           :compiler-options
-           {:optimizations :advanced
-            :output-wrapper false
-            :source-map false}
-           :devtools {:http-root ".", :http-port 9000}
-
-           :modules
-           {:main
-            {:entries
-             [demo.viewers
-              nextjournal.clerk.sci-viewer
-              nextjournal.clerk.static-app]}}
-
-           :output-dir "out"
-           :target :browser}}}
+{:deps {:aliases [:dev :nextjournal/clerk]}
+ ;; This port has to match the port in `user.clj`.
+ :dev-http {9000 "public"}
+ :builds
+ {:clerk
+  {:target :browser
+   :modules
+   {:main
+    {:entries
+     [nextjournal.clerk.static-app
+      nextjournal.viewer.notebook
+      nextjournal.clerk.sci-viewer
+      demo.viewers]}}
+   :output-dir "public/js"
+   :asset-path "/js"
+   :compiler-options
+   {:infer-externs :auto
+    :optimizations :advanced}}}}
