@@ -2,25 +2,23 @@
   (:require [hiccup.page :as hiccup]
             [nextjournal.clerk.config :as config]
             [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.view]))
+            [nextjournal.clerk.view]
+            [sicmutils.env :refer :all]
+            [sicmutils.expression.render :as xr]))
 
 ;; To get everything running, first follow the README instructions:
 ;;
 ;;```
-;; shadow-cljs watch sicm-browser
+;; shadow-cljs watch clerk
 ;;```
 ;;
 ;; Then jack in, come here and run the commands in the comment.
 ;;
-;; Better rendering for slides. NOTE that for now, until
-;; https://github.com/babashka/sci/issues/832 is fixed, this has to go in
-;; `demo.clj` or some non-user namespace. It has to be here so that SCI gets the
-;; change before setting its dynamic var.
+;; Better rendering for slides.
 
-#_[sicmutils.expression.render :as xr]
-#_(alter-var-root
-   #'xr/*TeX-vertical-down-tuples*
-   (constantly true))
+(alter-var-root
+ #'xr/*TeX-vertical-down-tuples*
+ (constantly true))
 
 ;; Same with my `[sicmutils.env :refer :all]` to get the REPL working.
 

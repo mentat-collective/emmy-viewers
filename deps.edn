@@ -13,8 +13,12 @@
   {:exec-fn nextjournal.clerk/build-static-app!
    :extra-deps
    {applied-science/js-interop {:mvn/version "0.3.3"}
-    org.babashka/sci {:mvn/version "0.4.33"}
     reagent/reagent {:mvn/version "1.1.1"}
+
+    org.babashka/sci
+    {:git/sha "ffb486bda57db0b74cdd17f58b4867e46a22345e"
+     :git/url "https://github.com/babashka/sci"}
+
     io.github.babashka/sci.configs {:git/sha "fcd367c6a6115c5c4e41f3a08ee5a8d5b3387a18"}
     io.github.nextjournal/viewers {:git/sha "3284aae7379bde3fcf41d17c663bed421fb31d6d"}
     metosin/reitit-frontend {:mvn/version "0.5.15"}}

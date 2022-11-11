@@ -1,6 +1,7 @@
 {
   "scripts": {
     "test": "shadow-cljs compile test && node target/main/node-tests.js;",
+    "watch": "shadow-cljs watch clerk;",
     "watch-test": "shadow-cljs watch test;"
   },
   "dependencies": {
