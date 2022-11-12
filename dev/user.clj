@@ -40,7 +40,17 @@
         (old))))))
 
 (def notebooks
-  ["src/demo.clj"])
+  ["src/demo.clj"
+   "src/functions.clj"
+   "src/ellipsoid.clj"
+   "src/double_ellipsoid.clj"
+   "src/pendulum.clj"
+   "src/oscillator.clj"
+   "src/live_oscillator.clj"
+   "src/jsxgraph.clj"
+   "src/circles.clj"
+   "src/mathlive.clj"
+   "src/cube_controls.clj"])
 
 (defn start! []
   (swap! config/!resource->url

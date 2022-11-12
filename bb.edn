@@ -1,0 +1,32 @@
+{:tasks
+ {sha
+  (let [sha (-> (shell {:out :string} "git rev-parse HEAD")
+                (:out)
+                (clojure.string/trim ))
+        file "public/index.html"]
+    (-> (slurp file)
+        (clojure.string/replace "$GIT_SHA" sha)
+        (->> (spit file))))
+
+  dev-notebook
+  (do (shell "npm install")
+      (shell "npm run watch-clerk"))
+
+  github-pages
+  (do (shell "npm ci")
+      (shell "npm run release-clerk")
+      (shell "clojure -X:dev:clerk user/github-pages!")
+      (run 'sha))
+
+  publish-local
+  (do (shell "npm install")
+      (shell "npm run release-clerk")
+      (shell "clojure -X:dev:clerk user/publish-local!")
+      (run 'sha)
+      (shell "npm run serve"))
+
+  release
+  (shell "clojure -T:build publish")
+
+  lint
+  (shell "clj-kondo --lint src:dev")}}
