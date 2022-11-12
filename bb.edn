@@ -8,14 +8,14 @@
         (clojure.string/replace "$GIT_SHA" sha)
         (->> (spit file))))
 
-  dev-notebook
+  dev
   (do (shell "npm install")
       (shell "npm run watch-clerk"))
 
   github-pages
   (do (shell "npm ci")
       (shell "npm run release-clerk")
-      (shell "clojure -X:dev:clerk user/github-pages!")
+      (shell "clojure -X:dev:nextjournal/clerk user/github-pages!")
       (run 'sha))
 
   publish-local

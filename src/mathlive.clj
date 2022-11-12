@@ -1,15 +1,32 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
+;; ## MathLive -> Expression
+
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ns mathlive
   (:require [nextjournal.clerk :as clerk]
             [pattern.rule :refer [template]]))
 
-;; ## MATHLive
+^{::clerk/visibility {:code :hide}
+  ::clerk/viewer
+  '(fn [_]
+     (v/html
+      [:style "
+math-field {
+  font-size: 24px;
+  border-radius: 4px;
+  border: .5px solid;
+  padding: 8px;
+}
+math-field:focus-within {
+  outline: Highlight auto 1px;
+  outline: -webkit-focus-ring-color auto 1px
+}"]))}
+{}
 
 ^{::clerk/visibility {:code :hide}
   ::clerk/viewer '(fn [_]
                     (defonce state (reagent/atom "hello"))
                     (v/html [:div {}]))}
-(do :ignored)
+{}
 
 ;; Here is an example viewer for MathLive, no configuration allowed so far:
 
@@ -19,12 +36,24 @@
    (template
     (fn [value]
       (v/html
-       [mathlive/Mathfield ~sym])))})
+       [ml/Mathfield
+        {:value (:text @~sym)
+         :on-change
+         (fn [x]
+           (let [mf   (.-target x)
+                 expr (.-expression mf)]
+             (reset! ~sym
+                     (if (or (.-isValid expr)
+                             (empty? (.-errors expr)))
+                       {:valid? true
+                        :expr (.-json expr)
+                        :text (.getValue mf)}
+                       {:valid? false
+                        :text (.getValue mf)}))))}])))})
 
 ;; We can then use the above viewer using metadata:
 
-^{::clerk/width :wide
-  ::clerk/viewer (mathlive-viewer 'state)}
+^{::clerk/viewer (mathlive-viewer 'state)}
 {}
 
 ;; The state is pushed into a page-local atom, which we can use in the NEXT
@@ -37,12 +66,11 @@
       (let [s @state]
         (if-not (:valid? s)
           [:p "Invalid!"]
-          (let [clj (mathlive/mathjson->expression (:expr s))]
-            [:<>
-             [v/inspect (v/code clj)]])))))}
+          (let [clj (demo.mathlive/mathjson->expression (:expr s))]
+            [v/inspect (v/code clj)])))))}
 {}
 
-;; And TeX:
+;; And round-tripped through TeX:
 
 ^{::clerk/visibility {:code :hide}
   ::clerk/viewer
@@ -51,7 +79,6 @@
       (let [s @state]
         (if-not (:valid? s)
           [:p "Invalid!"]
-          (let [clj (mathlive/mathjson->expression (:expr s))]
-            [:<>
-             [v/inspect (v/tex (mathlive/->TeX clj))]])))))}
+          (let [clj (demo.mathlive/mathjson->expression (:expr s))]
+            [v/inspect (v/tex (e/->TeX clj))])))))}
 {}

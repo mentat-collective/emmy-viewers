@@ -13,7 +13,6 @@ jupyter/.ipynb_checkpoints/
 out
 node_modules
 **.shadow-cljs
-package-lock.json
 public/
 .clj-kondo/.cache
 .clerk

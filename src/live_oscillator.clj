@@ -53,7 +53,7 @@
     (fn [{:keys [var-name value]}]
       (v/html
        ;; mbr here is MY wrapper, and `box` is the original mathbox.
-       [mb/Mathbox ~pv/opts
+       [mathbox/Mathbox ~pv/opts
         [mb/Cartesian (:cartesian value)
          [box/Axis {:axis 1 :width 3}]
          [box/Axis {:axis 2 :width 3}]

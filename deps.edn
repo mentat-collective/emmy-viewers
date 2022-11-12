@@ -1,7 +1,10 @@
 {:paths ["src"]
  :deps
- {sicmutils/sicmutils {:mvn/version "0.22.0"}
-  io.github.nextjournal/clerk {:mvn/version "0.11.603"}}
+ {io.github.nextjournal/clerk {:mvn/version "0.11.603"}
+  sicmutils/sicmutils {:mvn/version "0.22.0"}
+  org.mentat/jsxgraph.cljs {:mvn/version "0.0.1"}
+  org.mentat/mathbox.cljs {:mvn/version "0.0.1"}
+  org.mentat/mathlive.cljs {:mvn/version "0.0.1"}}
 
  :aliases
  {:dev
