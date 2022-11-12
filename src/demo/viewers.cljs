@@ -2,6 +2,7 @@
   (:require ["dat.gui" :as dg]
             [demo.jsxgraph]
             [demo.mathbox]
+            [demo.mathlive]
             [nextjournal.clerk.sci-viewer :as sv]
             ["mathbox-react" :as MB]
             [reagent.core :as r]
@@ -10,8 +11,6 @@
 
 ;; Here is the existing context:
 ;; https://github.com/nextjournal/clerk/blob/d08c26043efe19a92fe33dd9eb4499e304e4cff7/src/nextjournal/clerk/sci_viewer.cljs#L1013-L1023
-
-(sci/require-cljs-analyzer-api)
 
 (def mbr-ns
   (-> (into {} (map (fn [[k v]]
@@ -30,9 +29,13 @@
          'demo.mathbox (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
 
          'demo.jsxgraph
-         (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))}
+         (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
+
+         'demo.mathlive
+         (sci/copy-ns demo.mathlive (sci/create-ns 'demo.mathlive))}
         :classes {'Math js/Math}
         :aliases {'mb 'demo.mathbox
                   'mathbox-react "mathbox-react"
                   'box "mathbox-react"
-                  'jsx 'demo.jsxgraph}})
+                  'jsx 'demo.jsxgraph
+                  'mathlive 'demo.mathlive}})

@@ -1,15 +1,15 @@
 (ns user
-  (:refer-clojure
-   :exclude [+ - * / = zero? compare numerator denominator ref partial])
-  (:require [nextjournal.clerk.config :as clerk-config]
+  (:require [hiccup.page :as hiccup]
+            [nextjournal.clerk.config :as config]
             [nextjournal.clerk :as clerk]
+            [nextjournal.clerk.view]
             [sicmutils.env :refer :all]
             [sicmutils.expression.render :as xr]))
 
 ;; To get everything running, first follow the README instructions:
 ;;
 ;;```
-;; shadow-cljs watch sicm-browser
+;; shadow-cljs watch clerk
 ;;```
 ;;
 ;; Then jack in, come here and run the commands in the comment.
@@ -20,25 +20,74 @@
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
 
-(comment
-  (swap! clerk-config/!resource->url
-         assoc
-         "/js/viewer.js"
-         "http://localhost:9000/out/main.js")
+;; Same with my `[sicmutils.env :refer :all]` to get the REPL working.
 
-  ;; Activate this line to start the clerk server.
+(defn rebind [^clojure.lang.Var v f]
+  (let [old (.getRawRoot v)]
+    (.bindRoot v (f old))))
+
+(defonce _ignore
+  (rebind
+   #'nextjournal.clerk.view/include-viewer-css
+   (fn [old]
+     (fn []
+       (concat
+        (list
+         (hiccup/include-css
+          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css")
+         (hiccup/include-css
+          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
+        (old))))))
+
+(def notebooks
+  ["src/demo.clj"
+   "src/functions.clj"
+   "src/ellipsoid.clj"
+   "src/double_ellipsoid.clj"
+   "src/pendulum.clj"
+   "src/oscillator.clj"
+   "src/live_oscillator.clj"
+   "src/jsxgraph.clj"
+   "src/circles.clj"
+   "src/mathlive.clj"
+   "src/cube_controls.clj"])
+
+(defn start! []
+  (swap! config/!resource->url
+         merge
+         {"/js/viewer.js" "http://localhost:9000/js/main.js"})
   (clerk/serve!
-   {:browse? true :port 7777})
+   {:browse? true
+    :watch-paths ["src"]
+    :port 7777})
+  (Thread/sleep 500)
+  (clerk/show! "src/demo.clj"))
 
-  ;; build the static app:
-  (clerk/build-static-app!
-   {:bundle? false
-    :paths ["index.md"
-            "src/demo.clj"
-            "src/functions.clj"]}))
+(defn github-pages! [_]
+  (swap! config/!resource->url merge {"/js/viewer.js" "/sicmutils-clerk/js/main.js"})
+  (clerk/build!
+   {:paths notebooks
+    :bundle? false
+    :browse? false
+    :out-path "public"}))
+
+(defn publish-local!
+  ([] (publish-local! nil))
+  ([_]
+   (swap! config/!resource->url merge {"/js/viewer.js" "/js/main.js"})
+   (clerk/build!
+    {:paths notebooks
+     :bundle? false
+     :browse? false
+     :out-path "public"})))
 
 (comment
-  ;; call clerk/show on files to be rendered:
+  (start!)
+  (clerk/serve! {:browse? true})
+  (publish-local!))
+
+(comment
+  ;; If the watcher's not running, call clerk/show on files to be rendered:
 
   ;; intro:
   (clerk/show! "src/demo.clj")
