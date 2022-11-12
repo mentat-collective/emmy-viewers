@@ -20,9 +20,9 @@
    :render-fn
    '(fn [{:keys [offset]}]
       (v/html
-       [mb/Mathbox {:style {:height "400px" :width "100%"}
-                    :init {:background-color 0xffffff
-                           :focus 3}}
+       [mathbox/Mathbox {:style {:height "400px" :width "100%"}
+                         :init {:background-color 0xffffff
+                                :focus 3}}
         [box/Camera {:proxy true
                      :position [0 0 3]}]
         [box/Polar

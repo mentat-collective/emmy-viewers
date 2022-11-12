@@ -92,7 +92,7 @@
    (template
     (fn [value]
       (v/html
-       [mb/Mathbox ~pv/opts
+       [mathbox/Mathbox ~pv/opts
         [mb/Cartesian (:cartesian value)
          [box/Axis {:axis 1 :width 3}]
          [box/Axis {:axis 2 :width 3}]
@@ -118,6 +118,6 @@
 (clerk/with-viewer d/multiviewer
   (let [L (L-central-triaxial 'm 'a 'b 'c)
         theta (literal-function 'theta)
-        phi (literal-function 'phi)]
+        phi   (literal-function 'phi)]
     (((Lagrange-equations L) (up theta phi))
      't)))

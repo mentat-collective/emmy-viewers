@@ -8,7 +8,7 @@
         (clojure.string/replace "$GIT_SHA" sha)
         (->> (spit file))))
 
-  dev-notebook
+  dev
   (do (shell "npm install")
       (shell "npm run watch-clerk"))
 

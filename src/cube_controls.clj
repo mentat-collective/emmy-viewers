@@ -31,7 +31,7 @@
    :render-fn
    (template
     #(v/html
-      [mb/Mathbox ~opts
+      [mathbox/Mathbox ~opts
        [mb/Cartesian {}
         [mb/ColorCube %]]]))})
 
@@ -112,7 +112,7 @@
       (v/html
        [:<>
         (~(cube-ui-fn :server) var-name value)
-        [mb/Mathbox ~opts
+        [mathbox/Mathbox ~opts
          [mb/Cartesian {}
           [mb/ColorCube value]]]])))))
 
@@ -139,7 +139,7 @@
         (v/html
          [:<>
           (~(cube-ui-fn :client) !v @!v)
-          [mb/Mathbox ~opts
+          [mathbox/Mathbox ~opts
            [mb/Cartesian {}
             [mb/ColorCube @!v]]]]))))})
 

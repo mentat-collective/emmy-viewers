@@ -1,41 +1,37 @@
 (ns demo.viewers
-  (:require ["dat.gui" :as dg]
-            [demo.jsxgraph]
+  (:require [demo.jsxgraph]
             [demo.mathbox]
             [demo.mathlive]
+            [mathbox]
+            [mathbox.primitives]
+            [jsxgraph.core]
+            [mathlive.core]
             [nextjournal.clerk.sci-viewer :as sv]
-            ["mathbox-react" :as MB]
-            [reagent.core :as r]
             [sci.core :as sci]
-            ["three/examples/jsm/controls/OrbitControls.js" :as OC]))
+            [sicmutils.env.sci :as sicm.sci]))
 
 ;; Here is the existing context:
 ;; https://github.com/nextjournal/clerk/blob/d08c26043efe19a92fe33dd9eb4499e304e4cff7/src/nextjournal/clerk/sci_viewer.cljs#L1013-L1023
 
-(def mbr-ns
-  (-> (into {} (map (fn [[k v]]
-                      [(symbol k) (r/adapt-react-class v)]))
-            (.entries js/Object MB))
-
-      ;; so now we can use this all as box/blah, including these two unrelated
-      ;; entries.
-      (assoc 'OrbitControls OC/OrbitControls)
-      (assoc 'GUI (fn [options] (dg/GUI. (clj->js options))))))
-
 (swap! sv/!sci-ctx
        sci/merge-opts
-       {:namespaces
-        {"mathbox-react" mbr-ns
-         'demo.mathbox (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
+       {:classes {'Math js/Math}
+        :namespaces
+        (assoc
+         (:namespaces sicm.sci/context-opts)
+         ;; These are the three provided by this library.
+         'demo.mathbox  (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
+         'demo.jsxgraph (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
+         'demo.mathlive (sci/copy-ns demo.mathlive (sci/create-ns 'demo.mathlive))
 
-         'demo.jsxgraph
-         (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
-
-         'demo.mathlive
-         (sci/copy-ns demo.mathlive (sci/create-ns 'demo.mathlive))}
-        :classes {'Math js/Math}
-        :aliases {'mb 'demo.mathbox
-                  'mathbox-react "mathbox-react"
-                  'box "mathbox-react"
-                  'jsx 'demo.jsxgraph
-                  'mathlive 'demo.mathlive}})
+         ;; These come from external deps, now.
+         'mathbox (sci/copy-ns mathbox (sci/create-ns 'mathbox))
+         'jsxgraph.core (sci/copy-ns jsxgraph.core (sci/create-ns 'jsxgraph.core))
+         'mathlive.core (sci/copy-ns mathlive.core (sci/create-ns 'mathlive.core))
+         'mathbox.primitives
+         (sci/copy-ns mathbox.primitives (sci/create-ns 'mathbox.primitives)))
+        :aliases {'e 'sicmutils.env
+                  'mb 'demo.mathbox
+                  'box 'mathbox.primitives
+                  'jsx 'jsxgraph.core
+                  'ml  'mathlive.core}})
