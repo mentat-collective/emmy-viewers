@@ -14,7 +14,6 @@
 ;; This is the Lagrangian for a harmonic oscillator, continued on from the
 ;; presentation.
 
-
 (defn L-harmonic [m k]
   (fn [[_ [_ _ z :as q] v]]
     (let [T (* 1/2 m (square v))

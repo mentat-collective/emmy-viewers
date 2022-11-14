@@ -1,4 +1,4 @@
-# sicmutils-clerk
+# sicmutils-viewers
 
 This is a very early stage set of demos and extensions for SICMUtils and Clerk
 backed by Mathbox. More later!
@@ -39,8 +39,8 @@ When those are all set (the links include installation instructions),
 Clone the repository:
 
 ```bash
-git clone git@github.com:sicmutils/sicmutils-clerk.git
-cd sicmutils-clerk
+git clone git@github.com:sicmutils/sicmutils-viewers.git
+cd sicmutils-viewers
 ```
 
 Generate the JS bundle for the demos by running the following commands in one
