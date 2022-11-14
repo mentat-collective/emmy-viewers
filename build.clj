@@ -1,10 +1,10 @@
 (ns build
-  "tools.build declarations for the sicmutils-clerk library."
+  "tools.build declarations for the sicmutils-viewers library."
   (:require [clojure.tools.build.api :as b]))
 
 ;; ## Variables
 
-(def lib 'org.mentat/sicmutils-clerk)
+(def lib 'org.mentat/sicmutils-viewers)
 (def version "0.0.1")
 
 (defn- ->version
