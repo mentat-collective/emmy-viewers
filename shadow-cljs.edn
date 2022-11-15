@@ -1,21 +1,16 @@
 {:deps {:aliases [:dev]}
  ;; This port has to match the port in `user.clj`.
- :dev-http {9000 "public"}
+ :dev-http {9000 {:handler sicmutils-viewers.shadow-cljs/dev-handler}}
+ 
  :builds
  {:clerk
-  {:target :browser
-   :modules
-   {:main
-    {:entries
-     [nextjournal.clerk.static-app
-      nextjournal.viewer.notebook
-      demo.viewers]}}
+  {:target :esm
+   :runtime :browser ;; `:custom` needed when developing ssr, will see WebSocket errors without it
    :output-dir "public/js"
-   :asset-path "/js"
-   :compiler-options
-   {:infer-externs :auto
-    :optimizations :advanced}}}}
-
-
-(sci.ctx-store/reset-ctx!
- (sci.ctx-store/get-ctx))
+   :release {:output-dir "build/"}
+   :compiler-options {:source-map true}
+   :build-options {:ns-aliases {nextjournal.devcards nextjournal.devcards-noop}}
+   :modules {:viewer {:entries [nextjournal.clerk.sci-env
+                                nextjournal.clerk.static-app
+                                nextjournal.clerk.trim-image]}}
+   :js-options {:output-feature-set :es8}}}}

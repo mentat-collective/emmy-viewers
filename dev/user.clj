@@ -58,7 +58,7 @@
 (defn start! []
   (swap! config/!resource->url
          merge
-         {"/js/viewer.js" "http://localhost:9000/js/main.js"})
+         {"/js/viewer.js" "http://localhost:9000/js/viewer.js"})
   (clerk/serve!
    {:browse? true
     :watch-paths ["src"]
