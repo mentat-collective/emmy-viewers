@@ -6,6 +6,8 @@
             [sicmutils.env :refer :all]
             [sicmutils.expression.render :as xr]))
 
+(requiring-resolve 'cljs.analyzer.api/ns-resolve)
+
 ;; To get everything running, first follow the README instructions:
 ;;
 ;;```
@@ -30,14 +32,14 @@
   (rebind
    #'nextjournal.clerk.view/include-viewer-css
    (fn [old]
-     (fn []
+     (fn [& xs]
        (concat
         (list
          (hiccup/include-css
           "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css")
          (hiccup/include-css
           "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
-        (old))))))
+        (apply old xs))))))
 
 (def notebooks
   ["src/demo.clj"

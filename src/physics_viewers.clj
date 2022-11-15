@@ -21,7 +21,8 @@
                         :generic-params? false}))]
        (-> (update m :L
                    (fn [L]
-                     (compile (e/Lagrangian->state-derivative L))))
+                     (compile
+                      (e/Lagrangian->state-derivative L))))
            (update :state->xyz compile))))))
 
 (def physics-xform

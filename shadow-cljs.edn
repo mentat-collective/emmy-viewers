@@ -9,10 +9,13 @@
     {:entries
      [nextjournal.clerk.static-app
       nextjournal.viewer.notebook
-      nextjournal.clerk.sci-viewer
       demo.viewers]}}
    :output-dir "public/js"
    :asset-path "/js"
    :compiler-options
    {:infer-externs :auto
     :optimizations :advanced}}}}
+
+
+(sci.ctx-store/reset-ctx!
+ (sci.ctx-store/get-ctx))

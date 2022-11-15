@@ -9,6 +9,10 @@
             [physics-viewers :as pv]
             [sicmutils.env :as e :refer :all]))
 
+(def transform-var
+  (comp (clerk/update-val symbol)
+        clerk/mark-presented))
+
 ;; ## Oscillator Communication btw Server, Client
 ;;
 ;; This was a fun thing I thought would never work, but whipped up yesterday.
@@ -34,37 +38,42 @@
 (def init-state
   {:state->xyz coordinate
    :L (L-harmonic-gravity m k g)
-   :initial-state [0
-                   [1 2 0]
-                   [2 0 4]]
+   :initial-state [0 [1 2 0] [2 0 4]]
    :cartesian
    {:range {:x [-10 10]
             :y [-10 10]
             :z [-10 10]}
     :scale [3 3 3]}})
 
-;; Now we have the interactive physics viewer, which has a nice surprise for us.
-
-^{::clerk/viewer
-  {:transform-fn (pv/interactive-physics-xform
-                  (pv/physics-xform-fn init-state))
-   :render-fn
-   (template
-    (fn [{:keys [var-name value]}]
-      (v/html
-       ;; mbr here is MY wrapper, and `box` is the original mathbox.
-       [mathbox/Mathbox ~pv/opts
-        [mb/Cartesian (:cartesian value)
-         [box/Axis {:axis 1 :width 3}]
-         [box/Axis {:axis 2 :width 3}]
-         [box/Axis {:axis 3 :width 3}]
-         [mb/Mass
-          (-> value
-              (select-keys [:L :state->xyz :initial-state])
-              (assoc :var-name var-name))]]])))}}
+^::clerk/sync
 (defonce oscillator-state
   (atom
    (:initial-state init-state)))
+
+;; Now we have the interactive physics viewer, which has a nice surprise for us.
+
+^{::clerk/viewer
+  {:transform-fn clerk/mark-presented
+   :render-fn
+   (template
+    (fn [{:keys [var-name value]}]
+      (js/console.log #'oscillator-state)
+      (js/console.log (pr-str var-name))
+      (js/console.log (pr-str value))
+      (let [state @(resolve var-name)]
+        (v/html
+         ;; mbr here is MY wrapper, and `box` is the original mathbox.
+         [mathbox/Mathbox ~pv/opts
+          [mb/Cartesian (:cartesian value)
+           [box/Axis {:axis 1 :width 3}]
+           [box/Axis {:axis 2 :width 3}]
+           [box/Axis {:axis 3 :width 3}]
+           [mb/Mass
+            (-> value
+                (select-keys [:L :state->xyz :initial-state])
+                (assoc :var-name state))]]]))))}}
+{:value (pv/physics-xform-fn init-state)
+ :var-name 'oscillator-state}
 
 ;; Here's the state of the atom. Note that this will refresh every time the atom
 ;; changes server-side. And the viewer above can do that!

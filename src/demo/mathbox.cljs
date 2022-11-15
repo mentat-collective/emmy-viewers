@@ -1,6 +1,5 @@
 (ns demo.mathbox
   (:require [mathbox.primitives :as box]
-            [nextjournal.clerk.sci-viewer :as sv]
             [reagent.core :as r :include-macros true]
             [sicmutils.expression.compile :as xc]
             [sicmutils.numerical.ode :as ode]
@@ -73,6 +72,9 @@
             output (.solve integrator equations t s t2 nil)]
         (struct/unflatten (.-y ^js output) state)))))
 
+;; TODO Goal today: get the state updates changed here:
+;; https://github.com/nextjournal/clerk/blob/main/notebooks/nextjournal/clerk/atom.clj
+
 (defn Mass [{:keys [state->xyz L initial-state var-name]}]
   (let [render-fn   (xc/sci-eval state->xyz)
         state-deriv (xc/sci-eval L)
@@ -85,15 +87,14 @@
                       :expr
                       (fn [emit _x _i t]
                         (swap! !state #(my-updater % t))
+                        ;; TODO combine??
                         (when var-name
-                          (sv/clerk-eval
-                           (list 'clojure.core/reset!
-                                 var-name
-                                 (mapv (fn rec [x]
-                                         (if (sequential? x)
-                                           (mapv rec x)
-                                           x))
-                                       @!state))))
+                          (reset! var-name
+                                  (mapv (fn rec [x]
+                                          (if (sequential? x)
+                                            (mapv rec x)
+                                            x))
+                                        @!state)))
                         (let [[x1 y1 z1] (render-fn @!state)]
                           (emit x1 z1 y1)))
                       :channels 3}]
