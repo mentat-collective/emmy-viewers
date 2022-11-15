@@ -3,10 +3,11 @@
             [nextjournal.clerk.config :as config]
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.view]
+            ;; TODO: move those three includes elsewhere and conditionalize them
+            [cljs.analyzer.api]            
             [sicmutils.env :refer :all]
             [sicmutils.expression.render :as xr]))
 
-(requiring-resolve 'cljs.analyzer.api/ns-resolve)
 
 ;; To get everything running, first follow the README instructions:
 ;;
