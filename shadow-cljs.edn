@@ -1,4 +1,4 @@
-{:deps {:aliases [:dev :nextjournal/clerk]}
+{:deps {:aliases [:dev]}
  ;; This port has to match the port in `user.clj`.
  :dev-http {9000 "public"}
  :builds
