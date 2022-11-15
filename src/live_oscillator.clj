@@ -52,14 +52,11 @@
 
 ;; Now we have the interactive physics viewer, which has a nice surprise for us.
 
-^{::clerk/viewer
-  {:transform-fn clerk/mark-presented
+(def mass-viewer
+  {:transform-fn (pv/interactive-physics-xform 'oscillator-state)
    :render-fn
    (template
     (fn [{:keys [var-name value]}]
-      (js/console.log #'oscillator-state)
-      (js/console.log (pr-str var-name))
-      (js/console.log (pr-str value))
       (let [state @(resolve var-name)]
         (v/html
          ;; mbr here is MY wrapper, and `box` is the original mathbox.
@@ -71,9 +68,14 @@
            [mb/Mass
             (-> value
                 (select-keys [:L :state->xyz :initial-state])
-                (assoc :var-name state))]]]))))}}
-{:value (pv/physics-xform-fn init-state)
- :var-name 'oscillator-state}
+                (assoc :state-atom state))]]]))))})
+
+;; Then we use it:
+
+^{::clerk/viewer mass-viewer}
+init-state
+
+;; TODO JSXGraph Too! Use the Sam Zhang thing to show them side by side.
 
 ;; Here's the state of the atom. Note that this will refresh every time the atom
 ;; changes server-side. And the viewer above can do that!

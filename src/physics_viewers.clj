@@ -31,16 +31,12 @@
 
 ;; Here was a crazy experiment...
 
-(defn interactive-physics-xform-fn [init]
-  (fn [{::clerk/keys [var-from-def]}]
-    {:var-name (symbol var-from-def)
-     ;; don't make it keep rebuilding, yikes!!
-     :value init
-     #_(physics-xform-fn @@var-from-def)}))
+(defn interactive-physics-xform-fn [sym]
+  (fn [init]
+    {:var-name sym
+     :value (physics-xform-fn init)}))
 
-(defn interactive-physics-xform
-  "pass in the already transformed!!"
-  [init]
+(defn interactive-physics-xform [sym]
   (comp clerk/mark-presented
         (clerk/update-val
-         (interactive-physics-xform-fn init))))
+         (interactive-physics-xform-fn sym))))

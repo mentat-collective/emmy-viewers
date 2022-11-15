@@ -75,55 +75,76 @@
 ;; TODO Goal today: get the state updates changed here:
 ;; https://github.com/nextjournal/clerk/blob/main/notebooks/nextjournal/clerk/atom.clj
 
-(defn Mass [{:keys [state->xyz L initial-state var-name]}]
-  (let [render-fn   (xc/sci-eval state->xyz)
-        state-deriv (xc/sci-eval L)
-        my-updater  (Lagrangian-updater state-deriv initial-state)]
-    (r/with-let [!state (r/atom initial-state)]
+(defn ->v [s]
+  (mapv (fn rec [x]
+          (if (sequential? x)
+            (mapv rec x)
+            x))
+        s))
+
+(defn Mass
+  "Provide either `:state-atom` or `:initial-state`"
+  [{:keys [state->xyz L initial-state state-atom]}]
+  (r/with-let [!state      (r/atom initial-state)
+               render-fn   (xc/sci-eval state->xyz)
+               state-deriv (xc/sci-eval L)
+               my-updater  (Lagrangian-updater state-deriv @!state)]
+    [:<>
+     [box/Interval {:width 1
+                    :items 1
+                    :history 20
+                    :expr
+                    (fn [emit _x _i t]
+                      (swap! !state #(my-updater % t))
+                      (when state-atom
+                        ;; TODO combine?? We can only do that if we can serialize
+                        ;; our `up` out as a vector when we send it over the wire.
+                        (reset! state-atom (-> @!state)))
+                      (let [[x1 y1 z1] (render-fn @!state)]
+                        (emit x1 z1 y1)))
+                    :channels 3}]
+     [box/Point {:color 0x3090ff
+                 :size 20
+                 :zIndex 1}]]))
+
+#_(defn Pendulum
+    []
+    (r/with-let [!state      (r/atom initial-state)
+                 render-fn   (xc/sci-eval state->xyz)
+                 state-deriv (xc/sci-eval L)
+                 my-updater  (Lagrangian-updater state-deriv @!state)]
       [:<>
-       [box/Interval {:width 1
-                      :items 1
-                      :history 20
-                      :expr
-                      (fn [emit _x _i t]
-                        (swap! !state #(my-updater % t))
-                        ;; TODO combine??
-                        (when var-name
-                          (reset! var-name
-                                  (mapv (fn rec [x]
-                                          (if (sequential? x)
-                                            (mapv rec x)
-                                            x))
-                                        @!state)))
-                        (let [[x1 y1 z1] (render-fn @!state)]
-                          (emit x1 z1 y1)))
-                      :channels 3}]
-       [box/Point {:color 0x3090ff
-                   :size 20
-                   :zIndex 1}]])))
+       [box/Array {:data [0 0]
+                   :channels 2}]
+       [box/Point {:color 0x909090 :size 4}]
+       [box/Array {:width 2 :channels 2 :items 2
+                   :expr (fn [emit _x _i t]
+                           (swap! !state #(my-updater % t))
+                           (let [[x1 y1 z1] (render-fn @!state)]
+                             (emit x1 z1 y1)))}]]))
 
 (defn DoubleMass
   "Obviously these should be merged!"
   [{:keys [state->xyz L initial-state]}]
-  (let [render-fn   (xc/sci-eval state->xyz)
-        state-deriv (xc/sci-eval L)
-        my-updater  (Lagrangian-updater state-deriv initial-state)]
-    (r/with-let [!state (r/atom initial-state)]
-      [:<>
-       [box/Interval
-        {;; because we have two items to emit.
-         :width 2
-         :items 1
-         :expr
-         (fn [emit _x _i t]
-           (swap! !state #(my-updater % t))
-           (let [[x1 y1 z1 x2 y2 z2] (render-fn @!state)]
-             (emit x1 z1 y1)
-             (emit x2 z2 y2)))
-         :channels 3}]
-       [box/Point {:color 0x3090ff
-                   :size 20
-                   :zIndex 1}]])))
+  (r/with-let [render-fn   (xc/sci-eval state->xyz)
+               state-deriv (xc/sci-eval L)
+               my-updater  (Lagrangian-updater state-deriv initial-state)
+               !state (r/atom initial-state)]
+    [:<>
+     [box/Interval
+      {;; because we have two items to emit.
+       :width 2
+       :items 1
+       :expr
+       (fn [emit _x _i t]
+         (swap! !state #(my-updater % t))
+         (let [[x1 y1 z1 x2 y2 z2] (render-fn @!state)]
+           (emit x1 z1 y1)
+           (emit x2 z2 y2)))
+       :channels 3}]
+     [box/Point {:color 0x3090ff
+                 :size 20
+                 :zIndex 1}]]))
 
 (def ^:private two-pi (* 2 Math/PI))
 
@@ -138,7 +159,7 @@
      :expr (fn [emit theta phi _i _j _time]
              (let [sin-theta (Math/sin theta)
                    cos-theta (Math/cos theta)]
-               ;; x y z? I think xzy
+               ;; xzy
                (emit (* a sin-theta (Math/cos phi))
                      (* c cos-theta)
                      (* b sin-theta (Math/sin phi)))))
