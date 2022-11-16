@@ -10,7 +10,5 @@
    :release {:output-dir "build/"}
    :compiler-options {:source-map true}
    :build-options {:ns-aliases {nextjournal.devcards nextjournal.devcards-noop}}
-   :modules {:viewer {:entries [nextjournal.clerk.sci-env
-                                nextjournal.clerk.static-app
-                                nextjournal.clerk.trim-image]}}
+   :modules {:viewer {:entries [demo.viewers]}}
    :js-options {:output-feature-set :es8}}}}
