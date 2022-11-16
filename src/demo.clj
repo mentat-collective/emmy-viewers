@@ -1,5 +1,5 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
 (ns demo
+  {:nextjournal.clerk/visibility {:code :hide}}
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [nextjournal.clerk :as clerk]
@@ -40,10 +40,10 @@
 
 (defn transform-literal [l]
   (let [simple (simplify l)]
-    {:simplified_TeX (clerk/tex (->TeX simple))
-     :simplified     (v/freeze simple)
-     :TeX            (clerk/tex (->TeX l))
-     :original       (v/freeze l)}))
+    {"simplified TeX" (clerk/tex (->TeX simple))
+     "simplified" (v/freeze simple)
+     "TeX"            (clerk/tex (->TeX l))
+     "original"       (v/freeze l)}))
 
 ;; Try it out:
 
@@ -66,24 +66,23 @@
                         (memoize xform)))
    :render-fn
    '(fn [x]
-      (v/html
-       (reagent/with-let [!sel (reagent/atom (ffirst x))]
-         [:<>
-          (into
-           [:div.flex.items-center.font-sans.text-xs.mb-3
-            [:span.text-slate-500.mr-2 "View as:"]]
-           (map (fn [[l _]]
-                  [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
-                   {:class (if (= @!sel l)
-                             "bg-indigo-100 text-indigo-600"
-                             "text-slate-500")
-                    :on-click #(reset! !sel l)}
-                   l])
-                x))
-          ;; I guess here the value is a data structure with its viewer info
-          ;; embedded.
-          [v/inspect-presented
-           (get x @!sel)]])))})
+      (reagent/with-let [!sel (reagent/atom (ffirst x))]
+        [:<>
+         (into
+          [:div.flex.items-center.font-sans.text-xs.mb-3
+           [:span.text-slate-500.mr-2 "View as:"]]
+          (map (fn [[l _]]
+                 [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
+                  {:class (if (= @!sel l)
+                            "bg-indigo-100 text-indigo-600"
+                            "text-slate-500")
+                   :on-click #(reset! !sel l)}
+                  l])
+               x))
+         ;; I guess here the value is a data structure with its viewer info
+         ;; embedded.
+         [nextjournal.clerk.render/inspect-presented
+          (get x @!sel)]]))})
 
 (def multiviewer
   (literal-viewer transform-literal))

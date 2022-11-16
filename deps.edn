@@ -1,6 +1,6 @@
 {:paths ["src"]
  :deps
- {io.github.nextjournal/clerk {:git/sha "70455ceab2ee53c3775980113bfa1ed8313a46cb"}
+ {io.github.nextjournal/clerk {:git/sha "0de521817374b901841ef92b6e26844104606ae9"}
   sicmutils/sicmutils {:mvn/version "0.22.0"}
   org.mentat/jsxgraph.cljs {:mvn/version "0.0.1"}
   org.mentat/mathbox.cljs {:mvn/version "0.0.1"}
@@ -10,7 +10,7 @@
  {:dev
   {:extra-paths ["dev"]
    :extra-deps {io.github.nextjournal/clerk.render {:git/url "https://github.com/nextjournal/clerk"
-                                                    :git/sha "70455ceab2ee53c3775980113bfa1ed8313a46cb"
+                                                    :git/sha "0de521817374b901841ef92b6e26844104606ae9"
                                                     :deps/root "render"}}}
 
   :nextjournal/clerk {:extra-deps {}}
