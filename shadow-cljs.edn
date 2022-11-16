@@ -1,6 +1,6 @@
 {:deps {:aliases [:dev]}
  ;; This port has to match the port in `user.clj`.
- :dev-http {9000 {:handler sicmutils-viewers.shadow-cljs/dev-handler}}
+ :dev-http {9000 "public"}
  
  :builds
  {:clerk
