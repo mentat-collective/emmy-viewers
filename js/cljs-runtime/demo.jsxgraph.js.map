@@ -1,0 +1,1 @@
+{"version":3,"sources":["demo/jsxgraph.cljs"],"mappings":"","names":[],"sourcesContent":["(ns demo.jsxgraph\n  \"These should be sicmutils extensions for jsxgraph, nothing here for now.\n  Namespace needs a rename too.\")\n"]}

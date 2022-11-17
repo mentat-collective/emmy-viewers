@@ -1,0 +1,9 @@
+{
+"version":3,
+"file":"goog.i18n.nativelocaledigits.js",
+"lineCount":9,
+"mappings":"AAQA,IAAA,CAAA,UAAA,CAAA,QAAA,CAAA,OAAA,CAAA;AAAA,cAAA;AAAAA,MAAKC,CAAAA,MAAL,CAAY,8BAAZ,CAAA;AAWA,MAAIC,eAAJ;AAGAC,SAAQD,CAAAA,eAAR;AASAC,SAAQC,CAAAA,sBAAR,GAAiC,CAC/B,KAAM,MADyB,EAE/B,QAAS,MAFsB,EAG/B,KAAM,MAHyB,EAI/B,KAAM,SAJyB,EAK/B,KAAM,MALyB,EAM/B,KAAM,MANyB,EAO/B,KAAM,MAPyB,CAAjC;AAvBA,SAAA,OAAA;AAAA,CAAA,CAAA;;",
+"sources":["goog/i18n/nativelocaledigits.js"],
+"sourcesContent":["/**\n * @license\n * Copyright The Closure Library Authors.\n * SPDX-License-Identifier: Apache-2.0\n */\n\n// clang-format off\n\ngoog.module('goog.i18n.NativeLocaleDigits');\n\n/**\n * @fileoverview Provides map of locales to script identifiers\n * where locales require specific digits other than ASCII.\n */\n\n/**\n * Type of map from locale string to script codes\n * @typedef {!Object<string,string>}\n */\nlet LocaleScriptMap;\n\n/** @typedef {{LocaleScriptMap}} */\nexports.LocaleScriptMap;\n\n/**\n * Native digit codes in ECMAScript Intl objects for locales\n * where native digits are prescribed and Intl data is generally available.\n * This is designed for classes that create locale-specific\n * numbers. Examples include number and date/time formatting.\n * @const {!LocaleScriptMap}\n */\nexports.FormatWithLocaleDigits = {\n  'ar': 'latn',\n  'ar-EG': 'arab',\n  'bn': 'beng',\n  'fa': 'arabext',\n  'mr': 'deva',\n  'my': 'mymr',\n  'ne': 'deva'\n};\n"],
+"names":["goog","module","LocaleScriptMap","exports","FormatWithLocaleDigits"]
+}
