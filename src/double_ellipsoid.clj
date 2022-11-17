@@ -37,7 +37,6 @@
         (F->C (elliptical->rect a b c))))
 
 ;; Final Demo:
-
 (clerk/with-viewer
   {:transform-fn pv/physics-xform
    :render-fn

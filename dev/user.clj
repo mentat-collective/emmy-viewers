@@ -43,6 +43,7 @@
   ["src/demo.clj"
    "src/functions.clj"
    "src/ellipsoid.clj"
+   "src/phase_portrait.clj"
    "src/double_ellipsoid.clj"
    "src/pendulum.clj"
    "src/oscillator.clj"

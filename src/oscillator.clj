@@ -38,6 +38,7 @@
          [box/Axis {:axis 2 :width 3}]
          [box/Axis {:axis 3 :width 3}]
          [mb/Mass
+
           (select-keys value [:L :state->xyz :initial-state])]]])))}
   {:state->xyz coordinate
    :L (L-harmonic m k)

@@ -1,11 +1,9 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(ns cake
+(ns phase-portrait
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
-  (:require [demo :as d]
-            [nextjournal.clerk :as clerk]
+  (:require [nextjournal.clerk :as clerk]
             [pattern.rule :refer [template]]
-            [physics-viewers :as pv]
             [sicmutils.env :as e :refer :all]))
 
 ;; ## Mathbox Oscillator
