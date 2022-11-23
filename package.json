@@ -32,6 +32,8 @@
     "emoji-regex": "10.2.1",
     "fraction.js": "^4.0.12",
     "framer-motion": "6.5.1",
+    "gh-pages": "^3.2.3",
+    "http-server": "^14.1.1",
     "katex": "0.12.0",
     "lezer-clojure": "1.0.0-rc.2",
     "markdown-it": "12.3.2",

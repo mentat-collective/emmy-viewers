@@ -2,9 +2,11 @@
   (:require [hiccup.page :as hiccup]
             [nextjournal.clerk.config :as config]
             [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.view]
-            [sicmutils.env :refer :all]
-            [sicmutils.expression.render :as xr]))
+            [nextjournal.clerk.view]))
+
+(try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
+(require '[sicmutils.env :refer :all])
+(require '[sicmutils.expression.render :as xr])
 
 ;; To get everything running, first follow the README instructions:
 ;;

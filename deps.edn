@@ -1,7 +1,8 @@
 {:paths ["src"]
  :deps
  {io.github.nextjournal/clerk {:mvn/version "0.11.603"}
-  sicmutils/sicmutils {:mvn/version "0.22.0"}
+  ;; sicmutils/sicmutils {:mvn/version "0.22.0"}
+  sicmutils/sicmutils {:local/root "../sicmutils"}
   org.mentat/jsxgraph.cljs {:mvn/version "0.0.1"}
   org.mentat/mathbox.cljs {:mvn/version "0.0.1"}
   org.mentat/mathlive.cljs {:mvn/version "0.0.1"}}
@@ -19,7 +20,7 @@
     reagent/reagent {:mvn/version "1.1.1"}
 
     org.babashka/sci
-    {:git/sha "ffb486bda57db0b74cdd17f58b4867e46a22345e"
+    {:git/sha "136a26c6d77d966ea85a310571e098a9282c9141"
      :git/url "https://github.com/babashka/sci"}
 
     io.github.babashka/sci.configs {:git/sha "fcd367c6a6115c5c4e41f3a08ee5a8d5b3387a18"}
