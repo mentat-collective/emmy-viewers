@@ -28,8 +28,8 @@ goog.provide('sicmutils.numerical.quadrature.simpson38');
  *   memoize your function before calling `simpson38-sequence`.
  */
 sicmutils.numerical.quadrature.simpson38.simpson38_sequence = (function sicmutils$numerical$quadrature$simpson38$simpson38_sequence(var_args){
-var G__102883 = arguments.length;
-switch (G__102883) {
+var G__102898 = arguments.length;
+switch (G__102898) {
 case 3:
 return sicmutils.numerical.quadrature.simpson38.simpson38_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -48,10 +48,10 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.simpson38.simpson38_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"n","n",562130025),(1)], null));
 }));
 
-(sicmutils.numerical.quadrature.simpson38.simpson38_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102884){
-var map__102885 = p__102884;
-var map__102885__$1 = cljs.core.__destructure_map(map__102885);
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102885__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+(sicmutils.numerical.quadrature.simpson38.simpson38_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102899){
+var map__102900 = p__102899;
+var map__102900__$1 = cljs.core.__destructure_map(map__102900);
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102900__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 if(typeof n === 'number'){
 } else {
 throw (new Error("Assert failed: (number? n)"));

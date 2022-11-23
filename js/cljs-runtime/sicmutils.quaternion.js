@@ -74,18 +74,18 @@ return not_found;
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IKVReduce$_kv_reduce$arity$3 = (function (_,f,init){
 var self__ = this;
 var ___$1 = this;
-var G__102914 = (function (){var G__102917 = (function (){var G__102920 = (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(init,self__.r,(0)) : f.call(null,init,self__.r,(0)));
-var G__102921 = self__.i;
-var G__102922 = (1);
-return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(G__102920,G__102921,G__102922) : f.call(null,G__102920,G__102921,G__102922));
+var G__102968 = (function (){var G__102971 = (function (){var G__102974 = (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(init,self__.r,(0)) : f.call(null,init,self__.r,(0)));
+var G__102975 = self__.i;
+var G__102976 = (1);
+return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(G__102974,G__102975,G__102976) : f.call(null,G__102974,G__102975,G__102976));
 })();
-var G__102918 = self__.j;
-var G__102919 = (2);
-return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(G__102917,G__102918,G__102919) : f.call(null,G__102917,G__102918,G__102919));
+var G__102972 = self__.j;
+var G__102973 = (2);
+return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(G__102971,G__102972,G__102973) : f.call(null,G__102971,G__102972,G__102973));
 })();
-var G__102915 = self__.k;
-var G__102916 = (3);
-return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(G__102914,G__102915,G__102916) : f.call(null,G__102914,G__102915,G__102916));
+var G__102969 = self__.k;
+var G__102970 = (3);
+return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(G__102968,G__102969,G__102970) : f.call(null,G__102968,G__102969,G__102970));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IIndexed$_nth$arity$2 = (function (this$,n){
@@ -97,8 +97,8 @@ return this$__$1.cljs$core$IIndexed$_nth$arity$3(null,n,null);
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IIndexed$_nth$arity$3 = (function (_,n,default$){
 var self__ = this;
 var ___$1 = this;
-var G__102923 = n;
-switch (G__102923) {
+var G__102977 = n;
+switch (G__102977) {
 case (0):
 return self__.r;
 
@@ -222,26 +222,26 @@ return (new sicmutils.quaternion.Quaternion(sicmutils.value.one_like(self__.r),(
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IReduce$_reduce$arity$2 = (function (_,f){
 var self__ = this;
 var ___$1 = this;
-var G__102926 = (function (){var G__102928 = (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(self__.r,self__.i) : f.call(null,self__.r,self__.i));
-var G__102929 = self__.j;
-return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102928,G__102929) : f.call(null,G__102928,G__102929));
+var G__102979 = (function (){var G__102981 = (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(self__.r,self__.i) : f.call(null,self__.r,self__.i));
+var G__102982 = self__.j;
+return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102981,G__102982) : f.call(null,G__102981,G__102982));
 })();
-var G__102927 = self__.k;
-return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102926,G__102927) : f.call(null,G__102926,G__102927));
+var G__102980 = self__.k;
+return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102979,G__102980) : f.call(null,G__102979,G__102980));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IReduce$_reduce$arity$3 = (function (_,f,start){
 var self__ = this;
 var ___$1 = this;
-var G__102930 = (function (){var G__102932 = (function (){var G__102934 = (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(start,self__.r) : f.call(null,start,self__.r));
-var G__102935 = self__.i;
-return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102934,G__102935) : f.call(null,G__102934,G__102935));
+var G__102983 = (function (){var G__102985 = (function (){var G__102987 = (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(start,self__.r) : f.call(null,start,self__.r));
+var G__102988 = self__.i;
+return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102987,G__102988) : f.call(null,G__102987,G__102988));
 })();
-var G__102933 = self__.j;
-return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102932,G__102933) : f.call(null,G__102932,G__102933));
+var G__102986 = self__.j;
+return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102985,G__102986) : f.call(null,G__102985,G__102986));
 })();
-var G__102931 = self__.k;
-return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102930,G__102931) : f.call(null,G__102930,G__102931));
+var G__102984 = self__.k;
+return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__102983,G__102984) : f.call(null,G__102983,G__102984));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.sicmutils$function$IArity$ = cljs.core.PROTOCOL_SENTINEL);
@@ -255,8 +255,8 @@ return (sicmutils.quaternion.arity.cljs$core$IFn$_invoke$arity$1 ? sicmutils.qua
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (_,key,v){
 var self__ = this;
 var ___$1 = this;
-var G__102936 = key;
-switch (G__102936) {
+var G__102989 = key;
+switch (G__102989) {
 case (0):
 return (new sicmutils.quaternion.Quaternion(v,self__.i,self__.j,self__.k,self__.m));
 
@@ -282,8 +282,8 @@ throw (new Error("Quaternion's key for assoc must be 0, 1, 2 or 3."));
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IAssociative$_contains_key_QMARK_$arity$2 = (function (_,k__$1){
 var self__ = this;
 var ___$1 = this;
-return cljs.core.boolean$((function (){var fexpr__102941 = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 4, [(0),null,(1),null,(3),null,(2),null], null), null);
-return (fexpr__102941.cljs$core$IFn$_invoke$arity$1 ? fexpr__102941.cljs$core$IFn$_invoke$arity$1(k__$1) : fexpr__102941.call(null,k__$1));
+return cljs.core.boolean$((function (){var fexpr__102990 = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 4, [(0),null,(1),null,(3),null,(2),null], null), null);
+return (fexpr__102990.cljs$core$IFn$_invoke$arity$1 ? fexpr__102990.cljs$core$IFn$_invoke$arity$1(k__$1) : fexpr__102990.call(null,k__$1));
 })());
 }));
 
@@ -305,11 +305,11 @@ var ___$2 = this;
 throw (new Error(["conj not suported on Quaternion instances. convert to"," vector first!"].join('')));
 }));
 
-(sicmutils.quaternion.Quaternion.prototype.call = (function (unused__43952__auto__){
+(sicmutils.quaternion.Quaternion.prototype.call = (function (unused__43702__auto__){
 var self__ = this;
 var self__ = this;
-var G__102942 = (arguments.length - (1));
-switch (G__102942) {
+var G__102991 = (arguments.length - (1));
+switch (G__102991) {
 case (0):
 return self__.cljs$core$IFn$_invoke$arity$0();
 
@@ -404,186 +404,186 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 }
 }));
 
-(sicmutils.quaternion.Quaternion.prototype.apply = (function (self__,args102913){
+(sicmutils.quaternion.Quaternion.prototype.apply = (function (self__,args102967){
 var self__ = this;
 var self____$1 = this;
-return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args102913)));
+return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args102967)));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$0 = (function (){
 var self__ = this;
 var this$ = this;
-var G__102950 = this$;
-var G__102951 = cljs.core.PersistentVector.EMPTY;
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102950,G__102951) : sicmutils.quaternion.evaluate.call(null,G__102950,G__102951));
+var G__103015 = this$;
+var G__103016 = cljs.core.PersistentVector.EMPTY;
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103015,G__103016) : sicmutils.quaternion.evaluate.call(null,G__103015,G__103016));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$1 = (function (a){
 var self__ = this;
 var this$ = this;
-var G__102952 = this$;
-var G__102953 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [a], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102952,G__102953) : sicmutils.quaternion.evaluate.call(null,G__102952,G__102953));
+var G__103024 = this$;
+var G__103025 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [a], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103024,G__103025) : sicmutils.quaternion.evaluate.call(null,G__103024,G__103025));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$2 = (function (a,b){
 var self__ = this;
 var this$ = this;
-var G__102954 = this$;
-var G__102955 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102954,G__102955) : sicmutils.quaternion.evaluate.call(null,G__102954,G__102955));
+var G__103026 = this$;
+var G__103027 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103026,G__103027) : sicmutils.quaternion.evaluate.call(null,G__103026,G__103027));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$3 = (function (a,b,c){
 var self__ = this;
 var this$ = this;
-var G__102956 = this$;
-var G__102957 = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102956,G__102957) : sicmutils.quaternion.evaluate.call(null,G__102956,G__102957));
+var G__103028 = this$;
+var G__103029 = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103028,G__103029) : sicmutils.quaternion.evaluate.call(null,G__103028,G__103029));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$4 = (function (a,b,c,d){
 var self__ = this;
 var this$ = this;
-var G__102962 = this$;
-var G__102963 = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102962,G__102963) : sicmutils.quaternion.evaluate.call(null,G__102962,G__102963));
+var G__103030 = this$;
+var G__103031 = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103030,G__103031) : sicmutils.quaternion.evaluate.call(null,G__103030,G__103031));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$5 = (function (a,b,c,d,e){
 var self__ = this;
 var this$ = this;
-var G__102972 = this$;
-var G__102973 = new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102972,G__102973) : sicmutils.quaternion.evaluate.call(null,G__102972,G__102973));
+var G__103033 = this$;
+var G__103034 = new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103033,G__103034) : sicmutils.quaternion.evaluate.call(null,G__103033,G__103034));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$6 = (function (a,b,c,d,e,f){
 var self__ = this;
 var this$ = this;
-var G__102979 = this$;
-var G__102980 = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102979,G__102980) : sicmutils.quaternion.evaluate.call(null,G__102979,G__102980));
+var G__103050 = this$;
+var G__103051 = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103050,G__103051) : sicmutils.quaternion.evaluate.call(null,G__103050,G__103051));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$7 = (function (a,b,c,d,e,f,g){
 var self__ = this;
 var this$ = this;
-var G__102991 = this$;
-var G__102992 = new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__102991,G__102992) : sicmutils.quaternion.evaluate.call(null,G__102991,G__102992));
+var G__103052 = this$;
+var G__103053 = new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103052,G__103053) : sicmutils.quaternion.evaluate.call(null,G__103052,G__103053));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$8 = (function (a,b,c,d,e,f,g,h){
 var self__ = this;
 var this$ = this;
-var G__103002 = this$;
-var G__103003 = new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103002,G__103003) : sicmutils.quaternion.evaluate.call(null,G__103002,G__103003));
+var G__103054 = this$;
+var G__103055 = new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103054,G__103055) : sicmutils.quaternion.evaluate.call(null,G__103054,G__103055));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$9 = (function (a,b,c,d,e,f,g,h,i__$1){
 var self__ = this;
 var this$ = this;
-var G__103014 = this$;
-var G__103015 = new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103014,G__103015) : sicmutils.quaternion.evaluate.call(null,G__103014,G__103015));
+var G__103057 = this$;
+var G__103058 = new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103057,G__103058) : sicmutils.quaternion.evaluate.call(null,G__103057,G__103058));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$10 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1){
 var self__ = this;
 var this$ = this;
-var G__103027 = this$;
-var G__103028 = new cljs.core.PersistentVector(null, 10, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103027,G__103028) : sicmutils.quaternion.evaluate.call(null,G__103027,G__103028));
+var G__103059 = this$;
+var G__103060 = new cljs.core.PersistentVector(null, 10, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103059,G__103060) : sicmutils.quaternion.evaluate.call(null,G__103059,G__103060));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$11 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1){
 var self__ = this;
 var this$ = this;
-var G__103045 = this$;
-var G__103046 = new cljs.core.PersistentVector(null, 11, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103045,G__103046) : sicmutils.quaternion.evaluate.call(null,G__103045,G__103046));
+var G__103065 = this$;
+var G__103066 = new cljs.core.PersistentVector(null, 11, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103065,G__103066) : sicmutils.quaternion.evaluate.call(null,G__103065,G__103066));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$12 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l){
 var self__ = this;
 var this$ = this;
-var G__103052 = this$;
-var G__103053 = new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103052,G__103053) : sicmutils.quaternion.evaluate.call(null,G__103052,G__103053));
+var G__103067 = this$;
+var G__103068 = new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103067,G__103068) : sicmutils.quaternion.evaluate.call(null,G__103067,G__103068));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$13 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1){
 var self__ = this;
 var this$ = this;
-var G__103059 = this$;
-var G__103060 = new cljs.core.PersistentVector(null, 13, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103059,G__103060) : sicmutils.quaternion.evaluate.call(null,G__103059,G__103060));
+var G__103073 = this$;
+var G__103074 = new cljs.core.PersistentVector(null, 13, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103073,G__103074) : sicmutils.quaternion.evaluate.call(null,G__103073,G__103074));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$14 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n){
 var self__ = this;
 var this$ = this;
-var G__103072 = this$;
-var G__103073 = new cljs.core.PersistentVector(null, 14, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103072,G__103073) : sicmutils.quaternion.evaluate.call(null,G__103072,G__103073));
+var G__103075 = this$;
+var G__103076 = new cljs.core.PersistentVector(null, 14, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103075,G__103076) : sicmutils.quaternion.evaluate.call(null,G__103075,G__103076));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$15 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o){
 var self__ = this;
 var this$ = this;
-var G__103080 = this$;
-var G__103081 = new cljs.core.PersistentVector(null, 15, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103080,G__103081) : sicmutils.quaternion.evaluate.call(null,G__103080,G__103081));
+var G__103077 = this$;
+var G__103078 = new cljs.core.PersistentVector(null, 15, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103077,G__103078) : sicmutils.quaternion.evaluate.call(null,G__103077,G__103078));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$16 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p){
 var self__ = this;
 var this$ = this;
-var G__103086 = this$;
-var G__103087 = new cljs.core.PersistentVector(null, 16, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103086,G__103087) : sicmutils.quaternion.evaluate.call(null,G__103086,G__103087));
+var G__103079 = this$;
+var G__103080 = new cljs.core.PersistentVector(null, 16, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103079,G__103080) : sicmutils.quaternion.evaluate.call(null,G__103079,G__103080));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$17 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q){
 var self__ = this;
 var this$ = this;
-var G__103090 = this$;
-var G__103091 = new cljs.core.PersistentVector(null, 17, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103090,G__103091) : sicmutils.quaternion.evaluate.call(null,G__103090,G__103091));
+var G__103081 = this$;
+var G__103082 = new cljs.core.PersistentVector(null, 17, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103081,G__103082) : sicmutils.quaternion.evaluate.call(null,G__103081,G__103082));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$18 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1){
 var self__ = this;
 var this$ = this;
-var G__103095 = this$;
-var G__103096 = new cljs.core.PersistentVector(null, 18, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103095,G__103096) : sicmutils.quaternion.evaluate.call(null,G__103095,G__103096));
+var G__103083 = this$;
+var G__103084 = new cljs.core.PersistentVector(null, 18, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103083,G__103084) : sicmutils.quaternion.evaluate.call(null,G__103083,G__103084));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$19 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s){
 var self__ = this;
 var this$ = this;
-var G__103099 = this$;
-var G__103100 = new cljs.core.PersistentVector(null, 19, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103099,G__103100) : sicmutils.quaternion.evaluate.call(null,G__103099,G__103100));
+var G__103085 = this$;
+var G__103086 = new cljs.core.PersistentVector(null, 19, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103085,G__103086) : sicmutils.quaternion.evaluate.call(null,G__103085,G__103086));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$20 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s,t){
 var self__ = this;
 var this$ = this;
-var G__103101 = this$;
-var G__103102 = new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s,t], null);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103101,G__103102) : sicmutils.quaternion.evaluate.call(null,G__103101,G__103102));
+var G__103087 = this$;
+var G__103088 = new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s,t], null);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103087,G__103088) : sicmutils.quaternion.evaluate.call(null,G__103087,G__103088));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.cljs$core$IFn$_invoke$arity$21 = (function (a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s,t,rest){
 var self__ = this;
 var this$ = this;
-var G__103103 = this$;
-var G__103104 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s,t], null),rest);
-return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103103,G__103104) : sicmutils.quaternion.evaluate.call(null,G__103103,G__103104));
+var G__103089 = this$;
+var G__103090 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i__$1,j__$1,k__$1,l,m__$1,n,o,p,q,r__$1,s,t], null),rest);
+return (sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.quaternion.evaluate.cljs$core$IFn$_invoke$arity$2(G__103089,G__103090) : sicmutils.quaternion.evaluate.call(null,G__103089,G__103090));
 }));
 
 (sicmutils.quaternion.Quaternion.prototype.sicmutils$differential$IPerturbed$ = cljs.core.PROTOCOL_SENTINEL);
@@ -648,8 +648,8 @@ delete sicmutils.quaternion["__GT_Quaternion"];
  *   The final metadata argument `m` defaults to nil if not supplied.
  */
 sicmutils.quaternion.__GT_Quaternion = (function sicmutils$quaternion$__GT_Quaternion(var_args){
-var G__103132 = arguments.length;
-switch (G__103132) {
+var G__103119 = arguments.length;
+switch (G__103119) {
 case 4:
 return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),(arguments[(3)]));
 
@@ -809,14 +809,14 @@ return sicmutils.value.zero_QMARK_(sicmutils.quaternion.get_r(q));
  */
 sicmutils.quaternion.unit_QMARK_ = (function sicmutils$quaternion$unit_QMARK_(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___103673 = arguments.length;
-var i__4865__auto___103674 = (0);
+var len__4864__auto___103571 = arguments.length;
+var i__4865__auto___103572 = (0);
 while(true){
-if((i__4865__auto___103674 < len__4864__auto___103673)){
-args__4870__auto__.push((arguments[i__4865__auto___103674]));
+if((i__4865__auto___103572 < len__4864__auto___103571)){
+args__4870__auto__.push((arguments[i__4865__auto___103572]));
 
-var G__103675 = (i__4865__auto___103674 + (1));
-i__4865__auto___103674 = G__103675;
+var G__103573 = (i__4865__auto___103572 + (1));
+i__4865__auto___103572 = G__103573;
 continue;
 } else {
 }
@@ -827,10 +827,10 @@ var argseq__4871__auto__ = ((((1) < args__4870__auto__.length))?(new cljs.core.I
 return sicmutils.quaternion.unit_QMARK_.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__4871__auto__);
 });
 
-(sicmutils.quaternion.unit_QMARK_.cljs$core$IFn$_invoke$arity$variadic = (function (q,p__103223){
-var map__103225 = p__103223;
-var map__103225__$1 = cljs.core.__destructure_map(map__103225);
-var epsilon = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103225__$1,new cljs.core.Keyword(null,"epsilon","epsilon",-730158570));
+(sicmutils.quaternion.unit_QMARK_.cljs$core$IFn$_invoke$arity$variadic = (function (q,p__103173){
+var map__103174 = p__103173;
+var map__103174__$1 = cljs.core.__destructure_map(map__103174);
+var epsilon = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103174__$1,new cljs.core.Keyword(null,"epsilon","epsilon",-730158570));
 var mag_sq = (sicmutils.quaternion.magnitude_sq.cljs$core$IFn$_invoke$arity$1 ? sicmutils.quaternion.magnitude_sq.cljs$core$IFn$_invoke$arity$1(q) : sicmutils.quaternion.magnitude_sq.call(null,q));
 if(cljs.core.truth_(epsilon)){
 return sicmutils.value.within(epsilon)((1),sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(mag_sq));
@@ -842,11 +842,11 @@ return sicmutils.value.one_QMARK_(mag_sq);
 (sicmutils.quaternion.unit_QMARK_.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(sicmutils.quaternion.unit_QMARK_.cljs$lang$applyTo = (function (seq103210){
-var G__103211 = cljs.core.first(seq103210);
-var seq103210__$1 = cljs.core.next(seq103210);
+(sicmutils.quaternion.unit_QMARK_.cljs$lang$applyTo = (function (seq103171){
+var G__103172 = cljs.core.first(seq103171);
+var seq103171__$1 = cljs.core.next(seq103171);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103211,seq103210__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103172,seq103171__$1);
 }));
 
 /**
@@ -964,8 +964,8 @@ sicmutils.quaternion.K = sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_inv
  *  as the coefficients.
  */
 sicmutils.quaternion.make = (function sicmutils$quaternion$make(var_args){
-var G__103254 = arguments.length;
-switch (G__103254) {
+var G__103188 = arguments.length;
+switch (G__103188) {
 case 1:
 return sicmutils.quaternion.make.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1001,11 +1001,11 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(x,(0),
 }
 }));
 
-(sicmutils.quaternion.make.cljs$core$IFn$_invoke$arity$2 = (function (r,p__103256){
-var vec__103257 = p__103256;
-var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103257,(0),null);
-var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103257,(1),null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103257,(2),null);
+(sicmutils.quaternion.make.cljs$core$IFn$_invoke$arity$2 = (function (r,p__103191){
+var vec__103192 = p__103191;
+var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103192,(0),null);
+var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103192,(1),null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103192,(2),null);
 return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(r,i,j,k);
 }));
 
@@ -1024,11 +1024,11 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(r,i,j,
 sicmutils.quaternion.parse_quaternion = (function sicmutils$quaternion$parse_quaternion(x){
 if(cljs.core.vector_QMARK_(x)){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(x),(4))){
-var vec__103263 = x;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103263,(0),null);
-var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103263,(1),null);
-var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103263,(2),null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103263,(3),null);
+var vec__103197 = x;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103197,(0),null);
+var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103197,(1),null);
+var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103197,(2),null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103197,(3),null);
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("sicmutils.quaternion","make","sicmutils.quaternion/make",-1502099897,null),null,(1),null)),(new cljs.core.List(null,r,null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,i,null,(1),null)),(new cljs.core.List(null,j,null,(1),null)),(new cljs.core.List(null,k,null,(1),null))], 0))));
 } else {
 return sicmutils.util.illegal(["Quaternion literal vectors require 4 elements. Received: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(x)].join(''));
@@ -1146,8 +1146,8 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmut
  *   to the elementwise sum of the coefficients of all supplied quaternions.
  */
 sicmutils.quaternion.add = (function sicmutils$quaternion$add(var_args){
-var G__103281 = arguments.length;
-switch (G__103281) {
+var G__103282 = arguments.length;
+switch (G__103282) {
 case 0:
 return sicmutils.quaternion.add.cljs$core$IFn$_invoke$arity$0();
 
@@ -1162,14 +1162,14 @@ return sicmutils.quaternion.add.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___103696 = arguments.length;
-var i__4865__auto___103697 = (0);
+var len__4864__auto___103593 = arguments.length;
+var i__4865__auto___103594 = (0);
 while(true){
-if((i__4865__auto___103697 < len__4864__auto___103696)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___103697]));
+if((i__4865__auto___103594 < len__4864__auto___103593)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___103594]));
 
-var G__103698 = (i__4865__auto___103697 + (1));
-i__4865__auto___103697 = G__103698;
+var G__103595 = (i__4865__auto___103594 + (1));
+i__4865__auto___103594 = G__103595;
 continue;
 } else {
 }
@@ -1199,13 +1199,13 @@ return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(sicmutils.quaternion.add,s
 }));
 
 /** @this {Function} */
-(sicmutils.quaternion.add.cljs$lang$applyTo = (function (seq103278){
-var G__103279 = cljs.core.first(seq103278);
-var seq103278__$1 = cljs.core.next(seq103278);
-var G__103280 = cljs.core.first(seq103278__$1);
-var seq103278__$2 = cljs.core.next(seq103278__$1);
+(sicmutils.quaternion.add.cljs$lang$applyTo = (function (seq103279){
+var G__103280 = cljs.core.first(seq103279);
+var seq103279__$1 = cljs.core.next(seq103279);
+var G__103281 = cljs.core.first(seq103279__$1);
+var seq103279__$2 = cljs.core.next(seq103279__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103279,G__103280,seq103278__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103280,G__103281,seq103279__$2);
 }));
 
 (sicmutils.quaternion.add.cljs$lang$maxFixedArity = (2));
@@ -1250,8 +1250,8 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmut
  *   to the pairwise difference of the coefficients of `q1` and `q2`.
  */
 sicmutils.quaternion.sub = (function sicmutils$quaternion$sub(var_args){
-var G__103313 = arguments.length;
-switch (G__103313) {
+var G__103301 = arguments.length;
+switch (G__103301) {
 case 0:
 return sicmutils.quaternion.sub.cljs$core$IFn$_invoke$arity$0();
 
@@ -1266,14 +1266,14 @@ return sicmutils.quaternion.sub.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___103708 = arguments.length;
-var i__4865__auto___103709 = (0);
+var len__4864__auto___103599 = arguments.length;
+var i__4865__auto___103600 = (0);
 while(true){
-if((i__4865__auto___103709 < len__4864__auto___103708)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___103709]));
+if((i__4865__auto___103600 < len__4864__auto___103599)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___103600]));
 
-var G__103710 = (i__4865__auto___103709 + (1));
-i__4865__auto___103709 = G__103710;
+var G__103601 = (i__4865__auto___103600 + (1));
+i__4865__auto___103600 = G__103601;
 continue;
 } else {
 }
@@ -1303,13 +1303,13 @@ return sicmutils.quaternion.sub.cljs$core$IFn$_invoke$arity$2(q1,cljs.core.apply
 }));
 
 /** @this {Function} */
-(sicmutils.quaternion.sub.cljs$lang$applyTo = (function (seq103310){
-var G__103311 = cljs.core.first(seq103310);
-var seq103310__$1 = cljs.core.next(seq103310);
-var G__103312 = cljs.core.first(seq103310__$1);
-var seq103310__$2 = cljs.core.next(seq103310__$1);
+(sicmutils.quaternion.sub.cljs$lang$applyTo = (function (seq103298){
+var G__103299 = cljs.core.first(seq103298);
+var seq103298__$1 = cljs.core.next(seq103298);
+var G__103300 = cljs.core.first(seq103298__$1);
+var seq103298__$2 = cljs.core.next(seq103298__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103311,G__103312,seq103310__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103299,G__103300,seq103298__$2);
 }));
 
 (sicmutils.quaternion.sub.cljs$lang$maxFixedArity = (2));
@@ -1348,8 +1348,8 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmut
  *   ji  == -k, kj == -i, ik == -j
  */
 sicmutils.quaternion.mul = (function sicmutils$quaternion$mul(var_args){
-var G__103332 = arguments.length;
-switch (G__103332) {
+var G__103306 = arguments.length;
+switch (G__103306) {
 case 0:
 return sicmutils.quaternion.mul.cljs$core$IFn$_invoke$arity$0();
 
@@ -1364,14 +1364,14 @@ return sicmutils.quaternion.mul.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___103716 = arguments.length;
-var i__4865__auto___103717 = (0);
+var len__4864__auto___103607 = arguments.length;
+var i__4865__auto___103608 = (0);
 while(true){
-if((i__4865__auto___103717 < len__4864__auto___103716)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___103717]));
+if((i__4865__auto___103608 < len__4864__auto___103607)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___103608]));
 
-var G__103718 = (i__4865__auto___103717 + (1));
-i__4865__auto___103717 = G__103718;
+var G__103609 = (i__4865__auto___103608 + (1));
+i__4865__auto___103608 = G__103609;
 continue;
 } else {
 }
@@ -1409,13 +1409,13 @@ return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(sicmutils.quaternion.mul,s
 }));
 
 /** @this {Function} */
-(sicmutils.quaternion.mul.cljs$lang$applyTo = (function (seq103329){
-var G__103330 = cljs.core.first(seq103329);
-var seq103329__$1 = cljs.core.next(seq103329);
-var G__103331 = cljs.core.first(seq103329__$1);
-var seq103329__$2 = cljs.core.next(seq103329__$1);
+(sicmutils.quaternion.mul.cljs$lang$applyTo = (function (seq103303){
+var G__103304 = cljs.core.first(seq103303);
+var seq103303__$1 = cljs.core.next(seq103303);
+var G__103305 = cljs.core.first(seq103303__$1);
+var seq103303__$2 = cljs.core.next(seq103303__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103330,G__103331,seq103329__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103304,G__103305,seq103303__$2);
 }));
 
 (sicmutils.quaternion.mul.cljs$lang$maxFixedArity = (2));
@@ -1460,16 +1460,16 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmut
  *   $$r_l * r_r + i_l * i_r + j_l * j_r + k_l * k_r$$
  */
 sicmutils.quaternion.dot_product = (function sicmutils$quaternion$dot_product(l,r){
-var vec__103354 = l;
-var lr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103354,(0),null);
-var li = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103354,(1),null);
-var lj = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103354,(2),null);
-var lk = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103354,(3),null);
-var vec__103357 = r;
-var rr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(0),null);
-var ri = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(1),null);
-var rj = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(2),null);
-var rk = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(3),null);
+var vec__103310 = l;
+var lr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103310,(0),null);
+var li = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103310,(1),null);
+var lj = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103310,(2),null);
+var lk = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103310,(3),null);
+var vec__103313 = r;
+var rr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103313,(0),null);
+var ri = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103313,(1),null);
+var rj = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103313,(2),null);
+var rk = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103313,(3),null);
 return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(lr,rr),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(li,ri),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(lj,rj),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(lk,rk)], 0));
 });
 /**
@@ -1506,8 +1506,8 @@ return sicmutils.quaternion.q_div_scalar(sicmutils.quaternion.conjugate(q),(sicm
  *   `q1` and the multiplicative inverse of `q2`
  */
 sicmutils.quaternion.div = (function sicmutils$quaternion$div(var_args){
-var G__103372 = arguments.length;
-switch (G__103372) {
+var G__103320 = arguments.length;
+switch (G__103320) {
 case 0:
 return sicmutils.quaternion.div.cljs$core$IFn$_invoke$arity$0();
 
@@ -1522,14 +1522,14 @@ return sicmutils.quaternion.div.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___103731 = arguments.length;
-var i__4865__auto___103732 = (0);
+var len__4864__auto___103633 = arguments.length;
+var i__4865__auto___103634 = (0);
 while(true){
-if((i__4865__auto___103732 < len__4864__auto___103731)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___103732]));
+if((i__4865__auto___103634 < len__4864__auto___103633)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___103634]));
 
-var G__103733 = (i__4865__auto___103732 + (1));
-i__4865__auto___103732 = G__103733;
+var G__103635 = (i__4865__auto___103634 + (1));
+i__4865__auto___103634 = G__103635;
 continue;
 } else {
 }
@@ -1559,13 +1559,13 @@ return sicmutils.quaternion.div.cljs$core$IFn$_invoke$arity$2(q1,cljs.core.apply
 }));
 
 /** @this {Function} */
-(sicmutils.quaternion.div.cljs$lang$applyTo = (function (seq103369){
-var G__103370 = cljs.core.first(seq103369);
-var seq103369__$1 = cljs.core.next(seq103369);
-var G__103371 = cljs.core.first(seq103369__$1);
-var seq103369__$2 = cljs.core.next(seq103369__$1);
+(sicmutils.quaternion.div.cljs$lang$applyTo = (function (seq103317){
+var G__103318 = cljs.core.first(seq103317);
+var seq103317__$1 = cljs.core.next(seq103317);
+var G__103319 = cljs.core.first(seq103317__$1);
+var seq103317__$2 = cljs.core.next(seq103317__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103370,G__103371,seq103369__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103318,G__103319,seq103317__$2);
 }));
 
 (sicmutils.quaternion.div.cljs$lang$maxFixedArity = (2));
@@ -1627,11 +1627,11 @@ return sicmutils.quaternion.sub.cljs$core$IFn$_invoke$arity$2(sicmutils.quaterni
  *   $$
  */
 sicmutils.quaternion.log = (function sicmutils$quaternion$log(q){
-var vec__103378 = q;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(0),null);
-var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(1),null);
-var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(2),null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(3),null);
+var vec__103324 = q;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103324,(0),null);
+var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103324,(1),null);
+var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103324,(2),null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103324,(3),null);
 if(((sicmutils.value.zero_QMARK_(j)) && (sicmutils.value.zero_QMARK_(k)))){
 if(sicmutils.value.zero_QMARK_(i)){
 return sicmutils.quaternion.make.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.log.cljs$core$IFn$_invoke$arity$1(r));
@@ -1772,11 +1772,11 @@ return sicmutils.quaternion.make.cljs$core$IFn$_invoke$arity$2(sicmutils.generic
  * 
  *   NOTE: If you have an UN-normalized axis, prefer [[from-angle-axis]].
  */
-sicmutils.quaternion.from_angle_normal_axis = (function sicmutils$quaternion$from_angle_normal_axis(angle,p__103398){
-var vec__103399 = p__103398;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103399,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103399,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103399,(2),null);
+sicmutils.quaternion.from_angle_normal_axis = (function sicmutils$quaternion$from_angle_normal_axis(angle,p__103327){
+var vec__103328 = p__103327;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103328,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103328,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103328,(2),null);
 var half_angle = sicmutils.generic.div.cljs$core$IFn$_invoke$arity$2(angle,(2));
 var half_sine = sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(half_angle);
 return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(half_angle),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half_sine,x),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half_sine,y),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half_sine,z));
@@ -1885,10 +1885,10 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  *   Returns a [[Quaternion]] instance with coefficients `[a b c d]`.
  */
 sicmutils.quaternion.from_complex_matrix = (function sicmutils$quaternion$from_complex_matrix(M){
-var vec__103418 = sicmutils.matrix.matrix__GT_vector(M);
-var vec__103421 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103418,(0),null);
-var a_PLUS_bi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103421,(0),null);
-var c_PLUS_di = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103421,(1),null);
+var vec__103341 = sicmutils.matrix.matrix__GT_vector(M);
+var vec__103344 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103341,(0),null);
+var a_PLUS_bi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103344,(0),null);
+var c_PLUS_di = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103344,(1),null);
 return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmutils.generic.real_part.cljs$core$IFn$_invoke$arity$1(a_PLUS_bi),sicmutils.generic.imag_part.cljs$core$IFn$_invoke$arity$1(a_PLUS_bi),sicmutils.generic.real_part.cljs$core$IFn$_invoke$arity$1(c_PLUS_di),sicmutils.generic.imag_part.cljs$core$IFn$_invoke$arity$1(c_PLUS_di));
 });
 /**
@@ -1906,11 +1906,11 @@ return sicmutils.quaternion.__GT_Quaternion.cljs$core$IFn$_invoke$arity$4(sicmut
  *   entries.
  */
 sicmutils.quaternion.__GT_complex_matrix = (function sicmutils$quaternion$__GT_complex_matrix(q){
-var vec__103428 = q;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103428,(0),null);
-var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103428,(1),null);
-var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103428,(2),null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103428,(3),null);
+var vec__103349 = q;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103349,(0),null);
+var i = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103349,(1),null);
+var j = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103349,(2),null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103349,(3),null);
 return sicmutils.matrix.by_rows.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.make_rectangular.cljs$core$IFn$_invoke$arity$2(r,i),sicmutils.generic.make_rectangular.cljs$core$IFn$_invoke$arity$2(j,k)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.make_rectangular.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(j),k),sicmutils.generic.make_rectangular.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(i))], null)], 0));
 });
 /**
@@ -1973,19 +1973,19 @@ sicmutils.quaternion.quarter = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$a
  *   operations. No `BigInt` in Clojurescript for now, for example.
  */
 sicmutils.quaternion.from_rotation_matrix = (function sicmutils$quaternion$from_rotation_matrix(M){
-var vec__103454 = M;
-var vec__103457 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103454,(0),null);
-var r11 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103457,(0),null);
-var r12 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103457,(1),null);
-var r13 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103457,(2),null);
-var vec__103460 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103454,(1),null);
-var r21 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103460,(0),null);
-var r22 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103460,(1),null);
-var r23 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103460,(2),null);
-var vec__103463 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103454,(2),null);
-var r31 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103463,(0),null);
-var r32 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103463,(1),null);
-var r33 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103463,(2),null);
+var vec__103375 = M;
+var vec__103378 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103375,(0),null);
+var r11 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(0),null);
+var r12 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(1),null);
+var r13 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103378,(2),null);
+var vec__103381 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103375,(1),null);
+var r21 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103381,(0),null);
+var r22 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103381,(1),null);
+var r23 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103381,(2),null);
+var vec__103384 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103375,(2),null);
+var r31 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103384,(0),null);
+var r32 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103384,(1),null);
+var r33 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103384,(2),null);
 var q0_2 = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.quaternion.quarter,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic((1),r11,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([r22,r33], 0)));
 var q1_2 = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.quaternion.quarter,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic((1),r11,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(r22),sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(r33)], 0)));
 var q2_2 = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.quaternion.quarter,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic((1),sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(r11),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([r22,sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(r33)], 0)));

@@ -82,26 +82,26 @@ return sicmutils.structure.sumr.cljs$core$IFn$_invoke$arity$variadic(f,cljs.core
 });
 sicmutils.calculus.basis.vector_basis__GT_dual = (function sicmutils$calculus$basis$vector_basis__GT_dual(vector_basis,coordinate_system){
 var prototype = sicmutils.calculus.manifold.coordinate_prototype(coordinate_system);
-var vector_basis_coefficient_functions = sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (p1__101557_SHARP_){
-return sicmutils.calculus.vector_field.vector_field__GT_components(p1__101557_SHARP_,coordinate_system);
+var vector_basis_coefficient_functions = sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (p1__101479_SHARP_){
+return sicmutils.calculus.vector_field.vector_field__GT_components(p1__101479_SHARP_,coordinate_system);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0));
 var guts = (function (coords){
 var shape = sicmutils.structure.compatible_shape(prototype);
-var invert = (function (p1__101558_SHARP_){
-return sicmutils.matrix.s_COLON_inverse.cljs$core$IFn$_invoke$arity$3(shape,p1__101558_SHARP_,prototype);
+var invert = (function (p1__101480_SHARP_){
+return sicmutils.matrix.s_COLON_inverse.cljs$core$IFn$_invoke$arity$3(shape,p1__101480_SHARP_,prototype);
 });
-var transpose = (function (p1__101559_SHARP_){
-return sicmutils.matrix.s_COLON_transpose.cljs$core$IFn$_invoke$arity$3(shape,p1__101559_SHARP_,prototype);
+var transpose = (function (p1__101481_SHARP_){
+return sicmutils.matrix.s_COLON_transpose.cljs$core$IFn$_invoke$arity$3(shape,p1__101481_SHARP_,prototype);
 });
-return transpose(invert(sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (p1__101560_SHARP_){
-return (p1__101560_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__101560_SHARP_.cljs$core$IFn$_invoke$arity$1(coords) : p1__101560_SHARP_.call(null,coords));
+return transpose(invert(sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (p1__101482_SHARP_){
+return (p1__101482_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__101482_SHARP_.cljs$core$IFn$_invoke$arity$1(coords) : p1__101482_SHARP_.call(null,coords));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis_coefficient_functions], 0))));
 });
-var oneform_basis_coefficient_functions = sicmutils.calculus.manifold.c_COLON_generate(new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(sicmutils.calculus.manifold.manifold(coordinate_system)),new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),(function (p1__101561_SHARP_){
-return cljs.core.comp.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.component.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([p1__101561_SHARP_], 0)),guts);
+var oneform_basis_coefficient_functions = sicmutils.calculus.manifold.c_COLON_generate(new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(sicmutils.calculus.manifold.manifold(coordinate_system)),new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),(function (p1__101483_SHARP_){
+return cljs.core.comp.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.component.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([p1__101483_SHARP_], 0)),guts);
 }));
-var oneform_basis = sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (p1__101562_SHARP_){
-return sicmutils.calculus.form_field.components__GT_oneform_field.cljs$core$IFn$_invoke$arity$2(p1__101562_SHARP_,coordinate_system);
+var oneform_basis = sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (p1__101484_SHARP_){
+return sicmutils.calculus.form_field.components__GT_oneform_field.cljs$core$IFn$_invoke$arity$2(p1__101484_SHARP_,coordinate_system);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([oneform_basis_coefficient_functions], 0));
 return oneform_basis;
 });
@@ -112,8 +112,8 @@ var vector_basis = sicmutils.calculus.basis.basis__GT_vector_basis(basis);
 var oneform_basis = sicmutils.calculus.basis.basis__GT_oneform_basis(basis);
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((vector_basis.cljs$core$IFn$_invoke$arity$1 ? vector_basis.cljs$core$IFn$_invoke$arity$1(f) : vector_basis.call(null,f)),sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (onefb){
 return (function (_){
-var fexpr__101563 = (onefb.cljs$core$IFn$_invoke$arity$1 ? onefb.cljs$core$IFn$_invoke$arity$1(v) : onefb.call(null,v));
-return (fexpr__101563.cljs$core$IFn$_invoke$arity$1 ? fexpr__101563.cljs$core$IFn$_invoke$arity$1(m0) : fexpr__101563.call(null,m0));
+var fexpr__101488 = (onefb.cljs$core$IFn$_invoke$arity$1 ? onefb.cljs$core$IFn$_invoke$arity$1(v) : onefb.call(null,v));
+return (fexpr__101488.cljs$core$IFn$_invoke$arity$1 ? fexpr__101488.cljs$core$IFn$_invoke$arity$1(m0) : fexpr__101488.call(null,m0));
 });
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([oneform_basis], 0)));
 });

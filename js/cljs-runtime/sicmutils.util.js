@@ -9,8 +9,8 @@ goog.scope(function(){
  *   - the instrumented fn
  */
 sicmutils.util.counted = (function sicmutils$util$counted(var_args){
-var G__95158 = arguments.length;
-switch (G__95158) {
+var G__95362 = arguments.length;
+switch (G__95362) {
 case 1:
 return sicmutils.util.counted.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

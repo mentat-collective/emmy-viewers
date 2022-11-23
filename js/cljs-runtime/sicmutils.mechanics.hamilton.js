@@ -6,12 +6,12 @@ goog.provide('sicmutils.mechanics.hamilton');
  *   Useful for constructing Hamiltonian literal functions.
  */
 sicmutils.mechanics.hamilton.Hamiltonian = (function sicmutils$mechanics$hamilton$Hamiltonian(n){
-var r__20948__auto__ = cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"->","->",-2139605430,null),cljs.core.seq(new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP","UP",-1898089532,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP*","UP*",294235991,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null)),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"DOWN*","DOWN*",1300864675,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null))], null)),new cljs.core.Symbol(null,"Real","Real",374292741,null)], null));
-var or__4253__auto__ = r__20948__auto__;
+var r__21102__auto__ = cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"->","->",-2139605430,null),cljs.core.seq(new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP","UP",-1898089532,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP*","UP*",294235991,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null)),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"DOWN*","DOWN*",1300864675,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null))], null)),new cljs.core.Symbol(null,"Real","Real",374292741,null)], null));
+var or__4253__auto__ = r__21102__auto__;
 if(or__4253__auto__){
 return or__4253__auto__;
 } else {
-return pattern.consequence.succeed(r__20948__auto__);
+return pattern.consequence.succeed(r__21102__auto__);
 }
 });
 /**
@@ -42,10 +42,10 @@ var and__4251__auto__ = sicmutils.structure.up_QMARK_(s);
 if(and__4251__auto__){
 var and__4251__auto____$1 = cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(s),(3));
 if(and__4251__auto____$1){
-var vec__103274 = s;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103274,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103274,(1),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103274,(2),null);
+var vec__103288 = s;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103288,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103288,(1),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103288,(2),null);
 return ((sicmutils.value.numerical_QMARK_(t)) && (((((sicmutils.value.numerical_QMARK_(q)) && (sicmutils.value.numerical_QMARK_(v)))) || (((sicmutils.structure.up_QMARK_(q)) && (((sicmutils.structure.down_QMARK_(v)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.dimension(q),sicmutils.structure.dimension(v))))))))));
 } else {
 return and__4251__auto____$1;
@@ -112,19 +112,19 @@ return sicmutils.mechanics.hamilton.__GT_H_state(cljs.core.gensym.cljs$core$IFn$
 });
 sicmutils.mechanics.hamilton.L_state__GT_H_state = (function sicmutils$mechanics$hamilton$L_state__GT_H_state(L){
 return (function (Ls){
-return sicmutils.mechanics.hamilton.__GT_H_state(sicmutils.mechanics.lagrange.time(Ls),sicmutils.mechanics.lagrange.coordinate(Ls),(function (){var fexpr__103283 = (function (){var fexpr__103284 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103284.cljs$core$IFn$_invoke$arity$1 ? fexpr__103284.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103284.call(null,L));
+return sicmutils.mechanics.hamilton.__GT_H_state(sicmutils.mechanics.lagrange.time(Ls),sicmutils.mechanics.lagrange.coordinate(Ls),(function (){var fexpr__103308 = (function (){var fexpr__103309 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103309.cljs$core$IFn$_invoke$arity$1 ? fexpr__103309.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103309.call(null,L));
 })();
-return (fexpr__103283.cljs$core$IFn$_invoke$arity$1 ? fexpr__103283.cljs$core$IFn$_invoke$arity$1(Ls) : fexpr__103283.call(null,Ls));
+return (fexpr__103308.cljs$core$IFn$_invoke$arity$1 ? fexpr__103308.cljs$core$IFn$_invoke$arity$1(Ls) : fexpr__103308.call(null,Ls));
 })());
 });
 });
 sicmutils.mechanics.hamilton.H_state__GT_L_state = (function sicmutils$mechanics$hamilton$H_state__GT_L_state(H){
 return (function (Hs){
-return sicmutils.mechanics.lagrange.__GT_L_state(sicmutils.mechanics.lagrange.time(Hs),sicmutils.mechanics.lagrange.coordinate(Hs),(function (){var fexpr__103286 = (function (){var fexpr__103287 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103287.cljs$core$IFn$_invoke$arity$1 ? fexpr__103287.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103287.call(null,H));
+return sicmutils.mechanics.lagrange.__GT_L_state(sicmutils.mechanics.lagrange.time(Hs),sicmutils.mechanics.lagrange.coordinate(Hs),(function (){var fexpr__103322 = (function (){var fexpr__103323 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103323.cljs$core$IFn$_invoke$arity$1 ? fexpr__103323.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103323.call(null,H));
 })();
-return (fexpr__103286.cljs$core$IFn$_invoke$arity$1 ? fexpr__103286.cljs$core$IFn$_invoke$arity$1(Hs) : fexpr__103286.call(null,Hs));
+return (fexpr__103322.cljs$core$IFn$_invoke$arity$1 ? fexpr__103322.cljs$core$IFn$_invoke$arity$1(Hs) : fexpr__103322.call(null,Hs));
 })());
 });
 });
@@ -154,14 +154,14 @@ return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(kinetic_energy,pot
 });
 sicmutils.mechanics.hamilton.Hamiltonian__GT_state_derivative = (function sicmutils$mechanics$hamilton$Hamiltonian__GT_state_derivative(H){
 return (function (H_state){
-return sicmutils.mechanics.hamilton.__GT_H_state((1),(function (){var fexpr__103289 = (function (){var fexpr__103290 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103290.cljs$core$IFn$_invoke$arity$1 ? fexpr__103290.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103290.call(null,H));
+return sicmutils.mechanics.hamilton.__GT_H_state((1),(function (){var fexpr__103332 = (function (){var fexpr__103333 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103333.cljs$core$IFn$_invoke$arity$1 ? fexpr__103333.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103333.call(null,H));
 })();
-return (fexpr__103289.cljs$core$IFn$_invoke$arity$1 ? fexpr__103289.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103289.call(null,H_state));
-})(),sicmutils.generic._.cljs$core$IFn$_invoke$arity$1((function (){var fexpr__103292 = (function (){var fexpr__103293 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103293.cljs$core$IFn$_invoke$arity$1 ? fexpr__103293.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103293.call(null,H));
+return (fexpr__103332.cljs$core$IFn$_invoke$arity$1 ? fexpr__103332.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103332.call(null,H_state));
+})(),sicmutils.generic._.cljs$core$IFn$_invoke$arity$1((function (){var fexpr__103335 = (function (){var fexpr__103336 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103336.cljs$core$IFn$_invoke$arity$1 ? fexpr__103336.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103336.call(null,H));
 })();
-return (fexpr__103292.cljs$core$IFn$_invoke$arity$1 ? fexpr__103292.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103292.call(null,H_state));
+return (fexpr__103335.cljs$core$IFn$_invoke$arity$1 ? fexpr__103335.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103335.call(null,H_state));
 })()));
 });
 });
@@ -179,56 +179,56 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((sicmutils.calculus.der
 });
 sicmutils.mechanics.hamilton.D_phase_space = (function sicmutils$mechanics$hamilton$D_phase_space(H){
 return (function (s){
-return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0),(function (){var fexpr__103295 = (function (){var fexpr__103296 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103296.cljs$core$IFn$_invoke$arity$1 ? fexpr__103296.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103296.call(null,H));
+return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0),(function (){var fexpr__103338 = (function (){var fexpr__103339 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103339.cljs$core$IFn$_invoke$arity$1 ? fexpr__103339.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103339.call(null,H));
 })();
-return (fexpr__103295.cljs$core$IFn$_invoke$arity$1 ? fexpr__103295.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103295.call(null,s));
-})(),sicmutils.generic._.cljs$core$IFn$_invoke$arity$1((function (){var fexpr__103298 = (function (){var fexpr__103299 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103299.cljs$core$IFn$_invoke$arity$1 ? fexpr__103299.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103299.call(null,H));
+return (fexpr__103338.cljs$core$IFn$_invoke$arity$1 ? fexpr__103338.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103338.call(null,s));
+})(),sicmutils.generic._.cljs$core$IFn$_invoke$arity$1((function (){var fexpr__103347 = (function (){var fexpr__103348 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103348.cljs$core$IFn$_invoke$arity$1 ? fexpr__103348.cljs$core$IFn$_invoke$arity$1(H) : fexpr__103348.call(null,H));
 })();
-return (fexpr__103298.cljs$core$IFn$_invoke$arity$1 ? fexpr__103298.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103298.call(null,s));
+return (fexpr__103347.cljs$core$IFn$_invoke$arity$1 ? fexpr__103347.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103347.call(null,s));
 })())], 0));
 });
 });
 sicmutils.mechanics.hamilton.H_rectangular = (function sicmutils$mechanics$hamilton$H_rectangular(m,V){
-return (function (p__103300){
-var vec__103301 = p__103300;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103301,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103301,(1),null);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103301,(2),null);
+return (function (p__103352){
+var vec__103353 = p__103352;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103353,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103353,(1),null);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103353,(2),null);
 return sicmutils.mechanics.hamilton.make_Hamiltonian(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(p),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),m)),cljs.core.apply.cljs$core$IFn$_invoke$arity$2(V,q));
 });
 });
 sicmutils.mechanics.hamilton.H_central = (function sicmutils$mechanics$hamilton$H_central(m,V){
-return (function (p__103304){
-var vec__103305 = p__103304;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103305,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103305,(1),null);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103305,(2),null);
-return sicmutils.mechanics.hamilton.make_Hamiltonian(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(p),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),m)),(function (){var G__103308 = sicmutils.generic.abs.cljs$core$IFn$_invoke$arity$1(q);
-return (V.cljs$core$IFn$_invoke$arity$1 ? V.cljs$core$IFn$_invoke$arity$1(G__103308) : V.call(null,G__103308));
+return (function (p__103356){
+var vec__103357 = p__103356;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(1),null);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103357,(2),null);
+return sicmutils.mechanics.hamilton.make_Hamiltonian(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(p),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),m)),(function (){var G__103360 = sicmutils.generic.abs.cljs$core$IFn$_invoke$arity$1(q);
+return (V.cljs$core$IFn$_invoke$arity$1 ? V.cljs$core$IFn$_invoke$arity$1(G__103360) : V.call(null,G__103360));
 })());
 });
 });
 sicmutils.mechanics.hamilton.H_central_polar = (function sicmutils$mechanics$hamilton$H_central_polar(m,V){
-return (function (p__103314){
-var vec__103315 = p__103314;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103315,(0),null);
-var vec__103318 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103315,(1),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103318,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103318,(1),null);
-var vec__103321 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103315,(2),null);
-var p_r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103321,(0),null);
-var p_phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103321,(1),null);
+return (function (p__103361){
+var vec__103362 = p__103361;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103362,(0),null);
+var vec__103365 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103362,(1),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103365,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103365,(1),null);
+var vec__103368 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103362,(2),null);
+var p_r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103368,(0),null);
+var p_phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103368,(1),null);
 return sicmutils.mechanics.hamilton.make_Hamiltonian(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(p_r),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(p_phi,r))),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),m)),(V.cljs$core$IFn$_invoke$arity$1 ? V.cljs$core$IFn$_invoke$arity$1(r) : V.call(null,r)));
 });
 });
 sicmutils.mechanics.hamilton.H_harmonic = (function sicmutils$mechanics$hamilton$H_harmonic(m,k){
-return (function (p__103324){
-var vec__103325 = p__103324;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103325,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103325,(1),null);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103325,(2),null);
+return (function (p__103371){
+var vec__103372 = p__103371;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103372,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103372,(1),null);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103372,(2),null);
 return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(p),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),m)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),k,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(q)], 0)));
 });
 });
@@ -268,8 +268,8 @@ return (function sicmutils$mechanics$hamilton$Legendre_transform_procedure_$_G(w
 if(cljs.core.truth_((function (){var and__4251__auto__ = sicmutils.mechanics.hamilton._STAR_validate_Legendre_transform_QMARK__STAR_;
 if(cljs.core.truth_(and__4251__auto__)){
 var thing = sicmutils.structure.typical_object(w);
-return cljs.core.not(sicmutils.value._EQ_.cljs$core$IFn$_invoke$arity$2(thing,sicmutils.generic.simplify.cljs$core$IFn$_invoke$arity$1((function (){var G__103333 = (Dpg.cljs$core$IFn$_invoke$arity$1 ? Dpg.cljs$core$IFn$_invoke$arity$1(thing) : Dpg.call(null,thing));
-return (w_of_v.cljs$core$IFn$_invoke$arity$1 ? w_of_v.cljs$core$IFn$_invoke$arity$1(G__103333) : w_of_v.call(null,G__103333));
+return cljs.core.not(sicmutils.value._EQ_.cljs$core$IFn$_invoke$arity$2(thing,sicmutils.generic.simplify.cljs$core$IFn$_invoke$arity$1((function (){var G__103387 = (Dpg.cljs$core$IFn$_invoke$arity$1 ? Dpg.cljs$core$IFn$_invoke$arity$1(thing) : Dpg.call(null,thing));
+return (w_of_v.cljs$core$IFn$_invoke$arity$1 ? w_of_v.cljs$core$IFn$_invoke$arity$1(G__103387) : w_of_v.call(null,G__103387));
 })())));
 } else {
 return and__4251__auto__;
@@ -283,32 +283,32 @@ return putative_G(w);
 });
 sicmutils.mechanics.hamilton.Legendre_transform = sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.Legendre_transform_procedure,new cljs.core.Symbol(null,"Legendre-transform","Legendre-transform",77490623,null));
 sicmutils.mechanics.hamilton.Lagrangian__GT_Hamiltonian_procedure = (function sicmutils$mechanics$hamilton$Lagrangian__GT_Hamiltonian_procedure(Lagrangian){
-return (function (p__103335){
-var vec__103336 = p__103335;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103336,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103336,(1),null);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103336,(2),null);
-var L = (function (p1__103334_SHARP_){
-var G__103339 = sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,q,p1__103334_SHARP_], 0));
-return (Lagrangian.cljs$core$IFn$_invoke$arity$1 ? Lagrangian.cljs$core$IFn$_invoke$arity$1(G__103339) : Lagrangian.call(null,G__103339));
+return (function (p__103401){
+var vec__103402 = p__103401;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103402,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103402,(1),null);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103402,(2),null);
+var L = (function (p1__103396_SHARP_){
+var G__103406 = sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,q,p1__103396_SHARP_], 0));
+return (Lagrangian.cljs$core$IFn$_invoke$arity$1 ? Lagrangian.cljs$core$IFn$_invoke$arity$1(G__103406) : Lagrangian.call(null,G__103406));
 });
-var fexpr__103340 = (sicmutils.mechanics.hamilton.Legendre_transform.cljs$core$IFn$_invoke$arity$1 ? sicmutils.mechanics.hamilton.Legendre_transform.cljs$core$IFn$_invoke$arity$1(L) : sicmutils.mechanics.hamilton.Legendre_transform.call(null,L));
-return (fexpr__103340.cljs$core$IFn$_invoke$arity$1 ? fexpr__103340.cljs$core$IFn$_invoke$arity$1(p) : fexpr__103340.call(null,p));
+var fexpr__103407 = (sicmutils.mechanics.hamilton.Legendre_transform.cljs$core$IFn$_invoke$arity$1 ? sicmutils.mechanics.hamilton.Legendre_transform.cljs$core$IFn$_invoke$arity$1(L) : sicmutils.mechanics.hamilton.Legendre_transform.call(null,L));
+return (fexpr__103407.cljs$core$IFn$_invoke$arity$1 ? fexpr__103407.cljs$core$IFn$_invoke$arity$1(p) : fexpr__103407.call(null,p));
 });
 });
 sicmutils.mechanics.hamilton.Lagrangian__GT_Hamiltonian = sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.Lagrangian__GT_Hamiltonian_procedure,new cljs.core.Symbol(null,"Lagrangian->Hamiltonian","Lagrangian->Hamiltonian",570239049,null));
 sicmutils.mechanics.hamilton.Hamiltonian__GT_Lagrangian_procedure = (function sicmutils$mechanics$hamilton$Hamiltonian__GT_Lagrangian_procedure(Hamiltonian){
-return (function (p__103341){
-var vec__103342 = p__103341;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103342,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103342,(1),null);
-var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103342,(2),null);
+return (function (p__103411){
+var vec__103412 = p__103411;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103412,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103412,(1),null);
+var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103412,(2),null);
 var H = (function sicmutils$mechanics$hamilton$Hamiltonian__GT_Lagrangian_procedure_$_H(p){
-var G__103346 = sicmutils.mechanics.hamilton.__GT_H_state(t,q,p);
-return (Hamiltonian.cljs$core$IFn$_invoke$arity$1 ? Hamiltonian.cljs$core$IFn$_invoke$arity$1(G__103346) : Hamiltonian.call(null,G__103346));
+var G__103419 = sicmutils.mechanics.hamilton.__GT_H_state(t,q,p);
+return (Hamiltonian.cljs$core$IFn$_invoke$arity$1 ? Hamiltonian.cljs$core$IFn$_invoke$arity$1(G__103419) : Hamiltonian.call(null,G__103419));
 });
-var fexpr__103347 = sicmutils.mechanics.hamilton.Legendre_transform_procedure(H);
-return (fexpr__103347.cljs$core$IFn$_invoke$arity$1 ? fexpr__103347.cljs$core$IFn$_invoke$arity$1(qdot) : fexpr__103347.call(null,qdot));
+var fexpr__103420 = sicmutils.mechanics.hamilton.Legendre_transform_procedure(H);
+return (fexpr__103420.cljs$core$IFn$_invoke$arity$1 ? fexpr__103420.cljs$core$IFn$_invoke$arity$1(qdot) : fexpr__103420.call(null,qdot));
 });
 });
 sicmutils.mechanics.hamilton.Hamiltonian__GT_Lagrangian = sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.Hamiltonian__GT_Lagrangian_procedure,new cljs.core.Symbol(null,"Hamiltonian->Lagrangian","Hamiltonian->Lagrangian",-1691416956,null));
@@ -319,24 +319,24 @@ var gx = (g.cljs$core$IFn$_invoke$arity$1 ? g.cljs$core$IFn$_invoke$arity$1(x) :
 if(((sicmutils.structure.structure_QMARK_(fx)) || (sicmutils.structure.structure_QMARK_(gx)))){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (af){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (ag){
-var fexpr__103350 = (function (){var G__103351 = cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.component,af),f);
-var G__103352 = cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.component,ag),g);
-return (sicmutils.mechanics.hamilton.Poisson_bracket.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.hamilton.Poisson_bracket.cljs$core$IFn$_invoke$arity$2(G__103351,G__103352) : sicmutils.mechanics.hamilton.Poisson_bracket.call(null,G__103351,G__103352));
+var fexpr__103427 = (function (){var G__103428 = cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.component,af),f);
+var G__103429 = cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.component,ag),g);
+return (sicmutils.mechanics.hamilton.Poisson_bracket.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.hamilton.Poisson_bracket.cljs$core$IFn$_invoke$arity$2(G__103428,G__103429) : sicmutils.mechanics.hamilton.Poisson_bracket.call(null,G__103428,G__103429));
 })();
-return (fexpr__103350.cljs$core$IFn$_invoke$arity$1 ? fexpr__103350.cljs$core$IFn$_invoke$arity$1(x) : fexpr__103350.call(null,x));
+return (fexpr__103427.cljs$core$IFn$_invoke$arity$1 ? fexpr__103427.cljs$core$IFn$_invoke$arity$1(x) : fexpr__103427.call(null,x));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.structure.structure__GT_access_chains(gx)], 0));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.structure.structure__GT_access_chains(fx)], 0));
 } else {
-var fexpr__103363 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103364 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103364.cljs$core$IFn$_invoke$arity$1 ? fexpr__103364.cljs$core$IFn$_invoke$arity$1(f) : fexpr__103364.call(null,f));
-})(),(function (){var fexpr__103365 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103365.cljs$core$IFn$_invoke$arity$1 ? fexpr__103365.cljs$core$IFn$_invoke$arity$1(g) : fexpr__103365.call(null,g));
-})()),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103366 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103366.cljs$core$IFn$_invoke$arity$1 ? fexpr__103366.cljs$core$IFn$_invoke$arity$1(f) : fexpr__103366.call(null,f));
-})(),(function (){var fexpr__103367 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103367.cljs$core$IFn$_invoke$arity$1 ? fexpr__103367.cljs$core$IFn$_invoke$arity$1(g) : fexpr__103367.call(null,g));
+var fexpr__103436 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103437 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103437.cljs$core$IFn$_invoke$arity$1 ? fexpr__103437.cljs$core$IFn$_invoke$arity$1(f) : fexpr__103437.call(null,f));
+})(),(function (){var fexpr__103438 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103438.cljs$core$IFn$_invoke$arity$1 ? fexpr__103438.cljs$core$IFn$_invoke$arity$1(g) : fexpr__103438.call(null,g));
+})()),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103439 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103439.cljs$core$IFn$_invoke$arity$1 ? fexpr__103439.cljs$core$IFn$_invoke$arity$1(f) : fexpr__103439.call(null,f));
+})(),(function (){var fexpr__103441 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103441.cljs$core$IFn$_invoke$arity$1 ? fexpr__103441.cljs$core$IFn$_invoke$arity$1(g) : fexpr__103441.call(null,g));
 })()));
-return (fexpr__103363.cljs$core$IFn$_invoke$arity$1 ? fexpr__103363.cljs$core$IFn$_invoke$arity$1(x) : fexpr__103363.call(null,x));
+return (fexpr__103436.cljs$core$IFn$_invoke$arity$1 ? fexpr__103436.cljs$core$IFn$_invoke$arity$1(x) : fexpr__103436.call(null,x));
 }
 });
 });
@@ -359,8 +359,8 @@ return sicmutils.mechanics.hamilton.Poisson_bracket(F,H);
  */
 sicmutils.mechanics.hamilton.flow_derivative = (function sicmutils$mechanics$hamilton$flow_derivative(H){
 return sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2((function (F){
-return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103373 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0)], 0));
-return (fexpr__103373.cljs$core$IFn$_invoke$arity$1 ? fexpr__103373.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103373.call(null,F));
+return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103443 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0)], 0));
+return (fexpr__103443.cljs$core$IFn$_invoke$arity$1 ? fexpr__103443.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103443.call(null,F));
 })(),sicmutils.mechanics.hamilton.Poisson_bracket(F,H));
 }),(new cljs.core.List(null,new cljs.core.Symbol(null,"flow-derivative","flow-derivative",-2031576450,null),(new cljs.core.List(null,H,null,(1),null)),(2),null)));
 });
@@ -384,18 +384,18 @@ sicmutils.mechanics.hamilton.standard_map = (function sicmutils$mechanics$hamilt
 var pv = sicmutils.value.principal_value(sicmutils.value.twopi);
 return (function (theta,I,cont,_fail){
 var nI = pv((I + (K * Math.sin(theta))));
-var G__103374 = pv((theta + nI));
-var G__103375 = nI;
-return (cont.cljs$core$IFn$_invoke$arity$2 ? cont.cljs$core$IFn$_invoke$arity$2(G__103374,G__103375) : cont.call(null,G__103374,G__103375));
+var G__103453 = pv((theta + nI));
+var G__103454 = nI;
+return (cont.cljs$core$IFn$_invoke$arity$2 ? cont.cljs$core$IFn$_invoke$arity$2(G__103453,G__103454) : cont.call(null,G__103453,G__103454));
 });
 });
 sicmutils.mechanics.hamilton.standard_map_inverse = (function sicmutils$mechanics$hamilton$standard_map_inverse(K){
 var pv = sicmutils.value.principal_value(sicmutils.value.twopi);
 return (function (theta,I,cont,_fail){
 var ntheta = pv((theta - I));
-var G__103376 = ntheta;
-var G__103377 = pv((I - (K * Math.sin(ntheta))));
-return (cont.cljs$core$IFn$_invoke$arity$2 ? cont.cljs$core$IFn$_invoke$arity$2(G__103376,G__103377) : cont.call(null,G__103376,G__103377));
+var G__103460 = ntheta;
+var G__103461 = pv((I - (K * Math.sin(ntheta))));
+return (cont.cljs$core$IFn$_invoke$arity$2 ? cont.cljs$core$IFn$_invoke$arity$2(G__103460,G__103461) : cont.call(null,G__103460,G__103461));
 });
 });
 /**
@@ -423,15 +423,15 @@ return (continue$.cljs$core$IFn$_invoke$arity$2 ? continue$.cljs$core$IFn$_invok
 } else {
 var temp__5751__auto__ = (f.cljs$core$IFn$_invoke$arity$4 ? f.cljs$core$IFn$_invoke$arity$4(x__$1,y__$1,cljs.core.vector,lulz) : f.call(null,x__$1,y__$1,cljs.core.vector,lulz));
 if(cljs.core.truth_(temp__5751__auto__)){
-var vec__103381 = temp__5751__auto__;
-var x_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103381,(0),null);
-var y_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103381,(1),null);
-var G__103517 = x_SINGLEQUOTE_;
-var G__103518 = y_SINGLEQUOTE_;
-var G__103519 = (i - (1));
-x__$1 = G__103517;
-y__$1 = G__103518;
-i = G__103519;
+var vec__103505 = temp__5751__auto__;
+var x_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103505,(0),null);
+var y_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103505,(1),null);
+var G__103715 = x_SINGLEQUOTE_;
+var G__103716 = y_SINGLEQUOTE_;
+var G__103717 = (i - (1));
+x__$1 = G__103715;
+y__$1 = G__103716;
+i = G__103717;
 continue;
 } else {
 return (fail.cljs$core$IFn$_invoke$arity$0 ? fail.cljs$core$IFn$_invoke$arity$0() : fail.call(null));
@@ -446,16 +446,16 @@ break;
  *   transformation of phase-space coordinates (p. 320)
  */
 sicmutils.mechanics.hamilton.F__GT_CH = (function sicmutils$mechanics$hamilton$F__GT_CH(F){
-return (function (p__103384){
-var vec__103385 = p__103384;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103385,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103385,(1),null);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103385,(2),null);
-var H_state = vec__103385;
-return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,(F.cljs$core$IFn$_invoke$arity$1 ? F.cljs$core$IFn$_invoke$arity$1(H_state) : F.call(null,H_state)),sicmutils.generic.solve_linear_right.cljs$core$IFn$_invoke$arity$2(p,(function (){var fexpr__103389 = (function (){var fexpr__103390 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103390.cljs$core$IFn$_invoke$arity$1 ? fexpr__103390.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103390.call(null,F));
+return (function (p__103522){
+var vec__103523 = p__103522;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103523,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103523,(1),null);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103523,(2),null);
+var H_state = vec__103523;
+return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,(F.cljs$core$IFn$_invoke$arity$1 ? F.cljs$core$IFn$_invoke$arity$1(H_state) : F.call(null,H_state)),sicmutils.generic.solve_linear_right.cljs$core$IFn$_invoke$arity$2(p,(function (){var fexpr__103530 = (function (){var fexpr__103531 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103531.cljs$core$IFn$_invoke$arity$1 ? fexpr__103531.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103531.call(null,F));
 })();
-return (fexpr__103389.cljs$core$IFn$_invoke$arity$1 ? fexpr__103389.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103389.call(null,H_state));
+return (fexpr__103530.cljs$core$IFn$_invoke$arity$1 ? fexpr__103530.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103530.call(null,H_state));
 })())], 0));
 });
 });
@@ -465,14 +465,14 @@ return (fexpr__103389.cljs$core$IFn$_invoke$arity$1 ? fexpr__103389.cljs$core$IF
 sicmutils.mechanics.hamilton.F__GT_CT = sicmutils.mechanics.hamilton.F__GT_CH;
 sicmutils.mechanics.hamilton.F__GT_K = (function sicmutils$mechanics$hamilton$F__GT_K(F){
 return (function (H_state){
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.solve_linear_right.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.momentum(H_state),(function (){var fexpr__103392 = (function (){var fexpr__103393 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103393.cljs$core$IFn$_invoke$arity$1 ? fexpr__103393.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103393.call(null,F));
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.solve_linear_right.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.momentum(H_state),(function (){var fexpr__103548 = (function (){var fexpr__103549 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103549.cljs$core$IFn$_invoke$arity$1 ? fexpr__103549.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103549.call(null,F));
 })();
-return (fexpr__103392.cljs$core$IFn$_invoke$arity$1 ? fexpr__103392.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103392.call(null,H_state));
-})()),(function (){var fexpr__103395 = (function (){var fexpr__103396 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0)], 0));
-return (fexpr__103396.cljs$core$IFn$_invoke$arity$1 ? fexpr__103396.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103396.call(null,F));
+return (fexpr__103548.cljs$core$IFn$_invoke$arity$1 ? fexpr__103548.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103548.call(null,H_state));
+})()),(function (){var fexpr__103554 = (function (){var fexpr__103555 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0)], 0));
+return (fexpr__103555.cljs$core$IFn$_invoke$arity$1 ? fexpr__103555.cljs$core$IFn$_invoke$arity$1(F) : fexpr__103555.call(null,F));
 })();
-return (fexpr__103395.cljs$core$IFn$_invoke$arity$1 ? fexpr__103395.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103395.call(null,H_state));
+return (fexpr__103554.cljs$core$IFn$_invoke$arity$1 ? fexpr__103554.cljs$core$IFn$_invoke$arity$1(H_state) : fexpr__103554.call(null,H_state));
 })()));
 });
 });
@@ -501,8 +501,8 @@ sicmutils.mechanics.hamilton.canonical_K_QMARK_ = (function sicmutils$mechanics$
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.hamilton.T_func,C], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.T_func,sicmutils.mechanics.hamilton.D_phase_space(K))));
 });
 sicmutils.mechanics.hamilton.linear_function__GT_multiplier = (function sicmutils$mechanics$hamilton$linear_function__GT_multiplier(F,argument){
-var fexpr__103397 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(F) : sicmutils.calculus.derivative.D.call(null,F));
-return (fexpr__103397.cljs$core$IFn$_invoke$arity$1 ? fexpr__103397.cljs$core$IFn$_invoke$arity$1(argument) : fexpr__103397.call(null,argument));
+var fexpr__103605 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(F) : sicmutils.calculus.derivative.D.call(null,F));
+return (fexpr__103605.cljs$core$IFn$_invoke$arity$1 ? fexpr__103605.cljs$core$IFn$_invoke$arity$1(argument) : fexpr__103605.call(null,argument));
 });
 sicmutils.mechanics.hamilton.Phi = (function sicmutils$mechanics$hamilton$Phi(A){
 return (function (v){
@@ -519,13 +519,13 @@ return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(w,A);
  */
 sicmutils.mechanics.hamilton.time_independent_canonical_QMARK_ = (function sicmutils$mechanics$hamilton$time_independent_canonical_QMARK_(C){
 return (function (s){
-var G__103405 = sicmutils.structure.compatible_shape(s);
-var fexpr__103404 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.J_func,sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.hamilton.Phi((function (){var fexpr__103406 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
-return (fexpr__103406.cljs$core$IFn$_invoke$arity$1 ? fexpr__103406.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103406.call(null,s));
-})()),sicmutils.mechanics.hamilton.J_func,sicmutils.mechanics.hamilton.Phi_STAR_((function (){var fexpr__103407 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
-return (fexpr__103407.cljs$core$IFn$_invoke$arity$1 ? fexpr__103407.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103407.call(null,s));
+var G__103613 = sicmutils.structure.compatible_shape(s);
+var fexpr__103612 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.J_func,sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.hamilton.Phi((function (){var fexpr__103615 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
+return (fexpr__103615.cljs$core$IFn$_invoke$arity$1 ? fexpr__103615.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103615.call(null,s));
+})()),sicmutils.mechanics.hamilton.J_func,sicmutils.mechanics.hamilton.Phi_STAR_((function (){var fexpr__103616 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
+return (fexpr__103616.cljs$core$IFn$_invoke$arity$1 ? fexpr__103616.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103616.call(null,s));
 })())], 0)));
-return (fexpr__103404.cljs$core$IFn$_invoke$arity$1 ? fexpr__103404.cljs$core$IFn$_invoke$arity$1(G__103405) : fexpr__103404.call(null,G__103405));
+return (fexpr__103612.cljs$core$IFn$_invoke$arity$1 ? fexpr__103612.cljs$core$IFn$_invoke$arity$1(G__103613) : fexpr__103612.call(null,G__103613));
 });
 });
 /**
@@ -535,15 +535,15 @@ return (fexpr__103404.cljs$core$IFn$_invoke$arity$1 ? fexpr__103404.cljs$core$IF
  */
 sicmutils.mechanics.hamilton.qp_canonical_QMARK_ = (function sicmutils$mechanics$hamilton$qp_canonical_QMARK_(C,H){
 return (function (s){
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.J_func((function (){var G__103409 = (C.cljs$core$IFn$_invoke$arity$1 ? C.cljs$core$IFn$_invoke$arity$1(s) : C.call(null,s));
-var fexpr__103408 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(H) : sicmutils.calculus.derivative.D.call(null,H));
-return (fexpr__103408.cljs$core$IFn$_invoke$arity$1 ? fexpr__103408.cljs$core$IFn$_invoke$arity$1(G__103409) : fexpr__103408.call(null,G__103409));
-})()),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103410 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
-return (fexpr__103410.cljs$core$IFn$_invoke$arity$1 ? fexpr__103410.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103410.call(null,s));
-})(),sicmutils.mechanics.hamilton.J_func((function (){var fexpr__103412 = (function (){var G__103413 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([H,C], 0));
-return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103413) : sicmutils.calculus.derivative.D.call(null,G__103413));
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.hamilton.J_func((function (){var G__103618 = (C.cljs$core$IFn$_invoke$arity$1 ? C.cljs$core$IFn$_invoke$arity$1(s) : C.call(null,s));
+var fexpr__103617 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(H) : sicmutils.calculus.derivative.D.call(null,H));
+return (fexpr__103617.cljs$core$IFn$_invoke$arity$1 ? fexpr__103617.cljs$core$IFn$_invoke$arity$1(G__103618) : fexpr__103617.call(null,G__103618));
+})()),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103619 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
+return (fexpr__103619.cljs$core$IFn$_invoke$arity$1 ? fexpr__103619.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103619.call(null,s));
+})(),sicmutils.mechanics.hamilton.J_func((function (){var fexpr__103621 = (function (){var G__103622 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([H,C], 0));
+return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103622) : sicmutils.calculus.derivative.D.call(null,G__103622));
 })();
-return (fexpr__103412.cljs$core$IFn$_invoke$arity$1 ? fexpr__103412.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103412.call(null,s));
+return (fexpr__103621.cljs$core$IFn$_invoke$arity$1 ? fexpr__103621.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103621.call(null,s));
 })())));
 });
 });
@@ -551,55 +551,55 @@ return (fexpr__103412.cljs$core$IFn$_invoke$arity$1 ? fexpr__103412.cljs$core$IF
  * p.327
  */
 sicmutils.mechanics.hamilton.polar_canonical = (function sicmutils$mechanics$hamilton$polar_canonical(alpha){
-return (function (p__103414){
-var vec__103415 = p__103414;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103415,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103415,(1),null);
-var I = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103415,(2),null);
+return (function (p__103628){
+var vec__103629 = p__103628;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103629,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103629,(1),null);
+var I = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103629,(2),null);
 var x = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),I),alpha)),sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta));
 var p_x = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic((2),alpha,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([I], 0))),sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta));
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,x,p_x], 0));
 });
 });
 sicmutils.mechanics.hamilton.polar_canonical_inverse = (function sicmutils$mechanics$hamilton$polar_canonical_inverse(alpha){
-return (function (p__103424){
-var vec__103425 = p__103424;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103425,(0),null);
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103425,(1),null);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103425,(2),null);
+return (function (p__103636){
+var vec__103637 = p__103636;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103637,(0),null);
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103637,(1),null);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103637,(2),null);
 var I = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(alpha,sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(x)),sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(p),alpha)),(2));
 var theta = sicmutils.generic.atan.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(x,sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),I),alpha))),sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(p,sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic((2),I,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([alpha], 0)))));
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,theta,I], 0));
 });
 });
 sicmutils.mechanics.hamilton.two_particle_center_of_mass = (function sicmutils$mechanics$hamilton$two_particle_center_of_mass(m0,m1){
-return (function (p__103431){
-var vec__103432 = p__103431;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103432,(0),null);
-var vec__103435 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103432,(1),null);
-var x0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103435,(0),null);
-var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103435,(1),null);
-var G__103438 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m0,x0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,x1)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(m0,m1));
-var G__103439 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x1,x0);
-return (sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2(G__103438,G__103439) : sicmutils.mechanics.lagrange.coordinate_tuple.call(null,G__103438,G__103439));
+return (function (p__103640){
+var vec__103641 = p__103640;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103641,(0),null);
+var vec__103644 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103641,(1),null);
+var x0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103644,(0),null);
+var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103644,(1),null);
+var G__103647 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m0,x0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,x1)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(m0,m1));
+var G__103648 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x1,x0);
+return (sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2(G__103647,G__103648) : sicmutils.mechanics.lagrange.coordinate_tuple.call(null,G__103647,G__103648));
 });
 });
 sicmutils.mechanics.hamilton.two_particle_center_of_mass_canonical = (function sicmutils$mechanics$hamilton$two_particle_center_of_mass_canonical(m0,m1){
-return (function (p__103440){
-var vec__103441 = p__103440;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103441,(0),null);
-var vec__103444 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103441,(1),null);
-var x0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103444,(0),null);
-var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103444,(1),null);
-var vec__103447 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103441,(2),null);
-var p0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103447,(0),null);
-var p1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103447,(1),null);
-return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,(function (){var G__103450 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m0,x0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,x1)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(m0,m1));
-var G__103451 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x1,x0);
-return (sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2(G__103450,G__103451) : sicmutils.mechanics.lagrange.coordinate_tuple.call(null,G__103450,G__103451));
-})(),(function (){var G__103452 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(p0,p1);
-var G__103453 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m0,p1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,p0)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(m0,m1));
-return (sicmutils.mechanics.lagrange.momentum_tuple.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.lagrange.momentum_tuple.cljs$core$IFn$_invoke$arity$2(G__103452,G__103453) : sicmutils.mechanics.lagrange.momentum_tuple.call(null,G__103452,G__103453));
+return (function (p__103649){
+var vec__103650 = p__103649;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103650,(0),null);
+var vec__103653 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103650,(1),null);
+var x0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103653,(0),null);
+var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103653,(1),null);
+var vec__103656 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103650,(2),null);
+var p0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103656,(0),null);
+var p1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103656,(1),null);
+return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,(function (){var G__103659 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m0,x0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,x1)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(m0,m1));
+var G__103660 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x1,x0);
+return (sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arity$2(G__103659,G__103660) : sicmutils.mechanics.lagrange.coordinate_tuple.call(null,G__103659,G__103660));
+})(),(function (){var G__103661 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(p0,p1);
+var G__103662 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m0,p1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,p0)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(m0,m1));
+return (sicmutils.mechanics.lagrange.momentum_tuple.cljs$core$IFn$_invoke$arity$2 ? sicmutils.mechanics.lagrange.momentum_tuple.cljs$core$IFn$_invoke$arity$2(G__103661,G__103662) : sicmutils.mechanics.lagrange.momentum_tuple.call(null,G__103661,G__103662));
 })()], 0));
 });
 });
@@ -618,12 +618,12 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR
 });
 sicmutils.mechanics.hamilton.canonical_transform_QMARK_ = (function sicmutils$mechanics$hamilton$canonical_transform_QMARK_(C){
 return (function (s){
-var J = (function (){var G__103467 = sicmutils.structure.compatible_shape(s);
-var fexpr__103466 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(sicmutils.mechanics.hamilton.J_func) : sicmutils.calculus.derivative.D.call(null,sicmutils.mechanics.hamilton.J_func));
-return (fexpr__103466.cljs$core$IFn$_invoke$arity$1 ? fexpr__103466.cljs$core$IFn$_invoke$arity$1(G__103467) : fexpr__103466.call(null,G__103467));
+var J = (function (){var G__103664 = sicmutils.structure.compatible_shape(s);
+var fexpr__103663 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(sicmutils.mechanics.hamilton.J_func) : sicmutils.calculus.derivative.D.call(null,sicmutils.mechanics.hamilton.J_func));
+return (fexpr__103663.cljs$core$IFn$_invoke$arity$1 ? fexpr__103663.cljs$core$IFn$_invoke$arity$1(G__103664) : fexpr__103663.call(null,G__103664));
 })();
-var DCs = (function (){var fexpr__103468 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
-return (fexpr__103468.cljs$core$IFn$_invoke$arity$1 ? fexpr__103468.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103468.call(null,s));
+var DCs = (function (){var fexpr__103665 = (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(C) : sicmutils.calculus.derivative.D.call(null,C));
+return (fexpr__103665.cljs$core$IFn$_invoke$arity$1 ? fexpr__103665.cljs$core$IFn$_invoke$arity$1(s) : fexpr__103665.call(null,s));
 })();
 var DCsT = sicmutils.matrix.s_COLON_transpose.cljs$core$IFn$_invoke$arity$2(DCs,s);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(J,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(DCs,J,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([DCsT], 0)));

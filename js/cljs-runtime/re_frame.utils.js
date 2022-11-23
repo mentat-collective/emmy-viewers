@@ -5,14 +5,14 @@ goog.provide('re_frame.utils');
  *   will not be present in the new structure.
  *   The key thing is that 'm' remains identical? to istelf if the path was never present
  */
-re_frame.utils.dissoc_in = (function re_frame$utils$dissoc_in(m,p__85774){
-var vec__85775 = p__85774;
-var seq__85776 = cljs.core.seq(vec__85775);
-var first__85777 = cljs.core.first(seq__85776);
-var seq__85776__$1 = cljs.core.next(seq__85776);
-var k = first__85777;
-var ks = seq__85776__$1;
-var keys = vec__85775;
+re_frame.utils.dissoc_in = (function re_frame$utils$dissoc_in(m,p__86172){
+var vec__86173 = p__86172;
+var seq__86174 = cljs.core.seq(vec__86173);
+var first__86175 = cljs.core.first(seq__86174);
+var seq__86174__$1 = cljs.core.next(seq__86174);
+var k = first__86175;
+var ks = seq__86174__$1;
+var keys = vec__86173;
 if(ks){
 var temp__5751__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(m,k);
 if(cljs.core.truth_(temp__5751__auto__)){

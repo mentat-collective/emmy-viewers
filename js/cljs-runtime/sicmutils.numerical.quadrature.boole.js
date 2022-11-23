@@ -15,8 +15,8 @@ goog.provide('sicmutils.numerical.quadrature.boole');
  *   If supplied, `:n` (default 1) specifies the initial number of slices to use.
  */
 sicmutils.numerical.quadrature.boole.boole_sequence = (function sicmutils$numerical$quadrature$boole$boole_sequence(var_args){
-var G__102829 = arguments.length;
-switch (G__102829) {
+var G__102647 = arguments.length;
+switch (G__102647) {
 case 3:
 return sicmutils.numerical.quadrature.boole.boole_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -35,10 +35,10 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.boole.boole_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"n","n",562130025),(1)], null));
 }));
 
-(sicmutils.numerical.quadrature.boole.boole_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102836){
-var map__102837 = p__102836;
-var map__102837__$1 = cljs.core.__destructure_map(map__102837);
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102837__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+(sicmutils.numerical.quadrature.boole.boole_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102649){
+var map__102650 = p__102649;
+var map__102650__$1 = cljs.core.__destructure_map(map__102650);
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102650__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 if(typeof n === 'number'){
 } else {
 throw (new Error("Assert failed: (number? n)"));

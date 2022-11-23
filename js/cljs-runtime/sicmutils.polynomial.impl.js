@@ -7,8 +7,8 @@ goog.provide('sicmutils.polynomial.impl');
  *   default value of [[exponent/empty]].
  */
 sicmutils.polynomial.impl.make_term = (function sicmutils$polynomial$impl$make_term(var_args){
-var G__100095 = arguments.length;
-switch (G__100095) {
+var G__97083 = arguments.length;
+switch (G__97083) {
 case 1:
 return sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -125,8 +125,8 @@ return cljs.core.into.cljs$core$IFn$_invoke$arity$3(sicmutils.polynomial.impl.em
  *   ```
  */
 sicmutils.polynomial.impl.sparse__GT_terms = (function sicmutils$polynomial$impl$sparse__GT_terms(var_args){
-var G__100122 = arguments.length;
-switch (G__100122) {
+var G__97091 = arguments.length;
+switch (G__97091) {
 case 1:
 return sicmutils.polynomial.impl.sparse__GT_terms.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -149,35 +149,35 @@ return sicmutils.polynomial.impl.sparse__GT_terms.cljs$core$IFn$_invoke$arity$2(
 if(cljs.core.empty_QMARK_(expts__GT_coef)){
 return sicmutils.polynomial.impl.empty_terms;
 } else {
-return cljs.core.into.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.impl.empty_terms,cljs.core.sort_by.cljs$core$IFn$_invoke$arity$3(sicmutils.polynomial.impl.exponents,comparator,(function (){var iter__4652__auto__ = (function sicmutils$polynomial$impl$iter__100125(s__100126){
+return cljs.core.into.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.impl.empty_terms,cljs.core.sort_by.cljs$core$IFn$_invoke$arity$3(sicmutils.polynomial.impl.exponents,comparator,(function (){var iter__4652__auto__ = (function sicmutils$polynomial$impl$iter__97097(s__97098){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100126__$1 = s__100126;
+var s__97098__$1 = s__97098;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100126__$1);
+var temp__5753__auto__ = cljs.core.seq(s__97098__$1);
 if(temp__5753__auto__){
-var s__100126__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__100126__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100126__$2);
+var s__97098__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__97098__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__97098__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100128 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100127 = (0);
+var b__97100 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__97099 = (0);
 while(true){
-if((i__100127 < size__4651__auto__)){
-var vec__100133 = cljs.core._nth(c__4650__auto__,i__100127);
-var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100133,(0),null);
-var terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100133,(1),null);
+if((i__97099 < size__4651__auto__)){
+var vec__97101 = cljs.core._nth(c__4650__auto__,i__97099);
+var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97101,(0),null);
+var terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97101,(1),null);
 var coef_sum = cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1(sicmutils.polynomial.impl.coefficient),sicmutils.generic._PLUS_,terms);
 if((!(sicmutils.value.zero_QMARK_(coef_sum)))){
 var expts__$1 = ((cljs.core.vector_QMARK_(expts))?sicmutils.polynomial.exponent.dense__GT_exponents(expts):((cljs.core.sorted_QMARK_(expts))?expts:((cljs.core.map_QMARK_(expts))?cljs.core.into.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.exponent.empty,expts):sicmutils.util.illegal("Invalid inputs to sparse->terms TODO")
 )));
-cljs.core.chunk_append(b__100128,sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts__$1,coef_sum));
+cljs.core.chunk_append(b__97100,sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts__$1,coef_sum));
 
-var G__100189 = (i__100127 + (1));
-i__100127 = G__100189;
+var G__97145 = (i__97099 + (1));
+i__97099 = G__97145;
 continue;
 } else {
-var G__100190 = (i__100127 + (1));
-i__100127 = G__100190;
+var G__97146 = (i__97099 + (1));
+i__97099 = G__97146;
 continue;
 }
 } else {
@@ -186,22 +186,22 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100128),sicmutils$polynomial$impl$iter__100125(cljs.core.chunk_rest(s__100126__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__97100),sicmutils$polynomial$impl$iter__97097(cljs.core.chunk_rest(s__97098__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100128),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__97100),null);
 }
 } else {
-var vec__100138 = cljs.core.first(s__100126__$2);
-var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100138,(0),null);
-var terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100138,(1),null);
+var vec__97104 = cljs.core.first(s__97098__$2);
+var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97104,(0),null);
+var terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97104,(1),null);
 var coef_sum = cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1(sicmutils.polynomial.impl.coefficient),sicmutils.generic._PLUS_,terms);
 if((!(sicmutils.value.zero_QMARK_(coef_sum)))){
 var expts__$1 = ((cljs.core.vector_QMARK_(expts))?sicmutils.polynomial.exponent.dense__GT_exponents(expts):((cljs.core.sorted_QMARK_(expts))?expts:((cljs.core.map_QMARK_(expts))?cljs.core.into.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.exponent.empty,expts):sicmutils.util.illegal("Invalid inputs to sparse->terms TODO")
 )));
-return cljs.core.cons(sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts__$1,coef_sum),sicmutils$polynomial$impl$iter__100125(cljs.core.rest(s__100126__$2)));
+return cljs.core.cons(sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts__$1,coef_sum),sicmutils$polynomial$impl$iter__97097(cljs.core.rest(s__97098__$2)));
 } else {
-var G__100191 = cljs.core.rest(s__100126__$2);
-s__100126__$1 = G__100191;
+var G__97147 = cljs.core.rest(s__97098__$2);
+s__97098__$1 = G__97147;
 continue;
 }
 }
@@ -224,33 +224,33 @@ return iter__4652__auto__(cljs.core.group_by(sicmutils.polynomial.impl.exponents
  *   of each term in `terms`.
  */
 sicmutils.polynomial.impl.map_coefficients = (function sicmutils$polynomial$impl$map_coefficients(f,terms){
-return cljs.core.into.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.impl.empty_terms,(function (){var iter__4652__auto__ = (function sicmutils$polynomial$impl$map_coefficients_$_iter__100151(s__100152){
+return cljs.core.into.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.impl.empty_terms,(function (){var iter__4652__auto__ = (function sicmutils$polynomial$impl$map_coefficients_$_iter__97109(s__97110){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100152__$1 = s__100152;
+var s__97110__$1 = s__97110;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100152__$1);
+var temp__5753__auto__ = cljs.core.seq(s__97110__$1);
 if(temp__5753__auto__){
-var s__100152__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__100152__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100152__$2);
+var s__97110__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__97110__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__97110__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100154 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100153 = (0);
+var b__97112 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__97111 = (0);
 while(true){
-if((i__100153 < size__4651__auto__)){
-var vec__100162 = cljs.core._nth(c__4650__auto__,i__100153);
-var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100162,(0),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100162,(1),null);
+if((i__97111 < size__4651__auto__)){
+var vec__97113 = cljs.core._nth(c__4650__auto__,i__97111);
+var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97113,(0),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97113,(1),null);
 var f_c = (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(c) : f.call(null,c));
 if((!(sicmutils.value.zero_QMARK_(f_c)))){
-cljs.core.chunk_append(b__100154,sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts,f_c));
+cljs.core.chunk_append(b__97112,sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts,f_c));
 
-var G__100192 = (i__100153 + (1));
-i__100153 = G__100192;
+var G__97150 = (i__97111 + (1));
+i__97111 = G__97150;
 continue;
 } else {
-var G__100193 = (i__100153 + (1));
-i__100153 = G__100193;
+var G__97151 = (i__97111 + (1));
+i__97111 = G__97151;
 continue;
 }
 } else {
@@ -259,20 +259,20 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100154),sicmutils$polynomial$impl$map_coefficients_$_iter__100151(cljs.core.chunk_rest(s__100152__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__97112),sicmutils$polynomial$impl$map_coefficients_$_iter__97109(cljs.core.chunk_rest(s__97110__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100154),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__97112),null);
 }
 } else {
-var vec__100165 = cljs.core.first(s__100152__$2);
-var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100165,(0),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100165,(1),null);
+var vec__97116 = cljs.core.first(s__97110__$2);
+var expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97116,(0),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97116,(1),null);
 var f_c = (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(c) : f.call(null,c));
 if((!(sicmutils.value.zero_QMARK_(f_c)))){
-return cljs.core.cons(sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts,f_c),sicmutils$polynomial$impl$map_coefficients_$_iter__100151(cljs.core.rest(s__100152__$2)));
+return cljs.core.cons(sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(expts,f_c),sicmutils$polynomial$impl$map_coefficients_$_iter__97109(cljs.core.rest(s__97110__$2)));
 } else {
-var G__100194 = cljs.core.rest(s__100152__$2);
-s__100152__$1 = G__100194;
+var G__97152 = cljs.core.rest(s__97110__$2);
+s__97110__$1 = G__97152;
 continue;
 }
 }
@@ -304,10 +304,10 @@ return sicmutils.polynomial.impl.add(u,sicmutils.polynomial.impl.map_coefficient
  * Multiplies a single term on the left by a vector `v` of terms on the right.
  *   Returns a new polynomial (ie, vector of terms).
  */
-sicmutils.polynomial.impl.t_STAR_ts = (function sicmutils$polynomial$impl$t_STAR_ts(p__100170,v){
-var vec__100171 = p__100170;
-var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100171,(0),null);
-var coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100171,(1),null);
+sicmutils.polynomial.impl.t_STAR_ts = (function sicmutils$polynomial$impl$t_STAR_ts(p__97120,v){
+var vec__97122 = p__97120;
+var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97122,(0),null);
+var coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97122,(1),null);
 var acc = cljs.core.transient$(cljs.core.PersistentVector.EMPTY);
 var i = (0);
 while(true){
@@ -315,13 +315,13 @@ var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(v,i,null);
 if((t == null)){
 return cljs.core.persistent_BANG_(acc);
 } else {
-var vec__100174 = t;
-var tags1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100174,(0),null);
-var coeff1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100174,(1),null);
-var G__100195 = cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(acc,sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.exponent.mul(tags,tags1),sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(coeff,coeff1)));
-var G__100196 = (i + (1));
-acc = G__100195;
-i = G__100196;
+var vec__97125 = t;
+var tags1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97125,(0),null);
+var coeff1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97125,(1),null);
+var G__97153 = cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(acc,sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.exponent.mul(tags,tags1),sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(coeff,coeff1)));
+var G__97154 = (i + (1));
+acc = G__97153;
+i = G__97154;
 continue;
 }
 break;
@@ -353,11 +353,11 @@ return call((0));
  *   ```
  */
 sicmutils.polynomial.impl.div = (function sicmutils$polynomial$impl$div(u,v){
-var vec__100178 = cljs.core.peek(v);
-var vn_expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100178,(0),null);
-var vn_coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100178,(1),null);
-var good_QMARK_ = (function (p1__100177_SHARP_){
-return sicmutils.polynomial.exponent.every_power_QMARK_(cljs.core.pos_QMARK_,p1__100177_SHARP_);
+var vec__97131 = cljs.core.peek(v);
+var vn_expts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97131,(0),null);
+var vn_coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97131,(1),null);
+var good_QMARK_ = (function (p1__97130_SHARP_){
+return sicmutils.polynomial.exponent.every_power_QMARK_(cljs.core.pos_QMARK_,p1__97130_SHARP_);
 });
 var quotient = cljs.core.PersistentVector.EMPTY;
 var remainder = u;
@@ -365,17 +365,17 @@ while(true){
 if(cljs.core.empty_QMARK_(remainder)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [quotient,remainder], null);
 } else {
-var vec__100184 = cljs.core.peek(remainder);
-var r_exponents = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100184,(0),null);
-var r_coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100184,(1),null);
+var vec__97138 = cljs.core.peek(remainder);
+var r_exponents = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97138,(0),null);
+var r_coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97138,(1),null);
 var residues = sicmutils.polynomial.exponent.div(r_exponents,vn_expts);
 if(good_QMARK_(residues)){
 var new_coeff = sicmutils.generic.div.cljs$core$IFn$_invoke$arity$2(r_coeff,vn_coeff);
 var new_term = sicmutils.polynomial.impl.make_term.cljs$core$IFn$_invoke$arity$2(residues,new_coeff);
-var G__100197 = sicmutils.polynomial.impl.add(quotient,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new_term], null));
-var G__100198 = sicmutils.polynomial.impl.sub(remainder,sicmutils.polynomial.impl.t_STAR_ts(new_term,v));
-quotient = G__100197;
-remainder = G__100198;
+var G__97155 = sicmutils.polynomial.impl.add(quotient,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new_term], null));
+var G__97156 = sicmutils.polynomial.impl.sub(remainder,sicmutils.polynomial.impl.t_STAR_ts(new_term,v));
+quotient = G__97155;
+remainder = G__97156;
 continue;
 } else {
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [quotient,remainder], null);

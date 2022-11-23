@@ -14,10 +14,10 @@ return Reflect.apply(method,obj,cljs.core.into_array.cljs$core$IFn$_invoke$arity
 throw (new Error(["Could not find instance method: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(method_name)].join('')));
 }
 });
-sci.impl.interop.get_static_field = (function sci$impl$interop$get_static_field(p__89533){
-var vec__89534 = p__89533;
-var class$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89534,(0),null);
-var field_name_sym = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89534,(1),null);
+sci.impl.interop.get_static_field = (function sci$impl$interop$get_static_field(p__89940){
+var vec__89941 = p__89940;
+var class$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89941,(0),null);
+var field_name_sym = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89941,(1),null);
 if(clojure.string.includes_QMARK_(cljs.core.str.cljs$core$IFn$_invoke$arity$1(field_name_sym),".")){
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(sci.impl.interop.goog$module$goog$object.getValueByKeys,class$,clojure.string.split.cljs$core$IFn$_invoke$arity$2(cljs.core.str.cljs$core$IFn$_invoke$arity$1(field_name_sym),/\./));
 } else {
@@ -30,10 +30,10 @@ return Reflect.construct(constructor$,cljs.core.into_array.cljs$core$IFn$_invoke
 sci.impl.interop.invoke_constructor = (function sci$impl$interop$invoke_constructor(constructor$,args){
 return sci.impl.interop.invoke_js_constructor(constructor$,args);
 });
-sci.impl.interop.invoke_static_method = (function sci$impl$interop$invoke_static_method(p__89558,args){
-var vec__89562 = p__89558;
-var class$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89562,(0),null);
-var method_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89562,(1),null);
+sci.impl.interop.invoke_static_method = (function sci$impl$interop$invoke_static_method(p__89971,args){
+var vec__89972 = p__89971;
+var class$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89972,(0),null);
+var method_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89972,(1),null);
 var temp__5751__auto__ = sci.impl.interop.goog$module$goog$object.get(class$,method_name);
 if(cljs.core.truth_(temp__5751__auto__)){
 var method = temp__5751__auto__;
@@ -110,9 +110,9 @@ var cnn = sci.impl.utils.current_ns_name();
 var imports = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(env,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"namespaces","namespaces",-1444157469),cnn,new cljs.core.Keyword(null,"imports","imports",-1249933394)], null));
 var temp__5751__auto__ = cljs.core.find(imports,sym);
 if(cljs.core.truth_(temp__5751__auto__)){
-var vec__89568 = temp__5751__auto__;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89568,(0),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89568,(1),null);
+var vec__89975 = temp__5751__auto__;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89975,(0),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__89975,(1),null);
 return cljs.core.get.cljs$core$IFn$_invoke$arity$2(class__GT_opts,v);
 } else {
 var temp__5753__auto__ = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(env,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"imports","imports",-1249933394),sym], null));

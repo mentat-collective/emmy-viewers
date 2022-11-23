@@ -50,8 +50,8 @@ return sicmutils.polynomial.exponent.dense__GT_exponents(cljs.core.merge_with.cl
  *   Calling [[gcd]] with a single argument acts as identity.
  */
 sicmutils.polynomial.exponent.gcd = (function sicmutils$polynomial$exponent$gcd(var_args){
-var G__99954 = arguments.length;
-switch (G__99954) {
+var G__97044 = arguments.length;
+switch (G__97044) {
 case 1:
 return sicmutils.polynomial.exponent.gcd.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -86,8 +86,8 @@ return cljs.core.merge_with.cljs$core$IFn$_invoke$arity$variadic(cljs.core.min,c
  *   with a single argument acts as identity.
  */
 sicmutils.polynomial.exponent.lcm = (function sicmutils$polynomial$exponent$lcm(var_args){
-var G__99956 = arguments.length;
-switch (G__99956) {
+var G__97046 = arguments.length;
+switch (G__97046) {
 case 0:
 return sicmutils.polynomial.exponent.lcm.cljs$core$IFn$_invoke$arity$0();
 
@@ -158,8 +158,8 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(m,x,n);
  *   ```
  */
 sicmutils.polynomial.exponent.lower = (function sicmutils$polynomial$exponent$lower(var_args){
-var G__99966 = arguments.length;
-switch (G__99966) {
+var G__97056 = arguments.length;
+switch (G__97056) {
 case 1:
 return sicmutils.polynomial.exponent.lower.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -212,8 +212,8 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(acc,k,v);
  *   ```
  */
 sicmutils.polynomial.exponent.raise = (function sicmutils$polynomial$exponent$raise(var_args){
-var G__99972 = arguments.length;
-switch (G__99972) {
+var G__97058 = arguments.length;
+switch (G__97058) {
 case 1:
 return sicmutils.polynomial.exponent.raise.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -265,8 +265,8 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(m,i,n);
  *   the entry for `i` in `m`, defaulting to `0`.
  */
 sicmutils.polynomial.exponent.monomial_degree = (function sicmutils$polynomial$exponent$monomial_degree(var_args){
-var G__99986 = arguments.length;
-switch (G__99986) {
+var G__97060 = arguments.length;
+switch (G__97060) {
 case 1:
 return sicmutils.polynomial.exponent.monomial_degree.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -303,8 +303,8 @@ var indices = cljs.core.range.cljs$core$IFn$_invoke$arity$1(cljs.core.count(m));
 var order = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,cljs.core.sort_by.cljs$core$IFn$_invoke$arity$2(m,cljs.core.keys(m)));
 var sort = (function sicmutils$polynomial$exponent$__GT_sort_PLUS_unsort_$_sort(m_SINGLEQUOTE_){
 return cljs.core.into.cljs$core$IFn$_invoke$arity$3(sicmutils.polynomial.exponent.empty,cljs.core.mapcat.cljs$core$IFn$_invoke$arity$1((function (i){
-var temp__5753__auto__ = (function (){var G__100002 = (order.cljs$core$IFn$_invoke$arity$1 ? order.cljs$core$IFn$_invoke$arity$1(i) : order.call(null,i));
-return (m_SINGLEQUOTE_.cljs$core$IFn$_invoke$arity$1 ? m_SINGLEQUOTE_.cljs$core$IFn$_invoke$arity$1(G__100002) : m_SINGLEQUOTE_.call(null,G__100002));
+var temp__5753__auto__ = (function (){var G__97062 = (order.cljs$core$IFn$_invoke$arity$1 ? order.cljs$core$IFn$_invoke$arity$1(i) : order.call(null,i));
+return (m_SINGLEQUOTE_.cljs$core$IFn$_invoke$arity$1 ? m_SINGLEQUOTE_.cljs$core$IFn$_invoke$arity$1(G__97062) : m_SINGLEQUOTE_.call(null,G__97062));
 })();
 if(cljs.core.truth_(temp__5753__auto__)){
 var v = temp__5753__auto__;
@@ -346,14 +346,14 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  */
 sicmutils.polynomial.exponent.lex_order = (function sicmutils$polynomial$exponent$lex_order(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___100109 = arguments.length;
-var i__4865__auto___100110 = (0);
+var len__4864__auto___97085 = arguments.length;
+var i__4865__auto___97086 = (0);
 while(true){
-if((i__4865__auto___100110 < len__4864__auto___100109)){
-args__4870__auto__.push((arguments[i__4865__auto___100110]));
+if((i__4865__auto___97086 < len__4864__auto___97085)){
+args__4870__auto__.push((arguments[i__4865__auto___97086]));
 
-var G__100111 = (i__4865__auto___100110 + (1));
-i__4865__auto___100110 = G__100111;
+var G__97087 = (i__4865__auto___97086 + (1));
+i__4865__auto___97086 = G__97087;
 continue;
 } else {
 }
@@ -364,10 +364,10 @@ var argseq__4871__auto__ = ((((2) < args__4870__auto__.length))?(new cljs.core.I
 return sicmutils.polynomial.exponent.lex_order.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),argseq__4871__auto__);
 });
 
-(sicmutils.polynomial.exponent.lex_order.cljs$core$IFn$_invoke$arity$variadic = (function (xs,ys,p__100008){
-var map__100009 = p__100008;
-var map__100009__$1 = cljs.core.__destructure_map(map__100009);
-var reverse_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100009__$1,new cljs.core.Keyword(null,"reverse?","reverse?",-1672868474));
+(sicmutils.polynomial.exponent.lex_order.cljs$core$IFn$_invoke$arity$variadic = (function (xs,ys,p__97066){
+var map__97067 = p__97066;
+var map__97067__$1 = cljs.core.__destructure_map(map__97067);
+var reverse_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__97067__$1,new cljs.core.Keyword(null,"reverse?","reverse?",-1672868474));
 var xs__$1 = cljs.core.vec((cljs.core.truth_(reverse_QMARK_)?cljs.core.rseq(xs):xs));
 var ys__$1 = cljs.core.vec((cljs.core.truth_(reverse_QMARK_)?cljs.core.rseq(ys):ys));
 var i = cljs.core.long$((0));
@@ -388,8 +388,8 @@ if((bit === (0))){
 var xv = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(x,(1));
 var yv = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(y,(1));
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(xv,yv)){
-var G__100112 = (i + (1));
-i = G__100112;
+var G__97088 = (i + (1));
+i = G__97088;
 continue;
 } else {
 if(cljs.core.truth_(reverse_QMARK_)){
@@ -417,13 +417,13 @@ break;
 (sicmutils.polynomial.exponent.lex_order.cljs$lang$maxFixedArity = (2));
 
 /** @this {Function} */
-(sicmutils.polynomial.exponent.lex_order.cljs$lang$applyTo = (function (seq100005){
-var G__100006 = cljs.core.first(seq100005);
-var seq100005__$1 = cljs.core.next(seq100005);
-var G__100007 = cljs.core.first(seq100005__$1);
-var seq100005__$2 = cljs.core.next(seq100005__$1);
+(sicmutils.polynomial.exponent.lex_order.cljs$lang$applyTo = (function (seq97063){
+var G__97064 = cljs.core.first(seq97063);
+var seq97063__$1 = cljs.core.next(seq97063);
+var G__97065 = cljs.core.first(seq97063__$1);
+var seq97063__$2 = cljs.core.next(seq97063__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__100006,G__100007,seq100005__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__97064,G__97065,seq97063__$2);
 }));
 
 /**

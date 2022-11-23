@@ -58,8 +58,8 @@ return cljs.core.str.cljs$core$IFn$_invoke$arity$1(x);
  *   keyword, or symbol. The special keyword :glogi/root returns the root logger.
  */
 lambdaisland.glogi.logger = (function lambdaisland$glogi$logger(var_args){
-var G__85720 = arguments.length;
-switch (G__85720) {
+var G__86184 = arguments.length;
+switch (G__86184) {
 case 1:
 return lambdaisland.glogi.logger.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -201,8 +201,8 @@ return record;
  *   logged.
  */
 lambdaisland.glogi.log = (function lambdaisland$glogi$log(var_args){
-var G__85732 = arguments.length;
-switch (G__85732) {
+var G__86197 = arguments.length;
+switch (G__86197) {
 case 3:
 return lambdaisland.glogi.log.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -246,11 +246,11 @@ if(cljs.core.contains_QMARK_(lambdaisland.glogi.levels,lvl)){
 throw (new Error("Assert failed: (contains? levels lvl)"));
 }
 
-var G__85740 = lambdaisland.glogi.logger.cljs$core$IFn$_invoke$arity$1(name);
-if((G__85740 == null)){
+var G__86200 = lambdaisland.glogi.logger.cljs$core$IFn$_invoke$arity$1(name);
+if((G__86200 == null)){
 return null;
 } else {
-return lambdaisland.glogi.goog_setLevel(G__85740,lambdaisland.glogi.level(lvl));
+return lambdaisland.glogi.goog_setLevel(G__86200,lambdaisland.glogi.level(lvl));
 }
 });
 /**
@@ -270,59 +270,59 @@ return lambdaisland.glogi.goog_setLevel(G__85740,lambdaisland.glogi.level(lvl));
  *   
  */
 lambdaisland.glogi.set_levels = (function lambdaisland$glogi$set_levels(lvls){
-var seq__85741 = cljs.core.seq(lvls);
-var chunk__85743 = null;
-var count__85744 = (0);
-var i__85745 = (0);
+var seq__86201 = cljs.core.seq(lvls);
+var chunk__86203 = null;
+var count__86204 = (0);
+var i__86205 = (0);
 while(true){
-if((i__85745 < count__85744)){
-var vec__85754 = chunk__85743.cljs$core$IIndexed$_nth$arity$2(null,i__85745);
-var logger = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__85754,(0),null);
-var level = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__85754,(1),null);
-var level_85898__$1 = ((typeof level === 'string')?cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(level):level);
-lambdaisland.glogi.set_level(logger,level_85898__$1);
+if((i__86205 < count__86204)){
+var vec__86213 = chunk__86203.cljs$core$IIndexed$_nth$arity$2(null,i__86205);
+var logger = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86213,(0),null);
+var level = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86213,(1),null);
+var level_86236__$1 = ((typeof level === 'string')?cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(level):level);
+lambdaisland.glogi.set_level(logger,level_86236__$1);
 
 
-var G__85899 = seq__85741;
-var G__85900 = chunk__85743;
-var G__85901 = count__85744;
-var G__85902 = (i__85745 + (1));
-seq__85741 = G__85899;
-chunk__85743 = G__85900;
-count__85744 = G__85901;
-i__85745 = G__85902;
+var G__86237 = seq__86201;
+var G__86238 = chunk__86203;
+var G__86239 = count__86204;
+var G__86240 = (i__86205 + (1));
+seq__86201 = G__86237;
+chunk__86203 = G__86238;
+count__86204 = G__86239;
+i__86205 = G__86240;
 continue;
 } else {
-var temp__5753__auto__ = cljs.core.seq(seq__85741);
+var temp__5753__auto__ = cljs.core.seq(seq__86201);
 if(temp__5753__auto__){
-var seq__85741__$1 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(seq__85741__$1)){
-var c__4679__auto__ = cljs.core.chunk_first(seq__85741__$1);
-var G__85907 = cljs.core.chunk_rest(seq__85741__$1);
-var G__85908 = c__4679__auto__;
-var G__85909 = cljs.core.count(c__4679__auto__);
-var G__85910 = (0);
-seq__85741 = G__85907;
-chunk__85743 = G__85908;
-count__85744 = G__85909;
-i__85745 = G__85910;
+var seq__86201__$1 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(seq__86201__$1)){
+var c__4679__auto__ = cljs.core.chunk_first(seq__86201__$1);
+var G__86242 = cljs.core.chunk_rest(seq__86201__$1);
+var G__86243 = c__4679__auto__;
+var G__86244 = cljs.core.count(c__4679__auto__);
+var G__86245 = (0);
+seq__86201 = G__86242;
+chunk__86203 = G__86243;
+count__86204 = G__86244;
+i__86205 = G__86245;
 continue;
 } else {
-var vec__85757 = cljs.core.first(seq__85741__$1);
-var logger = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__85757,(0),null);
-var level = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__85757,(1),null);
-var level_85911__$1 = ((typeof level === 'string')?cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(level):level);
-lambdaisland.glogi.set_level(logger,level_85911__$1);
+var vec__86216 = cljs.core.first(seq__86201__$1);
+var logger = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86216,(0),null);
+var level = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86216,(1),null);
+var level_86249__$1 = ((typeof level === 'string')?cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(level):level);
+lambdaisland.glogi.set_level(logger,level_86249__$1);
 
 
-var G__85912 = cljs.core.next(seq__85741__$1);
-var G__85913 = null;
-var G__85914 = (0);
-var G__85915 = (0);
-seq__85741 = G__85912;
-chunk__85743 = G__85913;
-count__85744 = G__85914;
-i__85745 = G__85915;
+var G__86250 = cljs.core.next(seq__86201__$1);
+var G__86251 = null;
+var G__86252 = (0);
+var G__86253 = (0);
+seq__86201 = G__86250;
+chunk__86203 = G__86251;
+count__86204 = G__86252;
+i__86205 = G__86253;
 continue;
 }
 } else {
@@ -339,15 +339,15 @@ goog.exportSymbol('lambdaisland.glogi.set_levels', lambdaisland.glogi.set_levels
  *   cljs-devtools.
  */
 lambdaisland.glogi.enable_console_logging_BANG_ = (function lambdaisland$glogi$enable_console_logging_BANG_(){
-var temp__5753__auto___85916 = goog.debug.Console.instance;
-if(cljs.core.truth_(temp__5753__auto___85916)){
-var instance_85917 = temp__5753__auto___85916;
-instance_85917.setCapturing(true);
+var temp__5753__auto___86254 = goog.debug.Console.instance;
+if(cljs.core.truth_(temp__5753__auto___86254)){
+var instance_86255 = temp__5753__auto___86254;
+instance_86255.setCapturing(true);
 
-var instance_85918__$1 = (new goog.debug.Console());
-(goog.debug.Console.instance = instance_85918__$1);
+var instance_86256__$1 = (new goog.debug.Console());
+(goog.debug.Console.instance = instance_86256__$1);
 
-instance_85918__$1.setCapturing();
+instance_86256__$1.setCapturing();
 } else {
 }
 
@@ -365,33 +365,33 @@ return null;
  * Pop up a browser window which will display log messages. Returns the FancyWindow instance.
  */
 lambdaisland.glogi.popup_logger_window_BANG_ = (function lambdaisland$glogi$popup_logger_window_BANG_(){
-var G__85765 = (new goog.debug.FancyWindow());
-G__85765.setEnabled(true);
+var G__86219 = (new goog.debug.FancyWindow());
+G__86219.setEnabled(true);
 
-return G__85765;
+return G__86219;
 });
 /**
  * Log messages to an element on the page. Returns the DivConsole instance.
  */
 lambdaisland.glogi.log_to_div_BANG_ = (function lambdaisland$glogi$log_to_div_BANG_(element){
-var G__85766 = (new goog.debug.DivConsole(element));
-G__85766.setCapturing(true);
+var G__86220 = (new goog.debug.DivConsole(element));
+G__86220.setCapturing(true);
 
-return G__85766;
+return G__86220;
 });
 lambdaisland.glogi.logger_glogi_handlers = (function lambdaisland$glogi$logger_glogi_handlers(logger){
 return lambdaisland.glogi.goog$module$goog$object.get(logger,lambdaisland.glogi.logger_handlers_prop);
 });
 lambdaisland.glogi.swap_handlers_BANG_ = (function lambdaisland$glogi$swap_handlers_BANG_(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___85919 = arguments.length;
-var i__4865__auto___85920 = (0);
+var len__4864__auto___86257 = arguments.length;
+var i__4865__auto___86258 = (0);
 while(true){
-if((i__4865__auto___85920 < len__4864__auto___85919)){
-args__4870__auto__.push((arguments[i__4865__auto___85920]));
+if((i__4865__auto___86258 < len__4864__auto___86257)){
+args__4870__auto__.push((arguments[i__4865__auto___86258]));
 
-var G__85921 = (i__4865__auto___85920 + (1));
-i__4865__auto___85920 = G__85921;
+var G__86261 = (i__4865__auto___86258 + (1));
+i__4865__auto___86258 = G__86261;
 continue;
 } else {
 }
@@ -409,13 +409,13 @@ return lambdaisland.glogi.goog$module$goog$object.set(logger,lambdaisland.glogi.
 (lambdaisland.glogi.swap_handlers_BANG_.cljs$lang$maxFixedArity = (2));
 
 /** @this {Function} */
-(lambdaisland.glogi.swap_handlers_BANG_.cljs$lang$applyTo = (function (seq85769){
-var G__85770 = cljs.core.first(seq85769);
-var seq85769__$1 = cljs.core.next(seq85769);
-var G__85771 = cljs.core.first(seq85769__$1);
-var seq85769__$2 = cljs.core.next(seq85769__$1);
+(lambdaisland.glogi.swap_handlers_BANG_.cljs$lang$applyTo = (function (seq86221){
+var G__86222 = cljs.core.first(seq86221);
+var seq86221__$1 = cljs.core.next(seq86221);
+var G__86223 = cljs.core.first(seq86221__$1);
+var seq86221__$2 = cljs.core.next(seq86221__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__85770,G__85771,seq85769__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__86222,G__86223,seq86221__$2);
 }));
 
 /**
@@ -426,8 +426,8 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__85770,G__85771
  *   repeatedly.
  */
 lambdaisland.glogi.add_handler = (function lambdaisland$glogi$add_handler(var_args){
-var G__85779 = arguments.length;
-switch (G__85779) {
+var G__86225 = arguments.length;
+switch (G__86225) {
 case 1:
 return lambdaisland.glogi.add_handler.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -449,24 +449,24 @@ return lambdaisland.glogi.add_handler.cljs$core$IFn$_invoke$arity$2("",handler_f
 (lambdaisland.glogi.add_handler.cljs$core$IFn$_invoke$arity$2 = (function (name,handler_fn){
 var logger = lambdaisland.glogi.logger.cljs$core$IFn$_invoke$arity$1(name);
 var log_record_handler = (function (record){
-var G__85780 = new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"sequenceNumber","sequenceNumber",-543983615),record.sequenceNumber_,new cljs.core.Keyword(null,"time","time",1385887882),record.time_,new cljs.core.Keyword(null,"level","level",1290497552),cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(clojure.string.lower_case(record.level_.name)),new cljs.core.Keyword(null,"message","message",-406056002),record.msg_,new cljs.core.Keyword(null,"logger-name","logger-name",-1988126927),record.loggerName_,new cljs.core.Keyword(null,"exception","exception",-335277064),record.exception_], null);
-return (handler_fn.cljs$core$IFn$_invoke$arity$1 ? handler_fn.cljs$core$IFn$_invoke$arity$1(G__85780) : handler_fn.call(null,G__85780));
+var G__86226 = new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"sequenceNumber","sequenceNumber",-543983615),record.sequenceNumber_,new cljs.core.Keyword(null,"time","time",1385887882),record.time_,new cljs.core.Keyword(null,"level","level",1290497552),cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(clojure.string.lower_case(record.level_.name)),new cljs.core.Keyword(null,"message","message",-406056002),record.msg_,new cljs.core.Keyword(null,"logger-name","logger-name",-1988126927),record.loggerName_,new cljs.core.Keyword(null,"exception","exception",-335277064),record.exception_], null);
+return (handler_fn.cljs$core$IFn$_invoke$arity$1 ? handler_fn.cljs$core$IFn$_invoke$arity$1(G__86226) : handler_fn.call(null,G__86226));
 });
 if(cljs.core.truth_(logger)){
-var temp__5753__auto___85924 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(lambdaisland.glogi.logger_glogi_handlers(logger),handler_fn);
-if(cljs.core.truth_(temp__5753__auto___85924)){
-var handler_85925 = temp__5753__auto___85924;
-lambdaisland.glogi.goog_removeHandler(logger,handler_85925);
+var temp__5753__auto___86263 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(lambdaisland.glogi.logger_glogi_handlers(logger),handler_fn);
+if(cljs.core.truth_(temp__5753__auto___86263)){
+var handler_86264 = temp__5753__auto___86263;
+lambdaisland.glogi.goog_removeHandler(logger,handler_86264);
 } else {
 }
 
 lambdaisland.glogi.swap_handlers_BANG_.cljs$core$IFn$_invoke$arity$variadic(logger,cljs.core.assoc,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([handler_fn,log_record_handler], 0));
 
-var G__85781 = logger;
-if((G__85781 == null)){
+var G__86227 = logger;
+if((G__86227 == null)){
 return null;
 } else {
-return lambdaisland.glogi.goog_addHandler(G__85781,log_record_handler);
+return lambdaisland.glogi.goog_addHandler(G__86227,log_record_handler);
 }
 } else {
 return null;
@@ -476,8 +476,8 @@ return null;
 (lambdaisland.glogi.add_handler.cljs$lang$maxFixedArity = 2);
 
 lambdaisland.glogi.remove_handler = (function lambdaisland$glogi$remove_handler(var_args){
-var G__85784 = arguments.length;
-switch (G__85784) {
+var G__86229 = arguments.length;
+switch (G__86229) {
 case 1:
 return lambdaisland.glogi.remove_handler.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -499,10 +499,10 @@ return lambdaisland.glogi.remove_handler.cljs$core$IFn$_invoke$arity$2("",handle
 (lambdaisland.glogi.remove_handler.cljs$core$IFn$_invoke$arity$2 = (function (name,handler_fn){
 var logger = lambdaisland.glogi.logger.cljs$core$IFn$_invoke$arity$1(name);
 if(cljs.core.truth_(logger)){
-var temp__5753__auto___85930 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(lambdaisland.glogi.logger_glogi_handlers(logger),handler_fn);
-if(cljs.core.truth_(temp__5753__auto___85930)){
-var handler_85931 = temp__5753__auto___85930;
-lambdaisland.glogi.goog_removeHandler(logger,handler_85931);
+var temp__5753__auto___86269 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(lambdaisland.glogi.logger_glogi_handlers(logger),handler_fn);
+if(cljs.core.truth_(temp__5753__auto___86269)){
+var handler_86270 = temp__5753__auto___86269;
+lambdaisland.glogi.goog_removeHandler(logger,handler_86270);
 } else {
 }
 

@@ -1,6 +1,7 @@
 goog.provide('sicmutils.structure');
 sicmutils.structure._STAR_allow_incompatible_multiplication_STAR_ = true;
 sicmutils.structure.orientation__GT_symbol = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),new cljs.core.Symbol(null,"up","up",1370819414,null),new cljs.core.Keyword("sicmutils.structure","down","sicmutils.structure/down",-1499865924),new cljs.core.Symbol(null,"down","down",-1089190199,null)], null);
+sicmutils.structure.symbol_set = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Symbol(null,"up","up",1370819414,null),null,new cljs.core.Symbol(null,"down","down",-1089190199,null),null], null), null);
 sicmutils.structure.orientation__GT_separator = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),"\u2191",new cljs.core.Keyword("sicmutils.structure","down","sicmutils.structure/down",-1499865924),"_"], null);
 sicmutils.structure.opposite_orientation = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),new cljs.core.Keyword("sicmutils.structure","down","sicmutils.structure/down",-1499865924),new cljs.core.Keyword("sicmutils.structure","down","sicmutils.structure/down",-1499865924),new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939)], null);
 cljs.core.derive.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),new cljs.core.Keyword("sicmutils.structure","structure","sicmutils.structure/structure",-773828675));
@@ -24,8 +25,8 @@ return (0);
  *   If `n` is not supplied returns an infinite sequence.
  */
 sicmutils.structure.basis_unit = (function sicmutils$structure$basis_unit(var_args){
-var G__99649 = arguments.length;
-switch (G__99649) {
+var G__99982 = arguments.length;
+switch (G__99982) {
 case 1:
 return sicmutils.structure.basis_unit.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -268,11 +269,11 @@ var ___$1 = this;
 return (new sicmutils.structure.Structure(self__.orientation,cljs.core._conj(self__.v,item),self__.m));
 }));
 
-(sicmutils.structure.Structure.prototype.call = (function (unused__43952__auto__){
+(sicmutils.structure.Structure.prototype.call = (function (unused__43702__auto__){
 var self__ = this;
 var self__ = this;
-var G__99708 = (arguments.length - (1));
-switch (G__99708) {
+var G__100076 = (arguments.length - (1));
+switch (G__100076) {
 case (0):
 return self__.cljs$core$IFn$_invoke$arity$0();
 
@@ -367,185 +368,185 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 }
 }));
 
-(sicmutils.structure.Structure.prototype.apply = (function (self__,args99697){
+(sicmutils.structure.Structure.prototype.apply = (function (self__,args100058){
 var self__ = this;
 var self____$1 = this;
-return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args99697)));
+return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args100058)));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$0 = (function (){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99675_SHARP_){
-return (p1__99675_SHARP_.cljs$core$IFn$_invoke$arity$0 ? p1__99675_SHARP_.cljs$core$IFn$_invoke$arity$0() : p1__99675_SHARP_.call(null));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100028_SHARP_){
+return (p1__100028_SHARP_.cljs$core$IFn$_invoke$arity$0 ? p1__100028_SHARP_.cljs$core$IFn$_invoke$arity$0() : p1__100028_SHARP_.call(null));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$1 = (function (a){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99676_SHARP_){
-return (p1__99676_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__99676_SHARP_.cljs$core$IFn$_invoke$arity$1(a) : p1__99676_SHARP_.call(null,a));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100029_SHARP_){
+return (p1__100029_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__100029_SHARP_.cljs$core$IFn$_invoke$arity$1(a) : p1__100029_SHARP_.call(null,a));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$2 = (function (a,b){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99677_SHARP_){
-return (p1__99677_SHARP_.cljs$core$IFn$_invoke$arity$2 ? p1__99677_SHARP_.cljs$core$IFn$_invoke$arity$2(a,b) : p1__99677_SHARP_.call(null,a,b));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100030_SHARP_){
+return (p1__100030_SHARP_.cljs$core$IFn$_invoke$arity$2 ? p1__100030_SHARP_.cljs$core$IFn$_invoke$arity$2(a,b) : p1__100030_SHARP_.call(null,a,b));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$3 = (function (a,b,c){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99678_SHARP_){
-return (p1__99678_SHARP_.cljs$core$IFn$_invoke$arity$3 ? p1__99678_SHARP_.cljs$core$IFn$_invoke$arity$3(a,b,c) : p1__99678_SHARP_.call(null,a,b,c));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100031_SHARP_){
+return (p1__100031_SHARP_.cljs$core$IFn$_invoke$arity$3 ? p1__100031_SHARP_.cljs$core$IFn$_invoke$arity$3(a,b,c) : p1__100031_SHARP_.call(null,a,b,c));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$4 = (function (a,b,c,d){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99679_SHARP_){
-return (p1__99679_SHARP_.cljs$core$IFn$_invoke$arity$4 ? p1__99679_SHARP_.cljs$core$IFn$_invoke$arity$4(a,b,c,d) : p1__99679_SHARP_.call(null,a,b,c,d));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100032_SHARP_){
+return (p1__100032_SHARP_.cljs$core$IFn$_invoke$arity$4 ? p1__100032_SHARP_.cljs$core$IFn$_invoke$arity$4(a,b,c,d) : p1__100032_SHARP_.call(null,a,b,c,d));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$5 = (function (a,b,c,d,e){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99680_SHARP_){
-return (p1__99680_SHARP_.cljs$core$IFn$_invoke$arity$5 ? p1__99680_SHARP_.cljs$core$IFn$_invoke$arity$5(a,b,c,d,e) : p1__99680_SHARP_.call(null,a,b,c,d,e));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100037_SHARP_){
+return (p1__100037_SHARP_.cljs$core$IFn$_invoke$arity$5 ? p1__100037_SHARP_.cljs$core$IFn$_invoke$arity$5(a,b,c,d,e) : p1__100037_SHARP_.call(null,a,b,c,d,e));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$6 = (function (a,b,c,d,e,f){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99681_SHARP_){
-return (p1__99681_SHARP_.cljs$core$IFn$_invoke$arity$6 ? p1__99681_SHARP_.cljs$core$IFn$_invoke$arity$6(a,b,c,d,e,f) : p1__99681_SHARP_.call(null,a,b,c,d,e,f));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100038_SHARP_){
+return (p1__100038_SHARP_.cljs$core$IFn$_invoke$arity$6 ? p1__100038_SHARP_.cljs$core$IFn$_invoke$arity$6(a,b,c,d,e,f) : p1__100038_SHARP_.call(null,a,b,c,d,e,f));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$7 = (function (a,b,c,d,e,f,g){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99682_SHARP_){
-return (p1__99682_SHARP_.cljs$core$IFn$_invoke$arity$7 ? p1__99682_SHARP_.cljs$core$IFn$_invoke$arity$7(a,b,c,d,e,f,g) : p1__99682_SHARP_.call(null,a,b,c,d,e,f,g));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100039_SHARP_){
+return (p1__100039_SHARP_.cljs$core$IFn$_invoke$arity$7 ? p1__100039_SHARP_.cljs$core$IFn$_invoke$arity$7(a,b,c,d,e,f,g) : p1__100039_SHARP_.call(null,a,b,c,d,e,f,g));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$8 = (function (a,b,c,d,e,f,g,h){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99683_SHARP_){
-return (p1__99683_SHARP_.cljs$core$IFn$_invoke$arity$8 ? p1__99683_SHARP_.cljs$core$IFn$_invoke$arity$8(a,b,c,d,e,f,g,h) : p1__99683_SHARP_.call(null,a,b,c,d,e,f,g,h));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100040_SHARP_){
+return (p1__100040_SHARP_.cljs$core$IFn$_invoke$arity$8 ? p1__100040_SHARP_.cljs$core$IFn$_invoke$arity$8(a,b,c,d,e,f,g,h) : p1__100040_SHARP_.call(null,a,b,c,d,e,f,g,h));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$9 = (function (a,b,c,d,e,f,g,h,i){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99684_SHARP_){
-return (p1__99684_SHARP_.cljs$core$IFn$_invoke$arity$9 ? p1__99684_SHARP_.cljs$core$IFn$_invoke$arity$9(a,b,c,d,e,f,g,h,i) : p1__99684_SHARP_.call(null,a,b,c,d,e,f,g,h,i));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100041_SHARP_){
+return (p1__100041_SHARP_.cljs$core$IFn$_invoke$arity$9 ? p1__100041_SHARP_.cljs$core$IFn$_invoke$arity$9(a,b,c,d,e,f,g,h,i) : p1__100041_SHARP_.call(null,a,b,c,d,e,f,g,h,i));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$10 = (function (a,b,c,d,e,f,g,h,i,j){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99685_SHARP_){
-return (p1__99685_SHARP_.cljs$core$IFn$_invoke$arity$10 ? p1__99685_SHARP_.cljs$core$IFn$_invoke$arity$10(a,b,c,d,e,f,g,h,i,j) : p1__99685_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100042_SHARP_){
+return (p1__100042_SHARP_.cljs$core$IFn$_invoke$arity$10 ? p1__100042_SHARP_.cljs$core$IFn$_invoke$arity$10(a,b,c,d,e,f,g,h,i,j) : p1__100042_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$11 = (function (a,b,c,d,e,f,g,h,i,j,k){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99686_SHARP_){
-return (p1__99686_SHARP_.cljs$core$IFn$_invoke$arity$11 ? p1__99686_SHARP_.cljs$core$IFn$_invoke$arity$11(a,b,c,d,e,f,g,h,i,j,k) : p1__99686_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100043_SHARP_){
+return (p1__100043_SHARP_.cljs$core$IFn$_invoke$arity$11 ? p1__100043_SHARP_.cljs$core$IFn$_invoke$arity$11(a,b,c,d,e,f,g,h,i,j,k) : p1__100043_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$12 = (function (a,b,c,d,e,f,g,h,i,j,k,l){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99687_SHARP_){
-return (p1__99687_SHARP_.cljs$core$IFn$_invoke$arity$12 ? p1__99687_SHARP_.cljs$core$IFn$_invoke$arity$12(a,b,c,d,e,f,g,h,i,j,k,l) : p1__99687_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100044_SHARP_){
+return (p1__100044_SHARP_.cljs$core$IFn$_invoke$arity$12 ? p1__100044_SHARP_.cljs$core$IFn$_invoke$arity$12(a,b,c,d,e,f,g,h,i,j,k,l) : p1__100044_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$13 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99688_SHARP_){
-return (p1__99688_SHARP_.cljs$core$IFn$_invoke$arity$13 ? p1__99688_SHARP_.cljs$core$IFn$_invoke$arity$13(a,b,c,d,e,f,g,h,i,j,k,l,m_arg) : p1__99688_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100045_SHARP_){
+return (p1__100045_SHARP_.cljs$core$IFn$_invoke$arity$13 ? p1__100045_SHARP_.cljs$core$IFn$_invoke$arity$13(a,b,c,d,e,f,g,h,i,j,k,l,m_arg) : p1__100045_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$14 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99689_SHARP_){
-return (p1__99689_SHARP_.cljs$core$IFn$_invoke$arity$14 ? p1__99689_SHARP_.cljs$core$IFn$_invoke$arity$14(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n) : p1__99689_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100046_SHARP_){
+return (p1__100046_SHARP_.cljs$core$IFn$_invoke$arity$14 ? p1__100046_SHARP_.cljs$core$IFn$_invoke$arity$14(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n) : p1__100046_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$15 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99690_SHARP_){
-return (p1__99690_SHARP_.cljs$core$IFn$_invoke$arity$15 ? p1__99690_SHARP_.cljs$core$IFn$_invoke$arity$15(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o) : p1__99690_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100047_SHARP_){
+return (p1__100047_SHARP_.cljs$core$IFn$_invoke$arity$15 ? p1__100047_SHARP_.cljs$core$IFn$_invoke$arity$15(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o) : p1__100047_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$16 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99691_SHARP_){
-return (p1__99691_SHARP_.cljs$core$IFn$_invoke$arity$16 ? p1__99691_SHARP_.cljs$core$IFn$_invoke$arity$16(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p) : p1__99691_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100048_SHARP_){
+return (p1__100048_SHARP_.cljs$core$IFn$_invoke$arity$16 ? p1__100048_SHARP_.cljs$core$IFn$_invoke$arity$16(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p) : p1__100048_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$17 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99692_SHARP_){
-return (p1__99692_SHARP_.cljs$core$IFn$_invoke$arity$17 ? p1__99692_SHARP_.cljs$core$IFn$_invoke$arity$17(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q) : p1__99692_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100049_SHARP_){
+return (p1__100049_SHARP_.cljs$core$IFn$_invoke$arity$17 ? p1__100049_SHARP_.cljs$core$IFn$_invoke$arity$17(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q) : p1__100049_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$18 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99693_SHARP_){
-return (p1__99693_SHARP_.cljs$core$IFn$_invoke$arity$18 ? p1__99693_SHARP_.cljs$core$IFn$_invoke$arity$18(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r) : p1__99693_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100050_SHARP_){
+return (p1__100050_SHARP_.cljs$core$IFn$_invoke$arity$18 ? p1__100050_SHARP_.cljs$core$IFn$_invoke$arity$18(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r) : p1__100050_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$19 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99694_SHARP_){
-return (p1__99694_SHARP_.cljs$core$IFn$_invoke$arity$19 ? p1__99694_SHARP_.cljs$core$IFn$_invoke$arity$19(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s) : p1__99694_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100051_SHARP_){
+return (p1__100051_SHARP_.cljs$core$IFn$_invoke$arity$19 ? p1__100051_SHARP_.cljs$core$IFn$_invoke$arity$19(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s) : p1__100051_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$20 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99695_SHARP_){
-return (p1__99695_SHARP_.cljs$core$IFn$_invoke$arity$20 ? p1__99695_SHARP_.cljs$core$IFn$_invoke$arity$20(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t) : p1__99695_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100052_SHARP_){
+return (p1__100052_SHARP_.cljs$core$IFn$_invoke$arity$20 ? p1__100052_SHARP_.cljs$core$IFn$_invoke$arity$20(a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t) : p1__100052_SHARP_.call(null,a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t));
 }),self__.v),self__.m));
 }));
 
 (sicmutils.structure.Structure.prototype.cljs$core$IFn$_invoke$arity$21 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t,rest){
 var self__ = this;
 var _ = this;
-return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__99696_SHARP_){
-return cljs.core.apply.cljs$core$IFn$_invoke$arity$variadic(p1__99696_SHARP_,a,b,c,d,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t,rest], 0));
+return (new sicmutils.structure.Structure(self__.orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100053_SHARP_){
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$variadic(p1__100053_SHARP_,a,b,c,d,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([e,f,g,h,i,j,k,l,m_arg,n,o,p,q,r,s,t,rest], 0));
 }),self__.v),self__.m));
 }));
 
@@ -560,21 +561,21 @@ return cljs.core.boolean$(cljs.core.some(sicmutils.differential.perturbed_QMARK_
 (sicmutils.structure.Structure.prototype.sicmutils$differential$IPerturbed$replace_tag$arity$3 = (function (s,old,new$){
 var self__ = this;
 var s__$1 = this;
-var G__99748 = (function (p1__99650_SHARP_){
-return sicmutils.differential.replace_tag(p1__99650_SHARP_,old,new$);
+var G__100081 = (function (p1__99990_SHARP_){
+return sicmutils.differential.replace_tag(p1__99990_SHARP_,old,new$);
 });
-var G__99749 = s__$1;
-return (sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2 ? sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2(G__99748,G__99749) : sicmutils.structure.mapr.call(null,G__99748,G__99749));
+var G__100082 = s__$1;
+return (sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2 ? sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2(G__100081,G__100082) : sicmutils.structure.mapr.call(null,G__100081,G__100082));
 }));
 
 (sicmutils.structure.Structure.prototype.sicmutils$differential$IPerturbed$extract_tangent$arity$2 = (function (s,tag){
 var self__ = this;
 var s__$1 = this;
-var G__99750 = (function (p1__99651_SHARP_){
-return sicmutils.differential.extract_tangent(p1__99651_SHARP_,tag);
+var G__100083 = (function (p1__99991_SHARP_){
+return sicmutils.differential.extract_tangent(p1__99991_SHARP_,tag);
 });
-var G__99751 = s__$1;
-return (sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2 ? sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2(G__99750,G__99751) : sicmutils.structure.mapr.call(null,G__99750,G__99751));
+var G__100084 = s__$1;
+return (sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2 ? sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$2(G__100083,G__100084) : sicmutils.structure.mapr.call(null,G__100083,G__100084));
 }));
 
 (sicmutils.structure.Structure.getBasis = (function (){
@@ -667,14 +668,14 @@ return sicmutils.util.illegal(["non-sequential s:nth not supported: ",cljs.core.
  */
 sicmutils.structure.component = (function sicmutils$structure$component(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___99837 = arguments.length;
-var i__4865__auto___99838 = (0);
+var len__4864__auto___100162 = arguments.length;
+var i__4865__auto___100163 = (0);
 while(true){
-if((i__4865__auto___99838 < len__4864__auto___99837)){
-args__4870__auto__.push((arguments[i__4865__auto___99838]));
+if((i__4865__auto___100163 < len__4864__auto___100162)){
+args__4870__auto__.push((arguments[i__4865__auto___100163]));
 
-var G__99839 = (i__4865__auto___99838 + (1));
-i__4865__auto___99838 = G__99839;
+var G__100164 = (i__4865__auto___100163 + (1));
+i__4865__auto___100163 = G__100164;
 continue;
 } else {
 }
@@ -686,17 +687,17 @@ return sicmutils.structure.component.cljs$core$IFn$_invoke$arity$variadic(argseq
 });
 
 (sicmutils.structure.component.cljs$core$IFn$_invoke$arity$variadic = (function (indices){
-return (function (p1__99752_SHARP_){
-return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(p1__99752_SHARP_,indices);
+return (function (p1__100085_SHARP_){
+return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(p1__100085_SHARP_,indices);
 });
 }));
 
 (sicmutils.structure.component.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.structure.component.cljs$lang$applyTo = (function (seq99753){
+(sicmutils.structure.component.cljs$lang$applyTo = (function (seq100086){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq99753));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100086));
 }));
 
 sicmutils.value._EQ_.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.structure","down","sicmutils.structure/down",-1499865924),new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939)], null),(function (_,___$1){
@@ -799,9 +800,9 @@ return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.orientat
 sicmutils.structure.two_tensor_info = (function sicmutils$structure$two_tensor_info(s){
 var outer_size = cljs.core.count(s);
 var outer_orientation = sicmutils.structure.orientation(s);
-var inner_sizes = cljs.core.into.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentHashSet.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p1__99754_SHARP_){
-if(sicmutils.structure.structure_QMARK_(p1__99754_SHARP_)){
-return cljs.core.count(p1__99754_SHARP_);
+var inner_sizes = cljs.core.into.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentHashSet.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p1__100087_SHARP_){
+if(sicmutils.structure.structure_QMARK_(p1__100087_SHARP_)){
+return cljs.core.count(p1__100087_SHARP_);
 } else {
 return (1);
 }
@@ -894,14 +895,14 @@ return sicmutils.structure.__GT_Structure(new cljs.core.Keyword("sicmutils.struc
  */
 sicmutils.structure.up = (function sicmutils$structure$up(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___99840 = arguments.length;
-var i__4865__auto___99841 = (0);
+var len__4864__auto___100166 = arguments.length;
+var i__4865__auto___100167 = (0);
 while(true){
-if((i__4865__auto___99841 < len__4864__auto___99840)){
-args__4870__auto__.push((arguments[i__4865__auto___99841]));
+if((i__4865__auto___100167 < len__4864__auto___100166)){
+args__4870__auto__.push((arguments[i__4865__auto___100167]));
 
-var G__99842 = (i__4865__auto___99841 + (1));
-i__4865__auto___99841 = G__99842;
+var G__100168 = (i__4865__auto___100167 + (1));
+i__4865__auto___100167 = G__100168;
 continue;
 } else {
 }
@@ -919,9 +920,9 @@ return sicmutils.structure.up_STAR_(xs);
 (sicmutils.structure.up.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.structure.up.cljs$lang$applyTo = (function (seq99755){
+(sicmutils.structure.up.cljs$lang$applyTo = (function (seq100088){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq99755));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100088));
 }));
 
 /**
@@ -952,14 +953,14 @@ return sicmutils.structure.__GT_Structure(new cljs.core.Keyword("sicmutils.struc
  */
 sicmutils.structure.down = (function sicmutils$structure$down(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___99843 = arguments.length;
-var i__4865__auto___99844 = (0);
+var len__4864__auto___100169 = arguments.length;
+var i__4865__auto___100170 = (0);
 while(true){
-if((i__4865__auto___99844 < len__4864__auto___99843)){
-args__4870__auto__.push((arguments[i__4865__auto___99844]));
+if((i__4865__auto___100170 < len__4864__auto___100169)){
+args__4870__auto__.push((arguments[i__4865__auto___100170]));
 
-var G__99845 = (i__4865__auto___99844 + (1));
-i__4865__auto___99844 = G__99845;
+var G__100171 = (i__4865__auto___100170 + (1));
+i__4865__auto___100170 = G__100171;
 continue;
 } else {
 }
@@ -977,9 +978,9 @@ return sicmutils.structure.make(new cljs.core.Keyword("sicmutils.structure","dow
 (sicmutils.structure.down.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.structure.down.cljs$lang$applyTo = (function (seq99756){
+(sicmutils.structure.down.cljs$lang$applyTo = (function (seq100089){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq99756));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100089));
 }));
 
 /**
@@ -1002,8 +1003,8 @@ return sicmutils.structure.make(sicmutils.structure.orientation(s),xs);
  *   with the contents of the sequence `xs`.
  */
 sicmutils.structure.opposite = (function sicmutils$structure$opposite(var_args){
-var G__99758 = arguments.length;
-switch (G__99758) {
+var G__100091 = arguments.length;
+switch (G__100091) {
 case 1:
 return sicmutils.structure.opposite.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1027,8 +1028,8 @@ return s;
 }));
 
 (sicmutils.structure.opposite.cljs$core$IFn$_invoke$arity$2 = (function (s,xs){
-var o = (function (){var G__99759 = sicmutils.structure.orientation(s);
-return (sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1 ? sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1(G__99759) : sicmutils.structure.opposite_orientation.call(null,G__99759));
+var o = (function (){var G__100092 = sicmutils.structure.orientation(s);
+return (sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1 ? sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1(G__100092) : sicmutils.structure.opposite_orientation.call(null,G__100092));
 })();
 return sicmutils.structure.make(o,xs);
 }));
@@ -1106,19 +1107,19 @@ return sicmutils.structure.literal(sym,size,new cljs.core.Keyword("sicmutils.str
  * Returns the sum of all values generated by mapping `f` across the same-indexed
  *   entries of all supplied structures, one level deep.
  */
-sicmutils.structure.sum_COLON_l = (function sicmutils$structure$sum_COLON_l(f,p__99761){
-var vec__99762 = p__99761;
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99762,(0),null);
-var structs = vec__99762;
-var G__99765 = (function (i){
-var xs = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__99760_SHARP_){
-return sicmutils.structure.s_COLON_nth(p1__99760_SHARP_,i);
+sicmutils.structure.sum_COLON_l = (function sicmutils$structure$sum_COLON_l(f,p__100094){
+var vec__100095 = p__100094;
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100095,(0),null);
+var structs = vec__100095;
+var G__100098 = (function (i){
+var xs = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100093_SHARP_){
+return sicmutils.structure.s_COLON_nth(p1__100093_SHARP_,i);
 }),structs);
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,xs);
 });
-var G__99766 = (0);
-var G__99767 = cljs.core.count(s);
-return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3(G__99765,G__99766,G__99767) : sicmutils.util.aggregate.generic_sum.call(null,G__99765,G__99766,G__99767));
+var G__100099 = (0);
+var G__100100 = cljs.core.count(s);
+return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3(G__100098,G__100099,G__100100) : sicmutils.util.aggregate.generic_sum.call(null,G__100098,G__100099,G__100100));
 });
 /**
  * Accepts a function `f` and a sequence of isomorphic `structures`; returns the
@@ -1127,28 +1128,28 @@ return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sic
  */
 sicmutils.structure.sum_COLON_r_COLON_l = (function sicmutils$structure$sum_COLON_r_COLON_l(f,structures){
 return sicmutils.structure.sum_COLON_l((function() { 
-var G__99847__delegate = function (elements){
+var G__100197__delegate = function (elements){
 if(sicmutils.structure.structure_QMARK_(cljs.core.first(elements))){
 return (sicmutils.structure.sum_COLON_r_COLON_l.cljs$core$IFn$_invoke$arity$2 ? sicmutils.structure.sum_COLON_r_COLON_l.cljs$core$IFn$_invoke$arity$2(f,elements) : sicmutils.structure.sum_COLON_r_COLON_l.call(null,f,elements));
 } else {
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,elements);
 }
 };
-var G__99847 = function (var_args){
+var G__100197 = function (var_args){
 var elements = null;
 if (arguments.length > 0) {
-var G__99848__i = 0, G__99848__a = new Array(arguments.length -  0);
-while (G__99848__i < G__99848__a.length) {G__99848__a[G__99848__i] = arguments[G__99848__i + 0]; ++G__99848__i;}
-  elements = new cljs.core.IndexedSeq(G__99848__a,0,null);
+var G__100200__i = 0, G__100200__a = new Array(arguments.length -  0);
+while (G__100200__i < G__100200__a.length) {G__100200__a[G__100200__i] = arguments[G__100200__i + 0]; ++G__100200__i;}
+  elements = new cljs.core.IndexedSeq(G__100200__a,0,null);
 } 
-return G__99847__delegate.call(this,elements);};
-G__99847.cljs$lang$maxFixedArity = 0;
-G__99847.cljs$lang$applyTo = (function (arglist__99849){
-var elements = cljs.core.seq(arglist__99849);
-return G__99847__delegate(elements);
+return G__100197__delegate.call(this,elements);};
+G__100197.cljs$lang$maxFixedArity = 0;
+G__100197.cljs$lang$applyTo = (function (arglist__100201){
+var elements = cljs.core.seq(arglist__100201);
+return G__100197__delegate(elements);
 });
-G__99847.cljs$core$IFn$_invoke$arity$variadic = G__99847__delegate;
-return G__99847;
+G__100197.cljs$core$IFn$_invoke$arity$variadic = G__100197__delegate;
+return G__100197;
 })()
 ,structures);
 });
@@ -1159,14 +1160,14 @@ return G__99847;
  */
 sicmutils.structure.sumr = (function sicmutils$structure$sumr(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___99850 = arguments.length;
-var i__4865__auto___99851 = (0);
+var len__4864__auto___100202 = arguments.length;
+var i__4865__auto___100203 = (0);
 while(true){
-if((i__4865__auto___99851 < len__4864__auto___99850)){
-args__4870__auto__.push((arguments[i__4865__auto___99851]));
+if((i__4865__auto___100203 < len__4864__auto___100202)){
+args__4870__auto__.push((arguments[i__4865__auto___100203]));
 
-var G__99852 = (i__4865__auto___99851 + (1));
-i__4865__auto___99851 = G__99852;
+var G__100204 = (i__4865__auto___100203 + (1));
+i__4865__auto___100203 = G__100204;
 continue;
 } else {
 }
@@ -1184,25 +1185,25 @@ return sicmutils.structure.sum_COLON_r_COLON_l(f,structures);
 (sicmutils.structure.sumr.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(sicmutils.structure.sumr.cljs$lang$applyTo = (function (seq99768){
-var G__99769 = cljs.core.first(seq99768);
-var seq99768__$1 = cljs.core.next(seq99768);
+(sicmutils.structure.sumr.cljs$lang$applyTo = (function (seq100101){
+var G__100102 = cljs.core.first(seq100101);
+var seq100101__$1 = cljs.core.next(seq100101);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__99769,seq99768__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__100102,seq100101__$1);
 }));
 
 /**
  * Returns a new structure generated by mapping `f` across the same-indexed
  *   entries of all supplied structures, one level deep.
  */
-sicmutils.structure.map_COLON_l = (function sicmutils$structure$map_COLON_l(f,p__99771){
-var vec__99772 = p__99771;
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99772,(0),null);
-var structs = vec__99772;
+sicmutils.structure.map_COLON_l = (function sicmutils$structure$map_COLON_l(f,p__100104){
+var vec__100105 = p__100104;
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100105,(0),null);
+var structs = vec__100105;
 if(sicmutils.structure.structure_QMARK_(s)){
 return sicmutils.structure.generate(cljs.core.count(s),sicmutils.structure.orientation(s),(function (i){
-var xs = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__99770_SHARP_){
-return sicmutils.structure.s_COLON_nth(p1__99770_SHARP_,i);
+var xs = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100103_SHARP_){
+return sicmutils.structure.s_COLON_nth(p1__100103_SHARP_,i);
 }),structs);
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,xs);
 }));
@@ -1217,28 +1218,28 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,structs);
  */
 sicmutils.structure.map_COLON_r_COLON_l = (function sicmutils$structure$map_COLON_r_COLON_l(f,structures){
 return sicmutils.structure.map_COLON_l((function() { 
-var G__99853__delegate = function (elements){
+var G__100209__delegate = function (elements){
 if(sicmutils.structure.structure_QMARK_(cljs.core.first(elements))){
 return (sicmutils.structure.map_COLON_r_COLON_l.cljs$core$IFn$_invoke$arity$2 ? sicmutils.structure.map_COLON_r_COLON_l.cljs$core$IFn$_invoke$arity$2(f,elements) : sicmutils.structure.map_COLON_r_COLON_l.call(null,f,elements));
 } else {
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,elements);
 }
 };
-var G__99853 = function (var_args){
+var G__100209 = function (var_args){
 var elements = null;
 if (arguments.length > 0) {
-var G__99854__i = 0, G__99854__a = new Array(arguments.length -  0);
-while (G__99854__i < G__99854__a.length) {G__99854__a[G__99854__i] = arguments[G__99854__i + 0]; ++G__99854__i;}
-  elements = new cljs.core.IndexedSeq(G__99854__a,0,null);
+var G__100212__i = 0, G__100212__a = new Array(arguments.length -  0);
+while (G__100212__i < G__100212__a.length) {G__100212__a[G__100212__i] = arguments[G__100212__i + 0]; ++G__100212__i;}
+  elements = new cljs.core.IndexedSeq(G__100212__a,0,null);
 } 
-return G__99853__delegate.call(this,elements);};
-G__99853.cljs$lang$maxFixedArity = 0;
-G__99853.cljs$lang$applyTo = (function (arglist__99855){
-var elements = cljs.core.seq(arglist__99855);
-return G__99853__delegate(elements);
+return G__100209__delegate.call(this,elements);};
+G__100209.cljs$lang$maxFixedArity = 0;
+G__100209.cljs$lang$applyTo = (function (arglist__100213){
+var elements = cljs.core.seq(arglist__100213);
+return G__100209__delegate(elements);
 });
-G__99853.cljs$core$IFn$_invoke$arity$variadic = G__99853__delegate;
-return G__99853;
+G__100209.cljs$core$IFn$_invoke$arity$variadic = G__100209__delegate;
+return G__100209;
 })()
 ,structures);
 });
@@ -1248,14 +1249,14 @@ return G__99853;
  */
 sicmutils.structure.mapr = (function sicmutils$structure$mapr(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___99856 = arguments.length;
-var i__4865__auto___99857 = (0);
+var len__4864__auto___100214 = arguments.length;
+var i__4865__auto___100215 = (0);
 while(true){
-if((i__4865__auto___99857 < len__4864__auto___99856)){
-args__4870__auto__.push((arguments[i__4865__auto___99857]));
+if((i__4865__auto___100215 < len__4864__auto___100214)){
+args__4870__auto__.push((arguments[i__4865__auto___100215]));
 
-var G__99858 = (i__4865__auto___99857 + (1));
-i__4865__auto___99857 = G__99858;
+var G__100216 = (i__4865__auto___100215 + (1));
+i__4865__auto___100215 = G__100216;
 continue;
 } else {
 }
@@ -1273,11 +1274,11 @@ return sicmutils.structure.map_COLON_r_COLON_l(f,structures);
 (sicmutils.structure.mapr.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(sicmutils.structure.mapr.cljs$lang$applyTo = (function (seq99775){
-var G__99776 = cljs.core.first(seq99775);
-var seq99775__$1 = cljs.core.next(seq99775);
+(sicmutils.structure.mapr.cljs$lang$applyTo = (function (seq100108){
+var G__100109 = cljs.core.first(seq100108);
+var seq100108__$1 = cljs.core.next(seq100108);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__99776,seq99775__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__100109,seq100108__$1);
 }));
 
 /**
@@ -1357,8 +1358,8 @@ return cljs.core.symbol.cljs$core$IFn$_invoke$arity$1(cljs.core.apply.cljs$core$
  *   the same shape as `struct`.
  */
 sicmutils.structure.unflatten = (function sicmutils$structure$unflatten(var_args){
-var G__99778 = arguments.length;
-switch (G__99778) {
+var G__100111 = arguments.length;
+switch (G__100111) {
 case 2:
 return sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1380,17 +1381,17 @@ return sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$3(sicmutils.str
 (sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$3 = (function (constructor$,values,struct){
 var u = (function sicmutils$structure$u(values__$1,struct__$1){
 if(sicmutils.structure.structure_QMARK_(struct__$1)){
-var vec__99789 = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__99792,element){
-var vec__99793 = p__99792;
-var values__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99793,(0),null);
-var struct__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99793,(1),null);
-var vec__99796 = sicmutils$structure$u(values__$2,element);
-var values_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99796,(0),null);
-var struct_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99796,(1),null);
+var vec__100122 = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__100125,element){
+var vec__100126 = p__100125;
+var values__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100126,(0),null);
+var struct__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100126,(1),null);
+var vec__100129 = sicmutils$structure$u(values__$2,element);
+var values_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100129,(0),null);
+var struct_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100129,(1),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [values_SINGLEQUOTE_,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(struct__$2,struct_SINGLEQUOTE_)], null);
 }),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [values__$1,cljs.core.PersistentVector.EMPTY], null),struct__$1);
-var values_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99789,(0),null);
-var struct_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99789,(1),null);
+var values_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100122,(0),null);
+var struct_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100122,(1),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [values_SINGLEQUOTE_,(constructor$.cljs$core$IFn$_invoke$arity$2 ? constructor$.cljs$core$IFn$_invoke$arity$2(struct__$1,struct_SINGLEQUOTE_) : constructor$.call(null,struct__$1,struct_SINGLEQUOTE_))], null);
 } else {
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.rest(values__$1),cljs.core.first(values__$1)], null);
@@ -1407,8 +1408,8 @@ return cljs.core.second(u(values,struct));
  */
 sicmutils.structure.transpose = (function sicmutils$structure$transpose(s){
 if(sicmutils.structure.structure_QMARK_(s)){
-return sicmutils.structure.__GT_Structure((function (){var G__99799 = sicmutils.structure.orientation(s);
-return (sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1 ? sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1(G__99799) : sicmutils.structure.opposite_orientation.call(null,G__99799));
+return sicmutils.structure.__GT_Structure((function (){var G__100132 = sicmutils.structure.orientation(s);
+return (sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1 ? sicmutils.structure.opposite_orientation.cljs$core$IFn$_invoke$arity$1(G__100132) : sicmutils.structure.opposite_orientation.call(null,G__100132));
 })(),cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.transpose,sicmutils.structure.structure__GT_vector(s)),cljs.core.meta(s));
 } else {
 return s;
@@ -1430,24 +1431,24 @@ return s;
 sicmutils.structure.transpose_outer = (function sicmutils$structure$transpose_outer(s){
 var o = sicmutils.structure.orientation(s);
 return sicmutils.structure.map_COLON_l((function() { 
-var G__99868__delegate = function (xs){
+var G__100228__delegate = function (xs){
 return sicmutils.structure.make(o,xs);
 };
-var G__99868 = function (var_args){
+var G__100228 = function (var_args){
 var xs = null;
 if (arguments.length > 0) {
-var G__99869__i = 0, G__99869__a = new Array(arguments.length -  0);
-while (G__99869__i < G__99869__a.length) {G__99869__a[G__99869__i] = arguments[G__99869__i + 0]; ++G__99869__i;}
-  xs = new cljs.core.IndexedSeq(G__99869__a,0,null);
+var G__100229__i = 0, G__100229__a = new Array(arguments.length -  0);
+while (G__100229__i < G__100229__a.length) {G__100229__a[G__100229__i] = arguments[G__100229__i + 0]; ++G__100229__i;}
+  xs = new cljs.core.IndexedSeq(G__100229__a,0,null);
 } 
-return G__99868__delegate.call(this,xs);};
-G__99868.cljs$lang$maxFixedArity = 0;
-G__99868.cljs$lang$applyTo = (function (arglist__99870){
-var xs = cljs.core.seq(arglist__99870);
-return G__99868__delegate(xs);
+return G__100228__delegate.call(this,xs);};
+G__100228.cljs$lang$maxFixedArity = 0;
+G__100228.cljs$lang$applyTo = (function (arglist__100230){
+var xs = cljs.core.seq(arglist__100230);
+return G__100228__delegate(xs);
 });
-G__99868.cljs$core$IFn$_invoke$arity$variadic = G__99868__delegate;
-return G__99868;
+G__100228.cljs$core$IFn$_invoke$arity$variadic = G__100228__delegate;
+return G__100228;
 })()
 ,s);
 });
@@ -1482,8 +1483,8 @@ return sicmutils.structure.typical_object(sicmutils.structure.transpose(s));
  *   the right).
  */
 sicmutils.structure.structure_STAR_scalar = (function sicmutils$structure$structure_STAR_scalar(v,s){
-return sicmutils.structure.same(v,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__99800_SHARP_){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__99800_SHARP_,s);
+return sicmutils.structure.same(v,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100133_SHARP_){
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__100133_SHARP_,s);
 }),v));
 });
 /**
@@ -1491,8 +1492,8 @@ return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__99800_SHARP_,s
  *   the left).
  */
 sicmutils.structure.scalar_STAR_structure = (function sicmutils$structure$scalar_STAR_structure(s,v){
-return sicmutils.structure.same(v,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__99801_SHARP_){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,p1__99801_SHARP_);
+return sicmutils.structure.same(v,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100134_SHARP_){
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,p1__100134_SHARP_);
 }),v));
 });
 /**
@@ -1506,10 +1507,10 @@ return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,p1__99801_SHARP_
  *   false otherwise.
  */
 sicmutils.structure.compatible_for_contraction_QMARK_ = (function sicmutils$structure$compatible_for_contraction_QMARK_(s,t){
-return (((!(sicmutils.structure.same_orientation_QMARK_(s,t)))) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(s),cljs.core.count(t))) && (cljs.core.every_QMARK_((function (p__99802){
-var vec__99803 = p__99802;
-var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99803,(0),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99803,(1),null);
+return (((!(sicmutils.structure.same_orientation_QMARK_(s,t)))) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(s),cljs.core.count(t))) && (cljs.core.every_QMARK_((function (p__100135){
+var vec__100136 = p__100135;
+var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100136,(0),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100136,(1),null);
 var or__4253__auto__ = (!(sicmutils.structure.structure_QMARK_(l)));
 if(or__4253__auto__){
 return or__4253__auto__;
@@ -1650,14 +1651,14 @@ sicmutils.util.illegal("cross product only works on two elements of ^3");
 } else {
 }
 
-var vec__99806 = s;
-var s0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99806,(0),null);
-var s1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99806,(1),null);
-var s2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99806,(2),null);
-var vec__99809 = t;
-var t0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99809,(0),null);
-var t1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99809,(1),null);
-var t2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99809,(2),null);
+var vec__100139 = s;
+var s0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100139,(0),null);
+var s1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100139,(1),null);
+var s2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100139,(2),null);
+var vec__100142 = t;
+var t0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100142,(0),null);
+var t1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100142,(1),null);
+var t2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100142,(2),null);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s1,t2),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s2,t1)),sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s2,t0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s0,t2)),sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s0,t1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s1,t0))], 0));
 });
 /**
@@ -1701,13 +1702,13 @@ sicmutils.generic.div.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.
 return sicmutils.structure.structure_STAR_scalar(a,sicmutils.generic.invert.cljs$core$IFn$_invoke$arity$1(b));
 }));
 sicmutils.generic.mul.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.operator","operator","sicmutils.operator/operator",-1165539017),new cljs.core.Keyword("sicmutils.structure","structure","sicmutils.structure/structure",-773828675)], null),(function (op,s){
-return sicmutils.structure.same(s,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__99812_SHARP_){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(op,p1__99812_SHARP_);
+return sicmutils.structure.same(s,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100145_SHARP_){
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(op,p1__100145_SHARP_);
 }),s));
 }));
 sicmutils.generic.mul.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.structure","structure","sicmutils.structure/structure",-773828675),new cljs.core.Keyword("sicmutils.operator","operator","sicmutils.operator/operator",-1165539017)], null),(function (s,op){
-return sicmutils.structure.same(s,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__99813_SHARP_){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__99813_SHARP_,op);
+return sicmutils.structure.same(s,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100146_SHARP_){
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__100146_SHARP_,op);
 }),s));
 }));
 sicmutils.generic.square.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.structure","structure","sicmutils.structure/structure",-773828675)], null),(function (a){

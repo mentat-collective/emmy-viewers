@@ -231,8 +231,8 @@ return null;
  *   return value.
  */
 sicmutils.expression.fmap = (function sicmutils$expression$fmap(f,e){
-return sicmutils.expression.__GT_Literal(e.type,(function (){var G__95584 = e.expression;
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__95584) : f.call(null,G__95584));
+return sicmutils.expression.__GT_Literal(e.type,(function (){var G__95666 = e.expression;
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__95666) : f.call(null,G__95666));
 })(),e.m);
 });
 /**
@@ -261,8 +261,8 @@ if((expr instanceof cljs.core.Symbol)){
 return cljs.core.PersistentHashSet.createAsIfByAssoc([expr]);
 } else {
 if(sicmutils.expression.literal_QMARK_(expr)){
-var G__95636 = sicmutils.expression.expression_of(expr);
-expr = G__95636;
+var G__95712 = sicmutils.expression.expression_of(expr);
+expr = G__95712;
 continue;
 } else {
 var xs = cljs.core.rest(cljs.core.tree_seq(cljs.core.sequential_QMARK_,cljs.core.seq,expr));
@@ -286,12 +286,12 @@ if((node instanceof cljs.core.Symbol)){
 return (sym__GT_var.cljs$core$IFn$_invoke$arity$2 ? sym__GT_var.cljs$core$IFn$_invoke$arity$2(node,node) : sym__GT_var.call(null,node,node));
 } else {
 if(cljs.core.sequential_QMARK_(node)){
-var vec__95599 = node;
-var seq__95600 = cljs.core.seq(vec__95599);
-var first__95601 = cljs.core.first(seq__95600);
-var seq__95600__$1 = cljs.core.next(seq__95600);
-var f_sym = first__95601;
-var args = seq__95600__$1;
+var vec__95673 = node;
+var seq__95674 = cljs.core.seq(vec__95673);
+var first__95675 = cljs.core.first(seq__95674);
+var seq__95674__$1 = cljs.core.next(seq__95674);
+var f_sym = first__95675;
+var args = seq__95674__$1;
 var temp__5751__auto__ = (sym__GT_f.cljs$core$IFn$_invoke$arity$1 ? sym__GT_f.cljs$core$IFn$_invoke$arity$1(f_sym) : sym__GT_f.call(null,f_sym));
 if(cljs.core.truth_(temp__5751__auto__)){
 var f = temp__5751__auto__;
@@ -315,8 +315,8 @@ return walk(sicmutils.expression.expression_of(expr));
  *   NOTE that this now works for expressions too.
  */
 sicmutils.expression.substitute = (function sicmutils$expression$substitute(var_args){
-var G__95607 = arguments.length;
-switch (G__95607) {
+var G__95686 = arguments.length;
+switch (G__95686) {
 case 3:
 return sicmutils.expression.substitute.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -337,8 +337,8 @@ return sicmutils.expression.substitute.cljs$core$IFn$_invoke$arity$2(expr,cljs.c
 
 (sicmutils.expression.substitute.cljs$core$IFn$_invoke$arity$2 = (function (expr,s_map){
 if(sicmutils.expression.literal_QMARK_(expr)){
-return sicmutils.expression.fmap((function (p1__95604_SHARP_){
-return sicmutils.expression.substitute.cljs$core$IFn$_invoke$arity$2(p1__95604_SHARP_,s_map);
+return sicmutils.expression.fmap((function (p1__95681_SHARP_){
+return sicmutils.expression.substitute.cljs$core$IFn$_invoke$arity$2(p1__95681_SHARP_,s_map);
 }),expr);
 } else {
 return clojure.walk.postwalk_replace(s_map,expr);
@@ -433,15 +433,15 @@ return (-1);
 if((n2 < n1)){
 return (1);
 } else {
-var head_compare = (function (){var G__95621 = cljs.core.first(l);
-var G__95622 = cljs.core.first(r);
-return (sicmutils.expression.compare.cljs$core$IFn$_invoke$arity$2 ? sicmutils.expression.compare.cljs$core$IFn$_invoke$arity$2(G__95621,G__95622) : sicmutils.expression.compare.call(null,G__95621,G__95622));
+var head_compare = (function (){var G__95689 = cljs.core.first(l);
+var G__95690 = cljs.core.first(r);
+return (sicmutils.expression.compare.cljs$core$IFn$_invoke$arity$2 ? sicmutils.expression.compare.cljs$core$IFn$_invoke$arity$2(G__95689,G__95690) : sicmutils.expression.compare.call(null,G__95689,G__95690));
 })();
 if((head_compare === (0))){
-var G__95654 = cljs.core.rest(l);
-var G__95655 = cljs.core.rest(r);
-l = G__95654;
-r = G__95655;
+var G__95718 = cljs.core.rest(l);
+var G__95719 = cljs.core.rest(r);
+l = G__95718;
+r = G__95719;
 continue;
 } else {
 return head_compare;
@@ -473,10 +473,10 @@ break;
 }
 });
 sicmutils.expression.sorted_QMARK_ = (function sicmutils$expression$sorted_QMARK_(xs){
-return (((!(cljs.core.sequential_QMARK_(xs)))) || (cljs.core.every_QMARK_((function (p__95627){
-var vec__95628 = p__95627;
-var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95628,(0),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95628,(1),null);
+return (((!(cljs.core.sequential_QMARK_(xs)))) || (cljs.core.every_QMARK_((function (p__95694){
+var vec__95695 = p__95694;
+var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95695,(0),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95695,(1),null);
 return (sicmutils.expression.compare(l,r) <= (0));
 }),cljs.core.partition.cljs$core$IFn$_invoke$arity$3((2),(1),xs))));
 });
@@ -491,8 +491,8 @@ return xs;
  * Renders an expression through the simplifier and onto the stream.
  */
 sicmutils.expression.expression__GT_stream = (function sicmutils$expression$expression__GT_stream(var_args){
-var G__95632 = arguments.length;
-switch (G__95632) {
+var G__95701 = arguments.length;
+switch (G__95701) {
 case 2:
 return sicmutils.expression.expression__GT_stream.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 

@@ -4,22 +4,22 @@ goog.provide('sicmutils.env');
  *   elsewhere.
  */
 sicmutils.env.ref = (function sicmutils$env$ref(var_args){
-var G__103865 = arguments.length;
-switch (G__103865) {
+var G__103880 = arguments.length;
+switch (G__103880) {
 case 1:
 return sicmutils.env.ref.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___103928 = arguments.length;
-var i__4865__auto___103929 = (0);
+var len__4864__auto___103965 = arguments.length;
+var i__4865__auto___103966 = (0);
 while(true){
-if((i__4865__auto___103929 < len__4864__auto___103928)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___103929]));
+if((i__4865__auto___103966 < len__4864__auto___103965)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___103966]));
 
-var G__103930 = (i__4865__auto___103929 + (1));
-i__4865__auto___103929 = G__103930;
+var G__103967 = (i__4865__auto___103966 + (1));
+i__4865__auto___103966 = G__103967;
 continue;
 } else {
 }
@@ -38,13 +38,13 @@ return a;
 
 (sicmutils.env.ref.cljs$core$IFn$_invoke$arity$variadic = (function (a,ks){
 if(sicmutils.function$.function_QMARK_(a)){
-return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (p1__103860_SHARP_){
-return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(sicmutils.env.ref,p1__103860_SHARP_,ks);
+return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (p1__103875_SHARP_){
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(sicmutils.env.ref,p1__103875_SHARP_,ks);
 }),a], 0));
 } else {
 if(sicmutils.operator.operator_QMARK_(a)){
-return sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2(sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (p1__103861_SHARP_){
-return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(sicmutils.env.ref,p1__103861_SHARP_,ks);
+return sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2(sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (p1__103876_SHARP_){
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(sicmutils.env.ref,p1__103876_SHARP_,ks);
 }),sicmutils.operator.procedure(a)], 0)),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"compose","compose",1144740903,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"component","component",-1098498987,null),null,(1),null)),ks))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.operator.name(a),null,(1),null))], 0)))));
 } else {
 if(((cljs.core.associative_QMARK_(a)) && (cljs.core.every_QMARK_(sicmutils.value.integral_QMARK_,ks)))){
@@ -62,11 +62,11 @@ return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,ks);
 }));
 
 /** @this {Function} */
-(sicmutils.env.ref.cljs$lang$applyTo = (function (seq103863){
-var G__103864 = cljs.core.first(seq103863);
-var seq103863__$1 = cljs.core.next(seq103863);
+(sicmutils.env.ref.cljs$lang$applyTo = (function (seq103878){
+var G__103879 = cljs.core.first(seq103878);
+var seq103878__$1 = cljs.core.next(seq103878);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103864,seq103863__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103879,seq103878__$1);
 }));
 
 (sicmutils.env.ref.cljs$lang$maxFixedArity = (1));
@@ -82,14 +82,14 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103864,seq1038
  */
 sicmutils.env.component = (function sicmutils$env$component(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___103936 = arguments.length;
-var i__4865__auto___103937 = (0);
+var len__4864__auto___103968 = arguments.length;
+var i__4865__auto___103969 = (0);
 while(true){
-if((i__4865__auto___103937 < len__4864__auto___103936)){
-args__4870__auto__.push((arguments[i__4865__auto___103937]));
+if((i__4865__auto___103969 < len__4864__auto___103968)){
+args__4870__auto__.push((arguments[i__4865__auto___103969]));
 
-var G__103938 = (i__4865__auto___103937 + (1));
-i__4865__auto___103937 = G__103938;
+var G__103970 = (i__4865__auto___103969 + (1));
+i__4865__auto___103969 = G__103970;
 continue;
 } else {
 }
@@ -109,9 +109,9 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(sicmutils.env.ref,x,selecto
 (sicmutils.env.component.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.env.component.cljs$lang$applyTo = (function (seq103866){
+(sicmutils.env.component.cljs$lang$applyTo = (function (seq103886){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq103866));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq103886));
 }));
 
 /**
@@ -120,14 +120,14 @@ return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq
  */
 sicmutils.env.partial = (function sicmutils$env$partial(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___103941 = arguments.length;
-var i__4865__auto___103942 = (0);
+var len__4864__auto___103971 = arguments.length;
+var i__4865__auto___103972 = (0);
 while(true){
-if((i__4865__auto___103942 < len__4864__auto___103941)){
-args__4870__auto__.push((arguments[i__4865__auto___103942]));
+if((i__4865__auto___103972 < len__4864__auto___103971)){
+args__4870__auto__.push((arguments[i__4865__auto___103972]));
 
-var G__103943 = (i__4865__auto___103942 + (1));
-i__4865__auto___103942 = G__103943;
+var G__103973 = (i__4865__auto___103972 + (1));
+i__4865__auto___103972 = G__103973;
 continue;
 } else {
 }
@@ -149,9 +149,9 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.partial,selectors
 (sicmutils.env.partial.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.env.partial.cljs$lang$applyTo = (function (seq103867){
+(sicmutils.env.partial.cljs$lang$applyTo = (function (seq103891){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq103867));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq103891));
 }));
 
 /**
@@ -180,9 +180,9 @@ sicmutils.env.euler_gamma = 0.5772156649015329;
  *   constant [𝜑](https://en.wikipedia.org/wiki/Golden_ratio), also known as the
  *   Golden Ratio.
  */
-sicmutils.env.phi = (function (){var G__103868 = (Math.sqrt(5.0) + (1));
-var G__103869 = 2.0;
-return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__103868,G__103869) : sicmutils.generic.divide.call(null,G__103868,G__103869));
+sicmutils.env.phi = (function (){var G__103899 = (Math.sqrt(5.0) + (1));
+var G__103900 = 2.0;
+return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__103899,G__103900) : sicmutils.generic.divide.call(null,G__103899,G__103900));
 })();
 sicmutils.env.s_COLON_generate = sicmutils.structure.generate;
 sicmutils.env.m_COLON_generate = sicmutils.matrix.generate;
@@ -224,14 +224,14 @@ return ["$$",cljs.core.str.cljs$core$IFn$_invoke$arity$1(sicmutils.expression.re
  */
 sicmutils.env.__GT_tex_equation = (function sicmutils$env$__GT_tex_equation(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___103946 = arguments.length;
-var i__4865__auto___103947 = (0);
+var len__4864__auto___103975 = arguments.length;
+var i__4865__auto___103976 = (0);
 while(true){
-if((i__4865__auto___103947 < len__4864__auto___103946)){
-args__4870__auto__.push((arguments[i__4865__auto___103947]));
+if((i__4865__auto___103976 < len__4864__auto___103975)){
+args__4870__auto__.push((arguments[i__4865__auto___103976]));
 
-var G__103948 = (i__4865__auto___103947 + (1));
-i__4865__auto___103947 = G__103948;
+var G__103977 = (i__4865__auto___103976 + (1));
+i__4865__auto___103976 = G__103977;
 continue;
 } else {
 }
@@ -242,10 +242,10 @@ var argseq__4871__auto__ = ((((1) < args__4870__auto__.length))?(new cljs.core.I
 return sicmutils.env.__GT_tex_equation.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__4871__auto__);
 });
 
-(sicmutils.env.__GT_tex_equation.cljs$core$IFn$_invoke$arity$variadic = (function (expr,p__103877){
-var map__103878 = p__103877;
-var map__103878__$1 = cljs.core.__destructure_map(map__103878);
-var label = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103878__$1,new cljs.core.Keyword(null,"label","label",1718410804));
+(sicmutils.env.__GT_tex_equation.cljs$core$IFn$_invoke$arity$variadic = (function (expr,p__103910){
+var map__103911 = p__103910;
+var map__103911__$1 = cljs.core.__destructure_map(map__103911);
+var label = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103911__$1,new cljs.core.Keyword(null,"label","label",1718410804));
 return sicmutils.expression.render.__GT_TeX.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic.simplify.cljs$core$IFn$_invoke$arity$1(expr),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"equation","equation",-499527745),(function (){var or__4253__auto__ = label;
 if(cljs.core.truth_(or__4253__auto__)){
 return or__4253__auto__;
@@ -258,11 +258,11 @@ return true;
 (sicmutils.env.__GT_tex_equation.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(sicmutils.env.__GT_tex_equation.cljs$lang$applyTo = (function (seq103874){
-var G__103875 = cljs.core.first(seq103874);
-var seq103874__$1 = cljs.core.next(seq103874);
+(sicmutils.env.__GT_tex_equation.cljs$lang$applyTo = (function (seq103908){
+var G__103909 = cljs.core.first(seq103908);
+var seq103908__$1 = cljs.core.next(seq103908);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103875,seq103874__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103909,seq103908__$1);
 }));
 
 sicmutils.env.literal_number = sicmutils.abstract$.number.literal_number;

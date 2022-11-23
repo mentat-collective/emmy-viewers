@@ -22,34 +22,34 @@ goog.provide('sicmutils.polynomial.interpolate');
 sicmutils.polynomial.interpolate.lagrange = (function sicmutils$polynomial$interpolate$lagrange(points,x){
 var points__$1 = cljs.core.vec(points);
 var n = cljs.core.count(points__$1);
-var build_term = (function (i,p__100016){
-var vec__100017 = p__100016;
-var a = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100017,(0),null);
-var fa = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100017,(1),null);
-var others = (function (){var iter__4652__auto__ = (function sicmutils$polynomial$interpolate$lagrange_$_iter__100020(s__100021){
+var build_term = (function (i,p__97160){
+var vec__97161 = p__97160;
+var a = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97161,(0),null);
+var fa = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97161,(1),null);
+var others = (function (){var iter__4652__auto__ = (function sicmutils$polynomial$interpolate$lagrange_$_iter__97164(s__97165){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100021__$1 = s__100021;
+var s__97165__$1 = s__97165;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100021__$1);
+var temp__5753__auto__ = cljs.core.seq(s__97165__$1);
 if(temp__5753__auto__){
-var s__100021__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__100021__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100021__$2);
+var s__97165__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__97165__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__97165__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100023 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100022 = (0);
+var b__97167 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__97166 = (0);
 while(true){
-if((i__100022 < size__4651__auto__)){
-var j = cljs.core._nth(c__4650__auto__,i__100022);
+if((i__97166 < size__4651__auto__)){
+var j = cljs.core._nth(c__4650__auto__,i__97166);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(i,j)){
-cljs.core.chunk_append(b__100023,cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(points__$1,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [j,(0)], null)));
+cljs.core.chunk_append(b__97167,cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(points__$1,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [j,(0)], null)));
 
-var G__100159 = (i__100022 + (1));
-i__100022 = G__100159;
+var G__97254 = (i__97166 + (1));
+i__97166 = G__97254;
 continue;
 } else {
-var G__100160 = (i__100022 + (1));
-i__100022 = G__100160;
+var G__97255 = (i__97166 + (1));
+i__97166 = G__97255;
 continue;
 }
 } else {
@@ -58,17 +58,17 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100023),sicmutils$polynomial$interpolate$lagrange_$_iter__100020(cljs.core.chunk_rest(s__100021__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__97167),sicmutils$polynomial$interpolate$lagrange_$_iter__97164(cljs.core.chunk_rest(s__97165__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100023),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__97167),null);
 }
 } else {
-var j = cljs.core.first(s__100021__$2);
+var j = cljs.core.first(s__97165__$2);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(i,j)){
-return cljs.core.cons(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(points__$1,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [j,(0)], null)),sicmutils$polynomial$interpolate$lagrange_$_iter__100020(cljs.core.rest(s__100021__$2)));
+return cljs.core.cons(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(points__$1,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [j,(0)], null)),sicmutils$polynomial$interpolate$lagrange_$_iter__97164(cljs.core.rest(s__97165__$2)));
 } else {
-var G__100161 = cljs.core.rest(s__100021__$2);
-s__100021__$1 = G__100161;
+var G__97259 = cljs.core.rest(s__97165__$2);
+s__97165__$1 = G__97259;
 continue;
 }
 }
@@ -81,11 +81,11 @@ break;
 });
 return iter__4652__auto__(cljs.core.range.cljs$core$IFn$_invoke$arity$1(n));
 })();
-var p = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100011_SHARP_){
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x,p1__100011_SHARP_);
+var p = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97157_SHARP_){
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x,p1__97157_SHARP_);
 }),others));
-var q = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100012_SHARP_){
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(a,p1__100012_SHARP_);
+var q = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97158_SHARP_){
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(a,p1__97158_SHARP_);
 }),others));
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic.invert.cljs$core$IFn$_invoke$arity$1(q),fa,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([p], 0));
 });
@@ -111,18 +111,18 @@ return cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map_indexed.c
 sicmutils.polynomial.interpolate.neville_recursive = (function sicmutils$polynomial$interpolate$neville_recursive(points,x){
 var evaluate = (function sicmutils$polynomial$interpolate$neville_recursive_$_evaluate(points__$1){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2((1),cljs.core.count(points__$1))){
-var vec__100065 = points__$1;
-var vec__100068 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100065,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100068,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100068,(1),null);
+var vec__97180 = points__$1;
+var vec__97183 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97180,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97183,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97183,(1),null);
 return y;
 } else {
 var l_branch = cljs.core.pop(points__$1);
 var r_branch = cljs.core.subvec.cljs$core$IFn$_invoke$arity$2(points__$1,(1));
-var vec__100075 = cljs.core.first(points__$1);
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100075,(0),null);
-var vec__100078 = cljs.core.peek(points__$1);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100078,(0),null);
+var vec__97186 = cljs.core.first(points__$1);
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97186,(0),null);
+var vec__97189 = cljs.core.peek(points__$1);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97189,(0),null);
 return sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x,xr),sicmutils$polynomial$interpolate$neville_recursive_$_evaluate(l_branch)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(xl,x),sicmutils$polynomial$interpolate$neville_recursive_$_evaluate(r_branch))),sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(xl,xr));
 }
 });
@@ -139,10 +139,10 @@ return evaluate(cljs.core.vec(points));
  *   recursion starts with $p = f(x)$.
  *   
  */
-sicmutils.polynomial.interpolate.neville_prepare = (function sicmutils$polynomial$interpolate$neville_prepare(p__100096){
-var vec__100097 = p__100096;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100097,(0),null);
-var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100097,(1),null);
+sicmutils.polynomial.interpolate.neville_prepare = (function sicmutils$polynomial$interpolate$neville_prepare(p__97192){
+var vec__97193 = p__97192;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97193,(0),null);
+var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97193,(1),null);
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,x,fx], null);
 });
 /**
@@ -162,15 +162,15 @@ return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMP
  *   $$[x_l, x_r, p]$$.
  */
 sicmutils.polynomial.interpolate.neville_combine_fn = (function sicmutils$polynomial$interpolate$neville_combine_fn(x){
-return (function (p__100100,p__100101){
-var vec__100103 = p__100100;
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100103,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100103,(1),null);
-var pl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100103,(2),null);
-var vec__100106 = p__100101;
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100106,(0),null);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100106,(1),null);
-var pr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100106,(2),null);
+return (function (p__97197,p__97198){
+var vec__97199 = p__97197;
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97199,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97199,(1),null);
+var pl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97199,(2),null);
+var vec__97202 = p__97198;
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97202,(0),null);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97202,(1),null);
+var pr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97202,(2),null);
 var plr = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x,xr),pl),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(xl,x),pr)),sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(xl,xr));
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [xl,xr,plr], null);
 });
@@ -237,15 +237,15 @@ return cljs.core.take_while.cljs$core$IFn$_invoke$arity$2(cljs.core.seq,cljs.cor
  *   native operations instead of generic operations.
  */
 sicmutils.polynomial.interpolate.neville_merge = (function sicmutils$polynomial$interpolate$neville_merge(x){
-return (function (p__100113,p__100114){
-var vec__100115 = p__100113;
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100115,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100115,(1),null);
-var pl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100115,(2),null);
-var vec__100118 = p__100114;
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100118,(0),null);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100118,(1),null);
-var pr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100118,(2),null);
+return (function (p__97207,p__97208){
+var vec__97209 = p__97207;
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97209,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97209,(1),null);
+var pl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97209,(2),null);
+var vec__97212 = p__97208;
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97212,(0),null);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97212,(1),null);
+var pr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97212,(2),null);
 var p = ((((x - xr) * pl) + ((xl - x) * pr)) / (xl - xr));
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [xl,xr,p], null);
 });
@@ -300,8 +300,8 @@ return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMP
  *   - Wikipedia, [Neville's Algorithm](https://en.wikipedia.org/wiki/Neville%27s_algorithm)
  */
 sicmutils.polynomial.interpolate.neville = (function sicmutils$polynomial$interpolate$neville(var_args){
-var G__100124 = arguments.length;
-switch (G__100124) {
+var G__97216 = arguments.length;
+switch (G__97216) {
 case 2:
 return sicmutils.polynomial.interpolate.neville.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -333,10 +333,10 @@ return sicmutils.polynomial.interpolate.neville_present(cljs.core.nth.cljs$core$
  * 
  *   The recursion starts with $C = D = f(x)$.
  */
-sicmutils.polynomial.interpolate.mn_prepare = (function sicmutils$polynomial$interpolate$mn_prepare(p__100129){
-var vec__100130 = p__100129;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100130,(0),null);
-var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100130,(1),null);
+sicmutils.polynomial.interpolate.mn_prepare = (function sicmutils$polynomial$interpolate$mn_prepare(p__97217){
+var vec__97218 = p__97217;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97218,(0),null);
+var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97218,(1),null);
 return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,x,fx,fx], null);
 });
 /**
@@ -344,17 +344,17 @@ return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMP
  *   for a tableau node, given the usual left and left-up tableau entries.
  */
 sicmutils.polynomial.interpolate.mn_merge = (function sicmutils$polynomial$interpolate$mn_merge(x){
-return (function (p__100136,p__100137){
-var vec__100141 = p__100136;
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100141,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100141,(1),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100141,(2),null);
-var dl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100141,(3),null);
-var vec__100144 = p__100137;
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100144,(0),null);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100144,(1),null);
-var cr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100144,(2),null);
-var ___$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100144,(3),null);
+return (function (p__97221,p__97222){
+var vec__97223 = p__97221;
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97223,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97223,(1),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97223,(2),null);
+var dl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97223,(3),null);
+var vec__97226 = p__97222;
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97226,(0),null);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97226,(1),null);
+var cr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97226,(2),null);
+var ___$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97226,(3),null);
 var diff = (cr - dl);
 var den = (xl - xr);
 var factor = (diff / den);
@@ -369,12 +369,12 @@ return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMP
  *   previous estimate.
  */
 sicmutils.polynomial.interpolate.mn_present = (function sicmutils$polynomial$interpolate$mn_present(row){
-return sicmutils.util.aggregate.scan.cljs$core$IFn$_invoke$arity$1(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__100147){
-var vec__100148 = p__100147;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100148,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100148,(1),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100148,(2),null);
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100148,(3),null);
+return sicmutils.util.aggregate.scan.cljs$core$IFn$_invoke$arity$1(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__97229){
+var vec__97233 = p__97229;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97233,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97233,(1),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97233,(2),null);
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97233,(3),null);
 return c;
 }),row));
 });
@@ -434,31 +434,31 @@ return sicmutils.polynomial.interpolate.mn_present(sicmutils.polynomial.interpol
  */
 sicmutils.polynomial.interpolate.tableau_fold_fn = (function sicmutils$polynomial$interpolate$tableau_fold_fn(prepare,merge,present){
 return (function() {
-var G__100169 = null;
-var G__100169__0 = (function (){
+var G__97270 = null;
+var G__97270__0 = (function (){
 return cljs.core.PersistentVector.EMPTY;
 });
-var G__100169__1 = (function (row){
+var G__97270__1 = (function (row){
 return (present.cljs$core$IFn$_invoke$arity$1 ? present.cljs$core$IFn$_invoke$arity$1(row) : present.call(null,row));
 });
-var G__100169__2 = (function (prev_row,point){
+var G__97270__2 = (function (prev_row,point){
 return cljs.core.reductions.cljs$core$IFn$_invoke$arity$3(merge,(prepare.cljs$core$IFn$_invoke$arity$1 ? prepare.cljs$core$IFn$_invoke$arity$1(point) : prepare.call(null,point)),prev_row);
 });
-G__100169 = function(prev_row,point){
+G__97270 = function(prev_row,point){
 switch(arguments.length){
 case 0:
-return G__100169__0.call(this);
+return G__97270__0.call(this);
 case 1:
-return G__100169__1.call(this,prev_row);
+return G__97270__1.call(this,prev_row);
 case 2:
-return G__100169__2.call(this,prev_row,point);
+return G__97270__2.call(this,prev_row,point);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
-G__100169.cljs$core$IFn$_invoke$arity$0 = G__100169__0;
-G__100169.cljs$core$IFn$_invoke$arity$1 = G__100169__1;
-G__100169.cljs$core$IFn$_invoke$arity$2 = G__100169__2;
-return G__100169;
+G__97270.cljs$core$IFn$_invoke$arity$0 = G__97270__0;
+G__97270.cljs$core$IFn$_invoke$arity$1 = G__97270__1;
+G__97270.cljs$core$IFn$_invoke$arity$2 = G__97270__2;
+return G__97270;
 })()
 });
 /**
@@ -484,12 +484,12 @@ return cljs.core.peek(cljs.core.last(row));
  *   the supplied row.
  */
 sicmutils.polynomial.interpolate.mn_present_final = (function sicmutils$polynomial$interpolate$mn_present_final(row){
-return cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p__100155){
-var vec__100156 = p__100155;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100156,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100156,(1),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100156,(2),null);
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100156,(3),null);
+return cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p__97239){
+var vec__97241 = p__97239;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97241,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97241,(1),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97241,(2),null);
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97241,(3),null);
 return c;
 })),sicmutils.util.aggregate._STAR_fold_STAR_,row);
 });

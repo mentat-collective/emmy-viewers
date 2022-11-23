@@ -172,10 +172,10 @@ return cljs.core.second(pattern__$1);
  *   ```
  */
 pattern.syntax.splice_reduce = (function pattern$syntax$splice_reduce(splice_QMARK_,f,xs){
-var vec__96985 = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__96989,x){
-var vec__96990 = p__96989;
-var acc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96990,(0),null);
-var pending = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96990,(1),null);
+var vec__97590 = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__97593,x){
+var vec__97594 = p__97593;
+var acc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97594,(0),null);
+var pending = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97594,(1),null);
 if(cljs.core.truth_((splice_QMARK_.cljs$core$IFn$_invoke$arity$1 ? splice_QMARK_.cljs$core$IFn$_invoke$arity$1(x) : splice_QMARK_.call(null,x)))){
 if(cljs.core.empty_QMARK_(pending)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.conj.cljs$core$IFn$_invoke$arity$2(acc,(f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(x) : f.call(null,x))),cljs.core.PersistentVector.EMPTY], null);
@@ -186,8 +186,8 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [acc,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(pending,(f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(x) : f.call(null,x)))], null);
 }
 }),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.PersistentVector.EMPTY,cljs.core.PersistentVector.EMPTY], null),xs);
-var acc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96985,(0),null);
-var pending = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96985,(1),null);
+var acc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97590,(0),null);
+var pending = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__97590,(1),null);
 if(cljs.core.empty_QMARK_(pending)){
 return acc;
 } else {
@@ -239,15 +239,15 @@ return pattern.syntax.reverse_segment_QMARK_(pattern__$1);
 }
 }
 })())){
-var vec__96996 = pattern__$1;
-var seq__96997 = cljs.core.seq(vec__96996);
-var first__96998 = cljs.core.first(seq__96997);
-var seq__96997__$1 = cljs.core.next(seq__96997);
-var k = first__96998;
-var first__96998__$1 = cljs.core.first(seq__96997__$1);
-var seq__96997__$2 = cljs.core.next(seq__96997__$1);
-var sym = first__96998__$1;
-var preds = seq__96997__$2;
+var vec__97609 = pattern__$1;
+var seq__97610 = cljs.core.seq(vec__97609);
+var first__97611 = cljs.core.first(seq__97610);
+var seq__97610__$1 = cljs.core.next(seq__97610);
+var k = first__97611;
+var first__97611__$1 = cljs.core.first(seq__97610__$1);
+var seq__97610__$2 = cljs.core.next(seq__97610__$1);
+var sym = first__97611__$1;
+var preds = seq__97610__$2;
 if(pattern.syntax.unquote_splice_QMARK_(sym)){
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","list*","cljs.core/list*",357627358,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"quote","quote",1377916282,null),null,(1),null)),(new cljs.core.List(null,k,null,(1),null))))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","concat","cljs.core/concat",-1133584918,null),null,(1),null)),(new cljs.core.List(null,pattern.syntax.unquoted_form(sym),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs.core.vec(cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$1(preds)))),null,(1),null))], 0)))),null,(1),null))], 0))));
 } else {

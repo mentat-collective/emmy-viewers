@@ -63,9 +63,9 @@ return [cljs.core.str.cljs$core$IFn$_invoke$arity$1(prefix),cljs.core.str.cljs$c
  */
 sicmutils.expression.analyze.ICanonicalize = function(){};
 
-var sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98490 = (function() {
-var G__98491 = null;
-var G__98491__3 = (function (analyzer,x,continue$){
+var sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98800 = (function() {
+var G__98801 = null;
+var G__98801__3 = (function (analyzer,x,continue$){
 var x__4550__auto__ = (((analyzer == null))?null:analyzer);
 var m__4551__auto__ = (sicmutils.expression.analyze.expression__GT_[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -79,7 +79,7 @@ throw cljs.core.missing_protocol("ICanonicalize.expression->",analyzer);
 }
 }
 });
-var G__98491__4 = (function (analyzer,x,continue$,compare_fn){
+var G__98801__4 = (function (analyzer,x,continue$,compare_fn){
 var x__4550__auto__ = (((analyzer == null))?null:analyzer);
 var m__4551__auto__ = (sicmutils.expression.analyze.expression__GT_[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -93,18 +93,18 @@ throw cljs.core.missing_protocol("ICanonicalize.expression->",analyzer);
 }
 }
 });
-G__98491 = function(analyzer,x,continue$,compare_fn){
+G__98801 = function(analyzer,x,continue$,compare_fn){
 switch(arguments.length){
 case 3:
-return G__98491__3.call(this,analyzer,x,continue$);
+return G__98801__3.call(this,analyzer,x,continue$);
 case 4:
-return G__98491__4.call(this,analyzer,x,continue$,compare_fn);
+return G__98801__4.call(this,analyzer,x,continue$,compare_fn);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
-G__98491.cljs$core$IFn$_invoke$arity$3 = G__98491__3;
-G__98491.cljs$core$IFn$_invoke$arity$4 = G__98491__4;
-return G__98491;
+G__98801.cljs$core$IFn$_invoke$arity$3 = G__98801__3;
+G__98801.cljs$core$IFn$_invoke$arity$4 = G__98801__4;
+return G__98801;
 })()
 ;
 /**
@@ -117,8 +117,8 @@ return G__98491;
  *   to [[clojure.core/compare]].
  */
 sicmutils.expression.analyze.expression__GT_ = (function sicmutils$expression$analyze$expression__GT_(var_args){
-var G__98336 = arguments.length;
-switch (G__98336) {
+var G__98607 = arguments.length;
+switch (G__98607) {
 case 3:
 return sicmutils.expression.analyze.expression__GT_.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -137,7 +137,7 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 if((((!((analyzer == null)))) && ((!((analyzer.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$3 == null)))))){
 return analyzer.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$3(analyzer,x,continue$);
 } else {
-return sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98490(analyzer,x,continue$);
+return sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98800(analyzer,x,continue$);
 }
 }));
 
@@ -145,14 +145,14 @@ return sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98490(anal
 if((((!((analyzer == null)))) && ((!((analyzer.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$4 == null)))))){
 return analyzer.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$4(analyzer,x,continue$,compare_fn);
 } else {
-return sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98490(analyzer,x,continue$,compare_fn);
+return sicmutils$expression$analyze$ICanonicalize$expression__GT_$dyn_98800(analyzer,x,continue$,compare_fn);
 }
 }));
 
 (sicmutils.expression.analyze.expression__GT_.cljs$lang$maxFixedArity = 4);
 
 
-var sicmutils$expression$analyze$ICanonicalize$__GT_expression$dyn_98501 = (function (analyzer,b,variables){
+var sicmutils$expression$analyze$ICanonicalize$__GT_expression$dyn_98811 = (function (analyzer,b,variables){
 var x__4550__auto__ = (((analyzer == null))?null:analyzer);
 var m__4551__auto__ = (sicmutils.expression.analyze.__GT_expression[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -177,11 +177,11 @@ sicmutils.expression.analyze.__GT_expression = (function sicmutils$expression$an
 if((((!((analyzer == null)))) && ((!((analyzer.sicmutils$expression$analyze$ICanonicalize$__GT_expression$arity$3 == null)))))){
 return analyzer.sicmutils$expression$analyze$ICanonicalize$__GT_expression$arity$3(analyzer,b,variables);
 } else {
-return sicmutils$expression$analyze$ICanonicalize$__GT_expression$dyn_98501(analyzer,b,variables);
+return sicmutils$expression$analyze$ICanonicalize$__GT_expression$dyn_98811(analyzer,b,variables);
 }
 });
 
-var sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$dyn_98508 = (function (analyzer,x){
+var sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$dyn_98815 = (function (analyzer,x){
 var x__4550__auto__ = (((analyzer == null))?null:analyzer);
 var m__4551__auto__ = (sicmutils.expression.analyze.known_operation_QMARK_[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -203,7 +203,7 @@ sicmutils.expression.analyze.known_operation_QMARK_ = (function sicmutils$expres
 if((((!((analyzer == null)))) && ((!((analyzer.sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$arity$2 == null)))))){
 return analyzer.sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$arity$2(analyzer,x);
 } else {
-return sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$dyn_98508(analyzer,x);
+return sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$dyn_98815(analyzer,x);
 }
 });
 
@@ -220,8 +220,8 @@ return sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$dyn_985
  *   afterwards.
  */
 sicmutils.expression.analyze.make_analyzer = (function sicmutils$expression$analyze$make_analyzer(var_args){
-var G__98417 = arguments.length;
-switch (G__98417) {
+var G__98690 = arguments.length;
+switch (G__98690) {
 case 1:
 return sicmutils.expression.analyze.make_analyzer.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -244,18 +244,18 @@ return sicmutils.expression.analyze.make_analyzer.cljs$core$IFn$_invoke$arity$2(
 var ref = cljs.core.atom;
 var alter = cljs.core.swap_BANG_;
 var ref_set = cljs.core.reset_BANG_;
-var expr__GT_var = (function (){var G__98421 = cljs.core.PersistentArrayMap.EMPTY;
-return (ref.cljs$core$IFn$_invoke$arity$1 ? ref.cljs$core$IFn$_invoke$arity$1(G__98421) : ref.call(null,G__98421));
+var expr__GT_var = (function (){var G__98694 = cljs.core.PersistentArrayMap.EMPTY;
+return (ref.cljs$core$IFn$_invoke$arity$1 ? ref.cljs$core$IFn$_invoke$arity$1(G__98694) : ref.call(null,G__98694));
 })();
-var var__GT_expr = (function (){var G__98422 = cljs.core.PersistentArrayMap.EMPTY;
-return (ref.cljs$core$IFn$_invoke$arity$1 ? ref.cljs$core$IFn$_invoke$arity$1(G__98422) : ref.call(null,G__98422));
+var var__GT_expr = (function (){var G__98696 = cljs.core.PersistentArrayMap.EMPTY;
+return (ref.cljs$core$IFn$_invoke$arity$1 ? ref.cljs$core$IFn$_invoke$arity$1(G__98696) : ref.call(null,G__98696));
 })();
 var compare_fn = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.compare);
 var add_symbol_BANG_ = (function sicmutils$expression$analyze$add_symbol_BANG_(expr){
 if(cljs.core.truth_(unquoted_list_QMARK_(expr))){
 var expr_k = sicmutils.value.freeze(expr);
-return cljs.core.identity((function (){var temp__5751__auto__ = (function (){var fexpr__98463 = cljs.core.deref(expr__GT_var);
-return (fexpr__98463.cljs$core$IFn$_invoke$arity$1 ? fexpr__98463.cljs$core$IFn$_invoke$arity$1(expr_k) : fexpr__98463.call(null,expr_k));
+return cljs.core.identity((function (){var temp__5751__auto__ = (function (){var fexpr__98745 = cljs.core.deref(expr__GT_var);
+return (fexpr__98745.cljs$core$IFn$_invoke$arity$1 ? fexpr__98745.cljs$core$IFn$_invoke$arity$1(expr_k) : fexpr__98745.call(null,expr_k));
 })();
 if(cljs.core.truth_(temp__5751__auto__)){
 var existing_expr = temp__5751__auto__;
@@ -274,14 +274,14 @@ return expr;
 }
 });
 var analyze = (function sicmutils$expression$analyze$analyze(expr){
-var vcompare_98531 = sicmutils.expression.analyze.make_vcompare(sicmutils.expression.variables_in(expr));
-cljs.core.reset_BANG_(compare_fn,vcompare_98531);
+var vcompare_98824 = sicmutils.expression.analyze.make_vcompare(sicmutils.expression.variables_in(expr));
+cljs.core.reset_BANG_(compare_fn,vcompare_98824);
 
 return ianalyze(expr);
 });
 var v_compare = (function sicmutils$expression$analyze$v_compare(v1,v2){
-var fexpr__98464 = cljs.core.deref(compare_fn);
-return (fexpr__98464.cljs$core$IFn$_invoke$arity$2 ? fexpr__98464.cljs$core$IFn$_invoke$arity$2(v1,v2) : fexpr__98464.call(null,v1,v2));
+var fexpr__98751 = cljs.core.deref(compare_fn);
+return (fexpr__98751.cljs$core$IFn$_invoke$arity$2 ? fexpr__98751.cljs$core$IFn$_invoke$arity$2(v1,v2) : fexpr__98751.call(null,v1,v2));
 });
 var ianalyze = (function sicmutils$expression$analyze$ianalyze(expr){
 if(cljs.core.truth_(unquoted_list_QMARK_(expr))){
@@ -306,8 +306,8 @@ return and__4251__auto__;
 })())){
 return analyzed_expr;
 } else {
-var temp__5751__auto__ = (function (){var fexpr__98465 = cljs.core.deref(expr__GT_var);
-return (fexpr__98465.cljs$core$IFn$_invoke$arity$1 ? fexpr__98465.cljs$core$IFn$_invoke$arity$1(analyzed_expr) : fexpr__98465.call(null,analyzed_expr));
+var temp__5751__auto__ = (function (){var fexpr__98758 = cljs.core.deref(expr__GT_var);
+return (fexpr__98758.cljs$core$IFn$_invoke$arity$1 ? fexpr__98758.cljs$core$IFn$_invoke$arity$1(analyzed_expr) : fexpr__98758.call(null,analyzed_expr));
 })();
 if(cljs.core.truth_(temp__5751__auto__)){
 var existing_expr = temp__5751__auto__;
@@ -326,20 +326,20 @@ return ((cljs.core.sequential_QMARK_(expr)) && ((!(cljs.core._EQ_.cljs$core$IFn$
 var new_analysis_BANG_ = (function sicmutils$expression$analyze$new_analysis_BANG_(){
 cljs.core.reset_BANG_(compare_fn,cljs.core.compare);
 
-var G__98468_98537 = expr__GT_var;
-var G__98469_98538 = cljs.core.PersistentArrayMap.EMPTY;
-(ref_set.cljs$core$IFn$_invoke$arity$2 ? ref_set.cljs$core$IFn$_invoke$arity$2(G__98468_98537,G__98469_98538) : ref_set.call(null,G__98468_98537,G__98469_98538));
+var G__98759_98827 = expr__GT_var;
+var G__98760_98828 = cljs.core.PersistentArrayMap.EMPTY;
+(ref_set.cljs$core$IFn$_invoke$arity$2 ? ref_set.cljs$core$IFn$_invoke$arity$2(G__98759_98827,G__98760_98828) : ref_set.call(null,G__98759_98827,G__98760_98828));
 
-var G__98470_98539 = var__GT_expr;
-var G__98471_98540 = cljs.core.PersistentArrayMap.EMPTY;
-(ref_set.cljs$core$IFn$_invoke$arity$2 ? ref_set.cljs$core$IFn$_invoke$arity$2(G__98470_98539,G__98471_98540) : ref_set.call(null,G__98470_98539,G__98471_98540));
+var G__98761_98829 = var__GT_expr;
+var G__98762_98830 = cljs.core.PersistentArrayMap.EMPTY;
+(ref_set.cljs$core$IFn$_invoke$arity$2 ? ref_set.cljs$core$IFn$_invoke$arity$2(G__98761_98829,G__98762_98830) : ref_set.call(null,G__98761_98829,G__98762_98830));
 
 return null;
 });
 var base_simplify = (function sicmutils$expression$analyze$base_simplify(expr){
 if(cljs.core.truth_(unquoted_list_QMARK_(expr))){
-return sicmutils.expression.analyze.expression__GT_(backend,expr,(function (p1__98400_SHARP_,p2__98401_SHARP_){
-return sicmutils.expression.analyze.__GT_expression(backend,p1__98400_SHARP_,p2__98401_SHARP_);
+return sicmutils.expression.analyze.expression__GT_(backend,expr,(function (p1__98687_SHARP_,p2__98688_SHARP_){
+return sicmutils.expression.analyze.__GT_expression(backend,p1__98687_SHARP_,p2__98688_SHARP_);
 }),v_compare);
 } else {
 return expr;
@@ -351,12 +351,12 @@ new_analysis_BANG_();
 return simplify_expression(sicmutils.expression.expression_of(expr));
 });
 var analyze_expression = (function sicmutils$expression$analyze$analyze_expression(expr){
-var _STAR_incremental_simplifier_STAR__orig_val__98472 = sicmutils.numsymb._STAR_incremental_simplifier_STAR_;
-var _STAR_incremental_simplifier_STAR__temp_val__98473 = false;
-(sicmutils.numsymb._STAR_incremental_simplifier_STAR_ = _STAR_incremental_simplifier_STAR__temp_val__98473);
+var _STAR_incremental_simplifier_STAR__orig_val__98764 = sicmutils.numsymb._STAR_incremental_simplifier_STAR_;
+var _STAR_incremental_simplifier_STAR__temp_val__98765 = false;
+(sicmutils.numsymb._STAR_incremental_simplifier_STAR_ = _STAR_incremental_simplifier_STAR__temp_val__98765);
 
 try{return base_simplify(analyze(expr));
-}finally {(sicmutils.numsymb._STAR_incremental_simplifier_STAR_ = _STAR_incremental_simplifier_STAR__orig_val__98472);
+}finally {(sicmutils.numsymb._STAR_incremental_simplifier_STAR_ = _STAR_incremental_simplifier_STAR__orig_val__98764);
 }});
 var simplify_expression = (function sicmutils$expression$analyze$simplify_expression(expr){
 return backsubstitute(analyze_expression(expr));
@@ -386,8 +386,8 @@ if(cljs.core.sequential_QMARK_(expr)){
 return cljs.core.doall.cljs$core$IFn$_invoke$arity$1(cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils$expression$analyze$backsubstitute,expr));
 } else {
 if((expr instanceof cljs.core.Symbol)){
-var temp__5751__auto__ = (function (){var fexpr__98474 = cljs.core.deref(var__GT_expr);
-return (fexpr__98474.cljs$core$IFn$_invoke$arity$1 ? fexpr__98474.cljs$core$IFn$_invoke$arity$1(expr) : fexpr__98474.call(null,expr));
+var temp__5751__auto__ = (function (){var fexpr__98779 = cljs.core.deref(var__GT_expr);
+return (fexpr__98779.cljs$core$IFn$_invoke$arity$1 ? fexpr__98779.cljs$core$IFn$_invoke$arity$1(expr) : fexpr__98779.call(null,expr));
 })();
 if(cljs.core.truth_(temp__5751__auto__)){
 var w = temp__5751__auto__;

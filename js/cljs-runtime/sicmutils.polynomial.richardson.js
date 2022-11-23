@@ -14,8 +14,8 @@ sicmutils.polynomial.richardson.semi_perimeter = (function sicmutils$polynomial$
 return ((n / (2)) * side_len);
 });
 sicmutils.polynomial.richardson.side_lengths = cljs.core.iterate(sicmutils.polynomial.richardson.refine_by_doubling,Math.sqrt((2)));
-sicmutils.polynomial.richardson.side_numbers = cljs.core.iterate((function (p1__102627_SHARP_){
-return ((2) * p1__102627_SHARP_);
+sicmutils.polynomial.richardson.side_numbers = cljs.core.iterate((function (p1__102232_SHARP_){
+return ((2) * p1__102232_SHARP_);
 }),(4));
 sicmutils.polynomial.richardson.archimedean_pi_sequence = cljs.core.map.cljs$core$IFn$_invoke$arity$3(sicmutils.polynomial.richardson.semi_perimeter,sicmutils.polynomial.richardson.side_numbers,sicmutils.polynomial.richardson.side_lengths);
 /**
@@ -41,8 +41,8 @@ return (((t_STAR__STAR_p * ah_over_t) - ah) / t_STAR__STAR_p_1);
  *   columns.
  */
 sicmutils.polynomial.richardson.make_tableau = (function sicmutils$polynomial$richardson$make_tableau(var_args){
-var G__102629 = arguments.length;
-switch (G__102629) {
+var G__102253 = arguments.length;
+switch (G__102253) {
 case 2:
 return sicmutils.polynomial.richardson.make_tableau.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -62,15 +62,15 @@ return sicmutils.polynomial.richardson.make_tableau.cljs$core$IFn$_invoke$arity$
 }));
 
 (sicmutils.polynomial.richardson.make_tableau.cljs$core$IFn$_invoke$arity$3 = (function (xs,t,ps){
-return cljs.core.take_while.cljs$core$IFn$_invoke$arity$2(cljs.core.seq,cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.first,cljs.core.iterate((function (p__102630){
-var vec__102631 = p__102630;
-var xs__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102631,(0),null);
-var vec__102634 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102631,(1),null);
-var seq__102635 = cljs.core.seq(vec__102634);
-var first__102636 = cljs.core.first(seq__102635);
-var seq__102635__$1 = cljs.core.next(seq__102635);
-var p = first__102636;
-var ps__$1 = seq__102635__$1;
+return cljs.core.take_while.cljs$core$IFn$_invoke$arity$2(cljs.core.seq,cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.first,cljs.core.iterate((function (p__102260){
+var vec__102261 = p__102260;
+var xs__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102261,(0),null);
+var vec__102264 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102261,(1),null);
+var seq__102265 = cljs.core.seq(vec__102264);
+var first__102266 = cljs.core.first(seq__102265);
+var seq__102265__$1 = cljs.core.next(seq__102265);
+var p = first__102266;
+var ps__$1 = seq__102265__$1;
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.polynomial.richardson.accelerate_sequence(xs__$1,t,p),ps__$1], null);
 }),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [xs,ps], null))));
 }));
@@ -137,8 +137,8 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  *   - GJS, ['Abstraction in Numerical Methods'](https://dspace.mit.edu/bitstream/handle/1721.1/6060/AIM-997.pdf?sequence=2)
  */
 sicmutils.polynomial.richardson.richardson_sequence = (function sicmutils$polynomial$richardson$richardson_sequence(var_args){
-var G__102645 = arguments.length;
-switch (G__102645) {
+var G__102269 = arguments.length;
+switch (G__102269) {
 case 2:
 return sicmutils.polynomial.richardson.richardson_sequence.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -166,8 +166,8 @@ return sicmutils.polynomial.interpolate.first_terms(sicmutils.polynomial.richard
 }));
 
 (sicmutils.polynomial.richardson.richardson_sequence.cljs$core$IFn$_invoke$arity$4 = (function (xs,t,p,q){
-var arithmetic_p_q = cljs.core.iterate((function (p1__102643_SHARP_){
-return (q + p1__102643_SHARP_);
+var arithmetic_p_q = cljs.core.iterate((function (p1__102267_SHARP_){
+return (q + p1__102267_SHARP_);
 }),p);
 return sicmutils.polynomial.richardson.richardson_sequence.cljs$core$IFn$_invoke$arity$3(xs,t,arithmetic_p_q);
 }));
@@ -199,8 +199,8 @@ return sicmutils.polynomial.richardson.richardson_sequence.cljs$core$IFn$_invoke
  *   be merged with that function.
  */
 sicmutils.polynomial.richardson.richardson_column = (function sicmutils$polynomial$richardson$richardson_column(var_args){
-var G__102652 = arguments.length;
-switch (G__102652) {
+var G__102276 = arguments.length;
+switch (G__102276) {
 case 3:
 return sicmutils.polynomial.richardson.richardson_column.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -228,8 +228,8 @@ return cljs.core.nth.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.richards
 }));
 
 (sicmutils.polynomial.richardson.richardson_column.cljs$core$IFn$_invoke$arity$5 = (function (xs,col,t,p,q){
-var arithmetic_p_q = cljs.core.iterate((function (p1__102650_SHARP_){
-return (q + p1__102650_SHARP_);
+var arithmetic_p_q = cljs.core.iterate((function (p1__102274_SHARP_){
+return (q + p1__102274_SHARP_);
 }),p);
 return sicmutils.polynomial.richardson.richardson_column.cljs$core$IFn$_invoke$arity$4(xs,col,t,arithmetic_p_q);
 }));
@@ -269,8 +269,8 @@ return sicmutils.polynomial.richardson.richardson_column.cljs$core$IFn$_invoke$a
  *   ```
  */
 sicmutils.polynomial.richardson.richardson_fold = (function sicmutils$polynomial$richardson$richardson_fold(var_args){
-var G__102659 = arguments.length;
-switch (G__102659) {
+var G__102288 = arguments.length;
+switch (G__102288) {
 case 1:
 return sicmutils.polynomial.richardson.richardson_fold.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -293,13 +293,13 @@ return sicmutils.polynomial.richardson.richardson_fold.cljs$core$IFn$_invoke$ari
 var prepare = (function sicmutils$polynomial$richardson$prepare(x){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [initial_p,x], null);
 });
-var combine = (function sicmutils$polynomial$richardson$combine(p__102677,p__102678){
-var vec__102679 = p__102677;
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102679,(0),null);
-var ah_over_t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102679,(1),null);
-var vec__102682 = p__102678;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102682,(0),null);
-var ah = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102682,(1),null);
+var combine = (function sicmutils$polynomial$richardson$combine(p__102317,p__102318){
+var vec__102319 = p__102317;
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102319,(0),null);
+var ah_over_t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102319,(1),null);
+var vec__102322 = p__102318;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102322,(0),null);
+var ah = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102322,(1),null);
 var t_STAR__STAR_p = Math.pow(t,p);
 var t_STAR__STAR_p_1 = (t_STAR__STAR_p - (1));
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(next_p_fn.cljs$core$IFn$_invoke$arity$1 ? next_p_fn.cljs$core$IFn$_invoke$arity$1(p) : next_p_fn.call(null,p)),(((t_STAR__STAR_p * ah_over_t) - ah) / t_STAR__STAR_p_1)], null);
@@ -325,14 +325,14 @@ return sicmutils.polynomial.interpolate.tableau_fold_fn(prepare,combine,present)
  */
 sicmutils.polynomial.richardson.richardson_sum = (function sicmutils$polynomial$richardson$richardson_sum(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___102726 = arguments.length;
-var i__4865__auto___102727 = (0);
+var len__4864__auto___102508 = arguments.length;
+var i__4865__auto___102509 = (0);
 while(true){
-if((i__4865__auto___102727 < len__4864__auto___102726)){
-args__4870__auto__.push((arguments[i__4865__auto___102727]));
+if((i__4865__auto___102509 < len__4864__auto___102508)){
+args__4870__auto__.push((arguments[i__4865__auto___102509]));
 
-var G__102728 = (i__4865__auto___102727 + (1));
-i__4865__auto___102727 = G__102728;
+var G__102510 = (i__4865__auto___102509 + (1));
+i__4865__auto___102509 = G__102510;
 continue;
 } else {
 }
@@ -350,11 +350,11 @@ return sicmutils.algebra.fold.fold__GT_sum_fn.cljs$core$IFn$_invoke$arity$1(cljs
 (sicmutils.polynomial.richardson.richardson_sum.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(sicmutils.polynomial.richardson.richardson_sum.cljs$lang$applyTo = (function (seq102692){
-var G__102693 = cljs.core.first(seq102692);
-var seq102692__$1 = cljs.core.next(seq102692);
+(sicmutils.polynomial.richardson.richardson_sum.cljs$lang$applyTo = (function (seq102329){
+var G__102330 = cljs.core.first(seq102329);
+var seq102329__$1 = cljs.core.next(seq102329);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102693,seq102692__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102330,seq102329__$1);
 }));
 
 /**
@@ -370,14 +370,14 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102693,seq1026
  */
 sicmutils.polynomial.richardson.richardson_scan = (function sicmutils$polynomial$richardson$richardson_scan(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___102729 = arguments.length;
-var i__4865__auto___102730 = (0);
+var len__4864__auto___102511 = arguments.length;
+var i__4865__auto___102512 = (0);
 while(true){
-if((i__4865__auto___102730 < len__4864__auto___102729)){
-args__4870__auto__.push((arguments[i__4865__auto___102730]));
+if((i__4865__auto___102512 < len__4864__auto___102511)){
+args__4870__auto__.push((arguments[i__4865__auto___102512]));
 
-var G__102731 = (i__4865__auto___102730 + (1));
-i__4865__auto___102730 = G__102731;
+var G__102513 = (i__4865__auto___102512 + (1));
+i__4865__auto___102512 = G__102513;
 continue;
 } else {
 }
@@ -395,11 +395,11 @@ return sicmutils.algebra.fold.fold__GT_scan_fn.cljs$core$IFn$_invoke$arity$1(clj
 (sicmutils.polynomial.richardson.richardson_scan.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(sicmutils.polynomial.richardson.richardson_scan.cljs$lang$applyTo = (function (seq102700){
-var G__102701 = cljs.core.first(seq102700);
-var seq102700__$1 = cljs.core.next(seq102700);
+(sicmutils.polynomial.richardson.richardson_scan.cljs$lang$applyTo = (function (seq102359){
+var G__102360 = cljs.core.first(seq102359);
+var seq102359__$1 = cljs.core.next(seq102359);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102701,seq102700__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102360,seq102359__$1);
 }));
 
 

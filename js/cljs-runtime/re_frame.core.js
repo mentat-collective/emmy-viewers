@@ -18,21 +18,21 @@ re_frame.core.dispatch = cljs.core.partial.cljs$core$IFn$_invoke$arity$2(re_fram
 re_frame.core.dispatch_sync = cljs.core.partial.cljs$core$IFn$_invoke$arity$2(re_frame.frame.dispatch_sync,re_frame.core.default_frame);
 re_frame.core.reg_sub_raw = (function re_frame$core$reg_sub_raw(query_id,handler_fn){
 return re_frame.core.default_frame.re_frame$frame$IFrame$reg_sub_raw$arity$3(null,query_id,(function (frame,query_v){
-var G__88383 = new cljs.core.Keyword(null,"app-db","app-db",865606302).cljs$core$IFn$_invoke$arity$1(frame);
-var G__88384 = query_v;
-return (handler_fn.cljs$core$IFn$_invoke$arity$2 ? handler_fn.cljs$core$IFn$_invoke$arity$2(G__88383,G__88384) : handler_fn.call(null,G__88383,G__88384));
+var G__88825 = new cljs.core.Keyword(null,"app-db","app-db",865606302).cljs$core$IFn$_invoke$arity$1(frame);
+var G__88826 = query_v;
+return (handler_fn.cljs$core$IFn$_invoke$arity$2 ? handler_fn.cljs$core$IFn$_invoke$arity$2(G__88825,G__88826) : handler_fn.call(null,G__88825,G__88826));
 }));
 });
 re_frame.core.reg_sub = (function re_frame$core$reg_sub(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___88401 = arguments.length;
-var i__4865__auto___88402 = (0);
+var len__4864__auto___88832 = arguments.length;
+var i__4865__auto___88833 = (0);
 while(true){
-if((i__4865__auto___88402 < len__4864__auto___88401)){
-args__4870__auto__.push((arguments[i__4865__auto___88402]));
+if((i__4865__auto___88833 < len__4864__auto___88832)){
+args__4870__auto__.push((arguments[i__4865__auto___88833]));
 
-var G__88403 = (i__4865__auto___88402 + (1));
-i__4865__auto___88402 = G__88403;
+var G__88834 = (i__4865__auto___88833 + (1));
+i__4865__auto___88833 = G__88834;
 continue;
 } else {
 }
@@ -50,11 +50,11 @@ return re_frame.core.default_frame.re_frame$frame$IFrame$reg_sub$arity$3(null,qu
 (re_frame.core.reg_sub.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(re_frame.core.reg_sub.cljs$lang$applyTo = (function (seq88385){
-var G__88386 = cljs.core.first(seq88385);
-var seq88385__$1 = cljs.core.next(seq88385);
+(re_frame.core.reg_sub.cljs$lang$applyTo = (function (seq88827){
+var G__88828 = cljs.core.first(seq88827);
+var seq88827__$1 = cljs.core.next(seq88827);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__88386,seq88385__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__88828,seq88827__$1);
 }));
 
 re_frame.core.subscribe = cljs.core.partial.cljs$core$IFn$_invoke$arity$2(re_frame.frame.subscribe,re_frame.core.default_frame);
@@ -102,8 +102,8 @@ return re_frame.router.purge(re_frame.core.default_frame.event_queue);
  *   be used at "remove time" to get rid of the right callback.
  */
 re_frame.core.add_post_event_callback = (function re_frame$core$add_post_event_callback(var_args){
-var G__88394 = arguments.length;
-switch (G__88394) {
+var G__88831 = arguments.length;
+switch (G__88831) {
 case 1:
 return re_frame.core.add_post_event_callback.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

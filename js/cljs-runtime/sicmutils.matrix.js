@@ -120,8 +120,8 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
 (sicmutils.matrix.Matrix.prototype.sicmutils$value$Value$zero_QMARK_$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
-return cljs.core.every_QMARK_((function (p1__100476_SHARP_){
-return cljs.core.every_QMARK_(sicmutils.value.zero_QMARK_,p1__100476_SHARP_);
+return cljs.core.every_QMARK_((function (p1__100400_SHARP_){
+return cljs.core.every_QMARK_(sicmutils.value.zero_QMARK_,p1__100400_SHARP_);
 }),self__.v);
 }));
 
@@ -134,8 +134,8 @@ return false;
 (sicmutils.matrix.Matrix.prototype.sicmutils$value$Value$exact_QMARK_$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
-return cljs.core.every_QMARK_((function (p1__100477_SHARP_){
-return cljs.core.every_QMARK_(sicmutils.value.exact_QMARK_,p1__100477_SHARP_);
+return cljs.core.every_QMARK_((function (p1__100401_SHARP_){
+return cljs.core.every_QMARK_(sicmutils.value.exact_QMARK_,p1__100401_SHARP_);
 }),self__.v);
 }));
 
@@ -196,11 +196,11 @@ var ___$1 = this;
 return cljs.core._seq(self__.v);
 }));
 
-(sicmutils.matrix.Matrix.prototype.call = (function (unused__43952__auto__){
+(sicmutils.matrix.Matrix.prototype.call = (function (unused__43702__auto__){
 var self__ = this;
 var self__ = this;
-var G__100543 = (arguments.length - (1));
-switch (G__100543) {
+var G__100472 = (arguments.length - (1));
+switch (G__100472) {
 case (1):
 return self__.cljs$core$IFn$_invoke$arity$1((arguments[(1)]));
 
@@ -291,18 +291,18 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 }
 }));
 
-(sicmutils.matrix.Matrix.prototype.apply = (function (self__,args100526){
+(sicmutils.matrix.Matrix.prototype.apply = (function (self__,args100458){
 var self__ = this;
 var self____$1 = this;
-return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args100526)));
+return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args100458)));
 }));
 
 (sicmutils.matrix.Matrix.prototype.cljs$core$IFn$_invoke$arity$1 = (function (a){
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100501_SHARP_){
-return (p1__100501_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__100501_SHARP_.cljs$core$IFn$_invoke$arity$1(a) : p1__100501_SHARP_.call(null,a));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100431_SHARP_){
+return (p1__100431_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__100431_SHARP_.cljs$core$IFn$_invoke$arity$1(a) : p1__100431_SHARP_.call(null,a));
 }),row);
 }),self__.v)));
 }));
@@ -311,8 +311,8 @@ return (p1__100501_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__100501_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100502_SHARP_){
-return (p1__100502_SHARP_.cljs$core$IFn$_invoke$arity$2 ? p1__100502_SHARP_.cljs$core$IFn$_invoke$arity$2(a,b) : p1__100502_SHARP_.call(null,a,b));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100432_SHARP_){
+return (p1__100432_SHARP_.cljs$core$IFn$_invoke$arity$2 ? p1__100432_SHARP_.cljs$core$IFn$_invoke$arity$2(a,b) : p1__100432_SHARP_.call(null,a,b));
 }),row);
 }),self__.v)));
 }));
@@ -321,8 +321,8 @@ return (p1__100502_SHARP_.cljs$core$IFn$_invoke$arity$2 ? p1__100502_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100503_SHARP_){
-return (p1__100503_SHARP_.cljs$core$IFn$_invoke$arity$3 ? p1__100503_SHARP_.cljs$core$IFn$_invoke$arity$3(a,b,cx) : p1__100503_SHARP_.call(null,a,b,cx));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100433_SHARP_){
+return (p1__100433_SHARP_.cljs$core$IFn$_invoke$arity$3 ? p1__100433_SHARP_.cljs$core$IFn$_invoke$arity$3(a,b,cx) : p1__100433_SHARP_.call(null,a,b,cx));
 }),row);
 }),self__.v)));
 }));
@@ -331,8 +331,8 @@ return (p1__100503_SHARP_.cljs$core$IFn$_invoke$arity$3 ? p1__100503_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100504_SHARP_){
-return (p1__100504_SHARP_.cljs$core$IFn$_invoke$arity$4 ? p1__100504_SHARP_.cljs$core$IFn$_invoke$arity$4(a,b,cx,d) : p1__100504_SHARP_.call(null,a,b,cx,d));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100434_SHARP_){
+return (p1__100434_SHARP_.cljs$core$IFn$_invoke$arity$4 ? p1__100434_SHARP_.cljs$core$IFn$_invoke$arity$4(a,b,cx,d) : p1__100434_SHARP_.call(null,a,b,cx,d));
 }),row);
 }),self__.v)));
 }));
@@ -341,8 +341,8 @@ return (p1__100504_SHARP_.cljs$core$IFn$_invoke$arity$4 ? p1__100504_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100505_SHARP_){
-return (p1__100505_SHARP_.cljs$core$IFn$_invoke$arity$5 ? p1__100505_SHARP_.cljs$core$IFn$_invoke$arity$5(a,b,cx,d,e) : p1__100505_SHARP_.call(null,a,b,cx,d,e));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100435_SHARP_){
+return (p1__100435_SHARP_.cljs$core$IFn$_invoke$arity$5 ? p1__100435_SHARP_.cljs$core$IFn$_invoke$arity$5(a,b,cx,d,e) : p1__100435_SHARP_.call(null,a,b,cx,d,e));
 }),row);
 }),self__.v)));
 }));
@@ -351,8 +351,8 @@ return (p1__100505_SHARP_.cljs$core$IFn$_invoke$arity$5 ? p1__100505_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100506_SHARP_){
-return (p1__100506_SHARP_.cljs$core$IFn$_invoke$arity$6 ? p1__100506_SHARP_.cljs$core$IFn$_invoke$arity$6(a,b,cx,d,e,f) : p1__100506_SHARP_.call(null,a,b,cx,d,e,f));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100436_SHARP_){
+return (p1__100436_SHARP_.cljs$core$IFn$_invoke$arity$6 ? p1__100436_SHARP_.cljs$core$IFn$_invoke$arity$6(a,b,cx,d,e,f) : p1__100436_SHARP_.call(null,a,b,cx,d,e,f));
 }),row);
 }),self__.v)));
 }));
@@ -361,8 +361,8 @@ return (p1__100506_SHARP_.cljs$core$IFn$_invoke$arity$6 ? p1__100506_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100507_SHARP_){
-return (p1__100507_SHARP_.cljs$core$IFn$_invoke$arity$7 ? p1__100507_SHARP_.cljs$core$IFn$_invoke$arity$7(a,b,cx,d,e,f,g) : p1__100507_SHARP_.call(null,a,b,cx,d,e,f,g));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100437_SHARP_){
+return (p1__100437_SHARP_.cljs$core$IFn$_invoke$arity$7 ? p1__100437_SHARP_.cljs$core$IFn$_invoke$arity$7(a,b,cx,d,e,f,g) : p1__100437_SHARP_.call(null,a,b,cx,d,e,f,g));
 }),row);
 }),self__.v)));
 }));
@@ -371,8 +371,8 @@ return (p1__100507_SHARP_.cljs$core$IFn$_invoke$arity$7 ? p1__100507_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100508_SHARP_){
-return (p1__100508_SHARP_.cljs$core$IFn$_invoke$arity$8 ? p1__100508_SHARP_.cljs$core$IFn$_invoke$arity$8(a,b,cx,d,e,f,g,h) : p1__100508_SHARP_.call(null,a,b,cx,d,e,f,g,h));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100438_SHARP_){
+return (p1__100438_SHARP_.cljs$core$IFn$_invoke$arity$8 ? p1__100438_SHARP_.cljs$core$IFn$_invoke$arity$8(a,b,cx,d,e,f,g,h) : p1__100438_SHARP_.call(null,a,b,cx,d,e,f,g,h));
 }),row);
 }),self__.v)));
 }));
@@ -381,8 +381,8 @@ return (p1__100508_SHARP_.cljs$core$IFn$_invoke$arity$8 ? p1__100508_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100509_SHARP_){
-return (p1__100509_SHARP_.cljs$core$IFn$_invoke$arity$9 ? p1__100509_SHARP_.cljs$core$IFn$_invoke$arity$9(a,b,cx,d,e,f,g,h,i) : p1__100509_SHARP_.call(null,a,b,cx,d,e,f,g,h,i));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100440_SHARP_){
+return (p1__100440_SHARP_.cljs$core$IFn$_invoke$arity$9 ? p1__100440_SHARP_.cljs$core$IFn$_invoke$arity$9(a,b,cx,d,e,f,g,h,i) : p1__100440_SHARP_.call(null,a,b,cx,d,e,f,g,h,i));
 }),row);
 }),self__.v)));
 }));
@@ -391,8 +391,8 @@ return (p1__100509_SHARP_.cljs$core$IFn$_invoke$arity$9 ? p1__100509_SHARP_.cljs
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100510_SHARP_){
-return (p1__100510_SHARP_.cljs$core$IFn$_invoke$arity$10 ? p1__100510_SHARP_.cljs$core$IFn$_invoke$arity$10(a,b,cx,d,e,f,g,h,i,j) : p1__100510_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100443_SHARP_){
+return (p1__100443_SHARP_.cljs$core$IFn$_invoke$arity$10 ? p1__100443_SHARP_.cljs$core$IFn$_invoke$arity$10(a,b,cx,d,e,f,g,h,i,j) : p1__100443_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j));
 }),row);
 }),self__.v)));
 }));
@@ -401,8 +401,8 @@ return (p1__100510_SHARP_.cljs$core$IFn$_invoke$arity$10 ? p1__100510_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100511_SHARP_){
-return (p1__100511_SHARP_.cljs$core$IFn$_invoke$arity$11 ? p1__100511_SHARP_.cljs$core$IFn$_invoke$arity$11(a,b,cx,d,e,f,g,h,i,j,k) : p1__100511_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100445_SHARP_){
+return (p1__100445_SHARP_.cljs$core$IFn$_invoke$arity$11 ? p1__100445_SHARP_.cljs$core$IFn$_invoke$arity$11(a,b,cx,d,e,f,g,h,i,j,k) : p1__100445_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k));
 }),row);
 }),self__.v)));
 }));
@@ -411,8 +411,8 @@ return (p1__100511_SHARP_.cljs$core$IFn$_invoke$arity$11 ? p1__100511_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100512_SHARP_){
-return (p1__100512_SHARP_.cljs$core$IFn$_invoke$arity$12 ? p1__100512_SHARP_.cljs$core$IFn$_invoke$arity$12(a,b,cx,d,e,f,g,h,i,j,k,l) : p1__100512_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100446_SHARP_){
+return (p1__100446_SHARP_.cljs$core$IFn$_invoke$arity$12 ? p1__100446_SHARP_.cljs$core$IFn$_invoke$arity$12(a,b,cx,d,e,f,g,h,i,j,k,l) : p1__100446_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l));
 }),row);
 }),self__.v)));
 }));
@@ -421,8 +421,8 @@ return (p1__100512_SHARP_.cljs$core$IFn$_invoke$arity$12 ? p1__100512_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100513_SHARP_){
-return (p1__100513_SHARP_.cljs$core$IFn$_invoke$arity$13 ? p1__100513_SHARP_.cljs$core$IFn$_invoke$arity$13(a,b,cx,d,e,f,g,h,i,j,k,l,m) : p1__100513_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100447_SHARP_){
+return (p1__100447_SHARP_.cljs$core$IFn$_invoke$arity$13 ? p1__100447_SHARP_.cljs$core$IFn$_invoke$arity$13(a,b,cx,d,e,f,g,h,i,j,k,l,m) : p1__100447_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m));
 }),row);
 }),self__.v)));
 }));
@@ -431,8 +431,8 @@ return (p1__100513_SHARP_.cljs$core$IFn$_invoke$arity$13 ? p1__100513_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100514_SHARP_){
-return (p1__100514_SHARP_.cljs$core$IFn$_invoke$arity$14 ? p1__100514_SHARP_.cljs$core$IFn$_invoke$arity$14(a,b,cx,d,e,f,g,h,i,j,k,l,m,n) : p1__100514_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100448_SHARP_){
+return (p1__100448_SHARP_.cljs$core$IFn$_invoke$arity$14 ? p1__100448_SHARP_.cljs$core$IFn$_invoke$arity$14(a,b,cx,d,e,f,g,h,i,j,k,l,m,n) : p1__100448_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n));
 }),row);
 }),self__.v)));
 }));
@@ -441,8 +441,8 @@ return (p1__100514_SHARP_.cljs$core$IFn$_invoke$arity$14 ? p1__100514_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100515_SHARP_){
-return (p1__100515_SHARP_.cljs$core$IFn$_invoke$arity$15 ? p1__100515_SHARP_.cljs$core$IFn$_invoke$arity$15(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o) : p1__100515_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100449_SHARP_){
+return (p1__100449_SHARP_.cljs$core$IFn$_invoke$arity$15 ? p1__100449_SHARP_.cljs$core$IFn$_invoke$arity$15(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o) : p1__100449_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o));
 }),row);
 }),self__.v)));
 }));
@@ -451,8 +451,8 @@ return (p1__100515_SHARP_.cljs$core$IFn$_invoke$arity$15 ? p1__100515_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100516_SHARP_){
-return (p1__100516_SHARP_.cljs$core$IFn$_invoke$arity$16 ? p1__100516_SHARP_.cljs$core$IFn$_invoke$arity$16(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p) : p1__100516_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100450_SHARP_){
+return (p1__100450_SHARP_.cljs$core$IFn$_invoke$arity$16 ? p1__100450_SHARP_.cljs$core$IFn$_invoke$arity$16(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p) : p1__100450_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p));
 }),row);
 }),self__.v)));
 }));
@@ -461,8 +461,8 @@ return (p1__100516_SHARP_.cljs$core$IFn$_invoke$arity$16 ? p1__100516_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100517_SHARP_){
-return (p1__100517_SHARP_.cljs$core$IFn$_invoke$arity$17 ? p1__100517_SHARP_.cljs$core$IFn$_invoke$arity$17(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q) : p1__100517_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100451_SHARP_){
+return (p1__100451_SHARP_.cljs$core$IFn$_invoke$arity$17 ? p1__100451_SHARP_.cljs$core$IFn$_invoke$arity$17(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q) : p1__100451_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q));
 }),row);
 }),self__.v)));
 }));
@@ -471,8 +471,8 @@ return (p1__100517_SHARP_.cljs$core$IFn$_invoke$arity$17 ? p1__100517_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100518_SHARP_){
-return (p1__100518_SHARP_.cljs$core$IFn$_invoke$arity$18 ? p1__100518_SHARP_.cljs$core$IFn$_invoke$arity$18(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx) : p1__100518_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100452_SHARP_){
+return (p1__100452_SHARP_.cljs$core$IFn$_invoke$arity$18 ? p1__100452_SHARP_.cljs$core$IFn$_invoke$arity$18(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx) : p1__100452_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx));
 }),row);
 }),self__.v)));
 }));
@@ -481,8 +481,8 @@ return (p1__100518_SHARP_.cljs$core$IFn$_invoke$arity$18 ? p1__100518_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100519_SHARP_){
-return (p1__100519_SHARP_.cljs$core$IFn$_invoke$arity$19 ? p1__100519_SHARP_.cljs$core$IFn$_invoke$arity$19(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s) : p1__100519_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100453_SHARP_){
+return (p1__100453_SHARP_.cljs$core$IFn$_invoke$arity$19 ? p1__100453_SHARP_.cljs$core$IFn$_invoke$arity$19(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s) : p1__100453_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s));
 }),row);
 }),self__.v)));
 }));
@@ -491,8 +491,8 @@ return (p1__100519_SHARP_.cljs$core$IFn$_invoke$arity$19 ? p1__100519_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100520_SHARP_){
-return (p1__100520_SHARP_.cljs$core$IFn$_invoke$arity$20 ? p1__100520_SHARP_.cljs$core$IFn$_invoke$arity$20(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s,t) : p1__100520_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s,t));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100455_SHARP_){
+return (p1__100455_SHARP_.cljs$core$IFn$_invoke$arity$20 ? p1__100455_SHARP_.cljs$core$IFn$_invoke$arity$20(a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s,t) : p1__100455_SHARP_.call(null,a,b,cx,d,e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s,t));
 }),row);
 }),self__.v)));
 }));
@@ -501,8 +501,8 @@ return (p1__100520_SHARP_.cljs$core$IFn$_invoke$arity$20 ? p1__100520_SHARP_.clj
 var self__ = this;
 var _ = this;
 return (new sicmutils.matrix.Matrix(self__.r,self__.c,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (row){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100521_SHARP_){
-return cljs.core.apply.cljs$core$IFn$_invoke$arity$variadic(p1__100521_SHARP_,a,b,cx,d,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s,t,rest], 0));
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100456_SHARP_){
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$variadic(p1__100456_SHARP_,a,b,cx,d,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([e,f,g,h,i,j,k,l,m,n,o,p,q,rx,s,t,rest], 0));
 }),row);
 }),self__.v)));
 }));
@@ -518,21 +518,21 @@ return cljs.core.boolean$(cljs.core.some(sicmutils.differential.perturbed_QMARK_
 (sicmutils.matrix.Matrix.prototype.sicmutils$differential$IPerturbed$replace_tag$arity$3 = (function (M,old,new$){
 var self__ = this;
 var M__$1 = this;
-var G__100660 = (function (p1__100478_SHARP_){
-return sicmutils.differential.replace_tag(p1__100478_SHARP_,old,new$);
+var G__100604 = (function (p1__100402_SHARP_){
+return sicmutils.differential.replace_tag(p1__100402_SHARP_,old,new$);
 });
-var G__100661 = M__$1;
-return (sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2(G__100660,G__100661) : sicmutils.matrix.fmap.call(null,G__100660,G__100661));
+var G__100605 = M__$1;
+return (sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2(G__100604,G__100605) : sicmutils.matrix.fmap.call(null,G__100604,G__100605));
 }));
 
 (sicmutils.matrix.Matrix.prototype.sicmutils$differential$IPerturbed$extract_tangent$arity$2 = (function (M,tag){
 var self__ = this;
 var M__$1 = this;
-var G__100662 = (function (p1__100479_SHARP_){
-return sicmutils.differential.extract_tangent(p1__100479_SHARP_,tag);
+var G__100606 = (function (p1__100404_SHARP_){
+return sicmutils.differential.extract_tangent(p1__100404_SHARP_,tag);
 });
-var G__100663 = M__$1;
-return (sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2(G__100662,G__100663) : sicmutils.matrix.fmap.call(null,G__100662,G__100663));
+var G__100607 = M__$1;
+return (sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.fmap.cljs$core$IFn$_invoke$arity$2(G__100606,G__100607) : sicmutils.matrix.fmap.call(null,G__100606,G__100607));
 }));
 
 (sicmutils.matrix.Matrix.getBasis = (function (){
@@ -649,9 +649,9 @@ return and__4251__auto__;
 sicmutils.matrix.matrix_EQ_scalar = (function sicmutils$matrix$matrix_EQ_scalar(m,c){
 var and__4251__auto__ = sicmutils.matrix.square_QMARK_(m);
 if(and__4251__auto__){
-return sicmutils.matrix.m_COLON__EQ_(m,(function (){var G__100689 = sicmutils.matrix.num_rows(m);
-var G__100690 = c;
-return (sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2(G__100689,G__100690) : sicmutils.matrix.make_diagonal.call(null,G__100689,G__100690));
+return sicmutils.matrix.m_COLON__EQ_(m,(function (){var G__100647 = sicmutils.matrix.num_rows(m);
+var G__100648 = c;
+return (sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2(G__100647,G__100648) : sicmutils.matrix.make_diagonal.call(null,G__100647,G__100648));
 })());
 } else {
 return and__4251__auto__;
@@ -664,9 +664,9 @@ return and__4251__auto__;
 sicmutils.matrix.scalar_EQ_matrix = (function sicmutils$matrix$scalar_EQ_matrix(c,m){
 var and__4251__auto__ = sicmutils.matrix.square_QMARK_(m);
 if(and__4251__auto__){
-return sicmutils.matrix.m_COLON__EQ_((function (){var G__100691 = sicmutils.matrix.num_rows(m);
-var G__100692 = c;
-return (sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2(G__100691,G__100692) : sicmutils.matrix.make_diagonal.call(null,G__100691,G__100692));
+return sicmutils.matrix.m_COLON__EQ_((function (){var G__100650 = sicmutils.matrix.num_rows(m);
+var G__100651 = c;
+return (sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2(G__100650,G__100651) : sicmutils.matrix.make_diagonal.call(null,G__100650,G__100651));
 })(),m);
 } else {
 return and__4251__auto__;
@@ -681,8 +681,8 @@ return and__4251__auto__;
  *   The entry in the `i`th row and `j`-th column is `(f i j)`.
  */
 sicmutils.matrix.generate = (function sicmutils$matrix$generate(var_args){
-var G__100694 = arguments.length;
-switch (G__100694) {
+var G__100655 = arguments.length;
+switch (G__100655) {
 case 2:
 return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -732,8 +732,8 @@ return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(i,j) :
  *   ```
  */
 sicmutils.matrix.literal_matrix = (function sicmutils$matrix$literal_matrix(var_args){
-var G__100696 = arguments.length;
-switch (G__100696) {
+var G__100661 = arguments.length;
+switch (G__100661) {
 case 2:
 return sicmutils.matrix.literal_matrix.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -819,8 +819,8 @@ return cljs.core.some(f,cljs.core.flatten(m));
  *   dimensions as `m`.
  */
 sicmutils.matrix.fmap = (function sicmutils$matrix$fmap(f,m){
-return sicmutils.matrix.__GT_Matrix(sicmutils.matrix.num_rows(m),sicmutils.matrix.num_cols(m),cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100708_SHARP_){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(f,p1__100708_SHARP_);
+return sicmutils.matrix.__GT_Matrix(sicmutils.matrix.num_rows(m),sicmutils.matrix.num_cols(m),cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100669_SHARP_){
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(f,p1__100669_SHARP_);
 }),m));
 });
 /**
@@ -857,8 +857,8 @@ throw (new Error("Assert failed: (every? seq vs)"));
 }
 
 var counts = cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.count,vs);
-return cljs.core.every_QMARK_((function (p1__100722_SHARP_){
-return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__100722_SHARP_,cljs.core.first(counts));
+return cljs.core.every_QMARK_((function (p1__100670_SHARP_){
+return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__100670_SHARP_,cljs.core.first(counts));
 }),cljs.core.next(counts));
 });
 /**
@@ -882,14 +882,14 @@ return sicmutils.util.illegal("malformed matrix");
  */
 sicmutils.matrix.by_rows = (function sicmutils$matrix$by_rows(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___101039 = arguments.length;
-var i__4865__auto___101041 = (0);
+var len__4864__auto___101029 = arguments.length;
+var i__4865__auto___101030 = (0);
 while(true){
-if((i__4865__auto___101041 < len__4864__auto___101039)){
-args__4870__auto__.push((arguments[i__4865__auto___101041]));
+if((i__4865__auto___101030 < len__4864__auto___101029)){
+args__4870__auto__.push((arguments[i__4865__auto___101030]));
 
-var G__101042 = (i__4865__auto___101041 + (1));
-i__4865__auto___101041 = G__101042;
+var G__101031 = (i__4865__auto___101030 + (1));
+i__4865__auto___101030 = G__101031;
 continue;
 } else {
 }
@@ -907,9 +907,9 @@ return sicmutils.matrix.by_rows_STAR_(rows);
 (sicmutils.matrix.by_rows.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.matrix.by_rows.cljs$lang$applyTo = (function (seq100730){
+(sicmutils.matrix.by_rows.cljs$lang$applyTo = (function (seq100683){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100730));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100683));
 }));
 
 /**
@@ -933,14 +933,14 @@ return sicmutils.util.illegal("malformed matrix");
  */
 sicmutils.matrix.by_cols = (function sicmutils$matrix$by_cols(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___101049 = arguments.length;
-var i__4865__auto___101050 = (0);
+var len__4864__auto___101034 = arguments.length;
+var i__4865__auto___101035 = (0);
 while(true){
-if((i__4865__auto___101050 < len__4864__auto___101049)){
-args__4870__auto__.push((arguments[i__4865__auto___101050]));
+if((i__4865__auto___101035 < len__4864__auto___101034)){
+args__4870__auto__.push((arguments[i__4865__auto___101035]));
 
-var G__101051 = (i__4865__auto___101050 + (1));
-i__4865__auto___101050 = G__101051;
+var G__101036 = (i__4865__auto___101035 + (1));
+i__4865__auto___101035 = G__101036;
 continue;
 } else {
 }
@@ -958,9 +958,9 @@ return sicmutils.matrix.by_cols_STAR_(cols);
 (sicmutils.matrix.by_cols.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.matrix.by_cols.cljs$lang$applyTo = (function (seq100733){
+(sicmutils.matrix.by_cols.cljs$lang$applyTo = (function (seq100699){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100733));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100699));
 }));
 
 /**
@@ -981,14 +981,14 @@ return sicmutils.matrix.__GT_Matrix((1),cljs.core.count(xs),new cljs.core.Persis
  */
 sicmutils.matrix.row = (function sicmutils$matrix$row(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___101060 = arguments.length;
-var i__4865__auto___101061 = (0);
+var len__4864__auto___101037 = arguments.length;
+var i__4865__auto___101038 = (0);
 while(true){
-if((i__4865__auto___101061 < len__4864__auto___101060)){
-args__4870__auto__.push((arguments[i__4865__auto___101061]));
+if((i__4865__auto___101038 < len__4864__auto___101037)){
+args__4870__auto__.push((arguments[i__4865__auto___101038]));
 
-var G__101062 = (i__4865__auto___101061 + (1));
-i__4865__auto___101061 = G__101062;
+var G__101039 = (i__4865__auto___101038 + (1));
+i__4865__auto___101038 = G__101039;
 continue;
 } else {
 }
@@ -1006,9 +1006,9 @@ return sicmutils.matrix.row_STAR_(xs);
 (sicmutils.matrix.row.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.matrix.row.cljs$lang$applyTo = (function (seq100737){
+(sicmutils.matrix.row.cljs$lang$applyTo = (function (seq100700){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100737));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100700));
 }));
 
 /**
@@ -1029,14 +1029,14 @@ return sicmutils.matrix.__GT_Matrix(cljs.core.count(xs),(1),cljs.core.mapv.cljs$
  */
 sicmutils.matrix.column = (function sicmutils$matrix$column(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___101066 = arguments.length;
-var i__4865__auto___101067 = (0);
+var len__4864__auto___101042 = arguments.length;
+var i__4865__auto___101043 = (0);
 while(true){
-if((i__4865__auto___101067 < len__4864__auto___101066)){
-args__4870__auto__.push((arguments[i__4865__auto___101067]));
+if((i__4865__auto___101043 < len__4864__auto___101042)){
+args__4870__auto__.push((arguments[i__4865__auto___101043]));
 
-var G__101069 = (i__4865__auto___101067 + (1));
-i__4865__auto___101067 = G__101069;
+var G__101044 = (i__4865__auto___101043 + (1));
+i__4865__auto___101043 = G__101044;
 continue;
 } else {
 }
@@ -1054,9 +1054,9 @@ return sicmutils.matrix.column_STAR_(xs);
 (sicmutils.matrix.column.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(sicmutils.matrix.column.cljs$lang$applyTo = (function (seq100741){
+(sicmutils.matrix.column.cljs$lang$applyTo = (function (seq100707){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100741));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq100707));
 }));
 
 /**
@@ -1064,8 +1064,8 @@ return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq
  *   with rows and columns swapped.
  */
 sicmutils.matrix.transpose = (function sicmutils$matrix$transpose(m){
-return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(sicmutils.matrix.num_cols(m),sicmutils.matrix.num_rows(m),(function (p1__100743_SHARP_,p2__100742_SHARP_){
-return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p2__100742_SHARP_,p1__100743_SHARP_], null));
+return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(sicmutils.matrix.num_cols(m),sicmutils.matrix.num_rows(m),(function (p1__100710_SHARP_,p2__100709_SHARP_){
+return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p2__100709_SHARP_,p1__100710_SHARP_], null));
 }));
 });
 /**
@@ -1080,8 +1080,8 @@ return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.Persistent
  *   structures.
  */
 sicmutils.matrix.__GT_structure = (function sicmutils$matrix$__GT_structure(var_args){
-var G__100746 = arguments.length;
-switch (G__100746) {
+var G__100713 = arguments.length;
+switch (G__100713) {
 case 1:
 return sicmutils.matrix.__GT_structure.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1112,8 +1112,8 @@ throw (new Error("Assert failed: (s/valid-orientation? inner-orientation)"));
 }
 
 var m_SINGLEQUOTE_ = (cljs.core.truth_(t_QMARK_)?sicmutils.matrix.transpose(m):m);
-return sicmutils.structure.make(outer_orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100744_SHARP_){
-return sicmutils.structure.make(inner_orientation,p1__100744_SHARP_);
+return sicmutils.structure.make(outer_orientation,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100711_SHARP_){
+return sicmutils.structure.make(inner_orientation,p1__100711_SHARP_);
 }),m_SINGLEQUOTE_));
 }));
 
@@ -1148,26 +1148,26 @@ if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(ca,rb)){
 sicmutils.util.illegal("matrices incompatible for multiplication");
 }
 
-return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(ra,cb,(function (p1__100757_SHARP_,p2__100758_SHARP_){
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_,(function (){var iter__4652__auto__ = (function sicmutils$matrix$mul_$_iter__100762(s__100763){
+return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(ra,cb,(function (p1__100723_SHARP_,p2__100724_SHARP_){
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_,(function (){var iter__4652__auto__ = (function sicmutils$matrix$mul_$_iter__100728(s__100729){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100763__$1 = s__100763;
+var s__100729__$1 = s__100729;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100763__$1);
+var temp__5753__auto__ = cljs.core.seq(s__100729__$1);
 if(temp__5753__auto__){
-var s__100763__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__100763__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100763__$2);
+var s__100729__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__100729__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__100729__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100765 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100764 = (0);
+var b__100731 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__100730 = (0);
 while(true){
-if((i__100764 < size__4651__auto__)){
-var k = cljs.core._nth(c__4650__auto__,i__100764);
-cljs.core.chunk_append(b__100765,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100757_SHARP_,k], null)),cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(b,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [k,p2__100758_SHARP_], null))));
+if((i__100730 < size__4651__auto__)){
+var k = cljs.core._nth(c__4650__auto__,i__100730);
+cljs.core.chunk_append(b__100731,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100723_SHARP_,k], null)),cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(b,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [k,p2__100724_SHARP_], null))));
 
-var G__101110 = (i__100764 + (1));
-i__100764 = G__101110;
+var G__101052 = (i__100730 + (1));
+i__100730 = G__101052;
 continue;
 } else {
 return true;
@@ -1175,13 +1175,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100765),sicmutils$matrix$mul_$_iter__100762(cljs.core.chunk_rest(s__100763__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__100731),sicmutils$matrix$mul_$_iter__100728(cljs.core.chunk_rest(s__100729__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100765),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__100731),null);
 }
 } else {
-var k = cljs.core.first(s__100763__$2);
-return cljs.core.cons(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100757_SHARP_,k], null)),cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(b,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [k,p2__100758_SHARP_], null))),sicmutils$matrix$mul_$_iter__100762(cljs.core.rest(s__100763__$2)));
+var k = cljs.core.first(s__100729__$2);
+return cljs.core.cons(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100723_SHARP_,k], null)),cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(b,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [k,p2__100724_SHARP_], null))),sicmutils$matrix$mul_$_iter__100728(cljs.core.rest(s__100729__$2)));
 }
 } else {
 return null;
@@ -1199,8 +1199,8 @@ return iter__4652__auto__(cljs.core.range.cljs$core$IFn$_invoke$arity$1(ca));
  *   multiplied (on the left) by the scalar quantity `c`.
  */
 sicmutils.matrix.scalar_STAR_matrix = (function sicmutils$matrix$scalar_STAR_matrix(c,m){
-return sicmutils.matrix.fmap((function (p1__100773_SHARP_){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,p1__100773_SHARP_);
+return sicmutils.matrix.fmap((function (p1__100739_SHARP_){
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,p1__100739_SHARP_);
 }),m);
 });
 /**
@@ -1208,8 +1208,8 @@ return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,p1__100773_SHARP
  *   multiplied (on the right) by the scalar quantity `c`.
  */
 sicmutils.matrix.matrix_STAR_scalar = (function sicmutils$matrix$matrix_STAR_scalar(m,c){
-return sicmutils.matrix.fmap((function (p1__100774_SHARP_){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__100774_SHARP_,c);
+return sicmutils.matrix.fmap((function (p1__100743_SHARP_){
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(p1__100743_SHARP_,c);
 }),m);
 });
 /**
@@ -1226,10 +1226,10 @@ sicmutils.util.illegal("matrices incompatible for operation");
 } else {
 }
 
-return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(ra,ca,(function (p1__100776_SHARP_,p2__100777_SHARP_){
-var G__100779 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100776_SHARP_,p2__100777_SHARP_], null));
-var G__100780 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(b,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100776_SHARP_,p2__100777_SHARP_], null));
-return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__100779,G__100780) : f.call(null,G__100779,G__100780));
+return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(ra,ca,(function (p1__100747_SHARP_,p2__100748_SHARP_){
+var G__100752 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(a,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100747_SHARP_,p2__100748_SHARP_], null));
+var G__100753 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(b,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100747_SHARP_,p2__100748_SHARP_], null));
+return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__100752,G__100753) : f.call(null,G__100752,G__100753));
 }));
 });
 /**
@@ -1245,16 +1245,16 @@ return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(G__100
 sicmutils.matrix.two_tensor__GT_ = (function sicmutils$matrix$two_tensor__GT_(s,cont){
 var temp__5751__auto__ = sicmutils.structure.two_tensor_info(s);
 if(cljs.core.truth_(temp__5751__auto__)){
-var map__100781 = temp__5751__auto__;
-var map__100781__$1 = cljs.core.__destructure_map(map__100781);
-var inner_size = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100781__$1,new cljs.core.Keyword(null,"inner-size","inner-size",755766819));
-var outer_size = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100781__$1,new cljs.core.Keyword(null,"outer-size","outer-size",705588000));
-var inner_orientation = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100781__$1,new cljs.core.Keyword(null,"inner-orientation","inner-orientation",-728775897));
-var outer_orientation = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100781__$1,new cljs.core.Keyword(null,"outer-orientation","outer-orientation",-985566313));
+var map__100754 = temp__5751__auto__;
+var map__100754__$1 = cljs.core.__destructure_map(map__100754);
+var inner_size = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100754__$1,new cljs.core.Keyword(null,"inner-size","inner-size",755766819));
+var outer_size = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100754__$1,new cljs.core.Keyword(null,"outer-size","outer-size",705588000));
+var inner_orientation = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100754__$1,new cljs.core.Keyword(null,"inner-orientation","inner-orientation",-728775897));
+var outer_orientation = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__100754__$1,new cljs.core.Keyword(null,"outer-orientation","outer-orientation",-985566313));
 var transpose_QMARK_ = cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(inner_orientation,new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939));
-var vec__100782 = ((transpose_QMARK_)?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [inner_size,outer_size], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [outer_size,inner_size], null));
-var major_size = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100782,(0),null);
-var minor_size = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100782,(1),null);
+var vec__100755 = ((transpose_QMARK_)?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [inner_size,outer_size], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [outer_size,inner_size], null));
+var major_size = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100755,(0),null);
+var minor_size = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100755,(1),null);
 var M = sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(major_size,minor_size,(function (i,j){
 var path = ((transpose_QMARK_)?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [j,i], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,j], null));
 return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(s,path);
@@ -1273,8 +1273,8 @@ return sicmutils.util.illegal(["structure ",cljs.core.str.cljs$core$IFn$_invoke$
  */
 sicmutils.matrix.two_tensor_operation = (function sicmutils$matrix$two_tensor_operation(s,f){
 return sicmutils.matrix.two_tensor__GT_(s,(function (m,__GT_s){
-var G__100786 = (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(m) : f.call(null,m));
-return (__GT_s.cljs$core$IFn$_invoke$arity$1 ? __GT_s.cljs$core$IFn$_invoke$arity$1(G__100786) : __GT_s.call(null,G__100786));
+var G__100758 = (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(m) : f.call(null,m));
+return (__GT_s.cljs$core$IFn$_invoke$arity$1 ? __GT_s.cljs$core$IFn$_invoke$arity$1(G__100758) : __GT_s.call(null,G__100758));
 }));
 });
 /**
@@ -1299,12 +1299,12 @@ sicmutils.util.illegal("matrix and tuple incompatible for multiplication");
 
 return sicmutils.structure.up_STAR_(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (i){
 var row_i = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(m,i);
-var G__100788 = (function (k){
+var G__100759 = (function (k){
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(row_i,k),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(u,k));
 });
-var G__100789 = (0);
-var G__100790 = sicmutils.matrix.num_cols(m);
-return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3(G__100788,G__100789,G__100790) : sicmutils.util.aggregate.generic_sum.call(null,G__100788,G__100789,G__100790));
+var G__100760 = (0);
+var G__100761 = sicmutils.matrix.num_cols(m);
+return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3(G__100759,G__100760,G__100761) : sicmutils.util.aggregate.generic_sum.call(null,G__100759,G__100760,G__100761));
 }),cljs.core.range.cljs$core$IFn$_invoke$arity$1(sicmutils.matrix.num_rows(m))));
 });
 /**
@@ -1318,12 +1318,12 @@ sicmutils.util.illegal("matrix and tuple incompatible for multiplication");
 }
 
 return sicmutils.structure.down_STAR_(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (i){
-var G__100791 = (function (k){
+var G__100762 = (function (k){
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.get.cljs$core$IFn$_invoke$arity$2(d,k),cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [k,i], null)));
 });
-var G__100792 = (0);
-var G__100793 = sicmutils.matrix.num_rows(m);
-return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3(G__100791,G__100792,G__100793) : sicmutils.util.aggregate.generic_sum.call(null,G__100791,G__100792,G__100793));
+var G__100763 = (0);
+var G__100764 = sicmutils.matrix.num_rows(m);
+return (sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3 ? sicmutils.util.aggregate.generic_sum.cljs$core$IFn$_invoke$arity$3(G__100762,G__100763,G__100764) : sicmutils.util.aggregate.generic_sum.call(null,G__100762,G__100763,G__100764));
 }),cljs.core.range.cljs$core$IFn$_invoke$arity$1(sicmutils.matrix.num_cols(m))));
 });
 /**
@@ -1336,8 +1336,8 @@ sicmutils.matrix._STAR_careful_conversion_STAR_ = true;
  *   multiplication `(* ls ms rs)` were performed, to a matrix.
  */
 sicmutils.matrix.s__GT_m = (function sicmutils$matrix$s__GT_m(var_args){
-var G__100796 = arguments.length;
-switch (G__100796) {
+var G__100766 = arguments.length;
+switch (G__100766) {
 case 2:
 return sicmutils.matrix.s__GT_m.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1395,8 +1395,8 @@ return sicmutils.structure.down_STAR_(cljs.core.get.cljs$core$IFn$_invoke$arity$
  * Returns the `n`-th column of the supplied matrix `m` as an `up` structure.
  */
 sicmutils.matrix.nth_col = (function sicmutils$matrix$nth_col(m,n){
-return sicmutils.structure.up_STAR_(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100802_SHARP_){
-return (p1__100802_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__100802_SHARP_.cljs$core$IFn$_invoke$arity$1(n) : p1__100802_SHARP_.call(null,n));
+return sicmutils.structure.up_STAR_(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100767_SHARP_){
+return (p1__100767_SHARP_.cljs$core$IFn$_invoke$arity$1 ? p1__100767_SHARP_.cljs$core$IFn$_invoke$arity$1(n) : p1__100767_SHARP_.call(null,n));
 }),m));
 });
 /**
@@ -1410,8 +1410,8 @@ throw (new Error("Assert failed: (square? m)"));
 }
 
 var rows = sicmutils.matrix.num_rows(m);
-return sicmutils.structure.up_STAR_(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100804_SHARP_){
-return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100804_SHARP_,p1__100804_SHARP_], null));
+return sicmutils.structure.up_STAR_(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__100768_SHARP_){
+return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100768_SHARP_,p1__100768_SHARP_], null));
 }),cljs.core.range.cljs$core$IFn$_invoke$arity$2((0),rows)));
 });
 /**
@@ -1493,25 +1493,25 @@ return cljs.core.nth.cljs$core$IFn$_invoke$arity$2(m,(0));
 sicmutils.matrix.m__GT_s = (function sicmutils$matrix$m__GT_s(ls,m,rs){
 var ncols = sicmutils.matrix.num_cols(m);
 var col_shape = sicmutils.structure.compatible_shape(ls);
-var ms = sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2((function (){var iter__4652__auto__ = (function sicmutils$matrix$m__GT_s_$_iter__100808(s__100809){
+var ms = sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2((function (){var iter__4652__auto__ = (function sicmutils$matrix$m__GT_s_$_iter__100775(s__100776){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100809__$1 = s__100809;
+var s__100776__$1 = s__100776;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100809__$1);
+var temp__5753__auto__ = cljs.core.seq(s__100776__$1);
 if(temp__5753__auto__){
-var s__100809__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__100809__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100809__$2);
+var s__100776__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__100776__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__100776__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100811 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100810 = (0);
+var b__100778 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__100777 = (0);
 while(true){
-if((i__100810 < size__4651__auto__)){
-var j = cljs.core._nth(c__4650__auto__,i__100810);
-cljs.core.chunk_append(b__100811,sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2(sicmutils.matrix.nth_col(m,j),col_shape));
+if((i__100777 < size__4651__auto__)){
+var j = cljs.core._nth(c__4650__auto__,i__100777);
+cljs.core.chunk_append(b__100778,sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2(sicmutils.matrix.nth_col(m,j),col_shape));
 
-var G__101158 = (i__100810 + (1));
-i__100810 = G__101158;
+var G__101062 = (i__100777 + (1));
+i__100777 = G__101062;
 continue;
 } else {
 return true;
@@ -1519,13 +1519,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100811),sicmutils$matrix$m__GT_s_$_iter__100808(cljs.core.chunk_rest(s__100809__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__100778),sicmutils$matrix$m__GT_s_$_iter__100775(cljs.core.chunk_rest(s__100776__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100811),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__100778),null);
 }
 } else {
-var j = cljs.core.first(s__100809__$2);
-return cljs.core.cons(sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2(sicmutils.matrix.nth_col(m,j),col_shape),sicmutils$matrix$m__GT_s_$_iter__100808(cljs.core.rest(s__100809__$2)));
+var j = cljs.core.first(s__100776__$2);
+return cljs.core.cons(sicmutils.structure.unflatten.cljs$core$IFn$_invoke$arity$2(sicmutils.matrix.nth_col(m,j),col_shape),sicmutils$matrix$m__GT_s_$_iter__100775(cljs.core.rest(s__100776__$2)));
 }
 } else {
 return null;
@@ -1573,8 +1573,8 @@ return ms;
  *   internally.
  */
 sicmutils.matrix.s_COLON_transpose = (function sicmutils$matrix$s_COLON_transpose(var_args){
-var G__100813 = arguments.length;
-switch (G__100813) {
+var G__100787 = arguments.length;
+switch (G__100787) {
 case 2:
 return sicmutils.matrix.s_COLON_transpose.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1664,9 +1664,9 @@ sicmutils.matrix.delete$ = (function sicmutils$matrix$delete(v,i){
 if(cljs.core.vector_QMARK_(v)){
 return cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.subvec.cljs$core$IFn$_invoke$arity$3(v,(0),i),cljs.core.subvec.cljs$core$IFn$_invoke$arity$2(v,(i + (1))));
 } else {
-var G__100827 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,v);
-var G__100828 = i;
-return (sicmutils.matrix.delete$.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.delete$.cljs$core$IFn$_invoke$arity$2(G__100827,G__100828) : sicmutils.matrix.delete$.call(null,G__100827,G__100828));
+var G__100800 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,v);
+var G__100801 = i;
+return (sicmutils.matrix.delete$.cljs$core$IFn$_invoke$arity$2 ? sicmutils.matrix.delete$.cljs$core$IFn$_invoke$arity$2(G__100800,G__100801) : sicmutils.matrix.delete$.call(null,G__100800,G__100801));
 }
 });
 /**
@@ -1718,8 +1718,8 @@ return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.Persistent
  *   This is also called the 'minor' of m.
  */
 sicmutils.matrix.without = (function sicmutils$matrix$without(m,i,j){
-return sicmutils.matrix.__GT_Matrix((sicmutils.matrix.num_rows(m) - (1)),(sicmutils.matrix.num_cols(m) - (1)),cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100851_SHARP_){
-return sicmutils.matrix.delete$(p1__100851_SHARP_,j);
+return sicmutils.matrix.__GT_Matrix((sicmutils.matrix.num_rows(m) - (1)),(sicmutils.matrix.num_cols(m) - (1)),cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__100849_SHARP_){
+return sicmutils.matrix.delete$(p1__100849_SHARP_,j);
 }),sicmutils.matrix.delete$(sicmutils.matrix.matrix__GT_vector(m),i)));
 });
 sicmutils.matrix.checkerboard_negate = (function sicmutils$matrix$checkerboard_negate(s,i,j){
@@ -1753,8 +1753,8 @@ throw (new Error("Assert failed: (square? m)"));
 }
 
 var rows = sicmutils.matrix.num_rows(m);
-return cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p1__100852_SHARP_){
-return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100852_SHARP_,p1__100852_SHARP_], null));
+return cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p1__100862_SHARP_){
+return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [p1__100862_SHARP_,p1__100862_SHARP_], null));
 })),sicmutils.generic._PLUS_,cljs.core.range.cljs$core$IFn$_invoke$arity$2((0),rows));
 });
 /**
@@ -1775,14 +1775,14 @@ throw (new Error("Assert failed: (square? m)"));
 }
 
 var c_det = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(null);
-var c_det_STAR_ = (function sicmutils$matrix$general_determinant_$_c_det_STAR_(row,p__100869){
-var vec__100870 = p__100869;
-var seq__100871 = cljs.core.seq(vec__100870);
-var first__100872 = cljs.core.first(seq__100871);
-var seq__100871__$1 = cljs.core.next(seq__100871);
-var col = first__100872;
-var cols = seq__100871__$1;
-var active_cols = vec__100870;
+var c_det_STAR_ = (function sicmutils$matrix$general_determinant_$_c_det_STAR_(row,p__100884){
+var vec__100885 = p__100884;
+var seq__100886 = cljs.core.seq(vec__100885);
+var first__100887 = cljs.core.first(seq__100886);
+var seq__100886__$1 = cljs.core.next(seq__100886);
+var col = first__100887;
+var cols = seq__100886__$1;
+var active_cols = vec__100885;
 if(cljs.core.not(cols)){
 return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [row,col], null));
 } else {
@@ -1795,29 +1795,29 @@ return answer;
 } else {
 var term = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [row,cljs.core.first(remaining_cols)], null));
 if(cljs.core.truth_((zero_QMARK_.cljs$core$IFn$_invoke$arity$1 ? zero_QMARK_.cljs$core$IFn$_invoke$arity$1(term) : zero_QMARK_.call(null,term)))){
-var G__101175 = (idx + (1));
-var G__101176 = cljs.core.rest(remaining_cols);
-var G__101177 = answer;
-idx = G__101175;
-remaining_cols = G__101176;
-answer = G__101177;
+var G__101077 = (idx + (1));
+var G__101078 = cljs.core.rest(remaining_cols);
+var G__101079 = answer;
+idx = G__101077;
+remaining_cols = G__101078;
+answer = G__101079;
 continue;
 } else {
 var without_i = sicmutils.matrix.delete$(active_cols,idx);
-var delta = (function (){var G__100879 = term;
-var G__100880 = (function (){var G__100882 = (row + (1));
-var G__100883 = without_i;
-var fexpr__100881 = cljs.core.deref(c_det);
-return (fexpr__100881.cljs$core$IFn$_invoke$arity$2 ? fexpr__100881.cljs$core$IFn$_invoke$arity$2(G__100882,G__100883) : fexpr__100881.call(null,G__100882,G__100883));
+var delta = (function (){var G__100888 = term;
+var G__100889 = (function (){var G__100891 = (row + (1));
+var G__100892 = without_i;
+var fexpr__100890 = cljs.core.deref(c_det);
+return (fexpr__100890.cljs$core$IFn$_invoke$arity$2 ? fexpr__100890.cljs$core$IFn$_invoke$arity$2(G__100891,G__100892) : fexpr__100890.call(null,G__100891,G__100892));
 })();
-return (mul.cljs$core$IFn$_invoke$arity$2 ? mul.cljs$core$IFn$_invoke$arity$2(G__100879,G__100880) : mul.call(null,G__100879,G__100880));
+return (mul.cljs$core$IFn$_invoke$arity$2 ? mul.cljs$core$IFn$_invoke$arity$2(G__100888,G__100889) : mul.call(null,G__100888,G__100889));
 })();
-var G__101178 = (idx + (1));
-var G__101179 = cljs.core.rest(remaining_cols);
-var G__101180 = ((cljs.core.even_QMARK_(idx))?(add.cljs$core$IFn$_invoke$arity$2 ? add.cljs$core$IFn$_invoke$arity$2(answer,delta) : add.call(null,answer,delta)):(sub.cljs$core$IFn$_invoke$arity$2 ? sub.cljs$core$IFn$_invoke$arity$2(answer,delta) : sub.call(null,answer,delta)));
-idx = G__101178;
-remaining_cols = G__101179;
-answer = G__101180;
+var G__101080 = (idx + (1));
+var G__101081 = cljs.core.rest(remaining_cols);
+var G__101082 = ((cljs.core.even_QMARK_(idx))?(add.cljs$core$IFn$_invoke$arity$2 ? add.cljs$core$IFn$_invoke$arity$2(answer,delta) : add.call(null,answer,delta)):(sub.cljs$core$IFn$_invoke$arity$2 ? sub.cljs$core$IFn$_invoke$arity$2(answer,delta) : sub.call(null,answer,delta)));
+idx = G__101080;
+remaining_cols = G__101081;
+answer = G__101082;
 continue;
 }
 }
@@ -1827,10 +1827,10 @@ break;
 });
 cljs.core.reset_BANG_(c_det,cljs.core.memoize(c_det_STAR_));
 
-var G__100888 = (0);
-var G__100889 = cljs.core.range.cljs$core$IFn$_invoke$arity$1(sicmutils.matrix.dimension(m));
-var fexpr__100887 = cljs.core.deref(c_det);
-return (fexpr__100887.cljs$core$IFn$_invoke$arity$2 ? fexpr__100887.cljs$core$IFn$_invoke$arity$2(G__100888,G__100889) : fexpr__100887.call(null,G__100888,G__100889));
+var G__100894 = (0);
+var G__100895 = cljs.core.range.cljs$core$IFn$_invoke$arity$1(sicmutils.matrix.dimension(m));
+var fexpr__100893 = cljs.core.deref(c_det);
+return (fexpr__100893.cljs$core$IFn$_invoke$arity$2 ? fexpr__100893.cljs$core$IFn$_invoke$arity$2(G__100894,G__100895) : fexpr__100893.call(null,G__100894,G__100895));
 });
 });
 /**
@@ -1853,13 +1853,13 @@ if((r < (2))){
 return m;
 } else {
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(r,(2))){
-var vec__100890 = m;
-var vec__100893 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100890,(0),null);
-var a = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100893,(0),null);
-var b = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100893,(1),null);
-var vec__100896 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100890,(1),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100896,(0),null);
-var d = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100896,(1),null);
+var vec__100898 = m;
+var vec__100901 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100898,(0),null);
+var a = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100901,(0),null);
+var b = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100901,(1),null);
+var vec__100904 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100898,(1),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100904,(0),null);
+var d = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100904,(1),null);
 return sicmutils.matrix.__GT_Matrix((2),(2),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [d,sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(c)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(b),a], null)], null));
 } else {
 return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(r,r,(function (i,j){
@@ -1883,17 +1883,17 @@ var det = sicmutils.matrix.general_determinant(add,sub,mul,zero_QMARK_);
 return (function sicmutils$matrix$classical_adjoint_formula_$_inv(A){
 var dim = sicmutils.matrix.dimension(A);
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(dim,(1))){
-return sicmutils.matrix.__GT_Matrix((1),(1),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (){var G__100899 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(A,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(0)], null));
-return (div.cljs$core$IFn$_invoke$arity$1 ? div.cljs$core$IFn$_invoke$arity$1(G__100899) : div.call(null,G__100899));
+return sicmutils.matrix.__GT_Matrix((1),(1),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (){var G__100907 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(A,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(0)], null));
+return (div.cljs$core$IFn$_invoke$arity$1 ? div.cljs$core$IFn$_invoke$arity$1(G__100907) : div.call(null,G__100907));
 })()], null)], null));
 } else {
 var d = det(A);
 var _d = (sub.cljs$core$IFn$_invoke$arity$1 ? sub.cljs$core$IFn$_invoke$arity$1(d) : sub.call(null,d));
 return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(dim,dim,(function (i,j){
 var denom = ((cljs.core.even_QMARK_((i + j)))?d:_d);
-var G__100900 = det(sicmutils.matrix.without(A,j,i));
-var G__100901 = denom;
-return (div.cljs$core$IFn$_invoke$arity$2 ? div.cljs$core$IFn$_invoke$arity$2(G__100900,G__100901) : div.call(null,G__100900,G__100901));
+var G__100908 = det(sicmutils.matrix.without(A,j,i));
+var G__100909 = denom;
+return (div.cljs$core$IFn$_invoke$arity$2 ? div.cljs$core$IFn$_invoke$arity$2(G__100908,G__100909) : div.call(null,G__100908,G__100909));
 }));
 }
 });
@@ -1920,8 +1920,8 @@ sicmutils.matrix.c_div_m = (function sicmutils$matrix$c_div_m(c,m){
 return sicmutils.matrix.scalar_STAR_matrix(c,sicmutils.matrix.invert(m));
 });
 sicmutils.matrix.s_COLON_inverse = (function sicmutils$matrix$s_COLON_inverse(var_args){
-var G__100903 = arguments.length;
-switch (G__100903) {
+var G__100912 = arguments.length;
+switch (G__100912) {
 case 2:
 return sicmutils.matrix.s_COLON_inverse.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1965,8 +1965,8 @@ return sicmutils.matrix.s_COLON_solve_linear_left(s,rv);
  *   supplied).
  */
 sicmutils.matrix.make_zero = (function sicmutils$matrix$make_zero(var_args){
-var G__100906 = arguments.length;
-switch (G__100906) {
+var G__100919 = arguments.length;
+switch (G__100919) {
 case 1:
 return sicmutils.matrix.make_zero.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -2022,36 +2022,36 @@ sicmutils.matrix.identity_QMARK_ = (function sicmutils$matrix$identity_QMARK_(m)
 var and__4251__auto__ = sicmutils.matrix.square_QMARK_(m);
 if(and__4251__auto__){
 var n = sicmutils.matrix.dimension(m);
-return cljs.core.every_QMARK_(cljs.core.true_QMARK_,(function (){var iter__4652__auto__ = (function sicmutils$matrix$identity_QMARK__$_iter__100907(s__100908){
+return cljs.core.every_QMARK_(cljs.core.true_QMARK_,(function (){var iter__4652__auto__ = (function sicmutils$matrix$identity_QMARK__$_iter__100922(s__100923){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100908__$1 = s__100908;
+var s__100923__$1 = s__100923;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100908__$1);
+var temp__5753__auto__ = cljs.core.seq(s__100923__$1);
 if(temp__5753__auto__){
 var xs__6308__auto__ = temp__5753__auto__;
 var i = cljs.core.first(xs__6308__auto__);
-var iterys__4648__auto__ = ((function (s__100908__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
-return (function sicmutils$matrix$identity_QMARK__$_iter__100907_$_iter__100909(s__100910){
-return (new cljs.core.LazySeq(null,((function (s__100908__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
+var iterys__4648__auto__ = ((function (s__100923__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
+return (function sicmutils$matrix$identity_QMARK__$_iter__100922_$_iter__100924(s__100925){
+return (new cljs.core.LazySeq(null,((function (s__100923__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
 return (function (){
-var s__100910__$1 = s__100910;
+var s__100925__$1 = s__100925;
 while(true){
-var temp__5753__auto____$1 = cljs.core.seq(s__100910__$1);
+var temp__5753__auto____$1 = cljs.core.seq(s__100925__$1);
 if(temp__5753__auto____$1){
-var s__100910__$2 = temp__5753__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__100910__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100910__$2);
+var s__100925__$2 = temp__5753__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__100925__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__100925__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100912 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100911 = (0);
+var b__100927 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__100926 = (0);
 while(true){
-if((i__100911 < size__4651__auto__)){
-var j = cljs.core._nth(c__4650__auto__,i__100911);
+if((i__100926 < size__4651__auto__)){
+var j = cljs.core._nth(c__4650__auto__,i__100926);
 var entry = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,j], null));
-cljs.core.chunk_append(b__100912,((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(i,j))?sicmutils.value.one_QMARK_(entry):sicmutils.value.zero_QMARK_(entry)));
+cljs.core.chunk_append(b__100927,((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(i,j))?sicmutils.value.one_QMARK_(entry):sicmutils.value.zero_QMARK_(entry)));
 
-var G__101192 = (i__100911 + (1));
-i__100911 = G__101192;
+var G__101098 = (i__100926 + (1));
+i__100926 = G__101098;
 continue;
 } else {
 return true;
@@ -2059,30 +2059,30 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100912),sicmutils$matrix$identity_QMARK__$_iter__100907_$_iter__100909(cljs.core.chunk_rest(s__100910__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__100927),sicmutils$matrix$identity_QMARK__$_iter__100922_$_iter__100924(cljs.core.chunk_rest(s__100925__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100912),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__100927),null);
 }
 } else {
-var j = cljs.core.first(s__100910__$2);
+var j = cljs.core.first(s__100925__$2);
 var entry = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,j], null));
-return cljs.core.cons(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(i,j))?sicmutils.value.one_QMARK_(entry):sicmutils.value.zero_QMARK_(entry)),sicmutils$matrix$identity_QMARK__$_iter__100907_$_iter__100909(cljs.core.rest(s__100910__$2)));
+return cljs.core.cons(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(i,j))?sicmutils.value.one_QMARK_(entry):sicmutils.value.zero_QMARK_(entry)),sicmutils$matrix$identity_QMARK__$_iter__100922_$_iter__100924(cljs.core.rest(s__100925__$2)));
 }
 } else {
 return null;
 }
 break;
 }
-});})(s__100908__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
+});})(s__100923__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
 ,null,null));
-});})(s__100908__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
+});})(s__100923__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
 ;
 var fs__4649__auto__ = cljs.core.seq(iterys__4648__auto__(cljs.core.range.cljs$core$IFn$_invoke$arity$1(n)));
 if(fs__4649__auto__){
-return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__4649__auto__,sicmutils$matrix$identity_QMARK__$_iter__100907(cljs.core.rest(s__100908__$1)));
+return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__4649__auto__,sicmutils$matrix$identity_QMARK__$_iter__100922(cljs.core.rest(s__100923__$1)));
 } else {
-var G__101193 = cljs.core.rest(s__100908__$1);
-s__100908__$1 = G__101193;
+var G__101101 = cljs.core.rest(s__100923__$1);
+s__100923__$1 = G__101101;
 continue;
 }
 } else {
@@ -2108,8 +2108,8 @@ return and__4251__auto__;
  *   `(make-diagonal <n> 1)` is equivalent to `(I n)`.
  */
 sicmutils.matrix.make_diagonal = (function sicmutils$matrix$make_diagonal(var_args){
-var G__100916 = arguments.length;
-switch (G__100916) {
+var G__100934 = arguments.length;
+switch (G__100934) {
 case 1:
 return sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -2137,8 +2137,8 @@ return (0);
 }));
 
 (sicmutils.matrix.make_diagonal.cljs$core$IFn$_invoke$arity$2 = (function (n,x){
-return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(n,n,(function (p1__100913_SHARP_,p2__100914_SHARP_){
-if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__100913_SHARP_,p2__100914_SHARP_)){
+return sicmutils.matrix.generate.cljs$core$IFn$_invoke$arity$3(n,n,(function (p1__100931_SHARP_,p2__100932_SHARP_){
+if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__100931_SHARP_,p2__100932_SHARP_)){
 return x;
 } else {
 return (0);
@@ -2156,41 +2156,41 @@ sicmutils.matrix.diagonal_QMARK_ = (function sicmutils$matrix$diagonal_QMARK_(m)
 var and__4251__auto__ = sicmutils.matrix.square_QMARK_(m);
 if(and__4251__auto__){
 var n = sicmutils.matrix.dimension(m);
-return cljs.core.every_QMARK_(cljs.core.true_QMARK_,(function (){var iter__4652__auto__ = (function sicmutils$matrix$diagonal_QMARK__$_iter__100921(s__100922){
+return cljs.core.every_QMARK_(cljs.core.true_QMARK_,(function (){var iter__4652__auto__ = (function sicmutils$matrix$diagonal_QMARK__$_iter__100935(s__100936){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100922__$1 = s__100922;
+var s__100936__$1 = s__100936;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100922__$1);
+var temp__5753__auto__ = cljs.core.seq(s__100936__$1);
 if(temp__5753__auto__){
 var xs__6308__auto__ = temp__5753__auto__;
 var i = cljs.core.first(xs__6308__auto__);
-var iterys__4648__auto__ = ((function (s__100922__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
-return (function sicmutils$matrix$diagonal_QMARK__$_iter__100921_$_iter__100923(s__100924){
-return (new cljs.core.LazySeq(null,((function (s__100922__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
+var iterys__4648__auto__ = ((function (s__100936__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
+return (function sicmutils$matrix$diagonal_QMARK__$_iter__100935_$_iter__100937(s__100938){
+return (new cljs.core.LazySeq(null,((function (s__100936__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__){
 return (function (){
-var s__100924__$1 = s__100924;
+var s__100938__$1 = s__100938;
 while(true){
-var temp__5753__auto____$1 = cljs.core.seq(s__100924__$1);
+var temp__5753__auto____$1 = cljs.core.seq(s__100938__$1);
 if(temp__5753__auto____$1){
-var s__100924__$2 = temp__5753__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__100924__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100924__$2);
+var s__100938__$2 = temp__5753__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__100938__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__100938__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100926 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100925 = (0);
+var b__100940 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__100939 = (0);
 while(true){
-if((i__100925 < size__4651__auto__)){
-var j = cljs.core._nth(c__4650__auto__,i__100925);
+if((i__100939 < size__4651__auto__)){
+var j = cljs.core._nth(c__4650__auto__,i__100939);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(i,j)){
 var entry = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,j], null));
-cljs.core.chunk_append(b__100926,sicmutils.value.zero_QMARK_(entry));
+cljs.core.chunk_append(b__100940,sicmutils.value.zero_QMARK_(entry));
 
-var G__101197 = (i__100925 + (1));
-i__100925 = G__101197;
+var G__101107 = (i__100939 + (1));
+i__100939 = G__101107;
 continue;
 } else {
-var G__101198 = (i__100925 + (1));
-i__100925 = G__101198;
+var G__101108 = (i__100939 + (1));
+i__100939 = G__101108;
 continue;
 }
 } else {
@@ -2199,18 +2199,18 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100926),sicmutils$matrix$diagonal_QMARK__$_iter__100921_$_iter__100923(cljs.core.chunk_rest(s__100924__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__100940),sicmutils$matrix$diagonal_QMARK__$_iter__100935_$_iter__100937(cljs.core.chunk_rest(s__100938__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100926),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__100940),null);
 }
 } else {
-var j = cljs.core.first(s__100924__$2);
+var j = cljs.core.first(s__100938__$2);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(i,j)){
 var entry = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(m,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,j], null));
-return cljs.core.cons(sicmutils.value.zero_QMARK_(entry),sicmutils$matrix$diagonal_QMARK__$_iter__100921_$_iter__100923(cljs.core.rest(s__100924__$2)));
+return cljs.core.cons(sicmutils.value.zero_QMARK_(entry),sicmutils$matrix$diagonal_QMARK__$_iter__100935_$_iter__100937(cljs.core.rest(s__100938__$2)));
 } else {
-var G__101199 = cljs.core.rest(s__100924__$2);
-s__100924__$1 = G__101199;
+var G__101109 = cljs.core.rest(s__100938__$2);
+s__100938__$1 = G__101109;
 continue;
 }
 }
@@ -2219,16 +2219,16 @@ return null;
 }
 break;
 }
-});})(s__100922__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
+});})(s__100936__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
 ,null,null));
-});})(s__100922__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
+});})(s__100936__$1,i,xs__6308__auto__,temp__5753__auto__,n,and__4251__auto__))
 ;
 var fs__4649__auto__ = cljs.core.seq(iterys__4648__auto__(cljs.core.range.cljs$core$IFn$_invoke$arity$1(n)));
 if(fs__4649__auto__){
-return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__4649__auto__,sicmutils$matrix$diagonal_QMARK__$_iter__100921(cljs.core.rest(s__100922__$1)));
+return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__4649__auto__,sicmutils$matrix$diagonal_QMARK__$_iter__100935(cljs.core.rest(s__100936__$1)));
 } else {
-var G__101200 = cljs.core.rest(s__100922__$1);
-s__100922__$1 = G__101200;
+var G__101110 = cljs.core.rest(s__100936__$1);
+s__100936__$1 = G__101110;
 continue;
 }
 } else {
@@ -2274,8 +2274,8 @@ return sicmutils.value.zero_QMARK_(sicmutils.generic.simplify.cljs$core$IFn$_inv
  *   could pass that too.
  */
 sicmutils.matrix.characteristic_polynomial = (function sicmutils$matrix$characteristic_polynomial(var_args){
-var G__100928 = arguments.length;
-switch (G__100928) {
+var G__100942 = arguments.length;
+switch (G__100942) {
 case 1:
 return sicmutils.matrix.characteristic_polynomial.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -2342,9 +2342,9 @@ var bn = sicmutils.matrix.num_rows(b);
 var d = det(A);
 var At = sicmutils.matrix.transpose(A);
 return sicmutils.matrix.column_STAR_(cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (i){
-var G__100929 = det(sicmutils.matrix.with_substituted_row(At,i,bv));
-var G__100930 = d;
-return (div.cljs$core$IFn$_invoke$arity$2 ? div.cljs$core$IFn$_invoke$arity$2(G__100929,G__100930) : div.call(null,G__100929,G__100930));
+var G__100943 = det(sicmutils.matrix.with_substituted_row(At,i,bv));
+var G__100944 = d;
+return (div.cljs$core$IFn$_invoke$arity$2 ? div.cljs$core$IFn$_invoke$arity$2(G__100943,G__100944) : div.call(null,G__100943,G__100944));
 }),cljs.core.range.cljs$core$IFn$_invoke$arity$1(bn)));
 });
 });
@@ -2600,8 +2600,8 @@ sicmutils.generic.outer_product.cljs$core$IMultiFn$_add_method$arity$3(null,new 
 return sicmutils.matrix.mul(a,b);
 }));
 sicmutils.generic.partial_derivative.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.matrix","matrix","sicmutils.matrix/matrix",1944303310),sicmutils.value.seqtype], null),(function (M,selectors){
-return sicmutils.matrix.fmap((function (p1__100949_SHARP_){
-return sicmutils.generic.partial_derivative.cljs$core$IFn$_invoke$arity$2(p1__100949_SHARP_,selectors);
+return sicmutils.matrix.fmap((function (p1__100945_SHARP_){
+return sicmutils.generic.partial_derivative.cljs$core$IFn$_invoke$arity$2(p1__100945_SHARP_,selectors);
 }),M);
 }));
 

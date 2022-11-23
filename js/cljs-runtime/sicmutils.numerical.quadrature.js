@@ -10,15 +10,15 @@ if(cljs.core.fn_QMARK_(method)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [method,cljs.core.PersistentArrayMap.EMPTY], null);
 } else {
 if((method instanceof cljs.core.Keyword)){
-var G__102887 = (sicmutils.numerical.quadrature.quadrature_methods.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numerical.quadrature.quadrature_methods.cljs$core$IFn$_invoke$arity$1(method) : sicmutils.numerical.quadrature.quadrature_methods.call(null,method));
-return (sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1(G__102887) : sicmutils.numerical.quadrature.extract_method.call(null,G__102887));
+var G__102902 = (sicmutils.numerical.quadrature.quadrature_methods.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numerical.quadrature.quadrature_methods.cljs$core$IFn$_invoke$arity$1(method) : sicmutils.numerical.quadrature.quadrature_methods.call(null,method));
+return (sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1(G__102902) : sicmutils.numerical.quadrature.extract_method.call(null,G__102902));
 } else {
 if(cljs.core.map_QMARK_(method)){
-var vec__102888 = (function (){var G__102891 = new cljs.core.Keyword(null,"method","method",55703592).cljs$core$IFn$_invoke$arity$1(method);
-return (sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1(G__102891) : sicmutils.numerical.quadrature.extract_method.call(null,G__102891));
+var vec__102903 = (function (){var G__102906 = new cljs.core.Keyword(null,"method","method",55703592).cljs$core$IFn$_invoke$arity$1(method);
+return (sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numerical.quadrature.extract_method.cljs$core$IFn$_invoke$arity$1(G__102906) : sicmutils.numerical.quadrature.extract_method.call(null,G__102906));
 })();
-var f = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102888,(0),null);
-var m = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102888,(1),null);
+var f = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102903,(0),null);
+var m = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102903,(1),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [f,cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(method,new cljs.core.Keyword(null,"method","method",55703592)),m], 0))], null);
 } else {
 return null;
@@ -48,8 +48,8 @@ return null;
  *   endpoints by passing through directly to the underlying integrator).
  */
 sicmutils.numerical.quadrature.get_integrator = (function sicmutils$numerical$quadrature$get_integrator(var_args){
-var G__102893 = arguments.length;
-switch (G__102893) {
+var G__102908 = arguments.length;
+switch (G__102908) {
 case 3:
 return sicmutils.numerical.quadrature.get_integrator.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -71,9 +71,9 @@ return sicmutils.numerical.quadrature.get_integrator.cljs$core$IFn$_invoke$arity
 (sicmutils.numerical.quadrature.get_integrator.cljs$core$IFn$_invoke$arity$4 = (function (method,a,b,m){
 var temp__5753__auto__ = sicmutils.numerical.quadrature.extract_method(method);
 if(cljs.core.truth_(temp__5753__auto__)){
-var vec__102894 = temp__5753__auto__;
-var integrate = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102894,(0),null);
-var opts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102894,(1),null);
+var vec__102909 = temp__5753__auto__;
+var integrate = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102909,(0),null);
+var opts = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102909,(1),null);
 var integrate__$1 = (cljs.core.truth_((function (){var or__4253__auto__ = sicmutils.generic.infinite_QMARK_.cljs$core$IFn$_invoke$arity$1(a);
 if(cljs.core.truth_(or__4253__auto__)){
 return or__4253__auto__;
@@ -118,8 +118,8 @@ return null;
  *   of the definite integral.
  */
 sicmutils.numerical.quadrature.definite_integral = (function sicmutils$numerical$quadrature$definite_integral(var_args){
-var G__102898 = arguments.length;
-switch (G__102898) {
+var G__102913 = arguments.length;
+switch (G__102913) {
 case 3:
 return sicmutils.numerical.quadrature.definite_integral.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -138,18 +138,18 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.definite_integral.cljs$core$IFn$_invoke$arity$4(f,a,b,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(sicmutils.numerical.quadrature.definite_integral.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102899){
-var map__102900 = p__102899;
-var map__102900__$1 = cljs.core.__destructure_map(map__102900);
-var opts = map__102900__$1;
-var method = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102900__$1,new cljs.core.Keyword(null,"method","method",55703592),new cljs.core.Keyword(null,"open","open",-1763596448));
-var compile_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102900__$1,new cljs.core.Keyword(null,"compile?","compile?",-826687650),false);
-var info_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102900__$1,new cljs.core.Keyword(null,"info?","info?",361925553),false);
+(sicmutils.numerical.quadrature.definite_integral.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102914){
+var map__102915 = p__102914;
+var map__102915__$1 = cljs.core.__destructure_map(map__102915);
+var opts = map__102915__$1;
+var method = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102915__$1,new cljs.core.Keyword(null,"method","method",55703592),new cljs.core.Keyword(null,"open","open",-1763596448));
+var compile_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102915__$1,new cljs.core.Keyword(null,"compile?","compile?",-826687650),false);
+var info_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102915__$1,new cljs.core.Keyword(null,"info?","info?",361925553),false);
 var temp__5751__auto__ = sicmutils.numerical.quadrature.get_integrator.cljs$core$IFn$_invoke$arity$4(method,a,b,opts);
 if(cljs.core.truth_(temp__5751__auto__)){
-var vec__102901 = temp__5751__auto__;
-var integrate = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102901,(0),null);
-var m = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102901,(1),null);
+var vec__102916 = temp__5751__auto__;
+var integrate = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102916,(0),null);
+var m = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102916,(1),null);
 var f__$1 = (cljs.core.truth_(compile_QMARK_)?sicmutils.expression.compile.compile_fn.cljs$core$IFn$_invoke$arity$2(f,(1)):cljs.core.comp.cljs$core$IFn$_invoke$arity$2(sicmutils.util.double$,f));
 var result = (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(f__$1,a,b,m) : integrate.call(null,f__$1,a,b,m));
 if(cljs.core.truth_(info_QMARK_)){

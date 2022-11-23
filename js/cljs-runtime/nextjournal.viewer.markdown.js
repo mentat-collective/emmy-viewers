@@ -1,14 +1,14 @@
 goog.provide('nextjournal.viewer.markdown');
 nextjournal.viewer.markdown.inspect_STAR_ = (function nextjournal$viewer$markdown$inspect_STAR_(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___94739 = arguments.length;
-var i__4865__auto___94740 = (0);
+var len__4864__auto___94767 = arguments.length;
+var i__4865__auto___94768 = (0);
 while(true){
-if((i__4865__auto___94740 < len__4864__auto___94739)){
-args__4870__auto__.push((arguments[i__4865__auto___94740]));
+if((i__4865__auto___94768 < len__4864__auto___94767)){
+args__4870__auto__.push((arguments[i__4865__auto___94768]));
 
-var G__94741 = (i__4865__auto___94740 + (1));
-i__4865__auto___94740 = G__94741;
+var G__94769 = (i__4865__auto___94768 + (1));
+i__4865__auto___94768 = G__94769;
 continue;
 } else {
 }
@@ -29,9 +29,9 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(i,args);
 (nextjournal.viewer.markdown.inspect_STAR_.cljs$lang$maxFixedArity = (0));
 
 /** @this {Function} */
-(nextjournal.viewer.markdown.inspect_STAR_.cljs$lang$applyTo = (function (seq94658){
+(nextjournal.viewer.markdown.inspect_STAR_.cljs$lang$applyTo = (function (seq94678){
 var self__4852__auto__ = this;
-return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq94658));
+return self__4852__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq94678));
 }));
 
 nextjournal.viewer.markdown.eval_form_STAR_ = (function nextjournal$viewer$markdown$eval_form_STAR_(f){
@@ -50,19 +50,19 @@ return null;
 nextjournal.viewer.markdown.code_viewer = (function nextjournal$viewer$markdown$code_viewer(node){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.viewer-code.not-prose","div.viewer-code.not-prose",1657992558),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [nextjournal.viewer.markdown.inspect_STAR_,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("nextjournal","viewer","nextjournal/viewer",646341759),new cljs.core.Keyword(null,"code","code",1586293142),new cljs.core.Keyword("nextjournal","value","nextjournal/value",-1912768947),nextjournal.markdown.transform.__GT_text(node)], null)], null)], null);
 });
-nextjournal.viewer.markdown.default_renderers = cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(nextjournal.markdown.transform.default_hiccup_renderers,new cljs.core.Keyword(null,"doc","doc",1913296891),(function (ctx,p__94690){
-var map__94691 = p__94690;
-var map__94691__$1 = cljs.core.__destructure_map(map__94691);
-var doc = map__94691__$1;
-var sidenotes_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__94691__$1,new cljs.core.Keyword(null,"sidenotes?","sidenotes?",-1418896412));
+nextjournal.viewer.markdown.default_renderers = cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(nextjournal.markdown.transform.default_hiccup_renderers,new cljs.core.Keyword(null,"doc","doc",1913296891),(function (ctx,p__94747){
+var map__94749 = p__94747;
+var map__94749__$1 = cljs.core.__destructure_map(map__94749);
+var doc = map__94749__$1;
+var sidenotes_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__94749__$1,new cljs.core.Keyword(null,"sidenotes?","sidenotes?",-1418896412));
 return nextjournal.markdown.transform.into_markup(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"class","class",-2030961996),(cljs.core.truth_(sidenotes_QMARK_)?"contains-sidenotes":null),new cljs.core.Keyword(null,"on-click","on-click",1632826543),nextjournal.viewer.markdown.sidenote_click_handler], null)], null),ctx,doc);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"code","code",1586293142),(function (_ctx,node){
 return nextjournal.viewer.markdown.code_viewer(node);
-}),new cljs.core.Keyword(null,"todo-item","todo-item",-1060924804),(function (ctx,p__94692){
-var map__94693 = p__94692;
-var map__94693__$1 = cljs.core.__destructure_map(map__94693);
-var node = map__94693__$1;
-var attrs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__94693__$1,new cljs.core.Keyword(null,"attrs","attrs",-2090668713));
+}),new cljs.core.Keyword(null,"todo-item","todo-item",-1060924804),(function (ctx,p__94755){
+var map__94756 = p__94755;
+var map__94756__$1 = cljs.core.__destructure_map(map__94756);
+var node = map__94756__$1;
+var attrs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__94756__$1,new cljs.core.Keyword(null,"attrs","attrs",-2090668713));
 return nextjournal.markdown.transform.into_markup(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"li","li",723558921),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input","input",556931961),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"type","type",1174270348),"checkbox",new cljs.core.Keyword(null,"default-checked","default-checked",1039965863),new cljs.core.Keyword(null,"checked","checked",-50955819).cljs$core$IFn$_invoke$arity$1(attrs)], null)], null)], null),ctx,node);
 }),new cljs.core.Keyword(null,"formula","formula",-1059725192),(function (_ctx,node){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"dangerouslySetInnerHTML","dangerouslySetInnerHTML",-554971138),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"__html","__html",674048345),nextjournal.viewer.katex.to_html_string.cljs$core$IFn$_invoke$arity$1(nextjournal.markdown.transform.__GT_text(node))], null)], null)], null);
@@ -124,11 +124,11 @@ nextjournal.devcards.register_devcard_STAR_(cljs.core.assoc.cljs$core$IFn$_invok
 return new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("nextjournal.devcards","state","nextjournal.devcards/state",1376810469),"# Custom `.cljs` Code Eval\n\nOverrides the default `:code` renderer to add an extra sci pass for fenced code blocks with a `cljs` language info\n\n```cljs\n{:foo (reduce + 0 (range 10)) }\n```\n\nCan show what markdown parser actually do\n\n```cljs\n(nextjournal.markdown/parse \"# \uD83D\uDC4B\uD83C\uDFFB Hello markdown parsing\n- [x] with\n- [ ] some\n- [ ] fun\n\")\n\n```\nsame for hiccup transform\n```cljs\n(nextjournal.markdown/->hiccup \"# \uD83D\uDC4B\uD83C\uDFFB Hello markdown parsing\n- [x] with\n- [ ] some\n- [ ] fun\n\")\n\n```\n\ncode in other languages than clojurescript is just inert:\n\n```python\nimport sys\nsys.version\n```\n\n"], null);
 }),new cljs.core.Keyword(null,"doc","doc",1913296891),null,new cljs.core.Keyword(null,"compile-key","compile-key",1675526230),-1731605391,new cljs.core.Keyword(null,"main","main",-2117802661),(function (){
 return (function (markdown){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.viewer-markdown","div.viewer-markdown",-559117844),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [nextjournal.viewer.markdown.inspect_STAR_,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("nextjournal","viewer","nextjournal/viewer",646341759),new cljs.core.Keyword(null,"hiccup","hiccup",1218876238),new cljs.core.Keyword("nextjournal","value","nextjournal/value",-1912768947),nextjournal.markdown.__GT_hiccup.cljs$core$IFn$_invoke$arity$2(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(nextjournal.viewer.markdown.default_renderers,new cljs.core.Keyword(null,"code","code",1586293142),(function (_,p__94723){
-var map__94724 = p__94723;
-var map__94724__$1 = cljs.core.__destructure_map(map__94724);
-var node = map__94724__$1;
-var language = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__94724__$1,new cljs.core.Keyword(null,"language","language",-1591107564));
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.viewer-markdown","div.viewer-markdown",-559117844),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [nextjournal.viewer.markdown.inspect_STAR_,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("nextjournal","viewer","nextjournal/viewer",646341759),new cljs.core.Keyword(null,"hiccup","hiccup",1218876238),new cljs.core.Keyword("nextjournal","value","nextjournal/value",-1912768947),nextjournal.markdown.__GT_hiccup.cljs$core$IFn$_invoke$arity$2(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(nextjournal.viewer.markdown.default_renderers,new cljs.core.Keyword(null,"code","code",1586293142),(function (_,p__94764){
+var map__94765 = p__94764;
+var map__94765__$1 = cljs.core.__destructure_map(map__94765);
+var node = map__94765__$1;
+var language = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__94765__$1,new cljs.core.Keyword(null,"language","language",-1591107564));
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),nextjournal.viewer.markdown.code_viewer(node),((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("cljs",language))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.viewer-result.mt-3","div.viewer-result.mt-3",-941802642),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [nextjournal.viewer.markdown.inspect_STAR_,nextjournal.viewer.markdown.eval_form_STAR_(cljs.reader.read_string.cljs$core$IFn$_invoke$arity$1(nextjournal.markdown.transform.__GT_text(node)))], null)], null):null)], null);
 })),cljs.core.deref(markdown))], null)], null)], null);
 });

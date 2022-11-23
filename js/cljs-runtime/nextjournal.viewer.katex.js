@@ -1,20 +1,20 @@
 goog.provide('nextjournal.viewer.katex');
 var module$node_modules$katex$dist$katex=shadow.js.require("module$node_modules$katex$dist$katex", {});
 nextjournal.viewer.katex.remove_unsupported_syntax = (function nextjournal$viewer$katex$remove_unsupported_syntax(content){
-var G__89269 = content;
-var G__89269__$1 = (((G__89269 == null))?null:clojure.string.replace(G__89269,/\\(begin|end)\{(align|eqnarray)\*?\}/,"\\$1{aligned}"));
-var G__89269__$2 = (((G__89269__$1 == null))?null:clojure.string.replace(G__89269__$1,/\\(begin|end)\{equation[^}]*?\}/,""));
-var G__89269__$3 = (((G__89269__$2 == null))?null:clojure.string.replace(G__89269__$2,/\\mbox\{/,"\\textrm{"));
-var G__89269__$4 = (((G__89269__$3 == null))?null:clojure.string.replace(G__89269__$3,/\\label/,""));
-if((G__89269__$4 == null)){
+var G__89663 = content;
+var G__89663__$1 = (((G__89663 == null))?null:clojure.string.replace(G__89663,/\\(begin|end)\{(align|eqnarray)\*?\}/,"\\$1{aligned}"));
+var G__89663__$2 = (((G__89663__$1 == null))?null:clojure.string.replace(G__89663__$1,/\\(begin|end)\{equation[^}]*?\}/,""));
+var G__89663__$3 = (((G__89663__$2 == null))?null:clojure.string.replace(G__89663__$2,/\\mbox\{/,"\\textrm{"));
+var G__89663__$4 = (((G__89663__$3 == null))?null:clojure.string.replace(G__89663__$3,/\\label/,""));
+if((G__89663__$4 == null)){
 return null;
 } else {
-return clojure.string.replace(G__89269__$4,/\\\\\\\n/,"\\\\\n");
+return clojure.string.replace(G__89663__$4,/\\\\\\\n/,"\\\\\n");
 }
 });
 nextjournal.viewer.katex.to_html_string = (function nextjournal$viewer$katex$to_html_string(var_args){
-var G__89272 = arguments.length;
-switch (G__89272) {
+var G__89670 = arguments.length;
+switch (G__89670) {
 case 1:
 return nextjournal.viewer.katex.to_html_string.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

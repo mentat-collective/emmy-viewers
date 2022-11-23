@@ -1,22 +1,22 @@
 goog.provide('sicmutils.sr.boost');
-sicmutils.sr.boost.make_four_tuple = (function sicmutils$sr$boost$make_four_tuple(ct,p__103472){
-var vec__103473 = p__103472;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103473,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103473,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103473,(2),null);
+sicmutils.sr.boost.make_four_tuple = (function sicmutils$sr$boost$make_four_tuple(ct,p__103388){
+var vec__103389 = p__103388;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103389,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103389,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103389,(2),null);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([ct,x,y,z], 0));
 });
-sicmutils.sr.boost.four_tuple__GT_ct = (function sicmutils$sr$boost$four_tuple__GT_ct(p__103476){
-var vec__103477 = p__103476;
-var ct = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103477,(0),null);
+sicmutils.sr.boost.four_tuple__GT_ct = (function sicmutils$sr$boost$four_tuple__GT_ct(p__103392){
+var vec__103393 = p__103392;
+var ct = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103393,(0),null);
 return ct;
 });
-sicmutils.sr.boost.four_tuple__GT_space = (function sicmutils$sr$boost$four_tuple__GT_space(p__103480){
-var vec__103481 = p__103480;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103481,(0),null);
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103481,(1),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103481,(2),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103481,(3),null);
+sicmutils.sr.boost.four_tuple__GT_space = (function sicmutils$sr$boost$four_tuple__GT_space(p__103397){
+var vec__103398 = p__103397;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103398,(0),null);
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103398,(1),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103398,(2),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103398,(3),null);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([x,y,z], 0));
 });
 sicmutils.sr.boost.proper_time_interval = (function sicmutils$sr$boost$proper_time_interval(four_tuple){
@@ -54,8 +54,8 @@ return sicmutils.sr.boost.make_four_tuple(delta_ct,delta_x);
 });
 sicmutils.sr.boost.extended_rotation = (function sicmutils$sr$boost$extended_rotation(R){
 return (function (xi_p){
-return sicmutils.sr.boost.make_four_tuple(sicmutils.sr.boost.four_tuple__GT_ct(xi_p),(function (){var G__103488 = sicmutils.sr.boost.four_tuple__GT_space(xi_p);
-return (R.cljs$core$IFn$_invoke$arity$1 ? R.cljs$core$IFn$_invoke$arity$1(G__103488) : R.call(null,G__103488));
+return sicmutils.sr.boost.make_four_tuple(sicmutils.sr.boost.four_tuple__GT_ct(xi_p),(function (){var G__103405 = sicmutils.sr.boost.four_tuple__GT_space(xi_p);
+return (R.cljs$core$IFn$_invoke$arity$1 ? R.cljs$core$IFn$_invoke$arity$1(G__103405) : R.call(null,G__103405));
 })());
 });
 });

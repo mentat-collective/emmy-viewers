@@ -5,7 +5,7 @@ goog.provide('sicmutils.differential');
  */
 sicmutils.differential.IPerturbed = function(){};
 
-var sicmutils$differential$IPerturbed$perturbed_QMARK_$dyn_96762 = (function (this$){
+var sicmutils$differential$IPerturbed$perturbed_QMARK_$dyn_96593 = (function (this$){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.differential.perturbed_QMARK_[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -28,11 +28,11 @@ sicmutils.differential.perturbed_QMARK_ = (function sicmutils$differential$pertu
 if((((!((this$ == null)))) && ((!((this$.sicmutils$differential$IPerturbed$perturbed_QMARK_$arity$1 == null)))))){
 return this$.sicmutils$differential$IPerturbed$perturbed_QMARK_$arity$1(this$);
 } else {
-return sicmutils$differential$IPerturbed$perturbed_QMARK_$dyn_96762(this$);
+return sicmutils$differential$IPerturbed$perturbed_QMARK_$dyn_96593(this$);
 }
 });
 
-var sicmutils$differential$IPerturbed$replace_tag$dyn_96763 = (function (this$,old_tag,new_tag){
+var sicmutils$differential$IPerturbed$replace_tag$dyn_96594 = (function (this$,old_tag,new_tag){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.differential.replace_tag[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -55,11 +55,11 @@ sicmutils.differential.replace_tag = (function sicmutils$differential$replace_ta
 if((((!((this$ == null)))) && ((!((this$.sicmutils$differential$IPerturbed$replace_tag$arity$3 == null)))))){
 return this$.sicmutils$differential$IPerturbed$replace_tag$arity$3(this$,old_tag,new_tag);
 } else {
-return sicmutils$differential$IPerturbed$replace_tag$dyn_96763(this$,old_tag,new_tag);
+return sicmutils$differential$IPerturbed$replace_tag$dyn_96594(this$,old_tag,new_tag);
 }
 });
 
-var sicmutils$differential$IPerturbed$extract_tangent$dyn_96764 = (function (this$,tag){
+var sicmutils$differential$IPerturbed$extract_tangent$dyn_96597 = (function (this$,tag){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.differential.extract_tangent[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -81,7 +81,7 @@ sicmutils.differential.extract_tangent = (function sicmutils$differential$extrac
 if((((!((this$ == null)))) && ((!((this$.sicmutils$differential$IPerturbed$extract_tangent$arity$2 == null)))))){
 return this$.sicmutils$differential$IPerturbed$extract_tangent$arity$2(this$,tag);
 } else {
-return sicmutils$differential$IPerturbed$extract_tangent$dyn_96764(this$,tag);
+return sicmutils$differential$IPerturbed$extract_tangent$dyn_96597(this$,tag);
 }
 });
 
@@ -111,8 +111,8 @@ return cljs.core.nth.cljs$core$IFn$_invoke$arity$2(term,(1));
  *   `tags` defaults to [[uv/empty-set]]
  */
 sicmutils.differential.make_term = (function sicmutils$differential$make_term(var_args){
-var G__96619 = arguments.length;
-switch (G__96619) {
+var G__96280 = arguments.length;
+switch (G__96280) {
 case 1:
 return sicmutils.differential.make_term.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -137,12 +137,12 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 
 (sicmutils.differential.make_term.cljs$lang$maxFixedArity = 2);
 
-var next_tag_96766 = cljs.core.atom.cljs$core$IFn$_invoke$arity$1((-1));
+var next_tag_96601 = cljs.core.atom.cljs$core$IFn$_invoke$arity$1((-1));
 /**
  * Returns a new, unique tag for use inside of a [[Differential]] term list.
  */
 sicmutils.differential.fresh_tag = (function sicmutils$differential$fresh_tag(){
-return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$2(next_tag_96766,cljs.core.inc);
+return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$2(next_tag_96601,cljs.core.inc);
 });
 /**
  * Return true if `t` is in the tag-set of the supplied `term`, false otherwise.
@@ -165,33 +165,33 @@ sicmutils.differential.terms_COLON__PLUS_ = sicmutils.util.aggregate.merge_fn(cl
  *   The result will be sorted by term list, and contain no duplicate term lists.
  */
 sicmutils.differential.collect_terms = (function sicmutils$differential$collect_terms(tags__GT_coefs){
-var terms = (function (){var iter__4652__auto__ = (function sicmutils$differential$collect_terms_$_iter__96622(s__96623){
+var terms = (function (){var iter__4652__auto__ = (function sicmutils$differential$collect_terms_$_iter__96286(s__96287){
 return (new cljs.core.LazySeq(null,(function (){
-var s__96623__$1 = s__96623;
+var s__96287__$1 = s__96287;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__96623__$1);
+var temp__5753__auto__ = cljs.core.seq(s__96287__$1);
 if(temp__5753__auto__){
-var s__96623__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__96623__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__96623__$2);
+var s__96287__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__96287__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__96287__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__96625 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__96624 = (0);
+var b__96289 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__96288 = (0);
 while(true){
-if((i__96624 < size__4651__auto__)){
-var vec__96627 = cljs.core._nth(c__4650__auto__,i__96624);
-var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96627,(0),null);
-var tags_coefs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96627,(1),null);
+if((i__96288 < size__4651__auto__)){
+var vec__96293 = cljs.core._nth(c__4650__auto__,i__96288);
+var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96293,(0),null);
+var tags_coefs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96293,(1),null);
 var c = cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1(sicmutils.differential.coefficient),sicmutils.generic._PLUS_,tags_coefs);
 if((!(sicmutils.value.zero_QMARK_(c)))){
-cljs.core.chunk_append(b__96625,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [tags,c], null));
+cljs.core.chunk_append(b__96289,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [tags,c], null));
 
-var G__96767 = (i__96624 + (1));
-i__96624 = G__96767;
+var G__96610 = (i__96288 + (1));
+i__96288 = G__96610;
 continue;
 } else {
-var G__96768 = (i__96624 + (1));
-i__96624 = G__96768;
+var G__96611 = (i__96288 + (1));
+i__96288 = G__96611;
 continue;
 }
 } else {
@@ -200,20 +200,20 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__96625),sicmutils$differential$collect_terms_$_iter__96622(cljs.core.chunk_rest(s__96623__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__96289),sicmutils$differential$collect_terms_$_iter__96286(cljs.core.chunk_rest(s__96287__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__96625),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__96289),null);
 }
 } else {
-var vec__96630 = cljs.core.first(s__96623__$2);
-var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96630,(0),null);
-var tags_coefs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96630,(1),null);
+var vec__96307 = cljs.core.first(s__96287__$2);
+var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96307,(0),null);
+var tags_coefs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96307,(1),null);
 var c = cljs.core.transduce.cljs$core$IFn$_invoke$arity$3(cljs.core.map.cljs$core$IFn$_invoke$arity$1(sicmutils.differential.coefficient),sicmutils.generic._PLUS_,tags_coefs);
 if((!(sicmutils.value.zero_QMARK_(c)))){
-return cljs.core.cons(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [tags,c], null),sicmutils$differential$collect_terms_$_iter__96622(cljs.core.rest(s__96623__$2)));
+return cljs.core.cons(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [tags,c], null),sicmutils$differential$collect_terms_$_iter__96286(cljs.core.rest(s__96287__$2)));
 } else {
-var G__96769 = cljs.core.rest(s__96623__$2);
-s__96623__$1 = G__96769;
+var G__96612 = cljs.core.rest(s__96287__$2);
+s__96287__$1 = G__96612;
 continue;
 }
 }
@@ -235,8 +235,8 @@ return cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.E
  */
 sicmutils.differential.terms_COLON_map_coefficients = (function sicmutils$differential$terms_COLON_map_coefficients(f,terms){
 var xform = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$1((function (term){
-var c_SINGLEQUOTE_ = (function (){var G__96635 = sicmutils.differential.coefficient(term);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__96635) : f.call(null,G__96635));
+var c_SINGLEQUOTE_ = (function (){var G__96310 = sicmutils.differential.coefficient(term);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__96310) : f.call(null,G__96310));
 })();
 if(sicmutils.value.zero_QMARK_(c_SINGLEQUOTE_)){
 return cljs.core.PersistentVector.EMPTY;
@@ -250,10 +250,10 @@ return cljs.core.into.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentVector.E
  * Multiplies a single term on the left by a vector of `terms` on the right.
  *   Returns a new vector of terms.
  */
-sicmutils.differential.t_STAR_ts = (function sicmutils$differential$t_STAR_ts(p__96637,terms){
-var vec__96638 = p__96637;
-var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96638,(0),null);
-var coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96638,(1),null);
+sicmutils.differential.t_STAR_ts = (function sicmutils$differential$t_STAR_ts(p__96312,terms){
+var vec__96314 = p__96312;
+var tags = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96314,(0),null);
+var coeff = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96314,(1),null);
 var acc = cljs.core.PersistentVector.EMPTY;
 var i = (0);
 while(true){
@@ -261,20 +261,20 @@ var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(terms,i,null);
 if((t == null)){
 return acc;
 } else {
-var vec__96646 = t;
-var tags1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96646,(0),null);
-var coeff1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96646,(1),null);
+var vec__96322 = t;
+var tags1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96322,(0),null);
+var coeff1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96322,(1),null);
 if(cljs.core.empty_QMARK_(sicmutils.util.vector_set.intersection(tags,tags1))){
-var G__96770 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(acc,sicmutils.differential.make_term.cljs$core$IFn$_invoke$arity$2(sicmutils.util.vector_set.union(tags,tags1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(coeff,coeff1)));
-var G__96771 = (i + (1));
-acc = G__96770;
-i = G__96771;
+var G__96618 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(acc,sicmutils.differential.make_term.cljs$core$IFn$_invoke$arity$2(sicmutils.util.vector_set.union(tags,tags1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(coeff,coeff1)));
+var G__96619 = (i + (1));
+acc = G__96618;
+i = G__96619;
 continue;
 } else {
-var G__96772 = acc;
-var G__96773 = (i + (1));
-acc = G__96772;
-i = G__96773;
+var G__96620 = acc;
+var G__96621 = (i + (1));
+acc = G__96620;
+i = G__96621;
 continue;
 }
 }
@@ -350,14 +350,14 @@ return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMP
 }
 }
 });
-var G__96657 = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic(process,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([self__.terms], 0));
-return (sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1 ? sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1(G__96657) : sicmutils.differential.from_terms.call(null,G__96657));
+var G__96418 = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic(process,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([self__.terms], 0));
+return (sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1 ? sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1(G__96418) : sicmutils.differential.from_terms.call(null,G__96418));
 }));
 
 (sicmutils.differential.Differential.prototype.sicmutils$differential$IPerturbed$extract_tangent$arity$2 = (function (_,tag){
 var self__ = this;
 var ___$1 = this;
-var G__96658 = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (term){
+var G__96420 = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (term){
 var tagv = sicmutils.differential.tags(term);
 if(sicmutils.util.vector_set.contains_QMARK_(tagv,tag)){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.differential.make_term.cljs$core$IFn$_invoke$arity$2(sicmutils.util.vector_set.disj(tagv,tag),sicmutils.differential.coefficient(term))], null);
@@ -365,7 +365,7 @@ return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMP
 return cljs.core.PersistentVector.EMPTY;
 }
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([self__.terms], 0));
-return (sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1 ? sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1(G__96658) : sicmutils.differential.from_terms.call(null,G__96658));
+return (sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1 ? sicmutils.differential.from_terms.cljs$core$IFn$_invoke$arity$1(G__96420) : sicmutils.differential.from_terms.call(null,G__96420));
 }));
 
 (sicmutils.differential.Differential.prototype.sicmutils$value$Value$ = cljs.core.PROTOCOL_SENTINEL);
@@ -582,12 +582,12 @@ sicmutils.differential._STAR_active_tags_STAR_ = cljs.core.PersistentVector.EMPT
  *   Returns the result of applying `f` to `args`.
  */
 sicmutils.differential.with_active_tag = (function sicmutils$differential$with_active_tag(tag,f,args){
-var _STAR_active_tags_STAR__orig_val__96668 = sicmutils.differential._STAR_active_tags_STAR_;
-var _STAR_active_tags_STAR__temp_val__96669 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(sicmutils.differential._STAR_active_tags_STAR_,tag);
-(sicmutils.differential._STAR_active_tags_STAR_ = _STAR_active_tags_STAR__temp_val__96669);
+var _STAR_active_tags_STAR__orig_val__96439 = sicmutils.differential._STAR_active_tags_STAR_;
+var _STAR_active_tags_STAR__temp_val__96440 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(sicmutils.differential._STAR_active_tags_STAR_,tag);
+(sicmutils.differential._STAR_active_tags_STAR_ = _STAR_active_tags_STAR__temp_val__96440);
 
 try{return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,args);
-}finally {(sicmutils.differential._STAR_active_tags_STAR_ = _STAR_active_tags_STAR__orig_val__96668);
+}finally {(sicmutils.differential._STAR_active_tags_STAR_ = _STAR_active_tags_STAR__orig_val__96439);
 }});
 /**
  * Returns true if `tag` is an element of [[*active-tags*]] (and therefore pending
@@ -604,8 +604,8 @@ return cljs.core.boolean$(cljs.core.some(cljs.core.PersistentHashSet.createAsIfB
  *   a [[Differential]] only if it contains any non-zero tangent components.
  */
 sicmutils.differential.d_COLON__PLUS_ = (function sicmutils$differential$d_COLON__PLUS_(var_args){
-var G__96674 = arguments.length;
-switch (G__96674) {
+var G__96448 = arguments.length;
+switch (G__96448) {
 case 0:
 return sicmutils.differential.d_COLON__PLUS_.cljs$core$IFn$_invoke$arity$0();
 
@@ -620,14 +620,14 @@ return sicmutils.differential.d_COLON__PLUS_.cljs$core$IFn$_invoke$arity$2((argu
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___96781 = arguments.length;
-var i__4865__auto___96782 = (0);
+var len__4864__auto___96642 = arguments.length;
+var i__4865__auto___96643 = (0);
 while(true){
-if((i__4865__auto___96782 < len__4864__auto___96781)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___96782]));
+if((i__4865__auto___96643 < len__4864__auto___96642)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___96643]));
 
-var G__96783 = (i__4865__auto___96782 + (1));
-i__4865__auto___96782 = G__96783;
+var G__96644 = (i__4865__auto___96643 + (1));
+i__4865__auto___96643 = G__96644;
 continue;
 } else {
 }
@@ -657,13 +657,13 @@ return sicmutils.differential.terms__GT_differential(cljs.core.transduce.cljs$co
 }));
 
 /** @this {Function} */
-(sicmutils.differential.d_COLON__PLUS_.cljs$lang$applyTo = (function (seq96671){
-var G__96672 = cljs.core.first(seq96671);
-var seq96671__$1 = cljs.core.next(seq96671);
-var G__96673 = cljs.core.first(seq96671__$1);
-var seq96671__$2 = cljs.core.next(seq96671__$1);
+(sicmutils.differential.d_COLON__PLUS_.cljs$lang$applyTo = (function (seq96445){
+var G__96446 = cljs.core.first(seq96445);
+var seq96445__$1 = cljs.core.next(seq96445);
+var G__96447 = cljs.core.first(seq96445__$1);
+var seq96445__$2 = cljs.core.next(seq96445__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96672,G__96673,seq96671__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96446,G__96447,seq96445__$2);
 }));
 
 (sicmutils.differential.d_COLON__PLUS_.cljs$lang$maxFixedArity = (2));
@@ -681,8 +681,8 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96672,G__96673
  *   a [[Differential]] only if it contains any non-zero tangent components.
  */
 sicmutils.differential.d_COLON__STAR_ = (function sicmutils$differential$d_COLON__STAR_(var_args){
-var G__96684 = arguments.length;
-switch (G__96684) {
+var G__96453 = arguments.length;
+switch (G__96453) {
 case 0:
 return sicmutils.differential.d_COLON__STAR_.cljs$core$IFn$_invoke$arity$0();
 
@@ -735,8 +735,8 @@ return sicmutils.differential.terms__GT_differential(sicmutils.differential.term
  *   this unknown tag by calling [[max-order-tag]].
  */
 sicmutils.differential.bundle_element = (function sicmutils$differential$bundle_element(var_args){
-var G__96688 = arguments.length;
-switch (G__96688) {
+var G__96460 = arguments.length;
+switch (G__96460) {
 case 1:
 return sicmutils.differential.bundle_element.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -789,22 +789,22 @@ return sicmutils.differential.d_COLON__PLUS__STAR_(primal,tangent,new cljs.core.
  *   no non-zero tangent parts, or all non-[[Differential]]s), returns nil.
  */
 sicmutils.differential.max_order_tag = (function sicmutils$differential$max_order_tag(var_args){
-var G__96694 = arguments.length;
-switch (G__96694) {
+var G__96470 = arguments.length;
+switch (G__96470) {
 case 1:
 return sicmutils.differential.max_order_tag.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___96791 = arguments.length;
-var i__4865__auto___96792 = (0);
+var len__4864__auto___96650 = arguments.length;
+var i__4865__auto___96651 = (0);
 while(true){
-if((i__4865__auto___96792 < len__4864__auto___96791)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___96792]));
+if((i__4865__auto___96651 < len__4864__auto___96650)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___96651]));
 
-var G__96793 = (i__4865__auto___96792 + (1));
-i__4865__auto___96792 = G__96793;
+var G__96652 = (i__4865__auto___96651 + (1));
+i__4865__auto___96651 = G__96652;
 continue;
 } else {
 }
@@ -847,11 +847,11 @@ return null;
 }));
 
 /** @this {Function} */
-(sicmutils.differential.max_order_tag.cljs$lang$applyTo = (function (seq96692){
-var G__96693 = cljs.core.first(seq96692);
-var seq96692__$1 = cljs.core.next(seq96692);
+(sicmutils.differential.max_order_tag.cljs$lang$applyTo = (function (seq96468){
+var G__96469 = cljs.core.first(seq96468);
+var seq96468__$1 = cljs.core.next(seq96468);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96693,seq96692__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96469,seq96468__$1);
 }));
 
 (sicmutils.differential.max_order_tag.cljs$lang$maxFixedArity = (1));
@@ -872,8 +872,8 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96693,seq96692
  *   no other tags.
  */
 sicmutils.differential.primal_part = (function sicmutils$differential$primal_part(var_args){
-var G__96699 = arguments.length;
-switch (G__96699) {
+var G__96476 = arguments.length;
+switch (G__96476) {
 case 1:
 return sicmutils.differential.primal_part.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -894,8 +894,8 @@ return sicmutils.differential.primal_part.cljs$core$IFn$_invoke$arity$2(dx,sicmu
 
 (sicmutils.differential.primal_part.cljs$core$IFn$_invoke$arity$2 = (function (dx,tag){
 if(sicmutils.differential.differential_QMARK_(dx)){
-var sans_tag_QMARK_ = (function (p1__96697_SHARP_){
-return (!(sicmutils.differential.tag_in_term_QMARK_(p1__96697_SHARP_,tag)));
+var sans_tag_QMARK_ = (function (p1__96474_SHARP_){
+return (!(sicmutils.differential.tag_in_term_QMARK_(p1__96474_SHARP_,tag)));
 });
 return sicmutils.differential.terms__GT_differential(cljs.core.filterv(sans_tag_QMARK_,sicmutils.differential.bare_terms(dx)));
 } else {
@@ -924,8 +924,8 @@ return dx;
  *   the returned value. Call [[extract-tangent]] if you want to drop `tag`.
  */
 sicmutils.differential.tangent_part = (function sicmutils$differential$tangent_part(var_args){
-var G__96702 = arguments.length;
-switch (G__96702) {
+var G__96481 = arguments.length;
+switch (G__96481) {
 case 1:
 return sicmutils.differential.tangent_part.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -946,8 +946,8 @@ return sicmutils.differential.tangent_part.cljs$core$IFn$_invoke$arity$2(dx,sicm
 
 (sicmutils.differential.tangent_part.cljs$core$IFn$_invoke$arity$2 = (function (dx,tag){
 if(sicmutils.differential.differential_QMARK_(dx)){
-return sicmutils.differential.terms__GT_differential(cljs.core.filterv((function (p1__96700_SHARP_){
-return sicmutils.differential.tag_in_term_QMARK_(p1__96700_SHARP_,tag);
+return sicmutils.differential.terms__GT_differential(cljs.core.filterv((function (p1__96477_SHARP_){
+return sicmutils.differential.tag_in_term_QMARK_(p1__96477_SHARP_,tag);
 }),sicmutils.differential.bare_terms(dx)));
 } else {
 return (0);
@@ -968,8 +968,8 @@ return (0);
  *   but slightly more efficient if you need both.
  */
 sicmutils.differential.primal_tangent_pair = (function sicmutils$differential$primal_tangent_pair(var_args){
-var G__96705 = arguments.length;
-switch (G__96705) {
+var G__96486 = arguments.length;
+switch (G__96486) {
 case 1:
 return sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -992,11 +992,11 @@ return sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$2(
 if((!(sicmutils.differential.differential_QMARK_(dx)))){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [dx,(0)], null);
 } else {
-var vec__96706 = sicmutils.util.stream.separatev((function (p1__96703_SHARP_){
-return sicmutils.differential.tag_in_term_QMARK_(p1__96703_SHARP_,tag);
+var vec__96487 = sicmutils.util.stream.separatev((function (p1__96483_SHARP_){
+return sicmutils.differential.tag_in_term_QMARK_(p1__96483_SHARP_,tag);
 }),sicmutils.differential.bare_terms(dx));
-var tangent_terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96706,(0),null);
-var primal_terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96706,(1),null);
+var tangent_terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96487,(0),null);
+var primal_terms = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96487,(1),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.differential.terms__GT_differential(primal_terms),sicmutils.differential.terms__GT_differential(tangent_terms)], null);
 }
 }));
@@ -1018,8 +1018,8 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  */
 sicmutils.differential.finite_term = (function sicmutils$differential$finite_term(dx){
 if(sicmutils.differential.differential_QMARK_(dx)){
-var vec__96709 = sicmutils.differential.bare_terms(dx);
-var head = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96709,(0),null);
+var vec__96499 = sicmutils.differential.bare_terms(dx);
+var head = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96499,(0),null);
 var ts = sicmutils.differential.tags(head);
 if(cljs.core.empty_QMARK_(ts)){
 return sicmutils.differential.coefficient(head);
@@ -1041,9 +1041,9 @@ return dx;
  *   the [[finite-part]] and ignore the values of the tangent parts.
  */
 sicmutils.differential.one_QMARK_ = (function sicmutils$differential$one_QMARK_(dx){
-var vec__96712 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$1(dx);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96712,(0),null);
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96712,(1),null);
+var vec__96506 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$1(dx);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96506,(0),null);
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96506,(1),null);
 return ((sicmutils.value.one_QMARK_(p)) && (sicmutils.value.zero_QMARK_(t)));
 });
 /**
@@ -1053,8 +1053,8 @@ return ((sicmutils.value.one_QMARK_(p)) && (sicmutils.value.zero_QMARK_(t)));
  *   If you want to ignore the tangent components, use [[equiv]].
  */
 sicmutils.differential.eq = (function sicmutils$differential$eq(var_args){
-var G__96719 = arguments.length;
-switch (G__96719) {
+var G__96513 = arguments.length;
+switch (G__96513) {
 case 1:
 return sicmutils.differential.eq.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1065,14 +1065,14 @@ return sicmutils.differential.eq.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___96806 = arguments.length;
-var i__4865__auto___96807 = (0);
+var len__4864__auto___96675 = arguments.length;
+var i__4865__auto___96676 = (0);
 while(true){
-if((i__4865__auto___96807 < len__4864__auto___96806)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___96807]));
+if((i__4865__auto___96676 < len__4864__auto___96675)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___96676]));
 
-var G__96808 = (i__4865__auto___96807 + (1));
-i__4865__auto___96807 = G__96808;
+var G__96677 = (i__4865__auto___96676 + (1));
+i__4865__auto___96676 = G__96677;
 continue;
 } else {
 }
@@ -1097,12 +1097,12 @@ return sicmutils.value._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.differential
 while(true){
 if(cljs.core.truth_(sicmutils.differential.eq.cljs$core$IFn$_invoke$arity$2(a,b))){
 if(cljs.core.next(more)){
-var G__96809 = b;
-var G__96810 = cljs.core.first(more);
-var G__96811 = cljs.core.next(more);
-a = G__96809;
-b = G__96810;
-more = G__96811;
+var G__96678 = b;
+var G__96679 = cljs.core.first(more);
+var G__96680 = cljs.core.next(more);
+a = G__96678;
+b = G__96679;
+more = G__96680;
 continue;
 } else {
 return sicmutils.differential.eq.cljs$core$IFn$_invoke$arity$2(b,cljs.core.first(more));
@@ -1115,13 +1115,13 @@ break;
 }));
 
 /** @this {Function} */
-(sicmutils.differential.eq.cljs$lang$applyTo = (function (seq96716){
-var G__96717 = cljs.core.first(seq96716);
-var seq96716__$1 = cljs.core.next(seq96716);
-var G__96718 = cljs.core.first(seq96716__$1);
-var seq96716__$2 = cljs.core.next(seq96716__$1);
+(sicmutils.differential.eq.cljs$lang$applyTo = (function (seq96510){
+var G__96511 = cljs.core.first(seq96510);
+var seq96510__$1 = cljs.core.next(seq96510);
+var G__96512 = cljs.core.first(seq96510__$1);
+var seq96510__$2 = cljs.core.next(seq96510__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96717,G__96718,seq96716__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96511,G__96512,seq96510__$2);
 }));
 
 (sicmutils.differential.eq.cljs$lang$maxFixedArity = (2));
@@ -1145,8 +1145,8 @@ return sicmutils.value.compare(sicmutils.differential.__GT_terms(a),sicmutils.di
  *   the tangent components into account, prefer [[eq]].
  */
 sicmutils.differential.equiv = (function sicmutils$differential$equiv(var_args){
-var G__96725 = arguments.length;
-switch (G__96725) {
+var G__96523 = arguments.length;
+switch (G__96523) {
 case 1:
 return sicmutils.differential.equiv.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1157,14 +1157,14 @@ return sicmutils.differential.equiv.cljs$core$IFn$_invoke$arity$2((arguments[(0)
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___96813 = arguments.length;
-var i__4865__auto___96814 = (0);
+var len__4864__auto___96685 = arguments.length;
+var i__4865__auto___96686 = (0);
 while(true){
-if((i__4865__auto___96814 < len__4864__auto___96813)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___96814]));
+if((i__4865__auto___96686 < len__4864__auto___96685)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___96686]));
 
-var G__96815 = (i__4865__auto___96814 + (1));
-i__4865__auto___96814 = G__96815;
+var G__96687 = (i__4865__auto___96686 + (1));
+i__4865__auto___96686 = G__96687;
 continue;
 } else {
 }
@@ -1189,12 +1189,12 @@ return sicmutils.value._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.differential
 while(true){
 if(cljs.core.truth_(sicmutils.differential.equiv.cljs$core$IFn$_invoke$arity$2(a,b))){
 if(cljs.core.next(more)){
-var G__96816 = b;
-var G__96817 = cljs.core.first(more);
-var G__96818 = cljs.core.next(more);
-a = G__96816;
-b = G__96817;
-more = G__96818;
+var G__96690 = b;
+var G__96691 = cljs.core.first(more);
+var G__96692 = cljs.core.next(more);
+a = G__96690;
+b = G__96691;
+more = G__96692;
 continue;
 } else {
 return sicmutils.differential.equiv.cljs$core$IFn$_invoke$arity$2(b,cljs.core.first(more));
@@ -1207,13 +1207,13 @@ break;
 }));
 
 /** @this {Function} */
-(sicmutils.differential.equiv.cljs$lang$applyTo = (function (seq96722){
-var G__96723 = cljs.core.first(seq96722);
-var seq96722__$1 = cljs.core.next(seq96722);
-var G__96724 = cljs.core.first(seq96722__$1);
-var seq96722__$2 = cljs.core.next(seq96722__$1);
+(sicmutils.differential.equiv.cljs$lang$applyTo = (function (seq96519){
+var G__96520 = cljs.core.first(seq96519);
+var seq96519__$1 = cljs.core.next(seq96519);
+var G__96521 = cljs.core.first(seq96519__$1);
+var seq96519__$2 = cljs.core.next(seq96519__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96723,G__96724,seq96722__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__96520,G__96521,seq96519__$2);
 }));
 
 (sicmutils.differential.equiv.cljs$lang$maxFixedArity = (2));
@@ -1246,8 +1246,8 @@ return sicmutils.value.compare(sicmutils.differential.finite_term(a),sicmutils.d
  *   functions, and declaring them by forward reference if you need to.
  */
 sicmutils.differential.lift_1 = (function sicmutils$differential$lift_1(var_args){
-var G__96729 = arguments.length;
-switch (G__96729) {
+var G__96531 = arguments.length;
+switch (G__96531) {
 case 1:
 return sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1277,9 +1277,9 @@ return (function sicmutils$differential$call(x){
 if((!(sicmutils.differential.differential_QMARK_(x)))){
 return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(x) : f.call(null,x));
 } else {
-var vec__96732 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$1(x);
-var px = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96732,(0),null);
-var tx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96732,(1),null);
+var vec__96534 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$1(x);
+var px = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96534,(0),null);
+var tx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96534,(1),null);
 var fx = sicmutils$differential$call(px);
 if(sicmutils.value.numeric_zero_QMARK_(tx)){
 return fx;
@@ -1309,8 +1309,8 @@ return sicmutils.differential.d_COLON__PLUS__STAR_(fx,(df_COLON_dx.cljs$core$IFn
  *   you need to.
  */
 sicmutils.differential.lift_2 = (function sicmutils$differential$lift_2(var_args){
-var G__96737 = arguments.length;
-switch (G__96737) {
+var G__96542 = arguments.length;
+switch (G__96542) {
 case 1:
 return sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1347,12 +1347,12 @@ if((!(((sicmutils.differential.differential_QMARK_(x)) || (sicmutils.differentia
 return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(x,y) : f.call(null,x,y));
 } else {
 var tag = sicmutils.differential.max_order_tag.cljs$core$IFn$_invoke$arity$variadic(x,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([y], 0));
-var vec__96738 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$2(x,tag);
-var xe = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96738,(0),null);
-var dx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96738,(1),null);
-var vec__96741 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$2(y,tag);
-var ye = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96741,(0),null);
-var dy = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96741,(1),null);
+var vec__96548 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$2(x,tag);
+var xe = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96548,(0),null);
+var dx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96548,(1),null);
+var vec__96551 = sicmutils.differential.primal_tangent_pair.cljs$core$IFn$_invoke$arity$2(y,tag);
+var ye = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96551,(0),null);
+var dy = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__96551,(1),null);
 var a = sicmutils$differential$call(xe,ye);
 var b = ((sicmutils.value.numeric_zero_QMARK_(dx))?a:sicmutils.differential.d_COLON__PLUS__STAR_(a,(df_COLON_dx.cljs$core$IFn$_invoke$arity$2 ? df_COLON_dx.cljs$core$IFn$_invoke$arity$2(xe,ye) : df_COLON_dx.call(null,xe,ye)),dx));
 if(sicmutils.value.numeric_zero_QMARK_(dy)){
@@ -1398,27 +1398,27 @@ var sicmutils$differential$lift_n_$_call__2 = (function (x,y){
 return f2(x,y);
 });
 var sicmutils$differential$lift_n_$_call__3 = (function() { 
-var G__96827__delegate = function (x,y,more){
+var G__96704__delegate = function (x,y,more){
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(sicmutils$differential$lift_n_$_call,sicmutils$differential$lift_n_$_call.cljs$core$IFn$_invoke$arity$2(x,y),more);
 };
-var G__96827 = function (x,y,var_args){
+var G__96704 = function (x,y,var_args){
 var more = null;
 if (arguments.length > 2) {
-var G__96828__i = 0, G__96828__a = new Array(arguments.length -  2);
-while (G__96828__i < G__96828__a.length) {G__96828__a[G__96828__i] = arguments[G__96828__i + 2]; ++G__96828__i;}
-  more = new cljs.core.IndexedSeq(G__96828__a,0,null);
+var G__96705__i = 0, G__96705__a = new Array(arguments.length -  2);
+while (G__96705__i < G__96705__a.length) {G__96705__a[G__96705__i] = arguments[G__96705__i + 2]; ++G__96705__i;}
+  more = new cljs.core.IndexedSeq(G__96705__a,0,null);
 } 
-return G__96827__delegate.call(this,x,y,more);};
-G__96827.cljs$lang$maxFixedArity = 2;
-G__96827.cljs$lang$applyTo = (function (arglist__96829){
-var x = cljs.core.first(arglist__96829);
-arglist__96829 = cljs.core.next(arglist__96829);
-var y = cljs.core.first(arglist__96829);
-var more = cljs.core.rest(arglist__96829);
-return G__96827__delegate(x,y,more);
+return G__96704__delegate.call(this,x,y,more);};
+G__96704.cljs$lang$maxFixedArity = 2;
+G__96704.cljs$lang$applyTo = (function (arglist__96706){
+var x = cljs.core.first(arglist__96706);
+arglist__96706 = cljs.core.next(arglist__96706);
+var y = cljs.core.first(arglist__96706);
+var more = cljs.core.rest(arglist__96706);
+return G__96704__delegate(x,y,more);
 });
-G__96827.cljs$core$IFn$_invoke$arity$variadic = G__96827__delegate;
-return G__96827;
+G__96704.cljs$core$IFn$_invoke$arity$variadic = G__96704__delegate;
+return G__96704;
 })()
 ;
 sicmutils$differential$lift_n_$_call = function(x,y,var_args){
@@ -1431,13 +1431,13 @@ return sicmutils$differential$lift_n_$_call__1.call(this,x);
 case 2:
 return sicmutils$differential$lift_n_$_call__2.call(this,x,y);
 default:
-var G__96830 = null;
+var G__96707 = null;
 if (arguments.length > 2) {
-var G__96831__i = 0, G__96831__a = new Array(arguments.length -  2);
-while (G__96831__i < G__96831__a.length) {G__96831__a[G__96831__i] = arguments[G__96831__i + 2]; ++G__96831__i;}
-G__96830 = new cljs.core.IndexedSeq(G__96831__a,0,null);
+var G__96708__i = 0, G__96708__a = new Array(arguments.length -  2);
+while (G__96708__i < G__96708__a.length) {G__96708__a[G__96708__i] = arguments[G__96708__i + 2]; ++G__96708__i;}
+G__96707 = new cljs.core.IndexedSeq(G__96708__a,0,null);
 }
-return sicmutils$differential$lift_n_$_call__3.cljs$core$IFn$_invoke$arity$variadic(x,y, G__96830);
+return sicmutils$differential$lift_n_$_call__3.cljs$core$IFn$_invoke$arity$variadic(x,y, G__96707);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
@@ -1477,61 +1477,61 @@ return (differential_op.cljs$core$IFn$_invoke$arity$1 ? differential_op.cljs$cor
  *   `:differential` and `::v/scalar` instances.
  */
 sicmutils.differential.defbinary = (function sicmutils$differential$defbinary(generic_op,differential_op){
-var seq__96745 = cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525),new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.value","scalar","sicmutils.value/scalar",1616793231),new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525),new cljs.core.Keyword("sicmutils.value","scalar","sicmutils.value/scalar",1616793231)], null)], null));
-var chunk__96746 = null;
-var count__96747 = (0);
-var i__96748 = (0);
+var seq__96559 = cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525),new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.value","scalar","sicmutils.value/scalar",1616793231),new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.differential","differential","sicmutils.differential/differential",-1991028525),new cljs.core.Keyword("sicmutils.value","scalar","sicmutils.value/scalar",1616793231)], null)], null));
+var chunk__96560 = null;
+var count__96561 = (0);
+var i__96562 = (0);
 while(true){
-if((i__96748 < count__96747)){
-var signature = chunk__96746.cljs$core$IIndexed$_nth$arity$2(null,i__96748);
-generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,signature,((function (seq__96745,chunk__96746,count__96747,i__96748,signature){
+if((i__96562 < count__96561)){
+var signature = chunk__96560.cljs$core$IIndexed$_nth$arity$2(null,i__96562);
+generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,signature,((function (seq__96559,chunk__96560,count__96561,i__96562,signature){
 return (function (a,b){
 return (differential_op.cljs$core$IFn$_invoke$arity$2 ? differential_op.cljs$core$IFn$_invoke$arity$2(a,b) : differential_op.call(null,a,b));
-});})(seq__96745,chunk__96746,count__96747,i__96748,signature))
+});})(seq__96559,chunk__96560,count__96561,i__96562,signature))
 );
 
 
-var G__96832 = seq__96745;
-var G__96833 = chunk__96746;
-var G__96834 = count__96747;
-var G__96835 = (i__96748 + (1));
-seq__96745 = G__96832;
-chunk__96746 = G__96833;
-count__96747 = G__96834;
-i__96748 = G__96835;
+var G__96709 = seq__96559;
+var G__96710 = chunk__96560;
+var G__96711 = count__96561;
+var G__96712 = (i__96562 + (1));
+seq__96559 = G__96709;
+chunk__96560 = G__96710;
+count__96561 = G__96711;
+i__96562 = G__96712;
 continue;
 } else {
-var temp__5753__auto__ = cljs.core.seq(seq__96745);
+var temp__5753__auto__ = cljs.core.seq(seq__96559);
 if(temp__5753__auto__){
-var seq__96745__$1 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(seq__96745__$1)){
-var c__4679__auto__ = cljs.core.chunk_first(seq__96745__$1);
-var G__96836 = cljs.core.chunk_rest(seq__96745__$1);
-var G__96837 = c__4679__auto__;
-var G__96838 = cljs.core.count(c__4679__auto__);
-var G__96839 = (0);
-seq__96745 = G__96836;
-chunk__96746 = G__96837;
-count__96747 = G__96838;
-i__96748 = G__96839;
+var seq__96559__$1 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(seq__96559__$1)){
+var c__4679__auto__ = cljs.core.chunk_first(seq__96559__$1);
+var G__96713 = cljs.core.chunk_rest(seq__96559__$1);
+var G__96714 = c__4679__auto__;
+var G__96715 = cljs.core.count(c__4679__auto__);
+var G__96716 = (0);
+seq__96559 = G__96713;
+chunk__96560 = G__96714;
+count__96561 = G__96715;
+i__96562 = G__96716;
 continue;
 } else {
-var signature = cljs.core.first(seq__96745__$1);
-generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,signature,((function (seq__96745,chunk__96746,count__96747,i__96748,signature,seq__96745__$1,temp__5753__auto__){
+var signature = cljs.core.first(seq__96559__$1);
+generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,signature,((function (seq__96559,chunk__96560,count__96561,i__96562,signature,seq__96559__$1,temp__5753__auto__){
 return (function (a,b){
 return (differential_op.cljs$core$IFn$_invoke$arity$2 ? differential_op.cljs$core$IFn$_invoke$arity$2(a,b) : differential_op.call(null,a,b));
-});})(seq__96745,chunk__96746,count__96747,i__96748,signature,seq__96745__$1,temp__5753__auto__))
+});})(seq__96559,chunk__96560,count__96561,i__96562,signature,seq__96559__$1,temp__5753__auto__))
 );
 
 
-var G__96840 = cljs.core.next(seq__96745__$1);
-var G__96841 = null;
-var G__96842 = (0);
-var G__96843 = (0);
-seq__96745 = G__96840;
-chunk__96746 = G__96841;
-count__96747 = G__96842;
-i__96748 = G__96843;
+var G__96717 = cljs.core.next(seq__96559__$1);
+var G__96718 = null;
+var G__96719 = (0);
+var G__96720 = (0);
+seq__96559 = G__96717;
+chunk__96560 = G__96718;
+count__96561 = G__96719;
+i__96562 = G__96720;
 continue;
 }
 } else {
@@ -1545,10 +1545,10 @@ sicmutils.differential.defbinary(sicmutils.value._EQ_,sicmutils.differential.equ
 sicmutils.differential.defbinary(sicmutils.generic.add,sicmutils.differential.d_COLON__PLUS_);
 sicmutils.differential.defunary(sicmutils.generic.negate,sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.negate));
 sicmutils.differential.defbinary(sicmutils.generic.sub,sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.sub));
-var mul_96844 = sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.mul);
-sicmutils.differential.defbinary(sicmutils.generic.mul,mul_96844);
+var mul_96721 = sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.mul);
+sicmutils.differential.defbinary(sicmutils.generic.mul,mul_96721);
 
-sicmutils.differential.defbinary(sicmutils.generic.dot_product,mul_96844);
+sicmutils.differential.defbinary(sicmutils.generic.dot_product,mul_96721);
 sicmutils.differential.defbinary(sicmutils.generic.expt,sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.expt));
 sicmutils.differential.defunary(sicmutils.generic.square,sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.square));
 sicmutils.differential.defunary(sicmutils.generic.cube,sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.cube));
@@ -1581,12 +1581,12 @@ sicmutils.differential.defunary(sicmutils.generic.floor,sicmutils.differential.d
 sicmutils.differential.defunary(sicmutils.generic.ceiling,sicmutils.differential.discont_at_integers(sicmutils.generic.ceiling,(0)));
 sicmutils.differential.defunary(sicmutils.generic.integer_part,sicmutils.differential.discont_at_integers(sicmutils.generic.integer_part,(0)));
 sicmutils.differential.defunary(sicmutils.generic.fractional_part,sicmutils.differential.discont_at_integers(sicmutils.generic.fractional_part,(1)));
-var div_96847 = sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.div);
+var div_96723 = sicmutils.differential.lift_2.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.div);
 sicmutils.differential.defbinary(sicmutils.generic.solve_linear,(function (l,r){
-return (div_96847.cljs$core$IFn$_invoke$arity$2 ? div_96847.cljs$core$IFn$_invoke$arity$2(r,l) : div_96847.call(null,r,l));
+return (div_96723.cljs$core$IFn$_invoke$arity$2 ? div_96723.cljs$core$IFn$_invoke$arity$2(r,l) : div_96723.call(null,r,l));
 }));
 
-sicmutils.differential.defbinary(sicmutils.generic.solve_linear_right,div_96847);
+sicmutils.differential.defbinary(sicmutils.generic.solve_linear_right,div_96723);
 sicmutils.differential.defunary(sicmutils.generic.sqrt,sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.sqrt));
 sicmutils.differential.defunary(sicmutils.generic.log,sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.log));
 sicmutils.differential.defunary(sicmutils.generic.exp,sicmutils.differential.lift_1.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.exp));

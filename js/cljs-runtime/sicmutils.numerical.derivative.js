@@ -1,12 +1,12 @@
 goog.provide('sicmutils.numerical.derivative');
 sicmutils.numerical.derivative.show = (function sicmutils$numerical$derivative$show(e){
-var G__103117 = sicmutils.generic.simplify.cljs$core$IFn$_invoke$arity$1(e);
-return (sicmutils.expression.render.__GT_infix.cljs$core$IFn$_invoke$arity$1 ? sicmutils.expression.render.__GT_infix.cljs$core$IFn$_invoke$arity$1(G__103117) : sicmutils.expression.render.__GT_infix.call(null,G__103117));
+var G__103134 = sicmutils.generic.simplify.cljs$core$IFn$_invoke$arity$1(e);
+return (sicmutils.expression.render.__GT_infix.cljs$core$IFn$_invoke$arity$1 ? sicmutils.expression.render.__GT_infix.cljs$core$IFn$_invoke$arity$1(G__103134) : sicmutils.expression.render.__GT_infix.call(null,G__103134));
 });
 sicmutils.numerical.derivative.func = sicmutils.abstract$.function$.literal_function.cljs$core$IFn$_invoke$arity$1(new cljs.core.Symbol(null,"f","f",43394975,null));
-sicmutils.numerical.derivative.fx_PLUS_h = sicmutils.series.sum((function (){var G__103127 = new cljs.core.Symbol(null,"h","h",-1544777029,null);
-var fexpr__103126 = sicmutils.calculus.derivative.taylor_series.cljs$core$IFn$_invoke$arity$variadic(sicmutils.numerical.derivative.func,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Symbol(null,"x","x",-555367584,null)], 0));
-return (fexpr__103126.cljs$core$IFn$_invoke$arity$1 ? fexpr__103126.cljs$core$IFn$_invoke$arity$1(G__103127) : fexpr__103126.call(null,G__103127));
+sicmutils.numerical.derivative.fx_PLUS_h = sicmutils.series.sum((function (){var G__103143 = new cljs.core.Symbol(null,"h","h",-1544777029,null);
+var fexpr__103142 = sicmutils.calculus.derivative.taylor_series.cljs$core$IFn$_invoke$arity$variadic(sicmutils.numerical.derivative.func,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Symbol(null,"x","x",-555367584,null)], 0));
+return (fexpr__103142.cljs$core$IFn$_invoke$arity$1 ? fexpr__103142.cljs$core$IFn$_invoke$arity$1(G__103143) : fexpr__103142.call(null,G__103143));
 })(),(4));
 /**
  * Returns a single-variable function of a step size `h` that calculates the
@@ -20,8 +20,8 @@ return (fexpr__103126.cljs$core$IFn$_invoke$arity$1 ? fexpr__103126.cljs$core$IF
  *   calculated it elsewhere and would like to save a function evaluation.
  */
 sicmutils.numerical.derivative.forward_difference = (function sicmutils$numerical$derivative$forward_difference(var_args){
-var G__103137 = arguments.length;
-switch (G__103137) {
+var G__103152 = arguments.length;
+switch (G__103152) {
 case 2:
 return sicmutils.numerical.derivative.forward_difference.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -42,17 +42,17 @@ return sicmutils.numerical.derivative.forward_difference.cljs$core$IFn$_invoke$a
 
 (sicmutils.numerical.derivative.forward_difference.cljs$core$IFn$_invoke$arity$3 = (function (f,x,fx){
 return (function (h){
-return (((function (){var G__103140 = (x + h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103140) : f.call(null,G__103140));
+return (((function (){var G__103155 = (x + h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103155) : f.call(null,G__103155));
 })() - fx) / h);
 });
 }));
 
 (sicmutils.numerical.derivative.forward_difference.cljs$lang$maxFixedArity = 3);
 
-sicmutils.numerical.derivative.fx_h = sicmutils.series.sum((function (){var G__103142 = sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(new cljs.core.Symbol(null,"h","h",-1544777029,null));
-var fexpr__103141 = sicmutils.calculus.derivative.taylor_series.cljs$core$IFn$_invoke$arity$variadic(sicmutils.numerical.derivative.func,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Symbol(null,"x","x",-555367584,null)], 0));
-return (fexpr__103141.cljs$core$IFn$_invoke$arity$1 ? fexpr__103141.cljs$core$IFn$_invoke$arity$1(G__103142) : fexpr__103141.call(null,G__103142));
+sicmutils.numerical.derivative.fx_h = sicmutils.series.sum((function (){var G__103157 = sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(new cljs.core.Symbol(null,"h","h",-1544777029,null));
+var fexpr__103156 = sicmutils.calculus.derivative.taylor_series.cljs$core$IFn$_invoke$arity$variadic(sicmutils.numerical.derivative.func,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Symbol(null,"x","x",-555367584,null)], 0));
+return (fexpr__103156.cljs$core$IFn$_invoke$arity$1 ? fexpr__103156.cljs$core$IFn$_invoke$arity$1(G__103157) : fexpr__103156.call(null,G__103157));
 })(),(4));
 /**
  * Returns a single-variable function of a step size `h` that calculates the
@@ -66,8 +66,8 @@ return (fexpr__103141.cljs$core$IFn$_invoke$arity$1 ? fexpr__103141.cljs$core$IF
  *   calculated it elsewhere and would like to save a function evaluation.
  */
 sicmutils.numerical.derivative.backward_difference = (function sicmutils$numerical$derivative$backward_difference(var_args){
-var G__103148 = arguments.length;
-switch (G__103148) {
+var G__103159 = arguments.length;
+switch (G__103159) {
 case 2:
 return sicmutils.numerical.derivative.backward_difference.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -88,8 +88,8 @@ return sicmutils.numerical.derivative.backward_difference.cljs$core$IFn$_invoke$
 
 (sicmutils.numerical.derivative.backward_difference.cljs$core$IFn$_invoke$arity$3 = (function (f,x,fx){
 return (function (h){
-return ((fx - (function (){var G__103149 = (x - h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103149) : f.call(null,G__103149));
+return ((fx - (function (){var G__103160 = (x - h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103160) : f.call(null,G__103160));
 })()) / h);
 });
 }));
@@ -106,10 +106,10 @@ return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103
  */
 sicmutils.numerical.derivative.central_difference = (function sicmutils$numerical$derivative$central_difference(f,x){
 return (function (h){
-return (((function (){var G__103150 = (x + h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103150) : f.call(null,G__103150));
-})() - (function (){var G__103151 = (x - h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103151) : f.call(null,G__103151));
+return (((function (){var G__103161 = (x + h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103161) : f.call(null,G__103161));
+})() - (function (){var G__103162 = (x - h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103162) : f.call(null,G__103162));
 })()) / ((2) * h));
 });
 });
@@ -123,8 +123,8 @@ return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103
  *   calculated it elsewhere and would like to save a function evaluation.
  */
 sicmutils.numerical.derivative.central_difference_d2 = (function sicmutils$numerical$derivative$central_difference_d2(var_args){
-var G__103153 = arguments.length;
-switch (G__103153) {
+var G__103164 = arguments.length;
+switch (G__103164) {
 case 2:
 return sicmutils.numerical.derivative.central_difference_d2.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -146,10 +146,10 @@ return sicmutils.numerical.derivative.central_difference_d2.cljs$core$IFn$_invok
 (sicmutils.numerical.derivative.central_difference_d2.cljs$core$IFn$_invoke$arity$3 = (function (f,x,fx){
 var fx_STAR_2 = ((2) * fx);
 return (function (h){
-return ((((function (){var G__103154 = (x + h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103154) : f.call(null,G__103154));
-})() + (function (){var G__103155 = (x - h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103155) : f.call(null,G__103155));
+return ((((function (){var G__103169 = (x + h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103169) : f.call(null,G__103169));
+})() + (function (){var G__103170 = (x - h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103170) : f.call(null,G__103170));
 })()) - fx_STAR_2) / (h * h));
 });
 }));
@@ -200,36 +200,36 @@ var G__103175__$1 = (((G__103175 instanceof cljs.core.Keyword))?G__103175.fqn:nu
 switch (G__103175__$1) {
 case "forward":
 return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"p","p",151049309),(1),new cljs.core.Keyword(null,"q","q",689001697),(1),new cljs.core.Keyword(null,"function","function",-2127255473),sicmutils.numerical.derivative.forward_difference.cljs$core$IFn$_invoke$arity$3(f,x,fx),new cljs.core.Keyword(null,"ratio-fn","ratio-fn",1226148920),(function (h){
-return (fx / ((function (){var G__103177 = (x + h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103177) : f.call(null,G__103177));
+return (fx / ((function (){var G__103176 = (x + h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103176) : f.call(null,G__103176));
 })() - fx));
 })], null);
 
 break;
 case "central":
 return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"p","p",151049309),(2),new cljs.core.Keyword(null,"q","q",689001697),(2),new cljs.core.Keyword(null,"function","function",-2127255473),sicmutils.numerical.derivative.central_difference(f,x),new cljs.core.Keyword(null,"ratio-fn","ratio-fn",1226148920),(function (h){
-return (fx / ((function (){var G__103179 = (x + h);
+return (fx / ((function (){var G__103177 = (x + h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103177) : f.call(null,G__103177));
+})() - (function (){var G__103179 = (x - h);
 return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103179) : f.call(null,G__103179));
-})() - (function (){var G__103182 = (x - h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103182) : f.call(null,G__103182));
 })()));
 })], null);
 
 break;
 case "backward":
 return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"p","p",151049309),(1),new cljs.core.Keyword(null,"q","q",689001697),(1),new cljs.core.Keyword(null,"function","function",-2127255473),sicmutils.numerical.derivative.backward_difference.cljs$core$IFn$_invoke$arity$3(f,x,fx),new cljs.core.Keyword(null,"ratio-fn","ratio-fn",1226148920),(function (h){
-return (fx / (fx - (function (){var G__103184 = (x - h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103184) : f.call(null,G__103184));
+return (fx / (fx - (function (){var G__103180 = (x - h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103180) : f.call(null,G__103180));
 })()));
 })], null);
 
 break;
 case "central-d2":
 return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"p","p",151049309),(2),new cljs.core.Keyword(null,"q","q",689001697),(2),new cljs.core.Keyword(null,"function","function",-2127255473),sicmutils.numerical.derivative.central_difference_d2.cljs$core$IFn$_invoke$arity$3(f,x,fx),new cljs.core.Keyword(null,"ratio-fn","ratio-fn",1226148920),(function (h){
-return (((function (){var G__103185 = (x + h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103185) : f.call(null,G__103185));
-})() + (function (){var G__103187 = (x - h);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103187) : f.call(null,G__103187));
+return (((function (){var G__103181 = (x + h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103181) : f.call(null,G__103181));
+})() + (function (){var G__103183 = (x - h);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103183) : f.call(null,G__103183));
 })()) - ((2) * fx));
 })], null);
 
@@ -245,10 +245,10 @@ return sicmutils.util.illegal(["Invalid method: ",cljs.core.str.cljs$core$IFn$_i
  */
 sicmutils.numerical.derivative.fill_defaults = (function sicmutils$numerical$derivative$fill_defaults(m){
 var defaults = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"tolerance","tolerance",406811818),sicmutils.value.sqrt_machine_epsilon,new cljs.core.Keyword(null,"method","method",55703592),new cljs.core.Keyword(null,"central","central",467059073)], null);
-var map__103188 = cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([defaults,m], 0));
-var map__103188__$1 = cljs.core.__destructure_map(map__103188);
-var opts = map__103188__$1;
-var method = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103188__$1,new cljs.core.Keyword(null,"method","method",55703592));
+var map__103184 = cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([defaults,m], 0));
+var map__103184__$1 = cljs.core.__destructure_map(map__103184);
+var opts = map__103184__$1;
+var method = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103184__$1,new cljs.core.Keyword(null,"method","method",55703592));
 if(cljs.core.contains_QMARK_(sicmutils.numerical.derivative.valid_methods,method)){
 } else {
 throw (new Error(["Assert failed: ",[cljs.core.str.cljs$core$IFn$_invoke$arity$1(method)," is not a valid method. Please try one of: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(sicmutils.numerical.derivative.valid_methods)].join(''),"\n","(contains? valid-methods method)"].join('')));
@@ -315,8 +315,8 @@ return opts;
  *   larger discussion.
  */
 sicmutils.numerical.derivative.D_numeric = (function sicmutils$numerical$derivative$D_numeric(var_args){
-var G__103192 = arguments.length;
-switch (G__103192) {
+var G__103190 = arguments.length;
+switch (G__103190) {
 case 1:
 return sicmutils.numerical.derivative.D_numeric.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

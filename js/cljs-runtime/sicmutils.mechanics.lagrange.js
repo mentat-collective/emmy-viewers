@@ -10,8 +10,8 @@ sicmutils.mechanics.lagrange.momentum_tuple = sicmutils.structure.down;
  *   Useful for constructing Lagrangian literal functions.
  */
 sicmutils.mechanics.lagrange.Lagrangian = (function sicmutils$mechanics$lagrange$Lagrangian(var_args){
-var G__102908 = arguments.length;
-switch (G__102908) {
+var G__102922 = arguments.length;
+switch (G__102922) {
 case 0:
 return sicmutils.mechanics.lagrange.Lagrangian.cljs$core$IFn$_invoke$arity$0();
 
@@ -31,12 +31,12 @@ return cljs.core.list(new cljs.core.Symbol(null,"->","->",-2139605430,null),cljs
 }));
 
 (sicmutils.mechanics.lagrange.Lagrangian.cljs$core$IFn$_invoke$arity$1 = (function (n){
-var r__20948__auto__ = cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"->","->",-2139605430,null),cljs.core.seq(new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP","UP",-1898089532,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP*","UP*",294235991,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null)),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP*","UP*",294235991,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null))], null)),new cljs.core.Symbol(null,"Real","Real",374292741,null)], null));
-var or__4253__auto__ = r__20948__auto__;
+var r__21102__auto__ = cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"->","->",-2139605430,null),cljs.core.seq(new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP","UP",-1898089532,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP*","UP*",294235991,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null)),cljs.core.seq(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"UP*","UP*",294235991,null),new cljs.core.Symbol(null,"Real","Real",374292741,null),n], null))], null)),new cljs.core.Symbol(null,"Real","Real",374292741,null)], null));
+var or__4253__auto__ = r__21102__auto__;
 if(or__4253__auto__){
 return or__4253__auto__;
 } else {
-return pattern.consequence.succeed(r__20948__auto__);
+return pattern.consequence.succeed(r__21102__auto__);
 }
 }));
 
@@ -49,14 +49,14 @@ return pattern.consequence.succeed(r__20948__auto__);
  */
 sicmutils.mechanics.lagrange.__GT_L_state = (function sicmutils$mechanics$lagrange$__GT_L_state(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___103250 = arguments.length;
-var i__4865__auto___103251 = (0);
+var len__4864__auto___103274 = arguments.length;
+var i__4865__auto___103275 = (0);
 while(true){
-if((i__4865__auto___103251 < len__4864__auto___103250)){
-args__4870__auto__.push((arguments[i__4865__auto___103251]));
+if((i__4865__auto___103275 < len__4864__auto___103274)){
+args__4870__auto__.push((arguments[i__4865__auto___103275]));
 
-var G__103253 = (i__4865__auto___103251 + (1));
-i__4865__auto___103251 = G__103253;
+var G__103276 = (i__4865__auto___103275 + (1));
+i__4865__auto___103275 = G__103276;
 continue;
 } else {
 }
@@ -74,15 +74,15 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$5(sicmutils.structure.up,t,q,
 (sicmutils.mechanics.lagrange.__GT_L_state.cljs$lang$maxFixedArity = (3));
 
 /** @this {Function} */
-(sicmutils.mechanics.lagrange.__GT_L_state.cljs$lang$applyTo = (function (seq102909){
-var G__102910 = cljs.core.first(seq102909);
-var seq102909__$1 = cljs.core.next(seq102909);
-var G__102911 = cljs.core.first(seq102909__$1);
-var seq102909__$2 = cljs.core.next(seq102909__$1);
-var G__102912 = cljs.core.first(seq102909__$2);
-var seq102909__$3 = cljs.core.next(seq102909__$2);
+(sicmutils.mechanics.lagrange.__GT_L_state.cljs$lang$applyTo = (function (seq102923){
+var G__102924 = cljs.core.first(seq102923);
+var seq102923__$1 = cljs.core.next(seq102923);
+var G__102925 = cljs.core.first(seq102923__$1);
+var seq102923__$2 = cljs.core.next(seq102923__$1);
+var G__102926 = cljs.core.first(seq102923__$2);
+var seq102923__$3 = cljs.core.next(seq102923__$2);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102910,G__102911,G__102912,seq102909__$3);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__102924,G__102925,G__102926,seq102923__$3);
 }));
 
 /**
@@ -236,8 +236,8 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
  *   function (from time to local tuple).
  */
 sicmutils.mechanics.lagrange.Gamma = (function sicmutils$mechanics$lagrange$Gamma(var_args){
-var G__102925 = arguments.length;
-switch (G__102925) {
+var G__102928 = arguments.length;
+switch (G__102928) {
 case 1:
 return sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -285,11 +285,11 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(kinetic_energy,potentia
  *   just the kinetic energy.
  */
 sicmutils.mechanics.lagrange.L_free_particle = (function sicmutils$mechanics$lagrange$L_free_particle(mass){
-return (function (p__102937){
-var vec__102938 = p__102937;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102938,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102938,(1),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102938,(2),null);
+return (function (p__102929){
+var vec__102930 = p__102929;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102930,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102930,(1),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102930,(2),null);
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),mass,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v)], 0));
 });
 });
@@ -297,13 +297,13 @@ return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.g
  * Lagrangian for a point mass on with the potential energy V(x, y)
  */
 sicmutils.mechanics.lagrange.L_rectangular = (function sicmutils$mechanics$lagrange$L_rectangular(m,V){
-return (function (p__102943){
-var vec__102944 = p__102943;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102944,(0),null);
-var vec__102947 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102944,(1),null);
-var q0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102947,(0),null);
-var q1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102947,(1),null);
-var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102944,(2),null);
+return (function (p__102933){
+var vec__102934 = p__102933;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102934,(0),null);
+var vec__102937 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102934,(1),null);
+var q0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102937,(0),null);
+var q1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102937,(1),null);
+var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102934,(2),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(qdot)], 0)),(V.cljs$core$IFn$_invoke$arity$2 ? V.cljs$core$IFn$_invoke$arity$2(q0,q1) : V.call(null,q0,q1)));
 });
 });
@@ -314,11 +314,11 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR
  *   local tuple of the system.
  */
 sicmutils.mechanics.lagrange.L_harmonic = (function sicmutils$mechanics$lagrange$L_harmonic(m,k){
-return (function (p__102958){
-var vec__102959 = p__102958;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102959,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102959,(1),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102959,(2),null);
+return (function (p__102940){
+var vec__102941 = p__102940;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102941,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102941,(1),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102941,(2),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v)], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),k,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(q)], 0)));
 });
 });
@@ -327,24 +327,24 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR
  *   in the negative y direction, i.e. the acceleration due to gravity
  */
 sicmutils.mechanics.lagrange.L_uniform_acceleration = (function sicmutils$mechanics$lagrange$L_uniform_acceleration(m,g){
-return (function (p__102964){
-var vec__102965 = p__102964;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102965,(0),null);
-var vec__102968 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102965,(1),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102968,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102968,(1),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102965,(2),null);
+return (function (p__102945){
+var vec__102946 = p__102945;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102946,(0),null);
+var vec__102949 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102946,(1),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102949,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102949,(1),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102946,(2),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v)], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(m,g,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([y], 0)));
 });
 });
 sicmutils.mechanics.lagrange.L_central_rectangular = (function sicmutils$mechanics$lagrange$L_central_rectangular(m,U){
-return (function (p__102971){
-var vec__102974 = p__102971;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102974,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102974,(1),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102974,(2),null);
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v)], 0)),(function (){var G__102977 = sicmutils.generic.abs.cljs$core$IFn$_invoke$arity$1(q);
-return (U.cljs$core$IFn$_invoke$arity$1 ? U.cljs$core$IFn$_invoke$arity$1(G__102977) : U.call(null,G__102977));
+return (function (p__102952){
+var vec__102953 = p__102952;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102953,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102953,(1),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102953,(2),null);
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v)], 0)),(function (){var G__102956 = sicmutils.generic.abs.cljs$core$IFn$_invoke$arity$1(q);
+return (U.cljs$core$IFn$_invoke$arity$1 ? U.cljs$core$IFn$_invoke$arity$1(G__102956) : U.call(null,G__102956));
 })());
 });
 });
@@ -353,75 +353,75 @@ return (U.cljs$core$IFn$_invoke$arity$1 ? U.cljs$core$IFn$_invoke$arity$1(G__102
  *   `U`, depending only on the radius. The generalized coordinates are polar.
  */
 sicmutils.mechanics.lagrange.L_central_polar = (function sicmutils$mechanics$lagrange$L_central_polar(m,U){
-return (function (p__102978){
-var vec__102981 = p__102978;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102981,(0),null);
-var vec__102984 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102981,(1),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102984,(0),null);
-var vec__102987 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102981,(2),null);
-var rdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102987,(0),null);
-var φdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102987,(1),null);
+return (function (p__102957){
+var vec__102958 = p__102957;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102958,(0),null);
+var vec__102961 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102958,(1),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102961,(0),null);
+var vec__102964 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102958,(2),null);
+var rdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102964,(0),null);
+var φdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102964,(1),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(rdot),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,φdot)))], 0)),(U.cljs$core$IFn$_invoke$arity$1 ? U.cljs$core$IFn$_invoke$arity$1(r) : U.call(null,r)));
 });
 });
 sicmutils.mechanics.lagrange.L_Kepler_polar = (function sicmutils$mechanics$lagrange$L_Kepler_polar(GM,m){
-return (function (p__102990){
-var vec__102993 = p__102990;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102993,(0),null);
-var vec__102996 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102993,(1),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102996,(0),null);
-var vec__102999 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102993,(2),null);
-var rdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102999,(0),null);
-var phidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102999,(1),null);
+return (function (p__102978){
+var vec__102992 = p__102978;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102992,(0),null);
+var vec__102995 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102992,(1),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102995,(0),null);
+var vec__102998 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102992,(2),null);
+var rdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102998,(0),null);
+var phidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102998,(1),null);
 return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(rdot),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,phidot)))], 0)),sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(GM,m),r));
 });
 });
 sicmutils.mechanics.lagrange.L_axisymmetric_top = (function sicmutils$mechanics$lagrange$L_axisymmetric_top(A,C,gMR){
-return (function (p__103004){
-var vec__103005 = p__103004;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103005,(0),null);
-var vec__103008 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103005,(1),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103008,(0),null);
-var vec__103011 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103005,(2),null);
-var thetadot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103011,(0),null);
-var phidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103011,(1),null);
-var psidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103011,(2),null);
+return (function (p__103001){
+var vec__103002 = p__103001;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103002,(0),null);
+var vec__103005 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103002,(1),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103005,(0),null);
+var vec__103008 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103002,(2),null);
+var thetadot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103008,(0),null);
+var phidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103008,(1),null);
+var psidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103008,(2),null);
 return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),A,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(thetadot),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(phidot,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta))))], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),C,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(psidot,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(phidot,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta))))], 0)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic((-1),gMR,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta)], 0))], 0));
 });
 });
 sicmutils.mechanics.lagrange.L_coupled_harmonic = (function sicmutils$mechanics$lagrange$L_coupled_harmonic(m,k){
-return (function (p__103016){
-var vec__103017 = p__103016;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103017,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103017,(1),null);
-var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103017,(2),null);
+return (function (p__103011){
+var vec__103012 = p__103011;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103012,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103012,(1),null);
+var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103012,(2),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),qdot,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([m,qdot], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),q,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([k,q], 0)));
 });
 });
 sicmutils.mechanics.lagrange.F_sliding_pend = (function sicmutils$mechanics$lagrange$F_sliding_pend(l){
-return (function (p__103020){
-var vec__103021 = p__103020;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103021,(0),null);
-var vec__103024 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103021,(1),null);
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103024,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103024,(1),null);
+return (function (p__103017){
+var vec__103018 = p__103017;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103018,(0),null);
+var vec__103021 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103018,(1),null);
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103021,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103021,(1),null);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([x,(0)], 0)),sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(x,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(l,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta))),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic((-1),l,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta)], 0))], 0))], 0));
 });
 });
 sicmutils.mechanics.lagrange.two_free = (function sicmutils$mechanics$lagrange$two_free(m1,m2,g){
-return (function (p__103029){
-var vec__103030 = p__103029;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103030,(0),null);
-var vec__103033 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103030,(1),null);
-var vec__103036 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103033,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103036,(0),null);
-var h1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103036,(1),null);
-var vec__103039 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103033,(1),null);
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103039,(0),null);
-var h2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103039,(1),null);
-var vec__103042 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103030,(2),null);
-var v1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103042,(0),null);
-var v2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103042,(1),null);
+return (function (p__103032){
+var vec__103035 = p__103032;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103035,(0),null);
+var vec__103038 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103035,(1),null);
+var vec__103041 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103038,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103041,(0),null);
+var h1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103041,(1),null);
+var vec__103044 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103038,(1),null);
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103044,(0),null);
+var h2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103044,(1),null);
+var vec__103047 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103035,(2),null);
+var v1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103047,(0),null);
+var v2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103047,(1),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v1)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m2,sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v2)))),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(g,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m1,h1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(m2,h2))));
 });
 });
@@ -430,44 +430,44 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR
  *   free to move horizontally (from Groesberg, Advanced Mechanics, p. 72)
  */
 sicmutils.mechanics.lagrange.L_sliding_pend = (function sicmutils$mechanics$lagrange$L_sliding_pend(m1,m2,l,g){
-return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.lagrange.two_free(m1,m2,g),(function (){var G__103047 = sicmutils.mechanics.lagrange.F_sliding_pend(l);
-return (sicmutils.mechanics.lagrange.F__GT_C.cljs$core$IFn$_invoke$arity$1 ? sicmutils.mechanics.lagrange.F__GT_C.cljs$core$IFn$_invoke$arity$1(G__103047) : sicmutils.mechanics.lagrange.F__GT_C.call(null,G__103047));
+return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.lagrange.two_free(m1,m2,g),(function (){var G__103056 = sicmutils.mechanics.lagrange.F_sliding_pend(l);
+return (sicmutils.mechanics.lagrange.F__GT_C.cljs$core$IFn$_invoke$arity$1 ? sicmutils.mechanics.lagrange.F__GT_C.cljs$core$IFn$_invoke$arity$1(G__103056) : sicmutils.mechanics.lagrange.F__GT_C.call(null,G__103056));
 })()], 0));
 });
 sicmutils.mechanics.lagrange.L_pendulum = (function sicmutils$mechanics$lagrange$L_pendulum(g,m,l){
-return (function (p__103048){
-var vec__103049 = p__103048;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103049,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103049,(1),null);
-var thetadot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103049,(2),null);
+return (function (p__103061){
+var vec__103062 = p__103061;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103062,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103062,(1),null);
+var thetadot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103062,(2),null);
 return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(l,thetadot))], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(g,m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([l,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta)], 0)));
 });
 });
 sicmutils.mechanics.lagrange.Rayleigh_dissipation = (function sicmutils$mechanics$lagrange$Rayleigh_dissipation(k){
-return (function (p__103054){
-var vec__103055 = p__103054;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103055,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103055,(1),null);
-var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103055,(2),null);
+return (function (p__103069){
+var vec__103070 = p__103069;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103070,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103070,(1),null);
+var qdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103070,(2),null);
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(qdot,k,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([qdot], 0));
 });
 });
 sicmutils.mechanics.lagrange.L_two_particle = (function sicmutils$mechanics$lagrange$L_two_particle(m1,m2,V){
-return (function (p__103058){
-var vec__103061 = p__103058;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103061,(0),null);
-var vec__103064 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103061,(1),null);
-var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103064,(0),null);
-var x2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103064,(1),null);
-var vec__103067 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103061,(2),null);
-var v1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103067,(0),null);
-var v2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103067,(1),null);
+return (function (p__103091){
+var vec__103092 = p__103091;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103092,(0),null);
+var vec__103095 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103092,(1),null);
+var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103095,(0),null);
+var x2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103095,(1),null);
+var vec__103098 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103092,(2),null);
+var v1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103098,(0),null);
+var v2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103098,(1),null);
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m1,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v1)], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m2,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(v2)], 0))),(V.cljs$core$IFn$_invoke$arity$2 ? V.cljs$core$IFn$_invoke$arity$2(x1,x2) : V.call(null,x1,x2)));
 });
 });
 sicmutils.mechanics.lagrange.Lagrange_equations = (function sicmutils$mechanics$lagrange$Lagrange_equations(var_args){
-var G__103071 = arguments.length;
-switch (G__103071) {
+var G__103102 = arguments.length;
+switch (G__103102) {
 case 1:
 return sicmutils.mechanics.lagrange.Lagrange_equations.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -489,14 +489,14 @@ return sicmutils.mechanics.lagrange.Lagrange_equations.cljs$core$IFn$_invoke$ari
 (sicmutils.mechanics.lagrange.Lagrange_equations.cljs$core$IFn$_invoke$arity$2 = (function (L,dissipation_fn){
 return (function (q){
 var state_path = sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$1(q);
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$variadic((function (){var G__103074 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103075 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103075.cljs$core$IFn$_invoke$arity$1 ? fexpr__103075.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103075.call(null,L));
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$variadic((function (){var G__103103 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103104 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103104.cljs$core$IFn$_invoke$arity$1 ? fexpr__103104.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103104.call(null,L));
 })(),state_path], 0));
-return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103074) : sicmutils.calculus.derivative.D.call(null,G__103074));
-})(),sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103076 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103076.cljs$core$IFn$_invoke$arity$1 ? fexpr__103076.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103076.call(null,L));
-})(),state_path], 0)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(cljs.core.truth_(dissipation_fn)?sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103077 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103077.cljs$core$IFn$_invoke$arity$1 ? fexpr__103077.cljs$core$IFn$_invoke$arity$1(dissipation_fn) : fexpr__103077.call(null,dissipation_fn));
+return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103103) : sicmutils.calculus.derivative.D.call(null,G__103103));
+})(),sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103105 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103105.cljs$core$IFn$_invoke$arity$1 ? fexpr__103105.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103105.call(null,L));
+})(),state_path], 0)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(cljs.core.truth_(dissipation_fn)?sicmutils.generic._.cljs$core$IFn$_invoke$arity$1(sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103106 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103106.cljs$core$IFn$_invoke$arity$1 ? fexpr__103106.cljs$core$IFn$_invoke$arity$1(dissipation_fn) : fexpr__103106.call(null,dissipation_fn));
 })(),state_path], 0))):(0))], 0));
 });
 }));
@@ -504,8 +504,8 @@ return (fexpr__103077.cljs$core$IFn$_invoke$arity$1 ? fexpr__103077.cljs$core$IF
 (sicmutils.mechanics.lagrange.Lagrange_equations.cljs$lang$maxFixedArity = 2);
 
 sicmutils.mechanics.lagrange.Lagrangian__GT_acceleration = (function sicmutils$mechanics$lagrange$Lagrangian__GT_acceleration(var_args){
-var G__103079 = arguments.length;
-switch (G__103079) {
+var G__103108 = arguments.length;
+switch (G__103108) {
 case 1:
 return sicmutils.mechanics.lagrange.Lagrangian__GT_acceleration.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -525,20 +525,20 @@ return sicmutils.mechanics.lagrange.Lagrangian__GT_acceleration.cljs$core$IFn$_i
 }));
 
 (sicmutils.mechanics.lagrange.Lagrangian__GT_acceleration.cljs$core$IFn$_invoke$arity$2 = (function (L,dissipation_fn){
-var P = (function (){var fexpr__103082 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103082.cljs$core$IFn$_invoke$arity$1 ? fexpr__103082.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103082.call(null,L));
+var P = (function (){var fexpr__103109 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103109.cljs$core$IFn$_invoke$arity$1 ? fexpr__103109.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103109.call(null,L));
 })();
-var F = (function (){var fexpr__103083 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103083.cljs$core$IFn$_invoke$arity$1 ? fexpr__103083.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103083.call(null,L));
+var F = (function (){var fexpr__103110 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103110.cljs$core$IFn$_invoke$arity$1 ? fexpr__103110.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103110.call(null,L));
 })();
-return sicmutils.generic.solve_linear_left((function (){var fexpr__103084 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103084.cljs$core$IFn$_invoke$arity$1 ? fexpr__103084.cljs$core$IFn$_invoke$arity$1(P) : fexpr__103084.call(null,P));
-})(),sicmutils.generic._.cljs$core$IFn$_invoke$arity$variadic(F,(cljs.core.truth_(dissipation_fn)?(function (){var fexpr__103085 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103085.cljs$core$IFn$_invoke$arity$1 ? fexpr__103085.cljs$core$IFn$_invoke$arity$1(dissipation_fn) : fexpr__103085.call(null,dissipation_fn));
-})():(0)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103088 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0)], 0));
-return (fexpr__103088.cljs$core$IFn$_invoke$arity$1 ? fexpr__103088.cljs$core$IFn$_invoke$arity$1(P) : fexpr__103088.call(null,P));
-})(),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103089 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103089.cljs$core$IFn$_invoke$arity$1 ? fexpr__103089.cljs$core$IFn$_invoke$arity$1(P) : fexpr__103089.call(null,P));
+return sicmutils.generic.solve_linear_left((function (){var fexpr__103111 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103111.cljs$core$IFn$_invoke$arity$1 ? fexpr__103111.cljs$core$IFn$_invoke$arity$1(P) : fexpr__103111.call(null,P));
+})(),sicmutils.generic._.cljs$core$IFn$_invoke$arity$variadic(F,(cljs.core.truth_(dissipation_fn)?(function (){var fexpr__103112 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103112.cljs$core$IFn$_invoke$arity$1 ? fexpr__103112.cljs$core$IFn$_invoke$arity$1(dissipation_fn) : fexpr__103112.call(null,dissipation_fn));
+})():(0)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103114 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(0)], 0));
+return (fexpr__103114.cljs$core$IFn$_invoke$arity$1 ? fexpr__103114.cljs$core$IFn$_invoke$arity$1(P) : fexpr__103114.call(null,P));
+})(),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103115 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103115.cljs$core$IFn$_invoke$arity$1 ? fexpr__103115.cljs$core$IFn$_invoke$arity$1(P) : fexpr__103115.call(null,P));
 })(),sicmutils.mechanics.lagrange.velocity))], 0)));
 }));
 
@@ -546,18 +546,18 @@ return (fexpr__103089.cljs$core$IFn$_invoke$arity$1 ? fexpr__103089.cljs$core$IF
 
 sicmutils.mechanics.lagrange.qv__GT_local_path = (function sicmutils$mechanics$lagrange$qv__GT_local_path(q,v){
 return (function (t){
-var G__103092 = t;
-var G__103093 = (q.cljs$core$IFn$_invoke$arity$1 ? q.cljs$core$IFn$_invoke$arity$1(t) : q.call(null,t));
-var G__103094 = (v.cljs$core$IFn$_invoke$arity$1 ? v.cljs$core$IFn$_invoke$arity$1(t) : v.call(null,t));
-return (sicmutils.mechanics.lagrange.__GT_local.cljs$core$IFn$_invoke$arity$3 ? sicmutils.mechanics.lagrange.__GT_local.cljs$core$IFn$_invoke$arity$3(G__103092,G__103093,G__103094) : sicmutils.mechanics.lagrange.__GT_local.call(null,G__103092,G__103093,G__103094));
+var G__103116 = t;
+var G__103117 = (q.cljs$core$IFn$_invoke$arity$1 ? q.cljs$core$IFn$_invoke$arity$1(t) : q.call(null,t));
+var G__103118 = (v.cljs$core$IFn$_invoke$arity$1 ? v.cljs$core$IFn$_invoke$arity$1(t) : v.call(null,t));
+return (sicmutils.mechanics.lagrange.__GT_local.cljs$core$IFn$_invoke$arity$3 ? sicmutils.mechanics.lagrange.__GT_local.cljs$core$IFn$_invoke$arity$3(G__103116,G__103117,G__103118) : sicmutils.mechanics.lagrange.__GT_local.call(null,G__103116,G__103117,G__103118));
 });
 });
 /**
  * Optionally takes a dissipation function.
  */
 sicmutils.mechanics.lagrange.Lagrangian__GT_state_derivative = (function sicmutils$mechanics$lagrange$Lagrangian__GT_state_derivative(var_args){
-var G__103098 = arguments.length;
-switch (G__103098) {
+var G__103121 = arguments.length;
+switch (G__103121) {
 case 1:
 return sicmutils.mechanics.lagrange.Lagrangian__GT_state_derivative.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -606,44 +606,44 @@ return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((sicmutils.calculus.der
  */
 sicmutils.mechanics.lagrange.Lagrange_equations_1 = sicmutils.mechanics.lagrange.Lagrange_equations_first_order;
 sicmutils.mechanics.lagrange.Lagrangian__GT_energy = (function sicmutils$mechanics$lagrange$Lagrangian__GT_energy(L){
-var P = (function (){var fexpr__103105 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103105.cljs$core$IFn$_invoke$arity$1 ? fexpr__103105.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103105.call(null,L));
+var P = (function (){var fexpr__103122 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103122.cljs$core$IFn$_invoke$arity$1 ? fexpr__103122.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103122.call(null,L));
 })();
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(P,sicmutils.mechanics.lagrange.velocity),L);
 });
 sicmutils.mechanics.lagrange.Lagrangian__GT_power_loss = (function sicmutils$mechanics$lagrange$Lagrangian__GT_power_loss(L){
 return (function (q){
-var G__103106 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.lagrange.Lagrangian__GT_energy(L),sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$1(q)], 0));
-return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103106) : sicmutils.calculus.derivative.D.call(null,G__103106));
+var G__103123 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.lagrange.Lagrangian__GT_energy(L),sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$1(q)], 0));
+return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103123) : sicmutils.calculus.derivative.D.call(null,G__103123));
 });
 });
 sicmutils.mechanics.lagrange.T3_spherical = (function sicmutils$mechanics$lagrange$T3_spherical(m){
-return (function (p__103107){
-var vec__103108 = p__103107;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103108,(0),null);
-var vec__103111 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103108,(1),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103111,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103111,(1),null);
-var vec__103114 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103108,(2),null);
-var rdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103114,(0),null);
-var thetadot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103114,(1),null);
-var phidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103114,(2),null);
+return (function (p__103124){
+var vec__103125 = p__103124;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103125,(0),null);
+var vec__103128 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103125,(1),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103128,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103128,(1),null);
+var vec__103131 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103125,(2),null);
+var rdot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103131,(0),null);
+var thetadot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103131,(1),null);
+var phidot = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103131,(2),null);
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2)),m,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(rdot),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,thetadot)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([phidot], 0)))], 0))], 0));
 });
 });
 sicmutils.mechanics.lagrange.L3_central = (function sicmutils$mechanics$lagrange$L3_central(m,Vr){
-var Vs = (function sicmutils$mechanics$lagrange$L3_central_$_Vs(p__103128){
-var vec__103129 = p__103128;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103129,(0),null);
-var vec__103133 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103129,(1),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103133,(0),null);
+var Vs = (function sicmutils$mechanics$lagrange$L3_central_$_Vs(p__103144){
+var vec__103145 = p__103144;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103145,(0),null);
+var vec__103148 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103145,(1),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103148,(0),null);
 return (Vr.cljs$core$IFn$_invoke$arity$1 ? Vr.cljs$core$IFn$_invoke$arity$1(r) : Vr.call(null,r));
 });
 return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.lagrange.T3_spherical(m),Vs);
 });
 sicmutils.mechanics.lagrange.Lagrangian_action = (function sicmutils$mechanics$lagrange$Lagrangian_action(var_args){
-var G__103139 = arguments.length;
-switch (G__103139) {
+var G__103154 = arguments.length;
+switch (G__103154) {
 case 4:
 return sicmutils.mechanics.lagrange.Lagrangian_action.cljs$core$IFn$_invoke$arity$4((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),(arguments[(3)]));
 
@@ -671,25 +671,25 @@ return sicmutils.numerical.quadrature.definite_integral.cljs$core$IFn$_invoke$ar
 sicmutils.mechanics.lagrange.linear_interpolants = (function sicmutils$mechanics$lagrange$linear_interpolants(x0,x1,n){
 var n_PLUS_1 = (n + (1));
 var dx = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(x1,x0),n_PLUS_1);
-var iter__4652__auto__ = (function sicmutils$mechanics$lagrange$linear_interpolants_$_iter__103143(s__103144){
+var iter__4652__auto__ = (function sicmutils$mechanics$lagrange$linear_interpolants_$_iter__103165(s__103166){
 return (new cljs.core.LazySeq(null,(function (){
-var s__103144__$1 = s__103144;
+var s__103166__$1 = s__103166;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__103144__$1);
+var temp__5753__auto__ = cljs.core.seq(s__103166__$1);
 if(temp__5753__auto__){
-var s__103144__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__103144__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__103144__$2);
+var s__103166__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__103166__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__103166__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__103146 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__103145 = (0);
+var b__103168 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__103167 = (0);
 while(true){
-if((i__103145 < size__4651__auto__)){
-var i = cljs.core._nth(c__4650__auto__,i__103145);
-cljs.core.chunk_append(b__103146,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(x0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(i,dx)));
+if((i__103167 < size__4651__auto__)){
+var i = cljs.core._nth(c__4650__auto__,i__103167);
+cljs.core.chunk_append(b__103168,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(x0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(i,dx)));
 
-var G__103267 = (i__103145 + (1));
-i__103145 = G__103267;
+var G__103287 = (i__103167 + (1));
+i__103167 = G__103287;
 continue;
 } else {
 return true;
@@ -697,13 +697,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__103146),sicmutils$mechanics$lagrange$linear_interpolants_$_iter__103143(cljs.core.chunk_rest(s__103144__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__103168),sicmutils$mechanics$lagrange$linear_interpolants_$_iter__103165(cljs.core.chunk_rest(s__103166__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__103146),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__103168),null);
 }
 } else {
-var i = cljs.core.first(s__103144__$2);
-return cljs.core.cons(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(x0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(i,dx)),sicmutils$mechanics$lagrange$linear_interpolants_$_iter__103143(cljs.core.rest(s__103144__$2)));
+var i = cljs.core.first(s__103166__$2);
+return cljs.core.cons(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(x0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(i,dx)),sicmutils$mechanics$lagrange$linear_interpolants_$_iter__103165(cljs.core.rest(s__103166__$2)));
 }
 } else {
 return null;
@@ -748,14 +748,14 @@ return sicmutils.mechanics.lagrange.Lagrangian_action.cljs$core$IFn$_invoke$arit
  */
 sicmutils.mechanics.lagrange.find_path = (function sicmutils$mechanics$lagrange$find_path(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___103268 = arguments.length;
-var i__4865__auto___103269 = (0);
+var len__4864__auto___103291 = arguments.length;
+var i__4865__auto___103292 = (0);
 while(true){
-if((i__4865__auto___103269 < len__4864__auto___103268)){
-args__4870__auto__.push((arguments[i__4865__auto___103269]));
+if((i__4865__auto___103292 < len__4864__auto___103291)){
+args__4870__auto__.push((arguments[i__4865__auto___103292]));
 
-var G__103270 = (i__4865__auto___103269 + (1));
-i__4865__auto___103269 = G__103270;
+var G__103293 = (i__4865__auto___103292 + (1));
+i__4865__auto___103292 = G__103293;
 continue;
 } else {
 }
@@ -766,10 +766,10 @@ var argseq__4871__auto__ = ((((6) < args__4870__auto__.length))?(new cljs.core.I
 return sicmutils.mechanics.lagrange.find_path.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),(arguments[(3)]),(arguments[(4)]),(arguments[(5)]),argseq__4871__auto__);
 });
 
-(sicmutils.mechanics.lagrange.find_path.cljs$core$IFn$_invoke$arity$variadic = (function (Lagrangian,t0,q0,t1,q1,n,p__103163){
-var map__103164 = p__103163;
-var map__103164__$1 = cljs.core.__destructure_map(map__103164);
-var observe = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103164__$1,new cljs.core.Keyword(null,"observe","observe",-86651450));
+(sicmutils.mechanics.lagrange.find_path.cljs$core$IFn$_invoke$arity$variadic = (function (Lagrangian,t0,q0,t1,q1,n,p__103217){
+var map__103219 = p__103217;
+var map__103219__$1 = cljs.core.__destructure_map(map__103219);
+var observe = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103219__$1,new cljs.core.Keyword(null,"observe","observe",-86651450));
 var initial_qs = sicmutils.mechanics.lagrange.linear_interpolants(q0,q1,n);
 var minimizing_qs = sicmutils.numerical.minimize.multidimensional_minimize.cljs$core$IFn$_invoke$arity$variadic(sicmutils.mechanics.lagrange.parametric_path_action(Lagrangian,t0,q0,t1,q1),initial_qs,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"callback","callback",-705136228),observe], 0));
 return sicmutils.mechanics.lagrange.make_path(t0,q0,t1,q1,minimizing_qs);
@@ -778,21 +778,21 @@ return sicmutils.mechanics.lagrange.make_path(t0,q0,t1,q1,minimizing_qs);
 (sicmutils.mechanics.lagrange.find_path.cljs$lang$maxFixedArity = (6));
 
 /** @this {Function} */
-(sicmutils.mechanics.lagrange.find_path.cljs$lang$applyTo = (function (seq103156){
-var G__103157 = cljs.core.first(seq103156);
-var seq103156__$1 = cljs.core.next(seq103156);
-var G__103158 = cljs.core.first(seq103156__$1);
-var seq103156__$2 = cljs.core.next(seq103156__$1);
-var G__103159 = cljs.core.first(seq103156__$2);
-var seq103156__$3 = cljs.core.next(seq103156__$2);
-var G__103160 = cljs.core.first(seq103156__$3);
-var seq103156__$4 = cljs.core.next(seq103156__$3);
-var G__103161 = cljs.core.first(seq103156__$4);
-var seq103156__$5 = cljs.core.next(seq103156__$4);
-var G__103162 = cljs.core.first(seq103156__$5);
-var seq103156__$6 = cljs.core.next(seq103156__$5);
+(sicmutils.mechanics.lagrange.find_path.cljs$lang$applyTo = (function (seq103208){
+var G__103209 = cljs.core.first(seq103208);
+var seq103208__$1 = cljs.core.next(seq103208);
+var G__103210 = cljs.core.first(seq103208__$1);
+var seq103208__$2 = cljs.core.next(seq103208__$1);
+var G__103211 = cljs.core.first(seq103208__$2);
+var seq103208__$3 = cljs.core.next(seq103208__$2);
+var G__103212 = cljs.core.first(seq103208__$3);
+var seq103208__$4 = cljs.core.next(seq103208__$3);
+var G__103213 = cljs.core.first(seq103208__$4);
+var seq103208__$5 = cljs.core.next(seq103208__$4);
+var G__103214 = cljs.core.first(seq103208__$5);
+var seq103208__$6 = cljs.core.next(seq103208__$5);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103157,G__103158,G__103159,G__103160,G__103161,G__103162,seq103156__$6);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103209,G__103210,G__103211,G__103212,G__103213,G__103214,seq103208__$6);
 }));
 
 /**
@@ -803,9 +803,9 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103157,G__1031
  *   tuple.
  */
 sicmutils.mechanics.lagrange.osculating_path = (function sicmutils$mechanics$lagrange$osculating_path(state0){
-var vec__103165 = state0;
-var t0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103165,(0),null);
-var q0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103165,(1),null);
+var vec__103221 = state0;
+var t0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103221,(0),null);
+var q0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103221,(1),null);
 var k = cljs.core.count(state0);
 return (function (t){
 var dt = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(t,t0);
@@ -816,12 +816,12 @@ while(true){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(n,k)){
 return sum;
 } else {
-var G__103271 = (n + (1));
-var G__103272 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sum,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(state0,n),dt_STAR__STAR_n_COLON_n_BANG_));
-var G__103273 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(dt_STAR__STAR_n_COLON_n_BANG_,dt),n);
-n = G__103271;
-sum = G__103272;
-dt_STAR__STAR_n_COLON_n_BANG_ = G__103273;
+var G__103294 = (n + (1));
+var G__103295 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sum,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(state0,n),dt_STAR__STAR_n_COLON_n_BANG_));
+var G__103296 = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(dt_STAR__STAR_n_COLON_n_BANG_,dt),n);
+n = G__103294;
+sum = G__103295;
+dt_STAR__STAR_n_COLON_n_BANG_ = G__103296;
 continue;
 }
 break;
@@ -830,19 +830,19 @@ break;
 });
 sicmutils.mechanics.lagrange.Gamma_bar = (function sicmutils$mechanics$lagrange$Gamma_bar(f){
 return (function (local){
-var G__103170 = cljs.core.first(local);
-var fexpr__103169 = (function (){var G__103171 = sicmutils.mechanics.lagrange.osculating_path(local);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103171) : f.call(null,G__103171));
+var G__103229 = cljs.core.first(local);
+var fexpr__103228 = (function (){var G__103230 = sicmutils.mechanics.lagrange.osculating_path(local);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__103230) : f.call(null,G__103230));
 })();
-return (fexpr__103169.cljs$core$IFn$_invoke$arity$1 ? fexpr__103169.cljs$core$IFn$_invoke$arity$1(G__103170) : fexpr__103169.call(null,G__103170));
+return (fexpr__103228.cljs$core$IFn$_invoke$arity$1 ? fexpr__103228.cljs$core$IFn$_invoke$arity$1(G__103229) : fexpr__103228.call(null,G__103229));
 });
 });
 sicmutils.mechanics.lagrange.Dt_procedure = (function sicmutils$mechanics$lagrange$Dt_procedure(F){
 return (function sicmutils$mechanics$lagrange$Dt_procedure_$_DtF(state){
 var n = cljs.core.count(state);
 var DF_on_path = (function sicmutils$mechanics$lagrange$Dt_procedure_$_DtF_$_DF_on_path(q){
-var G__103173 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([F,sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$2(q,(n - (1)))], 0));
-return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103173) : sicmutils.calculus.derivative.D.call(null,G__103173));
+var G__103233 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([F,sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$2(q,(n - (1)))], 0));
+return (sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.derivative.D.cljs$core$IFn$_invoke$arity$1(G__103233) : sicmutils.calculus.derivative.D.call(null,G__103233));
 });
 return sicmutils.mechanics.lagrange.Gamma_bar(DF_on_path)(state);
 });
@@ -852,12 +852,12 @@ sicmutils.mechanics.lagrange.trim_last_argument = (function sicmutils$mechanics$
 return sicmutils.structure.up_STAR_(cljs.core.pop(sicmutils.structure.structure__GT_vector(local)));
 });
 sicmutils.mechanics.lagrange.Euler_Lagrange_operator = (function sicmutils$mechanics$lagrange$Euler_Lagrange_operator(L){
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((function (){var G__103178 = (function (){var fexpr__103181 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
-return (fexpr__103181.cljs$core$IFn$_invoke$arity$1 ? fexpr__103181.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103181.call(null,L));
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((function (){var G__103234 = (function (){var fexpr__103235 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(2)], 0));
+return (fexpr__103235.cljs$core$IFn$_invoke$arity$1 ? fexpr__103235.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103235.call(null,L));
 })();
-return (sicmutils.mechanics.lagrange.Dt.cljs$core$IFn$_invoke$arity$1 ? sicmutils.mechanics.lagrange.Dt.cljs$core$IFn$_invoke$arity$1(G__103178) : sicmutils.mechanics.lagrange.Dt.call(null,G__103178));
-})(),sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103186 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
-return (fexpr__103186.cljs$core$IFn$_invoke$arity$1 ? fexpr__103186.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103186.call(null,L));
+return (sicmutils.mechanics.lagrange.Dt.cljs$core$IFn$_invoke$arity$1 ? sicmutils.mechanics.lagrange.Dt.cljs$core$IFn$_invoke$arity$1(G__103234) : sicmutils.mechanics.lagrange.Dt.call(null,G__103234));
+})(),sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var fexpr__103236 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(1)], 0));
+return (fexpr__103236.cljs$core$IFn$_invoke$arity$1 ? fexpr__103236.cljs$core$IFn$_invoke$arity$1(L) : fexpr__103236.call(null,L));
 })(),sicmutils.mechanics.lagrange.trim_last_argument], 0)));
 });
 /**
@@ -880,13 +880,13 @@ var lp = (function sicmutils$mechanics$lagrange$generalized_LE_$_lp(i,state__$1)
 if((i === (0))){
 return (0);
 } else {
-return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103219 = (function (){var G__103221 = (function (){var fexpr__103222 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([i], 0));
-return (fexpr__103222.cljs$core$IFn$_invoke$arity$1 ? fexpr__103222.cljs$core$IFn$_invoke$arity$1(Lagrangian) : fexpr__103222.call(null,Lagrangian));
+return sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((function (){var fexpr__103250 = (function (){var G__103252 = (function (){var fexpr__103253 = sicmutils.calculus.derivative.partial.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([i], 0));
+return (fexpr__103253.cljs$core$IFn$_invoke$arity$1 ? fexpr__103253.cljs$core$IFn$_invoke$arity$1(Lagrangian) : fexpr__103253.call(null,Lagrangian));
 })();
-var fexpr__103220 = sicmutils.generic.expt.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.lagrange.Dt,(i - (1)));
-return (fexpr__103220.cljs$core$IFn$_invoke$arity$1 ? fexpr__103220.cljs$core$IFn$_invoke$arity$1(G__103221) : fexpr__103220.call(null,G__103221));
+var fexpr__103251 = sicmutils.generic.expt.cljs$core$IFn$_invoke$arity$2(sicmutils.mechanics.lagrange.Dt,(i - (1)));
+return (fexpr__103251.cljs$core$IFn$_invoke$arity$1 ? fexpr__103251.cljs$core$IFn$_invoke$arity$1(G__103252) : fexpr__103251.call(null,G__103252));
 })();
-return (fexpr__103219.cljs$core$IFn$_invoke$arity$1 ? fexpr__103219.cljs$core$IFn$_invoke$arity$1(state__$1) : fexpr__103219.call(null,state__$1));
+return (fexpr__103250.cljs$core$IFn$_invoke$arity$1 ? fexpr__103250.cljs$core$IFn$_invoke$arity$1(state__$1) : fexpr__103250.call(null,state__$1));
 })(),sicmutils$mechanics$lagrange$generalized_LE_$_lp((i - (1)),sicmutils.mechanics.lagrange.trim_last_argument(state__$1)));
 }
 });
@@ -910,10 +910,10 @@ return sicmutils.mechanics.lagrange.Gamma.cljs$core$IFn$_invoke$arity$2(q,n);
 return sicmutils.mechanics.lagrange.Gamma_bar(f_bar)(local);
 });
 });
-sicmutils.mechanics.lagrange.rectangular__GT_polar = (function sicmutils$mechanics$lagrange$rectangular__GT_polar(p__103230){
-var vec__103234 = p__103230;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103234,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103234,(1),null);
+sicmutils.mechanics.lagrange.rectangular__GT_polar = (function sicmutils$mechanics$lagrange$rectangular__GT_polar(p__103257){
+var vec__103258 = p__103257;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103258,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103258,(1),null);
 var r = sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(x),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(y)));
 var phi = sicmutils.generic.atan.cljs$core$IFn$_invoke$arity$2(y,x);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([r,phi], 0));
@@ -921,10 +921,10 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
 sicmutils.mechanics.lagrange.r__GT_p = (function sicmutils$mechanics$lagrange$r__GT_p(tqv){
 return sicmutils.mechanics.lagrange.rectangular__GT_polar(sicmutils.mechanics.lagrange.coordinate(tqv));
 });
-sicmutils.mechanics.lagrange.polar__GT_rectangular = (function sicmutils$mechanics$lagrange$polar__GT_rectangular(p__103237){
-var vec__103238 = p__103237;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103238,(0),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103238,(1),null);
+sicmutils.mechanics.lagrange.polar__GT_rectangular = (function sicmutils$mechanics$lagrange$polar__GT_rectangular(p__103261){
+var vec__103262 = p__103261;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103262,(0),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103262,(1),null);
 var x = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(phi));
 var y = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(phi));
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([x,y], 0));
@@ -935,11 +935,11 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
 sicmutils.mechanics.lagrange.p__GT_r = (function sicmutils$mechanics$lagrange$p__GT_r(tqv){
 return sicmutils.mechanics.lagrange.polar__GT_rectangular(sicmutils.mechanics.lagrange.coordinate(tqv));
 });
-sicmutils.mechanics.lagrange.spherical__GT_rectangular = (function sicmutils$mechanics$lagrange$spherical__GT_rectangular(p__103241){
-var vec__103242 = p__103241;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103242,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103242,(1),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103242,(2),null);
+sicmutils.mechanics.lagrange.spherical__GT_rectangular = (function sicmutils$mechanics$lagrange$spherical__GT_rectangular(p__103265){
+var vec__103266 = p__103265;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103266,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103266,(1),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103266,(2),null);
 var x = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(phi)], 0));
 var y = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(phi)], 0));
 var z = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta));
@@ -951,11 +951,11 @@ return (sicmutils.mechanics.lagrange.coordinate_tuple.cljs$core$IFn$_invoke$arit
 sicmutils.mechanics.lagrange.s__GT_r = (function sicmutils$mechanics$lagrange$s__GT_r(local){
 return sicmutils.mechanics.lagrange.spherical__GT_rectangular(sicmutils.mechanics.lagrange.coordinate(local));
 });
-sicmutils.mechanics.lagrange.rectangular__GT_spherical = (function sicmutils$mechanics$lagrange$rectangular__GT_spherical(p__103245){
-var vec__103246 = p__103245;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103246,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103246,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103246,(2),null);
+sicmutils.mechanics.lagrange.rectangular__GT_spherical = (function sicmutils$mechanics$lagrange$rectangular__GT_spherical(p__103269){
+var vec__103270 = p__103269;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103270,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103270,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103270,(2),null);
 var r = sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(x),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(y),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(z)], 0)));
 var theta = sicmutils.generic.acos.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(z,r));
 var phi = sicmutils.generic.atan.cljs$core$IFn$_invoke$arity$2(y,x);

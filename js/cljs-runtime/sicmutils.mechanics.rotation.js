@@ -32,11 +32,11 @@ sicmutils.mechanics.rotation.rotate_z_matrix = (function sicmutils$mechanics$rot
 return sicmutils.mechanics.rotation.rotate_z_matrix_2(sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(α),sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(α));
 });
 sicmutils.mechanics.rotation.Rz_matrix = sicmutils.mechanics.rotation.rotate_z_matrix;
-sicmutils.mechanics.rotation.angle_axis__GT_rotation_matrix = (function sicmutils$mechanics$rotation$angle_axis__GT_rotation_matrix(theta,p__100992){
-var vec__100997 = p__100992;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100997,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100997,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100997,(2),null);
+sicmutils.mechanics.rotation.angle_axis__GT_rotation_matrix = (function sicmutils$mechanics$rotation$angle_axis__GT_rotation_matrix(theta,p__100946){
+var vec__100947 = p__100946;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100947,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100947,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100947,(2),null);
 var colatitude = sicmutils.generic.acos.cljs$core$IFn$_invoke$arity$1(z);
 var longitude = sicmutils.generic.atan.cljs$core$IFn$_invoke$arity$2(y,x);
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.mechanics.rotation.rotate_z_matrix(longitude),sicmutils.mechanics.rotation.rotate_y_matrix(colatitude),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.rotation.rotate_z_matrix(theta),sicmutils.matrix.transpose(sicmutils.mechanics.rotation.rotate_y_matrix(colatitude)),sicmutils.matrix.transpose(sicmutils.mechanics.rotation.rotate_z_matrix(longitude))], 0));
@@ -63,11 +63,11 @@ return sicmutils.mechanics.rotation.rotate_z_tuple_2(sicmutils.generic.cos.cljs$
  * Returns a function which rotates a vector α radians about the x axis.
  */
 sicmutils.mechanics.rotation.Rx = (function sicmutils$mechanics$rotation$Rx(α){
-return (function (p__101030){
-var vec__101031 = p__101030;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101031,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101031,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101031,(2),null);
+return (function (p__100950){
+var vec__100951 = p__100950;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100951,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100951,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100951,(2),null);
 var c = sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(α);
 var s = sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(α);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([x,sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,y),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,z)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,y),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,z))], 0));
@@ -77,11 +77,11 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
  * Returns a function which rotates a vector α radians about the y axis.
  */
 sicmutils.mechanics.rotation.Ry = (function sicmutils$mechanics$rotation$Ry(α){
-return (function (p__101034){
-var vec__101035 = p__101034;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101035,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101035,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101035,(2),null);
+return (function (p__100954){
+var vec__100955 = p__100954;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100955,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100955,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100955,(2),null);
 var c = sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(α);
 var s = sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(α);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,x),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,z)),y,sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,z),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,x))], 0));
@@ -91,11 +91,11 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
  * Returns a function which rotates a vector α radians about the z axis.
  */
 sicmutils.mechanics.rotation.Rz = (function sicmutils$mechanics$rotation$Rz(α){
-return (function (p__101043){
-var vec__101044 = p__101043;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101044,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101044,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101044,(2),null);
+return (function (p__100958){
+var vec__100959 = p__100958;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100959,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100959,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100959,(2),null);
 var c = sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(α);
 var s = sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(α);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,x),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,y)),sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(s,x),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(c,y)),z], 0));
@@ -114,11 +114,11 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
  * 
  *   M(theta, phi, psi) = R_z(phi)*R_x(theta)*R_z(psi)
  */
-sicmutils.mechanics.rotation.Euler__GT_M = (function sicmutils$mechanics$rotation$Euler__GT_M(p__101053){
-var vec__101054 = p__101053;
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101054,(0),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101054,(1),null);
-var psi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101054,(2),null);
+sicmutils.mechanics.rotation.Euler__GT_M = (function sicmutils$mechanics$rotation$Euler__GT_M(p__100962){
+var vec__100963 = p__100962;
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100963,(0),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100963,(1),null);
+var psi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100963,(2),null);
 return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.mechanics.rotation.rotate_z_matrix(phi),sicmutils.mechanics.rotation.rotate_x_matrix(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.mechanics.rotation.rotate_z_matrix(psi)], 0));
 });
 /**
@@ -130,8 +130,8 @@ return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.m
  *   M(theta, phi, psi) = R_z(phi)*R_x(theta)*R_z(psi)
  */
 sicmutils.mechanics.rotation.M__GT_Euler = (function sicmutils$mechanics$rotation$M__GT_Euler(var_args){
-var G__101059 = arguments.length;
-switch (G__101059) {
+var G__100967 = arguments.length;
+switch (G__100967) {
 case 1:
 return sicmutils.mechanics.rotation.M__GT_Euler.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

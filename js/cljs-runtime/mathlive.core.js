@@ -17,8 +17,8 @@ var module$node_modules$react$index=shadow.js.require("module$node_modules$react
  *   - the result of `(opts-or-f (.getOptions mf))` if a function.
  */
 mathlive.core.update_options_BANG_ = (function mathlive$core$update_options_BANG_(mf,opts_or_f){
-var updated = ((cljs.core.fn_QMARK_(opts_or_f))?(function (){var G__103876 = cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$variadic(mf.getOptions(),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"keywordize-keys","keywordize-keys",1310784252),true], 0));
-return (opts_or_f.cljs$core$IFn$_invoke$arity$1 ? opts_or_f.cljs$core$IFn$_invoke$arity$1(G__103876) : opts_or_f.call(null,G__103876));
+var updated = ((cljs.core.fn_QMARK_(opts_or_f))?(function (){var G__103890 = cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$variadic(mf.getOptions(),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"keywordize-keys","keywordize-keys",1310784252),true], 0));
+return (opts_or_f.cljs$core$IFn$_invoke$arity$1 ? opts_or_f.cljs$core$IFn$_invoke$arity$1(G__103890) : opts_or_f.call(null,G__103890));
 })():((cljs.core.map_QMARK_(opts_or_f))?opts_or_f:(function(){throw (new Error(["Invalid option for :options."," must be fn or map."].join('')))})()
 ));
 mf.setOptions(cljs.core.clj__GT_js(updated));
@@ -56,8 +56,8 @@ return cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(mf.expression.json);
  *   placeholder.
  */
 mathlive.core.__GT_placeholders = (function mathlive$core$__GT_placeholders(var_args){
-var G__103880 = arguments.length;
-switch (G__103880) {
+var G__103893 = arguments.length;
+switch (G__103893) {
 case 1:
 return mathlive.core.__GT_placeholders.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -76,10 +76,10 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return mathlive.core.__GT_placeholders.cljs$core$IFn$_invoke$arity$2(mf,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(mathlive.core.__GT_placeholders.cljs$core$IFn$_invoke$arity$2 = (function (mf,p__103881){
-var map__103882 = p__103881;
-var map__103882__$1 = cljs.core.__destructure_map(map__103882);
-var type = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__103882__$1,new cljs.core.Keyword(null,"type","type",1174270348),"latex");
+(mathlive.core.__GT_placeholders.cljs$core$IFn$_invoke$arity$2 = (function (mf,p__103894){
+var map__103898 = p__103894;
+var map__103898__$1 = cljs.core.__destructure_map(map__103898);
+var type = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__103898__$1,new cljs.core.Keyword(null,"type","type",1174270348),"latex");
 var m = mf.placeholders;
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (acc,k){
 var field = mathlive.core.goog$module$goog$object.get(m,k);
@@ -115,19 +115,19 @@ return (mf.expression = cljs.core.clj__GT_js(expr));
  * Docstring for the Mathfield.
  */
 mathlive.core.Mathfield = reagent.core.adapt_react_class(module$node_modules$react$index.forwardRef((function (props,ref){
-var vec__103883 = module$node_modules$react$index.useState(null);
-var mf = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103883,(0),null);
-var set_mf = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103883,(1),null);
-var map__103886 = cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(props);
-var map__103886__$1 = cljs.core.__destructure_map(map__103886);
-var props__$1 = map__103886__$1;
-var children = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"children");
-var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"value");
-var options = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"options");
-var defaultValue = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"defaultValue");
-var onChange = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"onChange");
-var soundsDirectory = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"soundsDirectory");
-var fontsDirectory = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103886__$1,"fontsDirectory");
+var vec__103904 = module$node_modules$react$index.useState(null);
+var mf = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103904,(0),null);
+var set_mf = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103904,(1),null);
+var map__103907 = cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(props);
+var map__103907__$1 = cljs.core.__destructure_map(map__103907);
+var props__$1 = map__103907__$1;
+var children = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"children");
+var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"value");
+var options = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"options");
+var defaultValue = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"defaultValue");
+var onChange = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"onChange");
+var soundsDirectory = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"soundsDirectory");
+var fontsDirectory = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103907__$1,"fontsDirectory");
 module$node_modules$react$index.useEffect((function mathlive$core$mount(){
 if(cljs.core.truth_(children)){
 console.error("don't set children!");
@@ -147,9 +147,9 @@ return null;
 }
 }),[]);
 
-var opt_ref_103900 = module$node_modules$react$index.useRef(options);
-if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(opt_ref_103900.current,options)){
-(opt_ref_103900.current = options);
+var opt_ref_103913 = module$node_modules$react$index.useRef(options);
+if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(opt_ref_103913.current,options)){
+(opt_ref_103913.current = options);
 } else {
 }
 
@@ -165,7 +165,7 @@ return mathlive.core.update_options_BANG_(mf,options);
 } else {
 return null;
 }
-}),[opt_ref_103900.current,mf]);
+}),[opt_ref_103913.current,mf]);
 
 module$node_modules$react$index.useEffect((function (){
 if(cljs.core.truth_((function (){var and__4251__auto__ = mf;

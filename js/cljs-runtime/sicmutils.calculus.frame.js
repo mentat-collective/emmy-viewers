@@ -5,7 +5,7 @@ goog.provide('sicmutils.calculus.frame');
  */
 sicmutils.calculus.frame.IFrame = function(){};
 
-var sicmutils$calculus$frame$IFrame$coords__GT_event$dyn_100937 = (function (this$,coords){
+var sicmutils$calculus$frame$IFrame$coords__GT_event$dyn_100920 = (function (this$,coords){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.frame.coords__GT_event[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -30,11 +30,11 @@ sicmutils.calculus.frame.coords__GT_event = (function sicmutils$calculus$frame$c
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$frame$IFrame$coords__GT_event$arity$2 == null)))))){
 return this$.sicmutils$calculus$frame$IFrame$coords__GT_event$arity$2(this$,coords);
 } else {
-return sicmutils$calculus$frame$IFrame$coords__GT_event$dyn_100937(this$,coords);
+return sicmutils$calculus$frame$IFrame$coords__GT_event$dyn_100920(this$,coords);
 }
 });
 
-var sicmutils$calculus$frame$IFrame$event__GT_coords$dyn_100938 = (function (this$,event){
+var sicmutils$calculus$frame$IFrame$event__GT_coords$dyn_100921 = (function (this$,event){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.frame.event__GT_coords[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -56,11 +56,11 @@ sicmutils.calculus.frame.event__GT_coords = (function sicmutils$calculus$frame$e
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$frame$IFrame$event__GT_coords$arity$2 == null)))))){
 return this$.sicmutils$calculus$frame$IFrame$event__GT_coords$arity$2(this$,event);
 } else {
-return sicmutils$calculus$frame$IFrame$event__GT_coords$dyn_100938(this$,event);
+return sicmutils$calculus$frame$IFrame$event__GT_coords$dyn_100921(this$,event);
 }
 });
 
-var sicmutils$calculus$frame$IFrame$ancestor_frame$dyn_100939 = (function (_){
+var sicmutils$calculus$frame$IFrame$ancestor_frame$dyn_100928 = (function (_){
 var x__4550__auto__ = (((_ == null))?null:_);
 var m__4551__auto__ = (sicmutils.calculus.frame.ancestor_frame[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -82,11 +82,11 @@ sicmutils.calculus.frame.ancestor_frame = (function sicmutils$calculus$frame$anc
 if((((!((_ == null)))) && ((!((_.sicmutils$calculus$frame$IFrame$ancestor_frame$arity$1 == null)))))){
 return _.sicmutils$calculus$frame$IFrame$ancestor_frame$arity$1(_);
 } else {
-return sicmutils$calculus$frame$IFrame$ancestor_frame$dyn_100939(_);
+return sicmutils$calculus$frame$IFrame$ancestor_frame$dyn_100928(_);
 }
 });
 
-var sicmutils$calculus$frame$IFrame$frame_name$dyn_100940 = (function (_){
+var sicmutils$calculus$frame$IFrame$frame_name$dyn_100929 = (function (_){
 var x__4550__auto__ = (((_ == null))?null:_);
 var m__4551__auto__ = (sicmutils.calculus.frame.frame_name[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -107,11 +107,11 @@ sicmutils.calculus.frame.frame_name = (function sicmutils$calculus$frame$frame_n
 if((((!((_ == null)))) && ((!((_.sicmutils$calculus$frame$IFrame$frame_name$arity$1 == null)))))){
 return _.sicmutils$calculus$frame$IFrame$frame_name$arity$1(_);
 } else {
-return sicmutils$calculus$frame$IFrame$frame_name$dyn_100940(_);
+return sicmutils$calculus$frame$IFrame$frame_name$dyn_100929(_);
 }
 });
 
-var sicmutils$calculus$frame$IFrame$params$dyn_100941 = (function (_){
+var sicmutils$calculus$frame$IFrame$params$dyn_100930 = (function (_){
 var x__4550__auto__ = (((_ == null))?null:_);
 var m__4551__auto__ = (sicmutils.calculus.frame.params[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -132,7 +132,7 @@ sicmutils.calculus.frame.params = (function sicmutils$calculus$frame$params(_){
 if((((!((_ == null)))) && ((!((_.sicmutils$calculus$frame$IFrame$params$arity$1 == null)))))){
 return _.sicmutils$calculus$frame$IFrame$params$arity$1(_);
 } else {
-return sicmutils$calculus$frame$IFrame$params$dyn_100941(_);
+return sicmutils$calculus$frame$IFrame$params$dyn_100930(_);
 }
 });
 
@@ -223,7 +223,7 @@ var sicmutils$calculus$frame$frame_maker_$_call__2 = (function (name,ancestor_fr
 return sicmutils$calculus$frame$frame_maker_$_call.cljs$core$IFn$_invoke$arity$3(name,ancestor_frame,cljs.core.PersistentArrayMap.EMPTY);
 });
 var sicmutils$calculus$frame$frame_maker_$_call__3 = (function (name,ancestor_frame,params){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.frame !== 'undefined') && (typeof sicmutils.calculus.frame.t_sicmutils$calculus$frame100932 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.frame !== 'undefined') && (typeof sicmutils.calculus.frame.t_sicmutils$calculus$frame100913 !== 'undefined')){
 } else {
 
 /**
@@ -232,50 +232,50 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.frame.t_sicmutils$calculus$frame100932 = (function (c__GT_e,e__GT_c,call,name,ancestor_frame,params,meta100933){
+sicmutils.calculus.frame.t_sicmutils$calculus$frame100913 = (function (c__GT_e,e__GT_c,call,name,ancestor_frame,params,meta100914){
 this.c__GT_e = c__GT_e;
 this.e__GT_c = e__GT_c;
 this.call = call;
 this.name = name;
 this.ancestor_frame = ancestor_frame;
 this.params = params;
-this.meta100933 = meta100933;
+this.meta100914 = meta100914;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_100934,meta100933__$1){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_100915,meta100914__$1){
 var self__ = this;
-var _100934__$1 = this;
-return (new sicmutils.calculus.frame.t_sicmutils$calculus$frame100932(self__.c__GT_e,self__.e__GT_c,self__.call,self__.name,self__.ancestor_frame,self__.params,meta100933__$1));
+var _100915__$1 = this;
+return (new sicmutils.calculus.frame.t_sicmutils$calculus$frame100913(self__.c__GT_e,self__.e__GT_c,self__.call,self__.name,self__.ancestor_frame,self__.params,meta100914__$1));
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_100934){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_100915){
 var self__ = this;
-var _100934__$1 = this;
-return self__.meta100933;
+var _100915__$1 = this;
+return self__.meta100914;
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.sicmutils$calculus$frame$IFrame$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.sicmutils$calculus$frame$IFrame$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.sicmutils$calculus$frame$IFrame$ancestor_frame$arity$1 = (function (_){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.sicmutils$calculus$frame$IFrame$ancestor_frame$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.ancestor_frame;
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.sicmutils$calculus$frame$IFrame$frame_name$arity$1 = (function (_){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.sicmutils$calculus$frame$IFrame$frame_name$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.name;
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.sicmutils$calculus$frame$IFrame$params$arity$1 = (function (_){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.sicmutils$calculus$frame$IFrame$params$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.params;
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.sicmutils$calculus$frame$IFrame$coords__GT_event$arity$2 = (function (this$,coords){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.sicmutils$calculus$frame$IFrame$coords__GT_event$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.frame.frame_owner(coords),this$__$1)){
@@ -283,8 +283,8 @@ if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.frame.frame_o
 throw (new Error("Assert failed: (= (frame-owner coords) this)"));
 }
 
-var event = (function (){var fexpr__100935 = (self__.c__GT_e.cljs$core$IFn$_invoke$arity$3 ? self__.c__GT_e.cljs$core$IFn$_invoke$arity$3(self__.ancestor_frame,this$__$1,self__.params) : self__.c__GT_e.call(null,self__.ancestor_frame,this$__$1,self__.params));
-return (fexpr__100935.cljs$core$IFn$_invoke$arity$1 ? fexpr__100935.cljs$core$IFn$_invoke$arity$1(coords) : fexpr__100935.call(null,coords));
+var event = (function (){var fexpr__100916 = (self__.c__GT_e.cljs$core$IFn$_invoke$arity$3 ? self__.c__GT_e.cljs$core$IFn$_invoke$arity$3(self__.ancestor_frame,this$__$1,self__.params) : self__.c__GT_e.call(null,self__.ancestor_frame,this$__$1,self__.params));
+return (fexpr__100916.cljs$core$IFn$_invoke$arity$1 ? fexpr__100916.cljs$core$IFn$_invoke$arity$1(coords) : fexpr__100916.call(null,coords));
 })();
 if(cljs.core.truth_(sicmutils.calculus.frame.event_QMARK_(event))){
 } else {
@@ -294,7 +294,7 @@ throw (new Error("Assert failed: (event? event)"));
 return event;
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.prototype.sicmutils$calculus$frame$IFrame$event__GT_coords$arity$2 = (function (this$,event){
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.prototype.sicmutils$calculus$frame$IFrame$event__GT_coords$arity$2 = (function (this$,event){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(sicmutils.calculus.frame.event_QMARK_(event))){
@@ -302,8 +302,8 @@ if(cljs.core.truth_(sicmutils.calculus.frame.event_QMARK_(event))){
 throw (new Error("Assert failed: (event? event)"));
 }
 
-var coords = (function (){var fexpr__100936 = (self__.e__GT_c.cljs$core$IFn$_invoke$arity$3 ? self__.e__GT_c.cljs$core$IFn$_invoke$arity$3(self__.ancestor_frame,this$__$1,self__.params) : self__.e__GT_c.call(null,self__.ancestor_frame,this$__$1,self__.params));
-return (fexpr__100936.cljs$core$IFn$_invoke$arity$1 ? fexpr__100936.cljs$core$IFn$_invoke$arity$1(event) : fexpr__100936.call(null,event));
+var coords = (function (){var fexpr__100917 = (self__.e__GT_c.cljs$core$IFn$_invoke$arity$3 ? self__.e__GT_c.cljs$core$IFn$_invoke$arity$3(self__.ancestor_frame,this$__$1,self__.params) : self__.e__GT_c.call(null,self__.ancestor_frame,this$__$1,self__.params));
+return (fexpr__100917.cljs$core$IFn$_invoke$arity$1 ? fexpr__100917.cljs$core$IFn$_invoke$arity$1(event) : fexpr__100917.call(null,event));
 })();
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.frame.frame_owner(coords),this$__$1)){
 } else {
@@ -313,28 +313,28 @@ throw (new Error("Assert failed: (= (frame-owner coords) this)"));
 return coords;
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"c->e","c->e",366611773,null),new cljs.core.Symbol(null,"e->c","e->c",-1459982439,null),new cljs.core.Symbol(null,"call","call",1120531661,null),new cljs.core.Symbol(null,"name","name",-810760592,null),new cljs.core.Symbol(null,"ancestor-frame","ancestor-frame",-1796645653,null),new cljs.core.Symbol(null,"params","params",-1943919534,null),new cljs.core.Symbol(null,"meta100933","meta100933",1542357859,null)], null);
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"c->e","c->e",366611773,null),new cljs.core.Symbol(null,"e->c","e->c",-1459982439,null),new cljs.core.Symbol(null,"call","call",1120531661,null),new cljs.core.Symbol(null,"name","name",-810760592,null),new cljs.core.Symbol(null,"ancestor-frame","ancestor-frame",-1796645653,null),new cljs.core.Symbol(null,"params","params",-1943919534,null),new cljs.core.Symbol(null,"meta100914","meta100914",565627383,null)], null);
 }));
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.cljs$lang$type = true);
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.cljs$lang$type = true);
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.cljs$lang$ctorStr = "sicmutils.calculus.frame/t_sicmutils$calculus$frame100932");
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.cljs$lang$ctorStr = "sicmutils.calculus.frame/t_sicmutils$calculus$frame100913");
 
-(sicmutils.calculus.frame.t_sicmutils$calculus$frame100932.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.frame/t_sicmutils$calculus$frame100932");
+(sicmutils.calculus.frame.t_sicmutils$calculus$frame100913.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.frame/t_sicmutils$calculus$frame100913");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.frame/t_sicmutils$calculus$frame100932.
+ * Positional factory function for sicmutils.calculus.frame/t_sicmutils$calculus$frame100913.
  */
-sicmutils.calculus.frame.__GT_t_sicmutils$calculus$frame100932 = (function sicmutils$calculus$frame$frame_maker_$_call_$___GT_t_sicmutils$calculus$frame100932(c__GT_e__$1,e__GT_c__$1,call__$1,name__$1,ancestor_frame__$1,params__$1,meta100933){
-return (new sicmutils.calculus.frame.t_sicmutils$calculus$frame100932(c__GT_e__$1,e__GT_c__$1,call__$1,name__$1,ancestor_frame__$1,params__$1,meta100933));
+sicmutils.calculus.frame.__GT_t_sicmutils$calculus$frame100913 = (function sicmutils$calculus$frame$frame_maker_$_call_$___GT_t_sicmutils$calculus$frame100913(c__GT_e__$1,e__GT_c__$1,call__$1,name__$1,ancestor_frame__$1,params__$1,meta100914){
+return (new sicmutils.calculus.frame.t_sicmutils$calculus$frame100913(c__GT_e__$1,e__GT_c__$1,call__$1,name__$1,ancestor_frame__$1,params__$1,meta100914));
 });
 
 }
 
-return (new sicmutils.calculus.frame.t_sicmutils$calculus$frame100932(c__GT_e,e__GT_c,sicmutils$calculus$frame$frame_maker_$_call,name,ancestor_frame,params,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.frame.t_sicmutils$calculus$frame100913(c__GT_e,e__GT_c,sicmutils$calculus$frame$frame_maker_$_call,name,ancestor_frame,params,cljs.core.PersistentArrayMap.EMPTY));
 });
 sicmutils$calculus$frame$frame_maker_$_call = function(name,ancestor_frame,params){
 switch(arguments.length){

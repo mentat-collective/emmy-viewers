@@ -26,8 +26,8 @@ cljs.core.derive.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword("sicmutils.
  *   part `im`. `im` defaults to 0.
  */
 sicmutils.complex.complex = (function sicmutils$complex$complex(var_args){
-var G__95562 = arguments.length;
-switch (G__95562) {
+var G__95613 = arguments.length;
+switch (G__95613) {
 case 1:
 return sicmutils.complex.complex.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -79,9 +79,9 @@ if(typeof x === 'string'){
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("sicmutils.complex","complex","sicmutils.complex/complex",-860350651,null),null,(1),null)),(new cljs.core.List(null,x,null,(1),null)))));
 } else {
 if(cljs.core.vector_QMARK_(x)){
-var vec__95567 = x;
-var re = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95567,(0),null);
-var im = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95567,(1),null);
+var vec__95622 = x;
+var re = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95622,(0),null);
+var im = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95622,(1),null);
 if((im == null)){
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("sicmutils.complex","complex","sicmutils.complex/complex",-860350651,null),null,(1),null)),(new cljs.core.List(null,re,null,(1),null)))));
 } else {
@@ -229,7 +229,7 @@ return z;
 }
 } else {
 if(sicmutils.value.real_QMARK_(z)){
-return Math.abs(z);
+return Math.abs(sicmutils.util.double$(z));
 } else {
 return sicmutils.util.illegal("not supported!");
 
@@ -264,19 +264,19 @@ return sicmutils.util.illegal("gcd can only be computed for gaussian integers, b
 if((!(sicmutils.complex.gaussian_integer_QMARK_(r)))){
 return sicmutils.util.illegal("gcd can only be computed for gaussian integers, but second\n        argument was not.");
 } else {
-var vec__95633 = (((sicmutils.generic.magnitude.cljs$core$IFn$_invoke$arity$1(l) < sicmutils.generic.magnitude.cljs$core$IFn$_invoke$arity$1(r)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,r], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [r,l], null));
-var l__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95633,(0),null);
-var r__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95633,(1),null);
+var vec__95640 = (((sicmutils.generic.magnitude.cljs$core$IFn$_invoke$arity$1(l) < sicmutils.generic.magnitude.cljs$core$IFn$_invoke$arity$1(r)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,r], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [r,l], null));
+var l__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95640,(0),null);
+var r__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95640,(1),null);
 var a = sicmutils.complex.round(l__$1);
 var b = sicmutils.complex.round(r__$1);
 while(true){
 if(sicmutils.value.zero_QMARK_(b)){
 return sicmutils.complex.abs_real(a);
 } else {
-var G__95719 = b;
-var G__95720 = sicmutils.generic.sub.cljs$core$IFn$_invoke$arity$2(a,sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(sicmutils.complex.round(sicmutils.generic.div.cljs$core$IFn$_invoke$arity$2(a,b)),b));
-a = G__95719;
-b = G__95720;
+var G__95692 = b;
+var G__95693 = sicmutils.generic.sub.cljs$core$IFn$_invoke$arity$2(a,sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(sicmutils.complex.round(sicmutils.generic.div.cljs$core$IFn$_invoke$arity$2(a,b)),b));
+a = G__95692;
+b = G__95693;
 continue;
 }
 break;
@@ -372,11 +372,11 @@ return a.add(sicmutils.util.double$(n));
 sicmutils.generic.expt.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.complex","complex","sicmutils.complex/complex",1794085118),new cljs.core.Keyword("sicmutils.complex","complex","sicmutils.complex/complex",1794085118)], null),(function (a,b){
 return a.pow(b);
 }));
-var choices_95724 = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [(1),sicmutils.complex.I,(-1),sicmutils.complex._I], null);
+var choices_95702 = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [(1),sicmutils.complex.I,(-1),sicmutils.complex._I], null);
 sicmutils.generic.expt.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.complex","complex","sicmutils.complex/complex",1794085118),new cljs.core.Keyword("sicmutils.value","real","sicmutils.value/real",428478789)], null),(function (a,n){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(a,sicmutils.complex.I)){
-var G__95677 = cljs.core.mod(n,(4));
-return (choices_95724.cljs$core$IFn$_invoke$arity$1 ? choices_95724.cljs$core$IFn$_invoke$arity$1(G__95677) : choices_95724.call(null,G__95677));
+var G__95665 = cljs.core.mod(n,(4));
+return (choices_95702.cljs$core$IFn$_invoke$arity$1 ? choices_95702.cljs$core$IFn$_invoke$arity$1(G__95665) : choices_95702.call(null,G__95665));
 } else {
 return a.pow(sicmutils.util.double$(n));
 }

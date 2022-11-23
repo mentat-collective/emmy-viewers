@@ -58,8 +58,8 @@ throw (new Error("Assert failed: (re-frame.registry/kinds kind)"));
  * to the event handler at call time.
  */
 re_frame.cofx.inject_cofx = (function re_frame$cofx$inject_cofx(var_args){
-var G__86890 = arguments.length;
-switch (G__86890) {
+var G__87399 = arguments.length;
+switch (G__87399) {
 case 2:
 return re_frame.cofx.inject_cofx.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -100,10 +100,10 @@ return lambdaisland.glogi.log.cljs$core$IFn$_invoke$arity$4("re-frame.cofx",new 
 
 (re_frame.cofx.inject_cofx.cljs$lang$maxFixedArity = 3);
 
-re_frame.cofx.register_built_in_BANG_ = (function re_frame$cofx$register_built_in_BANG_(p__86901){
-var map__86902 = p__86901;
-var map__86902__$1 = cljs.core.__destructure_map(map__86902);
-var registry = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__86902__$1,new cljs.core.Keyword(null,"registry","registry",1021159018));
+re_frame.cofx.register_built_in_BANG_ = (function re_frame$cofx$register_built_in_BANG_(p__87406){
+var map__87407 = p__87406;
+var map__87407__$1 = cljs.core.__destructure_map(map__87407);
+var registry = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__87407__$1,new cljs.core.Keyword(null,"registry","registry",1021159018));
 var reg_cofx = cljs.core.partial.cljs$core$IFn$_invoke$arity$3(re_frame.registry.register_handler,registry,re_frame.cofx.kind);
 return reg_cofx(new cljs.core.Keyword(null,"db","db",993250759),(function re_frame$cofx$register_built_in_BANG__$_db_coeffects_handler(coeffects,frame){
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(coeffects,new cljs.core.Keyword(null,"db","db",993250759),cljs.core.deref(new cljs.core.Keyword(null,"app-db","app-db",865606302).cljs$core$IFn$_invoke$arity$1(frame)));

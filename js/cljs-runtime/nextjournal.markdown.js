@@ -5,9 +5,9 @@ var module$node_modules$markdown_it$lib$token=shadow.js.require("module$node_mod
 
 (module$node_modules$markdown_it$lib$token.prototype.cljs$core$ILookup$_lookup$arity$2 = (function (this$,key){
 var this$__$1 = this;
-var obj85718 = this$__$1;
-if((!((obj85718 == null)))){
-return (obj85718[applied_science.js_interop.impl.wrap_key(key)]);
+var obj85930 = this$__$1;
+if((!((obj85930 == null)))){
+return (obj85930[applied_science.js_interop.impl.wrap_key(key)]);
 } else {
 return undefined;
 }
@@ -23,8 +23,8 @@ return nextjournal.markdown.parser.parse.cljs$core$IFn$_invoke$arity$1((nextjour
  * Turns a markdown string into hiccup.
  */
 nextjournal.markdown.__GT_hiccup = (function nextjournal$markdown$__GT_hiccup(var_args){
-var G__85722 = arguments.length;
-switch (G__85722) {
+var G__85933 = arguments.length;
+switch (G__85933) {
 case 1:
 return nextjournal.markdown.__GT_hiccup.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

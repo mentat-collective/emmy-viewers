@@ -18,10 +18,10 @@ var l_offset = (a + delta);
 var r_offset = (a + ((5) * delta));
 var fx = (function (i){
 var ih = (i * h);
-return ((function (){var G__102822 = (l_offset + ih);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102822) : f.call(null,G__102822));
-})() + (function (){var G__102823 = (r_offset + ih);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102823) : f.call(null,G__102823));
+return ((function (){var G__102577 = (l_offset + ih);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102577) : f.call(null,G__102577));
+})() + (function (){var G__102578 = (r_offset + ih);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102578) : f.call(null,G__102578));
 })());
 });
 return ((Sn + (h * sicmutils.util.aggregate.sum.cljs$core$IFn$_invoke$arity$3(fx,(0),n))) / 3.0);
@@ -44,8 +44,8 @@ return ((Sn + (h * sicmutils.util.aggregate.sum.cljs$core$IFn$_invoke$arity$3(fx
  *   is ignored.
  */
 sicmutils.numerical.quadrature.midpoint.midpoint_sequence = (function sicmutils$numerical$quadrature$midpoint$midpoint_sequence(var_args){
-var G__102833 = arguments.length;
-switch (G__102833) {
+var G__102580 = arguments.length;
+switch (G__102580) {
 case 3:
 return sicmutils.numerical.quadrature.midpoint.midpoint_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -64,11 +64,11 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.midpoint.midpoint_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"n","n",562130025),(1)], null));
 }));
 
-(sicmutils.numerical.quadrature.midpoint.midpoint_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102845){
-var map__102846 = p__102845;
-var map__102846__$1 = cljs.core.__destructure_map(map__102846);
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102846__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
-var accelerate_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102846__$1,new cljs.core.Keyword(null,"accelerate?","accelerate?",-29657518));
+(sicmutils.numerical.quadrature.midpoint.midpoint_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102586){
+var map__102587 = p__102586;
+var map__102587__$1 = cljs.core.__destructure_map(map__102587);
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102587__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+var accelerate_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102587__$1,new cljs.core.Keyword(null,"accelerate?","accelerate?",-29657518));
 var S = sicmutils.numerical.quadrature.riemann.midpoint_sum(f,a,b);
 var next_S = sicmutils.numerical.quadrature.midpoint.Sn__GT_S3n(f,a,b);
 var xs = sicmutils.numerical.quadrature.riemann.incrementalize(S,next_S,(3),n);

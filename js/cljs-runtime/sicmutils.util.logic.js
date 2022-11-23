@@ -12,8 +12,8 @@ sicmutils.util.logic._STAR_log_assumptions_QMARK__STAR_ = true;
  *   that this is possible, and fail if it's provably false.
  */
 sicmutils.util.logic.assume_BANG_ = (function sicmutils$util$logic$assume_BANG_(var_args){
-var G__97839 = arguments.length;
-switch (G__97839) {
+var G__98346 = arguments.length;
+switch (G__98346) {
 case 2:
 return sicmutils.util.logic.assume_BANG_.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -36,7 +36,7 @@ return sicmutils.util.logic.assume_BANG_.cljs$core$IFn$_invoke$arity$3(assumptio
 if(cljs.core.truth_(sicmutils.util.logic._STAR_log_assumptions_QMARK__STAR_)){
 taoensso.timbre._log_BANG_.cljs$core$IFn$_invoke$arity$11(taoensso.timbre._STAR_config_STAR_,new cljs.core.Keyword(null,"warn","warn",-436710552),"sicmutils.util.logic",null,23,new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.Keyword(null,"auto","auto",-566279492),(new cljs.core.Delay((function (){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [["Assuming ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(assumption)," in ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(context)].join('')], null);
-}),null)),null,-1957987211,null);
+}),null)),null,804744306,null);
 } else {
 }
 

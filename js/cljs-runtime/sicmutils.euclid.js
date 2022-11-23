@@ -26,18 +26,18 @@ if(sicmutils.value.zero_QMARK_(r)){
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [r0,s0,t0], null);
 } else {
 var q = sicmutils.generic.quotient.cljs$core$IFn$_invoke$arity$2(r0,r);
-var G__95587 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(s0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(q,s));
-var G__95588 = s;
-var G__95589 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(t0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(q,t));
-var G__95590 = t;
-var G__95591 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(r0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(q,r));
-var G__95592 = r;
-s = G__95587;
-s0 = G__95588;
-t = G__95589;
-t0 = G__95590;
-r = G__95591;
-r0 = G__95592;
+var G__95645 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(s0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(q,s));
+var G__95646 = s;
+var G__95647 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(t0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(q,t));
+var G__95648 = t;
+var G__95649 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(r0,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(q,r));
+var G__95650 = r;
+s = G__95645;
+s0 = G__95646;
+t = G__95647;
+t0 = G__95648;
+r = G__95649;
+r0 = G__95650;
 continue;
 }
 break;
@@ -76,10 +76,10 @@ while(true){
 if(sicmutils.value.zero_QMARK_(b__$1)){
 return a__$1;
 } else {
-var G__95593 = b__$1;
-var G__95594 = sicmutils.generic.remainder.cljs$core$IFn$_invoke$arity$2(a__$1,b__$1);
-a__$1 = G__95593;
-b__$1 = G__95594;
+var G__95661 = b__$1;
+var G__95662 = sicmutils.generic.remainder.cljs$core$IFn$_invoke$arity$2(a__$1,b__$1);
+a__$1 = G__95661;
+b__$1 = G__95662;
 continue;
 }
 break;

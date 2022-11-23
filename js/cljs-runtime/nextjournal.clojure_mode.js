@@ -10,8 +10,8 @@ return ({"Vector":coll_span,"Map":coll_span,"List":coll_span});
 nextjournal.clojure_mode.style_tags = cljs.core.clj__GT_js(cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"LineComment","LineComment",1087879618),new cljs.core.Keyword(null,"NS","NS",-764805694),"\"\\\"\"","VarName/Symbol","DocString/...",new cljs.core.Keyword(null,"Boolean","Boolean",20610060),new cljs.core.Keyword(null,"Keyword","Keyword",1804369776),new cljs.core.Keyword(null,"Number","Number",2146289584),new cljs.core.Keyword(null,"RegExp","RegExp",137681940),new cljs.core.Keyword(null,"StringContent","StringContent",-877262859),"Operator/Symbol",new cljs.core.Keyword(null,"Discard!","Discard!",-1586397699),new cljs.core.Keyword(null,"DefLike","DefLike",851541087),new cljs.core.Keyword(null,"Nil","Nil",-1671759041)],[module$node_modules$$lezer$highlight$dist$index_cjs.tags.lineComment,module$node_modules$$lezer$highlight$dist$index_cjs.tags.keyword,module$node_modules$$lezer$highlight$dist$index_cjs.tags.string,module$node_modules$$lezer$highlight$dist$index_cjs.tags.definition(module$node_modules$$lezer$highlight$dist$index_cjs.tags.variableName),module$node_modules$$lezer$highlight$dist$index_cjs.tags.emphasis,module$node_modules$$lezer$highlight$dist$index_cjs.tags.atom,module$node_modules$$lezer$highlight$dist$index_cjs.tags.atom,module$node_modules$$lezer$highlight$dist$index_cjs.tags.number,module$node_modules$$lezer$highlight$dist$index_cjs.tags.regexp,module$node_modules$$lezer$highlight$dist$index_cjs.tags.string,module$node_modules$$lezer$highlight$dist$index_cjs.tags.keyword,module$node_modules$$lezer$highlight$dist$index_cjs.tags.comment,module$node_modules$$lezer$highlight$dist$index_cjs.tags.keyword,module$node_modules$$lezer$highlight$dist$index_cjs.tags.null]));
 nextjournal.clojure_mode.parser = module$node_modules$lezer_clojure$dist$index_cjs.parser;
 nextjournal.clojure_mode.syntax = (function nextjournal$clojure_mode$syntax(var_args){
-var G__89292 = arguments.length;
-switch (G__89292) {
+var G__89734 = arguments.length;
+switch (G__89734) {
 case 0:
 return nextjournal.clojure_mode.syntax.cljs$core$IFn$_invoke$arity$0();
 

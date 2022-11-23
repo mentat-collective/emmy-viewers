@@ -6,8 +6,8 @@ sicmutils.numerical.quadrature.adaptive._STAR_neighborhood_width_STAR_ = 0.05;
  *   `fuzz-factor` defaults to 0 (ie, `split-point` returns the midpoint).
  */
 sicmutils.numerical.quadrature.adaptive.split_point = (function sicmutils$numerical$quadrature$adaptive$split_point(var_args){
-var G__102491 = arguments.length;
-switch (G__102491) {
+var G__102455 = arguments.length;
+switch (G__102455) {
 case 2:
 return sicmutils.numerical.quadrature.adaptive.split_point.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -77,8 +77,8 @@ return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.c
  *   to 0 for deterministic splitting.
  */
 sicmutils.numerical.quadrature.adaptive.adaptive = (function sicmutils$numerical$quadrature$adaptive$adaptive(var_args){
-var G__102588 = arguments.length;
-switch (G__102588) {
+var G__102462 = arguments.length;
+switch (G__102462) {
 case 1:
 return sicmutils.numerical.quadrature.adaptive.adaptive.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -119,31 +119,31 @@ while(true){
 if(cljs.core.empty_QMARK_(stack)){
 return new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"converged?","converged?",1779059976),true,new cljs.core.Keyword(null,"iterations","iterations",-1402710890),iteration,new cljs.core.Keyword(null,"result","result",1415092211),sicmutils.util.aggregate._STAR_fold_STAR_.call(null,sum)], null);
 } else {
-var vec__102602 = cljs.core.peek(stack);
-var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102602,(0),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102602,(1),null);
-var interval = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102602,(2),null);
+var vec__102472 = cljs.core.peek(stack);
+var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102472,(0),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102472,(1),null);
+var interval = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102472,(2),null);
 var remaining = cljs.core.pop(stack);
-var map__102605 = integrate(l,r,interval);
-var map__102605__$1 = cljs.core.__destructure_map(map__102605);
-var converged_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102605__$1,new cljs.core.Keyword(null,"converged?","converged?",1779059976));
-var result = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102605__$1,new cljs.core.Keyword(null,"result","result",1415092211));
+var map__102475 = integrate(l,r,interval);
+var map__102475__$1 = cljs.core.__destructure_map(map__102475);
+var converged_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102475__$1,new cljs.core.Keyword(null,"converged?","converged?",1779059976));
+var result = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102475__$1,new cljs.core.Keyword(null,"result","result",1415092211));
 if(cljs.core.truth_(converged_QMARK_)){
-var G__102637 = remaining;
-var G__102638 = sicmutils.util.aggregate._STAR_fold_STAR_.call(null,sum,result);
-var G__102639 = (iteration + (1));
-stack = G__102637;
-sum = G__102638;
-iteration = G__102639;
+var G__102483 = remaining;
+var G__102484 = sicmutils.util.aggregate._STAR_fold_STAR_.call(null,sum,result);
+var G__102485 = (iteration + (1));
+stack = G__102483;
+sum = G__102484;
+iteration = G__102485;
 continue;
 } else {
 var midpoint = sicmutils.numerical.quadrature.adaptive.split_point.cljs$core$IFn$_invoke$arity$3(l,r,new cljs.core.Keyword(null,"adaptive-neighborhood-width","adaptive-neighborhood-width",791007094).cljs$core$IFn$_invoke$arity$1(opts__$1));
-var G__102640 = cljs.core.conj.cljs$core$IFn$_invoke$arity$variadic(remaining,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [midpoint,r,sicmutils.numerical.quadrature.common.close_l(interval)], null),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,midpoint,sicmutils.numerical.quadrature.common.close_r(interval)], null)], 0));
-var G__102641 = sum;
-var G__102642 = (iteration + (1));
-stack = G__102640;
-sum = G__102641;
-iteration = G__102642;
+var G__102486 = cljs.core.conj.cljs$core$IFn$_invoke$arity$variadic(remaining,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [midpoint,r,sicmutils.numerical.quadrature.common.close_l(interval)], null),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,midpoint,sicmutils.numerical.quadrature.common.close_r(interval)], null)], 0));
+var G__102487 = sum;
+var G__102488 = (iteration + (1));
+stack = G__102486;
+sum = G__102487;
+iteration = G__102488;
 continue;
 }
 }

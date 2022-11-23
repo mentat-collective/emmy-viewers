@@ -27,19 +27,19 @@ if(cljs.core.empty_QMARK_(points__$1)){
 return (0);
 } else {
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2((1),cljs.core.count(points__$1))){
-var vec__100211 = points__$1;
-var vec__100214 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100211,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100214,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100214,(1),null);
+var vec__99133 = points__$1;
+var vec__99136 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99133,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99136,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99136,(1),null);
 return y;
 } else {
 var l_branch = cljs.core.pop(points__$1);
 var r_branch = cljs.core.subvec.cljs$core$IFn$_invoke$arity$2(points__$1,(1));
 var center = cljs.core.pop(r_branch);
-var vec__100219 = cljs.core.first(points__$1);
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100219,(0),null);
-var vec__100222 = cljs.core.peek(points__$1);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100222,(0),null);
+var vec__99140 = cljs.core.first(points__$1);
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99140,(0),null);
+var vec__99143 = cljs.core.peek(points__$1);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99143,(0),null);
 var rl = sicmutils$rational_function$interpolate$bulirsch_stoer_recursive_$_evaluate(l_branch,x__$1);
 var rr = sicmutils$rational_function$interpolate$bulirsch_stoer_recursive_$_evaluate(r_branch,x__$1);
 var rc = sicmutils$rational_function$interpolate$bulirsch_stoer_recursive_$_evaluate(center,x__$1);
@@ -53,24 +53,24 @@ return sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(rr,sicmutils.gener
 var point_array = cljs.core.vec(points);
 return evaluate(point_array,x);
 });
-sicmutils.rational_function.interpolate.bs_prepare = (function sicmutils$rational_function$interpolate$bs_prepare(p__100225){
-var vec__100226 = p__100225;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100226,(0),null);
-var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100226,(1),null);
+sicmutils.rational_function.interpolate.bs_prepare = (function sicmutils$rational_function$interpolate$bs_prepare(p__99151){
+var vec__99153 = p__99151;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99153,(0),null);
+var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99153,(1),null);
 return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,x,(0),fx], null);
 });
 sicmutils.rational_function.interpolate.bs_merge = (function sicmutils$rational_function$interpolate$bs_merge(x){
-return (function (p__100229,p__100230){
-var vec__100231 = p__100229;
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100231,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100231,(1),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100231,(2),null);
-var rl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100231,(3),null);
-var vec__100234 = p__100230;
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100234,(0),null);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100234,(1),null);
-var rc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100234,(2),null);
-var rr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100234,(3),null);
+return (function (p__99160,p__99161){
+var vec__99163 = p__99160;
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99163,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99163,(1),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99163,(2),null);
+var rl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99163,(3),null);
+var vec__99166 = p__99161;
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99166,(0),null);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99166,(1),null);
+var rc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99166,(2),null);
+var rr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99166,(3),null);
 var p = (rr - rl);
 var q = ((((x - xl) / (x - xr)) * ((1) - (p / (rr - rc)))) - (1));
 return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [xl,xr,rl,(rr + (p / q))], null);
@@ -130,8 +130,8 @@ return cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.peek,row);
  *  - Press's Numerical Recipes (p105), [Section 3.2](http://phys.uri.edu/nigh/NumRec/bookfpdf/f3-2.pdf)
  */
 sicmutils.rational_function.interpolate.bulirsch_stoer = (function sicmutils$rational_function$interpolate$bulirsch_stoer(var_args){
-var G__100243 = arguments.length;
-switch (G__100243) {
+var G__99180 = arguments.length;
+switch (G__99180) {
 case 2:
 return sicmutils.rational_function.interpolate.bulirsch_stoer.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -167,10 +167,10 @@ return sicmutils.rational_function.interpolate.bs_present((cljs.core.truth_(colu
  * 
  *   The recursion starts with $C = D = f(x)$.
  */
-sicmutils.rational_function.interpolate.mbs_prepare = (function sicmutils$rational_function$interpolate$mbs_prepare(p__100250){
-var vec__100251 = p__100250;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100251,(0),null);
-var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100251,(1),null);
+sicmutils.rational_function.interpolate.mbs_prepare = (function sicmutils$rational_function$interpolate$mbs_prepare(p__99188){
+var vec__99189 = p__99188;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99189,(0),null);
+var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99189,(1),null);
 return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,x,fx,fx], null);
 });
 /**
@@ -188,24 +188,24 @@ return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMP
  *   TODO understand why this works, or where it helps!
  */
 sicmutils.rational_function.interpolate.mbs_merge = (function sicmutils$rational_function$interpolate$mbs_merge(x){
-return (function (p__100254,p__100255){
-var vec__100256 = p__100254;
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100256,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100256,(1),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100256,(2),null);
-var dl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100256,(3),null);
-var vec__100259 = p__100255;
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100259,(0),null);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100259,(1),null);
-var cr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100259,(2),null);
-var ___$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100259,(3),null);
+return (function (p__99197,p__99198){
+var vec__99200 = p__99197;
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99200,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99200,(1),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99200,(2),null);
+var dl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99200,(3),null);
+var vec__99203 = p__99198;
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99203,(0),null);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99203,(1),null);
+var cr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99203,(2),null);
+var ___$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99203,(3),null);
 var c_d = (cr - dl);
 var d_STAR_ratio = (((x - xl) / (x - xr)) * dl);
 var den = (d_STAR_ratio - cr);
 if((den === (0))){
 taoensso.timbre._log_BANG_.cljs$core$IFn$_invoke$arity$11(taoensso.timbre._STAR_config_STAR_,new cljs.core.Keyword(null,"info","info",-317069002),"sicmutils.rational-function.interpolate",null,190,new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.Keyword(null,"auto","auto",-566279492),(new cljs.core.Delay((function (){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["zero denominator!"], null);
-}),null)),null,861869810,null);
+}),null)),null,-1551208933,null);
 
 return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [xl,xr,cr,dl], null);
 } else {

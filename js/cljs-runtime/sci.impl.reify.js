@@ -1,14 +1,14 @@
 goog.provide('sci.impl.reify');
 sci.impl.reify.reify = (function sci$impl$reify$reify(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___90570 = arguments.length;
-var i__4865__auto___90571 = (0);
+var len__4864__auto___91504 = arguments.length;
+var i__4865__auto___91505 = (0);
 while(true){
-if((i__4865__auto___90571 < len__4864__auto___90570)){
-args__4870__auto__.push((arguments[i__4865__auto___90571]));
+if((i__4865__auto___91505 < len__4864__auto___91504)){
+args__4870__auto__.push((arguments[i__4865__auto___91505]));
 
-var G__90572 = (i__4865__auto___90571 + (1));
-i__4865__auto___90571 = G__90572;
+var G__91506 = (i__4865__auto___91505 + (1));
+i__4865__auto___91505 = G__91506;
 continue;
 } else {
 }
@@ -20,14 +20,14 @@ return sci.impl.reify.reify.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]
 });
 
 (sci.impl.reify.reify.cljs$core$IFn$_invoke$arity$variadic = (function (form,_,_ctx,args){
-var map__90564 = cljs.core.group_by(cljs.core.symbol_QMARK_,args);
-var map__90564__$1 = cljs.core.__destructure_map(map__90564);
-var classes = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__90564__$1,true);
-var methods$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__90564__$1,false);
-var methods$__$1 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__90565){
-var vec__90566 = p__90565;
-var meth = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__90566,(0),null);
-var bodies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__90566,(1),null);
+var map__91499 = cljs.core.group_by(cljs.core.symbol_QMARK_,args);
+var map__91499__$1 = cljs.core.__destructure_map(map__91499);
+var classes = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__91499__$1,true);
+var methods$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__91499__$1,false);
+var methods$__$1 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__91500){
+var vec__91501 = p__91500;
+var meth = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__91501,(0),null);
+var bodies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__91501,(1),null);
 var meth__$1 = ((cljs.core.simple_symbol_QMARK_(meth))?meth:cljs.core.symbol.cljs$core$IFn$_invoke$arity$1(cljs.core.name(meth)));
 return cljs.core.vec(cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"quote","quote",1377916282,null),null,(1),null)),(new cljs.core.List(null,meth__$1,null,(1),null))))),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),null,(1),null)),cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.rest,bodies)))),null,(1),null))))));
 }),cljs.core.group_by(cljs.core.first,methods$)));
@@ -37,15 +37,15 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
 (sci.impl.reify.reify.cljs$lang$maxFixedArity = (3));
 
 /** @this {Function} */
-(sci.impl.reify.reify.cljs$lang$applyTo = (function (seq90560){
-var G__90561 = cljs.core.first(seq90560);
-var seq90560__$1 = cljs.core.next(seq90560);
-var G__90562 = cljs.core.first(seq90560__$1);
-var seq90560__$2 = cljs.core.next(seq90560__$1);
-var G__90563 = cljs.core.first(seq90560__$2);
-var seq90560__$3 = cljs.core.next(seq90560__$2);
+(sci.impl.reify.reify.cljs$lang$applyTo = (function (seq91492){
+var G__91493 = cljs.core.first(seq91492);
+var seq91492__$1 = cljs.core.next(seq91492);
+var G__91494 = cljs.core.first(seq91492__$1);
+var seq91492__$2 = cljs.core.next(seq91492__$1);
+var G__91495 = cljs.core.first(seq91492__$2);
+var seq91492__$3 = cljs.core.next(seq91492__$2);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__90561,G__90562,G__90563,seq90560__$3);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__91493,G__91494,G__91495,seq91492__$3);
 }));
 
 sci.impl.reify.reify_STAR_ = (function sci$impl$reify$reify_STAR_(_ctx,_form,classes,methods$){

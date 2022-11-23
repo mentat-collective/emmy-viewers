@@ -55,8 +55,8 @@ goog.provide('edamame.core');
  *   
  */
 edamame.core.parse_string = (function edamame$core$parse_string(var_args){
-var G__85160 = arguments.length;
-switch (G__85160) {
+var G__85873 = arguments.length;
+switch (G__85873) {
 case 1:
 return edamame.core.parse_string.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -86,8 +86,8 @@ return edamame.impl.parser.parse_string(s,opts);
  *   in a vector.
  */
 edamame.core.parse_string_all = (function edamame$core$parse_string_all(var_args){
-var G__85164 = arguments.length;
-switch (G__85164) {
+var G__85876 = arguments.length;
+switch (G__85876) {
 case 1:
 return edamame.core.parse_string_all.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -140,8 +140,8 @@ return edamame.impl.parser.normalize_opts(opts);
  *   be normalized with normalize-opts first.
  */
 edamame.core.parse_next = (function edamame$core$parse_next(var_args){
-var G__85180 = arguments.length;
-switch (G__85180) {
+var G__85892 = arguments.length;
+switch (G__85892) {
 case 1:
 return edamame.core.parse_next.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -161,6 +161,12 @@ return edamame.core.parse_next.cljs$core$IFn$_invoke$arity$2(reader,edamame.impl
 }));
 
 (edamame.core.parse_next.cljs$core$IFn$_invoke$arity$2 = (function (reader,opts){
+if(cljs.tools.reader.reader_types.source_logging_reader_QMARK_(reader)){
+var buf_85943 = edamame.impl.parser.buf(reader);
+buf_85943.clear();
+} else {
+}
+
 var v = edamame.impl.parser.parse_next.cljs$core$IFn$_invoke$arity$2(opts,reader);
 if((edamame.impl.parser.eof === v)){
 var or__4253__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(opts,new cljs.core.Keyword(null,"eof","eof",-489063237));

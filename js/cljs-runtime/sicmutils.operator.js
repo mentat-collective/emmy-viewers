@@ -102,8 +102,8 @@ return (new sicmutils.operator.Operator(cljs.core.identity,self__.arity,new cljs
 (sicmutils.operator.Operator.prototype.sicmutils$value$Value$freeze$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
-var G__99612 = sicmutils.value.freeze(self__.name);
-return (sicmutils.operator.simplify_operator_name.cljs$core$IFn$_invoke$arity$1 ? sicmutils.operator.simplify_operator_name.cljs$core$IFn$_invoke$arity$1(G__99612) : sicmutils.operator.simplify_operator_name.call(null,G__99612));
+var G__99939 = sicmutils.value.freeze(self__.name);
+return (sicmutils.operator.simplify_operator_name.cljs$core$IFn$_invoke$arity$1 ? sicmutils.operator.simplify_operator_name.cljs$core$IFn$_invoke$arity$1(G__99939) : sicmutils.operator.simplify_operator_name.call(null,G__99939));
 }));
 
 (sicmutils.operator.Operator.prototype.sicmutils$value$Value$kind$arity$1 = (function (_){
@@ -171,11 +171,11 @@ var ___$3 = this;
 return sicmutils.util.illegal("Operators don't support the not-found arity of get!");
 }));
 
-(sicmutils.operator.Operator.prototype.call = (function (unused__43952__auto__){
+(sicmutils.operator.Operator.prototype.call = (function (unused__43702__auto__){
 var self__ = this;
 var self__ = this;
-var G__99619 = (arguments.length - (1));
-switch (G__99619) {
+var G__99943 = (arguments.length - (1));
+switch (G__99943) {
 case (1):
 return self__.cljs$core$IFn$_invoke$arity$1((arguments[(1)]));
 
@@ -266,10 +266,10 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 }
 }));
 
-(sicmutils.operator.Operator.prototype.apply = (function (self__,args99605){
+(sicmutils.operator.Operator.prototype.apply = (function (self__,args99938){
 var self__ = this;
 var self____$1 = this;
-return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args99605)));
+return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args99938)));
 }));
 
 (sicmutils.operator.Operator.prototype.cljs$core$IFn$_invoke$arity$1 = (function (a){
@@ -494,8 +494,8 @@ return sicmutils.util.illegal(["non-operator supplied: ",cljs.core.str.cljs$core
  *   returned [[Operator]].
  */
 sicmutils.operator.make_operator = (function sicmutils$operator$make_operator(var_args){
-var G__99622 = arguments.length;
-switch (G__99622) {
+var G__99954 = arguments.length;
+switch (G__99954) {
 case 1:
 return sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -602,9 +602,9 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(joint_ctx,k,v);
 sicmutils.operator.combine_f_op = (function sicmutils$operator$combine_f_op(op,sym,f,o){
 var h = sicmutils.function$.coerce_to_fn(f,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null));
 return sicmutils.operator.__GT_Operator((function (g){
-var G__99623 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([h,g], 0));
-var G__99624 = (o.cljs$core$IFn$_invoke$arity$1 ? o.cljs$core$IFn$_invoke$arity$1(g) : o.call(null,g));
-return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__99623,G__99624) : op.call(null,G__99623,G__99624));
+var G__99955 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([h,g], 0));
+var G__99956 = (o.cljs$core$IFn$_invoke$arity$1 ? o.cljs$core$IFn$_invoke$arity$1(g) : o.call(null,g));
+return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__99955,G__99956) : op.call(null,G__99955,G__99956));
 }),sicmutils.operator.arity(o),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,sym,null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(f),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null))], 0)))),sicmutils.operator.context(o),null);
 });
 /**
@@ -628,9 +628,9 @@ return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__9
 sicmutils.operator.combine_op_f = (function sicmutils$operator$combine_op_f(op,sym,o,f){
 var h = sicmutils.function$.coerce_to_fn(f,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null));
 return sicmutils.operator.__GT_Operator((function (g){
-var G__99625 = (o.cljs$core$IFn$_invoke$arity$1 ? o.cljs$core$IFn$_invoke$arity$1(g) : o.call(null,g));
-var G__99626 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([h,g], 0));
-return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__99625,G__99626) : op.call(null,G__99625,G__99626));
+var G__99957 = (o.cljs$core$IFn$_invoke$arity$1 ? o.cljs$core$IFn$_invoke$arity$1(g) : o.call(null,g));
+var G__99958 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([h,g], 0));
+return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__99957,G__99958) : op.call(null,G__99957,G__99958));
 }),sicmutils.operator.arity(o),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,sym,null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.value.freeze(f),null,(1),null))], 0)))),sicmutils.operator.context(o),null);
 });
 /**
@@ -641,24 +641,24 @@ return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__9
  */
 sicmutils.operator.negate = (function sicmutils$operator$negate(o){
 return sicmutils.operator.__GT_Operator((function() { 
-var G__99698__delegate = function (fs){
+var G__99984__delegate = function (fs){
 return sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(o,fs));
 };
-var G__99698 = function (var_args){
+var G__99984 = function (var_args){
 var fs = null;
 if (arguments.length > 0) {
-var G__99699__i = 0, G__99699__a = new Array(arguments.length -  0);
-while (G__99699__i < G__99699__a.length) {G__99699__a[G__99699__i] = arguments[G__99699__i + 0]; ++G__99699__i;}
-  fs = new cljs.core.IndexedSeq(G__99699__a,0,null);
+var G__99985__i = 0, G__99985__a = new Array(arguments.length -  0);
+while (G__99985__i < G__99985__a.length) {G__99985__a[G__99985__i] = arguments[G__99985__i + 0]; ++G__99985__i;}
+  fs = new cljs.core.IndexedSeq(G__99985__a,0,null);
 } 
-return G__99698__delegate.call(this,fs);};
-G__99698.cljs$lang$maxFixedArity = 0;
-G__99698.cljs$lang$applyTo = (function (arglist__99700){
-var fs = cljs.core.seq(arglist__99700);
-return G__99698__delegate(fs);
+return G__99984__delegate.call(this,fs);};
+G__99984.cljs$lang$maxFixedArity = 0;
+G__99984.cljs$lang$applyTo = (function (arglist__99986){
+var fs = cljs.core.seq(arglist__99986);
+return G__99984__delegate(fs);
 });
-G__99698.cljs$core$IFn$_invoke$arity$variadic = G__99698__delegate;
-return G__99698;
+G__99984.cljs$core$IFn$_invoke$arity$variadic = G__99984__delegate;
+return G__99984;
 })()
 ,sicmutils.operator.arity(o),(new cljs.core.List(null,new cljs.core.Symbol(null,"-","-",-471816912,null),(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null)),(2),null)),sicmutils.operator.context(o),cljs.core.meta(o));
 });
@@ -672,24 +672,24 @@ if(sicmutils.value.zero_QMARK_(p)){
 return sicmutils.operator.with_context(o,ctx);
 } else {
 return sicmutils.operator.__GT_Operator((function() { 
-var G__99701__delegate = function (xs){
+var G__99987__delegate = function (xs){
 return sicmutils.generic.sub.cljs$core$IFn$_invoke$arity$2(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(o,xs),cljs.core.apply.cljs$core$IFn$_invoke$arity$2(p,xs));
 };
-var G__99701 = function (var_args){
+var G__99987 = function (var_args){
 var xs = null;
 if (arguments.length > 0) {
-var G__99702__i = 0, G__99702__a = new Array(arguments.length -  0);
-while (G__99702__i < G__99702__a.length) {G__99702__a[G__99702__i] = arguments[G__99702__i + 0]; ++G__99702__i;}
-  xs = new cljs.core.IndexedSeq(G__99702__a,0,null);
+var G__99988__i = 0, G__99988__a = new Array(arguments.length -  0);
+while (G__99988__i < G__99988__a.length) {G__99988__a[G__99988__i] = arguments[G__99988__i + 0]; ++G__99988__i;}
+  xs = new cljs.core.IndexedSeq(G__99988__a,0,null);
 } 
-return G__99701__delegate.call(this,xs);};
-G__99701.cljs$lang$maxFixedArity = 0;
-G__99701.cljs$lang$applyTo = (function (arglist__99703){
-var xs = cljs.core.seq(arglist__99703);
-return G__99701__delegate(xs);
+return G__99987__delegate.call(this,xs);};
+G__99987.cljs$lang$maxFixedArity = 0;
+G__99987.cljs$lang$applyTo = (function (arglist__99989){
+var xs = cljs.core.seq(arglist__99989);
+return G__99987__delegate(xs);
 });
-G__99701.cljs$core$IFn$_invoke$arity$variadic = G__99701__delegate;
-return G__99701;
+G__99987.cljs$core$IFn$_invoke$arity$variadic = G__99987__delegate;
+return G__99987;
 })()
 ,sicmutils.function$.joint_arity(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.operator.arity(o),sicmutils.operator.arity(p)], null)),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"-","-",-471816912,null),null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.operator.name(p),null,(1),null))], 0)))),ctx,null);
 }
@@ -713,24 +713,24 @@ if(sicmutils.value.zero_QMARK_(p)){
 return sicmutils.operator.with_context(o,ctx);
 } else {
 return sicmutils.operator.__GT_Operator((function() { 
-var G__99704__delegate = function (xs){
+var G__99992__delegate = function (xs){
 return sicmutils.generic.add.cljs$core$IFn$_invoke$arity$2(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(o,xs),cljs.core.apply.cljs$core$IFn$_invoke$arity$2(p,xs));
 };
-var G__99704 = function (var_args){
+var G__99992 = function (var_args){
 var xs = null;
 if (arguments.length > 0) {
-var G__99705__i = 0, G__99705__a = new Array(arguments.length -  0);
-while (G__99705__i < G__99705__a.length) {G__99705__a[G__99705__i] = arguments[G__99705__i + 0]; ++G__99705__i;}
-  xs = new cljs.core.IndexedSeq(G__99705__a,0,null);
+var G__99993__i = 0, G__99993__a = new Array(arguments.length -  0);
+while (G__99993__i < G__99993__a.length) {G__99993__a[G__99993__i] = arguments[G__99993__i + 0]; ++G__99993__i;}
+  xs = new cljs.core.IndexedSeq(G__99993__a,0,null);
 } 
-return G__99704__delegate.call(this,xs);};
-G__99704.cljs$lang$maxFixedArity = 0;
-G__99704.cljs$lang$applyTo = (function (arglist__99706){
-var xs = cljs.core.seq(arglist__99706);
-return G__99704__delegate(xs);
+return G__99992__delegate.call(this,xs);};
+G__99992.cljs$lang$maxFixedArity = 0;
+G__99992.cljs$lang$applyTo = (function (arglist__99994){
+var xs = cljs.core.seq(arglist__99994);
+return G__99992__delegate(xs);
 });
-G__99704.cljs$core$IFn$_invoke$arity$variadic = G__99704__delegate;
-return G__99704;
+G__99992.cljs$core$IFn$_invoke$arity$variadic = G__99992__delegate;
+return G__99992;
 })()
 ,sicmutils.function$.joint_arity(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.function$.arity(o),sicmutils.function$.arity(p)], null)),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"+","+",-740910886,null),null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.operator.name(p),null,(1),null))], 0)))),ctx,null);
 
@@ -747,8 +747,8 @@ return sicmutils.operator.combine_op_f(sicmutils.generic.add,new cljs.core.Symbo
  * Multiplication of operators is defined as their composition.
  */
 sicmutils.operator.o_COLON__STAR_ = (function sicmutils$operator$o_COLON__STAR_(var_args){
-var G__99628 = arguments.length;
-switch (G__99628) {
+var G__99960 = arguments.length;
+switch (G__99960) {
 case 0:
 return sicmutils.operator.o_COLON__STAR_.cljs$core$IFn$_invoke$arity$0();
 
@@ -801,24 +801,24 @@ return sicmutils.operator.__GT_Operator(sicmutils.function$.compose.cljs$core$IF
  */
 sicmutils.operator.f_STAR_o = (function sicmutils$operator$f_STAR_o(f,o){
 return sicmutils.operator.__GT_Operator((function() { 
-var G__99709__delegate = function (gs){
+var G__100002__delegate = function (gs){
 return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(f,cljs.core.apply.cljs$core$IFn$_invoke$arity$2(o,gs));
 };
-var G__99709 = function (var_args){
+var G__100002 = function (var_args){
 var gs = null;
 if (arguments.length > 0) {
-var G__99710__i = 0, G__99710__a = new Array(arguments.length -  0);
-while (G__99710__i < G__99710__a.length) {G__99710__a[G__99710__i] = arguments[G__99710__i + 0]; ++G__99710__i;}
-  gs = new cljs.core.IndexedSeq(G__99710__a,0,null);
+var G__100004__i = 0, G__100004__a = new Array(arguments.length -  0);
+while (G__100004__i < G__100004__a.length) {G__100004__a[G__100004__i] = arguments[G__100004__i + 0]; ++G__100004__i;}
+  gs = new cljs.core.IndexedSeq(G__100004__a,0,null);
 } 
-return G__99709__delegate.call(this,gs);};
-G__99709.cljs$lang$maxFixedArity = 0;
-G__99709.cljs$lang$applyTo = (function (arglist__99711){
-var gs = cljs.core.seq(arglist__99711);
-return G__99709__delegate(gs);
+return G__100002__delegate.call(this,gs);};
+G__100002.cljs$lang$maxFixedArity = 0;
+G__100002.cljs$lang$applyTo = (function (arglist__100005){
+var gs = cljs.core.seq(arglist__100005);
+return G__100002__delegate(gs);
 });
-G__99709.cljs$core$IFn$_invoke$arity$variadic = G__99709__delegate;
-return G__99709;
+G__100002.cljs$core$IFn$_invoke$arity$variadic = G__100002__delegate;
+return G__100002;
 })()
 ,sicmutils.operator.arity(o),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"*","*",345799209,null),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(f),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null))], 0)))),sicmutils.operator.context(o),cljs.core.meta(o));
 });
@@ -828,26 +828,26 @@ return G__99709;
  */
 sicmutils.operator.o_STAR_f = (function sicmutils$operator$o_STAR_f(o,f){
 return sicmutils.operator.__GT_Operator((function() { 
-var G__99712__delegate = function (gs){
+var G__100009__delegate = function (gs){
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(o,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (g){
 return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(f,g);
 }),gs));
 };
-var G__99712 = function (var_args){
+var G__100009 = function (var_args){
 var gs = null;
 if (arguments.length > 0) {
-var G__99713__i = 0, G__99713__a = new Array(arguments.length -  0);
-while (G__99713__i < G__99713__a.length) {G__99713__a[G__99713__i] = arguments[G__99713__i + 0]; ++G__99713__i;}
-  gs = new cljs.core.IndexedSeq(G__99713__a,0,null);
+var G__100011__i = 0, G__100011__a = new Array(arguments.length -  0);
+while (G__100011__i < G__100011__a.length) {G__100011__a[G__100011__i] = arguments[G__100011__i + 0]; ++G__100011__i;}
+  gs = new cljs.core.IndexedSeq(G__100011__a,0,null);
 } 
-return G__99712__delegate.call(this,gs);};
-G__99712.cljs$lang$maxFixedArity = 0;
-G__99712.cljs$lang$applyTo = (function (arglist__99714){
-var gs = cljs.core.seq(arglist__99714);
-return G__99712__delegate(gs);
+return G__100009__delegate.call(this,gs);};
+G__100009.cljs$lang$maxFixedArity = 0;
+G__100009.cljs$lang$applyTo = (function (arglist__100012){
+var gs = cljs.core.seq(arglist__100012);
+return G__100009__delegate(gs);
 });
-G__99712.cljs$core$IFn$_invoke$arity$variadic = G__99712__delegate;
-return G__99712;
+G__100009.cljs$core$IFn$_invoke$arity$variadic = G__100009__delegate;
+return G__100009;
 })()
 ,sicmutils.operator.arity(o),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"*","*",345799209,null),null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,sicmutils.value.freeze(f),null,(1),null))], 0)))),sicmutils.operator.context(o),cljs.core.meta(o));
 });
@@ -857,24 +857,24 @@ return G__99712;
  */
 sicmutils.operator.o_div_n = (function sicmutils$operator$o_div_n(o,n){
 return sicmutils.operator.__GT_Operator((function() { 
-var G__99715__delegate = function (gs){
+var G__100015__delegate = function (gs){
 return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.invert.cljs$core$IFn$_invoke$arity$1(n),cljs.core.apply.cljs$core$IFn$_invoke$arity$2(o,gs));
 };
-var G__99715 = function (var_args){
+var G__100015 = function (var_args){
 var gs = null;
 if (arguments.length > 0) {
-var G__99716__i = 0, G__99716__a = new Array(arguments.length -  0);
-while (G__99716__i < G__99716__a.length) {G__99716__a[G__99716__i] = arguments[G__99716__i + 0]; ++G__99716__i;}
-  gs = new cljs.core.IndexedSeq(G__99716__a,0,null);
+var G__100017__i = 0, G__100017__a = new Array(arguments.length -  0);
+while (G__100017__i < G__100017__a.length) {G__100017__a[G__100017__i] = arguments[G__100017__i + 0]; ++G__100017__i;}
+  gs = new cljs.core.IndexedSeq(G__100017__a,0,null);
 } 
-return G__99715__delegate.call(this,gs);};
-G__99715.cljs$lang$maxFixedArity = 0;
-G__99715.cljs$lang$applyTo = (function (arglist__99717){
-var gs = cljs.core.seq(arglist__99717);
-return G__99715__delegate(gs);
+return G__100015__delegate.call(this,gs);};
+G__100015.cljs$lang$maxFixedArity = 0;
+G__100015.cljs$lang$applyTo = (function (arglist__100018){
+var gs = cljs.core.seq(arglist__100018);
+return G__100015__delegate(gs);
 });
-G__99715.cljs$core$IFn$_invoke$arity$variadic = G__99715__delegate;
-return G__99715;
+G__100015.cljs$core$IFn$_invoke$arity$variadic = G__100015__delegate;
+return G__100015;
 })()
 ,sicmutils.operator.arity(o),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"/","/",-1371932971,null),null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(o),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,n,null,(1),null))], 0)))),sicmutils.operator.context(o),cljs.core.meta(o));
 });
@@ -910,8 +910,8 @@ return sicmutils.operator.__GT_Operator((sicmutils.series.exp_series.cljs$core$I
  *   each term of the taylor series expansion.
  */
 sicmutils.operator.expn = (function sicmutils$operator$expn(var_args){
-var G__99630 = arguments.length;
-switch (G__99630) {
+var G__99963 = arguments.length;
+switch (G__99963) {
 case 1:
 return sicmutils.operator.expn.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -943,79 +943,79 @@ return sicmutils.operator.__GT_Operator(sicmutils.series.inflate((sicmutils.seri
 
 cljs.core.derive.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword("sicmutils.value","scalar","sicmutils.value/scalar",1616793231),new cljs.core.Keyword("sicmutils.operator","co-operator","sicmutils.operator/co-operator",-2115495052));
 cljs.core.derive.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword("sicmutils.value","function","sicmutils.value/function",-1964931037),new cljs.core.Keyword("sicmutils.operator","co-operator","sicmutils.operator/co-operator",-2115495052));
-var seq__99631_99719 = cljs.core.seq(new cljs.core.PersistentVector(null, 14, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.exp,sicmutils.series.exp_series,new cljs.core.Symbol(null,"exp","exp",1378825265,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.cos,sicmutils.series.cos_series,new cljs.core.Symbol(null,"cos","cos",-1452677493,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.sin,sicmutils.series.sin_series,new cljs.core.Symbol(null,"sin","sin",1721439389,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.tan,sicmutils.series.tan_series,new cljs.core.Symbol(null,"tan","tan",-1380825876,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.sec,sicmutils.series.sec_series,new cljs.core.Symbol(null,"sec","sec",60154974,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.acos,sicmutils.series.acos_series,new cljs.core.Symbol(null,"acos","acos",353741763,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.asin,sicmutils.series.asin_series,new cljs.core.Symbol(null,"asin","asin",-904130570,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.atan,sicmutils.series.atan_series,new cljs.core.Symbol(null,"atan","atan",-1026550135,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.acot,sicmutils.series.acot_series,new cljs.core.Symbol(null,"acot","acot",1103016569,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.cosh,sicmutils.series.cosh_series,new cljs.core.Symbol(null,"cosh","cosh",-1962788142,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.sinh,sicmutils.series.sinh_series,new cljs.core.Symbol(null,"sinh","sinh",-990423302,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.tanh,sicmutils.series.tanh_series,new cljs.core.Symbol(null,"tanh","tanh",480481797,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.asinh,sicmutils.series.asinh_series,new cljs.core.Symbol(null,"asinh","asinh",-1398350397,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.atanh,sicmutils.series.atanh_series,new cljs.core.Symbol(null,"atanh","atanh",-1915750692,null)], null)], null));
-var chunk__99632_99720 = null;
-var count__99633_99721 = (0);
-var i__99634_99722 = (0);
+var seq__99964_100033 = cljs.core.seq(new cljs.core.PersistentVector(null, 14, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.exp,sicmutils.series.exp_series,new cljs.core.Symbol(null,"exp","exp",1378825265,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.cos,sicmutils.series.cos_series,new cljs.core.Symbol(null,"cos","cos",-1452677493,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.sin,sicmutils.series.sin_series,new cljs.core.Symbol(null,"sin","sin",1721439389,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.tan,sicmutils.series.tan_series,new cljs.core.Symbol(null,"tan","tan",-1380825876,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.sec,sicmutils.series.sec_series,new cljs.core.Symbol(null,"sec","sec",60154974,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.acos,sicmutils.series.acos_series,new cljs.core.Symbol(null,"acos","acos",353741763,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.asin,sicmutils.series.asin_series,new cljs.core.Symbol(null,"asin","asin",-904130570,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.atan,sicmutils.series.atan_series,new cljs.core.Symbol(null,"atan","atan",-1026550135,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.acot,sicmutils.series.acot_series,new cljs.core.Symbol(null,"acot","acot",1103016569,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.cosh,sicmutils.series.cosh_series,new cljs.core.Symbol(null,"cosh","cosh",-1962788142,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.sinh,sicmutils.series.sinh_series,new cljs.core.Symbol(null,"sinh","sinh",-990423302,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.tanh,sicmutils.series.tanh_series,new cljs.core.Symbol(null,"tanh","tanh",480481797,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.asinh,sicmutils.series.asinh_series,new cljs.core.Symbol(null,"asinh","asinh",-1398350397,null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.atanh,sicmutils.series.atanh_series,new cljs.core.Symbol(null,"atanh","atanh",-1915750692,null)], null)], null));
+var chunk__99965_100034 = null;
+var count__99966_100035 = (0);
+var i__99967_100036 = (0);
 while(true){
-if((i__99634_99722 < count__99633_99721)){
-var vec__99641_99723 = chunk__99632_99720.cljs$core$IIndexed$_nth$arity$2(null,i__99634_99722);
-var op_99724 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99641_99723,(0),null);
-var f_99725 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99641_99723,(1),null);
-var sym_99726 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99641_99723,(2),null);
-var assert_str_99727 = ["g/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(sym_99726)," :sicmutils.operator/operator"].join('');
-op_99724.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.operator","operator","sicmutils.operator/operator",-1165539017)], null),((function (seq__99631_99719,chunk__99632_99720,count__99633_99721,i__99634_99722,assert_str_99727,vec__99641_99723,op_99724,f_99725,sym_99726){
+if((i__99967_100036 < count__99966_100035)){
+var vec__99974_100054 = chunk__99965_100034.cljs$core$IIndexed$_nth$arity$2(null,i__99967_100036);
+var op_100055 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99974_100054,(0),null);
+var f_100056 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99974_100054,(1),null);
+var sym_100057 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99974_100054,(2),null);
+var assert_str_100059 = ["g/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(sym_100057)," :sicmutils.operator/operator"].join('');
+op_100055.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.operator","operator","sicmutils.operator/operator",-1165539017)], null),((function (seq__99964_100033,chunk__99965_100034,count__99966_100035,i__99967_100036,assert_str_100059,vec__99974_100054,op_100055,f_100056,sym_100057){
 return (function (g){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.operator.arity(g),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null))){
 } else {
-throw (new Error(["Assert failed: ",assert_str_99727,"\n","(= (arity g) [:exactly 1])"].join('')));
+throw (new Error(["Assert failed: ",assert_str_100059,"\n","(= (arity g) [:exactly 1])"].join('')));
 }
 
-return sicmutils.operator.__GT_Operator((f_99725.cljs$core$IFn$_invoke$arity$1 ? f_99725.cljs$core$IFn$_invoke$arity$1(g) : f_99725.call(null,g)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,sym_99726,null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(g),null,(1),null))))),sicmutils.operator.context(g),null);
-});})(seq__99631_99719,chunk__99632_99720,count__99633_99721,i__99634_99722,assert_str_99727,vec__99641_99723,op_99724,f_99725,sym_99726))
+return sicmutils.operator.__GT_Operator((f_100056.cljs$core$IFn$_invoke$arity$1 ? f_100056.cljs$core$IFn$_invoke$arity$1(g) : f_100056.call(null,g)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,sym_100057,null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(g),null,(1),null))))),sicmutils.operator.context(g),null);
+});})(seq__99964_100033,chunk__99965_100034,count__99966_100035,i__99967_100036,assert_str_100059,vec__99974_100054,op_100055,f_100056,sym_100057))
 );
 
 
-var G__99728 = seq__99631_99719;
-var G__99729 = chunk__99632_99720;
-var G__99730 = count__99633_99721;
-var G__99731 = (i__99634_99722 + (1));
-seq__99631_99719 = G__99728;
-chunk__99632_99720 = G__99729;
-count__99633_99721 = G__99730;
-i__99634_99722 = G__99731;
+var G__100060 = seq__99964_100033;
+var G__100061 = chunk__99965_100034;
+var G__100062 = count__99966_100035;
+var G__100063 = (i__99967_100036 + (1));
+seq__99964_100033 = G__100060;
+chunk__99965_100034 = G__100061;
+count__99966_100035 = G__100062;
+i__99967_100036 = G__100063;
 continue;
 } else {
-var temp__5753__auto___99732 = cljs.core.seq(seq__99631_99719);
-if(temp__5753__auto___99732){
-var seq__99631_99733__$1 = temp__5753__auto___99732;
-if(cljs.core.chunked_seq_QMARK_(seq__99631_99733__$1)){
-var c__4679__auto___99734 = cljs.core.chunk_first(seq__99631_99733__$1);
-var G__99735 = cljs.core.chunk_rest(seq__99631_99733__$1);
-var G__99736 = c__4679__auto___99734;
-var G__99737 = cljs.core.count(c__4679__auto___99734);
-var G__99738 = (0);
-seq__99631_99719 = G__99735;
-chunk__99632_99720 = G__99736;
-count__99633_99721 = G__99737;
-i__99634_99722 = G__99738;
+var temp__5753__auto___100064 = cljs.core.seq(seq__99964_100033);
+if(temp__5753__auto___100064){
+var seq__99964_100065__$1 = temp__5753__auto___100064;
+if(cljs.core.chunked_seq_QMARK_(seq__99964_100065__$1)){
+var c__4679__auto___100066 = cljs.core.chunk_first(seq__99964_100065__$1);
+var G__100067 = cljs.core.chunk_rest(seq__99964_100065__$1);
+var G__100068 = c__4679__auto___100066;
+var G__100069 = cljs.core.count(c__4679__auto___100066);
+var G__100070 = (0);
+seq__99964_100033 = G__100067;
+chunk__99965_100034 = G__100068;
+count__99966_100035 = G__100069;
+i__99967_100036 = G__100070;
 continue;
 } else {
-var vec__99644_99739 = cljs.core.first(seq__99631_99733__$1);
-var op_99740 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99644_99739,(0),null);
-var f_99741 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99644_99739,(1),null);
-var sym_99742 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99644_99739,(2),null);
-var assert_str_99743 = ["g/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(sym_99742)," :sicmutils.operator/operator"].join('');
-op_99740.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.operator","operator","sicmutils.operator/operator",-1165539017)], null),((function (seq__99631_99719,chunk__99632_99720,count__99633_99721,i__99634_99722,assert_str_99743,vec__99644_99739,op_99740,f_99741,sym_99742,seq__99631_99733__$1,temp__5753__auto___99732){
+var vec__99977_100071 = cljs.core.first(seq__99964_100065__$1);
+var op_100072 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99977_100071,(0),null);
+var f_100073 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99977_100071,(1),null);
+var sym_100074 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__99977_100071,(2),null);
+var assert_str_100075 = ["g/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(sym_100074)," :sicmutils.operator/operator"].join('');
+op_100072.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.operator","operator","sicmutils.operator/operator",-1165539017)], null),((function (seq__99964_100033,chunk__99965_100034,count__99966_100035,i__99967_100036,assert_str_100075,vec__99977_100071,op_100072,f_100073,sym_100074,seq__99964_100065__$1,temp__5753__auto___100064){
 return (function (g){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.operator.arity(g),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null))){
 } else {
-throw (new Error(["Assert failed: ",assert_str_99743,"\n","(= (arity g) [:exactly 1])"].join('')));
+throw (new Error(["Assert failed: ",assert_str_100075,"\n","(= (arity g) [:exactly 1])"].join('')));
 }
 
-return sicmutils.operator.__GT_Operator((f_99741.cljs$core$IFn$_invoke$arity$1 ? f_99741.cljs$core$IFn$_invoke$arity$1(g) : f_99741.call(null,g)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,sym_99742,null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(g),null,(1),null))))),sicmutils.operator.context(g),null);
-});})(seq__99631_99719,chunk__99632_99720,count__99633_99721,i__99634_99722,assert_str_99743,vec__99644_99739,op_99740,f_99741,sym_99742,seq__99631_99733__$1,temp__5753__auto___99732))
+return sicmutils.operator.__GT_Operator((f_100073.cljs$core$IFn$_invoke$arity$1 ? f_100073.cljs$core$IFn$_invoke$arity$1(g) : f_100073.call(null,g)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"exactly","exactly",1304099233),(1)], null),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,sym_100074,null,(1),null)),(new cljs.core.List(null,sicmutils.operator.name(g),null,(1),null))))),sicmutils.operator.context(g),null);
+});})(seq__99964_100033,chunk__99965_100034,count__99966_100035,i__99967_100036,assert_str_100075,vec__99977_100071,op_100072,f_100073,sym_100074,seq__99964_100065__$1,temp__5753__auto___100064))
 );
 
 
-var G__99744 = cljs.core.next(seq__99631_99733__$1);
-var G__99745 = null;
-var G__99746 = (0);
-var G__99747 = (0);
-seq__99631_99719 = G__99744;
-chunk__99632_99720 = G__99745;
-count__99633_99721 = G__99746;
-i__99634_99722 = G__99747;
+var G__100077 = cljs.core.next(seq__99964_100065__$1);
+var G__100078 = null;
+var G__100079 = (0);
+var G__100080 = (0);
+seq__99964_100033 = G__100077;
+chunk__99965_100034 = G__100078;
+count__99966_100035 = G__100079;
+i__99967_100036 = G__100080;
 continue;
 }
 } else {

@@ -41,13 +41,13 @@ return cljs.core.cons(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(c,cljs.c
 }),null,null));
 });
 sicmutils.series.impl.seq_STAR_c = (function sicmutils$series$impl$seq_STAR_c(f,c){
-return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97492_SHARP_){
-return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(p1__97492_SHARP_,c);
+return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97395_SHARP_){
+return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(p1__97395_SHARP_,c);
 }),f);
 });
 sicmutils.series.impl.c_STAR_seq = (function sicmutils$series$impl$c_STAR_seq(c,f){
-return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97493_SHARP_){
-return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(c,p1__97493_SHARP_);
+return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97396_SHARP_){
+return sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(c,p1__97396_SHARP_);
 }),f);
 });
 sicmutils.series.impl.seq_COLON__STAR_ = (function sicmutils$series$impl$seq_COLON__STAR_(f,g){
@@ -65,9 +65,9 @@ return cljs.core.cons(f_STAR_g,sicmutils.series.impl.seq_COLON__PLUS_(f_STAR_G1,
 });
 return (new cljs.core.LazySeq(null,(function (){
 if(sicmutils.value.zero_QMARK_(cljs.core.first(g))){
-return cljs.core.cons(cljs.core.first(g),(function (){var G__97507 = f;
-var G__97508 = cljs.core.rest(g);
-return (sicmutils.series.impl.seq_COLON__STAR_.cljs$core$IFn$_invoke$arity$2 ? sicmutils.series.impl.seq_COLON__STAR_.cljs$core$IFn$_invoke$arity$2(G__97507,G__97508) : sicmutils.series.impl.seq_COLON__STAR_.call(null,G__97507,G__97508));
+return cljs.core.cons(cljs.core.first(g),(function (){var G__97403 = f;
+var G__97404 = cljs.core.rest(g);
+return (sicmutils.series.impl.seq_COLON__STAR_.cljs$core$IFn$_invoke$arity$2 ? sicmutils.series.impl.seq_COLON__STAR_.cljs$core$IFn$_invoke$arity$2(G__97403,G__97404) : sicmutils.series.impl.seq_COLON__STAR_.call(null,G__97403,G__97404));
 })());
 } else {
 return step(f);
@@ -90,9 +90,9 @@ if(sicmutils.value.zero_QMARK_(g0)){
 return sicmutils.util.arithmetic_ex("ERROR: denominator has a zero constant term");
 } else {
 var q = sicmutils.generic.div.cljs$core$IFn$_invoke$arity$2(f0,g0);
-return cljs.core.cons(q,(function (){var G__97515 = sicmutils.series.impl.seq_COLON__(fs,sicmutils.series.impl.c_STAR_seq(q,gs));
-var G__97516 = g;
-return (sicmutils.series.impl.div.cljs$core$IFn$_invoke$arity$2 ? sicmutils.series.impl.div.cljs$core$IFn$_invoke$arity$2(G__97515,G__97516) : sicmutils.series.impl.div.call(null,G__97515,G__97516));
+return cljs.core.cons(q,(function (){var G__97411 = sicmutils.series.impl.seq_COLON__(fs,sicmutils.series.impl.c_STAR_seq(q,gs));
+var G__97412 = g;
+return (sicmutils.series.impl.div.cljs$core$IFn$_invoke$arity$2 ? sicmutils.series.impl.div.cljs$core$IFn$_invoke$arity$2(G__97411,G__97412) : sicmutils.series.impl.div.call(null,G__97411,G__97412));
 })());
 
 }
@@ -112,8 +112,8 @@ sicmutils.series.impl.c_div_seq = (function sicmutils$series$impl$c_div_seq(c,f)
 return sicmutils.series.impl.c_STAR_seq(c,sicmutils.series.impl.invert(f));
 });
 sicmutils.series.impl.seq_div_c = (function sicmutils$series$impl$seq_div_c(f,c){
-return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97531_SHARP_){
-return sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(p1__97531_SHARP_,c);
+return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__97416_SHARP_){
+return sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(p1__97416_SHARP_,c);
 }),f);
 });
 sicmutils.series.impl.compose = (function sicmutils$series$impl$compose(f,g){
@@ -124,12 +124,12 @@ if(sicmutils.value.zero_QMARK_(cljs.core.first(g))){
 throw (new Error("Assert failed: (v/zero? (first g))"));
 }
 
-var vec__97541 = f__$1;
-var seq__97542 = cljs.core.seq(vec__97541);
-var first__97543 = cljs.core.first(seq__97542);
-var seq__97542__$1 = cljs.core.next(seq__97542);
-var f0 = first__97543;
-var fs = seq__97542__$1;
+var vec__97426 = f__$1;
+var seq__97427 = cljs.core.seq(vec__97426);
+var first__97428 = cljs.core.first(seq__97427);
+var seq__97427__$1 = cljs.core.next(seq__97427);
+var f0 = first__97428;
+var fs = seq__97427__$1;
 var gs = cljs.core.rest(g);
 var tail = sicmutils.series.impl.seq_COLON__STAR_(gs,sicmutils$series$impl$compose_$_step(fs));
 return cljs.core.cons(f0,tail);
@@ -156,8 +156,8 @@ sicmutils.series.impl.deriv = (function sicmutils$series$impl$deriv(f){
 return cljs.core.map.cljs$core$IFn$_invoke$arity$3(sicmutils.generic._STAR_,cljs.core.rest(f),cljs.core.iterate(cljs.core.inc,(1)));
 });
 sicmutils.series.impl.integral = (function sicmutils$series$impl$integral(var_args){
-var G__97549 = arguments.length;
-switch (G__97549) {
+var G__97432 = arguments.length;
+switch (G__97432) {
 case 1:
 return sicmutils.series.impl.integral.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -191,23 +191,23 @@ while(true){
 var t = cljs.core.even_QMARK_(n);
 var n__$1 = cljs.core.quot(n,(2));
 if(t){
-var G__97648 = n__$1;
-var G__97649 = y;
-var G__97650 = sicmutils.series.impl.seq_COLON__STAR_(z,z);
-n = G__97648;
-y = G__97649;
-z = G__97650;
+var G__97457 = n__$1;
+var G__97458 = y;
+var G__97459 = sicmutils.series.impl.seq_COLON__STAR_(z,z);
+n = G__97457;
+y = G__97458;
+z = G__97459;
 continue;
 } else {
 if((n__$1 === (0))){
 return sicmutils.series.impl.seq_COLON__STAR_(z,y);
 } else {
-var G__97651 = n__$1;
-var G__97652 = sicmutils.series.impl.seq_COLON__STAR_(z,y);
-var G__97653 = sicmutils.series.impl.seq_COLON__STAR_(z,z);
-n = G__97651;
-y = G__97652;
-z = G__97653;
+var G__97460 = n__$1;
+var G__97461 = sicmutils.series.impl.seq_COLON__STAR_(z,y);
+var G__97462 = sicmutils.series.impl.seq_COLON__STAR_(z,z);
+n = G__97460;
+y = G__97461;
+z = G__97462;
 continue;
 
 }
@@ -226,19 +226,19 @@ return sicmutils.series.impl.invert(expt(s,sicmutils.generic.negate.cljs$core$IF
 }
 }
 });
-sicmutils.series.impl.sqrt = (function sicmutils$series$impl$sqrt(p__97555){
-var vec__97556 = p__97555;
-var seq__97557 = cljs.core.seq(vec__97556);
-var first__97558 = cljs.core.first(seq__97557);
-var seq__97557__$1 = cljs.core.next(seq__97557);
-var f1 = first__97558;
-var vec__97559 = seq__97557__$1;
-var seq__97560 = cljs.core.seq(vec__97559);
-var first__97561 = cljs.core.first(seq__97560);
-var seq__97560__$1 = cljs.core.next(seq__97560);
-var f2 = first__97561;
-var fs = seq__97560__$1;
-var f = vec__97556;
+sicmutils.series.impl.sqrt = (function sicmutils$series$impl$sqrt(p__97443){
+var vec__97444 = p__97443;
+var seq__97445 = cljs.core.seq(vec__97444);
+var first__97446 = cljs.core.first(seq__97445);
+var seq__97445__$1 = cljs.core.next(seq__97445);
+var f1 = first__97446;
+var vec__97447 = seq__97445__$1;
+var seq__97448 = cljs.core.seq(vec__97447);
+var first__97449 = cljs.core.first(seq__97448);
+var seq__97448__$1 = cljs.core.next(seq__97448);
+var f2 = first__97449;
+var fs = seq__97448__$1;
+var f = vec__97444;
 if(((sicmutils.value.zero_QMARK_(f1)) && (sicmutils.value.zero_QMARK_(f2)))){
 return cljs.core.cons(f1,(sicmutils.series.impl.sqrt.cljs$core$IFn$_invoke$arity$1 ? sicmutils.series.impl.sqrt.cljs$core$IFn$_invoke$arity$1(fs) : sicmutils.series.impl.sqrt.call(null,fs)));
 } else {
@@ -308,14 +308,14 @@ return acc;
 } else {
 var next = ((prev * n__$1) / k);
 var acc_SINGLEQUOTE_ = cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(acc,next);
-var G__97669 = acc_SINGLEQUOTE_;
-var G__97670 = next;
-var G__97671 = (n__$1 - (1));
-var G__97672 = (k + (1));
-acc = G__97669;
-prev = G__97670;
-n__$1 = G__97671;
-k = G__97672;
+var G__97471 = acc_SINGLEQUOTE_;
+var G__97472 = next;
+var G__97473 = (n__$1 - (1));
+var G__97474 = (k + (1));
+acc = G__97471;
+prev = G__97472;
+n__$1 = G__97473;
+k = G__97474;
 continue;
 }
 break;

@@ -24,11 +24,11 @@ return nextjournal.clojure_mode.keymap.update_some(command,new cljs.core.Persist
  * Returns a grouped map of bindings for a list of CodeMirror keymap entries
  */
 nextjournal.clojure_mode.keymap.group = (function nextjournal$clojure_mode$keymap$group(commands){
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (out,p__89266){
-var map__89267 = p__89266;
-var map__89267__$1 = cljs.core.__destructure_map(map__89267);
-var cmd = map__89267__$1;
-var run = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__89267__$1,new cljs.core.Keyword(null,"run","run",-1821166653));
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (out,p__89712){
+var map__89713 = p__89712;
+var map__89713__$1 = cljs.core.__destructure_map(map__89713);
+var cmd = map__89713__$1;
+var run = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__89713__$1,new cljs.core.Keyword(null,"run","run",-1821166653));
 return cljs.core.update.cljs$core$IFn$_invoke$arity$4(out,run,cljs.core.fnil.cljs$core$IFn$_invoke$arity$2(cljs.core.conj,cljs.core.PersistentVector.EMPTY),cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(cmd,new cljs.core.Keyword(null,"run","run",-1821166653)));
 }),cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2(nextjournal.clojure_mode.keymap.serialize,commands));
 });
@@ -37,8 +37,8 @@ return cljs.core.update.cljs$core$IFn$_invoke$arity$4(out,run,cljs.core.fnil.clj
  */
 nextjournal.clojure_mode.keymap.ungroup = (function nextjournal$clojure_mode$keymap$ungroup(commands){
 return cljs.core.clj__GT_js(cljs.core.reduce_kv((function (out,k,bindings){
-return cljs.core.into.cljs$core$IFn$_invoke$arity$2(out,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__89268_SHARP_){
-return nextjournal.clojure_mode.keymap.deserialize(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(p1__89268_SHARP_,new cljs.core.Keyword(null,"run","run",-1821166653),k));
+return cljs.core.into.cljs$core$IFn$_invoke$arity$2(out,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__89714_SHARP_){
+return nextjournal.clojure_mode.keymap.deserialize(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(p1__89714_SHARP_,new cljs.core.Keyword(null,"run","run",-1821166653),k));
 }),bindings));
 }),cljs.core.PersistentVector.EMPTY,commands));
 });

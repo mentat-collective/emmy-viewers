@@ -6,8 +6,8 @@ sicmutils.util.def.lowercase_symbols = cljs.core.map.cljs$core$IFn$_invoke$arity
  */
 sicmutils.util.def.arglists = (function sicmutils$util$def$arglists(a,b){
 var arities = (cljs.core.truth_(b)?cljs.core.range.cljs$core$IFn$_invoke$arity$2(a,(b + (1))):new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [a], null));
-return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__95213_SHARP_){
-return cljs.core.into.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentVector.EMPTY,cljs.core.take.cljs$core$IFn$_invoke$arity$1(p1__95213_SHARP_),sicmutils.util.def.lowercase_symbols);
+return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__95359_SHARP_){
+return cljs.core.into.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentVector.EMPTY,cljs.core.take.cljs$core$IFn$_invoke$arity$1(p1__95359_SHARP_),sicmutils.util.def.lowercase_symbols);
 }),arities);
 });
 /**

@@ -544,8 +544,8 @@ return (new cljs.core.List(null,new cljs.core.Symbol(null,"acos","acos",35374176
 }
 });
 sicmutils.numsymb.atan = (function sicmutils$numsymb$atan(var_args){
-var G__98052 = arguments.length;
-switch (G__98052) {
+var G__98481 = arguments.length;
+switch (G__98481) {
 case 1:
 return sicmutils.numsymb.atan.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -806,9 +806,9 @@ return and__4251__auto____$1;
 return and__4251__auto__;
 }
 })())){
-var G__98143 = cljs.core.first((sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1(b) : sicmutils.numsymb.operands.call(null,b)));
-var G__98144 = cljs.core.quot(e,(2));
-return (sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2 ? sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2(G__98143,G__98144) : sicmutils.numsymb.expt.call(null,G__98143,G__98144));
+var G__98490 = cljs.core.first((sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1(b) : sicmutils.numsymb.operands.call(null,b)));
+var G__98491 = cljs.core.quot(e,(2));
+return (sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2 ? sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2(G__98490,G__98491) : sicmutils.numsymb.expt.call(null,G__98490,G__98491));
 } else {
 if(cljs.core.truth_((function (){var and__4251__auto__ = sicmutils.numsymb.expt_QMARK_(b);
 if(cljs.core.truth_(and__4251__auto__)){
@@ -817,14 +817,14 @@ return ((sicmutils.value.number_QMARK_(cljs.core.second((sicmutils.numsymb.opera
 return and__4251__auto__;
 }
 })())){
-var G__98147 = cljs.core.first((sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1(b) : sicmutils.numsymb.operands.call(null,b)));
-var G__98148 = (cljs.core.second((sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1(b) : sicmutils.numsymb.operands.call(null,b))) * e);
-return (sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2 ? sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2(G__98147,G__98148) : sicmutils.numsymb.expt.call(null,G__98147,G__98148));
+var G__98494 = cljs.core.first((sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1(b) : sicmutils.numsymb.operands.call(null,b)));
+var G__98495 = (cljs.core.second((sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1 ? sicmutils.numsymb.operands.cljs$core$IFn$_invoke$arity$1(b) : sicmutils.numsymb.operands.call(null,b))) * e);
+return (sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2 ? sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2(G__98494,G__98495) : sicmutils.numsymb.expt.call(null,G__98494,G__98495));
 } else {
 if((e < (0))){
-return sicmutils.numsymb.invert((function (){var G__98151 = b;
-var G__98152 = (- e);
-return (sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2 ? sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2(G__98151,G__98152) : sicmutils.numsymb.expt.call(null,G__98151,G__98152));
+return sicmutils.numsymb.invert((function (){var G__98497 = b;
+var G__98498 = (- e);
+return (sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2 ? sicmutils.numsymb.expt.cljs$core$IFn$_invoke$arity$2(G__98497,G__98498) : sicmutils.numsymb.expt.call(null,G__98497,G__98498));
 })());
 } else {
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"expt","expt",2123850345,null),null,(1),null)),(new cljs.core.List(null,b,null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,e,null,(1),null))], 0))));
@@ -1048,8 +1048,8 @@ return (new cljs.core.List(null,new cljs.core.Symbol(null,"=","=",-1501502141,nu
 }
 });
 sicmutils.numsymb.sym_COLON__EQ_ = (function sicmutils$numsymb$sym_COLON__EQ_(var_args){
-var G__98232 = arguments.length;
-switch (G__98232) {
+var G__98556 = arguments.length;
+switch (G__98556) {
 case 0:
 return sicmutils.numsymb.sym_COLON__EQ_.cljs$core$IFn$_invoke$arity$0();
 
@@ -1064,14 +1064,14 @@ return sicmutils.numsymb.sym_COLON__EQ_.cljs$core$IFn$_invoke$arity$2((arguments
 break;
 default:
 var args_arr__4885__auto__ = [];
-var len__4864__auto___98365 = arguments.length;
-var i__4865__auto___98366 = (0);
+var len__4864__auto___98720 = arguments.length;
+var i__4865__auto___98721 = (0);
 while(true){
-if((i__4865__auto___98366 < len__4864__auto___98365)){
-args_arr__4885__auto__.push((arguments[i__4865__auto___98366]));
+if((i__4865__auto___98721 < len__4864__auto___98720)){
+args_arr__4885__auto__.push((arguments[i__4865__auto___98721]));
 
-var G__98371 = (i__4865__auto___98366 + (1));
-i__4865__auto___98366 = G__98371;
+var G__98724 = (i__4865__auto___98721 + (1));
+i__4865__auto___98721 = G__98724;
 continue;
 } else {
 }
@@ -1099,10 +1099,10 @@ return sicmutils.numsymb.sym_COLON_bin_EQ_(x,y);
 (sicmutils.numsymb.sym_COLON__EQ_.cljs$core$IFn$_invoke$arity$variadic = (function (x,y,more){
 var xs = cljs.core.cons(x,cljs.core.cons(y,more));
 var pairs = cljs.core.partition.cljs$core$IFn$_invoke$arity$3((2),(1),xs);
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (acc,p__98235){
-var vec__98237 = p__98235;
-var x__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98237,(0),null);
-var y__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98237,(1),null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (acc,p__98562){
+var vec__98564 = p__98562;
+var x__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98564,(0),null);
+var y__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98564,(1),null);
 var temp__5751__auto__ = sicmutils.numsymb.sym_COLON_bin_EQ_(x__$1,y__$1);
 if(cljs.core.truth_(temp__5751__auto__)){
 var eq = temp__5751__auto__;
@@ -1114,13 +1114,13 @@ return cljs.core.reduced(false);
 }));
 
 /** @this {Function} */
-(sicmutils.numsymb.sym_COLON__EQ_.cljs$lang$applyTo = (function (seq98229){
-var G__98230 = cljs.core.first(seq98229);
-var seq98229__$1 = cljs.core.next(seq98229);
-var G__98231 = cljs.core.first(seq98229__$1);
-var seq98229__$2 = cljs.core.next(seq98229__$1);
+(sicmutils.numsymb.sym_COLON__EQ_.cljs$lang$applyTo = (function (seq98553){
+var G__98554 = cljs.core.first(seq98553);
+var seq98553__$1 = cljs.core.next(seq98553);
+var G__98555 = cljs.core.first(seq98553__$1);
+var seq98553__$2 = cljs.core.next(seq98553__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__98230,G__98231,seq98229__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__98554,G__98555,seq98553__$2);
 }));
 
 (sicmutils.numsymb.sym_COLON__EQ_.cljs$lang$maxFixedArity = (2));
@@ -1139,10 +1139,10 @@ return sicmutils.value.one_QMARK_(x);
 return (new cljs.core.List(null,new cljs.core.Symbol(null,"=","=",-1501502141,null),(new cljs.core.List(null,(1),(new cljs.core.List(null,x,null,(1),null)),(2),null)),(3),null));
 }
 });
-sicmutils.numsymb.symbolic_operator_table = cljs.core.PersistentHashMap.fromArrays([new cljs.core.Symbol(null,"remainder","remainder",-1608248897,null),new cljs.core.Symbol(null,"and","and",668631710,null),new cljs.core.Symbol(null,"csch","csch",-1950330545,null),new cljs.core.Symbol(null,"make-polar","make-polar",2147326621,null),new cljs.core.Symbol(null,"cube","cube",138920159,null),new cljs.core.Symbol(null,"sinh","sinh",-990423302,null),new cljs.core.Symbol(null,"sin","sin",1721439389,null),new cljs.core.Symbol(null,"tan","tan",-1380825876,null),new cljs.core.Symbol(null,"cos","cos",-1452677493,null),new cljs.core.Symbol(null,"gcd","gcd",1659909537,null),new cljs.core.Symbol(null,"modulo","modulo",725580254,null),new cljs.core.Symbol(null,"/","/",-1371932971,null),new cljs.core.Symbol(null,"abs","abs",1394505050,null),new cljs.core.Symbol(null,"invert","invert",-1100858266,null),new cljs.core.Symbol(null,"dot-product","dot-product",-203055892,null),new cljs.core.Symbol(null,"not","not",1044554643,null),new cljs.core.Symbol(null,"real-part","real-part",-2001752061,null),new cljs.core.Symbol(null,"log","log",45015523,null),new cljs.core.Symbol(null,"=","=",-1501502141,null),new cljs.core.Symbol(null,"cosh","cosh",-1962788142,null),new cljs.core.Symbol(null,"coth","coth",1130257730,null),new cljs.core.Symbol(null,"expt","expt",2123850345,null),new cljs.core.Symbol(null,"fractional-part","fractional-part",-505422086,null),new cljs.core.Symbol(null,"+","+",-740910886,null),new cljs.core.Symbol(null,"sec","sec",60154974,null),new cljs.core.Symbol(null,"negate","negate",337772450,null),new cljs.core.Symbol(null,"sech","sech",-1403979131,null),new cljs.core.Symbol(null,"square","square",-1842001092,null),new cljs.core.Symbol(null,"magnitude","magnitude",-730161547,null),new cljs.core.Symbol(null,"*","*",345799209,null),new cljs.core.Symbol(null,"zero?","zero?",325758897,null),new cljs.core.Symbol(null,"atan","atan",-1026550135,null),new cljs.core.Symbol(null,"make-rectangular","make-rectangular",-1494662174,null),new cljs.core.Symbol(null,"csc","csc",-427853492,null),new cljs.core.Symbol(null,"lcm","lcm",-1699262564,null),new cljs.core.Symbol(null,"acos","acos",353741763,null),new cljs.core.Symbol(null,"acot","acot",1103016569,null),new cljs.core.Symbol(null,"floor","floor",-772394748,null),new cljs.core.Symbol(null,"imag-part","imag-part",2028041294,null),new cljs.core.Symbol(null,"-","-",-471816912,null),new cljs.core.Symbol(null,"inner-product","inner-product",-1963110418,null),new cljs.core.Symbol(null,"ceiling","ceiling",-1593475279,null),new cljs.core.Symbol(null,"conjugate","conjugate",-1063123193,null),new cljs.core.Symbol(null,"sqrt","sqrt",370479598,null),new cljs.core.Symbol(null,"asin","asin",-904130570,null),new cljs.core.Symbol(null,"exp","exp",1378825265,null),new cljs.core.Symbol(null,"integer-part","integer-part",-1884537015,null),new cljs.core.Symbol(null,"derivative","derivative",-1233120304,null),new cljs.core.Symbol(null,"tanh","tanh",480481797,null),new cljs.core.Symbol(null,"or","or",1876275696,null),new cljs.core.Symbol(null,"identity?","identity?",-1064576891,null),new cljs.core.Symbol(null,"angle","angle",-1032341515,null),new cljs.core.Symbol(null,"one?","one?",1787102903,null)],[sicmutils.numsymb.remainder,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$3(sicmutils.numsymb.sym_COLON_and,true,cljs.core.false_QMARK_),sicmutils.numsymb.csch,sicmutils.numsymb.make_polar,(function (p1__98246_SHARP_){
-return sicmutils.numsymb.expt(p1__98246_SHARP_,(3));
-}),sicmutils.numsymb.sinh,sicmutils.numsymb.sin,sicmutils.numsymb.tan,sicmutils.numsymb.cos,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$2(sicmutils.numsymb.gcd,(0)),sicmutils.numsymb.modulo,sicmutils.util.aggregate.group.cljs$core$IFn$_invoke$arity$5(sicmutils.numsymb.div,sicmutils.numsymb.mul,sicmutils.numsymb.invert,(1),sicmutils.value.zero_QMARK_),sicmutils.numsymb.abs,sicmutils.numsymb.invert,sicmutils.numsymb.dot_product,sicmutils.numsymb.sym_COLON_not,sicmutils.numsymb.real_part,sicmutils.numsymb.log,sicmutils.numsymb.sym_COLON__EQ_,sicmutils.numsymb.cosh,sicmutils.numsymb.coth,sicmutils.numsymb.expt,sicmutils.numsymb.fractional_part,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$2(sicmutils.numsymb.add,(0)),sicmutils.numsymb.sec,sicmutils.numsymb.negate,sicmutils.numsymb.sech,(function (p1__98247_SHARP_){
-return sicmutils.numsymb.expt(p1__98247_SHARP_,(2));
+sicmutils.numsymb.symbolic_operator_table = cljs.core.PersistentHashMap.fromArrays([new cljs.core.Symbol(null,"remainder","remainder",-1608248897,null),new cljs.core.Symbol(null,"and","and",668631710,null),new cljs.core.Symbol(null,"csch","csch",-1950330545,null),new cljs.core.Symbol(null,"make-polar","make-polar",2147326621,null),new cljs.core.Symbol(null,"cube","cube",138920159,null),new cljs.core.Symbol(null,"sinh","sinh",-990423302,null),new cljs.core.Symbol(null,"sin","sin",1721439389,null),new cljs.core.Symbol(null,"tan","tan",-1380825876,null),new cljs.core.Symbol(null,"cos","cos",-1452677493,null),new cljs.core.Symbol(null,"gcd","gcd",1659909537,null),new cljs.core.Symbol(null,"modulo","modulo",725580254,null),new cljs.core.Symbol(null,"/","/",-1371932971,null),new cljs.core.Symbol(null,"abs","abs",1394505050,null),new cljs.core.Symbol(null,"invert","invert",-1100858266,null),new cljs.core.Symbol(null,"dot-product","dot-product",-203055892,null),new cljs.core.Symbol(null,"not","not",1044554643,null),new cljs.core.Symbol(null,"real-part","real-part",-2001752061,null),new cljs.core.Symbol(null,"log","log",45015523,null),new cljs.core.Symbol(null,"=","=",-1501502141,null),new cljs.core.Symbol(null,"cosh","cosh",-1962788142,null),new cljs.core.Symbol(null,"coth","coth",1130257730,null),new cljs.core.Symbol(null,"expt","expt",2123850345,null),new cljs.core.Symbol(null,"fractional-part","fractional-part",-505422086,null),new cljs.core.Symbol(null,"+","+",-740910886,null),new cljs.core.Symbol(null,"sec","sec",60154974,null),new cljs.core.Symbol(null,"negate","negate",337772450,null),new cljs.core.Symbol(null,"sech","sech",-1403979131,null),new cljs.core.Symbol(null,"square","square",-1842001092,null),new cljs.core.Symbol(null,"magnitude","magnitude",-730161547,null),new cljs.core.Symbol(null,"*","*",345799209,null),new cljs.core.Symbol(null,"zero?","zero?",325758897,null),new cljs.core.Symbol(null,"atan","atan",-1026550135,null),new cljs.core.Symbol(null,"make-rectangular","make-rectangular",-1494662174,null),new cljs.core.Symbol(null,"csc","csc",-427853492,null),new cljs.core.Symbol(null,"lcm","lcm",-1699262564,null),new cljs.core.Symbol(null,"acos","acos",353741763,null),new cljs.core.Symbol(null,"acot","acot",1103016569,null),new cljs.core.Symbol(null,"floor","floor",-772394748,null),new cljs.core.Symbol(null,"imag-part","imag-part",2028041294,null),new cljs.core.Symbol(null,"-","-",-471816912,null),new cljs.core.Symbol(null,"inner-product","inner-product",-1963110418,null),new cljs.core.Symbol(null,"ceiling","ceiling",-1593475279,null),new cljs.core.Symbol(null,"conjugate","conjugate",-1063123193,null),new cljs.core.Symbol(null,"sqrt","sqrt",370479598,null),new cljs.core.Symbol(null,"asin","asin",-904130570,null),new cljs.core.Symbol(null,"exp","exp",1378825265,null),new cljs.core.Symbol(null,"integer-part","integer-part",-1884537015,null),new cljs.core.Symbol(null,"derivative","derivative",-1233120304,null),new cljs.core.Symbol(null,"tanh","tanh",480481797,null),new cljs.core.Symbol(null,"or","or",1876275696,null),new cljs.core.Symbol(null,"identity?","identity?",-1064576891,null),new cljs.core.Symbol(null,"angle","angle",-1032341515,null),new cljs.core.Symbol(null,"one?","one?",1787102903,null)],[sicmutils.numsymb.remainder,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$3(sicmutils.numsymb.sym_COLON_and,true,cljs.core.false_QMARK_),sicmutils.numsymb.csch,sicmutils.numsymb.make_polar,(function (p1__98568_SHARP_){
+return sicmutils.numsymb.expt(p1__98568_SHARP_,(3));
+}),sicmutils.numsymb.sinh,sicmutils.numsymb.sin,sicmutils.numsymb.tan,sicmutils.numsymb.cos,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$2(sicmutils.numsymb.gcd,(0)),sicmutils.numsymb.modulo,sicmutils.util.aggregate.group.cljs$core$IFn$_invoke$arity$5(sicmutils.numsymb.div,sicmutils.numsymb.mul,sicmutils.numsymb.invert,(1),sicmutils.value.zero_QMARK_),sicmutils.numsymb.abs,sicmutils.numsymb.invert,sicmutils.numsymb.dot_product,sicmutils.numsymb.sym_COLON_not,sicmutils.numsymb.real_part,sicmutils.numsymb.log,sicmutils.numsymb.sym_COLON__EQ_,sicmutils.numsymb.cosh,sicmutils.numsymb.coth,sicmutils.numsymb.expt,sicmutils.numsymb.fractional_part,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$2(sicmutils.numsymb.add,(0)),sicmutils.numsymb.sec,sicmutils.numsymb.negate,sicmutils.numsymb.sech,(function (p1__98569_SHARP_){
+return sicmutils.numsymb.expt(p1__98569_SHARP_,(2));
 }),sicmutils.numsymb.magnitude,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$3(sicmutils.numsymb.mul,(1),sicmutils.value.zero_QMARK_),sicmutils.numsymb.sym_COLON_zero_QMARK_,sicmutils.numsymb.atan,sicmutils.numsymb.make_rectangular,sicmutils.numsymb.csc,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$3(sicmutils.numsymb.lcm,(1),sicmutils.value.zero_QMARK_),sicmutils.numsymb.acos,sicmutils.numsymb.acot,sicmutils.numsymb.floor,sicmutils.numsymb.imag_part,sicmutils.util.aggregate.group.cljs$core$IFn$_invoke$arity$4(sicmutils.numsymb.sub,sicmutils.numsymb.add,sicmutils.numsymb.negate,(0)),sicmutils.numsymb.dot_product,sicmutils.numsymb.ceiling,sicmutils.numsymb.conjugate,sicmutils.numsymb.sqrt,sicmutils.numsymb.asin,sicmutils.numsymb.exp,sicmutils.numsymb.integer_part,sicmutils.numsymb.derivative,sicmutils.numsymb.tanh,sicmutils.util.aggregate.monoid.cljs$core$IFn$_invoke$arity$3(sicmutils.numsymb.sym_COLON_or,false,cljs.core.true_QMARK_),sicmutils.numsymb.sym_COLON_one_QMARK_,sicmutils.numsymb.angle,sicmutils.numsymb.sym_COLON_one_QMARK_]);
 /**
  * Given a symbol (like `'+`) returns an applicable operator if there is a

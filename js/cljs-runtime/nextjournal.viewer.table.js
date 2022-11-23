@@ -1,11 +1,11 @@
 goog.provide('nextjournal.viewer.table');
 nextjournal.viewer.table.viewer = (function nextjournal$viewer$table$viewer(lines){
-var with_let95220 = reagent.ratom.with_let_values(new cljs.core.Keyword(null,"with-let95220","with-let95220",289681374));
-var temp__5757__auto___95227 = reagent.ratom._STAR_ratom_context_STAR_;
-if((temp__5757__auto___95227 == null)){
+var with_let95168 = reagent.ratom.with_let_values(new cljs.core.Keyword(null,"with-let95168","with-let95168",2074534546));
+var temp__5757__auto___95175 = reagent.ratom._STAR_ratom_context_STAR_;
+if((temp__5757__auto___95175 == null)){
 } else {
-var c__85371__auto___95228 = temp__5757__auto___95227;
-if((with_let95220.generation === c__85371__auto___95228.ratomGeneration)){
+var c__85826__auto___95176 = temp__5757__auto___95175;
+if((with_let95168.generation === c__85826__auto___95176.ratomGeneration)){
 if(reagent.debug.has_console){
 ((reagent.debug.tracking)?reagent.debug.track_console:console).error(["Warning: The same with-let is being used more ","than once in the same reactive context."].join(''));
 } else {
@@ -13,12 +13,12 @@ if(reagent.debug.has_console){
 } else {
 }
 
-(with_let95220.generation = c__85371__auto___95228.ratomGeneration);
+(with_let95168.generation = c__85826__auto___95176.ratomGeneration);
 }
 
-var init95221 = (with_let95220.length === (0));
-var current_page = ((((init95221) || (cljs.core.not(with_let95220.hasOwnProperty((0))))))?(with_let95220[(0)] = reagent.core.atom.cljs$core$IFn$_invoke$arity$1((0))):(with_let95220[(0)]));
-var res95222 = (function (){var header = cljs.core.first(lines);
+var init95169 = (with_let95168.length === (0));
+var current_page = ((((init95169) || (cljs.core.not(with_let95168.hasOwnProperty((0))))))?(with_let95168[(0)] = reagent.core.atom.cljs$core$IFn$_invoke$arity$1((0))):(with_let95168[(0)]));
+var res95170 = (function (){var header = cljs.core.first(lines);
 var rest = cljs.core.rest(lines);
 var count = cljs.core.count(rest);
 var items_per_page = (10);
@@ -42,7 +42,7 @@ return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$2(current_page,cljs.core
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$2(current_page,cljs.core.inc);
 })], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [nextjournal.ui.components.icon.view,"ChevronRight",new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"size","size",1098693007),(16),new cljs.core.Keyword(null,"class","class",-2030961996),"fill-teal dim"], null)], null)], null)], null):null)], null)], null));
 })();
-return res95222;
+return res95170;
 });
 nextjournal.viewer.register_viewer_BANG_(new cljs.core.Keyword(null,"table","table",-564943036),nextjournal.viewer.table.viewer);
 nextjournal.devcards.register_devcard_STAR_(cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"data","data",-232669377),(function (){

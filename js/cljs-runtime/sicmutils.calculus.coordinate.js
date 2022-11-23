@@ -34,9 +34,9 @@ sicmutils.calculus.coordinate.quotify_coordinate_prototype = (function sicmutils
 var q = (function sicmutils$calculus$coordinate$quotify_coordinate_prototype_$_q(p__$1){
 if(cljs.core.truth_((function (){var and__4251__auto__ = cljs.core.sequential_QMARK_(p__$1);
 if(and__4251__auto__){
-var G__101550 = cljs.core.first(p__$1);
-var fexpr__101549 = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Symbol(null,"down","down",-1089190199,null),"null",new cljs.core.Symbol(null,"up","up",1370819414,null),"null"], null), null);
-return (fexpr__101549.cljs$core$IFn$_invoke$arity$1 ? fexpr__101549.cljs$core$IFn$_invoke$arity$1(G__101550) : fexpr__101549.call(null,G__101550));
+var G__101465 = cljs.core.first(p__$1);
+var fexpr__101464 = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Symbol(null,"down","down",-1089190199,null),"null",new cljs.core.Symbol(null,"up","up",1370819414,null),"null"], null), null);
+return (fexpr__101464.cljs$core$IFn$_invoke$arity$1 ? fexpr__101464.cljs$core$IFn$_invoke$arity$1(G__101465) : fexpr__101464.call(null,G__101465));
 } else {
 return and__4251__auto__;
 }
@@ -69,9 +69,9 @@ return q(p);
 sicmutils.calculus.coordinate.symbols_from_prototype = (function sicmutils$calculus$coordinate$symbols_from_prototype(p){
 if(cljs.core.truth_((function (){var and__4251__auto__ = cljs.core.sequential_QMARK_(p);
 if(and__4251__auto__){
-var G__101555 = cljs.core.first(p);
-var fexpr__101554 = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Symbol(null,"down","down",-1089190199,null),"null",new cljs.core.Symbol(null,"up","up",1370819414,null),"null"], null), null);
-return (fexpr__101554.cljs$core$IFn$_invoke$arity$1 ? fexpr__101554.cljs$core$IFn$_invoke$arity$1(G__101555) : fexpr__101554.call(null,G__101555));
+var G__101471 = cljs.core.first(p);
+var fexpr__101470 = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Symbol(null,"down","down",-1089190199,null),"null",new cljs.core.Symbol(null,"up","up",1370819414,null),"null"], null), null);
+return (fexpr__101470.cljs$core$IFn$_invoke$arity$1 ? fexpr__101470.cljs$core$IFn$_invoke$arity$1(G__101471) : fexpr__101470.call(null,G__101471));
 } else {
 return and__4251__auto__;
 }

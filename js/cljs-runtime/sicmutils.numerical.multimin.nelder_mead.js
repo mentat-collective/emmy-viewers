@@ -15,19 +15,19 @@ return cljs.core.mapv.cljs$core$IFn$_invoke$arity$3(cljs.core._,l,r);
  * multiply vector v by scalar s.
  */
 sicmutils.numerical.multimin.nelder_mead.v_STAR_ = (function sicmutils$numerical$multimin$nelder_mead$v_STAR_(s,v){
-return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__101890_SHARP_){
-return (s * p1__101890_SHARP_);
+return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__101834_SHARP_){
+return (s * p1__101834_SHARP_);
 }),v);
 });
 /**
  * Takes an n-vector x0 and returns a list of n+1 n-vectors, of which x0 is the
  *   first, and the remainder are formed by perturbing each coordinate in turn.
  */
-sicmutils.numerical.multimin.nelder_mead.initial_simplex = (function sicmutils$numerical$multimin$nelder_mead$initial_simplex(x0,p__101894){
-var map__101895 = p__101894;
-var map__101895__$1 = cljs.core.__destructure_map(map__101895);
-var nonzero_delta = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101895__$1,new cljs.core.Keyword(null,"nonzero-delta","nonzero-delta",-794646863),0.05);
-var zero_delta = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101895__$1,new cljs.core.Keyword(null,"zero-delta","zero-delta",-2009573292),2.5E-4);
+sicmutils.numerical.multimin.nelder_mead.initial_simplex = (function sicmutils$numerical$multimin$nelder_mead$initial_simplex(x0,p__101835){
+var map__101836 = p__101835;
+var map__101836__$1 = cljs.core.__destructure_map(map__101836);
+var nonzero_delta = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101836__$1,new cljs.core.Keyword(null,"nonzero-delta","nonzero-delta",-794646863),0.05);
+var zero_delta = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101836__$1,new cljs.core.Keyword(null,"zero-delta","zero-delta",-2009573292),2.5E-4);
 var x0__$1 = cljs.core.vec(x0);
 var scale = (nonzero_delta + (1));
 var f = (function (i,xi){
@@ -40,14 +40,14 @@ return cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVect
  * Returns the absolute value of the distance of the individual coordinate in any
  *   simplex farthest from its corresponding point in x0.
  */
-sicmutils.numerical.multimin.nelder_mead.sup_norm = (function sicmutils$numerical$multimin$nelder_mead$sup_norm(p__101917){
-var vec__101921 = p__101917;
-var x0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101921,(0),null);
-var simplex = vec__101921;
-var coords = ((cljs.core.sequential_QMARK_(x0))?cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (p1__101910_SHARP_){
-return sicmutils.numerical.multimin.nelder_mead.v_(p1__101910_SHARP_,x0);
-}),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([simplex], 0)):cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__101911_SHARP_){
-return (p1__101911_SHARP_ - x0);
+sicmutils.numerical.multimin.nelder_mead.sup_norm = (function sicmutils$numerical$multimin$nelder_mead$sup_norm(p__101839){
+var vec__101840 = p__101839;
+var x0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101840,(0),null);
+var simplex = vec__101840;
+var coords = ((cljs.core.sequential_QMARK_(x0))?cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (p1__101837_SHARP_){
+return sicmutils.numerical.multimin.nelder_mead.v_(p1__101837_SHARP_,x0);
+}),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([simplex], 0)):cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__101838_SHARP_){
+return (p1__101838_SHARP_ - x0);
 }),simplex));
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core.max,cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.util.compute_abs,coords));
 });
@@ -70,8 +70,8 @@ return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(x) : f
  *   Dimension must == the length of each element in the simplex.
  */
 sicmutils.numerical.multimin.nelder_mead.sort_by_f = (function sicmutils$numerical$multimin$nelder_mead$sort_by_f(var_args){
-var G__101977 = arguments.length;
-switch (G__101977) {
+var G__101847 = arguments.length;
+switch (G__101847) {
 case 2:
 return sicmutils.numerical.multimin.nelder_mead.sort_by_f.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -105,11 +105,11 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  *   `:adaptive?` controls the set of defaults. If true, they're generated using
  *   the supplied dimension; else, they're static.
  */
-sicmutils.numerical.multimin.nelder_mead.step_defaults = (function sicmutils$numerical$multimin$nelder_mead$step_defaults(dimension,p__101991){
-var map__101993 = p__101991;
-var map__101993__$1 = cljs.core.__destructure_map(map__101993);
-var m = map__101993__$1;
-var adaptive_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101993__$1,new cljs.core.Keyword(null,"adaptive?","adaptive?",-259268570),true);
+sicmutils.numerical.multimin.nelder_mead.step_defaults = (function sicmutils$numerical$multimin$nelder_mead$step_defaults(dimension,p__101850){
+var map__101851 = p__101850;
+var map__101851__$1 = cljs.core.__destructure_map(map__101851);
+var m = map__101851__$1;
+var adaptive_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101851__$1,new cljs.core.Keyword(null,"adaptive?","adaptive?",-259268570),true);
 var base = (cljs.core.truth_(adaptive_QMARK_)?new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"alpha","alpha",-1574982441),1.0,new cljs.core.Keyword(null,"beta","beta",455605892),(1.0 + (2.0 / dimension)),new cljs.core.Keyword(null,"gamma","gamma",1883969687),(0.75 - ((1) / (2.0 * dimension))),new cljs.core.Keyword(null,"sigma","sigma",-63715703),(1.0 - ((1) / dimension))], null):new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"alpha","alpha",-1574982441),1.0,new cljs.core.Keyword(null,"beta","beta",455605892),2.0,new cljs.core.Keyword(null,"gamma","gamma",1883969687),0.5,new cljs.core.Keyword(null,"sigma","sigma",-63715703),0.5], null));
 return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([base,cljs.core.select_keys(m,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"alpha","alpha",-1574982441),new cljs.core.Keyword(null,"beta","beta",455605892),new cljs.core.Keyword(null,"gamma","gamma",1883969687),new cljs.core.Keyword(null,"sigma","sigma",-63715703)], null))], 0));
 });
@@ -130,12 +130,12 @@ return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.c
  *   
  */
 sicmutils.numerical.multimin.nelder_mead.step_fn = (function sicmutils$numerical$multimin$nelder_mead$step_fn(f,dimension,opts){
-var map__101997 = sicmutils.numerical.multimin.nelder_mead.step_defaults(dimension,opts);
-var map__101997__$1 = cljs.core.__destructure_map(map__101997);
-var alpha = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101997__$1,new cljs.core.Keyword(null,"alpha","alpha",-1574982441));
-var beta = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101997__$1,new cljs.core.Keyword(null,"beta","beta",455605892));
-var sigma = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101997__$1,new cljs.core.Keyword(null,"sigma","sigma",-63715703));
-var gamma = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101997__$1,new cljs.core.Keyword(null,"gamma","gamma",1883969687));
+var map__101854 = sicmutils.numerical.multimin.nelder_mead.step_defaults(dimension,opts);
+var map__101854__$1 = cljs.core.__destructure_map(map__101854);
+var alpha = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101854__$1,new cljs.core.Keyword(null,"alpha","alpha",-1574982441));
+var beta = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101854__$1,new cljs.core.Keyword(null,"beta","beta",455605892));
+var sigma = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101854__$1,new cljs.core.Keyword(null,"sigma","sigma",-63715703));
+var gamma = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101854__$1,new cljs.core.Keyword(null,"gamma","gamma",1883969687));
 var centroid_pt = (function sicmutils$numerical$multimin$nelder_mead$step_fn_$_centroid_pt(simplex){
 return sicmutils.numerical.multimin.nelder_mead.v_STAR_(((1) / dimension),cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(sicmutils.numerical.multimin.nelder_mead.v_PLUS_,cljs.core.pop(simplex)));
 });
@@ -151,23 +151,23 @@ return sicmutils.numerical.multimin.nelder_mead.v_(sicmutils.numerical.multimin.
 var contract = (function sicmutils$numerical$multimin$nelder_mead$step_fn_$_contract(simplex,centroid){
 return sicmutils.numerical.multimin.nelder_mead.v_PLUS_(sicmutils.numerical.multimin.nelder_mead.v_STAR_(((1) - gamma),centroid),sicmutils.numerical.multimin.nelder_mead.v_STAR_(gamma,cljs.core.peek(simplex)));
 });
-var shrink = (function sicmutils$numerical$multimin$nelder_mead$step_fn_$_shrink(p__102008){
-var vec__102009 = p__102008;
-var seq__102010 = cljs.core.seq(vec__102009);
-var first__102011 = cljs.core.first(seq__102010);
-var seq__102010__$1 = cljs.core.next(seq__102010);
-var s0 = first__102011;
-var rest = seq__102010__$1;
-var scale_toward_s0 = (function (p1__101995_SHARP_){
-return sicmutils.numerical.multimin.nelder_mead.v_PLUS_(s0,sicmutils.numerical.multimin.nelder_mead.v_STAR_(sigma,sicmutils.numerical.multimin.nelder_mead.v_(p1__101995_SHARP_,s0)));
+var shrink = (function sicmutils$numerical$multimin$nelder_mead$step_fn_$_shrink(p__101862){
+var vec__101863 = p__101862;
+var seq__101864 = cljs.core.seq(vec__101863);
+var first__101865 = cljs.core.first(seq__101864);
+var seq__101864__$1 = cljs.core.next(seq__101864);
+var s0 = first__101865;
+var rest = seq__101864__$1;
+var scale_toward_s0 = (function (p1__101852_SHARP_){
+return sicmutils.numerical.multimin.nelder_mead.v_PLUS_(s0,sicmutils.numerical.multimin.nelder_mead.v_STAR_(sigma,sicmutils.numerical.multimin.nelder_mead.v_(p1__101852_SHARP_,s0)));
 });
 var s = cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [s0], null),cljs.core.map.cljs$core$IFn$_invoke$arity$2(scale_toward_s0,rest));
 return sicmutils.numerical.multimin.nelder_mead.sort_by_f.cljs$core$IFn$_invoke$arity$3(s,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(f,s),dimension);
 });
-return (function (simplex,p__102013){
-var vec__102015 = p__102013;
-var f_best = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102015,(0),null);
-var f_simplex = vec__102015;
+return (function (simplex,p__101866){
+var vec__101867 = p__101866;
+var f_best = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101867,(0),null);
+var f_simplex = vec__101867;
 if(cljs.core.truth_(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core._LT__EQ_,f_simplex))){
 } else {
 throw (new Error("Assert failed: (apply <= f-simplex)"));
@@ -216,11 +216,11 @@ return shrink(simplex);
 }
 }
 })();
-if(cljs.core.truth_((function (p1__101996_SHARP_){
-return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core._LT__EQ_,cljs.core.second(p1__101996_SHARP_));
+if(cljs.core.truth_((function (p1__101853_SHARP_){
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core._LT__EQ_,cljs.core.second(p1__101853_SHARP_));
 }))){
 } else {
-throw (new Error("Assert failed: (fn* [p1__101996#] (apply <= (second p1__101996#)))"));
+throw (new Error("Assert failed: (fn* [p1__101853#] (apply <= (second p1__101853#)))"));
 }
 
 return _PERCENT_;
@@ -230,11 +230,11 @@ return _PERCENT_;
  * Returns a function that returns true if the supplied simplex and simplex
  *   evaluations signal convergence, false otherwise.
  */
-sicmutils.numerical.multimin.nelder_mead.convergence_fn = (function sicmutils$numerical$multimin$nelder_mead$convergence_fn(p__102033){
-var map__102036 = p__102033;
-var map__102036__$1 = cljs.core.__destructure_map(map__102036);
-var simplex_tolerance = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102036__$1,new cljs.core.Keyword(null,"simplex-tolerance","simplex-tolerance",1524945145),1.0E-4);
-var fn_tolerance = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102036__$1,new cljs.core.Keyword(null,"fn-tolerance","fn-tolerance",-1445606164),1.0E-4);
+sicmutils.numerical.multimin.nelder_mead.convergence_fn = (function sicmutils$numerical$multimin$nelder_mead$convergence_fn(p__101887){
+var map__101888 = p__101887;
+var map__101888__$1 = cljs.core.__destructure_map(map__101888);
+var simplex_tolerance = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101888__$1,new cljs.core.Keyword(null,"simplex-tolerance","simplex-tolerance",1524945145),1.0E-4);
+var fn_tolerance = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__101888__$1,new cljs.core.Keyword(null,"fn-tolerance","fn-tolerance",-1445606164),1.0E-4);
 return (function (simplex,f_simplex){
 return (((sicmutils.numerical.multimin.nelder_mead.sup_norm(simplex) <= simplex_tolerance)) && ((sicmutils.numerical.multimin.nelder_mead.sup_norm(f_simplex) <= fn_tolerance)));
 });
@@ -245,11 +245,11 @@ return (((sicmutils.numerical.multimin.nelder_mead.sup_norm(simplex) <= simplex_
  *   Returns a function of `iterations` that returns true if the iteration and
  *   function call limits signal stopping, false otherwise.
  */
-sicmutils.numerical.multimin.nelder_mead.stop_fn = (function sicmutils$numerical$multimin$nelder_mead$stop_fn(f_counter,dimension,p__102046){
-var map__102047 = p__102046;
-var map__102047__$1 = cljs.core.__destructure_map(map__102047);
-var maxiter = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102047__$1,new cljs.core.Keyword(null,"maxiter","maxiter",-1867223754));
-var maxfun = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102047__$1,new cljs.core.Keyword(null,"maxfun","maxfun",-50301814));
+sicmutils.numerical.multimin.nelder_mead.stop_fn = (function sicmutils$numerical$multimin$nelder_mead$stop_fn(f_counter,dimension,p__101893){
+var map__101894 = p__101893;
+var map__101894__$1 = cljs.core.__destructure_map(map__101894);
+var maxiter = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101894__$1,new cljs.core.Keyword(null,"maxiter","maxiter",-1867223754));
+var maxfun = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101894__$1,new cljs.core.Keyword(null,"maxfun","maxfun",-50301814));
 var maxiter__$1 = (function (){var or__4253__auto__ = maxiter;
 if(cljs.core.truth_(or__4253__auto__)){
 return or__4253__auto__;
@@ -319,11 +319,11 @@ return (((iterations > maxiter__$1)) || ((cljs.core.deref(f_counter) > maxfun__$
  *   which I have imitated here.
  *   
  */
-sicmutils.numerical.multimin.nelder_mead.nelder_mead = (function sicmutils$numerical$multimin$nelder_mead$nelder_mead(func,x0,p__102055){
-var map__102057 = p__102055;
-var map__102057__$1 = cljs.core.__destructure_map(map__102057);
-var opts = map__102057__$1;
-var callback = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102057__$1,new cljs.core.Keyword(null,"callback","callback",-705136228));
+sicmutils.numerical.multimin.nelder_mead.nelder_mead = (function sicmutils$numerical$multimin$nelder_mead$nelder_mead(func,x0,p__101907){
+var map__101908 = p__101907;
+var map__101908__$1 = cljs.core.__destructure_map(map__101908);
+var opts = map__101908__$1;
+var callback = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__101908__$1,new cljs.core.Keyword(null,"callback","callback",-705136228));
 var callback__$1 = (function (){var or__4253__auto__ = callback;
 if(cljs.core.truth_(or__4253__auto__)){
 return or__4253__auto__;
@@ -332,33 +332,33 @@ return cljs.core.constantly(null);
 }
 })();
 var dimension = cljs.core.count(x0);
-var vec__102058 = sicmutils.numerical.multimin.nelder_mead.counted(func);
-var f_counter = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102058,(0),null);
-var f = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102058,(1),null);
+var vec__101909 = sicmutils.numerical.multimin.nelder_mead.counted(func);
+var f_counter = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101909,(0),null);
+var f = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101909,(1),null);
 var step = sicmutils.numerical.multimin.nelder_mead.step_fn(f,dimension,opts);
 var convergence_QMARK_ = sicmutils.numerical.multimin.nelder_mead.convergence_fn(opts);
 var stop_QMARK_ = sicmutils.numerical.multimin.nelder_mead.stop_fn(f_counter,dimension,opts);
 var simplex = sicmutils.numerical.multimin.nelder_mead.initial_simplex(x0,opts);
 var f_simplex = cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(f,simplex);
-var G__102070 = sicmutils.numerical.multimin.nelder_mead.sort_by_f.cljs$core$IFn$_invoke$arity$3(simplex,f_simplex,dimension);
-var vec__102072 = G__102070;
-var vec__102075 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102072,(0),null);
-var s0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102075,(0),null);
-var simplex__$1 = vec__102075;
-var vec__102078 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102072,(1),null);
-var f0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102078,(0),null);
-var f_simplex__$1 = vec__102078;
+var G__101921 = sicmutils.numerical.multimin.nelder_mead.sort_by_f.cljs$core$IFn$_invoke$arity$3(simplex,f_simplex,dimension);
+var vec__101922 = G__101921;
+var vec__101925 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101922,(0),null);
+var s0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101925,(0),null);
+var simplex__$1 = vec__101925;
+var vec__101928 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101922,(1),null);
+var f0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101928,(0),null);
+var f_simplex__$1 = vec__101928;
 var iteration = (0);
-var G__102070__$1 = G__102070;
+var G__101921__$1 = G__101921;
 var iteration__$1 = iteration;
 while(true){
-var vec__102095 = G__102070__$1;
-var vec__102098 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102095,(0),null);
-var s0__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102098,(0),null);
-var simplex__$2 = vec__102098;
-var vec__102101 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102095,(1),null);
-var f0__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102101,(0),null);
-var f_simplex__$2 = vec__102101;
+var vec__101949 = G__101921__$1;
+var vec__101952 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101949,(0),null);
+var s0__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101952,(0),null);
+var simplex__$2 = vec__101952;
+var vec__101955 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101949,(1),null);
+var f0__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101955,(0),null);
+var f_simplex__$2 = vec__101955;
 var iteration__$2 = iteration__$1;
 (callback__$1.cljs$core$IFn$_invoke$arity$3 ? callback__$1.cljs$core$IFn$_invoke$arity$3(iteration__$2,s0__$1,f0__$1) : callback__$1.call(null,iteration__$2,s0__$1,f0__$1));
 
@@ -372,10 +372,10 @@ return stop_QMARK_(iteration__$2);
 })())){
 return new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"result","result",1415092211),s0__$1,new cljs.core.Keyword(null,"value","value",305978217),f0__$1,new cljs.core.Keyword(null,"converged?","converged?",1779059976),converged_QMARK_,new cljs.core.Keyword(null,"iterations","iterations",-1402710890),iteration__$2,new cljs.core.Keyword(null,"fncalls","fncalls",-71376182),cljs.core.deref(f_counter)], null);
 } else {
-var G__102173 = (step.cljs$core$IFn$_invoke$arity$2 ? step.cljs$core$IFn$_invoke$arity$2(simplex__$2,f_simplex__$2) : step.call(null,simplex__$2,f_simplex__$2));
-var G__102174 = (iteration__$2 + (1));
-G__102070__$1 = G__102173;
-iteration__$1 = G__102174;
+var G__102014 = (step.cljs$core$IFn$_invoke$arity$2 ? step.cljs$core$IFn$_invoke$arity$2(simplex__$2,f_simplex__$2) : step.call(null,simplex__$2,f_simplex__$2));
+var G__102015 = (iteration__$2 + (1));
+G__101921__$1 = G__102014;
+iteration__$1 = G__102015;
 continue;
 }
 break;

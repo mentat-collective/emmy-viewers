@@ -121,11 +121,11 @@ var ___$1 = this;
 return (new sicmutils.rational_function.RationalFunction(self__.arity,self__.u,self__.v,m__$1));
 }));
 
-(sicmutils.rational_function.RationalFunction.prototype.call = (function (unused__43952__auto__){
+(sicmutils.rational_function.RationalFunction.prototype.call = (function (unused__43702__auto__){
 var self__ = this;
 var self__ = this;
-var G__100523 = (arguments.length - (1));
-switch (G__100523) {
+var G__100430 = (arguments.length - (1));
+switch (G__100430) {
 case (0):
 return self__.cljs$core$IFn$_invoke$arity$0();
 
@@ -220,186 +220,186 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 }
 }));
 
-(sicmutils.rational_function.RationalFunction.prototype.apply = (function (self__,args100475){
+(sicmutils.rational_function.RationalFunction.prototype.apply = (function (self__,args100403){
 var self__ = this;
 var self____$1 = this;
-return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args100475)));
+return self____$1.call.apply(self____$1,[self____$1].concat(cljs.core.aclone(args100403)));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$0 = (function (){
 var self__ = this;
 var this$ = this;
-var G__100603 = this$;
-var G__100604 = cljs.core.PersistentVector.EMPTY;
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100603,G__100604) : sicmutils.rational_function.evaluate.call(null,G__100603,G__100604));
+var G__100508 = this$;
+var G__100509 = cljs.core.PersistentVector.EMPTY;
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100508,G__100509) : sicmutils.rational_function.evaluate.call(null,G__100508,G__100509));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$1 = (function (a){
 var self__ = this;
 var this$ = this;
-var G__100605 = this$;
-var G__100606 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [a], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100605,G__100606) : sicmutils.rational_function.evaluate.call(null,G__100605,G__100606));
+var G__100512 = this$;
+var G__100513 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [a], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100512,G__100513) : sicmutils.rational_function.evaluate.call(null,G__100512,G__100513));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$2 = (function (a,b){
 var self__ = this;
 var this$ = this;
-var G__100608 = this$;
-var G__100609 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100608,G__100609) : sicmutils.rational_function.evaluate.call(null,G__100608,G__100609));
+var G__100515 = this$;
+var G__100516 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100515,G__100516) : sicmutils.rational_function.evaluate.call(null,G__100515,G__100516));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$3 = (function (a,b,c){
 var self__ = this;
 var this$ = this;
-var G__100611 = this$;
-var G__100612 = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100611,G__100612) : sicmutils.rational_function.evaluate.call(null,G__100611,G__100612));
+var G__100517 = this$;
+var G__100518 = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100517,G__100518) : sicmutils.rational_function.evaluate.call(null,G__100517,G__100518));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$4 = (function (a,b,c,d){
 var self__ = this;
 var this$ = this;
-var G__100613 = this$;
-var G__100614 = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100613,G__100614) : sicmutils.rational_function.evaluate.call(null,G__100613,G__100614));
+var G__100523 = this$;
+var G__100524 = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100523,G__100524) : sicmutils.rational_function.evaluate.call(null,G__100523,G__100524));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$5 = (function (a,b,c,d,e){
 var self__ = this;
 var this$ = this;
-var G__100619 = this$;
-var G__100620 = new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100619,G__100620) : sicmutils.rational_function.evaluate.call(null,G__100619,G__100620));
+var G__100528 = this$;
+var G__100529 = new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100528,G__100529) : sicmutils.rational_function.evaluate.call(null,G__100528,G__100529));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$6 = (function (a,b,c,d,e,f){
 var self__ = this;
 var this$ = this;
-var G__100621 = this$;
-var G__100622 = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100621,G__100622) : sicmutils.rational_function.evaluate.call(null,G__100621,G__100622));
+var G__100530 = this$;
+var G__100531 = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100530,G__100531) : sicmutils.rational_function.evaluate.call(null,G__100530,G__100531));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$7 = (function (a,b,c,d,e,f,g){
 var self__ = this;
 var this$ = this;
-var G__100626 = this$;
-var G__100627 = new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100626,G__100627) : sicmutils.rational_function.evaluate.call(null,G__100626,G__100627));
+var G__100536 = this$;
+var G__100537 = new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100536,G__100537) : sicmutils.rational_function.evaluate.call(null,G__100536,G__100537));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$8 = (function (a,b,c,d,e,f,g,h){
 var self__ = this;
 var this$ = this;
-var G__100628 = this$;
-var G__100629 = new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100628,G__100629) : sicmutils.rational_function.evaluate.call(null,G__100628,G__100629));
+var G__100538 = this$;
+var G__100539 = new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100538,G__100539) : sicmutils.rational_function.evaluate.call(null,G__100538,G__100539));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$9 = (function (a,b,c,d,e,f,g,h,i){
 var self__ = this;
 var this$ = this;
-var G__100630 = this$;
-var G__100631 = new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100630,G__100631) : sicmutils.rational_function.evaluate.call(null,G__100630,G__100631));
+var G__100540 = this$;
+var G__100541 = new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100540,G__100541) : sicmutils.rational_function.evaluate.call(null,G__100540,G__100541));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$10 = (function (a,b,c,d,e,f,g,h,i,j){
 var self__ = this;
 var this$ = this;
-var G__100632 = this$;
-var G__100633 = new cljs.core.PersistentVector(null, 10, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100632,G__100633) : sicmutils.rational_function.evaluate.call(null,G__100632,G__100633));
+var G__100554 = this$;
+var G__100555 = new cljs.core.PersistentVector(null, 10, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100554,G__100555) : sicmutils.rational_function.evaluate.call(null,G__100554,G__100555));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$11 = (function (a,b,c,d,e,f,g,h,i,j,k){
 var self__ = this;
 var this$ = this;
-var G__100634 = this$;
-var G__100635 = new cljs.core.PersistentVector(null, 11, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100634,G__100635) : sicmutils.rational_function.evaluate.call(null,G__100634,G__100635));
+var G__100560 = this$;
+var G__100561 = new cljs.core.PersistentVector(null, 11, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100560,G__100561) : sicmutils.rational_function.evaluate.call(null,G__100560,G__100561));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$12 = (function (a,b,c,d,e,f,g,h,i,j,k,l){
 var self__ = this;
 var this$ = this;
-var G__100636 = this$;
-var G__100637 = new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100636,G__100637) : sicmutils.rational_function.evaluate.call(null,G__100636,G__100637));
+var G__100563 = this$;
+var G__100564 = new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100563,G__100564) : sicmutils.rational_function.evaluate.call(null,G__100563,G__100564));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$13 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1){
 var self__ = this;
 var this$ = this;
-var G__100638 = this$;
-var G__100639 = new cljs.core.PersistentVector(null, 13, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100638,G__100639) : sicmutils.rational_function.evaluate.call(null,G__100638,G__100639));
+var G__100571 = this$;
+var G__100572 = new cljs.core.PersistentVector(null, 13, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100571,G__100572) : sicmutils.rational_function.evaluate.call(null,G__100571,G__100572));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$14 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n){
 var self__ = this;
 var this$ = this;
-var G__100642 = this$;
-var G__100643 = new cljs.core.PersistentVector(null, 14, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100642,G__100643) : sicmutils.rational_function.evaluate.call(null,G__100642,G__100643));
+var G__100573 = this$;
+var G__100574 = new cljs.core.PersistentVector(null, 14, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100573,G__100574) : sicmutils.rational_function.evaluate.call(null,G__100573,G__100574));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$15 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o){
 var self__ = this;
 var this$ = this;
-var G__100645 = this$;
-var G__100646 = new cljs.core.PersistentVector(null, 15, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100645,G__100646) : sicmutils.rational_function.evaluate.call(null,G__100645,G__100646));
+var G__100575 = this$;
+var G__100576 = new cljs.core.PersistentVector(null, 15, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100575,G__100576) : sicmutils.rational_function.evaluate.call(null,G__100575,G__100576));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$16 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p){
 var self__ = this;
 var this$ = this;
-var G__100648 = this$;
-var G__100649 = new cljs.core.PersistentVector(null, 16, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100648,G__100649) : sicmutils.rational_function.evaluate.call(null,G__100648,G__100649));
+var G__100577 = this$;
+var G__100578 = new cljs.core.PersistentVector(null, 16, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100577,G__100578) : sicmutils.rational_function.evaluate.call(null,G__100577,G__100578));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$17 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q){
 var self__ = this;
 var this$ = this;
-var G__100651 = this$;
-var G__100652 = new cljs.core.PersistentVector(null, 17, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100651,G__100652) : sicmutils.rational_function.evaluate.call(null,G__100651,G__100652));
+var G__100579 = this$;
+var G__100580 = new cljs.core.PersistentVector(null, 17, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100579,G__100580) : sicmutils.rational_function.evaluate.call(null,G__100579,G__100580));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$18 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r){
 var self__ = this;
 var this$ = this;
-var G__100656 = this$;
-var G__100657 = new cljs.core.PersistentVector(null, 18, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100656,G__100657) : sicmutils.rational_function.evaluate.call(null,G__100656,G__100657));
+var G__100581 = this$;
+var G__100582 = new cljs.core.PersistentVector(null, 18, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100581,G__100582) : sicmutils.rational_function.evaluate.call(null,G__100581,G__100582));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$19 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s){
 var self__ = this;
 var this$ = this;
-var G__100658 = this$;
-var G__100659 = new cljs.core.PersistentVector(null, 19, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100658,G__100659) : sicmutils.rational_function.evaluate.call(null,G__100658,G__100659));
+var G__100583 = this$;
+var G__100584 = new cljs.core.PersistentVector(null, 19, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100583,G__100584) : sicmutils.rational_function.evaluate.call(null,G__100583,G__100584));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$20 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s,t){
 var self__ = this;
 var this$ = this;
-var G__100664 = this$;
-var G__100665 = new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s,t], null);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100664,G__100665) : sicmutils.rational_function.evaluate.call(null,G__100664,G__100665));
+var G__100585 = this$;
+var G__100586 = new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s,t], null);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100585,G__100586) : sicmutils.rational_function.evaluate.call(null,G__100585,G__100586));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.cljs$core$IFn$_invoke$arity$21 = (function (a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s,t,rest){
 var self__ = this;
 var this$ = this;
-var G__100669 = this$;
-var G__100670 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s,t], null),rest);
-return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100669,G__100670) : sicmutils.rational_function.evaluate.call(null,G__100669,G__100670));
+var G__100587 = this$;
+var G__100588 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 20, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,b,c,d,e,f,g,h,i,j,k,l,m__$1,n,o,p,q,r,s,t], null),rest);
+return (sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2 ? sicmutils.rational_function.evaluate.cljs$core$IFn$_invoke$arity$2(G__100587,G__100588) : sicmutils.rational_function.evaluate.call(null,G__100587,G__100588));
 }));
 
 (sicmutils.rational_function.RationalFunction.prototype.sicmutils$ratio$IRational$ = cljs.core.PROTOCOL_SENTINEL);
@@ -633,13 +633,13 @@ var xform = cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.distinct.cljs
 var coefs = cljs.core.concat.cljs$core$IFn$_invoke$arity$2(sicmutils.polynomial.coefficients(u),sicmutils.polynomial.coefficients(v));
 var factor = cljs.core.transduce.cljs$core$IFn$_invoke$arity$4(xform,cljs.core.completing.cljs$core$IFn$_invoke$arity$1(sicmutils.generic.lcm),(1),coefs);
 var factor__$1 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2((1),sicmutils.rational_function.coef_sgn(sicmutils.polynomial.leading_coefficient(v))))?factor:sicmutils.generic.negate.cljs$core$IFn$_invoke$arity$1(factor));
-var vec__100697 = ((sicmutils.value.one_QMARK_(factor__$1))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [u,v], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(factor__$1,u),sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(factor__$1,v)], null));
-var u_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100697,(0),null);
-var v_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100697,(1),null);
+var vec__100615 = ((sicmutils.value.one_QMARK_(factor__$1))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [u,v], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(factor__$1,u),sicmutils.generic.mul.cljs$core$IFn$_invoke$arity$2(factor__$1,v)], null));
+var u_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100615,(0),null);
+var v_SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100615,(1),null);
 var g = sicmutils.generic.gcd.cljs$core$IFn$_invoke$arity$2(u_SINGLEQUOTE_,v_SINGLEQUOTE_);
-var vec__100700 = ((sicmutils.value.one_QMARK_(g))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [u_SINGLEQUOTE_,v_SINGLEQUOTE_], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.polynomial.evenly_divide(u_SINGLEQUOTE_,g),sicmutils.polynomial.evenly_divide(v_SINGLEQUOTE_,g)], null));
-var u_SINGLEQUOTE__SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100700,(0),null);
-var v_SINGLEQUOTE__SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100700,(1),null);
+var vec__100618 = ((sicmutils.value.one_QMARK_(g))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [u_SINGLEQUOTE_,v_SINGLEQUOTE_], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.polynomial.evenly_divide(u_SINGLEQUOTE_,g),sicmutils.polynomial.evenly_divide(v_SINGLEQUOTE_,g)], null));
+var u_SINGLEQUOTE__SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100618,(0),null);
+var v_SINGLEQUOTE__SINGLEQUOTE_ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100618,(1),null);
 return sicmutils.rational_function.make_reduced(a,u_SINGLEQUOTE__SINGLEQUOTE_,v_SINGLEQUOTE__SINGLEQUOTE_);
 });
 /**
@@ -681,9 +681,9 @@ var u_n = sicmutils.ratio.numerator(u);
 var u_d = sicmutils.ratio.denominator(u);
 var v_n = sicmutils.ratio.numerator(v);
 var v_d = sicmutils.ratio.denominator(v);
-var vec__100705 = ((((sicmutils.value.one_QMARK_(u_d)) && (sicmutils.value.one_QMARK_(v_d))))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(poly_op.cljs$core$IFn$_invoke$arity$2 ? poly_op.cljs$core$IFn$_invoke$arity$2(u_n,v_n) : poly_op.call(null,u_n,v_n)),(1)], null):(uv_op.cljs$core$IFn$_invoke$arity$4 ? uv_op.cljs$core$IFn$_invoke$arity$4(u_n,u_d,v_n,v_d) : uv_op.call(null,u_n,u_d,v_n,v_d)));
-var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100705,(0),null);
-var d = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100705,(1),null);
+var vec__100622 = ((((sicmutils.value.one_QMARK_(u_d)) && (sicmutils.value.one_QMARK_(v_d))))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(poly_op.cljs$core$IFn$_invoke$arity$2 ? poly_op.cljs$core$IFn$_invoke$arity$2(u_n,v_n) : poly_op.call(null,u_n,v_n)),(1)], null):(uv_op.cljs$core$IFn$_invoke$arity$4 ? uv_op.cljs$core$IFn$_invoke$arity$4(u_n,u_d,v_n,v_d) : uv_op.call(null,u_n,u_d,v_n,v_d)));
+var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100622,(0),null);
+var d = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100622,(1),null);
 return sicmutils.rational_function.make_reduced(a,n,d);
 });
 /**
@@ -880,10 +880,10 @@ return sicmutils.polynomial.expt(r,n);
 } else {
 var u = sicmutils.rational_function.bare_u(r);
 var v = sicmutils.rational_function.bare_v(r);
-var vec__100716 = (((n < (0)))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [v,u,(- n)], null):new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [u,v,n], null));
-var top = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100716,(0),null);
-var bottom = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100716,(1),null);
-var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100716,(2),null);
+var vec__100631 = (((n < (0)))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [v,u,(- n)], null):new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [u,v,n], null));
+var top = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100631,(0),null);
+var bottom = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100631,(1),null);
+var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100631,(2),null);
 return sicmutils.rational_function.__GT_RationalFunction(sicmutils.rational_function.bare_arity(r),sicmutils.polynomial.expt(top,e),sicmutils.polynomial.expt(bottom,e),cljs.core.meta(r));
 }
 });
@@ -999,25 +999,25 @@ sicmutils.rational_function.partial_derivatives = (function sicmutils$rational_f
 if((!(sicmutils.rational_function.rational_function_QMARK_(r)))){
 return sicmutils.polynomial.partial_derivatives(r);
 } else {
-var iter__4652__auto__ = (function sicmutils$rational_function$partial_derivatives_$_iter__100726(s__100727){
+var iter__4652__auto__ = (function sicmutils$rational_function$partial_derivatives_$_iter__100638(s__100639){
 return (new cljs.core.LazySeq(null,(function (){
-var s__100727__$1 = s__100727;
+var s__100639__$1 = s__100639;
 while(true){
-var temp__5753__auto__ = cljs.core.seq(s__100727__$1);
+var temp__5753__auto__ = cljs.core.seq(s__100639__$1);
 if(temp__5753__auto__){
-var s__100727__$2 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(s__100727__$2)){
-var c__4650__auto__ = cljs.core.chunk_first(s__100727__$2);
+var s__100639__$2 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(s__100639__$2)){
+var c__4650__auto__ = cljs.core.chunk_first(s__100639__$2);
 var size__4651__auto__ = cljs.core.count(c__4650__auto__);
-var b__100729 = cljs.core.chunk_buffer(size__4651__auto__);
-if((function (){var i__100728 = (0);
+var b__100641 = cljs.core.chunk_buffer(size__4651__auto__);
+if((function (){var i__100640 = (0);
 while(true){
-if((i__100728 < size__4651__auto__)){
-var i = cljs.core._nth(c__4650__auto__,i__100728);
-cljs.core.chunk_append(b__100729,sicmutils.rational_function.partial_derivative(r,i));
+if((i__100640 < size__4651__auto__)){
+var i = cljs.core._nth(c__4650__auto__,i__100640);
+cljs.core.chunk_append(b__100641,sicmutils.rational_function.partial_derivative(r,i));
 
-var G__100815 = (i__100728 + (1));
-i__100728 = G__100815;
+var G__100788 = (i__100640 + (1));
+i__100640 = G__100788;
 continue;
 } else {
 return true;
@@ -1025,13 +1025,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons(cljs.core.chunk(b__100729),sicmutils$rational_function$partial_derivatives_$_iter__100726(cljs.core.chunk_rest(s__100727__$2)));
+return cljs.core.chunk_cons(cljs.core.chunk(b__100641),sicmutils$rational_function$partial_derivatives_$_iter__100638(cljs.core.chunk_rest(s__100639__$2)));
 } else {
-return cljs.core.chunk_cons(cljs.core.chunk(b__100729),null);
+return cljs.core.chunk_cons(cljs.core.chunk(b__100641),null);
 }
 } else {
-var i = cljs.core.first(s__100727__$2);
-return cljs.core.cons(sicmutils.rational_function.partial_derivative(r,i),sicmutils$rational_function$partial_derivatives_$_iter__100726(cljs.core.rest(s__100727__$2)));
+var i = cljs.core.first(s__100639__$2);
+return cljs.core.cons(sicmutils.rational_function.partial_derivative(r,i),sicmutils$rational_function$partial_derivatives_$_iter__100638(cljs.core.rest(s__100639__$2)));
 }
 } else {
 return null;
@@ -1088,8 +1088,8 @@ sicmutils.rational_function.operators_known = sicmutils.util.keyset(sicmutils.ra
  *   by [[sicmutils.expression.analyze/make-analyzer]].
  */
 sicmutils.rational_function.expression__GT_ = (function sicmutils$rational_function$expression__GT_(var_args){
-var G__100732 = arguments.length;
-switch (G__100732) {
+var G__100646 = arguments.length;
+switch (G__100646) {
 case 1:
 return sicmutils.rational_function.expression__GT_.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1149,17 +1149,17 @@ sicmutils.rational_function.__GT_expression = (function sicmutils$rational_funct
 if((!(sicmutils.rational_function.rational_function_QMARK_(r)))){
 return sicmutils.polynomial.__GT_expression(r,vars);
 } else {
-var G__100735 = sicmutils.polynomial.__GT_expression(sicmutils.rational_function.bare_u(r),vars);
-var G__100736 = sicmutils.polynomial.__GT_expression(sicmutils.rational_function.bare_v(r),vars);
-var fexpr__100734 = sicmutils.numsymb.symbolic_operator(new cljs.core.Symbol(null,"/","/",-1371932971,null));
-return (fexpr__100734.cljs$core$IFn$_invoke$arity$2 ? fexpr__100734.cljs$core$IFn$_invoke$arity$2(G__100735,G__100736) : fexpr__100734.call(null,G__100735,G__100736));
+var G__100673 = sicmutils.polynomial.__GT_expression(sicmutils.rational_function.bare_u(r),vars);
+var G__100674 = sicmutils.polynomial.__GT_expression(sicmutils.rational_function.bare_v(r),vars);
+var fexpr__100672 = sicmutils.numsymb.symbolic_operator(new cljs.core.Symbol(null,"/","/",-1371932971,null));
+return (fexpr__100672.cljs$core$IFn$_invoke$arity$2 ? fexpr__100672.cljs$core$IFn$_invoke$arity$2(G__100673,G__100674) : fexpr__100672.call(null,G__100673,G__100674));
 }
 });
 /**
  * Singleton [[a/ICanonicalize]] instance.
  */
 sicmutils.rational_function.analyzer = (function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.rational_function !== 'undefined') && (typeof sicmutils.rational_function.t_sicmutils$rational_function100738 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.rational_function !== 'undefined') && (typeof sicmutils.rational_function.t_sicmutils$rational_function100686 !== 'undefined')){
 } else {
 
 /**
@@ -1168,71 +1168,71 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.rational_function !==
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.rational_function.t_sicmutils$rational_function100738 = (function (meta100739){
-this.meta100739 = meta100739;
+sicmutils.rational_function.t_sicmutils$rational_function100686 = (function (meta100687){
+this.meta100687 = meta100687;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_100740,meta100739__$1){
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_100688,meta100687__$1){
 var self__ = this;
-var _100740__$1 = this;
-return (new sicmutils.rational_function.t_sicmutils$rational_function100738(meta100739__$1));
+var _100688__$1 = this;
+return (new sicmutils.rational_function.t_sicmutils$rational_function100686(meta100687__$1));
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_100740){
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_100688){
 var self__ = this;
-var _100740__$1 = this;
-return self__.meta100739;
+var _100688__$1 = this;
+return self__.meta100687;
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.sicmutils$expression$analyze$ICanonicalize$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.sicmutils$expression$analyze$ICanonicalize$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$3 = (function (_,expr,cont){
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$3 = (function (_,expr,cont){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.rational_function.expression__GT_.cljs$core$IFn$_invoke$arity$2(expr,cont);
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$4 = (function (_,expr,cont,v_compare){
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.sicmutils$expression$analyze$ICanonicalize$expression__GT_$arity$4 = (function (_,expr,cont,v_compare){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.rational_function.expression__GT_.cljs$core$IFn$_invoke$arity$3(expr,cont,v_compare);
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.sicmutils$expression$analyze$ICanonicalize$__GT_expression$arity$3 = (function (_,rf,vars){
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.sicmutils$expression$analyze$ICanonicalize$__GT_expression$arity$3 = (function (_,rf,vars){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.rational_function.__GT_expression(rf,vars);
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.prototype.sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$arity$2 = (function (_,o){
+(sicmutils.rational_function.t_sicmutils$rational_function100686.prototype.sicmutils$expression$analyze$ICanonicalize$known_operation_QMARK_$arity$2 = (function (_,o){
 var self__ = this;
 var ___$1 = this;
 return cljs.core.contains_QMARK_(sicmutils.rational_function.operators_known,o);
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta100739","meta100739",-1394087150,null)], null);
+(sicmutils.rational_function.t_sicmutils$rational_function100686.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta100687","meta100687",165991391,null)], null);
 }));
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.cljs$lang$type = true);
+(sicmutils.rational_function.t_sicmutils$rational_function100686.cljs$lang$type = true);
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.cljs$lang$ctorStr = "sicmutils.rational-function/t_sicmutils$rational_function100738");
+(sicmutils.rational_function.t_sicmutils$rational_function100686.cljs$lang$ctorStr = "sicmutils.rational-function/t_sicmutils$rational_function100686");
 
-(sicmutils.rational_function.t_sicmutils$rational_function100738.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.rational-function/t_sicmutils$rational_function100738");
+(sicmutils.rational_function.t_sicmutils$rational_function100686.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.rational-function/t_sicmutils$rational_function100686");
 }));
 
 /**
- * Positional factory function for sicmutils.rational-function/t_sicmutils$rational_function100738.
+ * Positional factory function for sicmutils.rational-function/t_sicmutils$rational_function100686.
  */
-sicmutils.rational_function.__GT_t_sicmutils$rational_function100738 = (function sicmutils$rational_function$__GT_t_sicmutils$rational_function100738(meta100739){
-return (new sicmutils.rational_function.t_sicmutils$rational_function100738(meta100739));
+sicmutils.rational_function.__GT_t_sicmutils$rational_function100686 = (function sicmutils$rational_function$__GT_t_sicmutils$rational_function100686(meta100687){
+return (new sicmutils.rational_function.t_sicmutils$rational_function100686(meta100687));
 });
 
 }
 
-return (new sicmutils.rational_function.t_sicmutils$rational_function100738(cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.rational_function.t_sicmutils$rational_function100686(cljs.core.PersistentArrayMap.EMPTY));
 })()
 ;
 sicmutils.generic.invert.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.polynomial","polynomial","sicmutils.polynomial/polynomial",-2043958683)], null),(function (p){
@@ -1249,9 +1249,9 @@ sicmutils.polynomial.defbinary(sicmutils.generic.solve_linear,(function (l,r){
 return sicmutils.rational_function.div(r,l);
 }));
 sicmutils.generic.exact_divide.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.polynomial","coeff","sicmutils.polynomial/coeff",-1161263509),new cljs.core.Keyword("sicmutils.polynomial","polynomial","sicmutils.polynomial/polynomial",-2043958683)], null),(function (c,p){
-var vec__100747 = sicmutils.polynomial.bare_terms(p);
-var term = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100747,(0),null);
-var terms = vec__100747;
+var vec__100725 = sicmutils.polynomial.bare_terms(p);
+var term = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100725,(0),null);
+var terms = vec__100725;
 if(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(terms),(1))) && (sicmutils.polynomial.impl.constant_term_QMARK_(term)))){
 return sicmutils.generic.exact_divide.cljs$core$IFn$_invoke$arity$2(c,sicmutils.polynomial.impl.coefficient(term));
 } else {
@@ -1265,65 +1265,65 @@ return sicmutils.rational_function.make(c,p);
  */
 sicmutils.rational_function.defbinary = (function sicmutils$rational_function$defbinary(generic_op,f){
 var pairs = new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.rational-function","rational-function","sicmutils.rational-function/rational-function",1564681594),new cljs.core.Keyword("sicmutils.rational-function","rational-function","sicmutils.rational-function/rational-function",1564681594)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.polynomial","polynomial","sicmutils.polynomial/polynomial",-2043958683),new cljs.core.Keyword("sicmutils.rational-function","rational-function","sicmutils.rational-function/rational-function",1564681594)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.polynomial","coeff","sicmutils.polynomial/coeff",-1161263509),new cljs.core.Keyword("sicmutils.rational-function","rational-function","sicmutils.rational-function/rational-function",1564681594)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.rational-function","rational-function","sicmutils.rational-function/rational-function",1564681594),new cljs.core.Keyword("sicmutils.polynomial","polynomial","sicmutils.polynomial/polynomial",-2043958683)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.rational-function","rational-function","sicmutils.rational-function/rational-function",1564681594),new cljs.core.Keyword("sicmutils.polynomial","coeff","sicmutils.polynomial/coeff",-1161263509)], null)], null);
-var seq__100750 = cljs.core.seq(pairs);
-var chunk__100751 = null;
-var count__100752 = (0);
-var i__100753 = (0);
+var seq__100732 = cljs.core.seq(pairs);
+var chunk__100733 = null;
+var count__100734 = (0);
+var i__100735 = (0);
 while(true){
-if((i__100753 < count__100752)){
-var vec__100767 = chunk__100751.cljs$core$IIndexed$_nth$arity$2(null,i__100753);
-var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100767,(0),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100767,(1),null);
-generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,r], null),((function (seq__100750,chunk__100751,count__100752,i__100753,vec__100767,l,r,pairs){
+if((i__100735 < count__100734)){
+var vec__100744 = chunk__100733.cljs$core$IIndexed$_nth$arity$2(null,i__100735);
+var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100744,(0),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100744,(1),null);
+generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,r], null),((function (seq__100732,chunk__100733,count__100734,i__100735,vec__100744,l,r,pairs){
 return (function (r__$1,s){
 return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(r__$1,s) : f.call(null,r__$1,s));
-});})(seq__100750,chunk__100751,count__100752,i__100753,vec__100767,l,r,pairs))
+});})(seq__100732,chunk__100733,count__100734,i__100735,vec__100744,l,r,pairs))
 );
 
 
-var G__100829 = seq__100750;
-var G__100830 = chunk__100751;
-var G__100831 = count__100752;
-var G__100832 = (i__100753 + (1));
-seq__100750 = G__100829;
-chunk__100751 = G__100830;
-count__100752 = G__100831;
-i__100753 = G__100832;
+var G__100827 = seq__100732;
+var G__100828 = chunk__100733;
+var G__100829 = count__100734;
+var G__100830 = (i__100735 + (1));
+seq__100732 = G__100827;
+chunk__100733 = G__100828;
+count__100734 = G__100829;
+i__100735 = G__100830;
 continue;
 } else {
-var temp__5753__auto__ = cljs.core.seq(seq__100750);
+var temp__5753__auto__ = cljs.core.seq(seq__100732);
 if(temp__5753__auto__){
-var seq__100750__$1 = temp__5753__auto__;
-if(cljs.core.chunked_seq_QMARK_(seq__100750__$1)){
-var c__4679__auto__ = cljs.core.chunk_first(seq__100750__$1);
-var G__100833 = cljs.core.chunk_rest(seq__100750__$1);
-var G__100834 = c__4679__auto__;
-var G__100835 = cljs.core.count(c__4679__auto__);
-var G__100836 = (0);
-seq__100750 = G__100833;
-chunk__100751 = G__100834;
-count__100752 = G__100835;
-i__100753 = G__100836;
+var seq__100732__$1 = temp__5753__auto__;
+if(cljs.core.chunked_seq_QMARK_(seq__100732__$1)){
+var c__4679__auto__ = cljs.core.chunk_first(seq__100732__$1);
+var G__100834 = cljs.core.chunk_rest(seq__100732__$1);
+var G__100835 = c__4679__auto__;
+var G__100836 = cljs.core.count(c__4679__auto__);
+var G__100837 = (0);
+seq__100732 = G__100834;
+chunk__100733 = G__100835;
+count__100734 = G__100836;
+i__100735 = G__100837;
 continue;
 } else {
-var vec__100770 = cljs.core.first(seq__100750__$1);
-var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100770,(0),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100770,(1),null);
-generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,r], null),((function (seq__100750,chunk__100751,count__100752,i__100753,vec__100770,l,r,seq__100750__$1,temp__5753__auto__,pairs){
+var vec__100749 = cljs.core.first(seq__100732__$1);
+var l = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100749,(0),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__100749,(1),null);
+generic_op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [l,r], null),((function (seq__100732,chunk__100733,count__100734,i__100735,vec__100749,l,r,seq__100732__$1,temp__5753__auto__,pairs){
 return (function (r__$1,s){
 return (f.cljs$core$IFn$_invoke$arity$2 ? f.cljs$core$IFn$_invoke$arity$2(r__$1,s) : f.call(null,r__$1,s));
-});})(seq__100750,chunk__100751,count__100752,i__100753,vec__100770,l,r,seq__100750__$1,temp__5753__auto__,pairs))
+});})(seq__100732,chunk__100733,count__100734,i__100735,vec__100749,l,r,seq__100732__$1,temp__5753__auto__,pairs))
 );
 
 
-var G__100837 = cljs.core.next(seq__100750__$1);
-var G__100838 = null;
-var G__100839 = (0);
-var G__100840 = (0);
-seq__100750 = G__100837;
-chunk__100751 = G__100838;
-count__100752 = G__100839;
-i__100753 = G__100840;
+var G__100841 = cljs.core.next(seq__100732__$1);
+var G__100842 = null;
+var G__100843 = (0);
+var G__100844 = (0);
+seq__100732 = G__100841;
+chunk__100733 = G__100842;
+count__100734 = G__100843;
+i__100735 = G__100844;
 continue;
 }
 } else {

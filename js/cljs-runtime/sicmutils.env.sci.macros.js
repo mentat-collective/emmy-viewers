@@ -3,8 +3,8 @@ goog.provide('sicmutils.env.sci.macros');
  * Originally defined in `pattern.rule`.
  */
 sicmutils.env.sci.macros.pattern = (function sicmutils$env$sci$macros$pattern(var_args){
-var G__103899 = arguments.length;
-switch (G__103899) {
+var G__103933 = arguments.length;
+switch (G__103933) {
 case 3:
 return sicmutils.env.sci.macros.pattern.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -40,8 +40,8 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
  * Originally defined in `pattern.rule`.
  */
 sicmutils.env.sci.macros.template = (function sicmutils$env$sci$macros$template(var_args){
-var G__103902 = arguments.length;
-switch (G__103902) {
+var G__103935 = arguments.length;
+switch (G__103935) {
 case 3:
 return sicmutils.env.sci.macros.template.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -68,8 +68,8 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
 (sicmutils.env.sci.macros.template.cljs$lang$maxFixedArity = 4);
 
 sicmutils.env.sci.macros.rule = (function sicmutils$env$sci$macros$rule(var_args){
-var G__103904 = arguments.length;
-switch (G__103904) {
+var G__103937 = arguments.length;
+switch (G__103937) {
 case 4:
 return sicmutils.env.sci.macros.rule.cljs$core$IFn$_invoke$arity$4((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),(arguments[(3)]));
 
@@ -99,14 +99,14 @@ return pattern.rule.compile_rule.cljs$core$IFn$_invoke$arity$3(pattern__$1,pred,
  */
 sicmutils.env.sci.macros.ruleset = (function sicmutils$env$sci$macros$ruleset(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___104151 = arguments.length;
-var i__4865__auto___104152 = (0);
+var len__4864__auto___103982 = arguments.length;
+var i__4865__auto___103983 = (0);
 while(true){
-if((i__4865__auto___104152 < len__4864__auto___104151)){
-args__4870__auto__.push((arguments[i__4865__auto___104152]));
+if((i__4865__auto___103983 < len__4864__auto___103982)){
+args__4870__auto__.push((arguments[i__4865__auto___103983]));
 
-var G__104153 = (i__4865__auto___104152 + (1));
-i__4865__auto___104152 = G__104153;
+var G__103984 = (i__4865__auto___103983 + (1));
+i__4865__auto___103983 = G__103984;
 continue;
 } else {
 }
@@ -129,8 +129,8 @@ throw (new Error("Assert failed: (mod (count patterns-and-consequences) 3)"));
 }
 
 var inputs = cljs.core.partition.cljs$core$IFn$_invoke$arity$2((3),patterns_and_consequences);
-var rules = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__103910_SHARP_){
-return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(pattern.rule.compile_rule,p1__103910_SHARP_);
+var rules = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__103938_SHARP_){
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(pattern.rule.compile_rule,p1__103938_SHARP_);
 }),inputs);
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("pattern.rule","ruleset*","pattern.rule/ruleset*",222178895,null),null,(1),null)),rules)));
 }));
@@ -138,13 +138,13 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
 (sicmutils.env.sci.macros.ruleset.cljs$lang$maxFixedArity = (2));
 
 /** @this {Function} */
-(sicmutils.env.sci.macros.ruleset.cljs$lang$applyTo = (function (seq103914){
-var G__103915 = cljs.core.first(seq103914);
-var seq103914__$1 = cljs.core.next(seq103914);
-var G__103916 = cljs.core.first(seq103914__$1);
-var seq103914__$2 = cljs.core.next(seq103914__$1);
+(sicmutils.env.sci.macros.ruleset.cljs$lang$applyTo = (function (seq103939){
+var G__103940 = cljs.core.first(seq103939);
+var seq103939__$1 = cljs.core.next(seq103939);
+var G__103941 = cljs.core.first(seq103939__$1);
+var seq103939__$2 = cljs.core.next(seq103939__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103915,G__103916,seq103914__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103940,G__103941,seq103939__$2);
 }));
 
 /**
@@ -158,14 +158,14 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
  */
 sicmutils.env.sci.macros.fork = (function sicmutils$env$sci$macros$fork(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___104156 = arguments.length;
-var i__4865__auto___104157 = (0);
+var len__4864__auto___103987 = arguments.length;
+var i__4865__auto___103988 = (0);
 while(true){
-if((i__4865__auto___104157 < len__4864__auto___104156)){
-args__4870__auto__.push((arguments[i__4865__auto___104157]));
+if((i__4865__auto___103988 < len__4864__auto___103987)){
+args__4870__auto__.push((arguments[i__4865__auto___103988]));
 
-var G__104158 = (i__4865__auto___104157 + (1));
-i__4865__auto___104157 = G__104158;
+var G__103989 = (i__4865__auto___103988 + (1));
+i__4865__auto___103988 = G__103989;
 continue;
 } else {
 }
@@ -176,11 +176,11 @@ var argseq__4871__auto__ = ((((2) < args__4870__auto__.length))?(new cljs.core.I
 return sicmutils.env.sci.macros.fork.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),argseq__4871__auto__);
 });
 
-(sicmutils.env.sci.macros.fork.cljs$core$IFn$_invoke$arity$variadic = (function (_,__AMPERSAND_env,p__103967){
-var map__103968 = p__103967;
-var map__103968__$1 = cljs.core.__destructure_map(map__103968);
-var cljs__$1 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103968__$1,new cljs.core.Keyword(null,"cljs","cljs",1492417629));
-var clj = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103968__$1,new cljs.core.Keyword(null,"clj","clj",-660495428));
+(sicmutils.env.sci.macros.fork.cljs$core$IFn$_invoke$arity$variadic = (function (_,__AMPERSAND_env,p__103945){
+var map__103946 = p__103945;
+var map__103946__$1 = cljs.core.__destructure_map(map__103946);
+var cljs__$1 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103946__$1,new cljs.core.Keyword(null,"cljs","cljs",1492417629));
+var clj = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103946__$1,new cljs.core.Keyword(null,"clj","clj",-660495428));
 if(cljs.core.contains_QMARK_(__AMPERSAND_env,new cljs.core.Symbol(null,"&env","&env",-919163083,null))){
 return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol(null,"if","if",1181717262,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Keyword(null,"ns","ns",441598760),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol(null,"&env","&env",-919163083,null),null,(1),null))))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs__$1,null,(1),null)),(new cljs.core.List(null,clj,null,(1),null))], 0))));
 } else {
@@ -192,21 +192,21 @@ return cljs__$1;
 (sicmutils.env.sci.macros.fork.cljs$lang$maxFixedArity = (2));
 
 /** @this {Function} */
-(sicmutils.env.sci.macros.fork.cljs$lang$applyTo = (function (seq103963){
-var G__103964 = cljs.core.first(seq103963);
-var seq103963__$1 = cljs.core.next(seq103963);
-var G__103965 = cljs.core.first(seq103963__$1);
-var seq103963__$2 = cljs.core.next(seq103963__$1);
+(sicmutils.env.sci.macros.fork.cljs$lang$applyTo = (function (seq103942){
+var G__103943 = cljs.core.first(seq103942);
+var seq103942__$1 = cljs.core.next(seq103942);
+var G__103944 = cljs.core.first(seq103942__$1);
+var seq103942__$2 = cljs.core.next(seq103942__$1);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103964,G__103965,seq103963__$2);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103943,G__103944,seq103942__$2);
 }));
 
 /**
  * Originally defined in `sicmutils.env`.
  */
 sicmutils.env.sci.macros.literal_function = (function sicmutils$env$sci$macros$literal_function(var_args){
-var G__103975 = arguments.length;
-switch (G__103975) {
+var G__103948 = arguments.length;
+switch (G__103948) {
 case 3:
 return sicmutils.env.sci.macros.literal_function.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -248,14 +248,14 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
  */
 sicmutils.env.sci.macros.with_literal_functions = (function sicmutils$env$sci$macros$with_literal_functions(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___104160 = arguments.length;
-var i__4865__auto___104161 = (0);
+var len__4864__auto___104016 = arguments.length;
+var i__4865__auto___104017 = (0);
 while(true){
-if((i__4865__auto___104161 < len__4864__auto___104160)){
-args__4870__auto__.push((arguments[i__4865__auto___104161]));
+if((i__4865__auto___104017 < len__4864__auto___104016)){
+args__4870__auto__.push((arguments[i__4865__auto___104017]));
 
-var G__104162 = (i__4865__auto___104161 + (1));
-i__4865__auto___104161 = G__104162;
+var G__104018 = (i__4865__auto___104017 + (1));
+i__4865__auto___104017 = G__104018;
 continue;
 } else {
 }
@@ -275,15 +275,15 @@ return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.
 (sicmutils.env.sci.macros.with_literal_functions.cljs$lang$maxFixedArity = (3));
 
 /** @this {Function} */
-(sicmutils.env.sci.macros.with_literal_functions.cljs$lang$applyTo = (function (seq103982){
-var G__103983 = cljs.core.first(seq103982);
-var seq103982__$1 = cljs.core.next(seq103982);
-var G__103984 = cljs.core.first(seq103982__$1);
-var seq103982__$2 = cljs.core.next(seq103982__$1);
-var G__103985 = cljs.core.first(seq103982__$2);
-var seq103982__$3 = cljs.core.next(seq103982__$2);
+(sicmutils.env.sci.macros.with_literal_functions.cljs$lang$applyTo = (function (seq103949){
+var G__103950 = cljs.core.first(seq103949);
+var seq103949__$1 = cljs.core.next(seq103949);
+var G__103951 = cljs.core.first(seq103949__$1);
+var seq103949__$2 = cljs.core.next(seq103949__$1);
+var G__103952 = cljs.core.first(seq103949__$2);
+var seq103949__$3 = cljs.core.next(seq103949__$2);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103983,G__103984,G__103985,seq103982__$3);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103950,G__103951,G__103952,seq103949__$3);
 }));
 
 /**
@@ -291,14 +291,14 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103983,G__1039
  */
 sicmutils.env.sci.macros.let_coordinates = (function sicmutils$env$sci$macros$let_coordinates(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___104166 = arguments.length;
-var i__4865__auto___104167 = (0);
+var len__4864__auto___104019 = arguments.length;
+var i__4865__auto___104020 = (0);
 while(true){
-if((i__4865__auto___104167 < len__4864__auto___104166)){
-args__4870__auto__.push((arguments[i__4865__auto___104167]));
+if((i__4865__auto___104020 < len__4864__auto___104019)){
+args__4870__auto__.push((arguments[i__4865__auto___104020]));
 
-var G__104168 = (i__4865__auto___104167 + (1));
-i__4865__auto___104167 = G__104168;
+var G__104021 = (i__4865__auto___104020 + (1));
+i__4865__auto___104020 = G__104021;
 continue;
 } else {
 }
@@ -322,21 +322,21 @@ var system_names = cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.comp.cl
 var coordinate_names = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic(sicmutils.calculus.coordinate.symbols_from_prototype,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([prototypes], 0));
 var coordinate_vector_field_names = cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.vector_field.coordinate_name__GT_vf_name,coordinate_names);
 var coordinate_form_field_names = cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.form_field.coordinate_name__GT_ff_name,coordinate_names);
-return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","let","cljs.core/let",-308701135,null),null,(1),null)),(new cljs.core.List(null,cljs.core.vec(cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,cljs.core.vec(cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic(system_names,(new cljs.core.List(null,new cljs.core.Keyword(null,"as","as",1148689641),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__104004__auto__","c-systems__104004__auto__",1811119204,null),null,(1),null))], 0))))),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","mapv","cljs.core/mapv",433728488,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.manifold","with-coordinate-prototype","sicmutils.calculus.manifold/with-coordinate-prototype",-1767714087,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,c_systems),null,(1),null)),(new cljs.core.List(null,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.coordinate.quotify_coordinate_prototype,prototypes),null,(1),null))], 0)))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,coordinate_names),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","flatten","cljs.core/flatten",-237795822,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","map","cljs.core/map",-338988913,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.coordinate","coordinate-functions","sicmutils.calculus.coordinate/coordinate-functions",1802102717,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__104004__auto__","c-systems__104004__auto__",1811119204,null),null,(1),null))], 0)))),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,coordinate_vector_field_names),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","flatten","cljs.core/flatten",-237795822,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","map","cljs.core/map",-338988913,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.vector-field","coordinate-system->vector-basis","sicmutils.calculus.vector-field/coordinate-system->vector-basis",-1841791405,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__104004__auto__","c-systems__104004__auto__",1811119204,null),null,(1),null))], 0)))),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,coordinate_form_field_names),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","flatten","cljs.core/flatten",-237795822,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","map","cljs.core/map",-338988913,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.form-field","coordinate-system->oneform-basis","sicmutils.calculus.form-field/coordinate-system->oneform-basis",-1600950979,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__104004__auto__","c-systems__104004__auto__",1811119204,null),null,(1),null))], 0)))),null,(1),null))))),null,(1),null))], 0))))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([body], 0))));
+return cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","let","cljs.core/let",-308701135,null),null,(1),null)),(new cljs.core.List(null,cljs.core.vec(cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,cljs.core.vec(cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic(system_names,(new cljs.core.List(null,new cljs.core.Keyword(null,"as","as",1148689641),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__103953__auto__","c-systems__103953__auto__",-492383577,null),null,(1),null))], 0))))),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","mapv","cljs.core/mapv",433728488,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.manifold","with-coordinate-prototype","sicmutils.calculus.manifold/with-coordinate-prototype",-1767714087,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,c_systems),null,(1),null)),(new cljs.core.List(null,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.coordinate.quotify_coordinate_prototype,prototypes),null,(1),null))], 0)))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,coordinate_names),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","flatten","cljs.core/flatten",-237795822,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","map","cljs.core/map",-338988913,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.coordinate","coordinate-functions","sicmutils.calculus.coordinate/coordinate-functions",1802102717,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__103953__auto__","c-systems__103953__auto__",-492383577,null),null,(1),null))], 0)))),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,coordinate_vector_field_names),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","flatten","cljs.core/flatten",-237795822,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","map","cljs.core/map",-338988913,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.vector-field","coordinate-system->vector-basis","sicmutils.calculus.vector-field/coordinate-system->vector-basis",-1841791405,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__103953__auto__","c-systems__103953__auto__",-492383577,null),null,(1),null))], 0)))),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,coordinate_form_field_names),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","flatten","cljs.core/flatten",-237795822,null),null,(1),null)),(new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic((new cljs.core.List(null,new cljs.core.Symbol("cljs.core","map","cljs.core/map",-338988913,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("sicmutils.calculus.form-field","coordinate-system->oneform-basis","sicmutils.calculus.form-field/coordinate-system->oneform-basis",-1600950979,null),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(new cljs.core.List(null,new cljs.core.Symbol(null,"c-systems__103953__auto__","c-systems__103953__auto__",-492383577,null),null,(1),null))], 0)))),null,(1),null))))),null,(1),null))], 0))))),null,(1),null)),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([body], 0))));
 }));
 
 (sicmutils.env.sci.macros.let_coordinates.cljs$lang$maxFixedArity = (3));
 
 /** @this {Function} */
-(sicmutils.env.sci.macros.let_coordinates.cljs$lang$applyTo = (function (seq104018){
-var G__104019 = cljs.core.first(seq104018);
-var seq104018__$1 = cljs.core.next(seq104018);
-var G__104020 = cljs.core.first(seq104018__$1);
-var seq104018__$2 = cljs.core.next(seq104018__$1);
-var G__104021 = cljs.core.first(seq104018__$2);
-var seq104018__$3 = cljs.core.next(seq104018__$2);
+(sicmutils.env.sci.macros.let_coordinates.cljs$lang$applyTo = (function (seq103954){
+var G__103955 = cljs.core.first(seq103954);
+var seq103954__$1 = cljs.core.next(seq103954);
+var G__103956 = cljs.core.first(seq103954__$1);
+var seq103954__$2 = cljs.core.next(seq103954__$1);
+var G__103957 = cljs.core.first(seq103954__$2);
+var seq103954__$3 = cljs.core.next(seq103954__$2);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__104019,G__104020,G__104021,seq104018__$3);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103955,G__103956,G__103957,seq103954__$3);
 }));
 
 /**
@@ -344,14 +344,14 @@ return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__104019,G__1040
  */
 sicmutils.env.sci.macros.using_coordinates = (function sicmutils$env$sci$macros$using_coordinates(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___104172 = arguments.length;
-var i__4865__auto___104173 = (0);
+var len__4864__auto___104025 = arguments.length;
+var i__4865__auto___104026 = (0);
 while(true){
-if((i__4865__auto___104173 < len__4864__auto___104172)){
-args__4870__auto__.push((arguments[i__4865__auto___104173]));
+if((i__4865__auto___104026 < len__4864__auto___104025)){
+args__4870__auto__.push((arguments[i__4865__auto___104026]));
 
-var G__104174 = (i__4865__auto___104173 + (1));
-i__4865__auto___104173 = G__104174;
+var G__104027 = (i__4865__auto___104026 + (1));
+i__4865__auto___104026 = G__104027;
 continue;
 } else {
 }
@@ -369,17 +369,17 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$5(sicmutils.env.sci.macros.le
 (sicmutils.env.sci.macros.using_coordinates.cljs$lang$maxFixedArity = (4));
 
 /** @this {Function} */
-(sicmutils.env.sci.macros.using_coordinates.cljs$lang$applyTo = (function (seq104089){
-var G__104090 = cljs.core.first(seq104089);
-var seq104089__$1 = cljs.core.next(seq104089);
-var G__104091 = cljs.core.first(seq104089__$1);
-var seq104089__$2 = cljs.core.next(seq104089__$1);
-var G__104092 = cljs.core.first(seq104089__$2);
-var seq104089__$3 = cljs.core.next(seq104089__$2);
-var G__104093 = cljs.core.first(seq104089__$3);
-var seq104089__$4 = cljs.core.next(seq104089__$3);
+(sicmutils.env.sci.macros.using_coordinates.cljs$lang$applyTo = (function (seq103958){
+var G__103959 = cljs.core.first(seq103958);
+var seq103958__$1 = cljs.core.next(seq103958);
+var G__103960 = cljs.core.first(seq103958__$1);
+var seq103958__$2 = cljs.core.next(seq103958__$1);
+var G__103961 = cljs.core.first(seq103958__$2);
+var seq103958__$3 = cljs.core.next(seq103958__$2);
+var G__103962 = cljs.core.first(seq103958__$3);
+var seq103958__$4 = cljs.core.next(seq103958__$3);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__104090,G__104091,G__104092,G__104093,seq104089__$4);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103959,G__103960,G__103961,G__103962,seq103958__$4);
 }));
 
 /**

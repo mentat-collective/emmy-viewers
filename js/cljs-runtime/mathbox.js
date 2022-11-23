@@ -26,14 +26,14 @@ return null;
 /**
  * Some core options, tidied up.
  */
-mathbox.opts__GT_setup = (function mathbox$opts__GT_setup(p__98637){
-var map__98639 = p__98637;
-var map__98639__$1 = cljs.core.__destructure_map(map__98639);
-var background_color = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98639__$1,new cljs.core.Keyword(null,"background-color","background-color",570434026));
-var camera_position = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98639__$1,new cljs.core.Keyword(null,"camera-position","camera-position",-2111361558));
-var max_distance = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98639__$1,new cljs.core.Keyword(null,"max-distance","max-distance",848042358));
-var scale = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98639__$1,new cljs.core.Keyword(null,"scale","scale",-230427353));
-var focus = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98639__$1,new cljs.core.Keyword(null,"focus","focus",234677911));
+mathbox.opts__GT_setup = (function mathbox$opts__GT_setup(p__95255){
+var map__95256 = p__95255;
+var map__95256__$1 = cljs.core.__destructure_map(map__95256);
+var background_color = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95256__$1,new cljs.core.Keyword(null,"background-color","background-color",570434026));
+var camera_position = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95256__$1,new cljs.core.Keyword(null,"camera-position","camera-position",-2111361558));
+var max_distance = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95256__$1,new cljs.core.Keyword(null,"max-distance","max-distance",848042358));
+var scale = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95256__$1,new cljs.core.Keyword(null,"scale","scale",-230427353));
+var focus = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95256__$1,new cljs.core.Keyword(null,"focus","focus",234677911));
 return mathbox.setup((function (box){
 if(cljs.core.truth_(scale)){
 box.set(({"scale": scale}));
@@ -51,13 +51,13 @@ if(cljs.core.truth_(max_distance)){
 } else {
 }
 
-var temp__5753__auto___98660 = camera_position;
-if(cljs.core.truth_(temp__5753__auto___98660)){
-var vec__98641_98661 = temp__5753__auto___98660;
-var x_98662 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98641_98661,(0),null);
-var y_98663 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98641_98661,(1),null);
-var z_98664 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98641_98661,(2),null);
-three.camera.position.set(x_98662,y_98663,z_98664);
+var temp__5753__auto___95285 = camera_position;
+if(cljs.core.truth_(temp__5753__auto___95285)){
+var vec__95261_95286 = temp__5753__auto___95285;
+var x_95287 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95261_95286,(0),null);
+var y_95288 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95261_95286,(1),null);
+var z_95289 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95261_95286,(2),null);
+three.camera.position.set(x_95287,y_95288,z_95289);
 } else {
 }
 
@@ -80,14 +80,14 @@ mathbox.ContainedMathbox = reagent.core.adapt_react_class(module$node_modules$ma
  */
 mathbox.Mathbox = (function mathbox$Mathbox(var_args){
 var args__4870__auto__ = [];
-var len__4864__auto___98667 = arguments.length;
-var i__4865__auto___98668 = (0);
+var len__4864__auto___95296 = arguments.length;
+var i__4865__auto___95297 = (0);
 while(true){
-if((i__4865__auto___98668 < len__4864__auto___98667)){
-args__4870__auto__.push((arguments[i__4865__auto___98668]));
+if((i__4865__auto___95297 < len__4864__auto___95296)){
+args__4870__auto__.push((arguments[i__4865__auto___95297]));
 
-var G__98669 = (i__4865__auto___98668 + (1));
-i__4865__auto___98668 = G__98669;
+var G__95298 = (i__4865__auto___95297 + (1));
+i__4865__auto___95297 = G__95298;
 continue;
 } else {
 }
@@ -98,12 +98,12 @@ var argseq__4871__auto__ = ((((1) < args__4870__auto__.length))?(new cljs.core.I
 return mathbox.Mathbox.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__4871__auto__);
 });
 
-(mathbox.Mathbox.cljs$core$IFn$_invoke$arity$variadic = (function (p__98652,children){
-var map__98653 = p__98652;
-var map__98653__$1 = cljs.core.__destructure_map(map__98653);
-var opts = map__98653__$1;
-var init = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98653__$1,new cljs.core.Keyword(null,"init","init",-1875481434));
-var style = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__98653__$1,new cljs.core.Keyword(null,"style","style",-496642736));
+(mathbox.Mathbox.cljs$core$IFn$_invoke$arity$variadic = (function (p__95272,children){
+var map__95273 = p__95272;
+var map__95273__$1 = cljs.core.__destructure_map(map__95273);
+var opts = map__95273__$1;
+var init = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95273__$1,new cljs.core.Keyword(null,"init","init",-1875481434));
+var style = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__95273__$1,new cljs.core.Keyword(null,"style","style",-496642736));
 var ref = ((cljs.core.map_QMARK_(init))?mathbox.opts__GT_setup(init):((cljs.core.fn_QMARK_(init))?mathbox.setup(init):(function(){throw cljs.core.ex_info.cljs$core$IFn$_invoke$arity$2("Invalid init.",new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"init","init",-1875481434),init], null))})()
 ));
 var opts__$1 = cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(cljs.core.update.cljs$core$IFn$_invoke$arity$3(cljs.core.dissoc.cljs$core$IFn$_invoke$arity$variadic(opts,new cljs.core.Keyword(null,"init","init",-1875481434),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"style","style",-496642736)], 0)),new cljs.core.Keyword(null,"options","options",99638489),cljs.core.partial.cljs$core$IFn$_invoke$arity$2(cljs.core.merge,mathbox.default_options)),new cljs.core.Keyword(null,"ref","ref",1289896967),ref,cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"containerStyle","containerStyle",-1828381609),style], 0));
@@ -113,11 +113,11 @@ return cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVect
 (mathbox.Mathbox.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(mathbox.Mathbox.cljs$lang$applyTo = (function (seq98647){
-var G__98648 = cljs.core.first(seq98647);
-var seq98647__$1 = cljs.core.next(seq98647);
+(mathbox.Mathbox.cljs$lang$applyTo = (function (seq95264){
+var G__95265 = cljs.core.first(seq95264);
+var seq95264__$1 = cljs.core.next(seq95264);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__98648,seq98647__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__95265,seq95264__$1);
 }));
 
 

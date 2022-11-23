@@ -10,9 +10,9 @@ return (((end - start) * (1000)) * (1000));
 stopwatch.core._PLUS__QMARK_process_hrtime_stopwatch = ((stopwatch.impl._PLUS_has_hrtime_QMARK_)?(function (){
 var start = (stopwatch.impl._PLUS__QMARK_hrtime.cljs$core$IFn$_invoke$arity$0 ? stopwatch.impl._PLUS__QMARK_hrtime.cljs$core$IFn$_invoke$arity$0() : stopwatch.impl._PLUS__QMARK_hrtime.call(null));
 return (function (){
-var vec__98477 = (stopwatch.impl._PLUS__QMARK_hrtime.cljs$core$IFn$_invoke$arity$1 ? stopwatch.impl._PLUS__QMARK_hrtime.cljs$core$IFn$_invoke$arity$1(start) : stopwatch.impl._PLUS__QMARK_hrtime.call(null,start));
-var diff_sec = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98477,(0),null);
-var diff_nano = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98477,(1),null);
+var vec__98698 = (stopwatch.impl._PLUS__QMARK_hrtime.cljs$core$IFn$_invoke$arity$1 ? stopwatch.impl._PLUS__QMARK_hrtime.cljs$core$IFn$_invoke$arity$1(start) : stopwatch.impl._PLUS__QMARK_hrtime.call(null,start));
+var diff_sec = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98698,(0),null);
+var diff_nano = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__98698,(1),null);
 return ((((diff_sec * (1000)) * (1000)) * (1000)) + diff_nano);
 });
 }):null);

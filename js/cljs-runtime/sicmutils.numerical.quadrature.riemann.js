@@ -34,8 +34,8 @@ var width = (b - a);
 return (function (n){
 var h = (width / n);
 var fx = (function (i){
-var G__102733 = (a + (i * h));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102733) : f.call(null,G__102733));
+var G__102456 = (a + (i * h));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102456) : f.call(null,G__102456));
 });
 return (h * sicmutils.util.aggregate.sum.cljs$core$IFn$_invoke$arity$3(fx,(0),n));
 });
@@ -56,8 +56,8 @@ return (function (n){
 var h = (width / n);
 var start = (a + h);
 var fx = (function (i){
-var G__102734 = (start + (i * h));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102734) : f.call(null,G__102734));
+var G__102461 = (start + (i * h));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102461) : f.call(null,G__102461));
 });
 return (h * sicmutils.util.aggregate.sum.cljs$core$IFn$_invoke$arity$3(fx,(0),n));
 });
@@ -100,11 +100,11 @@ return ((x__4339__auto__ < y__4340__auto__) ? x__4339__auto__ : y__4340__auto__)
  * 
  *   This only applies to the Riemann sequences in this namespace!
  */
-sicmutils.numerical.quadrature.riemann.accelerate = (function sicmutils$numerical$quadrature$riemann$accelerate(estimate_seq,p__102736){
-var map__102737 = p__102736;
-var map__102737__$1 = cljs.core.__destructure_map(map__102737);
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102737__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
-var accelerate_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102737__$1,new cljs.core.Keyword(null,"accelerate?","accelerate?",-29657518));
+sicmutils.numerical.quadrature.riemann.accelerate = (function sicmutils$numerical$quadrature$riemann$accelerate(estimate_seq,p__102476){
+var map__102477 = p__102476;
+var map__102477__$1 = cljs.core.__destructure_map(map__102477);
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102477__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+var accelerate_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102477__$1,new cljs.core.Keyword(null,"accelerate?","accelerate?",-29657518));
 if(cljs.core.truth_((function (){var and__4251__auto__ = accelerate_QMARK_;
 if(cljs.core.truth_(and__4251__auto__)){
 return typeof n === 'number';
@@ -128,8 +128,8 @@ return (function (n){
 var h = (width / n);
 var offset = (a + (h / 2.0));
 var fx = (function (i){
-var G__102739 = (offset + (i * h));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102739) : f.call(null,G__102739));
+var G__102479 = (offset + (i * h));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102479) : f.call(null,G__102479));
 });
 return (h * sicmutils.util.aggregate.sum.cljs$core$IFn$_invoke$arity$3(fx,(0),n));
 });
@@ -180,8 +180,8 @@ return cljs.core.reductions.cljs$core$IFn$_invoke$arity$3(next_S_fn,first_S,step
  *   slices.
  */
 sicmutils.numerical.quadrature.riemann.left_sequence_STAR__STAR_ = (function sicmutils$numerical$quadrature$riemann$left_sequence_STAR__STAR_(var_args){
-var G__102747 = arguments.length;
-switch (G__102747) {
+var G__102491 = arguments.length;
+switch (G__102491) {
 case 3:
 return sicmutils.numerical.quadrature.riemann.left_sequence_STAR__STAR_.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -220,10 +220,10 @@ return sicmutils.numerical.quadrature.riemann.geometric_estimate_seq(sicmutils.n
  *   generate successive estimates.
  */
 sicmutils.numerical.quadrature.riemann.general_estimate_seq = (function sicmutils$numerical$quadrature$riemann$general_estimate_seq(S_fn,next_S_fn,factor,n_seq){
-var f = (function (p__102748,n){
-var vec__102749 = p__102748;
-var cache = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102749,(0),null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102749,(1),null);
+var f = (function (p__102492,n){
+var vec__102493 = p__102492;
+var cache = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102493,(0),null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102493,(1),null);
 var Sn = (((cljs.core.rem(n,factor) === (0)))?(function (){var prev = cljs.core.quot(n,factor);
 var temp__5751__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(cache,prev);
 if(cljs.core.truth_(temp__5751__auto__)){
@@ -278,8 +278,8 @@ return (f.cljs$core$IFn$_invoke$arity$4 ? f.cljs$core$IFn$_invoke$arity$4(S_fn,n
  *   is ignored.
  */
 sicmutils.numerical.quadrature.riemann.left_sequence = (function sicmutils$numerical$quadrature$riemann$left_sequence(var_args){
-var G__102761 = arguments.length;
-switch (G__102761) {
+var G__102498 = arguments.length;
+switch (G__102498) {
 case 3:
 return sicmutils.numerical.quadrature.riemann.left_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -323,8 +323,8 @@ return sicmutils.numerical.quadrature.riemann.accelerate(sicmutils.numerical.qua
  *   is ignored.
  */
 sicmutils.numerical.quadrature.riemann.right_sequence = (function sicmutils$numerical$quadrature$riemann$right_sequence(var_args){
-var G__102763 = arguments.length;
-switch (G__102763) {
+var G__102503 = arguments.length;
+switch (G__102503) {
 case 3:
 return sicmutils.numerical.quadrature.riemann.right_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -368,8 +368,8 @@ return sicmutils.numerical.quadrature.riemann.accelerate(sicmutils.numerical.qua
  *   is ignored.
  */
 sicmutils.numerical.quadrature.riemann.lower_sequence = (function sicmutils$numerical$quadrature$riemann$lower_sequence(var_args){
-var G__102792 = arguments.length;
-switch (G__102792) {
+var G__102519 = arguments.length;
+switch (G__102519) {
 case 3:
 return sicmutils.numerical.quadrature.riemann.lower_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -388,11 +388,11 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.riemann.lower_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(sicmutils.numerical.quadrature.riemann.lower_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102797){
-var map__102798 = p__102797;
-var map__102798__$1 = cljs.core.__destructure_map(map__102798);
-var opts = map__102798__$1;
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102798__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+(sicmutils.numerical.quadrature.riemann.lower_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102553){
+var map__102554 = p__102553;
+var map__102554__$1 = cljs.core.__destructure_map(map__102554);
+var opts = map__102554__$1;
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102554__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 var n_seq = ((typeof n === 'number')?sicmutils.util.stream.powers.cljs$core$IFn$_invoke$arity$2((2),n):n);
 return sicmutils.numerical.quadrature.riemann.accelerate(cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.numerical.quadrature.riemann.lower_sum(f,a,b),n_seq),opts);
 }));
@@ -416,8 +416,8 @@ return sicmutils.numerical.quadrature.riemann.accelerate(cljs.core.map.cljs$core
  *   is ignored.
  */
 sicmutils.numerical.quadrature.riemann.upper_sequence = (function sicmutils$numerical$quadrature$riemann$upper_sequence(var_args){
-var G__102806 = arguments.length;
-switch (G__102806) {
+var G__102559 = arguments.length;
+switch (G__102559) {
 case 3:
 return sicmutils.numerical.quadrature.riemann.upper_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -436,11 +436,11 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.riemann.upper_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(sicmutils.numerical.quadrature.riemann.upper_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102807){
-var map__102808 = p__102807;
-var map__102808__$1 = cljs.core.__destructure_map(map__102808);
-var opts = map__102808__$1;
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102808__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+(sicmutils.numerical.quadrature.riemann.upper_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102564){
+var map__102565 = p__102564;
+var map__102565__$1 = cljs.core.__destructure_map(map__102565);
+var opts = map__102565__$1;
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102565__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 var n_seq = ((typeof n === 'number')?sicmutils.util.stream.powers.cljs$core$IFn$_invoke$arity$2((2),n):n);
 return sicmutils.numerical.quadrature.riemann.accelerate(cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.numerical.quadrature.riemann.upper_sum(f,a,b),n_seq),opts);
 }));

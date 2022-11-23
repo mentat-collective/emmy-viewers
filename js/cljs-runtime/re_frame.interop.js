@@ -66,18 +66,18 @@ return Date.now();
  */
 re_frame.interop.reagent_id = (function re_frame$interop$reagent_id(reactive_val){
 if((((!((reactive_val == null))))?((((false) || ((cljs.core.PROTOCOL_SENTINEL === reactive_val.reagent$ratom$IReactiveAtom$))))?true:false):false)){
-return [(function (){var pred__86312 = cljs.core.instance_QMARK_;
-var expr__86313 = reactive_val;
-if(cljs.core.truth_((pred__86312.cljs$core$IFn$_invoke$arity$2 ? pred__86312.cljs$core$IFn$_invoke$arity$2(reagent.ratom.RAtom,expr__86313) : pred__86312.call(null,reagent.ratom.RAtom,expr__86313)))){
+return [(function (){var pred__86738 = cljs.core.instance_QMARK_;
+var expr__86739 = reactive_val;
+if(cljs.core.truth_((pred__86738.cljs$core$IFn$_invoke$arity$2 ? pred__86738.cljs$core$IFn$_invoke$arity$2(reagent.ratom.RAtom,expr__86739) : pred__86738.call(null,reagent.ratom.RAtom,expr__86739)))){
 return "ra";
 } else {
-if(cljs.core.truth_((pred__86312.cljs$core$IFn$_invoke$arity$2 ? pred__86312.cljs$core$IFn$_invoke$arity$2(reagent.ratom.RCursor,expr__86313) : pred__86312.call(null,reagent.ratom.RCursor,expr__86313)))){
+if(cljs.core.truth_((pred__86738.cljs$core$IFn$_invoke$arity$2 ? pred__86738.cljs$core$IFn$_invoke$arity$2(reagent.ratom.RCursor,expr__86739) : pred__86738.call(null,reagent.ratom.RCursor,expr__86739)))){
 return "rc";
 } else {
-if(cljs.core.truth_((pred__86312.cljs$core$IFn$_invoke$arity$2 ? pred__86312.cljs$core$IFn$_invoke$arity$2(reagent.ratom.Reaction,expr__86313) : pred__86312.call(null,reagent.ratom.Reaction,expr__86313)))){
+if(cljs.core.truth_((pred__86738.cljs$core$IFn$_invoke$arity$2 ? pred__86738.cljs$core$IFn$_invoke$arity$2(reagent.ratom.Reaction,expr__86739) : pred__86738.call(null,reagent.ratom.Reaction,expr__86739)))){
 return "rx";
 } else {
-if(cljs.core.truth_((pred__86312.cljs$core$IFn$_invoke$arity$2 ? pred__86312.cljs$core$IFn$_invoke$arity$2(reagent.ratom.Track,expr__86313) : pred__86312.call(null,reagent.ratom.Track,expr__86313)))){
+if(cljs.core.truth_((pred__86738.cljs$core$IFn$_invoke$arity$2 ? pred__86738.cljs$core$IFn$_invoke$arity$2(reagent.ratom.Track,expr__86739) : pred__86738.call(null,reagent.ratom.Track,expr__86739)))){
 return "tr";
 } else {
 return "other";
@@ -93,24 +93,24 @@ return null;
 re_frame.interop._STAR_in_batch_QMARK__STAR_ = false;
 re_frame.interop.batch_updates = (function re_frame$interop$batch_updates(f){
 return module$node_modules$react_dom$index.unstable_batchedUpdates((function (){
-var _STAR_in_batch_QMARK__STAR__orig_val__86315 = re_frame.interop._STAR_in_batch_QMARK__STAR_;
-var _STAR_in_batch_QMARK__STAR__temp_val__86316 = true;
-(re_frame.interop._STAR_in_batch_QMARK__STAR_ = _STAR_in_batch_QMARK__STAR__temp_val__86316);
+var _STAR_in_batch_QMARK__STAR__orig_val__86745 = re_frame.interop._STAR_in_batch_QMARK__STAR_;
+var _STAR_in_batch_QMARK__STAR__temp_val__86746 = true;
+(re_frame.interop._STAR_in_batch_QMARK__STAR_ = _STAR_in_batch_QMARK__STAR__temp_val__86746);
 
 try{return (f.cljs$core$IFn$_invoke$arity$0 ? f.cljs$core$IFn$_invoke$arity$0() : f.call(null));
-}finally {(re_frame.interop._STAR_in_batch_QMARK__STAR_ = _STAR_in_batch_QMARK__STAR__orig_val__86315);
+}finally {(re_frame.interop._STAR_in_batch_QMARK__STAR_ = _STAR_in_batch_QMARK__STAR__orig_val__86745);
 }}));
 });
-var flush_queues_86317 = reagent.impl.batching.render_queue.flush_queues.bind(reagent.impl.batching.render_queue);
+var flush_queues_86761 = reagent.impl.batching.render_queue.flush_queues.bind(reagent.impl.batching.render_queue);
 (reagent.impl.batching.render_queue.flush_queues = (function (){
-return re_frame.interop.batch_updates(flush_queues_86317);
+return re_frame.interop.batch_updates(flush_queues_86761);
 }));
-var queue_render_86318 = reagent.impl.batching.queue_render;
+var queue_render_86762 = reagent.impl.batching.queue_render;
 (reagent.impl.batching.queue_render = (function (c){
 if(cljs.core.truth_(re_frame.interop._STAR_in_batch_QMARK__STAR_)){
 return c.forceUpdate();
 } else {
-return (queue_render_86318.cljs$core$IFn$_invoke$arity$1 ? queue_render_86318.cljs$core$IFn$_invoke$arity$1(c) : queue_render_86318.call(null,c));
+return (queue_render_86762.cljs$core$IFn$_invoke$arity$1 ? queue_render_86762.cljs$core$IFn$_invoke$arity$1(c) : queue_render_86762.call(null,c));
 }
 }));
 

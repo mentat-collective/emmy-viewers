@@ -10,8 +10,8 @@ goog.provide('sicmutils.calculus.manifold');
  *   NOTE: only `'Real` does anything as of 3.15.2021.
  */
 sicmutils.calculus.manifold.make_manifold_family = (function sicmutils$calculus$manifold$make_manifold_family(var_args){
-var G__101307 = arguments.length;
-switch (G__101307) {
+var G__77639 = arguments.length;
+switch (G__77639) {
 case 1:
 return sicmutils.calculus.manifold.make_manifold_family.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -61,8 +61,8 @@ return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.value.kind(m),new 
  *   that locally resembles Euclidean space near each point.
  */
 sicmutils.calculus.manifold.make_manifold = (function sicmutils$calculus$manifold$make_manifold(var_args){
-var G__101316 = arguments.length;
-switch (G__101316) {
+var G__77641 = arguments.length;
+switch (G__77641) {
 case 2:
 return sicmutils.calculus.manifold.make_manifold.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -225,8 +225,8 @@ return (ctor.cljs$core$IFn$_invoke$arity$1 ? ctor.cljs$core$IFn$_invoke$arity$1(
  *   by `:coordinate-representations`; passing these values will seed the cache.
  */
 sicmutils.calculus.manifold.make_manifold_point = (function sicmutils$calculus$manifold$make_manifold_point(var_args){
-var G__101318 = arguments.length;
-switch (G__101318) {
+var G__77643 = arguments.length;
+switch (G__77643) {
 case 2:
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -290,8 +290,8 @@ return ((sicmutils.calculus.manifold.manifold_point_QMARK_(point)) && (cljs.core
 sicmutils.calculus.manifold.get_coordinates = (function sicmutils$calculus$manifold$get_coordinates(manifold_point,coordinate_system,thunk){
 var reps = new cljs.core.Keyword(null,"coordinate-representations","coordinate-representations",-676047034).cljs$core$IFn$_invoke$arity$1(manifold_point);
 var coordsys_id = (sicmutils.calculus.manifold.uuid.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.manifold.uuid.cljs$core$IFn$_invoke$arity$1(coordinate_system) : sicmutils.calculus.manifold.uuid.call(null,coordinate_system));
-var or__4253__auto__ = (function (){var fexpr__101320 = cljs.core.deref(reps);
-return (fexpr__101320.cljs$core$IFn$_invoke$arity$1 ? fexpr__101320.cljs$core$IFn$_invoke$arity$1(coordsys_id) : fexpr__101320.call(null,coordsys_id));
+var or__4253__auto__ = (function (){var fexpr__77644 = cljs.core.deref(reps);
+return (fexpr__77644.cljs$core$IFn$_invoke$arity$1 ? fexpr__77644.cljs$core$IFn$_invoke$arity$1(coordsys_id) : fexpr__77644.call(null,coordsys_id));
 })();
 if(cljs.core.truth_(or__4253__auto__)){
 return or__4253__auto__;
@@ -308,7 +308,7 @@ return rep;
  */
 sicmutils.calculus.manifold.ICoordinateSystem = function(){};
 
-var sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$dyn_101435 = (function (this$,coords){
+var sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$dyn_77734 = (function (this$,coords){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.manifold.check_coordinates[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -330,11 +330,11 @@ sicmutils.calculus.manifold.check_coordinates = (function sicmutils$calculus$man
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 == null)))))){
 return this$.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(this$,coords);
 } else {
-return sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$dyn_101435(this$,coords);
+return sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$dyn_77734(this$,coords);
 }
 });
 
-var sicmutils$calculus$manifold$ICoordinateSystem$check_point$dyn_101436 = (function (this$,point){
+var sicmutils$calculus$manifold$ICoordinateSystem$check_point$dyn_77735 = (function (this$,point){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.manifold.check_point[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -356,11 +356,11 @@ sicmutils.calculus.manifold.check_point = (function sicmutils$calculus$manifold$
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 == null)))))){
 return this$.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(this$,point);
 } else {
-return sicmutils$calculus$manifold$ICoordinateSystem$check_point$dyn_101436(this$,point);
+return sicmutils$calculus$manifold$ICoordinateSystem$check_point$dyn_77735(this$,point);
 }
 });
 
-var sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$dyn_101437 = (function (this$,coords){
+var sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$dyn_77736 = (function (this$,coords){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.manifold.coords__GT_point[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -382,11 +382,11 @@ sicmutils.calculus.manifold.coords__GT_point = (function sicmutils$calculus$mani
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 == null)))))){
 return this$.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2(this$,coords);
 } else {
-return sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$dyn_101437(this$,coords);
+return sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$dyn_77736(this$,coords);
 }
 });
 
-var sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$dyn_101438 = (function (this$,point){
+var sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$dyn_77737 = (function (this$,point){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.manifold.point__GT_coords[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -408,11 +408,11 @@ sicmutils.calculus.manifold.point__GT_coords = (function sicmutils$calculus$mani
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 == null)))))){
 return this$.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2(this$,point);
 } else {
-return sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$dyn_101438(this$,point);
+return sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$dyn_77737(this$,point);
 }
 });
 
-var sicmutils$calculus$manifold$ICoordinateSystem$uuid$dyn_101440 = (function (this$){
+var sicmutils$calculus$manifold$ICoordinateSystem$uuid$dyn_77738 = (function (this$){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (sicmutils.calculus.manifold.uuid[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -437,7 +437,7 @@ sicmutils.calculus.manifold.uuid = (function sicmutils$calculus$manifold$uuid(th
 if((((!((this$ == null)))) && ((!((this$.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 == null)))))){
 return this$.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1(this$);
 } else {
-return sicmutils$calculus$manifold$ICoordinateSystem$uuid$dyn_101440(this$);
+return sicmutils$calculus$manifold$ICoordinateSystem$uuid$dyn_77738(this$);
 }
 });
 
@@ -662,8 +662,8 @@ return cljs.core.symbol.cljs$core$IFn$_invoke$arity$1(["x",cljs.core.str.cljs$co
  *   This is as close to an identity coordinate transformation as the system gets!
  */
 sicmutils.calculus.manifold.__GT_Rectangular = (function sicmutils$calculus$manifold$__GT_Rectangular(var_args){
-var G__101343 = arguments.length;
-switch (G__101343) {
+var G__77647 = arguments.length;
+switch (G__77647) {
 case 1:
 return sicmutils.calculus.manifold.__GT_Rectangular.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -686,7 +686,7 @@ return sicmutils.calculus.manifold.__GT_Rectangular.cljs$core$IFn$_invoke$arity$
 (sicmutils.calculus.manifold.__GT_Rectangular.cljs$core$IFn$_invoke$arity$2 = (function (manifold,coordinate_prototype){
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648 !== 'undefined')){
 } else {
 
 /**
@@ -695,41 +695,41 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344 = (function (manifold,coordinate_prototype,id,meta101345){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648 = (function (manifold,coordinate_prototype,id,meta77649){
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.id = id;
-this.meta101345 = meta101345;
+this.meta77649 = meta77649;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101346,meta101345__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77650,meta77649__$1){
 var self__ = this;
-var _101346__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344(self__.manifold,self__.coordinate_prototype,self__.id,meta101345__$1));
+var _77650__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648(self__.manifold,self__.coordinate_prototype,self__.id,meta77649__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101346){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77650){
 var self__ = this;
-var _101346__$1 = this;
-return self__.meta101345;
+var _77650__$1 = this;
+return self__.meta77649;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.structure.dimension(coords),new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(self__.manifold));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -740,7 +740,7 @@ throw (new Error("Assert failed: (check-coordinates this coords)"));
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(coords,self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -759,34 +759,34 @@ return rep;
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101345","meta101345",153183542,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77649","meta77649",1601208669,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101344");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77648");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101344");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77648");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101344.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77648.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101344 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold101344(manifold__$1,coordinate_prototype__$1,id__$1,meta101345){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344(manifold__$1,coordinate_prototype__$1,id__$1,meta101345));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77648 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold77648(manifold__$1,coordinate_prototype__$1,id__$1,meta77649){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648(manifold__$1,coordinate_prototype__$1,id__$1,meta77649));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77648(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 }));
@@ -802,8 +802,8 @@ return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101344(mani
  *   all other points are untouched.
  */
 sicmutils.calculus.manifold.__GT_PolarCylindrical = (function sicmutils$calculus$manifold$__GT_PolarCylindrical(var_args){
-var G__101348 = arguments.length;
-switch (G__101348) {
+var G__77652 = arguments.length;
+switch (G__77652) {
 case 1:
 return sicmutils.calculus.manifold.__GT_PolarCylindrical.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -826,7 +826,7 @@ return sicmutils.calculus.manifold.__GT_PolarCylindrical.cljs$core$IFn$_invoke$a
 (sicmutils.calculus.manifold.__GT_PolarCylindrical.cljs$core$IFn$_invoke$arity$2 = (function (manifold,coordinate_prototype){
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653 !== 'undefined')){
 } else {
 
 /**
@@ -835,29 +835,29 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349 = (function (manifold,coordinate_prototype,id,meta101350){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653 = (function (manifold,coordinate_prototype,id,meta77654){
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.id = id;
-this.meta101350 = meta101350;
+this.meta77654 = meta77654;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101351,meta101350__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77655,meta77654__$1){
 var self__ = this;
-var _101351__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349(self__.manifold,self__.coordinate_prototype,self__.id,meta101350__$1));
+var _77655__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653(self__.manifold,self__.coordinate_prototype,self__.id,meta77654__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101351){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77655){
 var self__ = this;
-var _101351__$1 = this;
-return self__.meta101350;
+var _77655__$1 = this;
+return self__.meta77654;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 var and__4251__auto__ = sicmutils.structure.up_QMARK_(coords);
@@ -879,13 +879,13 @@ return and__4251__auto__;
 }
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -893,13 +893,13 @@ if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$chec
 throw (new Error("Assert failed: (check-coordinates this coords)"));
 }
 
-var vec__101352 = coords;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101352,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101352,(1),null);
+var vec__77656 = coords;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77656,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77656,(1),null);
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(coords,(0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta))),(1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta))),self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -914,9 +914,9 @@ if(((sicmutils.structure.up_QMARK_(rep)) && (cljs.core._EQ_.cljs$core$IFn$_invok
 sicmutils.util.illegal("PolarCylindrical bad point");
 }
 
-var vec__101355 = rep;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101355,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101355,(1),null);
+var vec__77659 = rep;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77659,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77659,(1),null);
 var rsq = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(x),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(y));
 if(sicmutils.value.zero_QMARK_(rsq)){
 sicmutils.util.illegal_state("PolarCylindrical singular");
@@ -927,34 +927,34 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$I
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101350","meta101350",-1030705845,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77654","meta77654",-2094782152,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101349");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77653");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101349");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77653");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101349.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77653.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101349 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold101349(manifold__$1,coordinate_prototype__$1,id__$1,meta101350){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349(manifold__$1,coordinate_prototype__$1,id__$1,meta101350));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77653 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold77653(manifold__$1,coordinate_prototype__$1,id__$1,meta77654){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653(manifold__$1,coordinate_prototype__$1,id__$1,meta77654));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77653(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 }));
@@ -973,8 +973,8 @@ return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101349(mani
  *   than three dimensions.
  */
 sicmutils.calculus.manifold.__GT_SphericalCylindrical = (function sicmutils$calculus$manifold$__GT_SphericalCylindrical(var_args){
-var G__101359 = arguments.length;
-switch (G__101359) {
+var G__77663 = arguments.length;
+switch (G__77663) {
 case 1:
 return sicmutils.calculus.manifold.__GT_SphericalCylindrical.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -997,7 +997,7 @@ return sicmutils.calculus.manifold.__GT_SphericalCylindrical.cljs$core$IFn$_invo
 (sicmutils.calculus.manifold.__GT_SphericalCylindrical.cljs$core$IFn$_invoke$arity$2 = (function (manifold,coordinate_prototype){
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664 !== 'undefined')){
 } else {
 
 /**
@@ -1006,41 +1006,41 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360 = (function (manifold,coordinate_prototype,id,meta101361){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664 = (function (manifold,coordinate_prototype,id,meta77665){
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.id = id;
-this.meta101361 = meta101361;
+this.meta77665 = meta77665;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101362,meta101361__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77666,meta77665__$1){
 var self__ = this;
-var _101362__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360(self__.manifold,self__.coordinate_prototype,self__.id,meta101361__$1));
+var _77666__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664(self__.manifold,self__.coordinate_prototype,self__.id,meta77665__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101362){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77666){
 var self__ = this;
-var _101362__$1 = this;
-return self__.meta101361;
+var _77666__$1 = this;
+return self__.meta77665;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return ((sicmutils.structure.up_QMARK_(coords)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(self__.manifold))) && ((((!(sicmutils.value.number_QMARK_(coords)))) || ((cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords,(0)) >= (0))))))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -1048,14 +1048,14 @@ if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$chec
 throw (new Error("Assert failed: (check-coordinates this coords)"));
 }
 
-var vec__101363 = coords;
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101363,(0),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101363,(1),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101363,(2),null);
+var vec__77667 = coords;
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77667,(0),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77667,(1),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77667,(2),null);
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(coords,(0),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(phi)], 0))),(1),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(phi)], 0))),(2),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta))),self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -1070,10 +1070,10 @@ if(((sicmutils.structure.up_QMARK_(rep)) && (cljs.core._EQ_.cljs$core$IFn$_invok
 sicmutils.util.illegal("SphericalCylindrical bad point");
 }
 
-var vec__101366 = rep;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101366,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101366,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101366,(2),null);
+var vec__77670 = rep;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77670,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77670,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77670,(2),null);
 var r = sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(x),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(y),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(z)], 0)));
 if(sicmutils.value.zero_QMARK_(r)){
 sicmutils.util.illegal_state("SphericalCylindrical singular");
@@ -1084,34 +1084,34 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$I
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101361","meta101361",105000436,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77665","meta77665",-531356162,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101360");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77664");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101360");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77664");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101360.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77664.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101360 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold101360(manifold__$1,coordinate_prototype__$1,id__$1,meta101361){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360(manifold__$1,coordinate_prototype__$1,id__$1,meta101361));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77664 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold77664(manifold__$1,coordinate_prototype__$1,id__$1,meta77665){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664(manifold__$1,coordinate_prototype__$1,id__$1,meta77665));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77664(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 }));
@@ -1128,8 +1128,8 @@ return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101360(mani
  *   longitude).
  */
 sicmutils.calculus.manifold.__GT_SpacetimeSpherical = (function sicmutils$calculus$manifold$__GT_SpacetimeSpherical(var_args){
-var G__101370 = arguments.length;
-switch (G__101370) {
+var G__77674 = arguments.length;
+switch (G__77674) {
 case 1:
 return sicmutils.calculus.manifold.__GT_SpacetimeSpherical.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1152,7 +1152,7 @@ return sicmutils.calculus.manifold.__GT_SpacetimeSpherical.cljs$core$IFn$_invoke
 (sicmutils.calculus.manifold.__GT_SpacetimeSpherical.cljs$core$IFn$_invoke$arity$2 = (function (manifold,coordinate_prototype){
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675 !== 'undefined')){
 } else {
 
 /**
@@ -1161,41 +1161,41 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371 = (function (manifold,coordinate_prototype,id,meta101372){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675 = (function (manifold,coordinate_prototype,id,meta77676){
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.id = id;
-this.meta101372 = meta101372;
+this.meta77676 = meta77676;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101373,meta101372__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77677,meta77676__$1){
 var self__ = this;
-var _101373__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371(self__.manifold,self__.coordinate_prototype,self__.id,meta101372__$1));
+var _77677__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675(self__.manifold,self__.coordinate_prototype,self__.id,meta77676__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101373){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77677){
 var self__ = this;
-var _101373__$1 = this;
-return self__.meta101372;
+var _77677__$1 = this;
+return self__.meta77676;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return ((sicmutils.structure.up_QMARK_(coords)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),(4))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -1203,15 +1203,15 @@ if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$chec
 throw (new Error("Assert failed: (check-coordinates this coords)"));
 }
 
-var vec__101374 = coords;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101374,(0),null);
-var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101374,(1),null);
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101374,(2),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101374,(3),null);
+var vec__77678 = coords;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77678,(0),null);
+var r = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77678,(1),null);
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77678,(2),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77678,(3),null);
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([t,sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(phi)], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(r,sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(theta),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(phi)], 0)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(r,sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(theta))], 0)),self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -1224,11 +1224,11 @@ var rep = sicmutils.calculus.manifold.manifold_point_representation(point);
 if(cljs.core.not(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,rep))){
 throw cljs.core.ex_info.cljs$core$IFn$_invoke$arity$2("bad ->SpacetimeSpherical point: ",new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"point","point",1813198264),point,new cljs.core.Keyword(null,"coordinate-system","coordinate-system",-1298347271),this$__$1], null));
 } else {
-var vec__101377 = rep;
-var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101377,(0),null);
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101377,(1),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101377,(2),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101377,(3),null);
+var vec__77681 = rep;
+var t = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77681,(0),null);
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77681,(1),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77681,(2),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77681,(3),null);
 var r = sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$variadic(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(x),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(y),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(z)], 0)));
 if(((sicmutils.value.number_QMARK_(r)) && (sicmutils.value.zero_QMARK_(r)))){
 throw cljs.core.ex_info.cljs$core$IFn$_invoke$arity$2("->SpacetimeSpherical singular: ",new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"point","point",1813198264),point,new cljs.core.Keyword(null,"coordinate-system","coordinate-system",-1298347271),this$__$1], null));
@@ -1240,34 +1240,34 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101372","meta101372",-1723163925,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77676","meta77676",1508620341,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101371");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77675");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101371");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77675");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101371.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77675.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101371 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold101371(manifold__$1,coordinate_prototype__$1,id__$1,meta101372){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371(manifold__$1,coordinate_prototype__$1,id__$1,meta101372));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77675 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold77675(manifold__$1,coordinate_prototype__$1,id__$1,meta77676){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675(manifold__$1,coordinate_prototype__$1,id__$1,meta77676));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101371(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77675(manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 }));
@@ -1298,7 +1298,7 @@ return sicmutils$calculus$manifold$__GT_S2_coordinates_$_ctor.cljs$core$IFn$_inv
 var sicmutils$calculus$manifold$__GT_S2_coordinates_$_ctor__2 = (function (manifold,coordinate_prototype){
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684 !== 'undefined')){
 } else {
 
 /**
@@ -1307,44 +1307,44 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380 = (function (orientation,inverse_orientation,ctor,manifold,coordinate_prototype,id,meta101381){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684 = (function (orientation,inverse_orientation,ctor,manifold,coordinate_prototype,id,meta77685){
 this.orientation = orientation;
 this.inverse_orientation = inverse_orientation;
 this.ctor = ctor;
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.id = id;
-this.meta101381 = meta101381;
+this.meta77685 = meta77685;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101382,meta101381__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77686,meta77685__$1){
 var self__ = this;
-var _101382__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380(self__.orientation,self__.inverse_orientation,self__.ctor,self__.manifold,self__.coordinate_prototype,self__.id,meta101381__$1));
+var _77686__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684(self__.orientation,self__.inverse_orientation,self__.ctor,self__.manifold,self__.coordinate_prototype,self__.id,meta77685__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101382){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77686){
 var self__ = this;
-var _101382__$1 = this;
-return self__.meta101381;
+var _77686__$1 = this;
+return self__.meta77685;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return ((sicmutils.structure.up_QMARK_(coords)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),(2))) && ((((!(sicmutils.value.number_QMARK_(coords)))) || ((cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords,(0)) >= (0))))))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -1352,13 +1352,13 @@ if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$chec
 throw (new Error("Assert failed: (check-coordinates this coords)"));
 }
 
-var vec__101383 = coords;
-var colatitude = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101383,(0),null);
-var longitude = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101383,(1),null);
+var vec__77687 = coords;
+var colatitude = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77687,(0),null);
+var longitude = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77687,(1),null);
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.orientation,sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(colatitude),sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(longitude)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(colatitude),sicmutils.generic.sin.cljs$core$IFn$_invoke$arity$1(longitude)),sicmutils.generic.cos.cljs$core$IFn$_invoke$arity$1(colatitude)], 0))),self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -1369,10 +1369,10 @@ throw (new Error("Assert failed: (check-point this point)"));
 return sicmutils.calculus.manifold.get_coordinates(point,this$__$1,(function (){
 var rep = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.inverse_orientation,sicmutils.calculus.manifold.manifold_point_representation(point));
 if(((sicmutils.structure.up_QMARK_(rep)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(rep),new cljs.core.Keyword(null,"embedding-dimension","embedding-dimension",1369585967).cljs$core$IFn$_invoke$arity$1(self__.manifold))))){
-var vec__101386 = rep;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101386,(0),null);
-var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101386,(1),null);
-var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101386,(2),null);
+var vec__77690 = rep;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77690,(0),null);
+var y = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77690,(1),null);
+var z = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77690,(2),null);
 return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([sicmutils.generic.acos.cljs$core$IFn$_invoke$arity$1(z),sicmutils.generic.atan.cljs$core$IFn$_invoke$arity$2(y,x)], 0));
 } else {
 return sicmutils.util.illegal("S2-coordinates bad point");
@@ -1380,34 +1380,34 @@ return sicmutils.util.illegal("S2-coordinates bad point");
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"orientation","orientation",-2030878190,null),new cljs.core.Symbol(null,"inverse-orientation","inverse-orientation",338347381,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101381","meta101381",-1053750631,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"orientation","orientation",-2030878190,null),new cljs.core.Symbol(null,"inverse-orientation","inverse-orientation",338347381,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77685","meta77685",427803140,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101380");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77684");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101380");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77684");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101380.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77684.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101380 = (function sicmutils$calculus$manifold$__GT_S2_coordinates_$_ctor_$___GT_t_sicmutils$calculus$manifold101380(orientation__$1,inverse_orientation__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,id__$1,meta101381){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380(orientation__$1,inverse_orientation__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,id__$1,meta101381));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77684 = (function sicmutils$calculus$manifold$__GT_S2_coordinates_$_ctor_$___GT_t_sicmutils$calculus$manifold77684(orientation__$1,inverse_orientation__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,id__$1,meta77685){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684(orientation__$1,inverse_orientation__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,id__$1,meta77685));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101380(orientation,inverse_orientation,sicmutils$calculus$manifold$__GT_S2_coordinates_$_ctor,manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77684(orientation,inverse_orientation,sicmutils$calculus$manifold$__GT_S2_coordinates_$_ctor,manifold,coordinate_prototype,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 });
@@ -1456,13 +1456,13 @@ return sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor.cljs$core$IFn$_inv
 });
 var sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor__2 = (function (manifold,coordinate_prototype){
 var n = new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(manifold);
-var orientation_matrix = (function (){var G__101389 = (n + (1));
-return (orientation_function.cljs$core$IFn$_invoke$arity$1 ? orientation_function.cljs$core$IFn$_invoke$arity$1(G__101389) : orientation_function.call(null,G__101389));
+var orientation_matrix = (function (){var G__77693 = (n + (1));
+return (orientation_function.cljs$core$IFn$_invoke$arity$1 ? orientation_function.cljs$core$IFn$_invoke$arity$1(G__77693) : orientation_function.call(null,G__77693));
 })();
 var orientation_inverse_matrix = sicmutils.generic.invert.cljs$core$IFn$_invoke$arity$1(orientation_matrix);
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694 !== 'undefined')){
 } else {
 
 /**
@@ -1471,7 +1471,7 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390 = (function (rotate_left,ctor,orientation_function,n,manifold,id,orientation_inverse_matrix,orientation_matrix,coordinate_prototype,meta101391){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694 = (function (rotate_left,ctor,orientation_function,n,manifold,id,orientation_inverse_matrix,orientation_matrix,coordinate_prototype,meta77695){
 this.rotate_left = rotate_left;
 this.ctor = ctor;
 this.orientation_function = orientation_function;
@@ -1481,25 +1481,25 @@ this.id = id;
 this.orientation_inverse_matrix = orientation_inverse_matrix;
 this.orientation_matrix = orientation_matrix;
 this.coordinate_prototype = coordinate_prototype;
-this.meta101391 = meta101391;
+this.meta77695 = meta77695;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101392,meta101391__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77696,meta77695__$1){
 var self__ = this;
-var _101392__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390(self__.rotate_left,self__.ctor,self__.orientation_function,self__.n,self__.manifold,self__.id,self__.orientation_inverse_matrix,self__.orientation_matrix,self__.coordinate_prototype,meta101391__$1));
+var _77696__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694(self__.rotate_left,self__.ctor,self__.orientation_function,self__.n,self__.manifold,self__.id,self__.orientation_inverse_matrix,self__.orientation_matrix,self__.coordinate_prototype,meta77695__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101392){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77696){
 var self__ = this;
-var _101392__$1 = this;
-return self__.meta101391;
+var _77696__$1 = this;
+return self__.meta77695;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 var dim = sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords);
@@ -1508,13 +1508,13 @@ return ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2((i + (1)),self__.n)) || ((
 })),coords)))))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -1528,20 +1528,20 @@ return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$ari
 } else {
 var sines = cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.sin,coords);
 var cosines = cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.cos,coords);
-var pt = sicmutils.structure.up_STAR_((function (){var G__101393 = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (i){
+var pt = sicmutils.structure.up_STAR_((function (){var G__77697 = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (i){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(i,self__.n)){
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_,sines);
 } else {
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._STAR_,cljs.core.cons(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(cosines,i),cljs.core.take.cljs$core$IFn$_invoke$arity$2(i,sines)));
 }
 }),cljs.core.range.cljs$core$IFn$_invoke$arity$1((self__.n + (1))));
-return (self__.rotate_left.cljs$core$IFn$_invoke$arity$1 ? self__.rotate_left.cljs$core$IFn$_invoke$arity$1(G__101393) : self__.rotate_left.call(null,G__101393));
+return (self__.rotate_left.cljs$core$IFn$_invoke$arity$1 ? self__.rotate_left.cljs$core$IFn$_invoke$arity$1(G__77697) : self__.rotate_left.call(null,G__77697));
 })());
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.orientation_matrix,pt),self__.manifold,this$__$1,coords);
 }
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -1554,14 +1554,14 @@ var safe_atan = (function sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor
 if(((typeof y === 'number') && (((typeof x === 'number') && (((sicmutils.value.zero_QMARK_(y)) && (sicmutils.value.zero_QMARK_(x)))))))){
 taoensso.timbre._log_BANG_.cljs$core$IFn$_invoke$arity$11(taoensso.timbre._STAR_config_STAR_,new cljs.core.Keyword(null,"warn","warn",-436710552),"sicmutils.calculus.manifold",null,863,new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.Keyword(null,"auto","auto",-566279492),(new cljs.core.Delay((function (){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Sn-coordinates singular!"], null);
-}),null)),null,646768472,null);
+}),null)),null,-2096410883,null);
 } else {
 }
 
 return sicmutils.generic.atan.cljs$core$IFn$_invoke$arity$2(y,x);
 });
-var pt = (function (){var G__101394 = cljs.core.reverse(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.orientation_inverse_matrix,sicmutils.calculus.manifold.manifold_point_representation(point)));
-return (self__.rotate_left.cljs$core$IFn$_invoke$arity$1 ? self__.rotate_left.cljs$core$IFn$_invoke$arity$1(G__101394) : self__.rotate_left.call(null,G__101394));
+var pt = (function (){var G__77698 = cljs.core.reverse(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.orientation_inverse_matrix,sicmutils.calculus.manifold.manifold_point_representation(point)));
+return (self__.rotate_left.cljs$core$IFn$_invoke$arity$1 ? self__.rotate_left.cljs$core$IFn$_invoke$arity$1(G__77698) : self__.rotate_left.call(null,G__77698));
 })();
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(self__.n,(1))){
 return safe_atan(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(pt,(1)),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(pt,(0)));
@@ -1574,12 +1574,12 @@ if(cljs.core.not(cljs.core.next(more))){
 return sicmutils.structure.up_STAR_(ans);
 } else {
 var r_SINGLEQUOTE_ = sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(cljs.core.first(more)),sicmutils.generic.square.cljs$core$IFn$_invoke$arity$1(r)));
-var G__101467 = r_SINGLEQUOTE_;
-var G__101468 = cljs.core.rest(more);
-var G__101469 = cljs.core.cons(safe_atan(r_SINGLEQUOTE_,cljs.core.second(more)),ans);
-r = G__101467;
-more = G__101468;
-ans = G__101469;
+var G__77743 = r_SINGLEQUOTE_;
+var G__77744 = cljs.core.rest(more);
+var G__77745 = cljs.core.cons(safe_atan(r_SINGLEQUOTE_,cljs.core.second(more)),ans);
+r = G__77743;
+more = G__77744;
+ans = G__77745;
 continue;
 }
 break;
@@ -1588,34 +1588,34 @@ break;
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 10, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"rotate-left","rotate-left",-1088090459,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"orientation-function","orientation-function",-1851559379,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"orientation-inverse-matrix","orientation-inverse-matrix",1827755966,null),new cljs.core.Symbol(null,"orientation-matrix","orientation-matrix",-591482625,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"meta101391","meta101391",215386795,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 10, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"rotate-left","rotate-left",-1088090459,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"orientation-function","orientation-function",-1851559379,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"orientation-inverse-matrix","orientation-inverse-matrix",1827755966,null),new cljs.core.Symbol(null,"orientation-matrix","orientation-matrix",-591482625,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"meta77695","meta77695",-1170296386,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101390");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77694");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101390");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77694");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101390.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77694.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101390 = (function sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor_$___GT_t_sicmutils$calculus$manifold101390(rotate_left__$1,ctor__$1,orientation_function__$1,n__$1,manifold__$1,id__$1,orientation_inverse_matrix__$1,orientation_matrix__$1,coordinate_prototype__$1,meta101391){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390(rotate_left__$1,ctor__$1,orientation_function__$1,n__$1,manifold__$1,id__$1,orientation_inverse_matrix__$1,orientation_matrix__$1,coordinate_prototype__$1,meta101391));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77694 = (function sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor_$___GT_t_sicmutils$calculus$manifold77694(rotate_left__$1,ctor__$1,orientation_function__$1,n__$1,manifold__$1,id__$1,orientation_inverse_matrix__$1,orientation_matrix__$1,coordinate_prototype__$1,meta77695){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694(rotate_left__$1,ctor__$1,orientation_function__$1,n__$1,manifold__$1,id__$1,orientation_inverse_matrix__$1,orientation_matrix__$1,coordinate_prototype__$1,meta77695));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101390(rotate_left,sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor,orientation_function,n,manifold,id,orientation_inverse_matrix,orientation_matrix,coordinate_prototype,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77694(rotate_left,sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor,orientation_function,n,manifold,id,orientation_inverse_matrix,orientation_matrix,coordinate_prototype,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 });
@@ -1668,13 +1668,13 @@ return sicmutils$calculus$manifold$__GT_Sn_stereographic_$_ctor.cljs$core$IFn$_i
 });
 var sicmutils$calculus$manifold$__GT_Sn_stereographic_$_ctor__2 = (function (manifold,coordinate_prototype){
 var n = new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(manifold);
-var orientation_matrix = (function (){var G__101397 = (n + (1));
-return (orientation_function.cljs$core$IFn$_invoke$arity$1 ? orientation_function.cljs$core$IFn$_invoke$arity$1(G__101397) : orientation_function.call(null,G__101397));
+var orientation_matrix = (function (){var G__77701 = (n + (1));
+return (orientation_function.cljs$core$IFn$_invoke$arity$1 ? orientation_function.cljs$core$IFn$_invoke$arity$1(G__77701) : orientation_function.call(null,G__77701));
 })();
 var orientation_inverse_matrix = sicmutils.generic.invert.cljs$core$IFn$_invoke$arity$1(orientation_matrix);
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702 !== 'undefined')){
 } else {
 
 /**
@@ -1683,7 +1683,7 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398 = (function (orientation_function,ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,meta101399){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702 = (function (orientation_function,ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,meta77703){
 this.orientation_function = orientation_function;
 this.ctor = ctor;
 this.manifold = manifold;
@@ -1692,37 +1692,37 @@ this.n = n;
 this.orientation_matrix = orientation_matrix;
 this.orientation_inverse_matrix = orientation_inverse_matrix;
 this.id = id;
-this.meta101399 = meta101399;
+this.meta77703 = meta77703;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101400,meta101399__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77704,meta77703__$1){
 var self__ = this;
-var _101400__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398(self__.orientation_function,self__.ctor,self__.manifold,self__.coordinate_prototype,self__.n,self__.orientation_matrix,self__.orientation_inverse_matrix,self__.id,meta101399__$1));
+var _77704__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702(self__.orientation_function,self__.ctor,self__.manifold,self__.coordinate_prototype,self__.n,self__.orientation_matrix,self__.orientation_inverse_matrix,self__.id,meta77703__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101400){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77704){
 var self__ = this;
-var _101400__$1 = this;
-return self__.meta101399;
+var _77704__$1 = this;
+return self__.meta77703;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return ((((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(self__.n,(1))) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),(1))))) || (((sicmutils.structure.up_QMARK_(coords)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),self__.n)))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -1732,23 +1732,23 @@ throw (new Error("Assert failed: (check-coordinates this coords)"));
 
 var coords_SINGLEQUOTE_ = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(self__.n,(1)))?sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([coords], 0)):coords);
 var delta = sicmutils.generic.dot_product.cljs$core$IFn$_invoke$arity$2(coords_SINGLEQUOTE_,coords_SINGLEQUOTE_);
-var xn = (function (){var G__101401 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(delta,(1));
-var G__101402 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((1),delta);
-return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__101401,G__101402) : sicmutils.generic.divide.call(null,G__101401,G__101402));
+var xn = (function (){var G__77705 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(delta,(1));
+var G__77706 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((1),delta);
+return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__77705,G__77706) : sicmutils.generic.divide.call(null,G__77705,G__77706));
 })();
-var pt = sicmutils.structure.generate((self__.n + (1)),new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),(function (p1__101395_SHARP_){
-if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__101395_SHARP_,self__.n)){
+var pt = sicmutils.structure.generate((self__.n + (1)),new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),(function (p1__77699_SHARP_){
+if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__77699_SHARP_,self__.n)){
 return xn;
 } else {
-var G__101403 = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords_SINGLEQUOTE_,p1__101395_SHARP_));
-var G__101404 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((1),delta);
-return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__101403,G__101404) : sicmutils.generic.divide.call(null,G__101403,G__101404));
+var G__77707 = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((2),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords_SINGLEQUOTE_,p1__77699_SHARP_));
+var G__77708 = sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((1),delta);
+return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__77707,G__77708) : sicmutils.generic.divide.call(null,G__77707,G__77708));
 }
 }));
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.orientation_matrix,pt),self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -1763,10 +1763,10 @@ sicmutils.util.illegal_state("S^n stereographic singular");
 } else {
 }
 
-var coords = sicmutils.structure.generate(self__.n,new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),(function (p1__101396_SHARP_){
-var G__101405 = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(pt,p1__101396_SHARP_);
-var G__101406 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((1),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(pt,self__.n));
-return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__101405,G__101406) : sicmutils.generic.divide.call(null,G__101405,G__101406));
+var coords = sicmutils.structure.generate(self__.n,new cljs.core.Keyword("sicmutils.structure","up","sicmutils.structure/up",-2138938939),(function (p1__77700_SHARP_){
+var G__77709 = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(pt,p1__77700_SHARP_);
+var G__77710 = sicmutils.generic._.cljs$core$IFn$_invoke$arity$2((1),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(pt,self__.n));
+return (sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2 ? sicmutils.generic.divide.cljs$core$IFn$_invoke$arity$2(G__77709,G__77710) : sicmutils.generic.divide.call(null,G__77709,G__77710));
 }));
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(self__.n,(1))){
 return cljs.core.first(coords);
@@ -1776,34 +1776,34 @@ return coords;
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"orientation-function","orientation-function",-1851559379,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"orientation-matrix","orientation-matrix",-591482625,null),new cljs.core.Symbol(null,"orientation-inverse-matrix","orientation-inverse-matrix",1827755966,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101399","meta101399",-217690251,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"orientation-function","orientation-function",-1851559379,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"orientation-matrix","orientation-matrix",-591482625,null),new cljs.core.Symbol(null,"orientation-inverse-matrix","orientation-inverse-matrix",1827755966,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77703","meta77703",-239090133,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101398");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77702");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101398");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77702");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101398.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77702.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101398 = (function sicmutils$calculus$manifold$__GT_Sn_stereographic_$_ctor_$___GT_t_sicmutils$calculus$manifold101398(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta101399){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta101399));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77702 = (function sicmutils$calculus$manifold$__GT_Sn_stereographic_$_ctor_$___GT_t_sicmutils$calculus$manifold77702(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta77703){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta77703));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101398(orientation_function,sicmutils$calculus$manifold$__GT_Sn_stereographic_$_ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77702(orientation_function,sicmutils$calculus$manifold$__GT_Sn_stereographic_$_ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 });
@@ -1854,13 +1854,13 @@ return sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor.cljs$core$IFn$_invoke
 });
 var sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor__2 = (function (manifold,coordinate_prototype){
 var n = new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(manifold);
-var orientation_matrix = (function (){var G__101407 = (n + (1));
-return (orientation_function.cljs$core$IFn$_invoke$arity$1 ? orientation_function.cljs$core$IFn$_invoke$arity$1(G__101407) : orientation_function.call(null,G__101407));
+var orientation_matrix = (function (){var G__77711 = (n + (1));
+return (orientation_function.cljs$core$IFn$_invoke$arity$1 ? orientation_function.cljs$core$IFn$_invoke$arity$1(G__77711) : orientation_function.call(null,G__77711));
 })();
 var orientation_inverse_matrix = sicmutils.generic.invert.cljs$core$IFn$_invoke$arity$1(orientation_matrix);
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712 !== 'undefined')){
 } else {
 
 /**
@@ -1869,7 +1869,7 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408 = (function (orientation_function,ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,meta101409){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712 = (function (orientation_function,ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,meta77713){
 this.orientation_function = orientation_function;
 this.ctor = ctor;
 this.manifold = manifold;
@@ -1878,37 +1878,37 @@ this.n = n;
 this.orientation_matrix = orientation_matrix;
 this.orientation_inverse_matrix = orientation_inverse_matrix;
 this.id = id;
-this.meta101409 = meta101409;
+this.meta77713 = meta77713;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101410,meta101409__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77714,meta77713__$1){
 var self__ = this;
-var _101410__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408(self__.orientation_function,self__.ctor,self__.manifold,self__.coordinate_prototype,self__.n,self__.orientation_matrix,self__.orientation_inverse_matrix,self__.id,meta101409__$1));
+var _77714__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712(self__.orientation_function,self__.ctor,self__.manifold,self__.coordinate_prototype,self__.n,self__.orientation_matrix,self__.orientation_inverse_matrix,self__.id,meta77713__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101410){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77714){
 var self__ = this;
-var _101410__$1 = this;
-return self__.meta101409;
+var _77714__$1 = this;
+return self__.meta77713;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return ((((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(self__.n,(1))) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),(1))))) || (((sicmutils.structure.up_QMARK_(coords)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),self__.n)))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -1930,7 +1930,7 @@ return sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2(cljs.core.nth.clj
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(self__.orientation_matrix,pt),self__.manifold,this$__$1,coords__$1);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -1968,34 +1968,34 @@ return coords;
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"orientation-function","orientation-function",-1851559379,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"orientation-matrix","orientation-matrix",-591482625,null),new cljs.core.Symbol(null,"orientation-inverse-matrix","orientation-inverse-matrix",1827755966,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101409","meta101409",1170497643,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"orientation-function","orientation-function",-1851559379,null),new cljs.core.Symbol(null,"ctor","ctor",-903570967,null),new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"orientation-matrix","orientation-matrix",-591482625,null),new cljs.core.Symbol(null,"orientation-inverse-matrix","orientation-inverse-matrix",1827755966,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77713","meta77713",-695399492,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101408");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77712");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101408");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77712");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101408.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77712.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101408 = (function sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor_$___GT_t_sicmutils$calculus$manifold101408(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta101409){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta101409));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77712 = (function sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor_$___GT_t_sicmutils$calculus$manifold77712(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta77713){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712(orientation_function__$1,ctor__$1,manifold__$1,coordinate_prototype__$1,n__$1,orientation_matrix__$1,orientation_inverse_matrix__$1,id__$1,meta77713));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101408(orientation_function,sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77712(orientation_function,sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor,manifold,coordinate_prototype,n,orientation_matrix,orientation_inverse_matrix,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 });
@@ -2019,8 +2019,8 @@ return sicmutils$calculus$manifold$__GT_Sn_gnomonic_$_ctor;
  *   SO(3).
  */
 sicmutils.calculus.manifold.__GT_Euler_chart = (function sicmutils$calculus$manifold$__GT_Euler_chart(var_args){
-var G__101412 = arguments.length;
-switch (G__101412) {
+var G__77716 = arguments.length;
+switch (G__77716) {
 case 1:
 return sicmutils.calculus.manifold.__GT_Euler_chart.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -2044,7 +2044,7 @@ return sicmutils.calculus.manifold.__GT_Euler_chart.cljs$core$IFn$_invoke$arity$
 var n = new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(manifold);
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717 !== 'undefined')){
 } else {
 
 /**
@@ -2053,30 +2053,30 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413 = (function (manifold,coordinate_prototype,n,id,meta101414){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717 = (function (manifold,coordinate_prototype,n,id,meta77718){
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.n = n;
 this.id = id;
-this.meta101414 = meta101414;
+this.meta77718 = meta77718;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101415,meta101414__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77719,meta77718__$1){
 var self__ = this;
-var _101415__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413(self__.manifold,self__.coordinate_prototype,self__.n,self__.id,meta101414__$1));
+var _77719__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717(self__.manifold,self__.coordinate_prototype,self__.n,self__.id,meta77718__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101415){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77719){
 var self__ = this;
-var _101415__$1 = this;
-return self__.meta101414;
+var _77719__$1 = this;
+return self__.meta77718;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 var and__4251__auto__ = sicmutils.structure.up_QMARK_(coords);
@@ -2093,13 +2093,13 @@ return and__4251__auto__;
 }
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -2107,10 +2107,10 @@ if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$chec
 throw (new Error("Assert failed: (check-coordinates this coords)"));
 }
 
-var vec__101416 = coords;
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101416,(0),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101416,(1),null);
-var psi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101416,(2),null);
+var vec__77720 = coords;
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77720,(0),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77720,(1),null);
+var psi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77720,(2),null);
 var Mx_theta = sicmutils.mechanics.rotation.rotate_x_matrix(theta);
 var Mz_phi = sicmutils.mechanics.rotation.rotate_z_matrix(phi);
 var Mz_psi = sicmutils.mechanics.rotation.rotate_z_matrix(psi);
@@ -2118,7 +2118,7 @@ var M = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(Mz_phi,Mx_
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(M,self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -2135,34 +2135,34 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101414","meta101414",-1259572322,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77718","meta77718",874762209,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101413");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77717");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101413");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77717");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101413.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77717.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101413 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold101413(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta101414){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta101414));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77717 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold77717(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta77718){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta77718));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413(manifold,coordinate_prototype,n,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77717(manifold,coordinate_prototype,n,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 }));
@@ -2176,8 +2176,8 @@ return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101413(mani
  *   NOTE: Please add docs about what these are!
  */
 sicmutils.calculus.manifold.__GT_Alternate_chart = (function sicmutils$calculus$manifold$__GT_Alternate_chart(var_args){
-var G__101420 = arguments.length;
-switch (G__101420) {
+var G__77724 = arguments.length;
+switch (G__77724) {
 case 1:
 return sicmutils.calculus.manifold.__GT_Alternate_chart.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -2201,7 +2201,7 @@ return sicmutils.calculus.manifold.__GT_Alternate_chart.cljs$core$IFn$_invoke$ar
 var n = new cljs.core.Keyword(null,"dimension","dimension",543254198).cljs$core$IFn$_invoke$arity$1(manifold);
 var id = sicmutils.util.uuid();
 return cljs.core.with_meta((function (){
-if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421 !== 'undefined')){
+if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefined') && (typeof sicmutils.calculus.manifold !== 'undefined') && (typeof sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725 !== 'undefined')){
 } else {
 
 /**
@@ -2210,42 +2210,42 @@ if((typeof sicmutils !== 'undefined') && (typeof sicmutils.calculus !== 'undefin
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421 = (function (manifold,coordinate_prototype,n,id,meta101422){
+sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725 = (function (manifold,coordinate_prototype,n,id,meta77726){
 this.manifold = manifold;
 this.coordinate_prototype = coordinate_prototype;
 this.n = n;
 this.id = id;
-this.meta101422 = meta101422;
+this.meta77726 = meta77726;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 });
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_101423,meta101422__$1){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_77727,meta77726__$1){
 var self__ = this;
-var _101423__$1 = this;
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421(self__.manifold,self__.coordinate_prototype,self__.n,self__.id,meta101422__$1));
+var _77727__$1 = this;
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725(self__.manifold,self__.coordinate_prototype,self__.n,self__.id,meta77726__$1));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_101423){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_77727){
 var self__ = this;
-var _101423__$1 = this;
-return self__.meta101422;
+var _77727__$1 = this;
+return self__.meta77726;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.sicmutils$calculus$manifold$ICoordinateSystem$ = cljs.core.PROTOCOL_SENTINEL);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2 = (function (_,coords){
 var self__ = this;
 var ___$1 = this;
 return ((sicmutils.structure.up_QMARK_(coords)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic.dimension.cljs$core$IFn$_invoke$arity$1(coords),self__.n)) && ((((!(sicmutils.value.number_QMARK_(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords,(0)))))) || (((((Math.PI / (-2)) < cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords,(0)))) && ((cljs.core.nth.cljs$core$IFn$_invoke$arity$2(coords,(0)) < (Math.PI / (2)))))))))));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2 = (function (_,point){
 var self__ = this;
 var ___$1 = this;
 return sicmutils.calculus.manifold.my_manifold_point_QMARK_(point,self__.manifold);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.sicmutils$calculus$manifold$ICoordinateSystem$coords__GT_point$arity$2 = (function (this$,coords){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_coordinates$arity$2(null,coords))){
@@ -2253,10 +2253,10 @@ if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$chec
 throw (new Error("Assert failed: (check-coordinates this coords)"));
 }
 
-var vec__101424 = coords;
-var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101424,(0),null);
-var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101424,(1),null);
-var psi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101424,(2),null);
+var vec__77728 = coords;
+var theta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77728,(0),null);
+var phi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77728,(1),null);
+var psi = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__77728,(2),null);
 var Mx_theta = sicmutils.mechanics.rotation.rotate_x_matrix(theta);
 var Mz_phi = sicmutils.mechanics.rotation.rotate_z_matrix(phi);
 var My_psi = sicmutils.mechanics.rotation.rotate_y_matrix(psi);
@@ -2264,7 +2264,7 @@ var pt = sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$variadic(Mz_phi,Mx
 return sicmutils.calculus.manifold.make_manifold_point.cljs$core$IFn$_invoke$arity$4(pt,self__.manifold,this$__$1,coords);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.sicmutils$calculus$manifold$ICoordinateSystem$point__GT_coords$arity$2 = (function (this$,point){
 var self__ = this;
 var this$__$1 = this;
 if(cljs.core.truth_(this$__$1.sicmutils$calculus$manifold$ICoordinateSystem$check_point$arity$2(null,point))){
@@ -2281,34 +2281,34 @@ return sicmutils.structure.up.cljs$core$IFn$_invoke$arity$variadic(cljs.core.pri
 }));
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.prototype.sicmutils$calculus$manifold$ICoordinateSystem$uuid$arity$1 = (function (_){
 var self__ = this;
 var ___$1 = this;
 return self__.id;
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta101422","meta101422",-1631602646,null)], null);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"manifold","manifold",-299796682,null),new cljs.core.Symbol(null,"coordinate-prototype","coordinate-prototype",-1149174049,null),new cljs.core.Symbol(null,"n","n",-2092305744,null),new cljs.core.Symbol(null,"id","id",252129435,null),new cljs.core.Symbol(null,"meta77726","meta77726",2143751428,null)], null);
 }));
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.cljs$lang$type = true);
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.cljs$lang$type = true);
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101421");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.cljs$lang$ctorStr = "sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77725");
 
-(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
-return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101421");
+(sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725.cljs$lang$ctorPrWriter = (function (this__4491__auto__,writer__4492__auto__,opt__4493__auto__){
+return cljs.core._write(writer__4492__auto__,"sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77725");
 }));
 
 /**
- * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold101421.
+ * Positional factory function for sicmutils.calculus.manifold/t_sicmutils$calculus$manifold77725.
  */
-sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold101421 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold101421(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta101422){
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta101422));
+sicmutils.calculus.manifold.__GT_t_sicmutils$calculus$manifold77725 = (function sicmutils$calculus$manifold$__GT_t_sicmutils$calculus$manifold77725(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta77726){
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725(manifold__$1,coordinate_prototype__$1,n__$1,id__$1,meta77726));
 });
 
 }
 
-return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold101421(manifold,coordinate_prototype,n,id,cljs.core.PersistentArrayMap.EMPTY));
+return (new sicmutils.calculus.manifold.t_sicmutils$calculus$manifold77725(manifold,coordinate_prototype,n,id,cljs.core.PersistentArrayMap.EMPTY));
 })()
 ,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword("sicmutils.calculus.manifold","coord-prototype","sicmutils.calculus.manifold/coord-prototype",1610656942),coordinate_prototype,new cljs.core.Keyword("sicmutils.calculus.manifold","manifold","sicmutils.calculus.manifold/manifold",-1883493830),manifold], null));
 }));

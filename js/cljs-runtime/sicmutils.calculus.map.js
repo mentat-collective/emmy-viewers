@@ -20,8 +20,8 @@ throw (new Error("Assert failed: (vf/vector-field? v-on-N)"));
 }
 
 var v_on_M = (function (g_on_M){
-var G__101564 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([g_on_M,mu_COLON_N__GT_M], 0));
-return (v_on_N.cljs$core$IFn$_invoke$arity$1 ? v_on_N.cljs$core$IFn$_invoke$arity$1(G__101564) : v_on_N.call(null,G__101564));
+var G__101497 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([g_on_M,mu_COLON_N__GT_M], 0));
+return (v_on_N.cljs$core$IFn$_invoke$arity$1 ? v_on_N.cljs$core$IFn$_invoke$arity$1(G__101497) : v_on_N.call(null,G__101497));
 });
 var name = cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"d","d",-682293345,null),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(mu_COLON_N__GT_M),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(v_on_N),null,(1),null)))));
 return sicmutils.calculus.vector_field.procedure__GT_vector_field.cljs$core$IFn$_invoke$arity$2(v_on_M,name);
@@ -34,8 +34,8 @@ sicmutils.calculus.map.differential = sicmutils.calculus.map.differential_of_map
 sicmutils.calculus.map.pushforward_vector = (function sicmutils$calculus$map$pushforward_vector(mu_COLON_N__GT_M,mu_inverse_COLON_M__GT_N){
 return (function (v_on_N){
 var op = (function (f){
-return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var G__101567 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([f,mu_COLON_N__GT_M], 0));
-return (v_on_N.cljs$core$IFn$_invoke$arity$1 ? v_on_N.cljs$core$IFn$_invoke$arity$1(G__101567) : v_on_N.call(null,G__101567));
+return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(function (){var G__101498 = sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([f,mu_COLON_N__GT_M], 0));
+return (v_on_N.cljs$core$IFn$_invoke$arity$1 ? v_on_N.cljs$core$IFn$_invoke$arity$1(G__101498) : v_on_N.call(null,G__101498));
 })(),mu_inverse_COLON_M__GT_N], 0));
 });
 var name = cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"pushforward","pushforward",-683343030,null),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(mu_COLON_N__GT_M),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(v_on_N),null,(1),null)))));
@@ -66,8 +66,8 @@ return (function (w_on_M){
 var make_fake_vector_field = (function sicmutils$calculus$map$form_field__GT_form_field_over_map_$_make_fake_vector_field(V_over_mu,n){
 return sicmutils.calculus.vector_field.procedure__GT_vector_field.cljs$core$IFn$_invoke$arity$2((function (f){
 return (function (_){
-var fexpr__101577 = (V_over_mu.cljs$core$IFn$_invoke$arity$1 ? V_over_mu.cljs$core$IFn$_invoke$arity$1(f) : V_over_mu.call(null,f));
-return (fexpr__101577.cljs$core$IFn$_invoke$arity$1 ? fexpr__101577.cljs$core$IFn$_invoke$arity$1(n) : fexpr__101577.call(null,n));
+var fexpr__101502 = (V_over_mu.cljs$core$IFn$_invoke$arity$1 ? V_over_mu.cljs$core$IFn$_invoke$arity$1(f) : V_over_mu.call(null,f));
+return (fexpr__101502.cljs$core$IFn$_invoke$arity$1 ? fexpr__101502.cljs$core$IFn$_invoke$arity$1(n) : fexpr__101502.call(null,n));
 });
 }),cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"make-fake-vector-field","make-fake-vector-field",-1146565625,null),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(V_over_mu),null,(1),null))))));
 });
@@ -79,24 +79,24 @@ throw (new Error("Assert failed: (= (count vectors-over-map) (ff/get-rank w-on-M
 }
 
 return (function (n){
-var G__101579 = (mu_COLON_N__GT_M.cljs$core$IFn$_invoke$arity$1 ? mu_COLON_N__GT_M.cljs$core$IFn$_invoke$arity$1(n) : mu_COLON_N__GT_M.call(null,n));
-var fexpr__101578 = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(w_on_M,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (V_over_mu){
+var G__101504 = (mu_COLON_N__GT_M.cljs$core$IFn$_invoke$arity$1 ? mu_COLON_N__GT_M.cljs$core$IFn$_invoke$arity$1(n) : mu_COLON_N__GT_M.call(null,n));
+var fexpr__101503 = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(w_on_M,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (V_over_mu){
 return make_fake_vector_field(V_over_mu,n);
 }),vectors_over_map));
-return (fexpr__101578.cljs$core$IFn$_invoke$arity$1 ? fexpr__101578.cljs$core$IFn$_invoke$arity$1(G__101579) : fexpr__101578.call(null,G__101579));
+return (fexpr__101503.cljs$core$IFn$_invoke$arity$1 ? fexpr__101503.cljs$core$IFn$_invoke$arity$1(G__101504) : fexpr__101503.call(null,G__101504));
 });
 };
 var sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op = function (var_args){
 var vectors_over_map = null;
 if (arguments.length > 0) {
-var G__101582__i = 0, G__101582__a = new Array(arguments.length -  0);
-while (G__101582__i < G__101582__a.length) {G__101582__a[G__101582__i] = arguments[G__101582__i + 0]; ++G__101582__i;}
-  vectors_over_map = new cljs.core.IndexedSeq(G__101582__a,0,null);
+var G__101520__i = 0, G__101520__a = new Array(arguments.length -  0);
+while (G__101520__i < G__101520__a.length) {G__101520__a[G__101520__i] = arguments[G__101520__i + 0]; ++G__101520__i;}
+  vectors_over_map = new cljs.core.IndexedSeq(G__101520__a,0,null);
 } 
 return sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op__delegate.call(this,vectors_over_map);};
 sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op.cljs$lang$maxFixedArity = 0;
-sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op.cljs$lang$applyTo = (function (arglist__101583){
-var vectors_over_map = cljs.core.seq(arglist__101583);
+sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op.cljs$lang$applyTo = (function (arglist__101521){
+var vectors_over_map = cljs.core.seq(arglist__101521);
 return sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op__delegate(vectors_over_map);
 });
 sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op.cljs$core$IFn$_invoke$arity$variadic = sicmutils$calculus$map$form_field__GT_form_field_over_map_$_op__delegate;
@@ -124,24 +124,24 @@ if((k === (0))){
 return sicmutils.calculus.map.pullback_function(mu_COLON_N__GT_M)(omega_on_M);
 } else {
 var op = (function() { 
-var G__101584__delegate = function (vectors_on_N){
+var G__101522__delegate = function (vectors_on_N){
 return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.map.form_field__GT_form_field_over_map(mu_COLON_N__GT_M)(omega_on_M),cljs.core.map.cljs$core$IFn$_invoke$arity$2((sicmutils.calculus.map.differential.cljs$core$IFn$_invoke$arity$1 ? sicmutils.calculus.map.differential.cljs$core$IFn$_invoke$arity$1(mu_COLON_N__GT_M) : sicmutils.calculus.map.differential.call(null,mu_COLON_N__GT_M)),vectors_on_N));
 };
-var G__101584 = function (var_args){
+var G__101522 = function (var_args){
 var vectors_on_N = null;
 if (arguments.length > 0) {
-var G__101585__i = 0, G__101585__a = new Array(arguments.length -  0);
-while (G__101585__i < G__101585__a.length) {G__101585__a[G__101585__i] = arguments[G__101585__i + 0]; ++G__101585__i;}
-  vectors_on_N = new cljs.core.IndexedSeq(G__101585__a,0,null);
+var G__101523__i = 0, G__101523__a = new Array(arguments.length -  0);
+while (G__101523__i < G__101523__a.length) {G__101523__a[G__101523__i] = arguments[G__101523__i + 0]; ++G__101523__i;}
+  vectors_on_N = new cljs.core.IndexedSeq(G__101523__a,0,null);
 } 
-return G__101584__delegate.call(this,vectors_on_N);};
-G__101584.cljs$lang$maxFixedArity = 0;
-G__101584.cljs$lang$applyTo = (function (arglist__101586){
-var vectors_on_N = cljs.core.seq(arglist__101586);
-return G__101584__delegate(vectors_on_N);
+return G__101522__delegate.call(this,vectors_on_N);};
+G__101522.cljs$lang$maxFixedArity = 0;
+G__101522.cljs$lang$applyTo = (function (arglist__101524){
+var vectors_on_N = cljs.core.seq(arglist__101524);
+return G__101522__delegate(vectors_on_N);
 });
-G__101584.cljs$core$IFn$_invoke$arity$variadic = G__101584__delegate;
-return G__101584;
+G__101522.cljs$core$IFn$_invoke$arity$variadic = G__101522__delegate;
+return G__101522;
 })()
 ;
 var name = cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,cljs.core.sequence.cljs$core$IFn$_invoke$arity$1(cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2((new cljs.core.List(null,new cljs.core.Symbol(null,"pullback","pullback",-1132207426,null),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(mu_COLON_N__GT_M),null,(1),null))))),null,(1),null)),(new cljs.core.List(null,sicmutils.value.freeze(omega_on_M),null,(1),null)))));
@@ -153,8 +153,8 @@ sicmutils.calculus.map.pullback_vector_field = (function sicmutils$calculus$map$
 return sicmutils.calculus.map.pushforward_vector(mu_inverse_COLON_M__GT_N,mu_COLON_N__GT_M);
 });
 sicmutils.calculus.map.pullback = (function sicmutils$calculus$map$pullback(var_args){
-var G__101581 = arguments.length;
-switch (G__101581) {
+var G__101506 = arguments.length;
+switch (G__101506) {
 case 1:
 return sicmutils.calculus.map.pullback.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

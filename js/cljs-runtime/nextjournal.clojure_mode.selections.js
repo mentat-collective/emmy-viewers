@@ -1,8 +1,8 @@
 goog.provide('nextjournal.clojure_mode.selections');
 var module$node_modules$$codemirror$state$dist$index_cjs=shadow.js.require("module$node_modules$$codemirror$state$dist$index_cjs", {});
 nextjournal.clojure_mode.selections.range = (function nextjournal$clojure_mode$selections$range(var_args){
-var G__88382 = arguments.length;
-switch (G__88382) {
+var G__88824 = arguments.length;
+switch (G__88824) {
 case 2:
 return nextjournal.clojure_mode.selections.range.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 

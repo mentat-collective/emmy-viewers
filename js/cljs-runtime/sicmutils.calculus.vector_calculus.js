@@ -29,8 +29,8 @@ sicmutils.calculus.vector_calculus.Div = sicmutils.operator.make_operator.cljs$c
  * Both arities of [[divergence]] are defined on page 156 of Functional Differential Geometry.
  */
 sicmutils.calculus.vector_calculus.divergence = (function sicmutils$calculus$vector_calculus$divergence(var_args){
-var G__101908 = arguments.length;
-switch (G__101908) {
+var G__101735 = arguments.length;
+switch (G__101735) {
 case 1:
 return sicmutils.calculus.vector_calculus.divergence.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -51,12 +51,12 @@ var nabla = sicmutils.calculus.covariant.covariant_derivative.cljs$core$IFn$_inv
 return (function (v){
 return (function (point){
 return sicmutils.calculus.basis.contract((function (ei,wi){
-var fexpr__101948 = (function (){var G__101949 = (function (){var fexpr__101952 = nabla(ei);
-return (fexpr__101952.cljs$core$IFn$_invoke$arity$1 ? fexpr__101952.cljs$core$IFn$_invoke$arity$1(v) : fexpr__101952.call(null,v));
+var fexpr__101739 = (function (){var G__101740 = (function (){var fexpr__101741 = nabla(ei);
+return (fexpr__101741.cljs$core$IFn$_invoke$arity$1 ? fexpr__101741.cljs$core$IFn$_invoke$arity$1(v) : fexpr__101741.call(null,v));
 })();
-return (wi.cljs$core$IFn$_invoke$arity$1 ? wi.cljs$core$IFn$_invoke$arity$1(G__101949) : wi.call(null,G__101949));
+return (wi.cljs$core$IFn$_invoke$arity$1 ? wi.cljs$core$IFn$_invoke$arity$1(G__101740) : wi.call(null,G__101740));
 })();
-return (fexpr__101948.cljs$core$IFn$_invoke$arity$1 ? fexpr__101948.cljs$core$IFn$_invoke$arity$1(point) : fexpr__101948.call(null,point));
+return (fexpr__101739.cljs$core$IFn$_invoke$arity$1 ? fexpr__101739.cljs$core$IFn$_invoke$arity$1(point) : fexpr__101739.call(null,point));
 }),basis);
 });
 });
@@ -78,10 +78,10 @@ return sicmutils.function$.compose.cljs$core$IFn$_invoke$arity$variadic(cljs.cor
  *   `f` must be a function from $\mathbb{R}^3 \to \mathbb{R}^3$.
  */
 sicmutils.calculus.vector_calculus.Curl = sicmutils.operator.make_operator.cljs$core$IFn$_invoke$arity$2((function (f_triple){
-var vec__101974 = cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.derivative.partial,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(1),(2)], null));
-var Dx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101974,(0),null);
-var Dy = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101974,(1),null);
-var Dz = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101974,(2),null);
+var vec__101742 = cljs.core.map.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.derivative.partial,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(1),(2)], null));
+var Dx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101742,(0),null);
+var Dy = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101742,(1),null);
+var Dz = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101742,(2),null);
 var fx = sicmutils.function$.get.cljs$core$IFn$_invoke$arity$2(f_triple,(0));
 var fy = sicmutils.function$.get.cljs$core$IFn$_invoke$arity$2(f_triple,(1));
 var fz = sicmutils.function$.get.cljs$core$IFn$_invoke$arity$2(f_triple,(2));

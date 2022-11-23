@@ -15,7 +15,7 @@ return (r instanceof module$node_modules$fraction_DOT_js$bigfraction);
  */
 sicmutils.ratio.IRational = function(){};
 
-var sicmutils$ratio$IRational$numerator$dyn_95824 = (function (_){
+var sicmutils$ratio$IRational$numerator$dyn_95766 = (function (_){
 var x__4550__auto__ = (((_ == null))?null:_);
 var m__4551__auto__ = (sicmutils.ratio.numerator[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -33,11 +33,11 @@ sicmutils.ratio.numerator = (function sicmutils$ratio$numerator(_){
 if((((!((_ == null)))) && ((!((_.sicmutils$ratio$IRational$numerator$arity$1 == null)))))){
 return _.sicmutils$ratio$IRational$numerator$arity$1(_);
 } else {
-return sicmutils$ratio$IRational$numerator$dyn_95824(_);
+return sicmutils$ratio$IRational$numerator$dyn_95766(_);
 }
 });
 
-var sicmutils$ratio$IRational$denominator$dyn_95825 = (function (_){
+var sicmutils$ratio$IRational$denominator$dyn_95767 = (function (_){
 var x__4550__auto__ = (((_ == null))?null:_);
 var m__4551__auto__ = (sicmutils.ratio.denominator[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -55,7 +55,7 @@ sicmutils.ratio.denominator = (function sicmutils$ratio$denominator(_){
 if((((!((_ == null)))) && ((!((_.sicmutils$ratio$IRational$denominator$arity$1 == null)))))){
 return _.sicmutils$ratio$IRational$denominator$arity$1(_);
 } else {
-return sicmutils$ratio$IRational$denominator$dyn_95825(_);
+return sicmutils$ratio$IRational$denominator$dyn_95767(_);
 }
 });
 
@@ -95,8 +95,8 @@ return x;
  * Construct a ratio.
  */
 sicmutils.ratio.rationalize = (function sicmutils$ratio$rationalize(var_args){
-var G__95752 = arguments.length;
-switch (G__95752) {
+var G__95700 = arguments.length;
+switch (G__95700) {
 case 1:
 return sicmutils.ratio.rationalize.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -131,8 +131,8 @@ return sicmutils.ratio.promote((new module$node_modules$fraction_DOT_js$bigfract
 
 sicmutils.ratio.ratio_pattern = /([-+]?[0-9]+)\/([0-9]+)/;
 sicmutils.ratio.matches_QMARK_ = (function sicmutils$ratio$matches_QMARK_(pattern__$1,s){
-var vec__95765 = cljs.core.re_find(pattern__$1,s);
-var match = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95765,(0),null);
+var vec__95704 = cljs.core.re_find(pattern__$1,s);
+var match = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95704,(0),null);
 return (match === s);
 });
 sicmutils.ratio.match_ratio = (function sicmutils$ratio$match_ratio(s){
@@ -154,8 +154,8 @@ if(typeof x === 'string'){
 if(sicmutils.ratio.matches_QMARK_(sicmutils.ratio.ratio_pattern,x)){
 return sicmutils.ratio.match_ratio(x);
 } else {
-var G__95830 = cljs.reader.read_string.cljs$core$IFn$_invoke$arity$1(x);
-x = G__95830;
+var G__95771 = cljs.reader.read_string.cljs$core$IFn$_invoke$arity$1(x);
+x = G__95771;
 continue;
 }
 } else {
@@ -166,8 +166,8 @@ return sicmutils.util.illegal(["Invalid ratio: ",cljs.core.str.cljs$core$IFn$_in
 break;
 }
 });
-var ZERO_95831 = (new module$node_modules$fraction_DOT_js$bigfraction((0)));
-var ONE_95832 = (new module$node_modules$fraction_DOT_js$bigfraction((1)));
+var ZERO_95772 = (new module$node_modules$fraction_DOT_js$bigfraction((0)));
+var ONE_95773 = (new module$node_modules$fraction_DOT_js$bigfraction((1)));
 (module$node_modules$fraction_DOT_js$bigfraction.prototype.sicmutils$value$Numerical$ = cljs.core.PROTOCOL_SENTINEL);
 
 (module$node_modules$fraction_DOT_js$bigfraction.prototype.sicmutils$value$Numerical$numerical_QMARK_$arity$1 = (function (_){
@@ -179,17 +179,17 @@ return true;
 
 (module$node_modules$fraction_DOT_js$bigfraction.prototype.sicmutils$value$Value$zero_QMARK_$arity$1 = (function (c){
 var c__$1 = this;
-return c__$1.equals(ZERO_95831);
+return c__$1.equals(ZERO_95772);
 }));
 
 (module$node_modules$fraction_DOT_js$bigfraction.prototype.sicmutils$value$Value$one_QMARK_$arity$1 = (function (c){
 var c__$1 = this;
-return c__$1.equals(ONE_95832);
+return c__$1.equals(ONE_95773);
 }));
 
 (module$node_modules$fraction_DOT_js$bigfraction.prototype.sicmutils$value$Value$identity_QMARK_$arity$1 = (function (c){
 var c__$1 = this;
-return c__$1.equals(ONE_95832);
+return c__$1.equals(ONE_95773);
 }));
 
 (module$node_modules$fraction_DOT_js$bigfraction.prototype.sicmutils$value$Value$zero_like$arity$1 = (function (_){
@@ -271,10 +271,10 @@ var x = sicmutils.value.freeze(r);
 if(typeof x === 'number'){
 return x;
 } else {
-var vec__95785 = x;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95785,(0),null);
-var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95785,(1),null);
-var d = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95785,(2),null);
+var vec__95723 = x;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95723,(0),null);
+var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95723,(1),null);
+var d = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__95723,(2),null);
 return [cljs.core.str.cljs$core$IFn$_invoke$arity$1(n),"/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(d)].join('');
 }
 }));
@@ -409,15 +409,15 @@ return sicmutils.ratio.promote(a.mod(b));
  */
 sicmutils.ratio.downcast_fraction = (function sicmutils$ratio$downcast_fraction(op){
 op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [module$node_modules$fraction_DOT_js$bigfraction,new cljs.core.Keyword("sicmutils.value","real","sicmutils.value/real",428478789)], null),(function (a,b){
-var G__95806 = a.valueOf();
-var G__95807 = b;
-return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95806,G__95807) : op.call(null,G__95806,G__95807));
+var G__95748 = a.valueOf();
+var G__95749 = b;
+return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95748,G__95749) : op.call(null,G__95748,G__95749));
 }));
 
 return op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.value","real","sicmutils.value/real",428478789),module$node_modules$fraction_DOT_js$bigfraction], null),(function (a,b){
-var G__95808 = a;
-var G__95809 = b.valueOf();
-return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95808,G__95809) : op.call(null,G__95808,G__95809));
+var G__95753 = a;
+var G__95754 = b.valueOf();
+return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95753,G__95754) : op.call(null,G__95753,G__95754));
 }));
 });
 
@@ -426,15 +426,15 @@ return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__9
  */
 sicmutils.ratio.upcast_number = (function sicmutils$ratio$upcast_number(op){
 op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [module$node_modules$fraction_DOT_js$bigfraction,new cljs.core.Keyword("sicmutils.value","integral","sicmutils.value/integral",-1504868231)], null),(function (a,b){
-var G__95810 = a;
-var G__95811 = (new module$node_modules$fraction_DOT_js$bigfraction(b,(1)));
-return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95810,G__95811) : op.call(null,G__95810,G__95811));
+var G__95756 = a;
+var G__95757 = (new module$node_modules$fraction_DOT_js$bigfraction(b,(1)));
+return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95756,G__95757) : op.call(null,G__95756,G__95757));
 }));
 
 return op.cljs$core$IMultiFn$_add_method$arity$3(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("sicmutils.value","integral","sicmutils.value/integral",-1504868231),module$node_modules$fraction_DOT_js$bigfraction], null),(function (a,b){
-var G__95812 = (new module$node_modules$fraction_DOT_js$bigfraction(a,(1)));
-var G__95813 = b;
-return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95812,G__95813) : op.call(null,G__95812,G__95813));
+var G__95758 = (new module$node_modules$fraction_DOT_js$bigfraction(a,(1)));
+var G__95759 = b;
+return (op.cljs$core$IFn$_invoke$arity$2 ? op.cljs$core$IFn$_invoke$arity$2(G__95758,G__95759) : op.call(null,G__95758,G__95759));
 }));
 });
 
@@ -442,57 +442,57 @@ sicmutils.ratio.upcast_number(sicmutils.generic.exact_divide);
 
 sicmutils.ratio.downcast_fraction(sicmutils.generic.expt);
 
-var seq__95814_95841 = cljs.core.seq(new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.add,sicmutils.generic.mul,sicmutils.generic.sub,sicmutils.generic.gcd,sicmutils.generic.lcm,sicmutils.generic.modulo,sicmutils.generic.remainder,sicmutils.generic.quotient,sicmutils.generic.div], null));
-var chunk__95815_95842 = null;
-var count__95816_95843 = (0);
-var i__95817_95844 = (0);
+var seq__95761_95774 = cljs.core.seq(new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [sicmutils.generic.add,sicmutils.generic.mul,sicmutils.generic.sub,sicmutils.generic.gcd,sicmutils.generic.lcm,sicmutils.generic.modulo,sicmutils.generic.remainder,sicmutils.generic.quotient,sicmutils.generic.div], null));
+var chunk__95762_95775 = null;
+var count__95763_95776 = (0);
+var i__95764_95777 = (0);
 while(true){
-if((i__95817_95844 < count__95816_95843)){
-var op_95845 = chunk__95815_95842.cljs$core$IIndexed$_nth$arity$2(null,i__95817_95844);
-sicmutils.ratio.upcast_number(op_95845);
+if((i__95764_95777 < count__95763_95776)){
+var op_95778 = chunk__95762_95775.cljs$core$IIndexed$_nth$arity$2(null,i__95764_95777);
+sicmutils.ratio.upcast_number(op_95778);
 
-sicmutils.ratio.downcast_fraction(op_95845);
+sicmutils.ratio.downcast_fraction(op_95778);
 
 
-var G__95846 = seq__95814_95841;
-var G__95847 = chunk__95815_95842;
-var G__95848 = count__95816_95843;
-var G__95849 = (i__95817_95844 + (1));
-seq__95814_95841 = G__95846;
-chunk__95815_95842 = G__95847;
-count__95816_95843 = G__95848;
-i__95817_95844 = G__95849;
+var G__95779 = seq__95761_95774;
+var G__95780 = chunk__95762_95775;
+var G__95781 = count__95763_95776;
+var G__95782 = (i__95764_95777 + (1));
+seq__95761_95774 = G__95779;
+chunk__95762_95775 = G__95780;
+count__95763_95776 = G__95781;
+i__95764_95777 = G__95782;
 continue;
 } else {
-var temp__5753__auto___95850 = cljs.core.seq(seq__95814_95841);
-if(temp__5753__auto___95850){
-var seq__95814_95851__$1 = temp__5753__auto___95850;
-if(cljs.core.chunked_seq_QMARK_(seq__95814_95851__$1)){
-var c__4679__auto___95852 = cljs.core.chunk_first(seq__95814_95851__$1);
-var G__95853 = cljs.core.chunk_rest(seq__95814_95851__$1);
-var G__95854 = c__4679__auto___95852;
-var G__95855 = cljs.core.count(c__4679__auto___95852);
-var G__95856 = (0);
-seq__95814_95841 = G__95853;
-chunk__95815_95842 = G__95854;
-count__95816_95843 = G__95855;
-i__95817_95844 = G__95856;
+var temp__5753__auto___95783 = cljs.core.seq(seq__95761_95774);
+if(temp__5753__auto___95783){
+var seq__95761_95784__$1 = temp__5753__auto___95783;
+if(cljs.core.chunked_seq_QMARK_(seq__95761_95784__$1)){
+var c__4679__auto___95785 = cljs.core.chunk_first(seq__95761_95784__$1);
+var G__95786 = cljs.core.chunk_rest(seq__95761_95784__$1);
+var G__95787 = c__4679__auto___95785;
+var G__95788 = cljs.core.count(c__4679__auto___95785);
+var G__95789 = (0);
+seq__95761_95774 = G__95786;
+chunk__95762_95775 = G__95787;
+count__95763_95776 = G__95788;
+i__95764_95777 = G__95789;
 continue;
 } else {
-var op_95857 = cljs.core.first(seq__95814_95851__$1);
-sicmutils.ratio.upcast_number(op_95857);
+var op_95790 = cljs.core.first(seq__95761_95784__$1);
+sicmutils.ratio.upcast_number(op_95790);
 
-sicmutils.ratio.downcast_fraction(op_95857);
+sicmutils.ratio.downcast_fraction(op_95790);
 
 
-var G__95858 = cljs.core.next(seq__95814_95851__$1);
-var G__95859 = null;
-var G__95860 = (0);
-var G__95861 = (0);
-seq__95814_95841 = G__95858;
-chunk__95815_95842 = G__95859;
-count__95816_95843 = G__95860;
-i__95817_95844 = G__95861;
+var G__95791 = cljs.core.next(seq__95761_95784__$1);
+var G__95792 = null;
+var G__95793 = (0);
+var G__95794 = (0);
+seq__95761_95774 = G__95791;
+chunk__95762_95775 = G__95792;
+count__95763_95776 = G__95793;
+i__95764_95777 = G__95794;
 continue;
 }
 } else {

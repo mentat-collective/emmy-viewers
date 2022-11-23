@@ -6,9 +6,9 @@ re_frame.registry.kinds = new cljs.core.PersistentHashSet(null, new cljs.core.Pe
  */
 re_frame.registry.IRegistry = function(){};
 
-var re_frame$registry$IRegistry$get_handler$dyn_86858 = (function() {
-var G__86859 = null;
-var G__86859__2 = (function (this$,kind){
+var re_frame$registry$IRegistry$get_handler$dyn_86836 = (function() {
+var G__86837 = null;
+var G__86837__2 = (function (this$,kind){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.get_handler[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -22,7 +22,7 @@ throw cljs.core.missing_protocol("IRegistry.get-handler",this$);
 }
 }
 });
-var G__86859__3 = (function (this$,kind,id){
+var G__86837__3 = (function (this$,kind,id){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.get_handler[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -36,7 +36,7 @@ throw cljs.core.missing_protocol("IRegistry.get-handler",this$);
 }
 }
 });
-var G__86859__4 = (function (this$,kind,id,required_QMARK_){
+var G__86837__4 = (function (this$,kind,id,required_QMARK_){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.get_handler[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -50,26 +50,26 @@ throw cljs.core.missing_protocol("IRegistry.get-handler",this$);
 }
 }
 });
-G__86859 = function(this$,kind,id,required_QMARK_){
+G__86837 = function(this$,kind,id,required_QMARK_){
 switch(arguments.length){
 case 2:
-return G__86859__2.call(this,this$,kind);
+return G__86837__2.call(this,this$,kind);
 case 3:
-return G__86859__3.call(this,this$,kind,id);
+return G__86837__3.call(this,this$,kind,id);
 case 4:
-return G__86859__4.call(this,this$,kind,id,required_QMARK_);
+return G__86837__4.call(this,this$,kind,id,required_QMARK_);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
-G__86859.cljs$core$IFn$_invoke$arity$2 = G__86859__2;
-G__86859.cljs$core$IFn$_invoke$arity$3 = G__86859__3;
-G__86859.cljs$core$IFn$_invoke$arity$4 = G__86859__4;
-return G__86859;
+G__86837.cljs$core$IFn$_invoke$arity$2 = G__86837__2;
+G__86837.cljs$core$IFn$_invoke$arity$3 = G__86837__3;
+G__86837.cljs$core$IFn$_invoke$arity$4 = G__86837__4;
+return G__86837;
 })()
 ;
 re_frame.registry.get_handler = (function re_frame$registry$get_handler(var_args){
-var G__86767 = arguments.length;
-switch (G__86767) {
+var G__86783 = arguments.length;
+switch (G__86783) {
 case 2:
 return re_frame.registry.get_handler.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -92,7 +92,7 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$get_handler$arity$2 == null)))))){
 return this$.re_frame$registry$IRegistry$get_handler$arity$2(this$,kind);
 } else {
-return re_frame$registry$IRegistry$get_handler$dyn_86858(this$,kind);
+return re_frame$registry$IRegistry$get_handler$dyn_86836(this$,kind);
 }
 }));
 
@@ -100,7 +100,7 @@ return re_frame$registry$IRegistry$get_handler$dyn_86858(this$,kind);
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$get_handler$arity$3 == null)))))){
 return this$.re_frame$registry$IRegistry$get_handler$arity$3(this$,kind,id);
 } else {
-return re_frame$registry$IRegistry$get_handler$dyn_86858(this$,kind,id);
+return re_frame$registry$IRegistry$get_handler$dyn_86836(this$,kind,id);
 }
 }));
 
@@ -108,14 +108,14 @@ return re_frame$registry$IRegistry$get_handler$dyn_86858(this$,kind,id);
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$get_handler$arity$4 == null)))))){
 return this$.re_frame$registry$IRegistry$get_handler$arity$4(this$,kind,id,required_QMARK_);
 } else {
-return re_frame$registry$IRegistry$get_handler$dyn_86858(this$,kind,id,required_QMARK_);
+return re_frame$registry$IRegistry$get_handler$dyn_86836(this$,kind,id,required_QMARK_);
 }
 }));
 
 (re_frame.registry.get_handler.cljs$lang$maxFixedArity = 4);
 
 
-var re_frame$registry$IRegistry$register_handler$dyn_86861 = (function (this$,kind,id,handler_fn){
+var re_frame$registry$IRegistry$register_handler$dyn_86850 = (function (this$,kind,id,handler_fn){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.register_handler[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -133,13 +133,13 @@ re_frame.registry.register_handler = (function re_frame$registry$register_handle
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$register_handler$arity$4 == null)))))){
 return this$.re_frame$registry$IRegistry$register_handler$arity$4(this$,kind,id,handler_fn);
 } else {
-return re_frame$registry$IRegistry$register_handler$dyn_86861(this$,kind,id,handler_fn);
+return re_frame$registry$IRegistry$register_handler$dyn_86850(this$,kind,id,handler_fn);
 }
 });
 
-var re_frame$registry$IRegistry$clear_handlers$dyn_86862 = (function() {
-var G__86863 = null;
-var G__86863__1 = (function (this$){
+var re_frame$registry$IRegistry$clear_handlers$dyn_86856 = (function() {
+var G__86858 = null;
+var G__86858__1 = (function (this$){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.clear_handlers[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -153,7 +153,7 @@ throw cljs.core.missing_protocol("IRegistry.clear-handlers",this$);
 }
 }
 });
-var G__86863__2 = (function (this$,kind){
+var G__86858__2 = (function (this$,kind){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.clear_handlers[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -167,7 +167,7 @@ throw cljs.core.missing_protocol("IRegistry.clear-handlers",this$);
 }
 }
 });
-var G__86863__3 = (function (this$,kind,id){
+var G__86858__3 = (function (this$,kind,id){
 var x__4550__auto__ = (((this$ == null))?null:this$);
 var m__4551__auto__ = (re_frame.registry.clear_handlers[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -181,26 +181,26 @@ throw cljs.core.missing_protocol("IRegistry.clear-handlers",this$);
 }
 }
 });
-G__86863 = function(this$,kind,id){
+G__86858 = function(this$,kind,id){
 switch(arguments.length){
 case 1:
-return G__86863__1.call(this,this$);
+return G__86858__1.call(this,this$);
 case 2:
-return G__86863__2.call(this,this$,kind);
+return G__86858__2.call(this,this$,kind);
 case 3:
-return G__86863__3.call(this,this$,kind,id);
+return G__86858__3.call(this,this$,kind,id);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
-G__86863.cljs$core$IFn$_invoke$arity$1 = G__86863__1;
-G__86863.cljs$core$IFn$_invoke$arity$2 = G__86863__2;
-G__86863.cljs$core$IFn$_invoke$arity$3 = G__86863__3;
-return G__86863;
+G__86858.cljs$core$IFn$_invoke$arity$1 = G__86858__1;
+G__86858.cljs$core$IFn$_invoke$arity$2 = G__86858__2;
+G__86858.cljs$core$IFn$_invoke$arity$3 = G__86858__3;
+return G__86858;
 })()
 ;
 re_frame.registry.clear_handlers = (function re_frame$registry$clear_handlers(var_args){
-var G__86790 = arguments.length;
-switch (G__86790) {
+var G__86797 = arguments.length;
+switch (G__86797) {
 case 1:
 return re_frame.registry.clear_handlers.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -223,7 +223,7 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$clear_handlers$arity$1 == null)))))){
 return this$.re_frame$registry$IRegistry$clear_handlers$arity$1(this$);
 } else {
-return re_frame$registry$IRegistry$clear_handlers$dyn_86862(this$);
+return re_frame$registry$IRegistry$clear_handlers$dyn_86856(this$);
 }
 }));
 
@@ -231,7 +231,7 @@ return re_frame$registry$IRegistry$clear_handlers$dyn_86862(this$);
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$clear_handlers$arity$2 == null)))))){
 return this$.re_frame$registry$IRegistry$clear_handlers$arity$2(this$,kind);
 } else {
-return re_frame$registry$IRegistry$clear_handlers$dyn_86862(this$,kind);
+return re_frame$registry$IRegistry$clear_handlers$dyn_86856(this$,kind);
 }
 }));
 
@@ -239,7 +239,7 @@ return re_frame$registry$IRegistry$clear_handlers$dyn_86862(this$,kind);
 if((((!((this$ == null)))) && ((!((this$.re_frame$registry$IRegistry$clear_handlers$arity$3 == null)))))){
 return this$.re_frame$registry$IRegistry$clear_handlers$arity$3(this$,kind,id);
 } else {
-return re_frame$registry$IRegistry$clear_handlers$dyn_86862(this$,kind,id);
+return re_frame$registry$IRegistry$clear_handlers$dyn_86856(this$,kind,id);
 }
 }));
 
@@ -281,12 +281,12 @@ var this__4502__auto____$1 = this;
 return this__4502__auto____$1.cljs$core$ILookup$_lookup$arity$3(null,k__4503__auto__,null);
 }));
 
-(re_frame.registry.Registry.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4504__auto__,k86799,else__4505__auto__){
+(re_frame.registry.Registry.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4504__auto__,k86802,else__4505__auto__){
 var self__ = this;
 var this__4504__auto____$1 = this;
-var G__86804 = k86799;
-var G__86804__$1 = (((G__86804 instanceof cljs.core.Keyword))?G__86804.fqn:null);
-switch (G__86804__$1) {
+var G__86811 = k86802;
+var G__86811__$1 = (((G__86811 instanceof cljs.core.Keyword))?G__86811.fqn:null);
+switch (G__86811__$1) {
 case "kinds":
 return self__.kinds;
 
@@ -296,7 +296,7 @@ return self__.kind__GT_id__GT_handler;
 
 break;
 default:
-return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k86799,else__4505__auto__);
+return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k86802,else__4505__auto__);
 
 }
 }));
@@ -304,10 +304,10 @@ return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k86799,else__
 (re_frame.registry.Registry.prototype.cljs$core$IKVReduce$_kv_reduce$arity$3 = (function (this__4522__auto__,f__4523__auto__,init__4524__auto__){
 var self__ = this;
 var this__4522__auto____$1 = this;
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (ret__4525__auto__,p__86814){
-var vec__86819 = p__86814;
-var k__4526__auto__ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86819,(0),null);
-var v__4527__auto__ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86819,(1),null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (ret__4525__auto__,p__86813){
+var vec__86814 = p__86813;
+var k__4526__auto__ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86814,(0),null);
+var v__4527__auto__ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__86814,(1),null);
 return (f__4523__auto__.cljs$core$IFn$_invoke$arity$3 ? f__4523__auto__.cljs$core$IFn$_invoke$arity$3(ret__4525__auto__,k__4526__auto__,v__4527__auto__) : f__4523__auto__.call(null,ret__4525__auto__,k__4526__auto__,v__4527__auto__));
 }),init__4524__auto__,this__4522__auto____$1);
 }));
@@ -321,10 +321,10 @@ return cljs.core.pr_sequential_writer(writer__4518__auto__,cljs.core.pr_writer,"
 return cljs.core.pr_sequential_writer(writer__4518__auto__,pr_pair__4520__auto__,"#re-frame.registry.Registry{",", ","}",opts__4519__auto__,cljs.core.concat.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"kinds","kinds",-294501889),self__.kinds],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779),self__.kind__GT_id__GT_handler],null))], null),self__.__extmap));
 }));
 
-(re_frame.registry.Registry.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__86798){
+(re_frame.registry.Registry.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__86801){
 var self__ = this;
-var G__86798__$1 = this;
-return (new cljs.core.RecordIter((0),G__86798__$1,2,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"kinds","kinds",-294501889),new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779)], null),(cljs.core.truth_(self__.__extmap)?cljs.core._iterator(self__.__extmap):cljs.core.nil_iter())));
+var G__86801__$1 = this;
+return (new cljs.core.RecordIter((0),G__86801__$1,2,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"kinds","kinds",-294501889),new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779)], null),(cljs.core.truth_(self__.__extmap)?cljs.core._iterator(self__.__extmap):cljs.core.nil_iter())));
 }));
 
 (re_frame.registry.Registry.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__4500__auto__){
@@ -361,10 +361,10 @@ return h__4360__auto____$1;
 }
 }));
 
-(re_frame.registry.Registry.prototype.cljs$core$IEquiv$_equiv$arity$2 = (function (this86800,other86801){
+(re_frame.registry.Registry.prototype.cljs$core$IEquiv$_equiv$arity$2 = (function (this86803,other86804){
 var self__ = this;
-var this86800__$1 = this;
-return (((!((other86801 == null)))) && ((((this86800__$1.constructor === other86801.constructor)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(this86800__$1.kinds,other86801.kinds)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(this86800__$1.kind__GT_id__GT_handler,other86801.kind__GT_id__GT_handler)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(this86800__$1.__extmap,other86801.__extmap)))))))));
+var this86803__$1 = this;
+return (((!((other86804 == null)))) && ((((this86803__$1.constructor === other86804.constructor)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(this86803__$1.kinds,other86804.kinds)) && (((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(this86803__$1.kind__GT_id__GT_handler,other86804.kind__GT_id__GT_handler)) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(this86803__$1.__extmap,other86804.__extmap)))))))));
 }));
 
 (re_frame.registry.Registry.prototype.re_frame$registry$IRegistry$ = cljs.core.PROTOCOL_SENTINEL);
@@ -461,35 +461,35 @@ return (new re_frame.registry.Registry(self__.kinds,self__.kind__GT_id__GT_handl
 }
 }));
 
-(re_frame.registry.Registry.prototype.cljs$core$IAssociative$_contains_key_QMARK_$arity$2 = (function (this__4509__auto__,k86799){
+(re_frame.registry.Registry.prototype.cljs$core$IAssociative$_contains_key_QMARK_$arity$2 = (function (this__4509__auto__,k86802){
 var self__ = this;
 var this__4509__auto____$1 = this;
-var G__86849 = k86799;
-var G__86849__$1 = (((G__86849 instanceof cljs.core.Keyword))?G__86849.fqn:null);
-switch (G__86849__$1) {
+var G__86828 = k86802;
+var G__86828__$1 = (((G__86828 instanceof cljs.core.Keyword))?G__86828.fqn:null);
+switch (G__86828__$1) {
 case "kinds":
 case "kind->id->handler":
 return true;
 
 break;
 default:
-return cljs.core.contains_QMARK_(self__.__extmap,k86799);
+return cljs.core.contains_QMARK_(self__.__extmap,k86802);
 
 }
 }));
 
-(re_frame.registry.Registry.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4510__auto__,k__4511__auto__,G__86798){
+(re_frame.registry.Registry.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4510__auto__,k__4511__auto__,G__86801){
 var self__ = this;
 var this__4510__auto____$1 = this;
-var pred__86850 = cljs.core.keyword_identical_QMARK_;
-var expr__86851 = k__4511__auto__;
-if(cljs.core.truth_((pred__86850.cljs$core$IFn$_invoke$arity$2 ? pred__86850.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"kinds","kinds",-294501889),expr__86851) : pred__86850.call(null,new cljs.core.Keyword(null,"kinds","kinds",-294501889),expr__86851)))){
-return (new re_frame.registry.Registry(G__86798,self__.kind__GT_id__GT_handler,self__.__meta,self__.__extmap,null));
+var pred__86829 = cljs.core.keyword_identical_QMARK_;
+var expr__86830 = k__4511__auto__;
+if(cljs.core.truth_((pred__86829.cljs$core$IFn$_invoke$arity$2 ? pred__86829.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"kinds","kinds",-294501889),expr__86830) : pred__86829.call(null,new cljs.core.Keyword(null,"kinds","kinds",-294501889),expr__86830)))){
+return (new re_frame.registry.Registry(G__86801,self__.kind__GT_id__GT_handler,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_((pred__86850.cljs$core$IFn$_invoke$arity$2 ? pred__86850.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779),expr__86851) : pred__86850.call(null,new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779),expr__86851)))){
-return (new re_frame.registry.Registry(self__.kinds,G__86798,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_((pred__86829.cljs$core$IFn$_invoke$arity$2 ? pred__86829.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779),expr__86830) : pred__86829.call(null,new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779),expr__86830)))){
+return (new re_frame.registry.Registry(self__.kinds,G__86801,self__.__meta,self__.__extmap,null));
 } else {
-return (new re_frame.registry.Registry(self__.kinds,self__.kind__GT_id__GT_handler,self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__4511__auto__,G__86798),null));
+return (new re_frame.registry.Registry(self__.kinds,self__.kind__GT_id__GT_handler,self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__4511__auto__,G__86801),null));
 }
 }
 }));
@@ -500,10 +500,10 @@ var this__4515__auto____$1 = this;
 return cljs.core.seq(cljs.core.concat.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.MapEntry(new cljs.core.Keyword(null,"kinds","kinds",-294501889),self__.kinds,null)),(new cljs.core.MapEntry(new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779),self__.kind__GT_id__GT_handler,null))], null),self__.__extmap));
 }));
 
-(re_frame.registry.Registry.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4501__auto__,G__86798){
+(re_frame.registry.Registry.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4501__auto__,G__86801){
 var self__ = this;
 var this__4501__auto____$1 = this;
-return (new re_frame.registry.Registry(self__.kinds,self__.kind__GT_id__GT_handler,G__86798,self__.__extmap,self__.__hash));
+return (new re_frame.registry.Registry(self__.kinds,self__.kind__GT_id__GT_handler,G__86801,self__.__extmap,self__.__hash));
 }));
 
 (re_frame.registry.Registry.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__4507__auto__,entry__4508__auto__){
@@ -540,15 +540,15 @@ return (new re_frame.registry.Registry(kinds,kind__GT_id__GT_handler,null,null,n
 /**
  * Factory function for re-frame.registry/Registry, taking a map of keywords to field values.
  */
-re_frame.registry.map__GT_Registry = (function re_frame$registry$map__GT_Registry(G__86803){
-var extmap__4542__auto__ = (function (){var G__86857 = cljs.core.dissoc.cljs$core$IFn$_invoke$arity$variadic(G__86803,new cljs.core.Keyword(null,"kinds","kinds",-294501889),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779)], 0));
-if(cljs.core.record_QMARK_(G__86803)){
-return cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentArrayMap.EMPTY,G__86857);
+re_frame.registry.map__GT_Registry = (function re_frame$registry$map__GT_Registry(G__86808){
+var extmap__4542__auto__ = (function (){var G__86832 = cljs.core.dissoc.cljs$core$IFn$_invoke$arity$variadic(G__86808,new cljs.core.Keyword(null,"kinds","kinds",-294501889),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779)], 0));
+if(cljs.core.record_QMARK_(G__86808)){
+return cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentArrayMap.EMPTY,G__86832);
 } else {
-return G__86857;
+return G__86832;
 }
 })();
-return (new re_frame.registry.Registry(new cljs.core.Keyword(null,"kinds","kinds",-294501889).cljs$core$IFn$_invoke$arity$1(G__86803),new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779).cljs$core$IFn$_invoke$arity$1(G__86803),null,cljs.core.not_empty(extmap__4542__auto__),null));
+return (new re_frame.registry.Registry(new cljs.core.Keyword(null,"kinds","kinds",-294501889).cljs$core$IFn$_invoke$arity$1(G__86808),new cljs.core.Keyword(null,"kind->id->handler","kind->id->handler",-214642779).cljs$core$IFn$_invoke$arity$1(G__86808),null,cljs.core.not_empty(extmap__4542__auto__),null));
 });
 
 re_frame.registry.make_registry = (function re_frame$registry$make_registry(){

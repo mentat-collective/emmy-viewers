@@ -5,7 +5,7 @@ goog.provide('clojure.core.protocols');
  */
 clojure.core.protocols.Datafiable = function(){};
 
-var clojure$core$protocols$Datafiable$datafy$dyn_79095 = (function (o){
+var clojure$core$protocols$Datafiable$datafy$dyn_79698 = (function (o){
 var x__4550__auto__ = (((o == null))?null:o);
 var m__4551__auto__ = (clojure.core.protocols.datafy[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -31,7 +31,7 @@ return (meta_impl__4552__auto__.cljs$core$IFn$_invoke$arity$1 ? meta_impl__4552_
 if((((!((o == null)))) && ((!((o.clojure$core$protocols$Datafiable$datafy$arity$1 == null)))))){
 return o.clojure$core$protocols$Datafiable$datafy$arity$1(o);
 } else {
-return clojure$core$protocols$Datafiable$datafy$dyn_79095(o);
+return clojure$core$protocols$Datafiable$datafy$dyn_79698(o);
 }
 }
 });
@@ -53,7 +53,7 @@ return o;
  */
 clojure.core.protocols.Navigable = function(){};
 
-var clojure$core$protocols$Navigable$nav$dyn_79099 = (function (coll,k,v){
+var clojure$core$protocols$Navigable$nav$dyn_79699 = (function (coll,k,v){
 var x__4550__auto__ = (((coll == null))?null:coll);
 var m__4551__auto__ = (clojure.core.protocols.nav[goog.typeOf(x__4550__auto__)]);
 if((!((m__4551__auto__ == null)))){
@@ -80,7 +80,7 @@ return (meta_impl__4552__auto__.cljs$core$IFn$_invoke$arity$3 ? meta_impl__4552_
 if((((!((coll == null)))) && ((!((coll.clojure$core$protocols$Navigable$nav$arity$3 == null)))))){
 return coll.clojure$core$protocols$Navigable$nav$arity$3(coll,k,v);
 } else {
-return clojure$core$protocols$Navigable$nav$dyn_79099(coll,k,v);
+return clojure$core$protocols$Navigable$nav$dyn_79699(coll,k,v);
 }
 }
 });

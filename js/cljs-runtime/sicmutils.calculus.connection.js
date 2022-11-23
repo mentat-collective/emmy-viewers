@@ -17,12 +17,12 @@ var half = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2));
 return sicmutils.calculus.connection.make_Christoffel_1(sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_k){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_j){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_i){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__101902 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_j) : metric.call(null,e_i,e_j));
-return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__101902) : e_k.call(null,G__101902));
-})(),(function (){var G__101906 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_k) : metric.call(null,e_i,e_k));
-return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__101906) : e_j.call(null,G__101906));
-})()),(function (){var G__101907 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric.call(null,e_j,e_k));
-return (e_i.cljs$core$IFn$_invoke$arity$1 ? e_i.cljs$core$IFn$_invoke$arity$1(G__101907) : e_i.call(null,G__101907));
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__101750 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_j) : metric.call(null,e_i,e_j));
+return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__101750) : e_k.call(null,G__101750));
+})(),(function (){var G__101751 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_k) : metric.call(null,e_i,e_k));
+return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__101751) : e_j.call(null,G__101751));
+})()),(function (){var G__101752 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric.call(null,e_j,e_k));
+return (e_i.cljs$core$IFn$_invoke$arity$1 ? e_i.cljs$core$IFn$_invoke$arity$1(G__101752) : e_i.call(null,G__101752));
 })()));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0));
@@ -43,24 +43,24 @@ return sicmutils.calculus.covariant.make_Christoffel(sicmutils.structure.mapr.cl
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_j){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (w_i){
 return sicmutils.calculus.basis.contract((function (e_m,w_m){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((gi.cljs$core$IFn$_invoke$arity$2 ? gi.cljs$core$IFn$_invoke$arity$2(w_i,w_m) : gi.call(null,w_i,w_m)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__101954 = (metric__$1.cljs$core$IFn$_invoke$arity$2 ? metric__$1.cljs$core$IFn$_invoke$arity$2(e_m,e_j) : metric__$1.call(null,e_m,e_j));
-return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__101954) : e_k.call(null,G__101954));
-})(),(function (){var G__101955 = (metric__$1.cljs$core$IFn$_invoke$arity$2 ? metric__$1.cljs$core$IFn$_invoke$arity$2(e_m,e_k) : metric__$1.call(null,e_m,e_k));
-return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__101955) : e_j.call(null,G__101955));
-})()),(function (){var G__101956 = (metric__$1.cljs$core$IFn$_invoke$arity$2 ? metric__$1.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric__$1.call(null,e_j,e_k));
-return (e_m.cljs$core$IFn$_invoke$arity$1 ? e_m.cljs$core$IFn$_invoke$arity$1(G__101956) : e_m.call(null,G__101956));
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((gi.cljs$core$IFn$_invoke$arity$2 ? gi.cljs$core$IFn$_invoke$arity$2(w_i,w_m) : gi.call(null,w_i,w_m)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__101754 = (metric__$1.cljs$core$IFn$_invoke$arity$2 ? metric__$1.cljs$core$IFn$_invoke$arity$2(e_m,e_j) : metric__$1.call(null,e_m,e_j));
+return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__101754) : e_k.call(null,G__101754));
+})(),(function (){var G__101755 = (metric__$1.cljs$core$IFn$_invoke$arity$2 ? metric__$1.cljs$core$IFn$_invoke$arity$2(e_m,e_k) : metric__$1.call(null,e_m,e_k));
+return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__101755) : e_j.call(null,G__101755));
+})()),(function (){var G__101756 = (metric__$1.cljs$core$IFn$_invoke$arity$2 ? metric__$1.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric__$1.call(null,e_j,e_k));
+return (e_m.cljs$core$IFn$_invoke$arity$1 ? e_m.cljs$core$IFn$_invoke$arity$1(G__101756) : e_m.call(null,G__101756));
 })())));
 }),basis);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([oneform_basis], 0));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0)),basis);
 });
-sicmutils.calculus.connection.literal_Christoffel_names = (function sicmutils$calculus$connection$literal_Christoffel_names(name,p__101986,n){
-var vec__101987 = p__101986;
-var s0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101987,(0),null);
-var s1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101987,(1),null);
-var s2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101987,(2),null);
-var scripts = vec__101987;
+sicmutils.calculus.connection.literal_Christoffel_names = (function sicmutils$calculus$connection$literal_Christoffel_names(name,p__101760,n){
+var vec__101761 = p__101760;
+var s0 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101761,(0),null);
+var s1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101761,(1),null);
+var s2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__101761,(2),null);
+var scripts = vec__101761;
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(s0,s1)){
 } else {
 throw (new Error("Assert failed: (= s0 s1)"));
@@ -102,8 +102,8 @@ return sicmutils.calculus.covariant.Christoffel__GT_Cartan(sicmutils.calculus.co
 });
 sicmutils.calculus.connection.structure_constant = (function sicmutils$calculus$connection$structure_constant(e_i,e_j,e_k,basis,metric){
 return sicmutils.calculus.basis.contract((function (e_l,w_l){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_k,e_l) : metric.call(null,e_k,e_l)),(function (){var G__102037 = sicmutils.operator.commutator(e_i,e_j);
-return (w_l.cljs$core$IFn$_invoke$arity$1 ? w_l.cljs$core$IFn$_invoke$arity$1(G__102037) : w_l.call(null,G__102037));
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_k,e_l) : metric.call(null,e_k,e_l)),(function (){var G__101770 = sicmutils.operator.commutator(e_i,e_j);
+return (w_l.cljs$core$IFn$_invoke$arity$1 ? w_l.cljs$core$IFn$_invoke$arity$1(G__101770) : w_l.call(null,G__101770));
 })());
 }),basis);
 });
@@ -113,12 +113,12 @@ var half = sicmutils.generic._SLASH_.cljs$core$IFn$_invoke$arity$2((1),(2));
 return sicmutils.calculus.covariant.make_Christoffel(sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_k){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_j){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_i){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__102091 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_j) : metric.call(null,e_i,e_j));
-return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__102091) : e_k.call(null,G__102091));
-})(),(function (){var G__102093 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_k) : metric.call(null,e_i,e_k));
-return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__102093) : e_j.call(null,G__102093));
-})()),(function (){var G__102104 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric.call(null,e_j,e_k));
-return (e_i.cljs$core$IFn$_invoke$arity$1 ? e_i.cljs$core$IFn$_invoke$arity$1(G__102104) : e_i.call(null,G__102104));
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__101777 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_j) : metric.call(null,e_i,e_j));
+return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__101777) : e_k.call(null,G__101777));
+})(),(function (){var G__101778 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_i,e_k) : metric.call(null,e_i,e_k));
+return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__101778) : e_j.call(null,G__101778));
+})()),(function (){var G__101779 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric.call(null,e_j,e_k));
+return (e_i.cljs$core$IFn$_invoke$arity$1 ? e_i.cljs$core$IFn$_invoke$arity$1(G__101779) : e_i.call(null,G__101779));
 })()),sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.connection.structure_constant(e_i,e_j,e_k,basis,metric),sicmutils.calculus.connection.structure_constant(e_i,e_k,e_j,basis,metric)),sicmutils.calculus.connection.structure_constant(e_j,e_k,e_i,basis,metric))));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0));
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([vector_basis], 0));
@@ -133,12 +133,12 @@ return sicmutils.calculus.covariant.make_Christoffel(sicmutils.structure.mapr.cl
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (e_j){
 return sicmutils.structure.mapr.cljs$core$IFn$_invoke$arity$variadic((function (w_i){
 return sicmutils.calculus.basis.contract((function (e_m,w_m){
-return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((inverse_metric.cljs$core$IFn$_invoke$arity$2 ? inverse_metric.cljs$core$IFn$_invoke$arity$2(w_i,w_m) : inverse_metric.call(null,w_i,w_m)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__102130 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_m,e_j) : metric.call(null,e_m,e_j));
-return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__102130) : e_k.call(null,G__102130));
-})(),(function (){var G__102131 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_m,e_k) : metric.call(null,e_m,e_k));
-return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__102131) : e_j.call(null,G__102131));
-})()),(function (){var G__102132 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric.call(null,e_j,e_k));
-return (e_m.cljs$core$IFn$_invoke$arity$1 ? e_m.cljs$core$IFn$_invoke$arity$1(G__102132) : e_m.call(null,G__102132));
+return sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2((inverse_metric.cljs$core$IFn$_invoke$arity$2 ? inverse_metric.cljs$core$IFn$_invoke$arity$2(w_i,w_m) : inverse_metric.call(null,w_i,w_m)),sicmutils.generic._STAR_.cljs$core$IFn$_invoke$arity$2(half,sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2((function (){var G__101780 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_m,e_j) : metric.call(null,e_m,e_j));
+return (e_k.cljs$core$IFn$_invoke$arity$1 ? e_k.cljs$core$IFn$_invoke$arity$1(G__101780) : e_k.call(null,G__101780));
+})(),(function (){var G__101781 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_m,e_k) : metric.call(null,e_m,e_k));
+return (e_j.cljs$core$IFn$_invoke$arity$1 ? e_j.cljs$core$IFn$_invoke$arity$1(G__101781) : e_j.call(null,G__101781));
+})()),(function (){var G__101782 = (metric.cljs$core$IFn$_invoke$arity$2 ? metric.cljs$core$IFn$_invoke$arity$2(e_j,e_k) : metric.call(null,e_j,e_k));
+return (e_m.cljs$core$IFn$_invoke$arity$1 ? e_m.cljs$core$IFn$_invoke$arity$1(G__101782) : e_m.call(null,G__101782));
 })()),sicmutils.generic._.cljs$core$IFn$_invoke$arity$2(sicmutils.generic._PLUS_.cljs$core$IFn$_invoke$arity$2(sicmutils.calculus.connection.structure_constant(e_m,e_j,e_k,basis,metric),sicmutils.calculus.connection.structure_constant(e_m,e_k,e_j,basis,metric)),sicmutils.calculus.connection.structure_constant(e_j,e_k,e_m,basis,metric)))));
 }),basis);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([oneform_basis], 0));

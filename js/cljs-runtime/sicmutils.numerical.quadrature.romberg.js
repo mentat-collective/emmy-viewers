@@ -19,8 +19,8 @@ goog.provide('sicmutils.numerical.quadrature.romberg');
  *   If supplied, `:n` (default 1) specifies the initial number of slices to use.
  */
 sicmutils.numerical.quadrature.romberg.open_sequence = (function sicmutils$numerical$quadrature$romberg$open_sequence(var_args){
-var G__102865 = arguments.length;
-switch (G__102865) {
+var G__102845 = arguments.length;
+switch (G__102845) {
 case 3:
 return sicmutils.numerical.quadrature.romberg.open_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -39,11 +39,11 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.romberg.open_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(sicmutils.numerical.quadrature.romberg.open_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102866){
-var map__102867 = p__102866;
-var map__102867__$1 = cljs.core.__destructure_map(map__102867);
-var opts = map__102867__$1;
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102867__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+(sicmutils.numerical.quadrature.romberg.open_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102846){
+var map__102847 = p__102846;
+var map__102847__$1 = cljs.core.__destructure_map(map__102847);
+var opts = map__102847__$1;
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102847__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 if(typeof n === 'number'){
 } else {
 throw (new Error("Assert failed: (number? n)"));
@@ -72,8 +72,8 @@ return sicmutils.polynomial.richardson.richardson_sequence.cljs$core$IFn$_invoke
  *   If supplied, `:n` (default 1) specifies the initial number of slices to use.
  */
 sicmutils.numerical.quadrature.romberg.closed_sequence = (function sicmutils$numerical$quadrature$romberg$closed_sequence(var_args){
-var G__102869 = arguments.length;
-switch (G__102869) {
+var G__102850 = arguments.length;
+switch (G__102850) {
 case 3:
 return sicmutils.numerical.quadrature.romberg.closed_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -92,11 +92,11 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.romberg.closed_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(sicmutils.numerical.quadrature.romberg.closed_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102870){
-var map__102871 = p__102870;
-var map__102871__$1 = cljs.core.__destructure_map(map__102871);
-var opts = map__102871__$1;
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102871__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+(sicmutils.numerical.quadrature.romberg.closed_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102852){
+var map__102853 = p__102852;
+var map__102853__$1 = cljs.core.__destructure_map(map__102853);
+var opts = map__102853__$1;
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102853__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 if(typeof n === 'number'){
 } else {
 throw (new Error("Assert failed: (number? n)"));
@@ -115,8 +115,8 @@ return sicmutils.polynomial.richardson.richardson_sequence.cljs$core$IFn$_invoke
  *   Defaults to the same behavior as `open-sequence`.
  */
 sicmutils.numerical.quadrature.romberg.romberg_sequence = (function sicmutils$numerical$quadrature$romberg$romberg_sequence(var_args){
-var G__102873 = arguments.length;
-switch (G__102873) {
+var G__102857 = arguments.length;
+switch (G__102857) {
 case 3:
 return sicmutils.numerical.quadrature.romberg.romberg_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 

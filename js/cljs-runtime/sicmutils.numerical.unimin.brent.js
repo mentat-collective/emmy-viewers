@@ -123,22 +123,22 @@ return x_PLUS_delta;
  *   that appear for the first two steps.
  *   
  */
-sicmutils.numerical.unimin.brent.update_history = (function sicmutils$numerical$unimin$brent$update_history(p__102473,p__102474,p__102475,p__102476){
-var vec__102477 = p__102473;
-var xx2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102477,(0),null);
-var fx2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102477,(1),null);
-var x2 = vec__102477;
-var vec__102480 = p__102474;
-var xx1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102480,(0),null);
-var fx1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102480,(1),null);
-var x1 = vec__102480;
-var vec__102483 = p__102475;
-var xx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102483,(0),null);
-var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102483,(1),null);
-var x = vec__102483;
-var vec__102486 = p__102476;
-var xnew = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102486,(0),null);
-var fnew = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102486,(1),null);
+sicmutils.numerical.unimin.brent.update_history = (function sicmutils$numerical$unimin$brent$update_history(p__102283,p__102284,p__102285,p__102286){
+var vec__102289 = p__102283;
+var xx2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102289,(0),null);
+var fx2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102289,(1),null);
+var x2 = vec__102289;
+var vec__102292 = p__102284;
+var xx1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102292,(0),null);
+var fx1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102292,(1),null);
+var x1 = vec__102292;
+var vec__102295 = p__102285;
+var xx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102295,(0),null);
+var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102295,(1),null);
+var x = vec__102295;
+var vec__102298 = p__102286;
+var xnew = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102298,(0),null);
+var fnew = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102298,(1),null);
 if((fnew <= fx)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x1,x], null);
 } else {
@@ -189,8 +189,8 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  *   
  */
 sicmutils.numerical.unimin.brent.brent_min = (function sicmutils$numerical$unimin$brent$brent_min(var_args){
-var G__102496 = arguments.length;
-switch (G__102496) {
+var G__102326 = arguments.length;
+switch (G__102326) {
 case 3:
 return sicmutils.numerical.unimin.brent.brent_min.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -209,14 +209,14 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.unimin.brent.brent_min.cljs$core$IFn$_invoke$arity$4(f,a,b,cljs.core.PersistentArrayMap.EMPTY);
 }));
 
-(sicmutils.numerical.unimin.brent.brent_min.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102497){
-var map__102498 = p__102497;
-var map__102498__$1 = cljs.core.__destructure_map(map__102498);
-var relative_threshold = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102498__$1,new cljs.core.Keyword(null,"relative-threshold","relative-threshold",-1866138970),sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.value.machine_epsilon));
-var absolute_threshold = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102498__$1,new cljs.core.Keyword(null,"absolute-threshold","absolute-threshold",842199714),1.0E-11);
-var maxiter = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102498__$1,new cljs.core.Keyword(null,"maxiter","maxiter",-1867223754),(1000));
-var maxfun = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102498__$1,new cljs.core.Keyword(null,"maxfun","maxfun",-50301814));
-var callback = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102498__$1,new cljs.core.Keyword(null,"callback","callback",-705136228),cljs.core.constantly(null));
+(sicmutils.numerical.unimin.brent.brent_min.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102331){
+var map__102332 = p__102331;
+var map__102332__$1 = cljs.core.__destructure_map(map__102332);
+var relative_threshold = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102332__$1,new cljs.core.Keyword(null,"relative-threshold","relative-threshold",-1866138970),sicmutils.generic.sqrt.cljs$core$IFn$_invoke$arity$1(sicmutils.value.machine_epsilon));
+var absolute_threshold = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102332__$1,new cljs.core.Keyword(null,"absolute-threshold","absolute-threshold",842199714),1.0E-11);
+var maxiter = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102332__$1,new cljs.core.Keyword(null,"maxiter","maxiter",-1867223754),(1000));
+var maxfun = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102332__$1,new cljs.core.Keyword(null,"maxfun","maxfun",-50301814));
+var callback = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102332__$1,new cljs.core.Keyword(null,"callback","callback",-705136228),cljs.core.constantly(null));
 var maxfun__$1 = (function (){var or__4253__auto__ = maxfun;
 if(cljs.core.truth_(or__4253__auto__)){
 return or__4253__auto__;
@@ -224,51 +224,51 @@ return or__4253__auto__;
 return (maxiter + (1));
 }
 })();
-var vec__102503 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (){var x__4339__auto__ = a;
+var vec__102333 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (){var x__4339__auto__ = a;
 var y__4340__auto__ = b;
 return ((x__4339__auto__ < y__4340__auto__) ? x__4339__auto__ : y__4340__auto__);
 })(),(function (){var x__4336__auto__ = a;
 var y__4337__auto__ = b;
 return ((x__4336__auto__ > y__4337__auto__) ? x__4336__auto__ : y__4337__auto__);
 })()], null);
-var a__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102503,(0),null);
-var b__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102503,(1),null);
-var vec__102506 = sicmutils.util.counted.cljs$core$IFn$_invoke$arity$1(f);
-var f_counter = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102506,(0),null);
-var f__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102506,(1),null);
+var a__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102333,(0),null);
+var b__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102333,(1),null);
+var vec__102336 = sicmutils.util.counted.cljs$core$IFn$_invoke$arity$1(f);
+var f_counter = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102336,(0),null);
+var f__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102336,(1),null);
 var xmid = (0.5 * (a__$1 + b__$1));
 var mid = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [xmid,(f__$1.cljs$core$IFn$_invoke$arity$1 ? f__$1.cljs$core$IFn$_invoke$arity$1(xmid) : f__$1.call(null,xmid))], null);
-var G__102518 = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a__$1,mid,b__$1], null);
-var vec__102520 = G__102518;
-var a__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102520,(0),null);
-var vec__102523 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102520,(1),null);
-var xx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102523,(0),null);
-var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102523,(1),null);
-var x = vec__102523;
-var b__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102520,(2),null);
-var G__102519 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mid,mid], null);
-var vec__102526 = G__102519;
-var x2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102526,(0),null);
-var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102526,(1),null);
+var G__102348 = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a__$1,mid,b__$1], null);
+var vec__102350 = G__102348;
+var a__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102350,(0),null);
+var vec__102353 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102350,(1),null);
+var xx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102353,(0),null);
+var fx = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102353,(1),null);
+var x = vec__102353;
+var b__$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102350,(2),null);
+var G__102349 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mid,mid], null);
+var vec__102356 = G__102349;
+var x2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102356,(0),null);
+var x1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102356,(1),null);
 var target = (0);
 var delta = (0);
 var iteration = (0);
-var G__102518__$1 = G__102518;
-var G__102519__$1 = G__102519;
+var G__102348__$1 = G__102348;
+var G__102349__$1 = G__102349;
 var target__$1 = target;
 var delta__$1 = delta;
 var iteration__$1 = iteration;
 while(true){
-var vec__102559 = G__102518__$1;
-var a__$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102559,(0),null);
-var vec__102562 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102559,(1),null);
-var xx__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102562,(0),null);
-var fx__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102562,(1),null);
-var x__$1 = vec__102562;
-var b__$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102559,(2),null);
-var vec__102565 = G__102519__$1;
-var x2__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102565,(0),null);
-var x1__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102565,(1),null);
+var vec__102386 = G__102348__$1;
+var a__$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102386,(0),null);
+var vec__102389 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102386,(1),null);
+var xx__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102389,(0),null);
+var fx__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102389,(1),null);
+var x__$1 = vec__102389;
+var b__$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102386,(2),null);
+var vec__102392 = G__102349__$1;
+var x2__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102392,(0),null);
+var x1__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102392,(1),null);
 var target__$2 = target__$1;
 var delta__$2 = delta__$1;
 var iteration__$2 = iteration__$1;
@@ -280,38 +280,38 @@ var converged_QMARK_ = sicmutils.numerical.unimin.brent.terminate_QMARK_(a__$3,x
 if((((iteration__$2 > maxiter)) || ((((cljs.core.deref(f_counter) > maxfun__$1)) || (converged_QMARK_))))){
 return new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"result","result",1415092211),xx__$1,new cljs.core.Keyword(null,"value","value",305978217),fx__$1,new cljs.core.Keyword(null,"iterations","iterations",-1402710890),iteration__$2,new cljs.core.Keyword(null,"converged?","converged?",1779059976),converged_QMARK_,new cljs.core.Keyword(null,"fncalls","fncalls",-71376182),cljs.core.deref(f_counter)], null);
 } else {
-var vec__102573 = (((sicmutils.generic.abs.cljs$core$IFn$_invoke$arity$1(target__$2) <= tol))?sicmutils.numerical.unimin.brent.golden_section_step(a__$3,xx__$1,b__$3):(function (){var vec__102585 = sicmutils.numerical.unimin.bracket.parabolic_pieces(x1__$1,x__$1,x2__$1);
-var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102585,(0),null);
-var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102585,(1),null);
+var vec__102397 = (((sicmutils.generic.abs.cljs$core$IFn$_invoke$arity$1(target__$2) <= tol))?sicmutils.numerical.unimin.brent.golden_section_step(a__$3,xx__$1,b__$3):(function (){var vec__102409 = sicmutils.numerical.unimin.bracket.parabolic_pieces(x1__$1,x__$1,x2__$1);
+var p = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102409,(0),null);
+var q = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102409,(1),null);
 if(sicmutils.numerical.unimin.brent.parabola_valid_QMARK_(a__$3,xx__$1,b__$3,target__$2,p,q)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [delta__$2,(p / q)], null);
 } else {
 return sicmutils.numerical.unimin.brent.golden_section_step(a__$3,xx__$1,b__$3);
 }
 })());
-var new_target = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102573,(0),null);
-var new_delta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102573,(1),null);
+var new_target = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102397,(0),null);
+var new_delta = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102397,(1),null);
 var xnew = sicmutils.numerical.unimin.brent.apply_delta(a__$3,xx__$1,b__$3,new_delta,tol,tol2);
 var new_pt = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [xnew,(f__$1.cljs$core$IFn$_invoke$arity$1 ? f__$1.cljs$core$IFn$_invoke$arity$1(xnew) : f__$1.call(null,xnew))], null);
-var vec__102576 = (((xnew < xx__$1))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new_pt,x__$1], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x__$1,new_pt], null));
-var vec__102579 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102576,(0),null);
-var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102579,(0),null);
-var fl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102579,(1),null);
-var l = vec__102579;
-var vec__102582 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102576,(1),null);
-var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102582,(0),null);
-var fr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102582,(1),null);
-var r = vec__102582;
-var G__102606 = (((fl <= fr))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a__$3,l,xr], null):new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [xl,r,b__$3], null));
-var G__102607 = sicmutils.numerical.unimin.brent.update_history(x2__$1,x1__$1,x__$1,new_pt);
-var G__102608 = new_target;
-var G__102609 = new_delta;
-var G__102610 = (iteration__$2 + (1));
-G__102518__$1 = G__102606;
-G__102519__$1 = G__102607;
-target__$1 = G__102608;
-delta__$1 = G__102609;
-iteration__$1 = G__102610;
+var vec__102400 = (((xnew < xx__$1))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new_pt,x__$1], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x__$1,new_pt], null));
+var vec__102403 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102400,(0),null);
+var xl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102403,(0),null);
+var fl = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102403,(1),null);
+var l = vec__102403;
+var vec__102406 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102400,(1),null);
+var xr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102406,(0),null);
+var fr = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__102406,(1),null);
+var r = vec__102406;
+var G__102439 = (((fl <= fr))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [a__$3,l,xr], null):new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [xl,r,b__$3], null));
+var G__102440 = sicmutils.numerical.unimin.brent.update_history(x2__$1,x1__$1,x__$1,new_pt);
+var G__102441 = new_target;
+var G__102442 = new_delta;
+var G__102443 = (iteration__$2 + (1));
+G__102348__$1 = G__102439;
+G__102349__$1 = G__102440;
+target__$1 = G__102441;
+delta__$1 = G__102442;
+iteration__$1 = G__102443;
 continue;
 }
 break;

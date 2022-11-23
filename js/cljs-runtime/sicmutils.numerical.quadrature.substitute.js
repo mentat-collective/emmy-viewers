@@ -42,8 +42,8 @@ throw (new Error("Assert failed: (not (and (g/infinite? a) (g/infinite? b)))"));
 }
 
 var f_SINGLEQUOTE_ = (function (t){
-return ((function (){var G__102735 = (1.0 / t);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102735) : f.call(null,G__102735));
+return ((function (){var G__102642 = (1.0 / t);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102642) : f.call(null,G__102642));
 })() / (t * t));
 });
 var a_SINGLEQUOTE_ = (cljs.core.truth_(sicmutils.generic.infinite_QMARK_.cljs$core$IFn$_invoke$arity$1(b))?0.0:(1.0 / b));
@@ -104,8 +104,8 @@ return (a + Math.pow(t,inner_pow));
 return (b - Math.pow(t,inner_pow));
 }));
 var f_SINGLEQUOTE_ = (function (t){
-return (Math.pow(t,gamma_pow) * (function (){var G__102738 = t__GT_t_SINGLEQUOTE_(t);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102738) : f.call(null,G__102738));
+return (Math.pow(t,gamma_pow) * (function (){var G__102654 = t__GT_t_SINGLEQUOTE_(t);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102654) : f.call(null,G__102654));
 })());
 });
 return cljs.core.update.cljs$core$IFn$_invoke$arity$3((integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(f_SINGLEQUOTE_,a_SINGLEQUOTE_,b_SINGLEQUOTE_,opts) : integrate.call(null,f_SINGLEQUOTE_,a_SINGLEQUOTE_,b_SINGLEQUOTE_,opts)),new cljs.core.Keyword(null,"result","result",1415092211),cljs.core.partial.cljs$core$IFn$_invoke$arity$2(cljs.core._STAR_,inner_pow));
@@ -178,15 +178,15 @@ return sicmutils$numerical$quadrature$substitute$inverse_sqrt_lower_$_call.cljs$
 });
 var sicmutils$numerical$quadrature$substitute$inverse_sqrt_lower_$_call__4 = (function (f,a,b,opts){
 var f_SINGLEQUOTE_ = (function (t){
-return (t * (function (){var G__102740 = (a + (t * t));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102740) : f.call(null,G__102740));
+return (t * (function (){var G__102751 = (a + (t * t));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102751) : f.call(null,G__102751));
 })());
 });
-return cljs.core.update.cljs$core$IFn$_invoke$arity$3((function (){var G__102742 = f_SINGLEQUOTE_;
-var G__102743 = (0);
-var G__102744 = Math.sqrt((b - a));
-var G__102745 = opts;
-return (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(G__102742,G__102743,G__102744,G__102745) : integrate.call(null,G__102742,G__102743,G__102744,G__102745));
+return cljs.core.update.cljs$core$IFn$_invoke$arity$3((function (){var G__102756 = f_SINGLEQUOTE_;
+var G__102757 = (0);
+var G__102758 = Math.sqrt((b - a));
+var G__102759 = opts;
+return (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(G__102756,G__102757,G__102758,G__102759) : integrate.call(null,G__102756,G__102757,G__102758,G__102759));
 })(),new cljs.core.Keyword(null,"result","result",1415092211),cljs.core.partial.cljs$core$IFn$_invoke$arity$2(cljs.core._STAR_,(2)));
 });
 sicmutils$numerical$quadrature$substitute$inverse_sqrt_lower_$_call = function(f,a,b,opts){
@@ -219,15 +219,15 @@ return sicmutils$numerical$quadrature$substitute$inverse_sqrt_upper_$_call.cljs$
 });
 var sicmutils$numerical$quadrature$substitute$inverse_sqrt_upper_$_call__4 = (function (f,a,b,opts){
 var f_SINGLEQUOTE_ = (function (t){
-return (t * (function (){var G__102752 = (b - (t * t));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102752) : f.call(null,G__102752));
+return (t * (function (){var G__102783 = (b - (t * t));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102783) : f.call(null,G__102783));
 })());
 });
-return cljs.core.update.cljs$core$IFn$_invoke$arity$3((function (){var G__102753 = f_SINGLEQUOTE_;
-var G__102754 = (0);
-var G__102755 = Math.sqrt((b - a));
-var G__102756 = opts;
-return (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(G__102753,G__102754,G__102755,G__102756) : integrate.call(null,G__102753,G__102754,G__102755,G__102756));
+return cljs.core.update.cljs$core$IFn$_invoke$arity$3((function (){var G__102784 = f_SINGLEQUOTE_;
+var G__102785 = (0);
+var G__102786 = Math.sqrt((b - a));
+var G__102787 = opts;
+return (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(G__102784,G__102785,G__102786,G__102787) : integrate.call(null,G__102784,G__102785,G__102786,G__102787));
 })(),new cljs.core.Keyword(null,"result","result",1415092211),cljs.core.partial.cljs$core$IFn$_invoke$arity$2(cljs.core._STAR_,(2)));
 });
 sicmutils$numerical$quadrature$substitute$inverse_sqrt_upper_$_call = function(f,a,b,opts){
@@ -262,16 +262,16 @@ throw (new Error("Assert failed: (g/infinite? b)"));
 }
 
 var f_SINGLEQUOTE_ = (function (t){
-return ((function (){var G__102786 = (- Math.log(t));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102786) : f.call(null,G__102786));
+return ((function (){var G__102791 = (- Math.log(t));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102791) : f.call(null,G__102791));
 })() * ((1) / t));
 });
 var opts__$1 = sicmutils.numerical.quadrature.common.update_interval(opts,sicmutils.numerical.quadrature.common.flip);
-var G__102793 = f_SINGLEQUOTE_;
-var G__102794 = (0);
-var G__102795 = Math.exp((- a));
-var G__102796 = opts__$1;
-return (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(G__102793,G__102794,G__102795,G__102796) : integrate.call(null,G__102793,G__102794,G__102795,G__102796));
+var G__102792 = f_SINGLEQUOTE_;
+var G__102793 = (0);
+var G__102794 = Math.exp((- a));
+var G__102795 = opts__$1;
+return (integrate.cljs$core$IFn$_invoke$arity$4 ? integrate.cljs$core$IFn$_invoke$arity$4(G__102792,G__102793,G__102794,G__102795) : integrate.call(null,G__102792,G__102793,G__102794,G__102795));
 });
 sicmutils$numerical$quadrature$substitute$exponential_upper_$_call = function(f,a,b,opts){
 switch(arguments.length){

@@ -11,8 +11,8 @@ return ((4) / ((1) + (x * x)));
 return sicmutils.numerical.quadrature.trapezoid.trapezoid_sum_STAR_(f,0.0,1.0);
 })();
 sicmutils.numerical.quadrature.trapezoid.basically_identical_QMARK_ = (function sicmutils$numerical$quadrature$trapezoid$basically_identical_QMARK_(l_seq,r_seq){
-return cljs.core.every_QMARK_((function (p1__102812_SHARP_){
-return (p1__102812_SHARP_ < 1.0E-15);
+return cljs.core.every_QMARK_((function (p1__102588_SHARP_){
+return (p1__102588_SHARP_ < 1.0E-15);
 }),cljs.core.map.cljs$core$IFn$_invoke$arity$3(cljs.core._,l_seq,r_seq));
 });
 /**
@@ -25,8 +25,8 @@ var width = (b - a);
 return (function (n){
 var h = (width / n);
 var fx = (function (i){
-var G__102815 = (a + (i * h));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102815) : f.call(null,G__102815));
+var G__102593 = (a + (i * h));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__102593) : f.call(null,G__102593));
 });
 return (h * ((((f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(a) : f.call(null,a)) + (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(b) : f.call(null,b))) / (2)) + sicmutils.util.aggregate.sum.cljs$core$IFn$_invoke$arity$3(fx,(1),n)));
 });
@@ -53,8 +53,8 @@ return sicmutils.numerical.quadrature.trapezoid.trapezoid_sum_STAR_(f,0.0,1.0);
  *   is ignored.
  */
 sicmutils.numerical.quadrature.trapezoid.trapezoid_sequence = (function sicmutils$numerical$quadrature$trapezoid$trapezoid_sequence(var_args){
-var G__102817 = arguments.length;
-switch (G__102817) {
+var G__102597 = arguments.length;
+switch (G__102597) {
 case 3:
 return sicmutils.numerical.quadrature.trapezoid.trapezoid_sequence.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -73,11 +73,11 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 return sicmutils.numerical.quadrature.trapezoid.trapezoid_sequence.cljs$core$IFn$_invoke$arity$4(f,a,b,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"n","n",562130025),(1)], null));
 }));
 
-(sicmutils.numerical.quadrature.trapezoid.trapezoid_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102818){
-var map__102819 = p__102818;
-var map__102819__$1 = cljs.core.__destructure_map(map__102819);
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102819__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
-var accelerate_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102819__$1,new cljs.core.Keyword(null,"accelerate?","accelerate?",-29657518));
+(sicmutils.numerical.quadrature.trapezoid.trapezoid_sequence.cljs$core$IFn$_invoke$arity$4 = (function (f,a,b,p__102607){
+var map__102608 = p__102607;
+var map__102608__$1 = cljs.core.__destructure_map(map__102608);
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__102608__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+var accelerate_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102608__$1,new cljs.core.Keyword(null,"accelerate?","accelerate?",-29657518));
 var S = sicmutils.numerical.quadrature.trapezoid.trapezoid_sum(f,a,b);
 var next_S = sicmutils.numerical.quadrature.riemann.Sn__GT_S2n(f,a,b);
 var xs = sicmutils.numerical.quadrature.riemann.incrementalize(S,next_S,(2),n);

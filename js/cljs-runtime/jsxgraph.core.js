@@ -29,11 +29,11 @@ var argseq__4871__auto__ = ((((1) < args__4870__auto__.length))?(new cljs.core.I
 return jsxgraph.core.JSXGraph.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__4871__auto__);
 });
 
-(jsxgraph.core.JSXGraph.cljs$core$IFn$_invoke$arity$variadic = (function (p__103872,_){
-var map__103873 = p__103872;
-var map__103873__$1 = cljs.core.__destructure_map(map__103873);
-var id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103873__$1,new cljs.core.Keyword(null,"id","id",-1388402092));
-var style = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103873__$1,new cljs.core.Keyword(null,"style","style",-496642736));
+(jsxgraph.core.JSXGraph.cljs$core$IFn$_invoke$arity$variadic = (function (p__103883,_){
+var map__103884 = p__103883;
+var map__103884__$1 = cljs.core.__destructure_map(map__103884);
+var id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103884__$1,new cljs.core.Keyword(null,"id","id",-1388402092));
+var style = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__103884__$1,new cljs.core.Keyword(null,"style","style",-496642736));
 var _BANG_board = reagent.core.atom.cljs$core$IFn$_invoke$arity$1(null);
 var _BANG_force = cljs.core.atom.cljs$core$IFn$_invoke$arity$1((0));
 var id__$1 = (function (){var or__4253__auto__ = id;
@@ -108,7 +108,7 @@ return init_BANG_(new_props);
 }));
 }
 }),new cljs.core.Keyword(null,"reagent-render","reagent-render",-985383853),(function() { 
-var G__103931__delegate = function (___$1){
+var G__103927__delegate = function (___$1){
 var this$ = reagent.core.current_component();
 var children = reagent.core.children(this$);
 var extras = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"board","board",-1907017633),cljs.core.deref(_BANG_board),new cljs.core.Keyword(null,"force","force",781957286),cljs.core.deref(_BANG_force)], null);
@@ -116,16 +116,16 @@ console.log("rendering board");
 
 cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$2(_BANG_force,cljs.core.inc);
 
-return cljs.core.into.cljs$core$IFn$_invoke$arity$3(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),id__$1,new cljs.core.Keyword(null,"style","style",-496642736),style__$1], null)], null),cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p__103887){
-var vec__103888 = p__103887;
-var seq__103889 = cljs.core.seq(vec__103888);
-var first__103890 = cljs.core.first(seq__103889);
-var seq__103889__$1 = cljs.core.next(seq__103889);
-var a = first__103890;
-var first__103890__$1 = cljs.core.first(seq__103889__$1);
-var seq__103889__$2 = cljs.core.next(seq__103889__$1);
-var props = first__103890__$1;
-var more = seq__103889__$2;
+return cljs.core.into.cljs$core$IFn$_invoke$arity$3(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),id__$1,new cljs.core.Keyword(null,"style","style",-496642736),style__$1], null)], null),cljs.core.map.cljs$core$IFn$_invoke$arity$1((function (p__103885){
+var vec__103887 = p__103885;
+var seq__103888 = cljs.core.seq(vec__103887);
+var first__103889 = cljs.core.first(seq__103888);
+var seq__103888__$1 = cljs.core.next(seq__103888);
+var a = first__103889;
+var first__103889__$1 = cljs.core.first(seq__103888__$1);
+var seq__103888__$2 = cljs.core.next(seq__103888__$1);
+var props = first__103889__$1;
+var more = seq__103888__$2;
 if(cljs.core.map_QMARK_(props)){
 return cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [a,cljs.core.into.cljs$core$IFn$_invoke$arity$2(props,extras)], null),more);
 } else {
@@ -133,21 +133,21 @@ return cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVect
 }
 })),children);
 };
-var G__103931 = function (var_args){
+var G__103927 = function (var_args){
 var ___$1 = null;
 if (arguments.length > 0) {
-var G__103939__i = 0, G__103939__a = new Array(arguments.length -  0);
-while (G__103939__i < G__103939__a.length) {G__103939__a[G__103939__i] = arguments[G__103939__i + 0]; ++G__103939__i;}
-  ___$1 = new cljs.core.IndexedSeq(G__103939__a,0,null);
+var G__103928__i = 0, G__103928__a = new Array(arguments.length -  0);
+while (G__103928__i < G__103928__a.length) {G__103928__a[G__103928__i] = arguments[G__103928__i + 0]; ++G__103928__i;}
+  ___$1 = new cljs.core.IndexedSeq(G__103928__a,0,null);
 } 
-return G__103931__delegate.call(this,___$1);};
-G__103931.cljs$lang$maxFixedArity = 0;
-G__103931.cljs$lang$applyTo = (function (arglist__103940){
-var ___$1 = cljs.core.seq(arglist__103940);
-return G__103931__delegate(___$1);
+return G__103927__delegate.call(this,___$1);};
+G__103927.cljs$lang$maxFixedArity = 0;
+G__103927.cljs$lang$applyTo = (function (arglist__103929){
+var ___$1 = cljs.core.seq(arglist__103929);
+return G__103927__delegate(___$1);
 });
-G__103931.cljs$core$IFn$_invoke$arity$variadic = G__103931__delegate;
-return G__103931;
+G__103927.cljs$core$IFn$_invoke$arity$variadic = G__103927__delegate;
+return G__103927;
 })()
 ], null));
 }));
@@ -155,21 +155,21 @@ return G__103931;
 (jsxgraph.core.JSXGraph.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(jsxgraph.core.JSXGraph.cljs$lang$applyTo = (function (seq103870){
-var G__103871 = cljs.core.first(seq103870);
-var seq103870__$1 = cljs.core.next(seq103870);
+(jsxgraph.core.JSXGraph.cljs$lang$applyTo = (function (seq103881){
+var G__103882 = cljs.core.first(seq103881);
+var seq103881__$1 = cljs.core.next(seq103881);
 var self__4851__auto__ = this;
-return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103871,seq103870__$1);
+return self__4851__auto__.cljs$core$IFn$_invoke$arity$variadic(G__103882,seq103881__$1);
 }));
 
 jsxgraph.core.add_item_BANG_ = (function jsxgraph$core$add_item_BANG_(name,board,elems,props){
 var p = board.create(name,cljs.core.clj__GT_js(elems),cljs.core.clj__GT_js(cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(props,new cljs.core.Keyword(null,"board","board",-1907017633))));
-var temp__5753__auto___103944 = (props.cljs$core$IFn$_invoke$arity$1 ? props.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"on-drag","on-drag",-69159091)) : props.call(null,new cljs.core.Keyword(null,"on-drag","on-drag",-69159091)));
-if(cljs.core.truth_(temp__5753__auto___103944)){
-var f_103945 = temp__5753__auto___103944;
+var temp__5753__auto___103930 = (props.cljs$core$IFn$_invoke$arity$1 ? props.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"on-drag","on-drag",-69159091)) : props.call(null,new cljs.core.Keyword(null,"on-drag","on-drag",-69159091)));
+if(cljs.core.truth_(temp__5753__auto___103930)){
+var f_103931 = temp__5753__auto___103930;
 p.on("drag",(function (_){
 var point = this;
-return (f_103945.cljs$core$IFn$_invoke$arity$1 ? f_103945.cljs$core$IFn$_invoke$arity$1(point) : f_103945.call(null,point));
+return (f_103931.cljs$core$IFn$_invoke$arity$1 ? f_103931.cljs$core$IFn$_invoke$arity$1(point) : f_103931.call(null,point));
 }));
 } else {
 }
@@ -180,10 +180,10 @@ jsxgraph.core.element = (function jsxgraph$core$element(name){
 return (function (_props,_elems){
 var _BANG_item = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(null);
 var mount_BANG_ = (function (this$,_old_argv){
-var vec__103891 = reagent.core.argv(this$);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103891,(0),null);
-var props = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103891,(1),null);
-var elems = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103891,(2),null);
+var vec__103895 = reagent.core.argv(this$);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103895,(0),null);
+var props = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103895,(1),null);
+var elems = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103895,(2),null);
 var temp__5753__auto__ = new cljs.core.Keyword(null,"board","board",-1907017633).cljs$core$IFn$_invoke$arity$1(props);
 if(cljs.core.truth_(temp__5753__auto__)){
 var board = temp__5753__auto__;
@@ -200,9 +200,9 @@ return null;
 }
 });
 return reagent.core.create_class.cljs$core$IFn$_invoke$arity$1(new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"display-name","display-name",694513143),name,new cljs.core.Keyword(null,"component-did-mount","component-did-mount",-1126910518),mount_BANG_,new cljs.core.Keyword(null,"component-did-update","component-did-update",-1468549173),mount_BANG_,new cljs.core.Keyword(null,"component-will-unmount","component-will-unmount",-2058314698),(function (this$){
-var vec__103895 = reagent.core.argv(this$);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103895,(0),null);
-var props = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103895,(1),null);
+var vec__103901 = reagent.core.argv(this$);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103901,(0),null);
+var props = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__103901,(1),null);
 var temp__5753__auto__ = new cljs.core.Keyword(null,"board","board",-1907017633).cljs$core$IFn$_invoke$arity$1(props);
 if(cljs.core.truth_(temp__5753__auto__)){
 var board = temp__5753__auto__;
@@ -313,21 +313,21 @@ jsxgraph.core.TraceCurve = jsxgraph.core.element("tracecurve");
 jsxgraph.core.Transformation = jsxgraph.core.element("transformation");
 jsxgraph.core.Turtle = jsxgraph.core.element("turtle");
 jsxgraph.core.View3D = jsxgraph.core.element("view3D");
-jsxgraph.core.Multi = (function jsxgraph$core$Multi(p__103905,i__GT_c){
-var map__103906 = p__103905;
-var map__103906__$1 = cljs.core.__destructure_map(map__103906);
-var m = map__103906__$1;
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__103906__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
+jsxgraph.core.Multi = (function jsxgraph$core$Multi(p__103914,i__GT_c){
+var map__103915 = p__103914;
+var map__103915__$1 = cljs.core.__destructure_map(map__103915);
+var m = map__103915__$1;
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__103915__$1,new cljs.core.Keyword(null,"n","n",562130025),(1));
 var f = (function jsxgraph$core$Multi_$_f(i){
-var vec__103911 = (i__GT_c.cljs$core$IFn$_invoke$arity$1 ? i__GT_c.cljs$core$IFn$_invoke$arity$1(i) : i__GT_c.call(null,i));
-var seq__103912 = cljs.core.seq(vec__103911);
-var first__103913 = cljs.core.first(seq__103912);
-var seq__103912__$1 = cljs.core.next(seq__103912);
-var component = first__103913;
-var first__103913__$1 = cljs.core.first(seq__103912__$1);
-var seq__103912__$2 = cljs.core.next(seq__103912__$1);
-var props = first__103913__$1;
-var more = seq__103912__$2;
+var vec__103919 = (i__GT_c.cljs$core$IFn$_invoke$arity$1 ? i__GT_c.cljs$core$IFn$_invoke$arity$1(i) : i__GT_c.call(null,i));
+var seq__103920 = cljs.core.seq(vec__103919);
+var first__103921 = cljs.core.first(seq__103920);
+var seq__103920__$1 = cljs.core.next(seq__103920);
+var component = first__103921;
+var first__103921__$1 = cljs.core.first(seq__103920__$1);
+var seq__103920__$2 = cljs.core.next(seq__103920__$1);
+var props = first__103921__$1;
+var more = seq__103920__$2;
 return cljs.core.into.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [component,cljs.core.into.cljs$core$IFn$_invoke$arity$2(m,props)], null),more);
 });
 return cljs.core.into.cljs$core$IFn$_invoke$arity$3(new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"<>","<>",1280186386)], null),cljs.core.map.cljs$core$IFn$_invoke$arity$1(f),cljs.core.range.cljs$core$IFn$_invoke$arity$1(n));

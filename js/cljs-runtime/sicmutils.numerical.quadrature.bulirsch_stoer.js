@@ -18,8 +18,8 @@ return (width / n);
  *   slices) in the interval $(a, b)$.
  */
 sicmutils.numerical.quadrature.bulirsch_stoer.h_sequence = (function sicmutils$numerical$quadrature$bulirsch_stoer$h_sequence(var_args){
-var G__102860 = arguments.length;
-switch (G__102860) {
+var G__102646 = arguments.length;
+switch (G__102646) {
 case 2:
 return sicmutils.numerical.quadrature.bulirsch_stoer.h_sequence.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -79,18 +79,18 @@ if((!(typeof new cljs.core.Keyword(null,"n","n",562130025).cljs$core$IFn$_invoke
 throw (new Error("Assert failed: (not (number? (:n opts)))"));
 }
 
-var map__102861 = cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"n","n",562130025),sicmutils.numerical.quadrature.bulirsch_stoer.bulirsch_stoer_steps], null),opts], 0));
-var map__102861__$1 = cljs.core.__destructure_map(map__102861);
-var opts__$1 = map__102861__$1;
-var n = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102861__$1,new cljs.core.Keyword(null,"n","n",562130025));
+var map__102660 = cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"n","n",562130025),sicmutils.numerical.quadrature.bulirsch_stoer.bulirsch_stoer_steps], null),opts], 0));
+var map__102660__$1 = cljs.core.__destructure_map(map__102660);
+var opts__$1 = map__102660__$1;
+var n = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__102660__$1,new cljs.core.Keyword(null,"n","n",562130025));
 var extrapolate = sicmutils.numerical.quadrature.bulirsch_stoer.extrapolator_fn(opts__$1);
 var square = (function (x){
 return (x * x);
 });
 var xs = cljs.core.map.cljs$core$IFn$_invoke$arity$2(square,sicmutils.numerical.quadrature.bulirsch_stoer.h_sequence.cljs$core$IFn$_invoke$arity$3(a,b,n));
 var ys = (integrator_seq_fn.cljs$core$IFn$_invoke$arity$4 ? integrator_seq_fn.cljs$core$IFn$_invoke$arity$4(f,a,b,opts__$1) : integrator_seq_fn.call(null,f,a,b,opts__$1));
-var G__102862 = cljs.core.map.cljs$core$IFn$_invoke$arity$3(cljs.core.vector,xs,ys);
-return (extrapolate.cljs$core$IFn$_invoke$arity$1 ? extrapolate.cljs$core$IFn$_invoke$arity$1(G__102862) : extrapolate.call(null,G__102862));
+var G__102661 = cljs.core.map.cljs$core$IFn$_invoke$arity$3(cljs.core.vector,xs,ys);
+return (extrapolate.cljs$core$IFn$_invoke$arity$1 ? extrapolate.cljs$core$IFn$_invoke$arity$1(G__102661) : extrapolate.call(null,G__102661));
 });
 sicmutils$numerical$quadrature$bulirsch_stoer$bs_sequence_fn_$_call = function(f,a,b,opts){
 switch(arguments.length){
