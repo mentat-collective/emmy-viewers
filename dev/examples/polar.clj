@@ -14,6 +14,7 @@
 ;;
 ;; Here's the viewer and the interactive output:
 
+
 ^{::clerk/width :wide
   ::clerk/viewer
   {:fetch-fn (fn [_ x] x)

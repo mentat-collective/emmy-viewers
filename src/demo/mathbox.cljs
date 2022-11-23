@@ -1,6 +1,6 @@
 (ns demo.mathbox
-  (:require [mathbox]
-            #_[demo.bench]
+  (:require ["dat.gui" :as dg]
+            [mathbox]
             [mathbox.primitives :as box]
             [nextjournal.clerk.sci-viewer :as sv]
             [reagent.core :as r :include-macros true]
@@ -9,6 +9,7 @@
             [sicmutils.mechanics.lagrange :as l]
             [sicmutils.numerical.ode :as ode]
             [sicmutils.structure :as struct]
+            ["react" :as react]
             ["three/src/math/Color.js" :refer [Color]]))
 
 ;; ## Components
@@ -65,24 +66,27 @@
      [box/Line {:color 0x3090ff :width 4}]
      [box/Point {:color 0x3090ff :size 8}]]))
 
-(defn Lagrangian-updater
-  "hardcoded at first for this use case."
-  [state-derivative initial-state & {:keys [compile?]
-                                     :or {compile? false}}]
-  (let [{:keys [integrator equations]}
-        (ode/integration-opts (constantly state-derivative)
-                              []
-                              initial-state
-                              {:epsilon 1e-6
-                               :compile? compile?})]
-    (fn [[t :as state] t2]
-      (let [s (into-array (flatten state))
-            output (.solve integrator equations t s t2 nil)]
-        (struct/unflatten (.-y ^js output) state)))))
-
 (defn state-deriv* [g m l]
   (l/Lagrangian->state-derivative
    (l/L-pendulum g m l)))
+
+(defn Lagrangian-updater
+  "hardcoded at first for this use case."
+  ([state-derivative initial-state]
+   (Lagrangian-updater state-derivative initial-state {}))
+  ([state-derivative initial-state {:keys [compile? parameters]
+                                    :or {compile? false}}]
+   (let [{:keys [integrator equations]}
+         (ode/integration-opts state-derivative
+                               parameters
+                               initial-state
+                               {:epsilon 1e-6
+                                :compile? compile?})]
+     (fn [[t :as state] t2]
+       (let [s      (into-array (flatten state))
+             output (.solve integrator equations t s t2 nil)]
+         (-> (.-y ^js output)
+             (struct/unflatten state)))))))
 
 (defn Lagrangian-collector
   "hardcoded at first for this use case."
@@ -90,9 +94,7 @@
                                    :or {compile? false}}]
   (let [{:keys [integrator equations]}
         (ode/integration-opts state-derivative
-                              (if parameters
-                                @parameters
-                                [])
+                              parameters
                               initial-state
                               {:epsilon 1e-6
                                :compile? compile?})]
@@ -130,8 +132,7 @@
    [box/Array
     {:history length
      :channels dimensions
-     :expr (fn [emit i t]
-             (apply emit (path i t)))}]
+     :expr path}]
    [Tail
     (dissoc opts :dimensions :path)]])
 
@@ -140,7 +141,7 @@
 (defn Mass [{:keys [state->xyz L initial-state var-name]}]
   (let [render-fn   (xc/sci-eval state->xyz)
         state-deriv (xc/sci-eval L)
-        my-updater  (Lagrangian-updater state-deriv initial-state :compile? false)]
+        my-updater  (Lagrangian-updater state-deriv initial-state)]
     (r/with-let [!state (r/atom initial-state)]
       [Comet
        {:dimensions 3
@@ -149,7 +150,7 @@
         :size 10
         :opacity 0.99
         :path
-        (fn [_ t]
+        (fn [emit _ t]
           (swap! !state #(my-updater % t))
           (when var-name
             (sv/clerk-eval
@@ -161,7 +162,7 @@
                              x))
                          @!state))))
           (let [[x y z] (render-fn @!state)]
-            [x z y]))}])))
+            (emit x z y)))}])))
 
 (defn DoubleMass
   "Obviously these should be merged!"
@@ -222,14 +223,8 @@
 (defn sq [x] (* x x))
 (def normalize (e/principal-value Math/PI))
 
-(def m 1)
-(def g 9.8)
-(def l 1)
-
-(defn V [theta]
+(defn V [[g m l] theta]
   (* -1 m g l (Math/cos theta)))
-
-(def potential V)
 
 (defn DoublePendulum
   "For later, here's how to extend this."
@@ -252,35 +247,69 @@
    [box/Slice {:items [1 3]}]
    [box/Point {:color 0xffffff :size 10}]])
 
-(def L
-  (l/L-pendulum 9.8 1 1))
+;; TODO stop tons of re-renders here from initial state!!
 
-(def state-deriv
-  (l/Lagrangian->state-derivative L))
+(defn WithSimulator2*
+  "Takes a component and passes along a simulator..."
+  [{:keys [state-derivative initial-state parameters] :as opts}
+   component]
+  (let [!p (react/useMemo
+            (fn []
+              (when parameters
+                (atom (apply array parameters))))
+            #js [])
+        simulate (react/useMemo
+                  (fn []
+                    (Lagrangian-updater
+                     state-derivative
+                     initial-state
+                     {:compile? true
+                      :parameters !p}))
+                  #js [state-derivative])]
+    (react/useEffect
+     (fn mount []
+       (reset! !p (apply array parameters)))
+     #js [parameters])
+    [component
+     (-> (dissoc opts :state-derivative :initial-state)
+         (assoc :simulate simulate
+                :parameters !p))]))
 
-(defn Pendulum [!state]
-  (r/with-let [updater (Lagrangian-updater state-deriv @!state :compile? true)]
-    [:<>
-     [box/Array
-      {:channels 2
-       :items 2
-       :expr (fn [emit _i now]
-               (swap! !state #(updater % now))
-               (let [[_ theta] @!state
-                     theta     (normalize theta)]
-                 (emit 0 0)
-                 (emit (Math/sin theta)
-                       (- (Math/cos theta)))))}]
-     ;; attach a bob between the two.
-     [box/Vector {:color 0xffffff :width 2}]
+(defn InnerP [{:keys [!state simulate parameters] :as opts}]
+  [:<>
+   [box/Array
+    {:channels 2
+     :items 2
+     :expr (fn [emit _i now]
+             (swap! !state #(let [new-state (simulate % now)]
+                              (update new-state 1 normalize)))
+             (let [l (aget @parameters 2)
+                   [_ theta] @!state]
+               (emit 0 0)
+               (emit (* l (Math/sin theta))
+                     (* l (- (Math/cos theta))))))}]
+   ;; attach a bob between the two.
+   [box/Vector {:color 0xffffff :width 2}]
 
-     [box/Slice {:items [0 1]}]
-     [box/Point {:color 0x909090 :size 4}]
+   [box/Slice {:items [0 1]}]
+   [box/Point {:color 0x909090 :size 4}]
 
-     [box/Slice {:items [1 2]}]
-     [box/Point {:color 0xffffff :size 10}]]))
+   [box/Slice {:items [1 2]}]
+   [box/Point {:color 0xffffff :size 10}]])
 
+(defn Pendulum [!state !params]
+  [:f> WithSimulator2*
+   {:state-derivative state-deriv*
+    :initial-state    @!state
+    :parameters       !params
+    :!state           !state}
+   InnerP]
 
+  #_(r/with-let
+      [updater (Lagrangian-updater
+                state-deriv* @!state {:compile? true
+                                      :parameters (atom #js [9.8 1 1])})]
+      ))
 
 (defn WellAxes []
   [:<>
@@ -327,25 +356,25 @@
      :offset [20 0]}]
    ])
 
-(defn PotentialLine [V]
+(defn PotentialLine [V !params]
   [:<>
    ;; This is the potential well. Gotta redo this to make more sense.
    [box/Interval
     {:width 128
      :channels 2
-     :live false
+     :live true
      :expr (fn [emit theta]
-             (emit theta (V theta)))}]
+             (emit theta (V @!params theta)))}]
    [box/Line {:color 0x3090ff}]])
 
-(defn Well [!state]
+(defn Well [!state !params]
   [:<>
    [box/Grid
     {:color 0x808080
      :unitX Math/PI
      :baseX 2}]
    [WellAxes]
-   [PotentialLine V]
+   [PotentialLine V !params]
 
    ;; this is the bead traveling with history along the potential.
    [Comet
@@ -355,9 +384,9 @@
      :size 5
      :opacity 0.99
      :path
-     (fn [_ _]
+     (fn [emit _ _]
        (let [[_ theta] @!state]
-         [theta (V theta)]))}]])
+         (emit theta (V @!params theta))))}]])
 
 (defn PhaseAxes []
   [:<>
@@ -404,33 +433,66 @@
      :size 10
      :offset [20 0]}]])
 
-(defn PhaseVectors [!params items]
-  (let [dt      3e-2
-        updater (Lagrangian-collector state-deriv* [0 0 0]
-                                      {:compile? true
-                                       :parameters !params})]
-    [:<>
-     [box/Area
-      {:width 16
-       :height 16
-       :channels 2
-       :items items
-       :centeredX true
-       :centeredY true
-       :live true
-       :expr
-       (fn [emit q p _ _ t]
-         (updater #js [0 (normalize (+ q t)) p] (* dt (+ 0.01 (dec items))) dt emit))}]
-     [box/Vector
-      {:color 0x3090ff
-       :size 5
-       :end true}]]))
+(defn PhaseVectors
+  "Component that takes a simulator and builds an array of phase vectors... todo
+  document!!"
+  [{:keys [simulate steps dt]
+    :or {steps 8
+         dt 3e-2}}]
+  [:<>
+   [box/Area
+    {:width 16
+     :height 16
+     :channels 2
+     :items steps
+     :centeredX true
+     :centeredY true
+     :live true
+     :expr
+     (let [t2 (* dt (+ 0.01 (dec steps)))]
+       (fn [emit x y _i _j _t]
+         (simulate
+          #js [0 x y] t2 dt emit)))}]
+   [box/Vector
+    {:color 0x3090ff
+     :size 5
+     :end true}]])
 
-(defn Phase [!state !params items]
+(defn WithSimulator*
+  "Takes a component and passes along a simulator..."
+  [{:keys [state-derivative initial-state parameters] :as opts}
+   component]
+  (let [!p      (react/useMemo
+                 (fn []
+                   (when parameters
+                     (atom (apply array parameters))))
+                 #js [])
+        simulate (react/useMemo
+                  (fn []
+                    (Lagrangian-collector
+                     state-derivative
+                     initial-state
+                     {:compile? true
+                      :parameters !p}))
+                  #js [state-derivative])]
+    (react/useEffect
+     (fn mount []
+       (reset! !p (apply array parameters)))
+     #js [parameters])
+    [component
+     (-> (dissoc opts :state-derivative :initial-state :parameters)
+         (assoc :simulate simulate))]))
+
+(defn Phase [!state !params steps]
   [:<>
    [box/Grid {:color 0x808080}]
    [PhaseAxes]
-   [PhaseVectors !params items]
+   [:f> WithSimulator*
+    {:state-derivative state-deriv*
+     :initial-state [0 0 0]
+     :parameters !params
+     :steps steps}
+    PhaseVectors]
    [Comet
     {:dimensions 2
      :length 16
@@ -438,90 +500,65 @@
      :size 10
      :opacity 0.99
      :path
-     (fn [_ _]
+     (fn [emit _ _]
        (let [[_ q p] @!state]
-         [q p]))}]])
+         (emit q p)))}]])
 
-;; SO what have I learned??
-;;
-;;
+;; TODO: get tex going!
+
 (defn Hamilton []
   (r/with-let [!state  (r/atom [0 3 0])
                !params (r/atom [9.8 1 1])
-               !items  (r/atom 51)]
-    [:<>
-     [:input
-      {:type :range
-       :min 1
-       :max 10
-       :step 1
-       :value (nth @!params 0)
-       :on-change
-       (fn [target]
-         (let [v (.. target -target -value)]
-           (swap! !params assoc 0 (js/parseFloat v))))}]
-     [:input
-      {:type :range
-       :min 1
-       :max 10
-       :step 1
-       :value (nth @!params 1)
-       :on-change
-       (fn [target]
-         (let [v (.. target -target -value)]
-           (swap! !params assoc 1 (js/parseFloat v))))}]
-     [:input
-      {:type :range
-       :min 1
-       :max 10
-       :step 1
-       :value (nth @!params 2)
-       :on-change
-       (fn [target]
-         (let [v (.. target -target -value)]
-           (swap! !params assoc 2 (js/parseFloat v))))}]
-     [:input
-      {:type :range
-       :min 1
-       :max 50
-       :step 1
-       :value @!items
-       :on-change
-       (fn [target]
-         (let [v (.. target -target -value)]
-           (reset! !items (js/parseInt v))))}]
-     [mathbox/Mathbox
-      {:style {:height "600px" :width "100%"}
-       :options {:plugins ["core" "controls" "cursor" "stats"]}
-       :init  (fn [mb]
-                (let [three    (.-three mb)
-                      renderer (.-renderer three)]
-                  (.setClearColor renderer (Color. 0x000000) 1.0)
-                  (.camera mb #js {:proxy true
-                                   :position #js [0 0 20]
-                                   :fov 90})))}
-      [box/Layer
-       [box/Unit {:scale 720 :focus 1}
-        #_[box/Cartesian
-           {:id "pendulum"
-            :range [[-1 1] [-1 1]]
-            :scale [0.25 0.25]
-            :position [-0.5 0.35 0]}
-           [Pendulum !state]]
+               !items  (r/atom 8)]
+    [mathbox/Mathbox
+     {:style {:height "600px" :width "100%"}
+      :options {:plugins ["core" "controls" "cursor" "stats"]}
+      :init  (fn [mb]
+               (let [o #js {:length 1
+                            :mass 1
+                            :gravity 9.8
+                            :simSteps 8}
+                     gui (dg/GUI.)]
+                 (doto gui
+                   (-> (.add o "length") (.min 0.5) (.max 2) (.step 0.01)
+                       (.onChange #(swap! !params assoc 2 %)))
 
-        #_[box/Cartesian
-           {:id "well"
-            ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-            :range [[(- Math/PI) (- Math/PI 0.00001)]
-                    [-10 10]]
-            :scale [0.48 0.25]
-            :position [-0.5 -0.25 0]}
-           [Well !state]]
+                   (-> (.add o "gravity") (.min 5) (.max 15) (.step 0.01)
+                       (.onChange #(swap! !params assoc 0 %)))
 
-        [box/Cartesian
-         {:id "phase"
-          :range [[-4 4] [-8 8]]
-          :scale [0.6 0.6]
-          #_#_:position [0.6 0]}
-         [Phase !state !params @!items]
-         ]]]]]))
+                   (-> (.add o "mass") (.min 0.5) (.max 2) (.step 0.01)
+                       (.onChange #(swap! !params assoc 1 %)))
+
+                   (-> (.add o "simSteps") (.min 1) (.max 50) (.step 1)
+                       (.onChange #(reset! !items %)))))
+
+               (let [three    (.-three mb)
+                     renderer (.-renderer three)]
+                 (.setClearColor renderer (Color. 0x000000) 1.0)
+                 (.camera mb #js {:proxy true
+                                  :position #js [0 0 20]
+                                  :fov 90})))}
+     [box/Layer
+      [box/Unit {:scale 720 :focus 1}
+       [box/Cartesian
+        {:id "pendulum"
+         :range [[-1 1] [-1 1]]
+         :scale [0.25 0.25]
+         :position [-0.5 0.35 0]}
+        [Pendulum !state @!params]]
+
+       [box/Cartesian
+        {:id "well"
+         ;; TODO fix our `normalize` so we don't map pi back to negative pi.
+         :range [[(- Math/PI) (- Math/PI 0.00001)]
+                 [-10 10]]
+         :scale [0.48 0.25]
+         :position [-0.5 -0.25 0]}
+        [Well !state !params]]
+
+       [box/Cartesian
+        {:id "phase"
+         :range [[-4 4] [-8 8]]
+         :scale [0.6 0.6]
+         :position [0.6 0]}
+        [Phase !state @!params @!items]]]]]))
