@@ -1554,7 +1554,7 @@ var safe_atan = (function sicmutils$calculus$manifold$__GT_Sn_coordinates_$_ctor
 if(((typeof y === 'number') && (((typeof x === 'number') && (((sicmutils.value.zero_QMARK_(y)) && (sicmutils.value.zero_QMARK_(x)))))))){
 taoensso.timbre._log_BANG_.cljs$core$IFn$_invoke$arity$11(taoensso.timbre._STAR_config_STAR_,new cljs.core.Keyword(null,"warn","warn",-436710552),"sicmutils.calculus.manifold",null,863,new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.Keyword(null,"auto","auto",-566279492),(new cljs.core.Delay((function (){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Sn-coordinates singular!"], null);
-}),null)),null,-2096410883,null);
+}),null)),null,-1092223187,null);
 } else {
 }
 
