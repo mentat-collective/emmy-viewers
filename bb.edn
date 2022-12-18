@@ -1,32 +1,49 @@
 {:tasks
- {sha
-  (let [sha (-> (shell {:out :string} "git rev-parse HEAD")
-                (:out)
-                (clojure.string/trim ))
-        file "public/index.html"]
-    (-> (slurp file)
-        (clojure.string/replace "$GIT_SHA" sha)
-        (->> (spit file))))
+ {dev-notebook
+  {:doc "Start a shadow-cljs watch process that generates this project's custom JS."
+   :task
+   (do (shell "npm install")
+       (shell "npm run watch-clerk"))}
 
-  dev
-  (do (shell "npm install")
-      (shell "npm run watch-clerk"))
+  start-clerk
+  {:doc "Start a Clerk dev server configured with this project's custom JS."
+   :task
+   (shell "clojure -X:dev:nextjournal/clerk user/start!")}
 
-  github-pages
-  (do (shell "npm ci")
-      (shell "npm run release-clerk")
-      (shell "clojure -X:dev:nextjournal/clerk user/github-pages!")
-      (run 'sha))
+  publish-gh-pages
+  {:doc "Generate a fresh static build."
+   :task
+   (do (shell "npm ci")
+       (shell "npm run release-clerk")
+       (apply shell
+              "clojure -X:dev:nextjournal/clerk user/static-build!"
+              *command-line-args*)
+       (spit "./public/CNAME" "leva.mentat.org")
+
+       ;; This is necessary for folders with underscores to work, like the one
+       ;; that Clerk uses to store data for its CAS.
+       (spit "./public/.nojekyll" ""))}
+
+  release-gh-pages
+  {:doc "Generate a fresh static build and release it to Github Pages."
+   :task
+   (do (shell "rm -rf public")
+       (run 'publish-gh-pages)
+       (shell "npm run gh-pages"))}
 
   publish-local
-  (do (shell "npm install")
-      (shell "npm run release-clerk")
-      (shell "clojure -X:dev:clerk user/publish-local!")
-      (run 'sha)
-      (shell "npm run serve"))
+  {:doc "Generate a fresh static build in the `public` folder and start a local
+  webserver."
+   :task
+   (do (run 'publish-gh-pages)
+       (shell "npm run serve"))}
 
   release
-  (shell "clojure -T:build publish")
+  {:doc "Release the library to Clojars."
+   :task (shell "clojure -T:build publish")}
 
   lint
-  (shell "clj-kondo --lint src:dev")}}
+  {:doc "Lint the src and dev directories with clj-kondo."
+   :task
+   (apply shell (into ["clojure -M:lint --lint src:dev"]
+                      *command-line-args*))}}}

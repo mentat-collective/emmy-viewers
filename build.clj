@@ -1,10 +1,10 @@
 (ns build
-  "tools.build declarations for the sicmutils-viewers library."
+  "tools.build declarations for the emmy-viewers library."
   (:require [clojure.tools.build.api :as b]))
 
 ;; ## Variables
 
-(def lib 'org.mentat/sicmutils-viewers)
+(def lib 'org.mentat/emmy-viewers)
 (def version "0.0.1")
 
 (defn- ->version

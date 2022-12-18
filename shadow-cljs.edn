@@ -3,16 +3,19 @@
  :dev-http {9000 "public"}
  :builds
  {:clerk
-  {:target :browser
-   :modules
-   {:main
-    {:entries
-     [nextjournal.clerk.static-app
-      nextjournal.viewer.notebook
-      nextjournal.clerk.sci-viewer
-      demo.viewers]}}
+  {:target :esm
+   :runtime :browser
    :output-dir "public/js"
-   :asset-path "/js"
+   :build-options
+   {:ns-aliases
+    {nextjournal.devcards nextjournal.devcards-noop}}
+
    :compiler-options
    {:infer-externs :auto
-    :optimizations :advanced}}}}
+    :optimizations :advanced}
+   :modules {:main
+             {:entries
+              [nextjournal.clerk.static-app
+               demo.viewers]}}
+   :js-options
+   {:output-feature-set :es8}}}}

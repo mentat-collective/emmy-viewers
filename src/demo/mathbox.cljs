@@ -1,8 +1,8 @@
 (ns demo.mathbox
-  (:require ["dat.gui" :as dg]
-            [mathbox]
+  (:require [mathbox]
             [mathbox.primitives :as box]
-            [nextjournal.clerk.sci-viewer :as sv]
+            [nextjournal.clerk.render :as cr]
+            [nextjournal.clerk.viewer :as sv]
             [reagent.core :as r :include-macros true]
             [sicmutils.env :as e]
             [sicmutils.expression.compile :as xc]
@@ -138,7 +138,7 @@
 
 ;; NOTE: it comes across the wire ALREADY COMPILED and simplified down
 ;; to source.
-(defn Mass [{:keys [state->xyz L initial-state var-name]}]
+(defn Mass [{:keys [state->xyz L initial-state]}]
   (let [render-fn   (xc/sci-eval state->xyz)
         state-deriv (xc/sci-eval L)
         my-updater  (Lagrangian-updater state-deriv initial-state)]
@@ -152,15 +152,15 @@
         :path
         (fn [emit _ t]
           (swap! !state #(my-updater % t))
-          (when var-name
-            (sv/clerk-eval
-             (list 'clojure.core/reset!
-                   var-name
-                   (mapv (fn rec [x]
-                           (if (sequential? x)
-                             (mapv rec x)
-                             x))
-                         @!state))))
+          #_(when var-name
+              (sv/clerk-eval
+               (list 'clojure.core/reset!
+                     var-name
+                     (mapv (fn rec [x]
+                             (if (sequential? x)
+                               (mapv rec x)
+                               x))
+                           @!state))))
           (let [[x y z] (render-fn @!state)]
             (emit x z y)))}])))
 
@@ -258,6 +258,7 @@
               (when parameters
                 (atom (apply array parameters))))
             #js [])
+        ;; I THINK this usememo is the problem.
         simulate (react/useMemo
                   (fn []
                     (Lagrangian-updater
@@ -268,12 +269,14 @@
                   #js [state-derivative])]
     (react/useEffect
      (fn mount []
-       (reset! !p (apply array parameters)))
+       (reset! !p (apply array parameters))
+       (fn []))
      #js [parameters])
-    [component
-     (-> (dissoc opts :state-derivative :initial-state)
-         (assoc :simulate simulate
-                :parameters !p))]))
+
+    #_[component
+       (-> (dissoc opts :state-derivative :initial-state)
+           (assoc :simulate simulate
+                  :parameters !p))]))
 
 (defn InnerP [{:keys [!state simulate parameters] :as opts}]
   [:<>
@@ -506,59 +509,75 @@
 
 ;; TODO: get tex going!
 
+(defn equations [[g m l]]
+  (e/->TeX
+   (((e/Lagrange-equations
+      (l/L-pendulum g m l))
+     (e/literal-function 'theta_1))
+    't)))
+
+(defn L-equations [[g m l]]
+  (e/->TeX
+   ((l/L-pendulum g m l)
+    (e/up 't 'theta 'thetadot))))
+
 (defn Hamilton []
   (r/with-let [!state  (r/atom [0 3 0])
                !params (r/atom [9.8 1 1])
                !items  (r/atom 8)]
-    [mathbox/Mathbox
-     {:style {:height "600px" :width "100%"}
-      :options {:plugins ["core" "controls" "cursor" "stats"]}
-      :init  (fn [mb]
-               (let [o #js {:length 1
-                            :mass 1
-                            :gravity 9.8
-                            :simSteps 8}
-                     gui (dg/GUI.)]
-                 (doto gui
-                   (-> (.add o "length") (.min 0.5) (.max 2) (.step 0.01)
-                       (.onChange #(swap! !params assoc 2 %)))
 
-                   (-> (.add o "gravity") (.min 5) (.max 15) (.step 0.01)
-                       (.onChange #(swap! !params assoc 0 %)))
+    [:<>
+     #_#_[cr/inspect (sv/katex-viewer (L-equations ['g 'm 'l]) {})]
+     [cr/inspect (sv/katex-viewer (L-equations ['g 'm 'l]) {})]
+     [mathbox/Mathbox
+      {:style {:height "600px" :width "100%"}
+       :options {:plugins ["core" "controls" "cursor" "stats"]}
+       :init  (fn [mb]
+                (let [#_#_o #js {:length 1
+                                 :mass 1
+                                 :gravity 9.8
+                                 :simSteps 8}
+                      #_#_gui (dg/GUI.)]
+                  #_(doto gui
+                      (-> (.add o "length") (.min 0.5) (.max 2) (.step 0.01)
+                          (.onChange #(swap! !params assoc 2 %)))
 
-                   (-> (.add o "mass") (.min 0.5) (.max 2) (.step 0.01)
-                       (.onChange #(swap! !params assoc 1 %)))
+                      (-> (.add o "gravity") (.min 5) (.max 15) (.step 0.01)
+                          (.onChange #(swap! !params assoc 0 %)))
 
-                   (-> (.add o "simSteps") (.min 1) (.max 50) (.step 1)
-                       (.onChange #(reset! !items %)))))
+                      (-> (.add o "mass") (.min 0.5) (.max 2) (.step 0.01)
+                          (.onChange #(swap! !params assoc 1 %)))
 
-               (let [three    (.-three mb)
-                     renderer (.-renderer three)]
-                 (.setClearColor renderer (Color. 0x000000) 1.0)
-                 (.camera mb #js {:proxy true
-                                  :position #js [0 0 20]
-                                  :fov 90})))}
-     [box/Layer
-      [box/Unit {:scale 720 :focus 1}
-       [box/Cartesian
-        {:id "pendulum"
-         :range [[-1 1] [-1 1]]
-         :scale [0.25 0.25]
-         :position [-0.5 0.35 0]}
-        [Pendulum !state @!params]]
+                      (-> (.add o "simSteps") (.min 1) (.max 50) (.step 1)
+                          (.onChange #(reset! !items %)))))
 
-       [box/Cartesian
-        {:id "well"
-         ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-         :range [[(- Math/PI) (- Math/PI 0.00001)]
-                 [-10 10]]
-         :scale [0.48 0.25]
-         :position [-0.5 -0.25 0]}
-        [Well !state !params]]
+                (let [three    (.-three mb)
+                      renderer (.-renderer three)]
+                  (.setClearColor renderer (Color. 0x000000) 1.0)
+                  (.camera mb #js {:proxy true
+                                   :position #js [0 0 20]
+                                   :fov 90})))}
+      [box/Layer
+       [box/Unit {:scale 720 :focus 1}
+        [box/Cartesian
+         {:id "pendulum"
+          :range [[-1 1] [-1 1]]
+          :scale [0.25 0.25]
+          :position [-0.5 0.35 0]}
+         [Pendulum !state @!params]]
 
-       [box/Cartesian
-        {:id "phase"
-         :range [[-4 4] [-8 8]]
-         :scale [0.6 0.6]
-         :position [0.6 0]}
-        [Phase !state @!params @!items]]]]]))
+        #_#_[box/Cartesian
+             {:id "well"
+              ;; TODO fix our `normalize` so we don't map pi back to negative pi.
+              :range [[(- Math/PI) (- Math/PI 0.00001)]
+                      [-10 10]]
+              :scale [0.48 0.25]
+              :position [-0.5 -0.25 0]}
+             [Well !state !params]]
+
+        [box/Cartesian
+         {:id "phase"
+          :range [[-4 4] [-8 8]]
+          :scale [0.6 0.6]
+          :position [0.6 0]}
+         [Phase !state @!params @!items]]]]]]))
