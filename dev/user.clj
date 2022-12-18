@@ -68,7 +68,7 @@
   (clerk/show! "src/demo.clj"))
 
 (defn github-pages! [_]
-  (swap! config/!resource->url merge {"/js/viewer.js" "/sicmutils-viewers/js/main.js"})
+  (swap! config/!resource->url merge {"/js/viewer.js" "/js/main.js"})
   (clerk/build!
    {:paths notebooks
     :bundle? false

@@ -16,6 +16,7 @@
   (do (shell "npm ci")
       (shell "npm run release-clerk")
       (shell "clojure -X:dev:nextjournal/clerk user/github-pages!")
+      (spit "./public/CNAME" "emmy-viewers.mentat.org")
       (run 'sha))
 
   publish-local
@@ -24,6 +25,13 @@
       (shell "clojure -X:dev:clerk user/publish-local!")
       (run 'sha)
       (shell "npm run serve"))
+
+  release-gh-pages
+  {:doc "Generate a fresh static build and release it to Github Pages."
+   :task
+   (do (shell "rm -rf public")
+       (run 'github-pages)
+       (shell "npm run gh-pages"))}
 
   release
   (shell "clojure -T:build publish")

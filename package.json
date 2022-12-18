@@ -5,7 +5,7 @@
     "release-clerk": "shadow-cljs release clerk",
     "watch-test": "shadow-cljs watch test",
     "serve": "http-server -c-1",
-    "deploy-pages": "gh-pages -d public"
+    "gh-pages": "gh-pages -d public"
   },
   "engines": {
     "npm": "6.14.8"
@@ -36,6 +36,7 @@
     "gh-pages": "^3.2.3",
     "http-server": "^14.1.1",
     "katex": "0.12.0",
+    "leva": "0.9.34",
     "lezer-clojure": "1.0.0-rc.2",
     "markdown-it": "12.3.2",
     "markdown-it-block-image": "0.0.3",

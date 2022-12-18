@@ -1,5 +1,6 @@
 (ns demo.mathbox
-  (:require ["dat.gui" :as dg]
+  (:require [leva.core]
+            ["dat.gui" :as dg]
             [mathbox]
             [mathbox.primitives :as box]
             [nextjournal.clerk.sci-viewer :as sv]
@@ -505,6 +506,12 @@
          (emit q p)))}]])
 
 ;; TODO: get tex going!
+
+(defonce !phase-state
+  {:length 1
+   :mass 1
+   :gravity 9.8
+   :simSteps 8})
 
 (defn Hamilton []
   (r/with-let [!state  (r/atom [0 3 0])
