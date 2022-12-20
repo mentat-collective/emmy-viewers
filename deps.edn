@@ -24,19 +24,13 @@
    {io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
      :git/sha "75f073c4899e37b2259cb2057cbf863b90892897"
-     :deps/root "render"}
-    org.mentat/clerk-utils {:mvn/version "0.1.0"}}
+     :deps/root "render"}}
    :exec-fn user/garden!}
 
   :build
   {:deps {io.github.clojure/tools.build {:git/tag "v0.8.2" :git/sha "ba1a2bf"}
           slipset/deps-deploy {:mvn/version "0.2.0"}}
    :ns-default build}
-
-  :lint
-  ;; Invoke with clj -M:dev:lint --lint src
-  {:main-opts ["-m" "clj-kondo.main"]
-   :replace-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}}
 
   :local
   {:replace-deps
