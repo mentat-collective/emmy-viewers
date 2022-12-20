@@ -1,21 +1,11 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns phase-portrait
-  (:refer-clojure
-   :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]
-            [sicmutils.env :as e :refer :all]))
+            [mentat.clerk-utils :refer [cljs]]))
 
-;; ## Mathbox Oscillator
-
+;; ## Phase Portrait
 
 ^{::clerk/width :wide
-  ::clerk/visibility {:code :hide}
-  ::clerk/viewer
-  {:transform-fn clerk/mark-presented
-   :render-fn
-   (template
-    (fn [_]
-      (v/html
-       [mb/Hamilton])))}}
-{}
+  ::clerk/visibility {:code :hide}}
+(cljs
+ [mb/Hamilton])
