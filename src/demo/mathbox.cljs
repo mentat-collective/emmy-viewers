@@ -1,5 +1,6 @@
 (ns demo.mathbox
-  (:require [mathbox]
+  (:require ["dat.gui" :as dg]
+            [mathbox]
             [mathbox.primitives :as box]
             [nextjournal.clerk.render :as cr]
             [nextjournal.clerk.viewer :as sv]
@@ -270,13 +271,13 @@
     (react/useEffect
      (fn mount []
        (reset! !p (apply array parameters))
-       (fn []))
+       js/undefined)
      #js [parameters])
 
-    #_[component
-       (-> (dissoc opts :state-derivative :initial-state)
-           (assoc :simulate simulate
-                  :parameters !p))]))
+    [component
+     (-> (dissoc opts :state-derivative :initial-state)
+         (assoc :simulate simulate
+                :parameters !p))]))
 
 (defn InnerP [{:keys [!state simulate parameters] :as opts}]
   [:<>
@@ -306,13 +307,7 @@
     :initial-state    @!state
     :parameters       !params
     :!state           !state}
-   InnerP]
-
-  #_(r/with-let
-      [updater (Lagrangian-updater
-                state-deriv* @!state {:compile? true
-                                      :parameters (atom #js [9.8 1 1])})]
-      ))
+   InnerP])
 
 (defn WellAxes []
   [:<>
@@ -356,8 +351,7 @@
      :zIndex 1
      :zOrder 5
      :size 10
-     :offset [20 0]}]
-   ])
+     :offset [20 0]}]])
 
 (defn PotentialLine [V !params]
   [:<>
@@ -480,7 +474,8 @@
                   #js [state-derivative])]
     (react/useEffect
      (fn mount []
-       (reset! !p (apply array parameters)))
+       (reset! !p (apply array parameters))
+       js/undefined)
      #js [parameters])
     [component
      (-> (dissoc opts :state-derivative :initial-state :parameters)
@@ -533,23 +528,23 @@
       {:style {:height "600px" :width "100%"}
        :options {:plugins ["core" "controls" "cursor" "stats"]}
        :init  (fn [mb]
-                (let [#_#_o #js {:length 1
-                                 :mass 1
-                                 :gravity 9.8
-                                 :simSteps 8}
-                      #_#_gui (dg/GUI.)]
-                  #_(doto gui
-                      (-> (.add o "length") (.min 0.5) (.max 2) (.step 0.01)
-                          (.onChange #(swap! !params assoc 2 %)))
+                (let [o #js {:length 1
+                             :mass 1
+                             :gravity 9.8
+                             :simSteps 8}
+                      gui (dg/GUI.)]
+                  (doto gui
+                    (-> (.add o "length") (.min 0.5) (.max 2) (.step 0.01)
+                        (.onChange #(swap! !params assoc 2 %)))
 
-                      (-> (.add o "gravity") (.min 5) (.max 15) (.step 0.01)
-                          (.onChange #(swap! !params assoc 0 %)))
+                    (-> (.add o "gravity") (.min 5) (.max 15) (.step 0.01)
+                        (.onChange #(swap! !params assoc 0 %)))
 
-                      (-> (.add o "mass") (.min 0.5) (.max 2) (.step 0.01)
-                          (.onChange #(swap! !params assoc 1 %)))
+                    (-> (.add o "mass") (.min 0.5) (.max 2) (.step 0.01)
+                        (.onChange #(swap! !params assoc 1 %)))
 
-                      (-> (.add o "simSteps") (.min 1) (.max 50) (.step 1)
-                          (.onChange #(reset! !items %)))))
+                    (-> (.add o "simSteps") (.min 1) (.max 50) (.step 1)
+                        (.onChange #(reset! !items %)))))
 
                 (let [three    (.-three mb)
                       renderer (.-renderer three)]
@@ -566,14 +561,14 @@
           :position [-0.5 0.35 0]}
          [Pendulum !state @!params]]
 
-        #_#_[box/Cartesian
-             {:id "well"
-              ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-              :range [[(- Math/PI) (- Math/PI 0.00001)]
-                      [-10 10]]
-              :scale [0.48 0.25]
-              :position [-0.5 -0.25 0]}
-             [Well !state !params]]
+        [box/Cartesian
+         {:id "well"
+          ;; TODO fix our `normalize` so we don't map pi back to negative pi.
+          :range [[(- Math/PI) (- Math/PI 0.00001)]
+                  [-10 10]]
+          :scale [0.48 0.25]
+          :position [-0.5 -0.25 0]}
+         [Well !state !params]]
 
         [box/Cartesian
          {:id "phase"
