@@ -1,5 +1,6 @@
 (ns demo.mathbox
-  (:require ["dat.gui" :as dg]
+  (:require [leva.core]
+            ["dat.gui" :as dg]
             [mathbox]
             [mathbox.primitives :as box]
             [nextjournal.clerk.render :as cr]
