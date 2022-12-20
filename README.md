@@ -1,7 +1,7 @@
-# sicmutils-viewers
+# emmy-viewers
 
-This is a very early stage set of demos and extensions for SICMUtils and Clerk
-backed by Mathbox. More later!
+This is a very early stage set of demos and extensions for SICMUtils (soon to be
+named Emmy) and Clerk backed by Mathbox. More later!
 
 > If you find this work interesting, please consider sponsoring it via [Github
 > Sponsors](https://github.com/sponsors/sritchie). Thank you!
@@ -39,8 +39,8 @@ When those are all set (the links include installation instructions),
 Clone the repository:
 
 ```bash
-git clone git@github.com:sicmutils/sicmutils-viewers.git
-cd sicmutils-viewers
+git clone git@github.com:sicmutils/emmy-viewers.git
+cd emmy-viewers
 ```
 
 Generate the JS bundle for the demos by running the following commands in one

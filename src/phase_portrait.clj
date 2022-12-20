@@ -7,8 +7,6 @@
             [sicmutils.env :as e :refer :all]))
 
 ;; ## Mathbox Oscillator
-;;
-;; Cthulhu lives!
 
 
 ^{::clerk/width :wide

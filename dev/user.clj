@@ -1,45 +1,24 @@
 (ns user
-  (:require [hiccup.page :as hiccup]
-            [nextjournal.clerk.config :as config]
+  (:require [babashka.fs :as fs]
+            [clojure.java.shell :refer [sh]]
+            [clojure.string]
+            [hiccup.page :as hiccup]
             [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.view]))
+            [nextjournal.clerk.config :as config]
+            [nextjournal.clerk.view]
+            [nextjournal.clerk.viewer :as cv]
+            [shadow.cljs.devtools.api :as shadow]))
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
 (require '[sicmutils.env :refer :all])
 (require '[sicmutils.expression.render :as xr])
 
-;; To get everything running, first follow the README instructions:
-;;
-;;```
-;; shadow-cljs watch clerk
-;;```
-;;
-;; Then jack in, come here and run the commands in the comment.
-;;
-;; Better rendering for slides.
-
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
 
-;; Same with my `[sicmutils.env :refer :all]` to get the REPL working.
-
-(defn rebind [^clojure.lang.Var v f]
-  (let [old (.getRawRoot v)]
-    (.bindRoot v (f old))))
-
-(defonce _ignore
-  (rebind
-   #'nextjournal.clerk.view/include-viewer-css
-   (fn [old]
-     (fn []
-       (concat
-        (list
-         (hiccup/include-css
-          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css")
-         (hiccup/include-css
-          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
-        (old))))))
+(def index
+  "src/demo.clj")
 
 (def notebooks
   ["src/phase_portrait.clj"]
@@ -56,62 +35,97 @@
      "src/mathlive.clj"
      "src/cube_controls.clj"])
 
-(defn start! []
+(def ^{:doc "static site defaults for local and github-pages modes."}
+  defaults
+  {:out-path   "public"
+   :cas-prefix "/"})
+
+(def ^{:doc "static site defaults for Clerk's Garden CDN."}
+  garden-defaults
+  {:cas-prefix "/mentat-collective/leva.cljs/commit/$GIT_SHA/"})
+
+(defn rebind [^clojure.lang.Var v f]
+  (let [old (.getRawRoot v)]
+    (.bindRoot v (f old))))
+
+(defonce _ignore
+  (rebind
+   #'nextjournal.clerk.view/include-viewer-css
+   (fn [old]
+     (fn [& xs]
+       (concat
+        (list
+         (hiccup/include-css
+          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css")
+         (hiccup/include-css
+          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
+        (apply old xs))))))
+
+(defn start!
+  "Runs [[clerk/serve!]] with our custom JS. Run this after generating custom JS
+  with shadow in either production or `watch` mode."
+  []
   (swap! config/!resource->url
-         merge
-         {"/js/viewer.js" "http://localhost:9000/js/main.js"})
+         assoc
+         "/js/viewer.js" "http://localhost:9000/js/main.js")
   (clerk/serve!
    {:browse? true
-    :watch-paths ["src"]
-    :port 7777})
+    :watch-paths ["src" "dev"]})
   (Thread/sleep 500)
-  (clerk/show! "src/demo.clj"))
+  (clerk/show! index))
 
-(defn github-pages! [_]
-  (swap! config/!resource->url merge {"/js/viewer.js" "/js/main.js"})
-  (clerk/build!
-   {:paths notebooks
-    :bundle? false
-    :browse? false
-    :out-path "public"}))
+(defn replace-sha-template!
+  "Given some `path`, modifies the file at `path` replaces any occurence of the
+  string `$GIT_SHA` with the actual current sha of the repo."
+  [path]
+  (let [sha (-> (sh "git" "rev-parse" "HEAD")
+                (:out)
+                (clojure.string/trim))]
+    (-> (slurp path)
+        (clojure.string/replace "$GIT_SHA" sha)
+        (->> (spit path)))))
 
-(defn publish-local!
-  ([] (publish-local! nil))
-  ([_]
-   (swap! config/!resource->url merge {"/js/viewer.js" "/js/main.js"})
-   (clerk/build!
-    {:paths notebooks
-     :bundle? false
-     :browse? false
-     :out-path "public"})))
+(defn static-build!
+  "This task is used to generate static sites for local use, github pages
+  deployment and Clerk's Garden CDN.
 
-(comment
-  (start!)
-  (clerk/serve! {:browse? true})
-  (publish-local!))
+  Accepts a map of options `opts` and runs the following tasks:
 
-(comment
-  ;; If the watcher's not running, call clerk/show on files to be rendered:
+  - Slurps the output of the shadow-cljs `:clerk` build from `public/js/main.js`
+    and pushes it into a CAS located at `(str (:out-path opts) \"/js/_data\")`.
 
-  ;; intro:
-  (clerk/show! "src/demo.clj")
+  - Configures Clerk to generate files that load the js from the generated name
+    above, stored in `(str (:cas-prefix opts) \"/js/_data\")`
 
-  ;; Mathbox basics:
-  (clerk/show! "src/cube_controls.clj")
+  - Creates a static build of the single namespace [[index]] at `(str (:out-path
+    opts) \"/index.html\")`
 
-  ;; functions:
-  (clerk/show! "src/functions.clj")
+  - Replaces all instances of the string $GIT_SHA in `index.html` with the
+    actual sha of the library.
 
-  ;; symbolic physics:
-  (clerk/show! "src/einstein.clj")
+  All `opts` are forwarded to [[nextjournal.clerk/build!]]."
+  [opts]
+  (let [{:keys [out-path cas-prefix]} (merge defaults opts)
+        cas (cv/store+get-cas-url!
+             {:out-path (str out-path "/js") :ext "js"}
+             (fs/read-all-bytes "public/js/main.js"))]
+    (swap! config/!resource->url assoc
+           "/js/viewer.js"
+           (str cas-prefix "js/" cas))
+    (clerk/build!
+     (merge {:index index}
+            (assoc opts :out-path out-path)))
+    (replace-sha-template!
+     (str out-path "/index.html"))))
 
-  ;; vega, symbolic, double-pendulum
-  (clerk/show! "src/pendulum.clj")
-
-  ;; mathbox physics:
-  (clerk/show! "src/oscillator.clj")
-  (clerk/show! "src/ellipsoid.clj")
-  (clerk/show! "src/double_ellipsoid.clj")
-
-  ;; browser/client comms:
-  (clerk/show! "src/live_oscillator.clj"))
+(defn garden!
+  "Standalone executable function that runs [[static-build!]] configured for
+  Clerk's Garden. See [[garden-defaults]] for customizations
+  to [[static-build!]]."
+  [opts]
+  (println "Running npm install...")
+  (println
+   (sh "npm" "install"))
+  (shadow/release! :clerk)
+  (static-build!
+   (merge garden-defaults opts)))
