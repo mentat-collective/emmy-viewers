@@ -6,11 +6,11 @@
             [nextjournal.clerk.render :as cr]
             [nextjournal.clerk.viewer :as sv]
             [reagent.core :as r :include-macros true]
-            [sicmutils.env :as e]
-            [sicmutils.expression.compile :as xc]
-            [sicmutils.mechanics.lagrange :as l]
-            [sicmutils.numerical.ode :as ode]
-            [sicmutils.structure :as struct]
+            [emmy.env :as e]
+            [emmy.expression.compile :as xc]
+            [emmy.mechanics.lagrange :as l]
+            [emmy.numerical.ode :as ode]
+            [emmy.structure :as struct]
             ["react" :as react]
             ["three/src/math/Color.js" :refer [Color]]))
 

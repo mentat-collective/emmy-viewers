@@ -3,9 +3,9 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [nextjournal.clerk :as clerk]
-            [sicmutils.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
-            [sicmutils.expression :as x]
-            [sicmutils.value :as v]))
+            [emmy.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
+            [emmy.expression :as x]
+            [emmy.value :as v]))
 
 ;; ## Hello, SICMUtils!
 ;;

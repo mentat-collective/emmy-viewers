@@ -1,6 +1,6 @@
-(ns hooks.sicmutils.env
+(ns hooks.emmy.env
   (:require [clj-kondo.hooks-api :as api]
-            [hooks.sicmutils.calculus.coordinate :as coord]))
+            [hooks.emmy.calculus.coordinate :as coord]))
 
 (defn bootstrap-repl!
   "Generates a form that looks like
@@ -9,12 +9,12 @@
   (do (declare 'x) (declare 'y) ,,,)
   ```
 
-  For all vars exported by the `sicmutils.env` namespace."
+  For all vars exported by the `emmy.env` namespace."
   [{:keys [_node]}]
-  (let [analysis (api/ns-analysis 'sicmutils.env)
+  (let [analysis (api/ns-analysis 'emmy.env)
         entries  (into (:clj analysis) (:cljs analysis))
         xform    (comp (filter
-                        (comp #{'sicmutils.env} :ns val))
+                        (comp #{'emmy.env} :ns val))
                        (map (comp coord/->declare api/token-node key)))
         declares (into [] xform entries)
         new-node (api/list-node

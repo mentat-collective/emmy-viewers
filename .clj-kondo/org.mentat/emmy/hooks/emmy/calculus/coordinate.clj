@@ -1,4 +1,4 @@
-(ns hooks.sicmutils.calculus.coordinate
+(ns hooks.emmy.calculus.coordinate
   (:require [clj-kondo.hooks-api :as api]))
 
 (defn symbols-from-prototype
@@ -25,7 +25,7 @@
                                   "(optionally beginning with `up` or `down`) "
                                   "or a bare symbol. Received: "
                                   (pr-str (api/sexpr p)))
-                    :type :sicmutils.calculus.coordinate/invalid-binding))
+                    :type :emmy.calculus.coordinate/invalid-binding))
             [])))
 
 (defn coordinate-name->vf-name
@@ -50,7 +50,7 @@
 
 (defn let-coordinates
   "Converts a node representing an invocation of
-  the [[sicmutils.calculus.coordinate/let-coordinates]] macro into a let-style
+  the [[emmy.calculus.coordinate/let-coordinates]] macro into a let-style
   representation of the requested bindings."
   [{:keys [node]}]
   (let [[_ binding-vec & body] (:children node)]
@@ -81,7 +81,7 @@
 
 (defn using-coordinates
   "Converts a node representing an invocation of
-  the [[sicmutils.calculus.coordinate/using-coordinates]] macro into a let-style
+  the [[emmy.calculus.coordinate/using-coordinates]] macro into a let-style
   representation of the requested bindings."
   [{:keys [node]}]
   (let [[sym prototype system & body] (:children node)]
@@ -101,7 +101,7 @@
 
 (defn define-coordinates
   "Converts a node representing an invocation of
-  the [[sicmutils.calculus.coordinate/define-coordinates]] macro into a series
+  the [[emmy.calculus.coordinate/define-coordinates]] macro into a series
   of declarations for all generated `def` forms, plus a final vector of all
   entries.
 

@@ -1,6 +1,6 @@
 # emmy-viewers
 
-This is a very early stage set of demos and extensions for SICMUtils (soon to be
+This is a very early stage set of demos and extensions for Emmy (soon to be
 named Emmy) and Clerk backed by Mathbox. More later!
 
 > If you find this work interesting, please consider sponsoring it via [Github
@@ -8,14 +8,14 @@ named Emmy) and Clerk backed by Mathbox. More later!
 
 ## Links
 
-- [SICMUtils repository][SICMUTILS]
+- [Emmy repository][EMMY]
 - The [Road to Reality Newsletter](https://roadtoreality.substack.com/)
 - [Road to Reality Discord
   Server](https://roadtoreality.substack.com/p/road-to-reality-discord-server?s=w)
-- [Clerk][CLERK], the notebook rendering engine used by SICMUtils
-- [In-progress executable version](https://github.com/sicmutils/fdg-book) of
+- [Clerk][CLERK], the notebook rendering engine used by Emmy
+- [In-progress executable version](https://github.com/mentat-collective/fdg-book) of
   _Functional Differential Geometry_ ([book link][FDG])
-- [In-progress executable version](https://github.com/sicmutils/sicm-book) of
+- [In-progress executable version](https://github.com/mentat-collective/sicm-book) of
   Sussman and Wisdom's _Structure and Interpretation of Classical Mechanics_
   ([book link][SICM])
 - [Mathbox](https://gitgud.io/unconed/mathbox) by @unconed
@@ -39,7 +39,7 @@ When those are all set (the links include installation instructions),
 Clone the repository:
 
 ```bash
-git clone git@github.com:sicmutils/emmy-viewers.git
+git clone git@github.com:mentat-collective/emmy-viewers.git
 cd emmy-viewers
 ```
 
@@ -51,9 +51,8 @@ npm install
 shadow-cljs watch sicm-browser
 ```
 
-In another tab, start a Clojure repl with `clj`. This REPL has the full
-[SICMUtils
-API](https://cljdoc.org/d/sicmutils/sicmutils/CURRENT/api/sicmutils.env)
+In another tab, start a Clojure repl with `clj`. This REPL has the full [Emmy
+API](https://cljdoc.org/d/org.mentat/emmy/CURRENT/api/emmy.env)
 available, so run some tests for fun:
 
 ```clojure
@@ -118,6 +117,6 @@ much more fun.
 Enjoy!
 
 [CLERK]: https://github.com/nextjournal/clerk
-[SICMUTILS]: https://github.com/sicmutils/sicmutils
+[EMMY]: https://github.com/mentat-collective/emmy
 [SICM]: http://mitpress.mit.edu/books/structure-and-interpretation-classical-mechanics
 [FDG]: http://mitpress.mit.edu/books/functional-differential-geometry

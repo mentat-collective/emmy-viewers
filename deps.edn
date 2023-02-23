@@ -1,38 +1,28 @@
-{:paths ["src"]
+{:paths ["src" "dev" "resources"]
  :deps
  {io.github.nextjournal/clerk
-  {:git/sha "75f073c4899e37b2259cb2057cbf863b90892897"}
-  ;; sicmutils/sicmutils {:mvn/version "0.22.0"}
-  sicmutils/sicmutils {:local/root "../sicmutils"}
-  org.mentat/jsxgraph.cljs {:mvn/version "0.1.0"}
-  org.mentat/mathbox.cljs {:mvn/version "0.0.1"}
-  org.mentat/mathlive.cljs {:mvn/version "0.1.0"}
-  org.mentat/clerk-utils {:mvn/version "0.1.0"}
-  io.github.mentat-collective/leva.cljs
-  {:git/sha "4a0e44125e6d8ea22884163742f99728064dd202"}}
+  {:git/sha "fad499407d979916d21b33cc7e46e73f7a485e37"}
+
+  org.mentat/emmy {:local/root "../emmy"}
+  org.mentat/jsxgraph.cljs {:mvn/version "0.2.0"}
+  org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
+  org.mentat/mathlive.cljs {:mvn/version "0.2.0"}
+  org.mentat/mafs.cljs {:mvn/version "0.2.1"}
+  org.mentat/leva.cljs {:mvn/version "0.2.2"}
+  org.mentat/clerk-utils {:mvn/version "0.4.1"}}
 
  :aliases
- {:dev
-  {:extra-paths ["dev"]
-   :extra-deps
-   {org.clojure/clojurescript {:mvn/version "1.11.60"}
-    ;; This needs to match the version declared in `package.json`.
-    thheller/shadow-cljs {:mvn/version "2.20.14"}}}
-
-  :nextjournal/clerk
+ {:nextjournal/clerk
   {:extra-deps
-   {io.github.nextjournal/clerk.render
+   {org.clojure/clojure       {:mvn/version "1.11.1"}
+    org.clojure/clojurescript {:mvn/version "1.11.60"}
+    io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "75f073c4899e37b2259cb2057cbf863b90892897"
+     :git/sha "fad499407d979916d21b33cc7e46e73f7a485e37"
      :deps/root "render"}}
-   :exec-fn user/garden!}
+   :exec-fn user/build!}
 
   :build
   {:deps {io.github.clojure/tools.build {:git/tag "v0.8.2" :git/sha "ba1a2bf"}
           slipset/deps-deploy {:mvn/version "0.2.0"}}
-   :ns-default build}
-
-  :local
-  {:replace-deps
-   {io.github.nextjournal/clerk {:local/root "../clerk"}
-    sicmutils/sicmutils {:local/root "../sicmutils"}}}}}
+   :ns-default build}}}

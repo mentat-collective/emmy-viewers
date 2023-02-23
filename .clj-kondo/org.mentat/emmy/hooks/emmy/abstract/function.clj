@@ -1,4 +1,4 @@
-(ns hooks.sicmutils.abstract.function
+(ns hooks.emmy.abstract.function
   (:require [clj-kondo.hooks-api :as api]))
 
 (defn- arrow-form?
@@ -11,7 +11,7 @@
                 (:children signature))))))
 
 (defn literal-function
-  "Lints the macro version of `literal-function`, living in `sicmutils.env`.
+  "Lints the macro version of `literal-function`, living in `emmy.env`.
 
   If the signature consists of a list-node starting with `->` it's treated as
   quoted. Else, it's emitted in a vector-node with the `f` entry."
@@ -51,12 +51,12 @@
                                   "3-vectors of the form [sym domain range]. "
                                   "Received: "
                                   (pr-str (api/sexpr entry)))
-                    :type :sicmutils.abstract.function/invalid-binding))
+                    :type :emmy.abstract.function/invalid-binding))
             [])))
 
 (defn with-literal-functions
   "Converts a node representing an invocation of
-  the [[sicmutils.abstract.function/with-literal-functions]] macro into a
+  the [[emmy.abstract.function/with-literal-functions]] macro into a
   let-style representation of the requested bindings."
   [{:keys [node]}]
   (let [[_ binding-vec & body] (:children node)

@@ -1,4 +1,4 @@
-(ns hooks.pattern.rule
+(ns hooks.emmy.pattern.rule
   (:require [clj-kondo.hooks-api :as api]))
 
 ;; ## Pattern Linting
@@ -117,7 +117,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
           (str "Binding variable "
                (pr-str (api/sexpr binding))
                " must be a non-namespaced symbol or non-symbol form.")
-          :type :sicmutils.pattern/binding-sym)))
+          :type :emmy.pattern/binding-sym)))
 
 (defn lint-binding-form!
   "If the supplied `node` is a [[binding-form?]], registers findings for invalid
@@ -126,24 +126,14 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
   [[lint-binding-form!]] returns nil for any input."
   [node]
   (when (binding-form? node)
-    (let [[sym binding & restrictions] (:children node)]
+    (let [[_ binding] (:children node)]
       (when-not (or (simple-symbol? (:value binding))
                     (any-unquote? binding))
-        (reg-binding-sym! binding))
-
-      (when (segment-marker? sym)
-        (doseq [r restrictions]
-          (api/reg-finding!
-           (assoc (meta r)
-                  :message
-                  (str "Restrictions are (currently) ignored on "
-                       (:value sym) " binding forms: "
-                       (pr-str (api/sexpr r)))
-                  :type :sicmutils.pattern/ignored-restriction)))))))
+        (reg-binding-sym! binding)))))
 
 (defn pattern-vec
   "Given a node representing a pattern form, (and, optionally, a node representing
-  a predicate function `f`), returns a vector of all checkable entries in the
+  a predicate function `pred`), returns a vector of all checkable entries in the
   pattern.
 
   These are
@@ -162,7 +152,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
        to-check))))
 
 (defn pattern
-  "Converts a node representing an invocation of the [[pattern.rule/pattern]]
+  "Converts a node representing an invocation of the [[emmy.pattern.rule/pattern]]
   macro into a vector-node of all lintable forms.
 
   As a side effect, registers any issue with binding forms encountered in the
@@ -206,7 +196,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
                 :message
                 (str (str "Restrictions are not allowed in consequence bindings: "
                           (pr-str (api/sexpr r))))
-                :type :sicmutils.pattern/consequence-restriction))))))
+                :type :emmy.pattern/consequence-restriction))))))
 
 (defn consequence-vec
   "Given a node representing a consequence form, (the right side of a rule),
@@ -229,7 +219,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
     (walk-node f form)))
 
 (defn consequence
-  "Converts a node representing an invocation of the [[pattern.rule/consequence]]
+  "Converts a node representing an invocation of the [[emmy.pattern.rule/consequence]]
   macro into a vector-node of all lintable forms.
 
   As a side effect, registers any issue with binding forms encountered in the
@@ -241,7 +231,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
       (consequence-vec form))}))
 
 (defn template
-  "Converts a node representing an invocation of the [[pattern.rule/template]]
+  "Converts a node representing an invocation of the [[emmy.pattern.rule/template]]
   macro into a vector-node of all lintable forms.
 
   These include the optional first argument `m` and anything returned
@@ -256,7 +246,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
         (consequence-vec m-or-form)))}))
 
 (defn- process-rule
-  "Given the 2- or 3- arguments supplied to the [[pattern.rule/rule]] macro,
+  "Given the 2- or 3- arguments supplied to the [[emmy.pattern.rule/rule]] macro,
   returns an `api/vector-node` of all lintable forms.
 
   The `pattern` argument is processed using [[pattern-vec]], while the
@@ -284,14 +274,14 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
     (throw (ex-info "wrong number of arguments for rule" {}))))
 
 (defn rule
-  "Converts a node representing an invocation of the [[pattern.rule/rule]] macro
+  "Converts a node representing an invocation of the [[emmy.pattern.rule/rule]] macro
   into a vector-node of all lintable forms."
   [{:keys [node]}]
   {:node (process-rule
           (rest (:children node)))})
 
 (defn ruleset
-  "Converts a node representing an invocation of the [[pattern.rule/ruleset]]
+  "Converts a node representing an invocation of the [[emmy.pattern.rule/ruleset]]
   macro into a vector-node of all lintable forms."
   [{:keys [node]}]
   (let [binding-count (dec (count (:children node)))]
@@ -301,7 +291,7 @@ forms (`:unquote` or `:unquote-splicing`, false otherwise.)"}
               :message
               (str "ruleset requires bindings in groups of 3. Received "
                    binding-count " bindings.")
-              :type :sicmutils.pattern/ruleset-args))))
+              :type :emmy.emmy.pattern.ruleset-args))))
   (let [inputs (partition 3 (rest (:children node)))
         rules  (map process-rule inputs)]
     {:node (api/vector-node rules)}))
