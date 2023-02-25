@@ -1,7 +1,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns circles
   (:require [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]))
+            [emmy.pattern.rule :refer [template]]))
 
 ;; ## A 5 Circle Incidence Theorem
 

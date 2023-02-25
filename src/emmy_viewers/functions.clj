@@ -1,14 +1,19 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
-(ns functions
+^#:nextjournal.clerk
+{:toc true
+ :visibility :hide-ns}
+(ns emmy-viewers.functions
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [demo :as d]
+  (:require [emmy-viewers.demo :as d]
+            [mentat.clerk-utils.viewers :refer [q]]
+            [mathbox.core :as-alias mathbox]
+            [mathbox.primitives :as-alias mb]
             [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]
-            [sicmutils.env :as e :refer :all]
-            [sicmutils.expression.compile :as xc]
-            [sicmutils.polynomial :as poly]))
+            [nextjournal.clerk.viewer :as viewer]
+            [emmy.env :as e :refer :all]
+            [emmy.expression.compile :as xc]
+            [emmy.polynomial :as poly]))
 
 ;; ## Function Viewer
 ;;
@@ -83,21 +88,19 @@
 ;; Every time the incoming `value` changes, mathbox-react will redraw the full
 ;; scene.
 
-(def opts
-  {:style {:height "400px" :width "100%"}
-   :init {:background-color 0xffffff
-          :camera-position [2.3 1 2]}})
-
 (def fn-render-fn
-  (template
+  (q
    (fn [{:keys [range scale samples f]}]
-     (v/html
-      [mathbox/Mathbox ~opts
+     (viewer/html
+      [mathbox/MathBox
+       {:container {:style {:height "400px" :width "100%"}}
+        :renderer  {:background-color 0xffffff}}
+       [mb/Camera {:proxy true :position [2.3 1 2]}]
        [mb/Cartesian {:range range :scale scale}
-        [box/Axis {:axis 1 :width 3}]
-        [box/Axis {:axis 2 :width 3}]
-        [box/Axis {:axis 3 :width 3}]
-        [mb/Function1 {:samples samples :f f}]]]))))
+        [mb/Axis {:axis 1 :width 3}]
+        [mb/Axis {:axis 2 :width 3}]
+        [mb/Axis {:axis 3 :width 3}]
+        [demo.mathbox/Function1 {:samples samples :f f}]]]))))
 
 ;; [[fn-render-fn]] also uses some reagent state internally; this is how it's
 ;; able to compare current and previous values and decide whether or not to
@@ -127,7 +130,7 @@
 ;; Then we'll call it with our new viewer:
 
 (clerk/with-viewer fn-viewer
-  {:range {:x [-6 6] :y [-1 1] :z [-1 1]}
+  {:range [[-6 6] [-1 1] [-1 1]]
    :scale [6 1 1]
    :samples 256
    :f my-fn})
@@ -136,7 +139,7 @@
 
 (defn ->mathbox [f]
   (clerk/with-viewer fn-viewer
-    {:range {:x [-6 6] :y [-1 1] :z [-1 1]}
+    {:range [[-6 6] [-1 1] [-1 1]]
      :scale [6 1 1]
      :samples 256
      :f f}))
@@ -173,7 +176,7 @@
 ;;
 ;; ## Polynomials
 ;;
-;; I think this can work out of the box for a SICMUtils Polynomial.
+;; I think this can work out of the box for an Emmy Polynomial.
 
 (def my-poly
   (let [x (poly/identity 2)]
@@ -182,7 +185,7 @@
         (cube x)))))
 
 ^{::clerk/viewer fn-viewer}
-{:range {:x [-6 6] :y [-1 1] :z [-1 1]}
+{:range [[-6 6] [-1 1] [-1 1]]
  :scale [6 1 1]
  :samples 256
  :f my-poly}

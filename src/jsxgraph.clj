@@ -126,7 +126,7 @@
   {:x -4 :y -4})
 
 ;; - TODO imagine something harder; what if I want to make a function component
-;;   that uses sicmutils values? that is going to get them as props for sure.
+;;   that uses emmy values? that is going to get them as props for sure.
 ;;   and then when the prop comes in it is going to have to compile the function
 ;;   and store it. So is that going to be a nightmare?
 ;;

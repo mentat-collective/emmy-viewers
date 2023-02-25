@@ -2,10 +2,10 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [sicmutils.calculus.form-field :as ff]
-            [sicmutils.calculus.indexed :as ci]
-            [sicmutils.calculus.vector-field :as vf]
-            [sicmutils.env :as e :refer :all]))
+  (:require [emmy.calculus.form-field :as ff]
+            [emmy.calculus.indexed :as ci]
+            [emmy.calculus.vector-field :as vf]
+            [emmy.env :as e :refer :all]))
 
 ;; ## Einstein's Field Equations
 

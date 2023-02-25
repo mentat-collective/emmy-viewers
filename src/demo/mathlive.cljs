@@ -23,7 +23,7 @@
    "Subtract" '- "Negate" '-
    "Multiply"'*
    "Divide" '/ "Rational" '/
-   "Power" 'expt ;; root handled below... TODO add root to symbolic env of sicmutils.
+   "Power" 'expt ;; root handled below... TODO add root to symbolic env of emmy.
    "Square" 'square
    "Sqrt" 'sqrt
 

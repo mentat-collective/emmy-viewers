@@ -1,16 +1,17 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns cube-controls
   (:require [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]))
+            [mentat.clerk-utils.show :refer [show-sci]]
+            [emmy.pattern.rule :refer [template]]))
 
 ;; ## Hello World!
 
 ;; This first example shows off Clerk's extensibility. We'll take one of the
-;; hardcoded examples from the [Mathbox](https://gitgud.io/unconed/mathbox)
+;; hardcoded examples from the [MathBox](https://github.com/unconed/mathbox)
 ;; repository and generate a version that we can
 ;;
 ;; - configure from our JVM source code
-;; - display in a browser window in all of its Javascripty Mathbox glory.
+;; - display in a browser window in all of its Javascripty MathBox glory.
 ;;
 ;; ### Cube Viewer
 ;;
@@ -24,6 +25,23 @@
 
 ;; the `mbr` forms live in [[demo.mathbox]] for now.
 
+(show-sci
+ (defn ColorCube
+   [{:keys [dimensions size opacity]}]
+   [:<>
+    [Volume
+     {:dimensions dimensions
+      :items 1
+      :channels 4
+      :live false
+      :expr (fn [emit x y z]
+              (emit x y z opacity))}]
+    [box/Point
+     {:points "<"
+      :colors "<"
+      :color 0xffffff
+      :size size}]]))
+
 (def cube-viewer
   ;; Note that if I want to just pass a data structure on unmodified I need to
   ;; `mark-presented` here.
@@ -31,9 +49,9 @@
    :render-fn
    (template
     #(v/html
-      [mathbox/Mathbox ~opts
+      [mathbox/MathBox ~opts
        [mb/Cartesian {}
-        [mb/ColorCube %]]]))})
+        [ColorCube %]]]))})
 
 ;; We can then use the above viewer using metadata:
 
@@ -112,9 +130,9 @@
       (v/html
        [:<>
         (~(cube-ui-fn :server) var-name value)
-        [mathbox/Mathbox ~opts
+        [mathbox/MathBox ~opts
          [mb/Cartesian {}
-          [mb/ColorCube value]]]])))))
+          [ColorCube value]]]])))))
 
 ^{::clerk/width :wide
   ::clerk/viewer server-cube-viewer}
@@ -139,9 +157,9 @@
         (v/html
          [:<>
           (~(cube-ui-fn :client) !v @!v)
-          [mathbox/Mathbox ~opts
+          [mathbox/MathBox ~opts
            [mb/Cartesian {}
-            [mb/ColorCube @!v]]]]))))})
+            [ColorCube @!v]]]]))))})
 
 ^{::clerk/width :wide
   ::clerk/viewer client-cube-viewer}

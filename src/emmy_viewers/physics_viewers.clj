@@ -1,13 +1,12 @@
-(ns physics-viewers
+(ns emmy-viewers.physics-viewers
   (:require [nextjournal.clerk :as clerk]
-            [sicmutils.env :as e]
-            [sicmutils.expression.compile :as xc]))
+            [emmy.env :as e]
+            [emmy.expression.compile :as xc]))
 
 (def opts
   ;; same as basic setup.
-  {:style {:height "400px" :width "100%"}
-   :init {:background-color 0xffffff
-          :camera-position [2.3 1 2]}})
+  {:container {:style {:height "400px" :width "100%"}}
+   :renderer  {:background-color 0xffffff}})
 
 (def physics-xform-fn
   (memoize

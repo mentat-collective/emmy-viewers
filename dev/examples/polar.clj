@@ -21,7 +21,7 @@
    :render-fn
    '(fn [{:keys [offset]}]
       (v/html
-       [mathbox/Mathbox {:style {:height "400px" :width "100%"}
+       [mathbox/MathBox {:style {:height "400px" :width "100%"}
                          :init {:background-color 0xffffff
                                 :focus 3}}
         [box/Camera {:proxy true

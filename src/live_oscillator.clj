@@ -5,9 +5,9 @@
              numerator denominator ref partial])
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]
+            [emmy.pattern.rule :refer [template]]
             [physics-viewers :as pv]
-            [sicmutils.env :as e :refer :all]))
+            [emmy.env :as e :refer :all]))
 
 ;; ## Oscillator Communication btw Server, Client
 ;;
@@ -53,7 +53,7 @@
     (fn [{:keys [var-name value]}]
       (v/html
        ;; mbr here is MY wrapper, and `box` is the original mathbox.
-       [mathbox/Mathbox ~pv/opts
+       [mathbox/MathBox ~pv/opts
         [mb/Cartesian (:cartesian value)
          [box/Axis {:axis 1 :width 3}]
          [box/Axis {:axis 2 :width 3}]

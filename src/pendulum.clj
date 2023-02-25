@@ -4,7 +4,7 @@
 ;; 1.44](https://tgvaughan.github.io/sicm/chapter001.html#Exe_1-44) from Sussman
 ;; and Wisdom's [Structure and Interpretation of Classical
 ;; Mechanics](https://tgvaughan.github.io/sicm/), using
-;; the [SICMUtils](https://github.com/sicmutils/sicmutils) Clojure library and
+;; the [Emmy](https://github.com/emmy/emmy) Clojure library and
 ;; the Clerk rendering environment.
 
 (ns pendulum
@@ -12,8 +12,8 @@
    :exclude [+ - * / partial ref zero? numerator denominator compare = run!])
   (:require [demo :as d]
             [nextjournal.clerk :as clerk]
-            [sicmutils.env :as e :refer :all]
-            [sicmutils.expression.render :as xr]))
+            [emmy.env :as e :refer :all]
+            [emmy.expression.render :as xr]))
 
 ;; ## Lagrangian
 ;;

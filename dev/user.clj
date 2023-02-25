@@ -8,8 +8,7 @@
  "https://unpkg.com/mafs@0.15.2/core.css"
  "https://unpkg.com/mafs@0.15.2/font.css"
 
-
- ;; hsxgraph
+ ;; JSXGraph
  "https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"
 
  ;; mathbox
@@ -28,14 +27,19 @@
  (constantly true))
 
 (def index
-  "src/demo.clj")
+  "src/emmy_viewers/demo.clj")
 
 (def notebooks
-  [#_"src/phase_portrait.clj"
+  [
+   "src/emmy_viewers/demo.clj"
+   "src/emmy_viewers/functions.clj"
+   "src/emmy_viewers/ellipsoid.clj"
+
+   #_"src/phase_portrait.clj"
    ]
-  #_["src/demo.clj"
-     "src/functions.clj"
-     "src/ellipsoid.clj"
+  #_[
+
+
      "src/phase_portrait.clj"
      "src/double_ellipsoid.clj"
      "src/pendulum.clj"
@@ -49,7 +53,7 @@
 (def defaults
   {:index index
    :browse? true
-   :watch-paths ["dev" "src"]
+   :watch-paths ["src" "dev"]
    :cljs-namespaces '[emmy-viewers.sci-extensions]})
 
 (def static-defaults

@@ -5,9 +5,9 @@
              numerator denominator ref partial])
   (:require [ellipsoid :as ell]
             [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]
+            [emmy.pattern.rule :refer [template]]
             [physics-viewers :as pv]
-            [sicmutils.env :as e :refer :all]))
+            [emmy.env :as e :refer :all]))
 
 ;; ## Ellipsoid with Two
 
@@ -43,7 +43,7 @@
    (template
     (fn [value]
       (v/html
-       [mathbox/Mathbox ~pv/opts
+       [mathbox/MathBox ~pv/opts
         [mb/Cartesian (:cartesian value)
          [box/Axis {:axis 1 :width 3}]
          [box/Axis {:axis 2 :width 3}]

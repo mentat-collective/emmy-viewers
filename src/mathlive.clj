@@ -3,7 +3,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ns mathlive
   (:require [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]))
+            [emmy.pattern.rule :refer [template]]))
 
 ^{::clerk/visibility {:code :hide}
   ::clerk/viewer

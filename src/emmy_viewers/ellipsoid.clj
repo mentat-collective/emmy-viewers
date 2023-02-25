@@ -3,11 +3,13 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [demo :as d]
+  (:require [emmy-viewers.demo :as d]
+            [mentat.clerk-utils.show :refer [show-sci]]
+            [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]
-            [physics-viewers :as pv]
-            [sicmutils.env :as e :refer :all]))
+            [nextjournal.clerk.viewer :as-alias viewer]
+            [emmy-viewers.physics-viewers :as pv]
+            [emmy.env :as e :refer :all]))
 
 ;; ## Ellipsoid Particle
 ;;
@@ -86,19 +88,36 @@
 ;;
 ;; Lucky us!! Let's do it!
 
+(show-sci
+ (defn ColorCube
+   [{:keys [dimensions size opacity]}]
+   [:<>
+    [Volume
+     {:dimensions dimensions
+      :items 1
+      :channels 4
+      :live false
+      :expr (fn [emit x y z]
+              (emit x y z opacity))}]
+    [box/Point
+     {:points "<"
+      :colors "<"
+      :color 0xffffff
+      :size size}]]))
+
 (clerk/with-viewer
   {:transform-fn pv/physics-xform
    :render-fn
-   (template
+   (q
     (fn [value]
-      (v/html
-       [mathbox/Mathbox ~pv/opts
+      (viewer/html
+       [mathbox/MathBox ~pv/opts
         [mb/Cartesian (:cartesian value)
-         [box/Axis {:axis 1 :width 3}]
-         [box/Axis {:axis 2 :width 3}]
-         [box/Axis {:axis 3 :width 3}]
-         [mb/Mass (select-keys value [:L :state->xyz :initial-state])]
-         [mb/Ellipse (:ellipse value)]]])))}
+         [mb/Axis {:axis 1 :width 3}]
+         [mb/Axis {:axis 2 :width 3}]
+         [mb/Axis {:axis 3 :width 3}]
+         [demo.mathbox/Mass (select-keys value [:L :state->xyz :initial-state])]
+         [demo.mathbox/Ellipse (:ellipse value)]]])))}
   (let [m 10000, a 1, b 2, c 1.5]
     {:degrees-of-freedom 2
      :state->xyz (elliptical->rect a b c)
@@ -107,9 +126,9 @@
                      [0.1 0.1]
                      [0.4 1]]
      :ellipse {:a a :b b :c c}
-     :cartesian {:range {:x [-10 10]
-                         :y [-10, 10]
-                         :z [-10, 10]}
+     :cartesian {:width [-10 10]
+                 :depth [-10 10]
+                 :height [-10 10]
                  :scale [3 3 3]}}))
 
 ;; ## Equations of Motion:

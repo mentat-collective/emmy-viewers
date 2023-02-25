@@ -1,7 +1,7 @@
 # emmy-viewers
 
 This is a very early stage set of demos and extensions for Emmy (soon to be
-named Emmy) and Clerk backed by Mathbox. More later!
+named Emmy) and Clerk backed by MathBox. More later!
 
 > If you find this work interesting, please consider sponsoring it via [Github
 > Sponsors](https://github.com/sponsors/sritchie). Thank you!
@@ -18,7 +18,7 @@ named Emmy) and Clerk backed by Mathbox. More later!
 - [In-progress executable version](https://github.com/mentat-collective/sicm-book) of
   Sussman and Wisdom's _Structure and Interpretation of Classical Mechanics_
   ([book link][SICM])
-- [Mathbox](https://gitgud.io/unconed/mathbox) by @unconed
+- [MathBox](https://gitgud.io/unconed/mathbox) by @unconed
 - [mathbox-react](https://github.com/ChristopherChudzicki/mathbox-react) by
   @ChristopherChudzicki
 
@@ -82,7 +82,7 @@ examples to try:
 ;; intro:
 (clerk/show! "src/demo.clj")
 
-;; Mathbox basics:
+;; MathBox basics:
 (clerk/show! "src/cube_controls.clj")
 
 ;; functions:

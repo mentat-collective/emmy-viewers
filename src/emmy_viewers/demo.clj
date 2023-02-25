@@ -1,13 +1,18 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
-(ns demo
+^#:nextjournal.clerk
+{:toc true
+ :visibility :hide-ns}
+(ns emmy-viewers.demo
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
-  (:require [nextjournal.clerk :as clerk]
+  (:require [mentat.clerk-utils.viewers :refer [q]]
+            [nextjournal.clerk :as clerk]
+            [nextjournal.clerk.viewer :as-alias viewer]
             [emmy.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
             [emmy.expression :as x]
-            [emmy.value :as v]))
+            [emmy.value :as v]
+            [reagent.core :as-alias reagent]))
 
-;; ## Hello, SICMUtils!
+;; ## Hello, Emmy!
 ;;
 ;; Is this thing on?
 
@@ -56,8 +61,8 @@
 
 (defn literal-viewer [xform]
   {;; Only apply to these forms.
-
    :pred x/literal?
+
    ;; We have to preserve keys because we want to access the keys in the render
    ;; function, and by default everything gets recursively wrapped. This feels a
    ;; little wacky.
@@ -65,8 +70,9 @@
                        (clerk/update-val
                         (memoize xform)))
    :render-fn
-   '(fn [x]
-      (v/html
+   (q
+    (fn [x]
+      (viewer/html
        (reagent/with-let [!sel (reagent/atom (ffirst x))]
          [:<>
           (into
@@ -82,8 +88,8 @@
                 x))
           ;; I guess here the value is a data structure with its viewer info
           ;; embedded.
-          [v/inspect-presented
-           (get x @!sel)]])))})
+          [viewer/inspect-presented
+           (get x @!sel)]]))))})
 
 (def multiviewer
   (literal-viewer transform-literal))

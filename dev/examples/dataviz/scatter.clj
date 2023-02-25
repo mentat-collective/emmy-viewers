@@ -2,7 +2,7 @@
 (ns examples.dataviz.scatter
   (:require [examples.dataviz.datasets :refer [iris-data]]
             [nextjournal.clerk :as clerk]
-            [pattern.rule :refer [template]]))
+            [emmy.pattern.rule :refer [template]]))
 
 ;; ## Scatter Plot
 ;;
@@ -43,7 +43,7 @@
                       (range (inc n)))))]
       (fn [{:keys [data maxes mins ranges scaled-mins colors]}]
         (v/html
-         [mathbox/Mathbox {:style {:height "400px" :width "100%"}
+         [mathbox/MathBox {:style {:height "400px" :width "100%"}
                            :init {:background-color 0xfafaf8
                                   :max-distance 5
                                   :camera-position [2.3 1 2]}}
