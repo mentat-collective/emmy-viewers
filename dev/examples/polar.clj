@@ -1,4 +1,6 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
+^#:nextjournal.clerk
+{:toc true
+ :visibility :hide-ns}
 (ns examples.polar
   (:require [nextjournal.clerk :as clerk]))
 
