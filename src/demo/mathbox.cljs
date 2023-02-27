@@ -39,34 +39,34 @@
    (Lagrangian-updater state-derivative initial-state {}))
   ([state-derivative initial-state {:keys [compile? parameters]
                                     :or {compile? false}}]
-   (let [{:keys [integrator equations]}
-         (ode/integration-opts state-derivative
+   (let [{:keys [integrator]}
+         (ode/integration-opts (if parameters
+                                 state-derivative
+                                 (fn [] state-derivative))
                                parameters
                                initial-state
                                {:epsilon 1e-6
                                 :compile? compile?})]
-     (fn [[t :as state] t2]
-       (let [s      (into-array (flatten state))
-             output (.solve integrator equations t s t2 nil)]
-         (-> (.-y ^js output)
-             (struct/unflatten state)))))))
+     (fn [t]
+       (-> (integrator t)
+           (struct/unflatten initial-state))))))
 
-(defn Lagrangian-collector
-  "hardcoded at first for this use case."
-  [state-derivative initial-state {:keys [compile? parameters]
-                                   :or {compile? false}}]
-  (let [{:keys [integrator equations]}
-        (ode/integration-opts state-derivative
-                              parameters
-                              initial-state
-                              {:epsilon 1e-6
-                               :compile? compile?})]
-    (set! (.-denseOutput integrator) true)
-    (fn [state t2 step-size emit]
-      (.solve integrator equations 0 state t2
-              (.grid integrator step-size
-                     (fn [_ y]
-                       (emit (aget y 1) (aget y 2))))))))
+#_(defn Lagrangian-collector
+    "hardcoded at first for this use case."
+    [state-derivative initial-state {:keys [compile? parameters]
+                                     :or {compile? false}}]
+    (let [{:keys [integrator equations]}
+          (ode/integration-opts state-derivative
+                                parameters
+                                initial-state
+                                {:epsilon 1e-6
+                                 :compile? compile?})]
+      (set! (.-denseOutput integrator) true)
+      (fn [state t2 step-size emit]
+        (.solve integrator equations 0 state t2
+                (.grid integrator step-size
+                       (fn [_ y]
+                         (emit (aget y 1) (aget y 2))))))))
 
 (defn Tail [{:keys [length] :as opts}]
   [:<>
@@ -114,9 +114,37 @@
         :opacity 0.99
         :path
         (fn [emit _ t]
-          (swap! !state #(my-updater % t))
+          (reset! !state (my-updater t))
           (let [[x y z] (render-fn @!state)]
             (emit x z y)))}])))
+
+(def ^:private two-pi (* 2 Math/PI))
+
+(defn Ellipse [{:keys [a b c]}]
+  [:<>
+   [mb/Area
+    {:width 64
+     :height 64
+     :rangeX [0 two-pi]
+     :rangeY [0 two-pi]
+     :axes [1 3]
+     :expr (fn [emit theta phi _i _j _time]
+             (let [sin-theta (Math/sin theta)
+                   cos-theta (Math/cos theta)]
+               ;; xzy
+               (emit (* a sin-theta (Math/cos phi))
+                     (* c cos-theta)
+                     (* b sin-theta (Math/sin phi)))))
+     :items 1
+     :channels 3}]
+   [mb/Surface
+    {:shaded true
+     :opacity 0.2
+     :lineX true
+     :lineY true
+     :points "<"
+     :color 0xffffff
+     :width 1}]])
 
 (comment
   (defn DoubleMass
@@ -135,7 +163,7 @@
            :history 16
            :expr
            (fn [emit _ t]
-             (swap! !state #(my-updater % t))
+             (reset! !state (my-updater t))
              (let [[x1 y1 z1 x2 y2 z2] (render-fn @!state)]
                (emit x1 z1 y1)
                (emit x2 z2 y2)))}]
@@ -144,34 +172,6 @@
            :color 0x3090ff
            :size 10
            :zIndex 1}]])))
-
-  (def ^:private two-pi (* 2 Math/PI))
-
-  (defn Ellipse [{:keys [a b c]}]
-    [:<>
-     [mb/Area
-      {:width 64
-       :height 64
-       :rangeX [0 two-pi]
-       :rangeY [0 two-pi]
-       :axes [1 3]
-       :expr (fn [emit theta phi _i _j _time]
-               (let [sin-theta (Math/sin theta)
-                     cos-theta (Math/cos theta)]
-                 ;; xzy
-                 (emit (* a sin-theta (Math/cos phi))
-                       (* c cos-theta)
-                       (* b sin-theta (Math/sin phi)))))
-       :items 1
-       :channels 3}]
-     [mb/Surface
-      {:shaded true
-       :opacity 0.2
-       :lineX true
-       :lineY true
-       :points "<"
-       :color 0xffffff
-       :width 1}]])
 
   ;; ## Hamiltonian Example
 
@@ -239,7 +239,7 @@
       {:channels 2
        :items 2
        :expr (fn [emit _i now]
-               (swap! !state #(let [new-state (simulate % now)]
+               (reset! !state (let [new-state (simulate now)]
                                 (update new-state 1 normalize)))
                (let [l (aget @parameters 2)
                      [_ theta] @!state]
@@ -481,7 +481,7 @@
       [:<>
        #_#_[cr/inspect (sv/katex-viewer (L-equations ['g 'm 'l]) {})]
        [cr/inspect (sv/katex-viewer (L-equations ['g 'm 'l]) {})]
-       [mathmb/MathBox
+       [mathbox/MathBox
         {:style {:height "600px" :width "100%"}
          :options {:plugins ["core" "controls" "cursor" "stats"]}
          :init  (fn [mb]

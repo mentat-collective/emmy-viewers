@@ -1,15 +1,18 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
+
 (ns ellipsoid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [emmy-viewers.demo :as d]
+  (:require [emmy.env :as e :refer :all]
+            [emmy-viewers.demo :as d]
+            [emmy-viewers.physics-viewers :as pv]
+            [mathbox.core :as-alias mathbox]
+            [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.show :refer [show-sci]]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy-viewers.physics-viewers :as pv]
-            [emmy.env :as e :refer :all]))
+            ))
 
 ;; ## Ellipsoid Particle
 ;;
@@ -56,12 +59,14 @@
                 (up 'thetadot 'phidot))]
   ((L-central-triaxial 'm 'a 'b 'c) local))
 
-;; simpler if we use `'r` for everything:
+;; simpler if we use `'r` for everything, we'll get the Lagrangian for a
+;; particle confined to a sphere:
 
 (let [local (up 't
                 (up 'theta 'phi)
                 (up 'thetadot 'phidot))]
   ((L-central-triaxial 'm 'r 'r 'r) local))
+
 
 ;; I'm sure there's some simplification in there for us. But why?
 ;;
@@ -76,34 +81,17 @@
 
 ;; And for the sphere:
 
-(clerk/with-viewer d/multiviewer
-  (let [L (L-central-triaxial 'm 'r 'r 'r)
-        theta (literal-function 'theta)
-        phi (literal-function 'phi)]
-    (((Lagrange-equations L) (up theta phi))
-     't)))
+#_(clerk/with-viewer d/multiviewer
+    (let [L (L-central-triaxial 'm 'r 'r 'r)
+          theta (literal-function 'theta)
+          phi (literal-function 'phi)]
+      (((Lagrange-equations L) (up theta phi))
+       't)))
 
 ;; This is fairly horrifying. This really demands animation, as I bet it looks
 ;; cool, but it's not comprehensible in this form.
 ;;
 ;; Lucky us!! Let's do it!
-
-(show-sci
- (defn ColorCube
-   [{:keys [dimensions size opacity]}]
-   [:<>
-    [Volume
-     {:dimensions dimensions
-      :items 1
-      :channels 4
-      :live false
-      :expr (fn [emit x y z]
-              (emit x y z opacity))}]
-    [box/Point
-     {:points "<"
-      :colors "<"
-      :color 0xffffff
-      :size size}]]))
 
 (clerk/with-viewer
   {:transform-fn pv/physics-xform
@@ -116,19 +104,23 @@
          [mb/Axis {:axis 1 :width 3}]
          [mb/Axis {:axis 2 :width 3}]
          [mb/Axis {:axis 3 :width 3}]
-         [demo.mathbox/Mass (select-keys value [:L :state->xyz :initial-state])]
+         [demo.mathbox/Mass
+          (select-keys value [:L :state->xyz :initial-state])]
          [demo.mathbox/Ellipse (:ellipse value)]]])))}
-  (let [m 10000, a 1, b 2, c 1.5]
+  (let [m 10000
+        a 1
+        b 2
+        c 1.5]
     {:degrees-of-freedom 2
      :state->xyz (elliptical->rect a b c)
      :L (L-central-triaxial m a b c)
      :initial-state [0
-                     [0.1 0.1]
-                     [0.4 1]]
+                     [0.001 0.001]
+                     [0 0]]
      :ellipse {:a a :b b :c c}
-     :cartesian {:width [-10 10]
-                 :depth [-10 10]
-                 :height [-10 10]
+     :cartesian {:range [[-10 10]
+                         [-10 10]
+                         [-10 10]]
                  :scale [3 3 3]}}))
 
 ;; ## Equations of Motion:
