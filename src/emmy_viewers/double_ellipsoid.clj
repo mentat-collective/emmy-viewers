@@ -3,11 +3,14 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [ellipsoid :as ell]
+  (:require [emmy.env :as e :refer :all]
+            [emmy-viewers.ellipsoid :as ell]
+            [emmy-viewers.physics-viewers :as pv]
+            [mathbox.core :as-alias mathbox]
+            [mathbox.primitives :as-alias mb]
+            [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
-            [emmy.pattern.rule :refer [template]]
-            [physics-viewers :as pv]
-            [emmy.env :as e :refer :all]))
+            [nextjournal.clerk.viewer :as-alias viewer]))
 
 ;; ## Ellipsoid with Two
 
@@ -40,26 +43,27 @@
 (clerk/with-viewer
   {:transform-fn pv/physics-xform
    :render-fn
-   (template
+   (q
     (fn [value]
-      (v/html
+      (viewer/html
        [mathbox/MathBox ~pv/opts
         [mb/Cartesian (:cartesian value)
-         [box/Axis {:axis 1 :width 3}]
-         [box/Axis {:axis 2 :width 3}]
-         [box/Axis {:axis 3 :width 3}]
-         [mb/Ellipse (:ellipse value)]
-         [mb/DoubleMass (select-keys value [:L :state->xyz :initial-state])]]])))}
-  (let [m 10, a 2, b 1, c 1]
+         [mb/Axis {:axis 1 :width 3}]
+         [mb/Axis {:axis 2 :width 3}]
+         [mb/Axis {:axis 3 :width 3}]
+         [demo.mathbox/Ellipse (:ellipse value)]
+         [demo.mathbox/DoubleMass
+          (select-keys value [:L :state->xyz :initial-state])]]])))}
+  (let [m 10 a 2 b 1 c 1]
     {:state->xyz (elliptical->rect a b c)
      :L          (L-central-triaxial m a b c)
      :initial-state [0 [0.1 0.1 2 2]
                      [0.3 0.3 0 0]]
      :ellipse {:a a :b b :c c}
      :cartesian
-     {:range {:x [-10 10]
-              :y [-10 10]
-              :z [-10 10]}
+     {:range [[-10 10]
+              [-10 10]
+              [-10 10]]
       :scale [3 3 3]}}))
 
 ;; ### The equations of Motion are too extreme!

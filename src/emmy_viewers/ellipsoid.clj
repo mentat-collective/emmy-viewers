@@ -1,5 +1,4 @@
-
-(ns ellipsoid
+(ns emmy-viewers.ellipsoid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
@@ -8,11 +7,9 @@
             [emmy-viewers.physics-viewers :as pv]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
-            [mentat.clerk-utils.show :refer [show-sci]]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as-alias viewer]
-            ))
+            [nextjournal.clerk.viewer :as-alias viewer]))
 
 ;; ## Ellipsoid Particle
 ;;

@@ -1,12 +1,15 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(ns oscillator
+(ns emmy-viewers.oscillator
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [demo :as d]
+  (:require [emmy-viewers.demo :as d]
+            [mathbox.core :as-alias mathbox]
+            [mathbox.primitives :as-alias mb]
+            [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
-            [emmy.pattern.rule :refer [template]]
-            [physics-viewers :as pv]
+            [nextjournal.clerk.viewer :as-alias viewer]
+            [emmy-viewers.physics-viewers :as pv]
             [emmy.env :as e :refer :all]))
 
 ;; ## Oscillator
@@ -28,27 +31,27 @@
 (clerk/with-viewer
   {:transform-fn pv/physics-xform
    :render-fn
-   (template
+   (q
     (fn [value]
-      (v/html
+      (viewer/html
        ;; mbr here is MY wrapper, and `box` is the original mathbox.
        [mathbox/MathBox ~pv/opts
         [mb/Cartesian (:cartesian value)
-         [box/Axis {:axis 1 :width 3}]
-         [box/Axis {:axis 2 :width 3}]
-         [box/Axis {:axis 3 :width 3}]
-         [mb/Mass
-
+         [mb/Axis {:axis 1 :width 3}]
+         [mb/Axis {:axis 2 :width 3}]
+         [mb/Axis {:axis 3 :width 3}]
+         [demo.mathbox/Mass
           (select-keys value [:L :state->xyz :initial-state])]]])))}
   {:state->xyz coordinate
    :L (L-harmonic m k)
    :initial-state [0
                    [1 2 0]
                    [2 0 4]]
-   :cartesian {:range {:x [-10 10]
-                       :y [-10 10]
-                       :z [-10 10]}
-               :scale [3 3 3]}})
+   :cartesian
+   {:range [[-10 10]
+            [-10 10]
+            [-10 10]]
+    :scale [3 3 3]}})
 
 ;; ## Equations of Motion:
 

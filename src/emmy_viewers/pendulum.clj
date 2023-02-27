@@ -7,10 +7,10 @@
 ;; the [Emmy](https://github.com/emmy/emmy) Clojure library and
 ;; the Clerk rendering environment.
 
-(ns pendulum
+(ns emmy-viewers.pendulum
   (:refer-clojure
    :exclude [+ - * / partial ref zero? numerator denominator compare = run!])
-  (:require [demo :as d]
+  (:require [emmy-viewers.demo :as d]
             [nextjournal.clerk :as clerk]
             [emmy.env :as e :refer :all]
             [emmy.expression.render :as xr]))

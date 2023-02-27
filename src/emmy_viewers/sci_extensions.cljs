@@ -1,6 +1,5 @@
 (ns emmy-viewers.sci-extensions
   (:require [demo.mathbox]
-            [demo.jsxgraph]
             [demo.mathlive]
             [leva.sci]
             [emmy.env.sci]

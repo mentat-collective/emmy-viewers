@@ -29,10 +29,6 @@
      [mb/Line {:color 0x3090ff :width 4}]
      [mb/Point {:color 0x3090ff :size 8}]]))
 
-(defn state-deriv* [g m l]
-  (l/Lagrangian->state-derivative
-   (l/L-pendulum g m l)))
-
 (defn Lagrangian-updater
   "hardcoded at first for this use case."
   ([state-derivative initial-state]
@@ -146,33 +142,33 @@
      :color 0xffffff
      :width 1}]])
 
-(comment
-  (defn DoubleMass
-    "Obviously these should be merged!"
-    [{:keys [state->xyz L initial-state]}]
-    (let [render-fn   (xc/sci-eval state->xyz)
-          state-deriv (xc/sci-eval L)
-          my-updater  (Lagrangian-updater state-deriv initial-state)]
-      (r/with-let [!state (r/atom initial-state)]
-        [:<>
-         [mb/Array
-          {:items 1
-           ;; because we have two items to emit.
-           :width 2
-           :channels 3
-           :history 16
-           :expr
-           (fn [emit _ t]
-             (reset! !state (my-updater t))
-             (let [[x1 y1 z1 x2 y2 z2] (render-fn @!state)]
-               (emit x1 z1 y1)
-               (emit x2 z2 y2)))}]
-         [Tail
-          {:length 16
-           :color 0x3090ff
-           :size 10
-           :zIndex 1}]])))
+(defn DoubleMass
+  "Obviously these should be merged!"
+  [{:keys [state->xyz L initial-state]}]
+  (let [render-fn   (xc/sci-eval state->xyz)
+        state-deriv (xc/sci-eval L)
+        my-updater  (Lagrangian-updater state-deriv initial-state)]
+    (r/with-let [!state (r/atom initial-state)]
+      [:<>
+       [mb/Array
+        {:items 1
+         ;; because we have two items to emit.
+         :width 2
+         :channels 3
+         :history 16
+         :expr
+         (fn [emit _ t]
+           (reset! !state (my-updater t))
+           (let [[x1 y1 z1 x2 y2 z2] (render-fn @!state)]
+             (emit x1 z1 y1)
+             (emit x2 z2 y2)))}]
+       [Tail
+        {:length 16
+         :color 0x3090ff
+         :size 10
+         :zIndex 1}]])))
 
+(comment
   ;; ## Hamiltonian Example
 
   (defn sq [x] (* x x))
@@ -254,6 +250,10 @@
 
      [mb/Slice {:items [1 2]}]
      [mb/Point {:color 0xffffff :size 10}]])
+
+  (defn state-deriv* [g m l]
+    (l/Lagrangian->state-derivative
+     (l/L-pendulum g m l)))
 
   (defn Pendulum [!state !params]
     [:f> WithSimulator2*
