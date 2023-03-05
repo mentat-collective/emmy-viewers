@@ -1,11 +1,11 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(ns double-ellipsoid
+(ns examples.simulation.double-ellipsoid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
   (:require [emmy.env :as e :refer :all]
-            [emmy-viewers.ellipsoid :as ell]
-            [emmy-viewers.physics-viewers :as pv]
+            [examples.simulation.ellipsoid :as ell]
+            [emmy-viewers.physics :as pv]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]
@@ -54,6 +54,7 @@
          [demo.mathbox/Ellipse (:ellipse value)]
          [demo.mathbox/DoubleMass
           (select-keys value [:L :state->xyz :initial-state])]]])))}
+
   (let [m 10 a 2 b 1 c 1]
     {:state->xyz (elliptical->rect a b c)
      :L          (L-central-triaxial m a b c)

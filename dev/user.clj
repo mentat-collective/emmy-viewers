@@ -27,34 +27,17 @@
  (constantly true))
 
 (def index
-  "src/emmy_viewers/demo.clj")
+  "dev/examples/demo.clj")
 
 (def notebooks
-  [
-   "src/emmy_viewers/demo.clj"
-   "src/emmy_viewers/functions.clj"
-   "src/emmy_viewers/ellipsoid.clj"
-
-   #_"src/phase_portrait.clj"
-   ]
-  #_[
-
-
-     "src/phase_portrait.clj"
-     "src/double_ellipsoid.clj"
-     "src/pendulum.clj"
-     "src/oscillator.clj"
-     "src/live_oscillator.clj"
-     "src/jsxgraph.clj"
-     "src/circles.clj"
-     "src/mathlive.clj"
-     "src/cube_controls.clj"])
+  ["dev/examples/**.clj"])
 
 (def defaults
   {:index index
    :browse? true
    :watch-paths ["src" "dev"]
-   :cljs-namespaces '[emmy-viewers.sci-extensions]})
+   :cljs-namespaces '[emmy-viewers.sci-extensions
+                      examples.phase-portrait]})
 
 (def static-defaults
   (assoc defaults

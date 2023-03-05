@@ -1,15 +1,15 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(ns emmy-viewers.oscillator
+(ns examples.simulation.oscillator
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [emmy-viewers.demo :as d]
+  (:require [examples.expression :as d]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy-viewers.physics-viewers :as pv]
+            [emmy-viewers.physics :as pv]
             [emmy.env :as e :refer :all]))
 
 ;; ## Oscillator

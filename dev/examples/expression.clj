@@ -1,7 +1,7 @@
 ^#:nextjournal.clerk
 {:toc true
  :visibility :hide-ns}
-(ns emmy-viewers.demo
+(ns examples.expression
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [mentat.clerk-utils.viewers :refer [q]]

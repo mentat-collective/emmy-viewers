@@ -1,10 +1,10 @@
-(ns emmy-viewers.ellipsoid
+(ns examples.simulation.ellipsoid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
   (:require [emmy.env :as e :refer :all]
-            [emmy-viewers.demo :as d]
-            [emmy-viewers.physics-viewers :as pv]
+            [examples.expression :as d]
+            [emmy-viewers.physics :as pv]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]
@@ -43,11 +43,17 @@
   (fn [[_ _ v]]
     (* 1/2 m (square v))))
 
+((L-free-particle 'm)
+ (up 't
+     (up 'theta 'phi)
+     (up 'v_theta 'v_phi)))
+
 (defn L-central-triaxial [m a b c]
-  (comp (- (L-free-particle m)
-           (fn [[_ [_ _ z]]]
-             (* 9.8 m z)))
-        (F->C (elliptical->rect a b c))))
+  (comp
+   (- (L-free-particle m)
+      (fn [[_ [_ _ z]]]
+        (* 9.8 m z)))
+   (F->C (elliptical->rect a b c))))
 
 ;; Final Lagrangian:
 
@@ -105,7 +111,7 @@
           (select-keys value [:L :state->xyz :initial-state])]
          [demo.mathbox/Ellipse (:ellipse value)]]])))}
   (let [m 10000
-        a 1
+        a 3
         b 2
         c 1.5]
     {:degrees-of-freedom 2

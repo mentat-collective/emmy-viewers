@@ -1,4 +1,4 @@
-(ns emmy-viewers.physics-viewers
+(ns emmy-viewers.physics
   (:require [nextjournal.clerk :as clerk]
             [emmy.env :as e]
             [emmy.expression.compile :as xc]))

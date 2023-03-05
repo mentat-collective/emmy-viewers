@@ -1,11 +1,11 @@
 ^#:nextjournal.clerk
 {:toc true
  :visibility :hide-ns}
-(ns emmy-viewers.functions
+(ns examples.functions
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
-  (:require [emmy-viewers.demo :as d]
+  (:require [examples.expression :as d]
             [mentat.clerk-utils.viewers :refer [q]]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]

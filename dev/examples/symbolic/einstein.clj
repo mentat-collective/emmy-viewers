@@ -1,4 +1,4 @@
-(ns emmy-viewers.einstein
+(ns examples.einstein
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])

@@ -22,6 +22,5 @@
  {:namespaces
   (assoc emmy.env.sci/namespaces
          'demo.mathbox  (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
-         'demo.jsxgraph (sci/copy-ns demo.jsxgraph (sci/create-ns 'demo.jsxgraph))
          'demo.mathlive (sci/copy-ns demo.mathlive (sci/create-ns 'demo.mathlive)))
   :js-libs {"three" three}})
