@@ -1,122 +1,100 @@
-# emmy-viewers
+# Emmy-viewers
 
-This is a very early stage set of demos and extensions for Emmy (soon to be
-named Emmy) and Clerk backed by MathBox. More later!
+A library of [Clerk][clerk-url] viewers and [Reagent][reagent-url] components
+designed for visual representation and exploration of mathematical objects in
+the [Emmy][emmy-url] computer algebra system.
 
-> If you find this work interesting, please consider sponsoring it via [Github
-> Sponsors](https://github.com/sponsors/sritchie). Thank you!
+[![Build Status][build-status]][build-status-url]
+[![License][license]][license-url]
+[![cljdoc badge][cljdoc]][cljdoc-url]
+[![Clojars Project][clojars]][clojars-url]
+[![Discord Shield][discord]][discord-url]
 
-## Links
+These viewers are built on the following libraries:
 
-- [Emmy repository][EMMY]
-- The [Road to Reality Newsletter](https://roadtoreality.substack.com/)
-- [Road to Reality Discord
-  Server](https://roadtoreality.substack.com/p/road-to-reality-discord-server?s=w)
-- [Clerk][CLERK], the notebook rendering engine used by Emmy
-- [In-progress executable version](https://github.com/mentat-collective/fdg-book) of
-  _Functional Differential Geometry_ ([book link][FDG])
-- [In-progress executable version](https://github.com/mentat-collective/sicm-book) of
-  Sussman and Wisdom's _Structure and Interpretation of Classical Mechanics_
-  ([book link][SICM])
-- [MathBox](https://gitgud.io/unconed/mathbox) by @unconed
-- [mathbox-react](https://github.com/ChristopherChudzicki/mathbox-react) by
-  @ChristopherChudzicki
+- [Mathbox.cljs][mathbox-url]
+- [JSXGraph.cljs][jsxgraph-url]
+- [Mafs.cljs][mafs-url]
+- [Leva.cljs][leva-url]
+
+## Quickstart
+
+Install `emmy-viewers` into your ClojureScript project using the instructions at
+its Clojars page:
+
+[![Clojars Project][clojars]][clojars-url]
+
+Or grab the most recent code using a Git dependency:
+
+```clj
+;; deps
+{io.github.mentat-collective/emmy-viewers
+  {:git/sha "$GIT_SHA"}}
+```
+
+The project is currently in alpha stage, so you'll have to do your own
+source-code reading to figure out what's available. See the [demo
+directory][emmy-viewers-url] for examples and inspiration, then go read the
+associated code for each notebook linked at the top of its page.
 
 ## Demo Instructions
 
-The demos include both Clojure and Clojurescript code. Two environments means
-two build tools, so you'll need to have these installed:
+The project's [demos][emmy-viewers-url] are generated using Nextjournal's
+[Clerk][clerk-url]. If you'd like to edit or play with the demos, you'll need to
+install
 
-- [clj](https://clojure.org/guides/getting_started), for running the JVM side
-- [shadow-cljs](https://shadow-cljs.github.io/docs/UsersGuide.html#_installation)
-  for building the JS bundle used by the demos. This is a lovely system that
-  will automatically rebuild the bundle any time you save a cljs file.
-  - You'll also need [node.js](https://nodejs.org/en/download/package-manager/)
-    installed, to install the initial `npm` dependencies.
+- [node.js](https://nodejs.org/en/)
+- The [Clojure command line tool](https://clojure.org/guides/install_clojure)
+- [Babashka](https://github.com/babashka/babashka#installation)
 
-When those are all set (the links include installation instructions),
-
-Clone the repository:
+Next, clone the repository:
 
 ```bash
 git clone git@github.com:mentat-collective/emmy-viewers.git
 cd emmy-viewers
 ```
 
-Generate the JS bundle for the demos by running the following commands in one
-terminal window:
+Run this command in the cloned repository:
 
-```bash
-npm install
-shadow-cljs watch sicm-browser
+```sh
+bb clerk-watch
 ```
 
-In another tab, start a Clojure repl with `clj`. This REPL has the full [Emmy
-API](https://cljdoc.org/d/org.mentat/emmy/CURRENT/api/emmy.env)
-available, so run some tests for fun:
+This will open a browser window to `http://localhost:7777` with the contents of
+the documentation notebook. Any edits you make to any file in the `src` or `dev`
+directories will be picked up and displayed in the browser on save.
 
-```clojure
-(->infix (((exp D) (literal-function 'f)) 'x))
-;;=> "f(x) + Df(x) + 1/2 D²f(x) + 1/6 D³f(x) + ..."
-```
+## Thanks and Support
 
-Next, start a webserver for Clerk, (the literate programming viewer) by running
-the following commands:
+To support this work and my other open source projects, consider sponsoring me
+via my [GitHub Sponsors page](https://github.com/sponsors/sritchie). Thank you
+to my current sponsors!
 
-```clojure
-;; point Clerk at our newly-generated JS bundle instead of its default:
-(swap! clerk-config/!resource->url
-       assoc
-       "/js/viewer.js"
-       "http://localhost:9000/out/main.js")
+## License
 
-;; Start the clerk server.
-(clerk/serve!
- {:browse? true :port 7777})
-```
+Copyright © 2022-2023 Sam Ritchie.
 
-Now run `(clerk/show! <path/to/file.clj>)` to run any of the demos. Some
-examples to try:
+Distributed under the [MIT License](LICENSE). See [LICENSE](LICENSE).
 
-```clojure
-;; intro:
-(clerk/show! "src/demo.clj")
-
-;; MathBox basics:
-(clerk/show! "src/cube_controls.clj")
-
-;; functions:
-(clerk/show! "src/functions.clj")
-(clerk/show! "src/polar.clj")
-
-;; symbolic physics:
-(clerk/show! "src/einstein.clj")
-
-;; vega, symbolic, double-pendulum
-(clerk/show! "src/pendulum.clj")
-
-;; mathbox physics:
-(clerk/show! "src/oscillator.clj")
-(clerk/show! "src/ellipsoid.clj")
-(clerk/show! "src/double_ellipsoid.clj")
-
-;; browser/client comms:
-(clerk/show! "src/live_oscillator.clj")
-```
-
-> NOTE: Clojure is far more pleasant if you can get a REPL running from inside
-> of your favorite code editor. I'll update this repo with links to a good
-> "Getting Started" resource; but please open an issue if you're having trouble
-> and I'll get you sorted.
-
-If you're running a REPL from inside your editor, see the [Clerk
-homepage](https://github.com/nextjournal/clerk#editor-workflow) for instructions
-on how to trigger `clerk-show!` with a key command, making dynamic interaction
-much more fun.
-
-Enjoy!
-
-[CLERK]: https://github.com/nextjournal/clerk
-[EMMY]: https://github.com/mentat-collective/emmy
-[SICM]: http://mitpress.mit.edu/books/structure-and-interpretation-classical-mechanics
-[FDG]: http://mitpress.mit.edu/books/functional-differential-geometry
+[build-status-url]: https://github.com/mentat-collective/emmy-viewers/actions/workflows/kondo.yml
+[build-status]: https://github.com/mentat-collective/emmy-viewers/actions/workflows/kondo.yml/badge.svg?branch=main
+[cljdoc-url]: https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT
+[cljdoc]: https://cljdoc.org/badge/org.mentat/emmy-viewers
+[clojars-url]: https://clojars.org/org.mentat/emmy-viewers
+[clojars]: https://img.shields.io/clojars/v/org.mentat/emmy-viewers.svg
+[discord-url]: https://discord.gg/hsRBqGEeQ4
+[discord]: https://img.shields.io/discord/731131562002743336?style=flat&colorA=000000&colorB=000000&label=&logo=discord
+[license-url]: LICENSE
+[license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[mentat-slack-url]: https://clojurians.slack.com/archives/C041G9B1AAK
+[github-url]: https://github.com/mentat-collective/emmy-viewers
+[reagent-url]: https://reagent-project.github.io/
+[clerk-url]: https://github.com/nextjournal/clerk
+[emmy-url]: https://github.com/mentat-collective/emmy
+[emmy-viewers-url]: https://emmy-viewers.mentat.org
+[mathbox-url]: https://mathbox.mentat.org
+[mafs-url]: https://mafs.mentat.org
+[jsxgraph-url]: https://jsxgraph.mentat.org
+[leva-url]: https://leva.mentat.org
+[sicm-url]: http://mitpress.mit.edu/books/structure-and-interpretation-classical-mechanics
+[fdg-url]: http://mitpress.mit.edu/books/functional-differential-geometry
