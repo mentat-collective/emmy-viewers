@@ -27,7 +27,7 @@
  (constantly true))
 
 (def index
-  "dev/examples/demo.clj")
+  "dev/examples/index.md")
 
 (def notebooks
   ["dev/examples/**.clj"])
@@ -37,7 +37,7 @@
    :browse? true
    :watch-paths ["src" "dev"]
    :cljs-namespaces '[emmy-viewers.sci-extensions
-                      examples.phase-portrait]})
+                      examples.simulation.phase-portrait]})
 
 (def static-defaults
   (assoc defaults
