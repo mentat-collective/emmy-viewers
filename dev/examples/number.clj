@@ -18,13 +18,14 @@
 
 (def n-viewer
   {:transform-fn
-   (comp clerk/mark-presented
-         (clerk/update-val
-          (fn lp [x]
-            (cond (instance? clojure.lang.IDeref x) (lp @x)
-                  (vector? x) x
-                  (map? x) (vals x)
-                  :else [x]))))
+   (comp
+    clerk/mark-presented
+    (clerk/update-val
+     (fn lp [x]
+       (cond (instance? clojure.lang.IDeref x) (lp @x)
+             (vector? x) x
+             (map? x) (vals x)
+             :else [x]))))
    :render-fn
    '(fn [xs]
       [mafs.core/Mafs
@@ -71,3 +72,12 @@
     :z -3}))
 
 @!numbers
+
+;; ## Notes:
+;;
+;; We need better bounds calculations, possibly labels for points..
+;;
+;; Here is the Mathematica version:
+;; https://reference.wolfram.com/language/ref/NumberLinePlot.html
+;;
+;; I think we for sure want a `NumberLinePlot` type thing.
