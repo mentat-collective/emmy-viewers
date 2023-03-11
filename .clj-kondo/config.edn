@@ -1,6 +1,1 @@
-{:config-paths
- ["babashka/sci"
-  "babashka/fs"
-  "rewrite-clj/rewrite-clj"
-  "sicmutils/sicmutils"]
- :lint-as {reagent.core/with-let clojure.core/let}}
+{:lint-as {reagent.core/with-let clojure.core/let}}

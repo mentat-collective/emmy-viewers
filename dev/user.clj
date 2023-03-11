@@ -1,113 +1,59 @@
 (ns user
-  (:require [hiccup.page :as hiccup]
-            [nextjournal.clerk.config :as config]
-            [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.view]
-            [sicmutils.env :refer :all]
-            [sicmutils.expression.render :as xr]))
+  (:require [mentat.clerk-utils.build :as b]
+            [mentat.clerk-utils.css :as css]))
 
-;; To get everything running, first follow the README instructions:
-;;
-;;```
-;; shadow-cljs watch clerk
-;;```
-;;
-;; Then jack in, come here and run the commands in the comment.
-;;
-;; Better rendering for slides.
+(css/set-css!
+ ;; mafs
+ "https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
+ "https://unpkg.com/mafs@0.15.2/core.css"
+ "https://unpkg.com/mafs@0.15.2/font.css"
+
+ ;; JSXGraph
+ "https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"
+
+ ;; mathbox
+ "https://unpkg.com/mathbox@2.3.1/build/mathbox.css"
+
+ ;; mathlive
+ "https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
+ "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
+
+(try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
+(require '[emmy.env :refer :all])
+(require '[emmy.expression.render :as xr])
 
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
 
-;; Same with my `[sicmutils.env :refer :all]` to get the REPL working.
-
-(defn rebind [^clojure.lang.Var v f]
-  (let [old (.getRawRoot v)]
-    (.bindRoot v (f old))))
-
-(defonce _ignore
-  (rebind
-   #'nextjournal.clerk.view/include-viewer-css
-   (fn [old]
-     (fn []
-       (concat
-        (list
-         (hiccup/include-css
-          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-static.css")
-         (hiccup/include-css
-          "https://unpkg.com/mathlive@0.83.0/dist/mathlive-fonts.css"))
-        (old))))))
+(def index
+  "dev/examples/index.md")
 
 (def notebooks
-  ["src/demo.clj"
-   "src/functions.clj"
-   "src/ellipsoid.clj"
-   "src/double_ellipsoid.clj"
-   "src/pendulum.clj"
-   "src/oscillator.clj"
-   "src/live_oscillator.clj"
-   "src/jsxgraph.clj"
-   "src/circles.clj"
-   "src/mathlive.clj"
-   "src/cube_controls.clj"])
+  ["dev/examples/**.clj"])
 
-(defn start! []
-  (swap! config/!resource->url
-         merge
-         {"/js/viewer.js" "http://localhost:9000/js/main.js"})
-  (clerk/serve!
-   {:browse? true
-    :watch-paths ["src"]
-    :port 7777})
-  (Thread/sleep 500)
-  (clerk/show! "src/demo.clj"))
+(def defaults
+  {:index index
+   :browse? true
+   :watch-paths ["src" "dev"]
+   :cljs-namespaces '[emmy-viewers.sci-extensions
+                      examples.simulation.phase-portrait]})
 
-(defn github-pages! [_]
-  (swap! config/!resource->url merge {"/js/viewer.js" "/sicmutils-viewers/js/main.js"})
-  (clerk/build!
-   {:paths notebooks
-    :bundle? false
-    :browse? false
-    :out-path "public"}))
+(def static-defaults
+  (assoc defaults
+         :browse? false
+         :paths notebooks
+         :cname "emmy-viewers.mentat.org"
+         :git/url "https://github.com/mentat-collective/emmy-viewers"))
 
-(defn publish-local!
-  ([] (publish-local! nil))
-  ([_]
-   (swap! config/!resource->url merge {"/js/viewer.js" "/js/main.js"})
-   (clerk/build!
-    {:paths notebooks
-     :bundle? false
-     :browse? false
-     :out-path "public"})))
+(defn serve!
+  ([] (serve! {}))
+  ([opts]
+   (b/serve!
+    (merge defaults opts))))
 
-(comment
-  (start!)
-  (clerk/serve! {:browse? true})
-  (publish-local!))
+(def halt! b/halt!)
 
-(comment
-  ;; If the watcher's not running, call clerk/show on files to be rendered:
-
-  ;; intro:
-  (clerk/show! "src/demo.clj")
-
-  ;; Mathbox basics:
-  (clerk/show! "src/cube_controls.clj")
-
-  ;; functions:
-  (clerk/show! "src/functions.clj")
-
-  ;; symbolic physics:
-  (clerk/show! "src/einstein.clj")
-
-  ;; vega, symbolic, double-pendulum
-  (clerk/show! "src/pendulum.clj")
-
-  ;; mathbox physics:
-  (clerk/show! "src/oscillator.clj")
-  (clerk/show! "src/ellipsoid.clj")
-  (clerk/show! "src/double_ellipsoid.clj")
-
-  ;; browser/client comms:
-  (clerk/show! "src/live_oscillator.clj"))
+(defn build! [opts]
+  (b/build!
+   (merge static-defaults opts)))

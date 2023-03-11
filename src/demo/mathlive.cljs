@@ -1,9 +1,9 @@
 (ns demo.mathlive
   (:require [clojure.core.match :refer [match] :include-macros true]
-            [sicmutils.complex :as c]
-            [sicmutils.structure :as ss]
-            [sicmutils.env :as e]
-            [sicmutils.numsymb :refer [symbolic-operator]]))
+            [emmy.complex :as c]
+            [emmy.structure :as ss]
+            [emmy.env :as e]
+            [emmy.numsymb :refer [symbolic-operator]]))
 
 ;; ## String
 (def constants
@@ -23,7 +23,7 @@
    "Subtract" '- "Negate" '-
    "Multiply"'*
    "Divide" '/ "Rational" '/
-   "Power" 'expt ;; root handled below... TODO add root to symbolic env of sicmutils.
+   "Power" 'expt ;; root handled below... TODO add root to symbolic env of emmy.
    "Square" 'square
    "Sqrt" 'sqrt
 
