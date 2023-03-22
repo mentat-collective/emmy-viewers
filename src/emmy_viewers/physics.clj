@@ -17,6 +17,7 @@
                        []
                        initial-state
                        {:flatten? false
+                        :mode js
                         :generic-params? false}))]
        (-> (update m :L
                    (fn [L]

@@ -32,19 +32,12 @@
   "hardcoded at first for this use case."
   ([state-derivative initial-state]
    (Lagrangian-updater state-derivative initial-state {}))
-  ([state-derivative initial-state {:keys [compile? parameters]
-                                    :or {compile? false}}]
-   (let [{:keys [integrator]}
-         (ode/integration-opts (if parameters
-                                 state-derivative
-                                 (fn [] state-derivative))
-                               parameters
-                               initial-state
-                               {:epsilon 1e-6
-                                :compile? compile?})]
-     (fn [t]
-       (-> (integrator t)
-           (struct/unflatten initial-state))))))
+  ([state-derivative initial-state {:keys [parameters]}]
+   (let [flat-initial-state (flatten initial-state)
+         primitive-params   (double-array parameters)
+         equations        (fn [_ ys yps]
+                            (state-derivative ys yps primitive-params))]
+     (ode/stream-integrator equations 0 flat-initial-state {:js? true}))))
 
 (defn Lagrangian-collector
   "hardcoded at first for this use case."
@@ -108,8 +101,29 @@
    [Tail
     (dissoc opts :dimensions :path)]])
 
-;; NOTE: it comes across the wire ALREADY COMPILED and simplified down to
-;; source.
+(defn NewMass
+  "Mass using Colin's new code."
+  [{state :initial-state
+    [a2 b2 c2 body2] :L
+    [a1 body1] :state->xyz
+    params :params}]
+  (let [render-fn   (js/Function. a1 body1)
+        state-deriv (js/Function. a2 b2 c2 body2)
+        my-updater  (Lagrangian-updater state-deriv state {:parameters params})]
+    [Comet
+     {:dimensions 3
+      :length 16
+      :color 0x3090ff
+      :size 10
+      :opacity 0.99
+      :path
+      (fn [emit _ t]
+        ;; TODO this can be made better if we go directly to emit at this
+        ;; point...
+        (let [[x y z] (render-fn
+                       (my-updater t))]
+          (emit x z y)))}]))
+
 (defn Mass [{:keys [state->xyz L initial-state]}]
   (let [render-fn   (xc/sci-eval state->xyz)
         state-deriv (xc/sci-eval L)
