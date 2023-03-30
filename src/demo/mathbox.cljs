@@ -1,19 +1,10 @@
 (ns demo.mathbox
-  (:require
-   [leva.core :as leva]
-   ["odex" :as o]
-   [mathbox.core :as mathbox]
-   [mathbox.primitives :as mb]
-   ;; [nextjournal.clerk.render :as cr]
-   ;; [nextjournal.clerk.viewer :as sv]
-   ["react" :as react]
-   [reagent.core :as r]
-   [emmy.env :as e]
-   [emmy.expression.compile :as xc]
-   [emmy.mechanics.lagrange :as l]
-   [emmy.numerical.ode :as ode]
-   [emmy.structure :as struct]
-   ))
+  (:require ["odex" :as o]
+            [mathbox.primitives :as mb]
+            [reagent.core :as r]
+            [emmy.expression.compile :as xc]
+            [emmy.numerical.ode :as ode]
+            [emmy.structure :as struct]))
 
 ;; ## Components
 
@@ -101,15 +92,16 @@
    [Tail
     (dissoc opts :dimensions :path)]])
 
-(defn NewMass
+(defn Mass
   "Mass using Colin's new code."
   [{state :initial-state
+    [a1 b1 c1 body1] :state->xyz
     [a2 b2 c2 body2] :L
-    [a1 body1] :state->xyz
     params :params}]
-  (let [render-fn   (js/Function. a1 body1)
+  (let [render-fn   (js/Function. a1 b1 c1 body1)
         state-deriv (js/Function. a2 b2 c2 body2)
         my-updater  (Lagrangian-updater state-deriv state {:parameters params})]
+    ;; TODO return the inner component??
     [Comet
      {:dimensions 3
       :length 16
@@ -117,32 +109,17 @@
       :size 10
       :opacity 0.99
       :path
-      (fn [emit _ t]
-        ;; TODO this can be made better if we go directly to emit at this
-        ;; point...
-        (let [[x y z] (render-fn
-                       (my-updater t))]
-          (emit x z y)))}]))
-
-(defn Mass [{:keys [state->xyz L initial-state]}]
-  (let [render-fn   (xc/sci-eval state->xyz)
-        state-deriv (xc/sci-eval L)
-        my-updater  (Lagrangian-updater state-deriv initial-state)]
-    (r/with-let [!state (r/atom initial-state)]
-      [Comet
-       {:dimensions 3
-        :length 16
-        :color 0x3090ff
-        :size 10
-        :opacity 0.99
-        :path
+      (let [out #js [0 0 0]]
         (fn [emit _ t]
-          (reset! !state (my-updater t))
-          (let [[x y z] (render-fn @!state)]
-            (emit x z y)))}])))
+          (-> (my-updater t)
+              (render-fn out params))
+          (emit (aget out 0)
+                (aget out 2)
+                (aget out 1))))}]))
 
 (def ^:private two-pi (* 2 Math/PI))
 
+;; TODO make this generic?
 (defn Ellipse [{:keys [a b c]}]
   [:<>
    [mb/Area
@@ -151,13 +128,15 @@
      :rangeX [0 two-pi]
      :rangeY [0 two-pi]
      :axes [1 3]
+     :live false
      :expr (fn [emit theta phi _i _j _time]
              (let [sin-theta (Math/sin theta)
                    cos-theta (Math/cos theta)]
                ;; xzy
-               (emit (* a sin-theta (Math/cos phi))
-                     (* c cos-theta)
-                     (* b sin-theta (Math/sin phi)))))
+               (emit
+                (* a sin-theta (Math/cos phi))
+                (* c cos-theta)
+                (* b sin-theta (Math/sin phi)))))
      :items 1
      :channels 3}]
    [mb/Surface
@@ -168,6 +147,52 @@
      :points "<"
      :color 0xffffff
      :width 1}]])
+
+(defn Manifold [{[a1 b1 c1 body1] :point->xyz}]
+  (let [render-fn (js/Function. a1 b1 c1 body1)]
+    [:<>
+     [mb/Area
+      {:width 64
+       :height 64
+       :rangeX [0 two-pi]
+       :rangeY [0 two-pi]
+       :axes [1 3]
+       :live false
+       :expr
+       (let [out #js [0 0 0]]
+         (fn [emit theta phi _i _j _time]
+           (let [sin-theta (Math/sin theta)
+                 cos-theta (Math/cos theta)]
+             ;; xzy
+             (emit
+              (* a sin-theta (Math/cos phi))
+              (* c cos-theta)
+              (* b sin-theta (Math/sin phi))))))
+       :items 1
+       :channels 3}]
+     [mb/Surface
+      {:shaded true
+       :opacity 0.2
+       :lineX true
+       :lineY true
+       :points "<"
+       :color 0xffffff
+       :width 1}]]
+    [Comet
+     {:dimensions 3
+      :length 16
+      :color 0x3090ff
+      :size 10
+      :opacity 0.99
+      :path
+      (let [out #js [0 0 0]]
+        (fn [emit _ t]
+          (-> (my-updater t)
+              (render-fn out params))
+          (emit (aget out 0)
+                (aget out 2)
+                (aget out 1))))}])
+  )
 
 (defn DoubleMass
   "Obviously these should be merged!"

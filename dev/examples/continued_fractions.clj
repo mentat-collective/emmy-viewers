@@ -8,6 +8,8 @@
 ;; ## Continued Fractions
 ;;
 ;; Port of the GJS continued fractions code.
+;;
+;; https://www.google.com/search?q=efficient%20continued%20fraction%20implementation&ie=utf-8&oe=utf-8
 
 (defn continued-fraction [x]
   (lazy-seq

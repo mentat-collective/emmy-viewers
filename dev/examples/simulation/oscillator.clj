@@ -10,7 +10,6 @@
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy-viewers.physics :as pv]
             [emmy.env :as e :refer :all]))
 
 ;; ## Oscillator
@@ -31,58 +30,58 @@
 (def k 200)
 (def g 9.8)
 
-(clerk/with-viewer
+^{::clerk/viewer
   {:transform-fn
    (comp clerk/mark-presented
          (clerk/update-val
           (fn [{:keys [L params initial-state state->xyz] :as m}]
             (assoc m
-                   :L (xc/compile-state-fn
-                       (compose e/Lagrangian->state-derivative L)
-                       params
-                       initial-state
-                       {:flatten? false
-                        :mode :js
-                        :calling-convention :primitive
-                        :generic-params? false})
+                   :L
+                   (xc/compile-state-fn
+                    (compose e/Lagrangian->state-derivative L)
+                    params
+                    initial-state
+                    {:flatten? false
+                     :mode :js
+                     :calling-convention :primitive
+                     :generic-params? false})
 
                    :state->xyz
                    (xc/compile-state-fn
                     state->xyz false initial-state
                     {:mode :js
-                     :calling-convention :flat})))))
+                     :calling-convention :primitive})))))
    :render-fn
    (q
     (fn [value]
-      (viewer/html
-       [mathbox/MathBox
-        {:container  {:style {:height "400px" :width "100%"}}
-         :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-         :renderer {:background-color 0xffffff}}
-        [mb/Cartesian (:cartesian value)
-         [mb/Axis {:axis 1 :width 3}]
-         [mb/Axis {:axis 2 :width 3}]
-         [mb/Axis {:axis 3 :width 3}]
-         [demo.mathbox/NewMass
-          (select-keys value [:L :state->xyz :initial-state :params])]]])))}
-  {:state->xyz coordinate
-   :L L-harmonic
-   :params [g m k]
-   :initial-state [0
-                   [1 2 0]
-                   [2 0 4]]
-   :cartesian
-   {:range [[-10 10]
-            [-10 10]
-            [-10 10]]
-    :scale [3 3 3]}})
+      [mathbox/MathBox
+       {:container  {:style {:height "400px" :width "100%"}}
+        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+        :renderer   {:background-color 0xffffff}}
+       [mb/Cartesian (:cartesian value)
+        [mb/Axis {:axis 1 :width 3}]
+        [mb/Axis {:axis 2 :width 3}]
+        [mb/Axis {:axis 3 :width 3}]
+        [demo.mathbox/Mass
+         (select-keys
+          value [:L :state->xyz :initial-state :params])]]]))}}
+{:state->xyz coordinate
+ :L L-harmonic
+ :params [g m k]
+ :initial-state [0
+                 [1 2 0]
+                 [2 0 4]]
+ :cartesian
+ {:range [[-10 10]
+          [-10 10]
+          [-10 10]]
+  :scale [3 3 3]}}
 
 ;; ## Equations of Motion:
 
-#_
 ^{::clerk/visibility :hide}
 (clerk/with-viewer d/multiviewer
-  (let [L (L-harmonic 'm 'k)
+  (let [L (L-harmonic 'g 'm 'k)
         x (e/literal-function 'x)
         y (e/literal-function 'y)
         z (e/literal-function 'z)]
