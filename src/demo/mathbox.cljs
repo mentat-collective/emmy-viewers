@@ -29,49 +29,43 @@
   "hardcoded at first for this use case."
   ([state-derivative initial-state]
    (Lagrangian-updater state-derivative initial-state {}))
-  ([state-derivative initial-state {:keys [parameters ks]}]
+  ([state-derivative initial-state {:keys [parameters]}]
    (let [flat-initial-state (flatten initial-state)
          ;; TODO get around the deref
-         equations        (if (implements? IAtom parameters)
-                            (fn [_ ys yps]
-                              (state-derivative
-                               ys yps (apply
-                                       array
-                                       (map (.-state parameters) ks))))
-                            (fn [_ ys yps]
-                              (state-derivative ys yps parameters)))]
+         equations (if (implements? IAtom parameters)
+                     (fn [_ ys yps]
+                       (state-derivative
+                        ys yps (.-state parameters)))
+                     (fn [_ ys yps]
+                       (state-derivative ys yps parameters)))]
      (ode/stream-integrator equations 0 flat-initial-state {:js? true}))))
 
 (defn Lagrangian-collector
   "hardcoded at first for this use case."
-  [deriv initial-state {:keys [parameters epsilon compile?]
-                        :or {epsilon 1e-6
-                             compile? false}}]
-  (let [flat-initial-state (flatten initial-state)
-        dimension          (count flat-initial-state)
-        ;; TODO we have to get this working with an atom again.
-        equations (if compile?
-                    (let [f' (xc/compile-state-fn deriv parameters initial-state)]
-                      (fn [_ y out]
-                        (#'ode/flatten-into-primitive-array
-                         out
-                         (f' y (.-state parameters)))))
-                    (let [d:dt (apply deriv (.-state parameters))]
-                      (fn [_ y out]
-                        (#'ode/flatten-into-primitive-array
-                         out
-                         (d:dt (struct/unflatten y initial-state))))))
-        solver (o/Solver.
-                equations
-                dimension
-                #js {:absoluteTolerance epsilon
-                     :relativeTolerance epsilon
-                     :rawFunction true})]
-    (fn [state n step-size emit]
-      (let [integrate (.integrate solver 0 state)]
-        (doseq [t (take n (iterate #(+ % step-size) 0))]
-          (let [y (integrate t)]
-            (emit (aget y 1) (aget y 2))))))))
+  ([state-derivative initial-state]
+   (Lagrangian-updater state-derivative initial-state {}))
+  ([state-derivative initial-state {:keys [parameters epsilon]
+                                    :or {epsilon 1e-8}}]
+   (let [flat-initial-state (flatten initial-state)
+         ;; TODO get around the deref
+         f' (if (implements? IAtom parameters)
+              (let [p @parameters]
+                (fn [_ ys yps]
+                  (state-derivative ys yps p)))
+              (fn [_ ys yps]
+                (state-derivative ys yps parameters)))
+         dimension (count flat-initial-state)
+         solver (o/Solver.
+                 f'
+                 dimension
+                 #js {:absoluteTolerance epsilon
+                      :relativeTolerance epsilon
+                      :rawFunction true})]
+     (fn [state n step-size emit]
+       (let [integrate (.integrate solver 0 state)]
+         (doseq [t (take n (iterate #(+ % step-size) 0))]
+           (let [y (integrate t)]
+             (emit (aget y 1) (aget y 2)))))))))
 
 (defn Clock*
   "Function component for a relative clock. onTick is called with a single arg for
@@ -130,8 +124,7 @@
   "ODE State evolving component."
   [{[state-sym out-sym params-sym body] :L
     !state  :atom
-    !params :params
-    keys    :keys}]
+    !params :params}]
 
   ;; TODO can I make an "animating" wrapper for mathbox, a similar
   ;; component version?
@@ -142,10 +135,9 @@
   (let
       ;; TODO how can I wire in an array and have it not cause a re-render??
       [state-deriv (js/Function. state-sym out-sym params-sym body)
-       update (Lagrangian-updater state-deriv
-                                  (:state @!state)
-                                  {:ks keys
-                                   :parameters !params})]
+       update      (Lagrangian-updater state-deriv
+                                       (:state @!state)
+                                       {:parameters !params})]
     (fn [_]
       [Clock
        {:onTick

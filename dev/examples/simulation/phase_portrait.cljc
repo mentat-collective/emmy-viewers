@@ -2,8 +2,6 @@
 {:toc true
  :visibility :hide-ns}
 (ns examples.simulation.phase-portrait
-  #?(:cljs
-     (:import [goog Timer]))
   (:require [emmy.env :as e]
             [emmy.expression.compile :as xc]
             [emmy.mechanics.lagrange :as l]
@@ -12,18 +10,16 @@
             [mentat.clerk-utils.show :refer [show-cljs]]
             #?@(:cljs [[demo.mathbox]
                        [goog.events]
-                       [goog.Timer :as timer]
-                       [leva.core :as leva]
-                       ["odex" :as o]
-                       [mathbox.core :as mathbox]
-                       [mathbox.primitives :as mb]
-                       ;; [nextjournal.clerk.render :as cr]
-                       ["react" :as react]
-                       [reagent.core :as r]
-                       [emmy.numerical.ode :as ode]
-                       [emmy.structure :as struct]])))
+                       [mathbox.core]
+                       [reagent.core]
+                       [leva.core]
+                       [mathbox.primitives :as mb]])))
 
 ;; ## Phase Portrait
+;;
+;; TODO evolver doesn't reboot when you change a function value
+;; TODO so many array creations for params
+;; TODO
 
 (def normalize
   (e/principal-value Math/PI))
@@ -112,12 +108,15 @@
       :size 10
       :offset [20 0]}]])
 
- #_(defn PhaseVectors
-     "Component that takes a simulator and builds an array of phase vectors... todo
+ (defn PhaseVectors
+   "Component that takes a simulator and builds an array of phase vectors... todo
   document!!"
-     [{:keys [simulate steps dt]
-       :or {steps 8
-            dt 3e-2}}]
+   [{:keys [state-derivative initial-state params steps dt]
+     :or {dt 3e-2}}]
+   (let [simulate (demo.mathbox/Lagrangian-collector
+                   state-derivative
+                   initial-state
+                   {:parameters params})]
      [:<>
       [mb/Area
        {:width 16
@@ -126,52 +125,30 @@
         :items steps
         :centeredX true
         :centeredY true
-        :live true
+        :live false
         :expr
         (fn [emit x y _i _j _t]
-          (simulate (js/Array. 0 x y) steps dt emit))}]
+          (simulate (js/Array. 0 x y)
+                    steps
+                    dt
+                    emit))}]
       [mb/Vector
        {:color 0x3090ff
         :size 5
-        :end true}]])
+        :end true}]]))
 
- #_(defn WithSimulator*
-     "Takes a component and passes along a simulator..."
-     [{:keys [state-derivative initial-state parameters] :as opts}
-      component]
-     (let [!p      (react/useMemo
-                    (fn []
-                      (when parameters
-                        (atom parameters)))
-                    (js/Array.))
-           simulate (react/useMemo
-                     (fn []
-                       (Lagrangian-collector
-                        state-derivative
-                        initial-state
-                        {:compile? true
-                         :parameters !p}))
-                     (js/Array. state-derivative))]
-       (react/useEffect
-        (fn mount []
-          (reset! !p (apply array parameters))
-          js/undefined)
-        (js/Array. parameters))
-       [component
-        (-> (dissoc opts :state-derivative :initial-state :parameters)
-            (assoc :simulate simulate))]))
-
- (defn ^:export Phase [] #_[!state !params steps]
-   [:<>
-    [mb/Grid {:color 0x808080}]
-    [PhaseAxes]
-    #_[:f> WithSimulator*
-       {:state-derivative state-deriv*
-        :initial-state [0 0 0]
-        :parameters !params
-        :steps steps}
-       PhaseVectors]
-    #_[Comet
+ (defn ^:export Phase [{:keys [!state initial-state L params steps]}]
+   (let [[a2 b2 c2 body2] L
+         state-deriv (js/Function. a2 b2 c2 body2)]
+     [:<>
+      [mb/Grid {:color 0x808080}]
+      [PhaseAxes]
+      [PhaseVectors
+       {:state-derivative state-deriv
+        :initial-state initial-state
+        :params params
+        :steps steps}]
+      [demo.mathbox/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
@@ -179,8 +156,11 @@
         :opacity 0.99
         :path
         (fn [emit _ _]
-          (let [[_ q p] @!state]
-            (emit q p)))}]]))
+          (let [state (:state (.-state !state))]
+            ;; TODO how do we normalize??
+            (emit (normalize
+                   (aget state 1))
+                  (aget state 2))))}]])))
 
 ;; ## Axes
 
@@ -234,48 +214,60 @@
       :size 10
       :offset [20 0]}]])
 
- #_(defn PotentialLine [V !params]
-     [:<>
-      ;; This is the potential well. Gotta redo this to make more sense.
-      [mathbox.primitives/Interval
-       {:width 128
-        :channels 2
-        :live true
-        :expr (fn [emit theta]
-                (emit theta (V !params theta)))}]
-      [mathbox.primitives/Line {:color 0x3090ff}]])
-
- (defn ^:export Well [] #_[{:keys [V !state !params]}]
+ (defn PotentialLine [{:keys [V !params]}]
    [:<>
-    [mathbox.primitives/Grid
-     {:color 0x808080
-      :unitX Math/PI
-      :baseX 2}]
-    [WellAxes]
-    #_#_[PotentialLine V !params]
+    ;; This is the potential well. Gotta redo this to make more sense.
+    [mathbox.primitives/Interval
+     {:width 128
+      :channels 2
+      :live false
+      :expr
+      ;; TODO is this better or what??
+      (let [out (js/Array. 0)
+            p   @!params]
+        (fn [emit theta]
+          (V (js/Array. 0 theta 0) out p)
+          (emit theta (aget out 0))))}]
+    [mathbox.primitives/Line
+     {:color 0x3090ff}]])
 
-    ;; this is the bead traveling with history along the potential.
-    [demo.mathbox/Comet
-     {:dimensions 2
-      :length 16
-      :color 0xa0d0ff
-      :size 5
-      :opacity 0.99
-      :path
-      (fn [emit _ _]
-        (let [[_ theta] @!state]
-          (emit theta (V !params theta))))}]]))
+ (defn Well [{:keys [V !state params]}]
+   (let [[a1 b1 c1 body1] V
+         V-fn (js/Function. a1 b1 c1 body1)]
+     [:<>
+      [mathbox.primitives/Grid
+       {:color 0x808080
+        :unitX Math/PI
+        :baseX 2}]
+      [WellAxes]
+      [PotentialLine
+       {:V V-fn
+        :!params params}]
+      ;; this is the bead traveling with history along the potential.
+      [demo.mathbox/Comet
+       {:dimensions 2
+        :length 16
+        :color 0xa0d0ff
+        :size 5
+        :opacity 0.99
+        :path
+        (let [out (js/Array. 0)]
+          (fn [emit _ _]
+            (let [state (:state (.-state !state))
+                  theta (aget state 1)]
+              (V-fn state out (.-state params))
+              (emit (normalize theta)
+                    (aget out 0)))))}]])))
 
 ;; ## Animate Pendulum
 
 #?(:cljs
    (do
-     (defn ^:export Pendulum [{:keys [!state params]}]
+     (defn Pendulum [{:keys [!state params]}]
        [:<>
         [mathbox.primitives/Array
          {:channels 2
           :items 2
-          ;; todo why doesn't this work?
           :live false
           :data (let [theta (aget (:state @!state) 1)
                       l     (:length @params)]
@@ -302,7 +294,72 @@
 
         [mathbox.primitives/Slice {:items [1 2]}]
         [mathbox.primitives/Point {:color 0xffffff :size 10}]])
-     ))
+
+     (defn Hamilton
+       [{state  :initial-state
+         params :params
+         keys   :keys
+         schema :schema
+         :as opts}]
+       ;; TODO wire generic params into Lagrangian updater.
+       ;; TODO cursor really screwing me here.
+       (js/console.log "big")
+       (let [!state  (reagent.core/atom {:time 0 :state state})
+             !params (reagent.core/atom params)
+             !arr    (reagent.core/reaction
+                      (apply
+                       array
+                       (map @!params keys)))]
+         (fn [_]
+           [:<>
+            [nextjournal.clerk.render/inspect @!arr]
+            [leva.core/Controls
+             {:atom !params
+              :schema schema}]
+            [demo.mathbox/Evolve
+             {:L (:L opts)
+              :params !arr
+              :atom   !state}]
+
+            [mathbox.core/MathBox
+             {:container  {:style {:height "600px" :width "100%"}}
+              :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+              :renderer   {:background-color 0x000000}}
+             [mathbox.primitives/Layer
+              [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
+              [mathbox.primitives/Unit {:scale 720 :focus 1}
+               [mathbox.primitives/Cartesian
+                {:id "pendulum"
+                 :range [[-1 1] [-1 1]]
+                 :scale [0.25 0.25]
+                 :position [-0.5 0.35 0]}
+                [Pendulum
+                 {:!state !state
+                  :params !params}]]
+
+               [mathbox.primitives/Cartesian
+                {:id "well"
+                 ;; TODO fix our `normalize` so we don't map pi back to negative pi.
+                 :range [[(- Math/PI) (- Math/PI 0.00001)]
+                         [-10 10]]
+                 :scale [0.48 0.25]
+                 :position [-0.5 -0.25 0]}
+                [Well
+                 {:!state !state
+                  :V      (:V opts)
+                  :params !arr}]]
+
+               [mathbox.primitives/Cartesian
+                {:id "phase"
+                 :range [[-4 4] [-8 8]]
+                 :scale [0.6 0.6]
+                 :position [0.6 0]}
+                [Phase
+                 {:L (:L opts)
+                  :!state !state
+                  :initial-state state
+                  :params !arr
+                  :steps (:simSteps @!params)}]]]]]])))))
 
 
 #?(:clj
@@ -321,78 +378,39 @@
                        {:flatten? false
                         :mode :js
                         :calling-convention :primitive
+                        :generic-params? true})
+                      :V
+                      (xc/compile-state-fn
+                       V
+                       (mapv params keys)
+                       initial-state
+                       {:flatten? false
+                        :mode :js
+                        :calling-convention :primitive
                         :generic-params? true})))))
-      :render-fn
-      '(fn [{state  :initial-state
-            params :params
-            keys   :keys
-            :as opts}]
-         ;; TODO wire generic params into Lagrangian updater.
-         ;; TODO cursor really screwing me here.
-         (reagent.core/with-let
-           [!state  (reagent.core/atom {:time 0 :state state})
-            !params (reagent.core/atom params)]
-           [:<>
-            [leva.core/Controls
-             {:atom !params
-              :schema
-              {:length   {:min 0.5 :max 2 :step 0.01}
-               :gravity  {:min 5 :max 15 :step 0.01}
-               :mass     {:min 0.5 :max 2 :step 0.01}
-               :simSteps {:min 1 :max 50 :step 1}}}]
-            [demo.mathbox/Evolve
-             {:keys    keys
-              :L      (:L opts)
-              :params !params
-              :atom   !state}]
-
-
-            [mathbox.core/MathBox
-             {:container  {:style {:height "600px" :width "100%"}}
-              :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-              :renderer   {:background-color 0x000000}}
-             [mathbox.primitives/Layer
-              [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
-              [mathbox.primitives/Unit {:scale 720 :focus 1}
-               [mathbox.primitives/Cartesian
-                {:id "pendulum"
-                 :range [[-1 1] [-1 1]]
-                 :scale [0.25 0.25]
-                 :position [-0.5 0.35 0]}
-                [js/examples.simulation.phase_portrait.Pendulum
-                 {:!state !state
-                  :params !params}]]
-
-               [mathbox.primitives/Cartesian
-                {:id "well"
-                 ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-                 :range [[(- Math/PI) (- Math/PI 0.00001)]
-                         [-10 10]]
-                 :scale [0.48 0.25]
-                 :position [-0.5 -0.25 0]}
-                [js/examples.simulation.phase_portrait.Well
-                 #_#_!state [gravity mass length]]]
-
-               [mathbox.primitives/Cartesian
-                {:id "phase"
-                 :range [[-4 4] [-8 8]]
-                 :scale [0.6 0.6]
-                 :position [0.6 0]}
-                [js/examples.simulation.phase_portrait.Phase #_#_#_!state [gravity mass length] simSteps]]]]]]))}}
-   {:params
-    {:length 1
-     :gravity 9.8
-     :mass 1
-     :simSteps 10}
+      :render-fn '(fn [opts]
+                    (nextjournal.clerk.viewer/html
+                     [js/examples.simulation.phase_portrait.Hamilton opts]))}}
+   {:params {:length 1
+             :gravity 9.8
+             :mass 1
+             :simSteps 10}
+    :schema {:length   {:min 0.5 :max 2 :step 0.01}
+             :gravity  {:min 5 :max 15 :step 0.01}
+             :mass     {:min 0.5 :max 2 :step 0.01}
+             :simSteps {:min 1 :max 50 :step 1}}
     :keys [:gravity :length :mass]
     :L L-pendulum
+    :V V
     :initial-state [0 3 0]})
-
 
 ;; Next steps:
 
 ;; - TODO how do we do generic drawing?
-
+;; - TODO clerk/sync
+;; - how expensive is it to make these odex `.simulate` calls?
+;; - how expensive are the redundant array lookups?
+;; - convert potential to only need position
 
 #_
 (comment
