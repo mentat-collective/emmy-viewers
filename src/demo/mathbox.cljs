@@ -1,10 +1,14 @@
 (ns demo.mathbox
-  (:require ["odex" :as o]
+  (:require [goog.events]
+            [goog.Timer :as timer]
+            ["odex" :as o]
             [mathbox.primitives :as mb]
+            ["react" :as react]
             [reagent.core :as r]
             [emmy.expression.compile :as xc]
             [emmy.numerical.ode :as ode]
-            [emmy.structure :as struct]))
+            [emmy.structure :as struct])
+  (:import [goog Timer]))
 
 ;; ## Components
 
@@ -19,15 +23,23 @@
      [mb/Line {:color 0x3090ff :width 4}]
      [mb/Point {:color 0x3090ff :size 8}]]))
 
+;; ## Simulation
+
 (defn Lagrangian-updater
   "hardcoded at first for this use case."
   ([state-derivative initial-state]
    (Lagrangian-updater state-derivative initial-state {}))
-  ([state-derivative initial-state {:keys [parameters]}]
+  ([state-derivative initial-state {:keys [parameters ks]}]
    (let [flat-initial-state (flatten initial-state)
-         primitive-params   (double-array parameters)
-         equations        (fn [_ ys yps]
-                            (state-derivative ys yps primitive-params))]
+         ;; TODO get around the deref
+         equations        (if (implements? IAtom parameters)
+                            (fn [_ ys yps]
+                              (state-derivative
+                               ys yps (apply
+                                       array
+                                       (map (.-state parameters) ks))))
+                            (fn [_ ys yps]
+                              (state-derivative ys yps parameters)))]
      (ode/stream-integrator equations 0 flat-initial-state {:js? true}))))
 
 (defn Lagrangian-collector
@@ -61,6 +73,100 @@
           (let [y (integrate t)]
             (emit (aget y 1) (aget y 2))))))))
 
+(defn Clock*
+  "Function component for a relative clock. onTick is called with a single arg for
+  seconds."
+  [{:keys [interval running? onTick]
+    :or   {running? true
+           interval 1}}]
+  ;; TODO move to outer??
+  (let [t   (Timer.)
+        now (goog/now)]
+    (react/useEffect
+     (fn mount []
+       (fn unmount []
+         (.dispose t)))
+     #js [])
+
+    (react/useEffect
+     (fn mount []
+       (if (.-enabled t)
+         (when-not running? (.stop t))
+         (when running? (.start t)))
+       js/undefined)
+     #js [running?])
+
+    (react/useEffect
+     (fn mount []
+       (when interval
+         (.setInterval t interval))
+       js/undefined)
+     #js [interval])
+
+    (react/useEffect
+     (fn mount []
+       (if onTick
+         ;; If I want to get fancy, this is everything that we should support
+         ;; https://github.com/unconed/mathbox/blob/master/src/primitives/types/time/clock.js
+
+         ;; TODO check if this is current for GCL?
+         (let [key (.-key
+                    (goog.events/listen
+                     t
+                     timer/TICK
+                     (fn []
+                       (onTick
+                        (/ (- (goog/now) now)
+                           1000)))))]
+           (fn []
+             (goog.events/unlistenByKey key)))
+         js/undefined))
+     #js [onTick])))
+
+(defn ^:export Clock [opts]
+  [:f> Clock* opts])
+
+#_
+(defn useArray [!params paths]
+  (let [[arr setArr] (react/useState
+                      (apply array (map (.-state !params) paths)))]
+    (react/useEffect
+     (fn []
+       (setArr
+        (apply array (map (.-state !params) paths)))
+       js/undefined)
+     #js [@!params paths])
+    arr))
+
+(defn Evolve
+  "ODE State evolving component."
+  [{!state  :atom
+    [state-sym out-sym params-sym body] :L
+    keys :keys
+    !params :params}]
+
+  ;; TODO can I make an "animating" wrapper for mathbox, a similar
+  ;; component version?
+  ;;
+  ;; TODO wire generic params into Lagrangian updater.
+  (let
+      ;; TODO how can I wire in an array and have it not cause a re-render??
+      [state-deriv (js/Function. state-sym out-sym params-sym body)
+       update      (Lagrangian-updater state-deriv
+                                       (:state @!state)
+                                       {:ks keys
+                                        :parameters !params})]
+    (fn [_]
+      [Clock
+       {:onTick
+        (fn [seconds]
+          (swap! !state assoc
+                 :time  seconds
+                 :state (update seconds)))}])))
+
+
+
+;; ## Visual Things
 (defn Tail [{:keys [length] :as opts}]
   [:<>
    [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
@@ -148,51 +254,53 @@
      :color 0xffffff
      :width 1}]])
 
-(defn Manifold [{[a1 b1 c1 body1] :point->xyz}]
-  (let [render-fn (js/Function. a1 b1 c1 body1)]
-    [:<>
-     [mb/Area
-      {:width 64
-       :height 64
-       :rangeX [0 two-pi]
-       :rangeY [0 two-pi]
-       :axes [1 3]
-       :live false
-       :expr
-       (let [out #js [0 0 0]]
-         (fn [emit theta phi _i _j _time]
-           (let [sin-theta (Math/sin theta)
-                 cos-theta (Math/cos theta)]
-             ;; xzy
-             (emit
-              (* a sin-theta (Math/cos phi))
-              (* c cos-theta)
-              (* b sin-theta (Math/sin phi))))))
-       :items 1
-       :channels 3}]
-     [mb/Surface
-      {:shaded true
-       :opacity 0.2
-       :lineX true
-       :lineY true
-       :points "<"
-       :color 0xffffff
-       :width 1}]]
-    [Comet
-     {:dimensions 3
-      :length 16
-      :color 0x3090ff
-      :size 10
-      :opacity 0.99
-      :path
-      (let [out #js [0 0 0]]
-        (fn [emit _ t]
-          (-> (my-updater t)
-              (render-fn out params))
-          (emit (aget out 0)
-                (aget out 2)
-                (aget out 1))))}])
-  )
+;; TODO good ideas!
+#_(defn Manifold [{[a1 b1 c1 body1] :point->xyz}]
+    (let [render-fn (js/Function. a1 b1 c1 body1)]
+      [:<>
+       [mb/Area
+        {:width 64
+         :height 64
+         :rangeX [0 two-pi]
+         :rangeY [0 two-pi]
+         :axes [1 3]
+         :live false
+         :expr
+         (let [out #js [0 0 0]]
+           (fn [emit theta phi _i _j _time]
+             (render-fn theta phi out)
+             (let [sin-theta (Math/sin theta)
+                   cos-theta (Math/cos theta)]
+               ;; xzy
+               (emit
+                (* a sin-theta (Math/cos phi))
+                (* c cos-theta)
+                (* b sin-theta (Math/sin phi))))))
+         :items 1
+         :channels 3}]
+       [mb/Surface
+        {:shaded true
+         :opacity 0.2
+         :lineX true
+         :lineY true
+         :points "<"
+         :color 0xffffff
+         :width 1}]]
+      [Comet
+       {:dimensions 3
+        :length 16
+        :color 0x3090ff
+        :size 10
+        :opacity 0.99
+        :path
+        (let [out #js [0 0 0]]
+          (fn [emit _ t]
+            (-> (my-updater t)
+                (render-fn out params))
+            (emit (aget out 0)
+                  (aget out 2)
+                  (aget out 1))))}])
+    )
 
 (defn DoubleMass
   "Obviously these should be merged!"

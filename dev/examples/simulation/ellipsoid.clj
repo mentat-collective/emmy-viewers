@@ -142,8 +142,7 @@
       a 3
       b 2
       c 1.5]
-  {:degrees-of-freedom 2
-   :state->xyz elliptical->rect
+  {:state->xyz elliptical->rect
    :L L-central-triaxial
    :params [m a b c]
    :initial-state [0
