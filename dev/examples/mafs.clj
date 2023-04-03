@@ -28,7 +28,7 @@
    :yellow "var(--mafs-yellow)"})
 
 (defn fn-transform [f mode]
-  (xc/compile-fn f 1 {:mode mode}))
+  (xc/compile-fn f 1 {:mode mode :cache? false}))
 
 ;; Let's try it:
 
@@ -86,8 +86,11 @@
   (- (/ 2 (+ (exp (negate x)) 1)) 1))
 
 (clerk/with-viewer fn-viewer
-  (with-meta sigmoid1 {:plot
-                       {:color (:pink Theme)}}))
+  (fn [x]
+    (square
+     (- (/ 2 (+ (exp (negate x)) 1)) 1)))
+  {:plot
+   {:color (:pink Theme)}})
 
 ;; ## Polynomials
 ;;

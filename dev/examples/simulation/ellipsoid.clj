@@ -138,6 +138,7 @@
           (select-keys
            value [:L :state->xyz :initial-state :params])]
          [demo.mathbox/Ellipse (:ellipse value)]]])))}}
+
 (let [m 10000
       a 3
       b 2

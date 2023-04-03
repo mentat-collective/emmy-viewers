@@ -126,36 +126,26 @@
 (defn ^:export Clock [opts]
   [:f> Clock* opts])
 
-#_
-(defn useArray [!params paths]
-  (let [[arr setArr] (react/useState
-                      (apply array (map (.-state !params) paths)))]
-    (react/useEffect
-     (fn []
-       (setArr
-        (apply array (map (.-state !params) paths)))
-       js/undefined)
-     #js [@!params paths])
-    arr))
-
 (defn Evolve
   "ODE State evolving component."
-  [{!state  :atom
-    [state-sym out-sym params-sym body] :L
-    keys :keys
-    !params :params}]
+  [{[state-sym out-sym params-sym body] :L
+    !state  :atom
+    !params :params
+    keys    :keys}]
 
   ;; TODO can I make an "animating" wrapper for mathbox, a similar
   ;; component version?
   ;;
   ;; TODO wire generic params into Lagrangian updater.
+  ;;
+  ;; TODO can I do `:params {:atom :keys}`?
   (let
       ;; TODO how can I wire in an array and have it not cause a re-render??
       [state-deriv (js/Function. state-sym out-sym params-sym body)
-       update      (Lagrangian-updater state-deriv
-                                       (:state @!state)
-                                       {:ks keys
-                                        :parameters !params})]
+       update (Lagrangian-updater state-deriv
+                                  (:state @!state)
+                                  {:ks keys
+                                   :parameters !params})]
     (fn [_]
       [Clock
        {:onTick
@@ -164,9 +154,8 @@
                  :time  seconds
                  :state (update seconds)))}])))
 
-
-
 ;; ## Visual Things
+
 (defn Tail [{:keys [length] :as opts}]
   [:<>
    [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
