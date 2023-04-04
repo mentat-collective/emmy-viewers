@@ -3,12 +3,12 @@
  :visibility :hide-ns}
 (ns examples.simulation.phase-portrait
   (:require [emmy.env :as e]
-            [emmy.expression.compile :as xc]
-            [emmy.mechanics.lagrange :as l]
+            #?(:clj [emmy.expression.compile :as xc])
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
             #?@(:cljs [[demo.mathbox]
+                       [nextjournal.clerk.render]
                        [goog.events]
                        [mathbox.core]
                        [reagent.core]
@@ -125,7 +125,7 @@
         :items steps
         :centeredX true
         :centeredY true
-        :live false
+        :live true
         :expr
         (fn [emit x y _i _j _t]
           (simulate (js/Array. 0 x y)
@@ -137,7 +137,7 @@
         :size 5
         :end true}]]))
 
- (defn ^:export Phase [{:keys [!state initial-state L params steps]}]
+ (defn Phase [{:keys [!state initial-state L params steps]}]
    (let [[a2 b2 c2 body2] L
          state-deriv (js/Function. a2 b2 c2 body2)]
      [:<>
@@ -261,106 +261,103 @@
 
 ;; ## Animate Pendulum
 
-#?(:cljs
-   (do
-     (defn Pendulum [{:keys [!state params]}]
+(show-cljs
+ (defn Pendulum [{:keys [!state params]}]
+   [:<>
+    [mathbox.primitives/Array
+     {:channels 2
+      :items 2
+      :live false
+      :data (let [theta (aget (:state @!state) 1)
+                  l     (:length @params)]
+              [[0 0]
+               [(* l (Math/sin theta))
+                (* l (- (Math/cos theta)))]])
+
+      ;; THIS WORKS TOO!
+      #_#_
+      :expr
+      (fn [emit _i]
+        (let [theta (aget (:state (.-state !state)) 1)
+              l     (:length (.-state params))]
+          (emit 0 0)
+          (emit (* l (Math/sin theta))
+                (* l (- (Math/cos theta))))))
+      }]
+
+    ;; attach a bob between the two.
+    [mathbox.primitives/Vector {:color 0xffffff :width 2}]
+
+    [mathbox.primitives/Slice {:items [0 1]}]
+    [mathbox.primitives/Point {:color 0x909090 :size 4}]
+
+    [mathbox.primitives/Slice {:items [1 2]}]
+    [mathbox.primitives/Point {:color 0xffffff :size 10}]])
+
+ (defn ^:export Hamilton
+   [{state  :initial-state
+     params :params
+     keys   :keys
+     schema :schema
+     :as opts}]
+   ;; TODO wire generic params into Lagrangian updater.
+   ;; TODO cursor really screwing me here.
+   (let [!state  (reagent.core/atom {:time 0 :state state})
+         !params (reagent.core/atom params)
+         !arr    (reagent.core/reaction
+                  (apply
+                   array
+                   (map @!params keys)))]
+     (fn [_]
        [:<>
-        [mathbox.primitives/Array
-         {:channels 2
-          :items 2
-          :live false
-          :data (let [theta (aget (:state @!state) 1)
-                      l     (:length @params)]
-                  [[0 0]
-                   [(* l (Math/sin theta))
-                    (* l (- (Math/cos theta)))]])
+        [nextjournal.clerk.render/inspect @!arr]
+        [leva.core/Controls
+         {:atom !params
+          :schema schema}]
+        [demo.mathbox/Evolve
+         {:L (:L opts)
+          :params !arr
+          :atom   !state}]
 
-          ;; THIS WORKS TOO!
-          #_#_
-          :expr
-          (fn [emit _i]
-            (let [theta (aget (:state (.-state !state)) 1)
-                  l     (:length (.-state params))]
-              (emit 0 0)
-              (emit (* l (Math/sin theta))
-                    (* l (- (Math/cos theta))))))
-          }]
+        [mathbox.core/MathBox
+         {:container  {:style {:height "600px" :width "100%"}}
+          :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+          :renderer   {:background-color 0x000000}}
+         [mathbox.primitives/Layer
+          [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
+          [mathbox.primitives/Unit {:scale 720 :focus 1}
+           [mathbox.primitives/Cartesian
+            {:id "pendulum"
+             :range [[-1 1] [-1 1]]
+             :scale [0.25 0.25]
+             :position [-0.5 0.35 0]}
+            [Pendulum
+             {:!state !state
+              :params !params}]]
 
-        ;; attach a bob between the two.
-        [mathbox.primitives/Vector {:color 0xffffff :width 2}]
+           [mathbox.primitives/Cartesian
+            {:id "well"
+             ;; TODO fix our `normalize` so we don't map pi back to negative pi.
+             :range [[(- Math/PI) (- Math/PI 0.00001)]
+                     [-10 10]]
+             :scale [0.48 0.25]
+             :position [-0.5 -0.25 0]}
+            [Well
+             {:!state !state
+              :V      (:V opts)
+              :params !arr}]]
 
-        [mathbox.primitives/Slice {:items [0 1]}]
-        [mathbox.primitives/Point {:color 0x909090 :size 4}]
-
-        [mathbox.primitives/Slice {:items [1 2]}]
-        [mathbox.primitives/Point {:color 0xffffff :size 10}]])
-
-     (defn Hamilton
-       [{state  :initial-state
-         params :params
-         keys   :keys
-         schema :schema
-         :as opts}]
-       ;; TODO wire generic params into Lagrangian updater.
-       ;; TODO cursor really screwing me here.
-       (js/console.log "big")
-       (let [!state  (reagent.core/atom {:time 0 :state state})
-             !params (reagent.core/atom params)
-             !arr    (reagent.core/reaction
-                      (apply
-                       array
-                       (map @!params keys)))]
-         (fn [_]
-           [:<>
-            [nextjournal.clerk.render/inspect @!arr]
-            [leva.core/Controls
-             {:atom !params
-              :schema schema}]
-            [demo.mathbox/Evolve
+           [mathbox.primitives/Cartesian
+            {:id "phase"
+             :range [[-4 4] [-8 8]]
+             :scale [0.6 0.6]
+             :position [0.6 0]}
+            [Phase
              {:L (:L opts)
+              :!state !state
+              :initial-state state
               :params !arr
-              :atom   !state}]
-
-            [mathbox.core/MathBox
-             {:container  {:style {:height "600px" :width "100%"}}
-              :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-              :renderer   {:background-color 0x000000}}
-             [mathbox.primitives/Layer
-              [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
-              [mathbox.primitives/Unit {:scale 720 :focus 1}
-               [mathbox.primitives/Cartesian
-                {:id "pendulum"
-                 :range [[-1 1] [-1 1]]
-                 :scale [0.25 0.25]
-                 :position [-0.5 0.35 0]}
-                [Pendulum
-                 {:!state !state
-                  :params !params}]]
-
-               [mathbox.primitives/Cartesian
-                {:id "well"
-                 ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-                 :range [[(- Math/PI) (- Math/PI 0.00001)]
-                         [-10 10]]
-                 :scale [0.48 0.25]
-                 :position [-0.5 -0.25 0]}
-                [Well
-                 {:!state !state
-                  :V      (:V opts)
-                  :params !arr}]]
-
-               [mathbox.primitives/Cartesian
-                {:id "phase"
-                 :range [[-4 4] [-8 8]]
-                 :scale [0.6 0.6]
-                 :position [0.6 0]}
-                [Phase
-                 {:L (:L opts)
-                  :!state !state
-                  :initial-state state
-                  :params !arr
-                  :steps (:simSteps @!params)}]]]]]])))))
-
+              :steps (:simSteps @!params)}]]]]]]))))
 
 #?(:clj
    ^{::clerk/width :wide

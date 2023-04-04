@@ -117,7 +117,7 @@
          js/undefined))
      #js [onTick])))
 
-(defn ^:export Clock [opts]
+(defn Clock [opts]
   [:f> Clock* opts])
 
 (defn Evolve

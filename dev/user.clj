@@ -27,10 +27,12 @@
  (constantly true))
 
 (def index
-  "dev/examples/index.md")
+  "dev/examples/simulation/phase_portrait.cljc"
+  #_"dev/examples/index.md")
 
 (def notebooks
-  ["dev/examples/**.clj"])
+  [#_"dev/examples/**.clj"
+   "dev/examples/simulation/phase_portrait.cljc"])
 
 (def defaults
   {:index index
