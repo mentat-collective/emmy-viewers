@@ -39,7 +39,8 @@
    :browse? true
    :watch-paths ["src" "dev"]
    :cljs-namespaces '[emmy-viewers.sci-extensions
-                      examples.simulation.phase-portrait]})
+                      examples.simulation.phase-portrait
+                      examples.pq-knot]})
 
 (def static-defaults
   (assoc defaults
