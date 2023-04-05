@@ -43,9 +43,9 @@
 (defn Lagrangian-collector
   "hardcoded at first for this use case."
   ([state-derivative initial-state]
-   (Lagrangian-updater state-derivative initial-state {}))
+   (Lagrangian-collector state-derivative initial-state {}))
   ([state-derivative initial-state {:keys [parameters epsilon]
-                                    :or {epsilon 1e-8}}]
+                                    :or {epsilon 1e-6}}]
    (let [flat-initial-state (flatten initial-state)
          ;; TODO get around the deref
          f' (if (implements? IAtom parameters)
@@ -60,13 +60,12 @@
                  dimension
                  #js {:absoluteTolerance epsilon
                       :relativeTolerance epsilon
-                      :rawFunction true})
-         out #js [0 0 0]]
+                      :rawFunction true})]
      (fn [state n step-size emit]
-       (let [integrate (.integrate solver 0 state)]
-         (doseq [t (take n (iterate #(+ % step-size) 0))]
-           (integrate t out)
-           (emit (aget out 1) (aget out 2))))))))
+       (.solve solver 0 state (* n step-size)
+               (.grid solver step-size
+                      (fn [_ ys]
+                        (emit (aget ys 1) (aget ys 2)))))))))
 
 (defn Clock*
   "Function component for a relative clock. onTick is called with a single arg for
@@ -123,7 +122,7 @@
 
 (defn Evolve
   "ODE State evolving component."
-  [{[state-sym out-sym params-sym body] :L
+  [{L :L
     !state  :atom
     !params :params}]
 
@@ -135,7 +134,7 @@
   ;; TODO can I do `:params {:atom :keys}`?
   (let
       ;; TODO how can I wire in an array and have it not cause a re-render??
-      [state-deriv (js/Function. state-sym out-sym params-sym body)
+      [state-deriv (apply js/Function L)
        update      (Lagrangian-updater state-deriv
                                        (:state @!state)
                                        {:parameters !params})]
