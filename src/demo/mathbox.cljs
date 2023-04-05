@@ -61,7 +61,10 @@
                  #js {:absoluteTolerance epsilon
                       :relativeTolerance epsilon
                       :rawFunction true})]
+     (set! (.-denseOutput solver) true)
      (fn [state n step-size emit]
+       ;; TODO fix the case where we have issues at simSteps 5 on phase
+       ;; portrait.
        (.solve solver 0 state (* n step-size)
                (.grid solver step-size
                       (fn [_ ys]
@@ -142,6 +145,8 @@
       [Clock
        {:onTick
         (fn [seconds]
+          ;; TODO can we keep the output here mutable and provide an out to
+          ;; update?
           (swap! !state assoc
                  :time  seconds
                  :state (update seconds)))}])))

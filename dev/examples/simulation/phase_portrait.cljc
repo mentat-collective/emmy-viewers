@@ -125,7 +125,7 @@
         :items steps
         :centeredX true
         :centeredY true
-        :live true
+        :live false
         :expr
         (let [in (js/Array. 0 0 0)]
           (fn [emit x y _i _j _t]
