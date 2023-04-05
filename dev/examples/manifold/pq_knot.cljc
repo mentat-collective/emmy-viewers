@@ -1,19 +1,18 @@
 ^#:nextjournal.clerk
 {:toc true
- :no-cache true
  :visibility :hide-ns}
-(ns examples.pq-knot
-  (:require
-   [emmy.env :as e]
-   #?(:clj [emmy.expression.compile :as xc])
-   [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
-   #?@(:cljs [[leva.core]
-              [mathbox.core :as mathbox]
-              [mathbox.primitives :as mb]
-              [nextjournal.clerk.render]
-              [reagent.core]
-              ["three/examples/jsm/controls/TrackballControls.js"
-               :as TrackballControls]])))
+(ns examples.manifold.pq-knot
+  (:require [emmy.env :as e]
+            #?(:clj [emmy.expression.compile :as xc])
+            [mentat.clerk-utils.show :refer [show-cljs]]
+            [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
+            #?@(:cljs [[leva.core]
+                       [mathbox.core :as mathbox]
+                       [mathbox.primitives :as mb]
+                       [nextjournal.clerk.render]
+                       [reagent.core]
+                       ["three/examples/jsm/controls/TrackballControls.js"
+                        :as TrackballControls]])))
 
 ;; ## (p, q) Torus Knots
 
@@ -94,64 +93,64 @@
            (e/* (M theta)
                 (circle r3 phi))))))
 
-#?(:cljs
-   (defn ^:export PQKnot
-     [{params :params
-       schema :schema
-       knot   :knot
-       keys   :keys}]
-     (let [f (apply js/Function knot)
-           !params (reagent.core/atom params)
-           !arr    (reagent.core/reaction
-                    (apply
-                     array
-                     (map @!params keys)))]
-       (fn [_]
-         [:<>
-          [nextjournal.clerk.render/inspect @!arr]
-          [leva.core/Controls
-           {:atom !params
-            :schema schema}]
-          [mathbox/MathBox
-           {:container {:style {:height "500px" :width "100%"}}
-            :threestrap
-            {:plugins ["core", "controls", "cursor", "mathbox" "stats"]
-             :controls {:klass TrackballControls/TrackballControls}}
-            :renderer  {:background-color 0xffffff}
-            :scale 500
-            :focus 3}
-           [mb/Camera {:proxy true
-                       :position [1 1 3]}]
-           [mb/Cartesian {:range [[-1 1] [-1 1] [-1 1]]
-                          :scale [1 1 1]
-                          :quaternion [0.7 0 0 0.7]}
-            [mb/Area
-             {:rangeX [(- (* 3 Math/PI)) (* 3 Math/PI)]
-              :rangeY [(- Math/PI) Math/PI]
-              :width 512
-              :height 16
-              :channels 3
-              :live false
-              :expr
-              (let [in  (js/Array. 0 0 0 0 0)
-                    out (js/Array. 0 0 0)]
-                (fn [emit theta phi _i _j _t]
-                  (aset in 1 theta)
-                  (aset in 2 phi)
-                  (f in out @!arr)
-                  (emit (aget out 0)
-                        (aget out 1)
-                        (aget out 2))))}]
-            [mb/Surface
-             {:shaded true
-              :color 0xcc0040
-              :lineY true
-              :width 1}]
+(show-cljs
+ (defn ^:export PQKnot
+   [{params :params
+     schema :schema
+     knot   :knot
+     keys   :keys}]
+   (let [f (apply js/Function knot)
+         !params (reagent.core/atom params)
+         !arr    (reagent.core/reaction
+                  (apply
+                   array
+                   (map @!params keys)))]
+     (fn [_]
+       [:<>
+        [nextjournal.clerk.render/inspect @!arr]
+        [leva.core/Controls
+         {:atom !params
+          :schema schema}]
+        [mathbox/MathBox
+         {:container {:style {:height "500px" :width "100%"}}
+          :threestrap
+          {:plugins ["core", "controls", "cursor", "mathbox" "stats"]
+           :controls {:klass TrackballControls/TrackballControls}}
+          :renderer  {:background-color 0xffffff}
+          :scale 500
+          :focus 3}
+         [mb/Camera {:proxy true
+                     :position [1 1 3]}]
+         [mb/Cartesian {:range [[-1 1] [-1 1] [-1 1]]
+                        :scale [1 1 1]
+                        :quaternion [0.7 0 0 0.7]}
+          [mb/Area
+           {:rangeX [(- (* 3 Math/PI)) (* 3 Math/PI)]
+            :rangeY [(- Math/PI) Math/PI]
+            :width 512
+            :height 16
+            :channels 3
+            :live false
+            :expr
+            (let [in  (js/Array. 0 0 0 0 0)
+                  out (js/Array. 0 0 0)]
+              (fn [emit theta phi _i _j _t]
+                (aset in 1 theta)
+                (aset in 2 phi)
+                (f in out @!arr)
+                (emit (aget out 0)
+                      (aget out 1)
+                      (aget out 2))))}]
+          [mb/Surface
+           {:shaded true
+            :color 0xcc0040
+            :lineY true
+            :width 1}]
 
-            [mb/Resample {:height 5}]
-            [mb/Line
-             {:color 0xffffff
-              :width 2}]]]]))))
+          [mb/Resample {:height 5}]
+          [mb/Line
+           {:color 0xffffff
+            :width 2}]]]]))))
 
 ;; ## Animation
 ;;
@@ -174,7 +173,7 @@
                         :calling-convention :primitive
                         :generic-params? true})))))
       :render-fn '(fn [opts]
-                    [js/examples.pq_knot.PQKnot opts])}}
+                    [js/examples.manifold.pq_knot.PQKnot opts])}}
    {:params
     {:p 7
      :q 8

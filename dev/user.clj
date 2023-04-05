@@ -27,20 +27,20 @@
  (constantly true))
 
 (def index
-  "dev/examples/simulation/phase_portrait.cljc"
-  #_"dev/examples/index.md")
+  "dev/examples/index.md")
 
 (def notebooks
-  [#_"dev/examples/**.clj"
-   "dev/examples/simulation/phase_portrait.cljc"])
+  ["dev/examples/**.clj"
+   "dev/examples/**.cljc"])
 
 (def defaults
-  {:index index
+  {#_#_:index index
    :browse? true
    :watch-paths ["src" "dev"]
-   :cljs-namespaces '[emmy-viewers.sci-extensions
-                      examples.simulation.phase-portrait
-                      examples.pq-knot]})
+   :cljs-namespaces
+   '[emmy-viewers.sci-extensions
+     examples.manifold.pq-knot
+     examples.simulation.phase-portrait]})
 
 (def static-defaults
   (assoc defaults

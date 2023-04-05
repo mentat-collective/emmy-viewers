@@ -5,7 +5,6 @@
   (:require [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [examples.expression :as d]
-            [emmy-viewers.physics :as pv]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]

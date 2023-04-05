@@ -3,4 +3,4 @@
  :visibility :hide-ns}
 (ns examples.operator)
 
-;; ## Matrices
+;; ## Operators

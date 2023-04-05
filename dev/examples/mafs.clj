@@ -86,11 +86,9 @@
   (- (/ 2 (+ (exp (negate x)) 1)) 1))
 
 (clerk/with-viewer fn-viewer
-  (fn [x]
-    (square
-     (- (/ 2 (+ (exp (negate x)) 1)) 1)))
-  {:plot
-   {:color (:pink Theme)}})
+  (with-meta sigmoid1
+    {:plot
+     {:color (:pink Theme)}}))
 
 ;; ## Polynomials
 ;;

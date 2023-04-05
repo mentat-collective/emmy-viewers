@@ -7,13 +7,3 @@
 ;;
 ;; - single variable?
 ;; - multiple variable?
-
-
-;; TODO remaining:
-;;
-;; Rational Function
-;; Modular Int
-;; Function
-;; Operator
-;; Structures
-;; Matrix

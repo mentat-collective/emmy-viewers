@@ -111,7 +111,6 @@
 #_
 (clerk/reset-viewers! (into [multiviewer] (clerk/get-default-viewers)))
 
-
 (+ (square (sin 'x))
    (square (cos 'x)))
 
