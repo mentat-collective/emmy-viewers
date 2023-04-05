@@ -1,4 +1,4 @@
-(ns examples.einstein
+(ns examples.symbolic.einstein
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
@@ -161,5 +161,4 @@
                   wi))
                basis)
               ((point spacetime-sphere) (up 't 'r 'theta 'phi))))
-           (range 4))))
-  )
+           (range 4)))))

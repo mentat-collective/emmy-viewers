@@ -34,8 +34,7 @@
 ;; nicely.
 
 (defn- fn-transform [f]
-  (binding [xc/*mode* :source]
-    (xc/compile-fn* f 2)))
+  (xc/compile-fn f 2 {:mode :source}))
 
 ;; Let's try it:
 
@@ -176,7 +175,8 @@
 ;;
 ;; ## Polynomials
 ;;
-;; I think this can work out of the box for an Emmy Polynomial.
+;; I think this can work out of the box for an Emmy Polynomial. We really should
+;; be pushing these into Mafs...
 
 (def my-poly
   (let [x (poly/identity 2)]

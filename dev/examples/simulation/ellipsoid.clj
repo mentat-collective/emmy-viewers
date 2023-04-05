@@ -3,8 +3,8 @@
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
   (:require [emmy.env :as e :refer :all]
+            [emmy.expression.compile :as xc]
             [examples.expression :as d]
-            [emmy-viewers.physics :as pv]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]
@@ -31,7 +31,7 @@
 ;; coordinate transformation, but with a fixed $a$, $b$ and $c$ coefficient for
 ;; each rectangular dimension, and no more radial degree of freedom:
 
-(defn elliptical->rect [a b c]
+(defn elliptical->rect [_ a b c]
   (fn [[_ [theta phi] _]]
     (up (* a (sin theta) (cos phi))
         (* b (sin theta) (sin phi))
@@ -53,7 +53,8 @@
    (- (L-free-particle m)
       (fn [[_ [_ _ z]]]
         (* 9.8 m z)))
-   (F->C (elliptical->rect a b c))))
+   (F->C
+    (elliptical->rect m a b c))))
 
 ;; Final Lagrangian:
 
@@ -96,35 +97,60 @@
 ;;
 ;; Lucky us!! Let's do it!
 
-(clerk/with-viewer
-  {:transform-fn pv/physics-xform
+^{::clerk/viewer
+  {:transform-fn
+   (comp clerk/mark-presented
+         (clerk/update-val
+          (fn [{:keys [L params initial-state state->xyz] :as m}]
+            (assoc m
+                   :L
+                   (xc/compile-state-fn
+                    (compose e/Lagrangian->state-derivative L)
+                    params
+                    initial-state
+                    {:mode :js
+                     :calling-convention :primitive
+                     :generic-params? false})
+
+                   :state->xyz
+                   (xc/compile-state-fn
+                    state->xyz
+                    params
+                    initial-state
+                    {:mode :js
+                     :calling-convention :primitive
+                     :generic-params? false})))))
    :render-fn
    (q
     (fn [value]
-      (viewer/html
-       [mathbox/MathBox ~pv/opts
-        [mb/Cartesian (:cartesian value)
-         [mb/Axis {:axis 1 :width 3}]
-         [mb/Axis {:axis 2 :width 3}]
-         [mb/Axis {:axis 3 :width 3}]
-         [demo.mathbox/Mass
-          (select-keys value [:L :state->xyz :initial-state])]
-         [demo.mathbox/Ellipse (:ellipse value)]]])))}
-  (let [m 10000
-        a 3
-        b 2
-        c 1.5]
-    {:degrees-of-freedom 2
-     :state->xyz (elliptical->rect a b c)
-     :L (L-central-triaxial m a b c)
-     :initial-state [0
-                     [0.001 0.001]
-                     [0 0]]
-     :ellipse {:a a :b b :c c}
-     :cartesian {:range [[-10 10]
-                         [-10 10]
-                         [-10 10]]
-                 :scale [3 3 3]}}))
+      [mathbox/MathBox
+       {:container  {:style {:height "400px" :width "100%"}}
+        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+        :renderer   {:background-color 0xffffff}}
+       [mb/Cartesian (:cartesian value)
+        [mb/Axis {:axis 1 :width 3}]
+        [mb/Axis {:axis 2 :width 3}]
+        [mb/Axis {:axis 3 :width 3}]
+        [demo.mathbox/Mass
+         (select-keys
+          value [:L :state->xyz :initial-state :params])]
+        [demo.mathbox/Ellipse (:ellipse value)]]]))}}
+(let [m 10000
+      a 3
+      b 2
+      c 1.5]
+  {:state->xyz elliptical->rect
+   :L L-central-triaxial
+   :params [m a b c]
+   :initial-state [0
+                   [0.001 0.001]
+                   [0 0]]
+   :ellipse {:a a :b b :c c}
+   :cartesian
+   {:range [[-10 10]
+            [-10 10]
+            [-10 10]]
+    :scale [3 3 3]}})
 
 ;; ## Equations of Motion:
 

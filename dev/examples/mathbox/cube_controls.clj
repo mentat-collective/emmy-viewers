@@ -1,7 +1,7 @@
 ^#:nextjournal.clerk
 {:toc true
  :visibility :hide-ns}
-(ns examples.cube-controls
+(ns examples.mathbox.cube-controls
   (:require [leva.core :as-alias leva]
             [nextjournal.clerk :as clerk]
             [mathbox.core :as-alias mathbox]

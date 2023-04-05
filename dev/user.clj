@@ -30,14 +30,17 @@
   "dev/examples/index.md")
 
 (def notebooks
-  ["dev/examples/**.clj"])
+  ["dev/examples/**.clj"
+   "dev/examples/**.cljc"])
 
 (def defaults
-  {:index index
+  {#_#_:index index
    :browse? true
    :watch-paths ["src" "dev"]
-   :cljs-namespaces '[emmy-viewers.sci-extensions
-                      examples.simulation.phase-portrait]})
+   :cljs-namespaces
+   '[emmy-viewers.sci-extensions
+     examples.manifold.pq-knot
+     examples.simulation.phase-portrait]})
 
 (def static-defaults
   (assoc defaults

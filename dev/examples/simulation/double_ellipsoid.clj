@@ -5,11 +5,10 @@
              numerator denominator ref partial])
   (:require [emmy.env :as e :refer :all]
             [examples.simulation.ellipsoid :as ell]
-            [emmy-viewers.physics :as pv]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
-            [mentat.clerk-utils.viewers :refer [q]]
-            [nextjournal.clerk :as clerk]
+            #_[mentat.clerk-utils.viewers :refer [q]]
+            #_[nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]))
 
 ;; ## Ellipsoid with Two
@@ -40,6 +39,7 @@
         (F->C (elliptical->rect a b c))))
 
 ;; Final Demo:
+#_
 (clerk/with-viewer
   {:transform-fn pv/physics-xform
    :render-fn

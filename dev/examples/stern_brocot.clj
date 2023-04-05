@@ -146,12 +146,15 @@
            (butlast
             ((Farey 0 (Ratio. big1 big0)) n))))]
   (clerk/example
-   (transduce + (map Lamothe-simplicity)
+   (transduce (map Lamothe-simplicity)
+              +
               (interior-Farey 5))
-   (transduce + (map Lamothe-simplicity)
+   (transduce (map Lamothe-simplicity)
+              +
               (interior-Farey 6))
-   (transduce + (map Lamothe-simplicity)
-              (interior-Farey 10))   ))
+   (transduce (map Lamothe-simplicity)
+              +
+              (interior-Farey 10))))
 
 ;; Given `m/n` to constuct its binary representation in the full Farey tree from
 ;; 0 to infinity:
