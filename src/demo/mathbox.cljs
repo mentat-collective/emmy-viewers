@@ -60,12 +60,13 @@
                  dimension
                  #js {:absoluteTolerance epsilon
                       :relativeTolerance epsilon
-                      :rawFunction true})]
+                      :rawFunction true})
+         out #js [0 0 0]]
      (fn [state n step-size emit]
        (let [integrate (.integrate solver 0 state)]
          (doseq [t (take n (iterate #(+ % step-size) 0))]
-           (let [y (integrate t)]
-             (emit (aget y 1) (aget y 2)))))))))
+           (integrate t out)
+           (emit (aget out 1) (aget out 2))))))))
 
 (defn Clock*
   "Function component for a relative clock. onTick is called with a single arg for
@@ -117,7 +118,7 @@
          js/undefined))
      #js [onTick])))
 
-(defn Clock [opts]
+(defn ^:export Clock [opts]
   [:f> Clock* opts])
 
 (defn Evolve

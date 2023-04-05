@@ -127,11 +127,14 @@
         :centeredY true
         :live true
         :expr
-        (fn [emit x y _i _j _t]
-          (simulate (js/Array. 0 x y)
-                    steps
-                    dt
-                    emit))}]
+        (let [in (js/Array. 0 0 0)]
+          (fn [emit x y _i _j _t]
+            (aset in 1 x)
+            (aset in 2 y)
+            (simulate in
+                      steps
+                      dt
+                      emit)))}]
       [mb/Vector
        {:color 0x3090ff
         :size 5
