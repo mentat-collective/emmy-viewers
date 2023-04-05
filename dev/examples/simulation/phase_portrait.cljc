@@ -391,18 +391,22 @@
       :render-fn '(fn [opts]
                     (nextjournal.clerk.viewer/html
                      [js/examples.simulation.phase_portrait.Hamilton opts]))}}
-   {:params {:length 1
-             :gravity 9.8
-             :mass 1
-             :simSteps 10}
-    :schema {:length   {:min 0.5 :max 2 :step 0.01}
-             :gravity  {:min 5 :max 15 :step 0.01}
-             :mass     {:min 0.5 :max 2 :step 0.01}
-             :simSteps {:min 1 :max 50 :step 1}}
-    :keys [:gravity :length :mass]
+   {:params
+    {:length 1
+     :gravity 9.8
+     :mass 1
+     :simSteps 10}
+    :schema
+    {:length   {:min 0.5 :max 2 :step 0.01}
+     :gravity  {:min 5 :max 15 :step 0.01}
+     :mass     {:min 0.5 :max 2 :step 0.01}
+     :simSteps {:min 1 :max 50 :step 1}}
+    :keys [:gravity :mass :length]
     :L L-pendulum
     :V V
     :initial-state [0 3 0]})
+
+
 
 ;; Next steps:
 
