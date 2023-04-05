@@ -41,8 +41,7 @@
                     (compose e/Lagrangian->state-derivative L)
                     params
                     initial-state
-                    {:flatten? false
-                     :mode :js
+                    {:mode :js
                      :calling-convention :primitive
                      :generic-params? false})
 

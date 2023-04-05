@@ -375,8 +375,7 @@
                        (e/compose e/Lagrangian->state-derivative L)
                        (mapv params keys)
                        initial-state
-                       {:flatten? false
-                        :mode :js
+                       {:mode :js
                         :calling-convention :primitive
                         :generic-params? true})
                       :V
@@ -384,8 +383,7 @@
                        V
                        (mapv params keys)
                        initial-state
-                       {:flatten? false
-                        :mode :js
+                       {:mode :js
                         :calling-convention :primitive
                         :generic-params? true})))))
       :render-fn '(fn [opts]
