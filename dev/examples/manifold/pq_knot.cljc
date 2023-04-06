@@ -88,7 +88,7 @@
   [R r2 r3 p q]
   (let [theta->xyz (torus-knot R (e/+ r2 r3) p q)
         M          (->TNB theta->xyz)]
-    (fn [[_ [theta phi]]]
+    (fn [[theta phi]]
       (e/+ (theta->xyz theta)
            (e/* (M theta)
                 (circle r3 phi))))))
@@ -125,18 +125,18 @@
                         :scale [1 1 1]
                         :quaternion [0.7 0 0 0.7]}
           [mb/Area
-           {:rangeX [(- (* 3 Math/PI)) (* 3 Math/PI)]
+           {:rangeX [(- Math/PI) Math/PI]
             :rangeY [(- Math/PI) Math/PI]
             :width 512
             :height 16
             :channels 3
             :live false
             :expr
-            (let [in  (js/Array. 0 0 0 0 0)
+            (let [in  (js/Array. 0 0)
                   out (js/Array. 0 0 0)]
               (fn [emit theta phi _i _j _t]
-                (aset in 1 theta)
-                (aset in 2 phi)
+                (aset in 0 theta)
+                (aset in 1 phi)
                 (f in out @!arr)
                 (emit (aget out 0)
                       (aget out 1)
@@ -166,9 +166,8 @@
                       (xc/compile-state-fn
                        knot
                        (mapv params keys)
-                       [0 [0 0] [0 0]]
+                       [0 0]
                        {:mode :js
-                        :arity 2
                         :simplify? false
                         :calling-convention :primitive
                         :generic-params? true})))))
