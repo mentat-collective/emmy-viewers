@@ -22,14 +22,13 @@
 ;; TODO here: Abstract out some of the components and get all four going in the
 ;; same scene.
 
-(def normalize
-  (e/principal-value Math/PI))
-
-;; potential energy term:
+;; Kinetic energy:
 
 (defn T [m _ _ _]
   (fn [[_ _ v]]
     (e/* (e// 1 2) m (e/square v))))
+
+;; potential energy term:
 
 (defn V [_ alpha beta gamma]
   (fn [[_ x]]
