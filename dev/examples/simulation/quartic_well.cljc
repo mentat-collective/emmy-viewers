@@ -22,14 +22,13 @@
 ;; TODO here: Abstract out some of the components and get all four going in the
 ;; same scene.
 
-(def normalize
-  (e/principal-value Math/PI))
-
-;; potential energy term:
+;; Kinetic energy:
 
 (defn T [m _ _ _]
   (fn [[_ _ v]]
     (e/* (e// 1 2) m (e/square v))))
+
+;; potential energy term:
 
 (defn V [_ alpha beta gamma]
   (fn [[_ x]]
@@ -318,14 +317,61 @@
          !arr    (reagent.core/reaction
                   (apply
                    array
-                   (map @!params keys)))]
+                   (map @!params keys)))
+         ;; TODO share all the V-fn compilation calls
+         T-fn (apply js/Function (:T opts))
+         V-fn (apply js/Function (:V opts))]
      (fn [_]
        [:<>
         ;; so annoying...
         [nextjournal.clerk.render/inspect @!arr]
         [leva.core/Controls
          {:atom !params
-          :schema schema}]
+          :schema
+          (assoc schema
+                 "Monitors (expand me!)"
+                 (leva.core/folder
+                  {"T"
+                   (leva.core/monitor
+                    (let [out (js/Array. 0)]
+                      (fn []
+                        (let [state (:state (.-state !state))]
+                          (T-fn state out (.-state !arr))
+                          (if (js/isNaN (aget out 0))
+                            0
+                            (aget out 0)))))
+                    {:graph true
+                     :interval 30})
+
+                   "V"
+                   (leva.core/monitor
+                    (let [out (js/Array. 0)]
+                      (fn []
+                        (let [state (:state (.-state !state))]
+                          (V-fn state out (.-state !arr))
+                          (if (js/isNaN (aget out 0))
+                            0
+                            (aget out 0)))))
+                    {:graph true
+                     :interval 30})
+
+                   "Energy (T+V)"
+                   (leva.core/monitor
+                    (let [ke (js/Array. 0)
+                          pe (js/Array. 0)]
+                      (fn []
+                        (let [state (:state (.-state !state))]
+                          (T-fn state ke (.-state !arr))
+                          (V-fn state pe (.-state !arr))
+                          (+ (if (js/isNaN (aget ke 0))
+                               0
+                               (aget ke 0))
+                             (if (js/isNaN (aget pe 0))
+                               0
+                               (aget pe 0))))))
+                    {:graph true
+                     :interval 30})}
+                  {:collapsed true}))}]
 
 
         ;; let vs = sim.initial;
