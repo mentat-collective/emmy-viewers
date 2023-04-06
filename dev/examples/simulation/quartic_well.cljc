@@ -1,7 +1,7 @@
 ^#:nextjournal.clerk
 {:toc true
  :visibility :hide-ns}
-(ns examples.simulation.phase-portrait
+(ns examples.simulation.quartic-well
   (:require [emmy.env :as e]
             #?(:clj [emmy.expression.compile :as xc])
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
@@ -15,26 +15,29 @@
                        [leva.core]
                        [mathbox.primitives :as mb]])))
 
-;; ## Phase Portrait
+;; ## Quartic Well
+
+;; https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf
 ;;
-;; TODO evolver doesn't reboot when you change a function value
-;; TODO so many array creations for params
-;; TODO
+;; TODO here: Abstract out some of the components and get all four going in the
+;; same scene.
 
 (def normalize
   (e/principal-value Math/PI))
 
 ;; potential energy term:
 
-(defn T [_ m l]
-  (fn [[_ _ thetadot]]
-    (e/* (e// 1 2) m (e/square (e/* l thetadot)))))
+(defn T [m _ _ _]
+  (fn [[_ _ v]]
+    (e/* (e// 1 2) m (e/square v))))
 
-(defn V [g m l]
-  (fn [[_ theta]]
-    (e/* -1 m g l (e/cos theta))))
+(defn V [_ alpha beta gamma]
+  (fn [[_ x]]
+    (e/+ (e/* alpha (e/expt x 4))
+         (e/- (e/* beta (e/square x)))
+         gamma)))
 
-(def L-pendulum
+(def L-quartic
   (e/- T V))
 
 ;; ## Equations
@@ -44,22 +47,20 @@
 (viewer/tex
  (e/->TeX
   (e/simplify
-   ((L-pendulum 'g 'm 'l)
-    (e/up 't 'theta 'thetadot)))))
+   ((L-quartic 'm 'alpha 'beta 'gamma)
+    (e/up 't 'x 'xdot)))))
 
 ;; Can we show eq of motion?
 
 (viewer/tex
  (e/->TeX
   (e/simplify
-   (((e/Lagrange-equations (L-pendulum 'g 'm 'l))
-     (e/literal-function 'theta))
+   (((e/Lagrange-equations (L-quartic 'm 'alpha 'beta 'gamma))
+     (e/literal-function 'x))
     't))))
 
-;; ## Phase Portrait
-
+^{::clerk/visibility {:code :hide :result :hide}}
 (show-cljs
-
  (defn PhaseAxes []
    [:<>
     [mb/Axis
@@ -134,7 +135,7 @@
                       emit)))}]
       [mb/Vector
        {:color 0x3090ff
-        :size 5
+        :size 3
         :end true}]]))
 
  (defn Phase [{:keys [!state initial-state L params steps]}]
@@ -157,17 +158,10 @@
         :path
         (fn [emit _ _]
           (let [state (:state (.-state !state))]
-            ;; TODO how do we normalize??
-            (emit (normalize
-                   (aget state 1))
-                  (aget state 2))))}]])))
+            (emit (aget state 1)
+                  (aget state 2))))}]]))
 
-;; ## Axes
-
-(show-cljs
- (defn WellAxes
-   "MathBox component for a 2d chart that would honestly look better in mafs."
-   []
+ (defn WellAxes []
    [:<>
     [mathbox.primitives/Axis
      {:axis "x"
@@ -175,15 +169,12 @@
     [mathbox.primitives/Scale
      {:axis "x"
       :divide 5
-      :unit Math/PI
-      :base 2
+      :unit 1
+      :base 10
       :start true
       :end true}]
     [mathbox.primitives/Format
-     {:expr
-      (fn [x]
-        (str (demo.mathbox/format-number
-              (/ x Math/PI)) "π"))
+     {:expr demo.mathbox/format-number
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff
@@ -222,14 +213,13 @@
       :channels 2
       :live false
       :expr
-      ;; TODO is this better or what??
       (let [in  (js/Array. 0 0 0)
             out (js/Array. 0)
             p   @!params]
-        (fn [emit theta]
-          (aset in 1 theta)
+        (fn [emit x]
+          (aset in 1 x)
           (V in out p)
-          (emit theta (aget out 0))))}]
+          (emit x (aget out 0))))}]
     [mathbox.primitives/Line
      {:color 0x3090ff}]])
 
@@ -238,63 +228,83 @@
          V-fn (js/Function. a1 b1 c1 body1)]
      [:<>
       [mathbox.primitives/Grid
-       {:color 0x808080
-        :unitX Math/PI
-        :baseX 2}]
+       {:color 0x808080}]
       [WellAxes]
       [PotentialLine
        {:V V-fn
         :!params params}]
       ;; this is the bead traveling with history along the potential.
       [demo.mathbox/Comet
+       ;; TODO pass a width to the emitted area for how many points we have.
        {:dimensions 2
+        :items 2
         :length 16
         :color 0xa0d0ff
         :size 5
         :opacity 0.99
         :path
         (let [out (js/Array. 0)]
-          (fn [emit _ _]
+          (fn [emit i _]
             (let [state (:state (.-state !state))
-                  theta (aget state 1)]
+                  x (aget state 1)]
               (V-fn state out (.-state params))
-              (emit (normalize theta)
-                    (aget out 0)))))}]])))
+              (emit x (aget out 0))
+              (emit x (+ 7 i)))))}]]))
 
-;; ## Animate Pendulum
+ (defn Logger [{:keys [T V !state params]}]
+   (let [T-fn (apply js/Function T)
+         V-fn (apply js/Function V)]
+     [:<>
+      [mathbox.primitives/Grid
+       {:color 0x808080
+        :divideX 0 :divideY 3}]
+      [mathbox.primitives/Axis
+       {:axis "x"
+        :color 0xffffff}]
+      [mathbox.primitives/Axis
+       {:axis "y"
+        :color 0xffffff}]
 
-(show-cljs
- (defn Pendulum [{:keys [!state params]}]
-   [:<>
-    [mathbox.primitives/Array
-     {:channels 2
-      :items 2
-      :live false
-      :data (let [theta (aget (:state @!state) 1)
-                  l     (:length @params)]
-              [[0 0]
-               [(* l (Math/sin theta))
-                (* l (- (Math/cos theta)))]])
+      ;; log potential
+      [mathbox.primitives/Array
+       {:width 1
+        :history 120
+        :channels 2
+        :expr
+        (let [out (js/Array. 0)]
+          (fn [emit _i]
+            (let [state (:state (.-state !state))]
+              (V-fn state out (.-state params))
+              (emit 0 (aget out 0)))))}]
+      [mathbox.primitives/Spread
+       {:height [-1 0]
+        :alignHeight 1}]
+      [mathbox.primitives/Transpose {:order "yx"}]
+      [mathbox.primitives/Line
+       {:points "<"
+        :color [0.7 0.4 0.4]
+        :width 3}]
 
-      ;; THIS WORKS TOO!
-      #_#_
-      :expr
-      (fn [emit _i]
-        (let [theta (aget (:state (.-state !state)) 1)
-              l     (:length (.-state params))]
-          (emit 0 0)
-          (emit (* l (Math/sin theta))
-                (* l (- (Math/cos theta))))))
-      }]
+      ;; log kinetic
+      [mathbox.primitives/Array
+       {:width 1
+        :history 120
+        :channels 2
+        :expr
+        (let [out (js/Array. 0)]
+          (fn [emit _i]
+            (let [state (:state (.-state !state))]
+              (T-fn state out (.-state params))
+              (emit 0 (aget out 0)))))}]
 
-    ;; attach a bob between the two.
-    [mathbox.primitives/Vector {:color 0xffffff :width 2}]
-
-    [mathbox.primitives/Slice {:items [0 1]}]
-    [mathbox.primitives/Point {:color 0x909090 :size 4}]
-
-    [mathbox.primitives/Slice {:items [1 2]}]
-    [mathbox.primitives/Point {:color 0xffffff :size 10}]])
+      [mathbox.primitives/Spread
+       {:height [-1 0]
+        :alignHeight 1}]
+      [mathbox.primitives/Transpose {:order "yx"}]
+      [mathbox.primitives/Line
+       {:points "<"
+        :color [0.4 0.9 1]
+        :width 3}]]))
 
  (defn ^:export Hamilton
    [{state  :initial-state
@@ -302,8 +312,7 @@
      keys   :keys
      schema :schema
      :as opts}]
-   ;; TODO wire generic params into Lagrangian updater.
-   ;; TODO cursor really screwing me here.
+   ;; TODO set initial time, state. maybe no params?
    (let [!state  (reagent.core/atom {:time 0 :state state})
          !params (reagent.core/atom params)
          !arr    (reagent.core/reaction
@@ -312,10 +321,26 @@
                    (map @!params keys)))]
      (fn [_]
        [:<>
+        ;; so annoying...
         [nextjournal.clerk.render/inspect @!arr]
         [leva.core/Controls
          {:atom !params
           :schema schema}]
+
+
+        ;; let vs = sim.initial;
+        ;; let t = 0;
+        ;; let dt = 1 / 120;
+        ;; TODO parallel simulations, not connected
+        ;; let dt = 1 / 120;
+        ;; three.on(
+        ;;          "update",
+        ;;          (tick = () => {
+        ;;                         vs = vs.map((v) => sim.step(v, dt));
+        ;;                         t += dt;
+        ;;                         })
+        ;;          );
+        ;; TODO same evolution?
         [demo.mathbox/Evolve
          {:L (:L opts)
           :params !arr
@@ -325,25 +350,16 @@
          {:container  {:style {:height "600px" :width "100%"}}
           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
           :renderer   {:background-color 0x000000}}
+         ;; camera above this time vs phase.
+         [mathbox.primitives/Camera {:proxy true :position [0 0 20] :fov 90}]
          [mathbox.primitives/Layer
-          [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
+
           [mathbox.primitives/Unit {:scale 720 :focus 1}
            [mathbox.primitives/Cartesian
-            {:id "pendulum"
-             :range [[-1 1] [-1 1]]
-             :scale [0.25 0.25]
-             :position [-0.5 0.35 0]}
-            [Pendulum
-             {:!state !state
-              :params !params}]]
-
-           [mathbox.primitives/Cartesian
             {:id "well"
-             ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-             :range [[(- Math/PI) (- Math/PI 0.00001)]
-                     [-10 10]]
-             :scale [0.48 0.25]
-             :position [-0.5 -0.25 0]}
+             :range [[-3 3] [0 14]]
+             :scale [0.48 0.48]
+             :position [-0.5 0.2]}
             [Well
              {:!state !state
               :V      (:V opts)
@@ -351,15 +367,29 @@
 
            [mathbox.primitives/Cartesian
             {:id "phase"
-             :range [[-4 4] [-8 8]]
-             :scale [0.6 0.6]
-             :position [0.6 0]}
+             :range [[-4 4] [-4 4]]
+             :scale [0.48 0.48]
+             :position [0.5 0.2]}
             [Phase
              {:L (:L opts)
               :!state !state
               :initial-state state
               :params !arr
-              :steps (:simSteps @!params)}]]]]]]))))
+              :steps (:simSteps @!params)}]]
+
+           [mathbox.primitives/Cartesian
+            {:id "logger"
+             :range [[-1 0] [0 6]]
+             :scale [0.98 0.1]
+             :position [0 -0.5]}
+            [Logger
+             {:!state !state
+              :T      (:T opts)
+              :V      (:V opts)
+              :params !arr}]]]]]]))))
+
+
+;; ## Animate Well
 
 #?(:clj
    ^{::clerk/width :wide
@@ -367,7 +397,7 @@
      {:transform-fn
       (comp clerk/mark-presented
             (clerk/update-val
-             (fn [{:keys [L params keys initial-state] :as m}]
+             (fn [{:keys [L T V params keys initial-state] :as m}]
                (assoc m
                       :L
                       (xc/compile-state-fn
@@ -384,54 +414,31 @@
                        initial-state
                        {:mode :js
                         :calling-convention :primitive
+                        :generic-params? true})
+                      :T
+                      (xc/compile-state-fn
+                       T
+                       (mapv params keys)
+                       initial-state
+                       {:mode :js
+                        :calling-convention :primitive
                         :generic-params? true})))))
       :render-fn '(fn [opts]
-                    (nextjournal.clerk.viewer/html
-                     [js/examples.simulation.phase_portrait.Hamilton opts]))}}
+                    [js/examples.simulation.quartic_well.Hamilton opts])}}
    {:params
-    {:length 1
-     :gravity 9.8
-     :mass 1
+    {:mass 1
+     :alpha 0.25
+     :beta 2
+     :gamma 4
      :simSteps 10}
     :schema
-    {:length   {:min 0.5 :max 2 :step 0.01}
-     :gravity  {:min 5 :max 15 :step 0.01}
-     :mass     {:min 0.5 :max 2 :step 0.01}
+    {:mass     {:min 0.5 :max 2 :step 0.01}
+     :alpha     {:min 0.1 :max 2 :step 0.01}
+     :beta     {:min 0.5 :max 4 :step 0.01}
+     :gamma   {:min 2 :max 6 :step 0.01}
      :simSteps {:min 1 :max 50 :step 1}}
-    :keys [:gravity :mass :length]
-    :L L-pendulum
+    :keys [:mass :alpha :beta :gamma]
+    :L L-quartic
+    :T T
     :V V
-    :initial-state [0 3 0]})
-
-
-
-;; Next steps:
-
-;; - TODO how do we do generic drawing?
-;; - TODO clerk/sync
-;; - how expensive is it to make these odex `.simulate` calls?
-;; - how expensive are the redundant array lookups?
-;; - convert potential to only need position
-
-#_
-(comment
-  (defn DoublePendulum
-    "For later, here's how to extend this."
-    []
-    [:<>
-     [mathbox.primitives/Array
-      {:width 2
-       :channels 2
-       :items 3
-       :expr (fn [emit _i now]
-               (emit -1 0)
-               (emit 0 0)
-               (emit (Math/sin now) (- (Math/cos now))))}]
-     ;; attach a bob between the two.
-     [mathbox.primitives/Vector {:color 0xffffff :width 2}]
-     ;; JUST attach a point to the second of the two items, ie [1, 2)
-     [mathbox.primitives/Slice {:items [0 1]}]
-     [mathbox.primitives/Point {:color 0x909090 :size 4}]
-
-     [mathbox.primitives/Slice {:items [1 3]}]
-     [mathbox.primitives/Point {:color 0xffffff :size 10}]]))
+    :initial-state [0 0 2]})

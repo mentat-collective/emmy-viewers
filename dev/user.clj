@@ -40,7 +40,8 @@
    :cljs-namespaces
    '[emmy-viewers.sci-extensions
      examples.manifold.pq-knot
-     examples.simulation.phase-portrait]})
+     examples.simulation.phase-portrait
+     examples.simulation.quartic-well]})
 
 (def static-defaults
   (assoc defaults

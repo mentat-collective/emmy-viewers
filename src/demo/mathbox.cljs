@@ -6,9 +6,12 @@
             ["react" :as react]
             [reagent.core :as r]
             [emmy.expression.compile :as xc]
-            [emmy.numerical.ode :as ode]
-            [emmy.structure :as struct])
+            [emmy.numerical.ode :as ode])
   (:import [goog Timer]))
+
+(defn format-number [x]
+  (-> (.toFixed x 2)
+      (.replace #"\.0+$" "")))
 
 ;; ## Components
 
@@ -175,14 +178,17 @@
   rest of options go to the final point
 
   Note that i think we have to emit with xzy?? weird..."
-  [{:keys [dimensions path length] :as opts}]
+  [{:keys [dimensions path length items]
+    :or {items 1}
+    :as opts}]
   [:<>
    [mb/Array
     {:history length
+     :items items
      :channels dimensions
      :expr path}]
    [Tail
-    (dissoc opts :dimensions :path)]])
+    (dissoc opts :dimensions :path :items)]])
 
 (defn Mass
   "Mass using Colin's new code."
