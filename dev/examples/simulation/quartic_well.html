@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html><head><title>Quartic Well</title><meta charset="UTF-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf" property="og:description"><meta content="Quartic Well" property="og:title"><meta content="article:clerk" property="og:type"><meta content="summary_large_image" name="twitter:card"><link href="https://unpkg.com/computer-modern@0.1.2/cmu-serif.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mafs@0.15.2/core.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mafs@0.15.2/font.css" rel="stylesheet" type="text/css"><link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathbox@2.3.1/build/mathbox.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css" rel="stylesheet" type="text/css"><script src="https://cdn.tailwindcss.com?plugins=typography" type="text/javascript"></script><script>tailwind.config = {
+  darkMode: "class",
+  content: ["./tw/viewer.js", "./tw/**/*.edn"],
+  safelist: ['dark'],
+  theme: {
+    extend: {},
+    fontFamily: {
+      sans: ["Fira Sans", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+      serif: ["PT Serif", "serif"],
+      mono: ["Fira Mono", "monospace"]
+    }
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</script><style type="text/tailwindcss">@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 18px;
+  }
+  @media (max-width: 600px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  .font-condensed { font-family: "Fira Sans Condensed", sans-serif; }
+  .font-inter     { font-family: "Inter", sans-serif; }
+  body {
+    @apply font-serif antialiased text-gray-900 sm:overscroll-y-none;
+  }
+  code, .code {
+    @apply font-mono text-sm text-gray-900 bg-slate-50 px-0.5 py-px rounded dark:bg-gray-800;
+  }
+  code::before, code::after { @apply content-none !important; }
+  h1, h3, h4, h5, h6 {
+    @apply font-condensed font-bold mt-8 first:mt-0;
+  }
+  h2 {
+    /*We cannot collapse margins due to nesting but we want to*/
+    /*keep the h2’s large margin visible*/
+    @apply font-condensed font-bold mt-8 first:mt-2;
+  }
+  h1 { @apply text-4xl; }
+  h2 { @apply text-3xl; }
+  h3 { @apply text-2xl; }
+
+  @media print {
+      h1 { @apply text-2xl !important; }
+      h2 { @apply text-xl !important; }
+      h3 { @apply text-lg !important; }
+  }
+  
+  button { @apply focus:outline-none; }
+  strong { @apply font-bold; }
+  em     { @apply italic; }
+  pre    { @apply m-0 font-mono; }
+}
+
+/* Compatibility */
+/* --------------------------------------------------------------- */
+/* TODO: Verify which colors are in use and replace with Tailwind
+   colors accordingly. Move Nj-specific styles out of here. */
+
+:root {
+  --teal-color: #31afd0;
+  --dark-teal-color: #095960;
+  --near-black-color: #2e2e2c;
+  --red-color: #d64242;
+  --dark-blue-color: #1f2937;
+  --dark-blue-60-color: rgba(28, 42, 56, 0.6);
+  --gray-panel-color: rgba(239, 241, 245, 1.000);
+  --brand-color: var(--dark-blue-color);
+  --link-color: #5046e4;
+  --command-bar-selected-color: var(--teal-color);
+}
+
+.serif      { @apply font-serif; }
+.sans-serif { @apply font-sans; }
+.monospace  { @apply font-mono; }
+.inter      { @apply font-inter; }
+
+.border-color-teal { border-color: var(--dark-teal-color); }
+.teal { color: var(--teal-color); }
+.bg-dark-blue { background: var(--dark-blue-color); }
+.bg-dark-blue-60 { background: rgba(28, 42, 56, 0.6); }
+.bg-gray-panel { background: var(--gray-panel-color); }
+.text-dark-blue  { color: var(--dark-blue-color); }
+.text-dark-blue-60 { color: var(--dark-blue-60-color); }
+.border-dark-blue-30 { border-color: rgba(28, 42, 56, 0.6); }
+.text-brand { color: var(--dark-blue-color); }
+.bg-brand { background: var(--dark-blue-color); }
+.text-selected { color: white; }
+.red { color: var(--red-color); }
+
+/* Disclose Button */
+/* --------------------------------------------------------------- */
+
+.disclose {
+  @apply content-none border-solid cursor-pointer inline-block relative mr-[3px] top-[-2px] transition-all;
+  border-color: var(--near-black-color) transparent;
+  border-width: 6px 4px 0;
+}
+.disclose:hover {
+  border-color: var(--near-black-color) transparent;
+}
+.dark .disclose,
+.dark .disclose:hover {
+  border-color: white transparent;
+}
+.disclose.collapsed {
+  @apply rotate-[-90deg];
+}
+
+/* Layout */
+/* --------------------------------------------------------------- */
+
+.page {
+  @apply max-w-5xl mx-auto px-12 box-border flex-shrink-0;
+}
+.max-w-prose { @apply max-w-[46rem] !important; }
+.max-w-wide  { @apply max-w-3xl !important; }
+
+/* List Styles */
+/* --------------------------------------------------------------- */
+
+.task-list-item + .task-list-item,
+.markdown-viewer ul ul {
+  @apply mt-1 mb-0;
+}
+
+/* compact TOC */
+.markdown-viewer .toc ul {
+  list-style: none;
+  @apply my-1;
+}
+
+/* Code Viewer */
+/* --------------------------------------------------------------- */
+
+.code-viewer {
+  @apply font-mono bg-slate-100 rounded-sm text-sm overflow-x-auto dark:bg-gray-800;
+}
+.code-listing  {
+    @apply -ml-8 -mr-8 relative !important;
+}
+.code-viewer .cm-content {
+  @apply py-4 px-8;
+}
+@media (min-width: 960px){
+    .notebook-viewer .code-viewer .cm-content {
+        @apply py-4 pl-12;
+    }
+    .notebook-viewer .code-listing {
+        width: 48rem !important;
+        @apply -ml-12 mr-0 !important;
+    }
+}
+/* Don’t show focus outline when double-clicking cell in Safari */
+.cm-scroller { @apply focus:outline-none; }
+
+/* Syntax Highlighting */
+/* --------------------------------------------------------------- */
+
+.inspected-value { @apply text-xs font-mono leading-[1.25rem]; }
+.cmt-strong, .cmt-heading { @apply font-bold; }
+.cmt-italic, .cmt-emphasis { @apply italic; }
+.cmt-strikethrough { @apply line-through; }
+.cmt-link { @apply underline; }
+.untyped-value { @apply whitespace-nowrap; }
+
+.cm-editor, .cmt-default, .result-viewer {
+  @apply text-slate-800 dark:text-slate-300;
+}
+.cmt-keyword {
+  @apply text-purple-800 dark:text-pink-400;
+}
+.cmt-atom, .cmt-bool, .cmt-url, .cmt-contentSeparator, .cmt-labelName {
+  @apply text-blue-900 dark:text-blue-300;
+}
+.cmt-inserted, .cmt-literal {
+  @apply text-emerald-700 dark:text-emerald-200;
+}
+.cmt-string, .cmt-deleted {
+  @apply text-rose-700 dark:text-sky-300;
+}
+.cmt-italic.cmt-string {
+  @apply dark:text-sky-200;
+}
+.cmt-regexp, .cmt-escape {
+  @apply text-orange-500 dark:text-orange-300;
+}
+.cmt-variableName {
+  @apply text-blue-800 dark:text-sky-300;
+}
+.cmt-typeName, .cmt-namespace {
+  @apply text-emerald-600 dark:text-emerald-300;
+}
+.cmt-className {
+  @apply text-teal-600 dark:text-teal-200;
+}
+.cmt-macroName {
+  @apply text-teal-700 dark:text-teal-200;
+}
+.cmt-propertyName {
+  @apply text-blue-700 dark:text-blue-200;
+}
+.cmt-comment {
+  @apply text-slate-500 dark:text-slate-400;
+}
+.cmt-meta {
+  @apply text-slate-600 dark:text-slate-400;
+}
+.cmt-invalid {
+  @apply text-red-500 dark:text-red-300;
+}
+
+.result-data {
+  @apply font-mono text-sm overflow-x-auto whitespace-nowrap leading-normal;
+}
+.result-data::-webkit-scrollbar, .path-nav::-webkit-scrollbar {
+  @apply h-0;
+}
+.result-data-collapsed {
+  @apply whitespace-nowrap;
+}
+.result-data-field {
+  @apply ml-4 whitespace-nowrap;
+}
+.result-data-field-link{
+  @apply ml-4 whitespace-nowrap cursor-pointer;
+}
+.result-data-field-link:hover {
+  @apply text-black bg-black/5;
+}
+.result-text-empty {
+  color: rgba(0,0,0,.3);
+}
+.browsify-button:hover {
+  box-shadow: -2px 0 0 2px #edf2f7;
+}
+
+/* Prose */
+/* --------------------------------------------------------------- */
+
+.notebook-viewer,
+.markdown-viewer {
+  @apply prose
+    dark:prose-invert
+    prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+    dark:prose-a:text-blue-300
+    prose-p:mt-4 prose-p:leading-snug
+    prose-ol:mt-4 prose-ol:mb-6 prose-ol:leading-snug
+    prose-ul:mt-4 prose-ul:mb-6 prose-ul:leading-snug
+    prose-blockquote:mt-4 prose-blockquote:leading-snug
+    prose-hr:mt-6 prose-hr:border-t-2 prose-hr:border-solid prose-hr:border-slate-200
+    prose-figure:mt-4
+    prose-figcaption:mt-2 prose-figcaption:text-xs
+    prose-headings:mb-4
+    prose-table:mt-0
+    prose-th:mb-0
+    prose-img:my-0
+    prose-code:font-medium prose-code:bg-slate-100
+    max-w-none;
+}
+.markdown-viewer blockquote p:first-of-type:before,
+.markdown-viewer blockquote p:last-of-type:after {
+  @apply content-none;
+}
+
+/* Images */
+/* --------------------------------------------------------------- */
+
+
+/* Todo Lists */
+/* --------------------------------------------------------------- */
+
+.contains-task-list {
+  @apply pl-6 list-none;
+}
+.contains-task-list input[type="checkbox"] {
+  @apply appearance-none h-4 w-4 rounded border border-slate-200 relative mr-[0.3rem] ml-[-1.5rem] top-[0.15rem];
+}
+.contains-task-list input[type="checkbox"]:checked {
+  @apply border-indigo-600 bg-indigo-600 bg-no-repeat bg-contain;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+}
+
+/* Markdown TOC */
+/* --------------------------------------------------------------- */
+
+.markdown-viewer .toc      { @apply mt-4; }
+.markdown-viewer h1 + .toc { @apply mt-8; }
+
+.markdown-viewer .toc h1,
+.markdown-viewer .toc h2,
+.markdown-viewer .toc h3,
+.markdown-viewer .toc h4,
+.markdown-viewer .toc h5,
+.markdown-viewer .toc h6 {
+  @apply text-base text-indigo-600 font-sans my-0;
+}
+.markdown-viewer .toc a {
+  @apply text-indigo-600 font-normal no-underline hover:underline;
+}
+.markdown-viewer .toc li    { @apply m-0; }
+.markdown-viewer .toc ul ul { @apply pl-4; }
+
+/* Notebook Spacing */
+/* --------------------------------------------------------------- */
+
+.notebook-viewer { @apply py-16; }
+#clerk-static-app .notebook-viewer { @apply pt-[0.8rem] pb-16; }
+.markdown-viewer *:first-child:not(.code-viewer):not(li):not(h2):not(.sidenote) { @apply mt-0; }
+/*.viewer + .viewer { @apply mt-6; }*/
+.viewer + .result-viewer { @apply mt-0; }
+.code-viewer + .result-viewer { @apply mt-3; }
+.markdown-viewer + .markdown-viewer { @apply mt-0; }
+
+/* Sidenotes */
+/* --------------------------------------------------------------- */
+
+.sidenote-ref {
+  @apply top-[-0.5em] w-auto h-auto inline border-0 bg-transparent m-0 pointer-events-none;
+}
+.sidenote {
+  @apply block font-sans text-xs mt-4 bg-slate-100 dark:bg-slate-800 p-4;
+  font-style: normal;
+  font-weight: normal;
+}
+.sidenote-container {
+  @apply mb-4;
+}
+@media (min-width: 860px) {
+  .sidenote sup { @apply inline; }
+  .sidenote-column {
+    @apply w-[165px] absolute right-0 top-0 -mr-[205px];
+  }
+  .sidenote {
+    @apply bg-transparent dark:bg-transparent p-0;
+  }
+  .sidenote:first-child {
+    @apply mt-1;
+  }
+  .sidenotes-layout .markdown-viewer {
+    @apply pr-[205px];
+  }
+  .sidenote-container {
+    @apply relative mb-0;
+  }
+  .sidenotes-layout h1 {
+    @apply w-[756px] !important;
+  }
+}
+.code-viewer + .viewer:not(.markdown-viewer):not(.code-viewer):not(.code-viewer-folded),
+.code-viewer-folded + .viewer:not(.markdown-viewer):not(.code-viewer):not(.code-viewer-folded),
+.result-viewer + .result-viewer {
+  @apply mt-2;
+}
+.code-viewer + .code-viewer-folded {
+  @apply mt-4;
+}
+.result-viewer {
+  @apply leading-tight mb-6;
+}
+.result-viewer figure {
+  @apply mt-0 !important;
+}
+@media (min-width: 768px) {
+  .devcard-desc > div {
+    @apply max-w-full m-0;
+  }
+}
+
+/* Command Palette */
+/* --------------------------------------------------------------- */
+
+.nj-commands-input {
+  @apply bg-transparent text-white;
+}
+.nj-context-menu-item:hover:not([disabled]) {
+  @apply cursor-pointer;
+  background-color: rgba(255,255,255,.14);
+}
+
+/* Devdocs */
+/* --------------------------------------------------------------- */
+
+.logo, .logo-white {
+  @apply block indent-[-999em];
+  background: url(/images/nextjournal-logo.svg) center center no-repeat;
+}
+.devdocs-body {
+  @apply font-inter;
+}
+
+/* Workarounds */
+/* --------------------------------------------------------------- */
+
+/* Fixes vega viewer resizing into infinity */
+.vega-embed .chart-wrapper { @apply h-auto !important; }
+/* fixes fraction separators being overridden by tw’s border-color */
+.katex * { @apply border-black; }
+
+@media print {
+    .dark-mode-toggle,
+    .toc-toggle { @apply hidden; }
+    .notebook-viewer { @apply pt-0; font-size: 12pt !important; margin-left: 0 !important; }
+    .code-viewer .cm-content,
+    .viewer-code .cm-content { @apply whitespace-pre-wrap !important; overflow: none; }
+    .code-viewer .cm-line { font-size: 12pt !important; }
+    html * { page-break-inside: avoid !important; }
+    .toc-panel { @apply hidden; }
+}
+</style><script src="../../../_data/8VuWkExpEa15bYktu8Sgjs3oNu8AXtdF9CJ9vaXSUoknvXQE8EoLxCoKUKK6xpw73yk6w3HbcpLkeP2FN8pknsEqJ7.js" type="module"></script><link href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" rel="stylesheet" type="text/css"><link href="https://fonts.bunny.net" rel="preconnect"><link href="https://fonts.bunny.net/css?family=fira-mono:400,700%7Cfira-sans:400,400i,500,500i,700,700i%7Cfira-sans-condensed:700,700i%7Cpt-serif:400,400i,700,700i" rel="stylesheet" type="text/css"></head><body><div id="clerk-static-app"></div><script type="module">let state = "{:out-path \"public/build\", :path->doc {\"dev/examples/simulation/quartic_well.cljc\" {:path [], :nextjournal/value {:toc {:type :toc, :children [{:children [{:type :toc, :content [{:type :text, :text \"Quartic Well\"}], :heading-level 2, :attrs {:id \"quartic-well\"}, :path [:content 0]} {:type :toc, :content [{:type :text, :text \"Equations\"}], :heading-level 2, :attrs {:id \"equations\"}, :path [:content 4]} {:type :toc, :content [{:type :text, :text \"Animate Well\"}], :heading-level 2, :attrs {:id \"animate-well\"}, :path [:content 7]}], :type :toc}]}, :sidenotes? false, :toc-visibility true, :atom-var-name->state #viewer-eval (nextjournal.clerk.render/intern-atoms! {}), :ns #viewer-eval (ns examples.simulation.quartic-well), :auto-expand-results? nil, :scope examples.simulation.quartic-well, :bundle? false, :open-graph {:type \"article:clerk\", :title \"Quartic Well\", :description \"https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf\"}, :title \"Quartic Well\", :blocks [{:nextjournal/value [:div.markdown-viewer [\"h2\" {:id \"quartic-well\"} [:<> \"Quartic Well\"]] [:p [:a {:href \"https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf\"} [:<> \"https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf\"]]] [:p [:<> \"TODO here: Abstract out some of the components and get all four going in the\"] [#viewer-eval nextjournal.clerk.render/inspect-presented {:nextjournal/value [:<> \" \"], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer, :render-fn #viewer-fn identity, :hash \"5du5eveS8XMqMDMYH5rpQ1bqryEJdg\"}}] [:<> \"same scene.\"]]], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer-, :render-fn #viewer-fn identity, :hash \"5du1K91pV2nRmpCG3vM8fBcDsgHWKs\"}} {:nextjournal/value \"(def normalize\\n  (e/principal-value Math/PI))\", :nextjournal/opts {:loc {:line 25, :end-line 26, :column 1, :end-column 31}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[emmy.value$principal_value$fn__34767 0x2d95fd64 \\\"emmy.value$principal_value$fn__34767@2d95fd64\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dtqSwPK7em2tz4ZfeRLpbMKWF6Tu9\"}}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:nextjournal/value [:div.markdown-viewer [:p [:<> \"potential energy term:\"]]], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer-, :render-fn #viewer-fn identity, :hash \"5du1K91pV2nRmpCG3vM8fBcDsgHWKs\"}} {:nextjournal/value \"(defn T [m _ _ _]\\n  (fn [[_ _ v]]\\n    (e/* (e// 1 2) m (e/square v))))\", :nextjournal/opts {:loc {:line 30, :end-line 32, :column 1, :end-column 37}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[examples.simulation.quartic_well$T 0x7c565416 \\\"examples.simulation.quartic_well$T@7c565416\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dtqSwPK7em2tz4ZfeRLpbMKWF6Tu9\"}}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:nextjournal/value \"(defn V [_ alpha beta gamma]\\n  (fn [[_ x]]\\n    (e/+ (e/* alpha (e/expt x 4))\\n         (e/- (e/* beta (e/square x)))\\n         gamma)))\", :nextjournal/opts {:loc {:line 34, :end-line 38, :column 1, :end-column 18}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[examples.simulation.quartic_well$V 0x62a10eb1 \\\"examples.simulation.quartic_well$V@62a10eb1\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dtqSwPK7em2tz4ZfeRLpbMKWF6Tu9\"}}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:nextjournal/value \"(def L-quartic\\n  (e/- T V))\", :nextjournal/opts {:loc {:line 40, :end-line 41, :column 1, :end-column 13}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[clojure.lang.AFunction$1 0x55693234 \\\"clojure.lang.AFunction$1@55693234\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dtqSwPK7em2tz4ZfeRLpbMKWF6Tu9\"}}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:nextjournal/value [:div.markdown-viewer [\"h2\" {:id \"equations\"} [:<> \"Equations\"]] [:p [:<> \"first step is show that there is some symbolic goodness.\"]]], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer-, :render-fn #viewer-fn identity, :hash \"5du1K91pV2nRmpCG3vM8fBcDsgHWKs\"}} {:nextjournal/value \"(viewer/tex\\n (e/->TeX\\n  (e/simplify\\n   ((L-quartic 'm 'alpha 'beta 'gamma)\\n    (e/up 't 'x 'xdot)))))\", :nextjournal/opts {:loc {:line 47, :end-line 51, :column 1, :end-column 27}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"- \\\\alpha\\\\,{x}^{4} + \\\\beta\\\\,{x}^{2} + \\\\frac{1}{2}\\\\,m\\\\,{\\\\dot x}^{2} - \\\\gamma\", :nextjournal/viewer {:name nextjournal.clerk.viewer/katex-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-katex, :hash \"5du5zSBEqsKch8YdhD73mcy7u7N26P\"}}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:nextjournal/value [:div.markdown-viewer [:p [:<> \"Can we show eq of motion?\"]]], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer-, :render-fn #viewer-fn identity, :hash \"5du1K91pV2nRmpCG3vM8fBcDsgHWKs\"}} {:nextjournal/value \"(viewer/tex\\n (e/->TeX\\n  (e/simplify\\n   (((e/Lagrange-equations (L-quartic 'm 'alpha 'beta 'gamma))\\n     (e/literal-function 'x))\\n    't))))\", :nextjournal/opts {:loc {:line 55, :end-line 60, :column 1, :end-column 11}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"4\\\\,\\\\alpha\\\\,{\\\\left(x\\\\left(t\\\\right)\\\\right)}^{3} - 2\\\\,\\\\beta\\\\,x\\\\left(t\\\\right) + m\\\\,{D}^{2}x\\\\left(t\\\\right)\", :nextjournal/viewer {:name nextjournal.clerk.viewer/katex-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-katex, :hash \"5du5zSBEqsKch8YdhD73mcy7u7N26P\"}}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:nextjournal/value [:div.markdown-viewer [\"h2\" {:id \"animate-well\"} [:<> \"Animate Well\"]]], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer-, :render-fn #viewer-fn identity, :hash \"5du1K91pV2nRmpCG3vM8fBcDsgHWKs\"}} {:nextjournal/value \"#?(:clj\\n   ^{::clerk/width :wide\\n     ::clerk/viewer\\n     {:transform-fn\\n      (comp clerk/mark-presented\\n            (clerk/update-val\\n             (fn [{:keys [L params keys initial-state] :as m}]\\n               (assoc m\\n                      :L\\n                      (xc/compile-state-fn\\n                       (e/compose e/Lagrangian->state-derivative L)\\n                       (mapv params keys)\\n                       initial-state\\n                       {:mode :js\\n                        :calling-convention :primitive\\n                        :generic-params? true})\\n                      :V\\n                      (xc/compile-state-fn\\n                       V\\n                       (mapv params keys)\\n                       initial-state\\n                       {:mode :js\\n                        :calling-convention :primitive\\n                        :generic-params? true})))))\\n      :render-fn '(fn [opts]\\n                    [js/examples.simulation.quartic_well.Hamilton opts])}}\\n   {:params\\n    {:mass 1\\n     :alpha 0.25\\n     :beta 2\\n     :gamma 4\\n     :simSteps 10}\\n    :schema\\n    {:mass     {:min 0.5 :max 2 :step 0.01}\\n     :alpha     {:min 0.1 :max 2 :step 0.01}\\n     :beta     {:min 0.5 :max 4 :step 0.01}\\n     :gamma   {:min 2 :max 6 :step 0.01}\\n     :simSteps {:min 1 :max 50 :step 1}}\\n    :keys [:mass :alpha :beta :gamma]\\n    :L L-quartic\\n    :V V\\n    :initial-state [0 0 2]})\", :nextjournal/opts {:loc {:line 330, :end-line 371, :column 1, :end-column 29}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code, :hash \"5dsJQw12yyyd7TcZEf52VSHxnqnJUC\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value {:params {:mass 1, :alpha 0.25, :beta 2, :gamma 4, :simSteps 10}, :schema {:mass {:min 0.5, :max 2, :step 0.01}, :alpha {:min 0.1, :max 2, :step 0.01}, :beta {:min 0.5, :max 4, :step 0.01}, :gamma {:min 2, :max 6, :step 0.01}, :simSteps {:min 1, :max 50, :step 1}}, :keys [:mass :alpha :beta :gamma], :L [\"a0008\" \"a0009\" \"a0010\" \"  const y0001 = a0008[0];\\n  const y0002 = a0008[1];\\n  const y0003 = a0008[2];\\n  const p0004 = a0010[0];\\n  const p0005 = a0010[1];\\n  const p0006 = a0010[2];\\n  const p0007 = a0010[3];\\n  a0009[0] = 1.0;\\n  a0009[1] = y0003;\\n  a0009[2] = (- 4.0 * p0005 * Math.pow(y0002, 3.0) + 2.0 * p0006 * y0002) / p0004;\"], :V [\"a0008\" \"a0009\" \"a0010\" \"  const y0001 = a0008[0];\\n  const y0002 = a0008[1];\\n  const y0003 = a0008[2];\\n  const p0004 = a0010[0];\\n  const p0005 = a0010[1];\\n  const p0006 = a0010[2];\\n  const p0007 = a0010[3];\\n  a0009[0] = p0005 * Math.pow(y0002, 4.0) - p0006 * Math.pow(y0002, 2.0) + p0007;\"], :initial-state [0 0 2]}, :nextjournal/viewer {:render-fn #viewer-fn (fn [opts] [js/examples.simulation.quartic_well.Hamilton opts]), :hash \"5drQmjX7T2W6JqVbFP88DFNGKuBGQ6\"}}}, :nextjournal/width :wide, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}}], :css-class nil}, :nextjournal/viewer {:name nextjournal.clerk.viewer/notebook-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-notebook, :hash \"5duAFDxE4sCnRX71Wo6zeCpC9C3djE\"}}}, :cljs-namespaces [emmy-viewers.sci-extensions examples.manifold.pq-knot examples.simulation.phase-portrait examples.simulation.quartic-well], :browse? false, :git/url \"https://github.com/mentat-collective/emmy-viewers\", :paths [\"dev/examples/modint.clj\" \"dev/examples/quaternion.clj\" \"dev/examples/expression.clj\" \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/structure.clj\" \"dev/examples/functions.clj\" \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/symbolic/einstein.clj\" \"dev/examples/stern_brocot.clj\" \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/complex.clj\" \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/power_series.clj\" \"dev/examples/manifold/pq_knot.cljc\" \"dev/examples/rational_function.clj\" \"dev/examples/continued_fractions.clj\" \"dev/examples/polynomial.clj\" \"dev/examples/number.clj\" \"dev/examples/operator.clj\" \"dev/examples/mafs.clj\" \"dev/examples/matrix.clj\" \"dev/examples/simulation/oscillator.clj\" \"dev/examples/vega/pendulum.clj\"], :resource->url {\"/js/viewer.js\" \"_data/8VuWkExpEa15bYktu8Sgjs3oNu8AXtdF9CJ9vaXSUoknvXQE8EoLxCoKUKK6xpw73yk6w3HbcpLkeP2FN8pknsEqJ7.js\"}, :current-path \"dev/examples/simulation/quartic_well.cljc\", :bundle? false, :git/sha \"aa5d53c3da70cdf1437a4f5d0c2ec863aeeb4529\", :path->url {\"dev/examples/modint.clj\" \"dev/examples/modint.html\", \"dev/examples/quaternion.clj\" \"dev/examples/quaternion.html\", \"dev/examples/expression.clj\" \"dev/examples/expression.html\", \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/simulation/ellipsoid.html\", \"dev/examples/structure.clj\" \"dev/examples/structure.html\", \"dev/examples/functions.clj\" \"dev/examples/functions.html\", \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/mathbox/cube_controls.html\", \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/simulation/double_ellipsoid.html\", \"dev/examples/symbolic/einstein.clj\" \"dev/examples/symbolic/einstein.html\", \"dev/examples/stern_brocot.clj\" \"dev/examples/stern_brocot.html\", \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/simulation/quartic_well.html\", \"dev/examples/complex.clj\" \"dev/examples/complex.html\", \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/simulation/phase_portrait.html\", \"dev/examples/power_series.clj\" \"dev/examples/power_series.html\", \"dev/examples/manifold/pq_knot.cljc\" \"dev/examples/manifold/pq_knot.html\", \"dev/examples/rational_function.clj\" \"dev/examples/rational_function.html\", \"dev/examples/continued_fractions.clj\" \"dev/examples/continued_fractions.html\", \"dev/examples/polynomial.clj\" \"dev/examples/polynomial.html\", \"dev/examples/number.clj\" \"dev/examples/number.html\", \"dev/examples/operator.clj\" \"dev/examples/operator.html\", \"dev/examples/mafs.clj\" \"dev/examples/mafs.html\", \"dev/examples/matrix.clj\" \"dev/examples/matrix.html\", \"dev/examples/simulation/oscillator.clj\" \"dev/examples/simulation/oscillator.html\", \"dev/examples/vega/pendulum.clj\" \"dev/examples/vega/pendulum.html\"}, :expanded-paths [\"dev/examples/operator.clj\" \"dev/examples/structure.clj\" \"dev/examples/vega/pendulum.clj\" \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/simulation/oscillator.clj\" \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/power_series.clj\" \"dev/examples/modint.clj\" \"dev/examples/expression.clj\" \"dev/examples/mafs.clj\" \"dev/examples/functions.clj\" \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/polynomial.clj\" \"dev/examples/number.clj\" \"dev/examples/symbolic/einstein.clj\" \"dev/examples/complex.clj\" \"dev/examples/continued_fractions.clj\" \"dev/examples/rational_function.clj\" \"dev/examples/quaternion.clj\" \"dev/examples/matrix.clj\" \"dev/examples/stern_brocot.clj\" \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/manifold/pq_knot.cljc\"], :cname \"emmy-viewers.mentat.org\", :watch-paths [\"src\" \"dev\"], :report-fn #object[nextjournal.clerk.builder$stdout_reporter 0x6033e2ee \"nextjournal.clerk.builder$stdout_reporter@6033e2ee\"]}".replaceAll('nextjournal.clerk.view/escape-closing-script-tag', 'script')
+let opts = nextjournal.clerk.sci_env.read_string(state)
+nextjournal.clerk.static_app.init(opts)
+</script></body></html>
