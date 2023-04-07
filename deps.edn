@@ -1,7 +1,7 @@
 {:paths ["src" "dev" "resources"]
  :deps
  {io.github.nextjournal/clerk
-  {:git/sha "13fef32758df6c4f99734aa138590811cc066602"}
+  {:git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"}
 
   org.mentat/emmy {:local/root "../emmy"
                    :exclusions [org.babashka/sci]}
@@ -19,7 +19,7 @@
     org.clojure/clojurescript {:mvn/version "1.11.60"}
     io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "13fef32758df6c4f99734aa138590811cc066602"
+     :git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"
      :deps/root "render"}}
    :exec-fn user/build!}
 
