@@ -1,7 +1,8 @@
-(ns examples.simulation.torus
+(ns examples.simulation.toroid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
-             numerator denominator ref partial])
+             numerator denominator ref partial
+             infinite? abs])
   (:require [emmy.env :as e :refer :all]
             [emmy.mechanics.rotation :as rot]
             [emmy.expression.compile :as xc]
@@ -51,7 +52,7 @@
   (fn [[_ _ v]]
     (* 1/2 m (square v))))
 
-(defn V-free-particle [m]
+(defn V-free-particle [_m]
   (constantly 0))
 
 ((T-free-particle 'm)
@@ -134,7 +135,7 @@
    :params [m R r]
    :initial-state [0
                    [0 0]
-                   [0.01 0.01]]
+                   [1 1]]
    :torus {:R R :r r}
    :cartesian
    {:range [[-10 10]
