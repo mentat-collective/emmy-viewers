@@ -5,7 +5,11 @@
             [mathbox.primitives :as mb]
             ["react" :as react]
             [reagent.core :as r]
-            [emmy.expression.compile :as xc]
+            [emmy.env :as e]
+            [emmy.expression.compile :as xc][emmy.mechanics.rotation :as rot]
+            [emmy.structure :as s]
+            [emmy.numerical.ode :as ode]
+            [emmy.structure :as struct]
             [emmy.numerical.ode :as ode])
   (:import [goog Timer]))
 
@@ -200,6 +204,8 @@
         state-deriv (js/Function. a2 b2 c2 body2)
         my-updater  (Lagrangian-updater state-deriv state {:parameters params})]
     ;; TODO return the inner component??
+    (println "1>" a1 b1 c1 body1)
+    (println "2>" a2 b2 c2 body2)
     [Comet
      {:dimensions 3
       :length 16
@@ -240,6 +246,32 @@
    [mb/Surface
     {:shaded true
      :opacity 0.2
+     :lineX true
+     :lineY true
+     :points "<"
+     :color 0xffffff
+     :width 1}]])
+
+(defn Torus [{:keys [R r]}]
+  [:<>
+   [mb/Area
+    {:width 64
+     :height 64
+     :rangeX [0 two-pi]
+     :rangeY [0 two-pi]
+     :axes [1 3]
+     :live false
+     :expr (fn [emit theta phi _i _j _time]
+             (let [[x y z] (e/* (rot/rotate-z-matrix phi)
+                                (s/up (e/+ R (e/* r (e/cos theta)))
+                                      0
+                                      (e/* r (e/sin theta))))]
+               (emit x z y)))
+     :items 1
+     :channels 3}]
+   [mb/Surface
+    {:shaded true
+     :opacity 0.5
      :lineX true
      :lineY true
      :points "<"

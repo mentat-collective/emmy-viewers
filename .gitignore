@@ -16,6 +16,7 @@ node_modules
 public/
 .clj-kondo/.cache
 .clerk
+.cpcache/
 presentations/reveal.js/examples
 Readme.html
 Readme.org
