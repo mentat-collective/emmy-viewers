@@ -92,51 +92,40 @@
   {:transform-fn
    (comp clerk/mark-presented
          (clerk/update-val
-          (fn [{:keys [L params initial-state state->xyz] :as m}]
+          (fn [{:keys [L params initial-state state->xyz
+                      keys] :as m}]
             (assoc m
                    :L
                    (xc/compile-state-fn
                     (compose e/Lagrangian->state-derivative L)
-                    params
+                    (mapv params keys)
                     initial-state
                     {:mode :js
                      :calling-convention :primitive
-                     :generic-params? false})
+                     :generic-params? true})
 
                    :state->xyz
                    (xc/compile-state-fn
                     state->xyz
-                    params
+                    (mapv params keys)
                     initial-state
                     {:mode :js
                      :calling-convention :primitive
-                     :generic-params? false})))))
-   :render-fn
-   (q
-    (fn [value]
-      [mathbox/MathBox
-       {:container  {:style {:height "400px" :width "100%"}}
-        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-        :renderer   {:background-color 0xffffff}}
-       [mb/Cartesian (:cartesian value)
-        [mb/Axis {:axis 1 :width 3}]
-        [mb/Axis {:axis 2 :width 3}]
-        [mb/Axis {:axis 3 :width 3}]
-        [demo.mathbox/Mass
-         (select-keys
-          value [:L :state->xyz :initial-state :params])]
-        [demo.mathbox/Torus (:torus value)]]]))}}
+                     :generic-params? true})))))
+   :render-fn 'demo.mathbox/ToroidViewer}}
 
 (let [m 10000
       R 2
       r 0.5]
-  {:state->xyz toroidal->rect
+  {:params {:mass m :R R :r r}
+   :schema
+   {:mass {:min 1000 :max 20000 :step 100}
+    :R   {:min 0.5 :max 2 :step 0.01}
+    :r   {:min 0.5 :max 2 :step 0.01}}
+   :keys [:mass :R :r]
+   :state->xyz toroidal->rect
    :L L-toroidal
-   :params [m R r]
-   :initial-state [0
-                   [0 0]
-                   [1 1]]
-   :torus {:R R :r r}
+   :initial-state [0 [0 0] [6 1]]
    :cartesian
    {:range [[-10 10]
             [-10 10]

@@ -2,6 +2,7 @@
   (:require [goog.events]
             [goog.Timer :as timer]
             ["odex" :as o]
+            [mathbox.core]
             [mathbox.primitives :as mb]
             ["react" :as react]
             [reagent.core :as r]
@@ -10,7 +11,9 @@
             [emmy.structure :as s]
             [emmy.numerical.ode :as ode]
             [emmy.structure :as struct]
-            [emmy.numerical.ode :as ode])
+            [emmy.numerical.ode :as ode]
+            [nextjournal.clerk.render]
+            [leva.core])
   (:import [goog Timer]))
 
 (defn format-number [x]
@@ -203,9 +206,6 @@
   (let [render-fn   (js/Function. a1 b1 c1 body1)
         state-deriv (js/Function. a2 b2 c2 body2)
         my-updater  (Lagrangian-updater state-deriv state {:parameters params})]
-    ;; TODO return the inner component??
-    (println "1>" a1 b1 c1 body1)
-    (println "2>" a2 b2 c2 body2)
     [Comet
      {:dimensions 3
       :length 16
@@ -252,7 +252,7 @@
      :color 0xffffff
      :width 1}]])
 
-(defn Torus [{:keys [R r]}]
+(defn Torus [render-fn !params]
   [:<>
    [mb/Area
     {:width 64
@@ -261,12 +261,16 @@
      :rangeY [0 two-pi]
      :axes [1 3]
      :live false
-     :expr (fn [emit theta phi _i _j _time]
-             (let [[x y z] (e/* (rot/rotate-z-matrix phi)
-                                (s/up (e/+ R (e/* r (e/cos theta)))
-                                      0
-                                      (e/* r (e/sin theta))))]
-               (emit x z y)))
+     :expr (let [in  #js [0 0 0 0 0]
+                 out #js [0 0 0]
+                 p   @!params]
+             (fn [emit theta phi _i _j _time]
+               (aset in 1 theta)
+               (aset in 2 phi)
+               (render-fn in out p)
+               (emit (aget out 0)
+                     (aget out 2)
+                     (aget out 1))))
      :items 1
      :channels 3}]
    [mb/Surface
@@ -351,3 +355,58 @@
          :color 0x3090ff
          :size 10
          :zIndex 1}]])))
+
+
+;; ## Toroid Viewer
+
+(defn ToroidViewer
+  [{state  :initial-state
+    params     :params
+    keys       :keys
+    schema     :schema
+    state->xyz :state->xyz
+    :as opts}]
+  (reagent.core/with-let
+    [render-fn (apply js/Function state->xyz)
+     !state    (reagent.core/atom {:time 0 :state state})
+     !params   (reagent.core/atom params)
+
+     ;; I had to move this here because reagent.core/reaction wasn't available
+     ;; in the SCI environment you have when writing viewers...
+     !arr      (reagent.core/reaction
+                (apply
+                 array
+                 (map @!params keys)))]
+    [:<>
+     [nextjournal.clerk.render/inspect @!arr]
+     [leva.core/Controls
+      {:atom !params
+       :schema schema}]
+     [Evolve
+      {:L      (:L opts)
+       :params !arr
+       :atom   !state}]
+
+     [mathbox.core/MathBox
+      {:container  {:style {:height "400px" :width "100%"}}
+       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+       :renderer   {:background-color 0xffffff}}
+      [mb/Cartesian (:cartesian opts)
+       [mb/Axis {:axis 1 :width 3}]
+       [mb/Axis {:axis 2 :width 3}]
+       [mb/Axis {:axis 3 :width 3}]
+       [demo.mathbox/Comet
+        {:dimensions 3
+         :length 16
+         :color 0x3090ff
+         :size 10
+         :opacity 0.99
+         :path
+         (let [out (js/Array. 0 0 0)]
+           (fn [emit _ _]
+             (let [state (:state (.-state !state))]
+               (render-fn state out (.-state !arr))
+               (emit (aget out 0)
+                     (aget out 2)
+                     (aget out 1)))))}]
+       [Torus render-fn !arr]]]]))
