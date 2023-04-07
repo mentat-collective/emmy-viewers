@@ -37,6 +37,7 @@
           (fn [{:keys [L params initial-state state->xyz] :as m}]
             (assoc m
                    :L
+
                    (xc/compile-state-fn
                     (compose e/Lagrangian->state-derivative L)
                     params
