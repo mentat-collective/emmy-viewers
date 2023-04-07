@@ -4,6 +4,7 @@
              numerator denominator ref partial])
   (:require [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
+
             [examples.expression :as d]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
