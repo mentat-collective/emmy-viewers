@@ -2,6 +2,8 @@
 .#*
 *.iml
 /.idea
+/.lsp
+/.vscode
 /target
 pom.xml
 pom.xml.asc
@@ -16,6 +18,7 @@ node_modules
 public/
 .clj-kondo/.cache
 .clerk
+.cpcache/
 presentations/reveal.js/examples
 Readme.html
 Readme.org
