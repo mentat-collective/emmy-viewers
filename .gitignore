@@ -2,6 +2,8 @@
 .#*
 *.iml
 /.idea
+/.lsp
+/.vscode
 /target
 pom.xml
 pom.xml.asc
