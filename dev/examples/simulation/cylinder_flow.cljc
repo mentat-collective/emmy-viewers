@@ -65,20 +65,25 @@
       dt (/ 1 20)
       vorticular
       (fn [_ r z]
-        (let [{:keys [innerRadius outerRadius innerRotation outerRotation vorticity]} (.-state !params)
-              ri innerRadius
-              ro outerRadius
-              v vorticity
-              Ω (- innerRotation outerRotation)
-              η (/ ri ro)
-              A (/ (* (- Ω) η η) (- 1 (* η η)))
-              B (/ (* Ω ri ri) (- 1 (* η η)))
+        (let [{ri :innerRadius
+               ro :outerRadius
+               v  :vorticity
+               omega_i :innerRotation
+               omega_o :outerRotation}
+              (.-state !params)
+              eta    (/ ri ro)
+              eta**2 (* eta eta)
+              omega  (- omega_i omega_o)
+              A (/ (* (- omega) eta**2)
+                   (- 1 eta**2))
+              B (/ (* omega ri ri)
+                   (- 1 eta**2))
 
               ;; Laminar
-              dθ (+ (* A r) (/ B r))
+              v_theta (+ (* A r) (/ B r))
 
               ;; Vortex center radial
-              rr (/(- ro ri) 2)
+              rr (/ (- ro ri) 2)
               rc (/ (+ ro ri) 2)
 
               ;; Vortex center axial
@@ -87,11 +92,12 @@
 
               dr (- z zc)
               dz (- (- r rc))
-              rd (Math/max 0 (inc (Math/min 0 (- 1 (* (- r rc) 2)))))
+              rd (clamp (inc (- 1 (* (- r rc) 2)))
+                        0 1)
               s (if (zero? (mod i 2))
                   (- rd)
                   rd)]
-          [dθ (* v dr s) (* v dz s)]))]
+          [v_theta (* v dr s) (* v dz s)]))]
      (let [inner-origin [0 (:innerRadius @!params) -2]
            outer-origin [0 (:outerRadius @!params) -2]]
        [:<>
@@ -254,16 +260,16 @@
          [js/examples.simulation.cylinder_flow.Cylinder opts])}}
    {:params
     {:innerRadius 1
-     :outerRadius 2
+     :outerRadius 5
      :innerRotation 0.4
      :outerRotation 0
      :vorticity 1
      :scale 0.25}
 
     :schema
-    {:innerRadius {:min 0 :max 1 :step 0.01}
-     :outerRadius {:min 1 :max 2 :step 0.01}
-     :innerRotation {:min 0 :max 2 :step 0.01}
-     :outerRotation {:min 0 :max 2 :step 0.01}
+    {:innerRadius {:min 0 :max 5 :step 0.01}
+     :outerRadius {:min 5 :max 10 :step 0.01}
+     :innerRotation {:min 0 :max 20 :step 0.01}
+     :outerRotation {:min 0 :max 20 :step 0.01}
      :vorticity {:min 0 :max 1 :step 0.01}
      :scale {:min 0 :max 1 :step 0.01}}})
