@@ -1,19 +1,17 @@
 (ns demo.mathbox
-  (:require [goog.events]
+  (:require [emmy.env :as e]
+            [emmy.expression.compile :as xc]
+            [emmy.mechanics.rotation :as rot]
+            [emmy.numerical.ode :as ode]
+            [goog.events]
             [goog.Timer :as timer]
-            ["odex" :as o]
+            [leva.core]
             [mathbox.core]
             [mathbox.primitives :as mb]
-            ["react" :as react]
-            [reagent.core :as r]
-            [emmy.env :as e]
-            [emmy.expression.compile :as xc][emmy.mechanics.rotation :as rot]
-            [emmy.structure :as s]
-            [emmy.numerical.ode :as ode]
-            [emmy.structure :as struct]
-            [emmy.numerical.ode :as ode]
             [nextjournal.clerk.render]
-            [leva.core])
+            ["odex" :as o]
+            ["react" :as react]
+            [reagent.core :as r])
   (:import [goog Timer]))
 
 (defn format-number [x]
@@ -50,28 +48,34 @@
                        (state-derivative ys yps parameters)))]
      (ode/stream-integrator equations 0 flat-initial-state {:js? true}))))
 
+(defn make-solver
+  [derivative initial-state parameters epsilon]
+  (let [flat-initial-state (flatten initial-state)
+         ;; TODO get around the deref
+        f' (if (implements? IAtom parameters)
+             (let [p @parameters]
+               (fn [_ ys yps]
+                 (derivative ys yps p)))
+             (fn [_ ys yps]
+               (derivative ys yps parameters)))
+        dimension (count flat-initial-state)]
+    (o/Solver.
+     f'
+     dimension
+     #js {:absoluteTolerance epsilon
+          :relativeTolerance epsilon
+          :rawFunction true
+          :maxSteps 10000})
+    )
+  )
+
 (defn Lagrangian-collector
   "hardcoded at first for this use case."
   ([state-derivative initial-state]
    (Lagrangian-collector state-derivative initial-state {}))
   ([state-derivative initial-state {:keys [parameters epsilon]
                                     :or {epsilon 1e-6}}]
-   (let [flat-initial-state (flatten initial-state)
-         ;; TODO get around the deref
-         f' (if (implements? IAtom parameters)
-              (let [p @parameters]
-                (fn [_ ys yps]
-                  (state-derivative ys yps p)))
-              (fn [_ ys yps]
-                (state-derivative ys yps parameters)))
-         dimension (count flat-initial-state)
-         solver (o/Solver.
-                 f'
-                 dimension
-                 #js {:absoluteTolerance epsilon
-                      :relativeTolerance epsilon
-                      :rawFunction true})]
-     (set! (.-denseOutput solver) true)
+   (let [solver (make-solver state-derivative initial-state parameters epsilon)]
      (fn [state n step-size emit]
        ;; TODO fix the case where we have issues at simSteps 5 on phase
        ;; portrait.
@@ -177,6 +181,36 @@
     (-> (dissoc opts :length)
         (assoc :points "<<<"
                :colors "<"))]])
+
+(defn Curve
+  "Component that takes a simulator and builds an array of points connected
+   into a curve."
+  [{:keys [state-derivative initial-state-fn params state->xyz steps dt]
+    :or {steps 1000 dt 3e-2}}]
+  [:<>
+   [mb/Array
+    {:channels 3
+     :id "sampler"
+     :data (let [y0 (initial-state-fn)
+                 s (make-solver state-derivative y0 params 1e-5)
+                 ps (.-state params)
+                 xyz (double-array 3)
+                 pts (atom [])]
+             (.solve s 0 (clj->js y0)
+                     (* steps dt)
+                     (.grid s dt
+                            (fn [_ ys]
+                              (state->xyz ys xyz ps)
+                              (swap! pts conj (js/Array. (aget xyz 0)
+                                                         (aget xyz 2)
+                                                         (aget xyz 1))))))
+             @pts)
+     }]
+   [mb/Line
+    {:color 0xff3090
+     :size 8
+     :points "<"
+     :end true}]])
 
 (defn Comet
   "Path is a function of i, t
@@ -386,7 +420,6 @@
       {:L      (:L opts)
        :params !arr
        :atom   !state}]
-
      [mathbox.core/MathBox
       {:container  {:style {:height "400px" :width "100%"}}
        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
@@ -395,18 +428,18 @@
        [mb/Axis {:axis 1 :width 3}]
        [mb/Axis {:axis 2 :width 3}]
        [mb/Axis {:axis 3 :width 3}]
-       [demo.mathbox/Comet
-        {:dimensions 3
-         :length 16
-         :color 0x3090ff
-         :size 10
-         :opacity 0.99
-         :path
-         (let [out (js/Array. 0 0 0)]
-           (fn [emit _ _]
-             (let [state (:state (.-state !state))]
-               (render-fn state out (.-state !arr))
-               (emit (aget out 0)
-                     (aget out 2)
-                     (aget out 1)))))}]
+       [demo.mathbox/Curve
+        {:state-derivative (apply js/Function (:L opts))
+         :state->xyz render-fn
+         :initial-state-fn (fn [] (println "i-params" !params)
+                             (let [st (.-state !params)
+                                   alpha_0 (:alpha_0 st)]
+                               ;; alpha_0 is the direction of the initial velocity
+                               ;; in (theta, phi)-space. Since we're not doing dynamics,
+                               ;; the speed doesn't matter, just the direction, so we do
+                               ;; it as a unit vector.
+                               [0
+                                (:theta_0 st) 0
+                                (Math/cos alpha_0) (Math/sin alpha_0)]))
+         :params !arr}]
        [Torus render-fn !arr]]]]))
