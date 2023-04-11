@@ -40,6 +40,7 @@
    :cljs-namespaces
    '[emmy-viewers.sci-extensions
      examples.manifold.pq-knot
+     examples.simulation.cylinder-flow
      examples.simulation.lorenz
      examples.simulation.phase-portrait
      examples.simulation.quartic-well]})
