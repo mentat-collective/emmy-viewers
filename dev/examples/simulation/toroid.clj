@@ -37,8 +37,7 @@
 ;; equator and $\pi$ represents the inner equator. The radius of
 ;; the interior is denoted by $r$. Now...
 
-
-(defn toroidal->rect [_ R r]
+(defn toroidal->rect [R r]
   (fn [[_ [theta phi] _]]
     (*
      (rot/rotate-z-matrix phi)
@@ -46,33 +45,37 @@
            0
            (* r (sin theta))))))
 
-;; Next, the Lagrangian:
+;; Next, the Lagrangian. T, the kinetic energy, is just $mv^2/2$.
+;; For this demonstration, we aren't interested in dynamics, so
+;; we'll set $m$ to $1$ and forget about it for the rest of the
+;; page. Without gravity, there's no potential energy, so $V\equiv 0$.
 
-(defn T-free-particle [m]
-  (fn [[_ _ v]]
-    (* 1/2 m (square v))))
+(defn T-free-particle
+  [[_ _ v]]
+  (* 1/2 (square v)))
 
-(defn V-free-particle [_m]
-  (constantly 0))
+(defn V-free-particle
+  [[_ _ _]]
+  0)
 
-((T-free-particle 'm)
+(T-free-particle
  (up 't
      (up 'theta 'phi)
      (up 'v_theta 'v_phi)))
 
-(defn L-toroidal [m R r]
+(defn L-toroidal [R r]
   (comp
-   (- (T-free-particle m)
-      (V-free-particle m))
+   (- T-free-particle
+      V-free-particle)
    (F->C
-    (toroidal->rect m R r))))
+    (toroidal->rect R r))))
 
 ;; Let's have a look:
 
 (let [local (up 't
                 (up 'theta 'phi)
                 (up 'thetadot 'phidot))]
-  ((L-toroidal 1 'R 'r) local))
+  ((L-toroidal 'R 'r) local))
 
 ;; I was frankly expecting a little more trigonometry in there.
 ;; Maybe I did something wrong. In any case, let's proceed.
@@ -80,7 +83,7 @@
 ;; Lagrange equations of motion for the torus:
 
 (clerk/with-viewer d/multiviewer
-  (let [L (L-toroidal 1 'R 'r)
+  (let [L (L-toroidal 'R 'r)
         theta (literal-function 'theta)
         phi (literal-function 'phi)]
     (((Lagrange-equations L) (up theta phi))
@@ -120,18 +123,17 @@
                      :generic-params? true})))))
    :render-fn 'demo.mathbox/ToroidViewer}}
 
-(let [m 10000
-      R 2
+(let [R 2
       r 0.5
       theta_0 0
       alpha_0 0]
-  {:params {:mass m :R R :r r :theta_0 theta_0 :alpha_0 alpha_0}
+  {:params {:R R :r r :theta_0 theta_0 :alpha_0 alpha_0}
    :schema
    {:R   {:min 0.5 :max 2 :step 0.01}
     :r   {:min 0.5 :max 2 :step 0.01}
     :theta_0 {:min 0 :max Math/PI :step 0.02}
     :alpha_0 {:min 0 :max Math/PI :step 0.02}}
-   :keys [:mass :R :r]
+   :keys [:R :r]
    :state->xyz toroidal->rect
    :L L-toroidal
    :initial-state [0 [0 0] [6 1]]
