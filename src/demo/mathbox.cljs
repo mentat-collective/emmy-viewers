@@ -284,21 +284,26 @@
      :color 0xffffff
      :width 1}]])
 
-(defn Torus [render-fn !params]
+(defn ParametricSurface
+  "Generate a 3d parametric surface in three dimensions by passing a
+   sheet of 2d coordinates into render-fn, $(u,v)\\mapsto(x,y,z)$."
+  [render-fn !params {:keys [rangeU rangeV]
+                      :or {rangeU [0 two-pi]
+                           rangeV [0 two-pi]}}]
   [:<>
    [mb/Area
     {:width 64
      :height 64
-     :rangeX [0 two-pi]
-     :rangeY [0 two-pi]
+     :rangeX rangeU
+     :rangeY rangeV
      :axes [1 3]
      :live false
      :expr (let [in  #js [0 0 0 0 0]
                  out #js [0 0 0]
                  p   @!params]
-             (fn [emit theta phi _i _j _time]
-               (aset in 1 theta)
-               (aset in 2 phi)
+             (fn [emit u v _i _j _time]
+               (aset in 1 u)
+               (aset in 2 v)
                (render-fn in out p)
                (emit (aget out 0)
                      (aget out 2)
@@ -389,56 +394,53 @@
          :zIndex 1}]])))
 
 
-;; ## Toroid Viewer
+;; ## Manifold Viewer
+;;
+;; parameterized on the underlying manifold
+;;
 
-(defn ToroidViewer
-  [{state  :initial-state
-    params     :params
-    keys       :keys
-    schema     :schema
-    state->xyz :state->xyz
-    :as opts}]
-  (reagent.core/with-let
-    [render-fn (apply js/Function state->xyz)
-     !state    (reagent.core/atom {:time 0 :state state})
-     !params   (reagent.core/atom params)
+(defn ManifoldViewer
+  [manifold]
+  (fn [{state            :initial-state
+        initial-state-fn :initial-state-fn
+        params           :params
+        keys             :keys
+        schema           :schema
+        state->xyz       :state->xyz
+        :as              opts}]
+    (println "MF intial-state" state)
+    (reagent.core/with-let
+      [render-fn (apply js/Function state->xyz)
+       !state    (reagent.core/atom {:time 0 :state state})
+       !params   (reagent.core/atom params)
 
      ;; I had to move this here because reagent.core/reaction wasn't available
      ;; in the SCI environment you have when writing viewers...
-     !arr      (reagent.core/reaction
-                (apply
-                 array
-                 (map @!params keys)))]
-    [:<>
-     [nextjournal.clerk.render/inspect @!arr]
-     [leva.core/Controls
-      {:atom !params
-       :schema schema}]
-     [Evolve
-      {:L      (:L opts)
-       :params !arr
-       :atom   !state}]
-     [mathbox.core/MathBox
-      {:container  {:style {:height "400px" :width "100%"}}
-       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-       :renderer   {:background-color 0xffffff}}
-      [mb/Cartesian (:cartesian opts)
-       [mb/Axis {:axis 1 :width 3}]
-       [mb/Axis {:axis 2 :width 3}]
-       [mb/Axis {:axis 3 :width 3}]
-       [demo.mathbox/Curve
-        {:state-derivative (apply js/Function (:L opts))
-         :state->xyz render-fn
-         :initial-state-fn (fn [] (println "i-params" !params)
-                             (let [st (.-state !params)
-                                   alpha_0 (:alpha_0 st)]
-                               ;; alpha_0 is the direction of the initial velocity
-                               ;; in (theta, phi)-space. Since we're not doing dynamics,
-                               ;; the speed doesn't matter, just the direction, so we do
-                               ;; it as a unit vector.
-                               [0
-                                (:theta_0 st) 0
-                                (Math/cos alpha_0) (Math/sin alpha_0)]))
-         :steps 1500
-         :params !arr}]
-       [Torus render-fn !arr]]]]))
+       !arr      (reagent.core/reaction
+                  (apply
+                   array
+                   (map @!params keys)))]
+      [:<>
+       [nextjournal.clerk.render/inspect @!arr]
+       [leva.core/Controls
+        {:atom !params
+         :schema schema}]
+       [Evolve
+        {:L      (:L opts)
+         :params !arr
+         :atom   !state}]
+       [mathbox.core/MathBox
+        {:container  {:style {:height "400px" :width "100%"}}
+         :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+         :renderer   {:background-color 0xffffff}}
+        [mb/Cartesian (:cartesian opts)
+         [mb/Axis {:axis 1 :width 3}]
+         [mb/Axis {:axis 2 :width 3}]
+         [mb/Axis {:axis 3 :width 3}]
+         [demo.mathbox/Curve
+          {:state-derivative (apply js/Function (:L opts))
+           :state->xyz       render-fn
+           :initial-state-fn #(initial-state-fn (.-state !params))
+           :steps            1500
+           :params           !arr}]
+         [manifold render-fn !arr opts]]]])))

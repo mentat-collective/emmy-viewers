@@ -16,12 +16,13 @@
 ;; ## Geodesics of the Torus
 ;;
 ;; Investigate the many interesting geodesics on the torus. This is
-;; similar to the [[examples.simulation.ellipsoid]] investigation, but
+;; similar to the [ellipsoid](http:ellipsoid.html) investigation, but
 ;; here we will set gravity to zero and give our particle an initial
 ;; velocity tangent to the toroidal surface and see where it will
 ;; travel under the surface's intrinsic notion of free-fall.
 ;;
-;; First, prepare the viewers so that all literals render with the multiviewer:
+;; First, prepare the viewers so that all literals render with the
+;; multiviewer:
 
 (clerk/add-viewers! [d/multiviewer])
 
@@ -121,24 +122,38 @@
                     {:mode :js
                      :calling-convention :primitive
                      :generic-params? true})))))
-   :render-fn 'demo.mathbox/ToroidViewer}}
+   :render-fn '(demo.mathbox/ManifoldViewer
+                demo.mathbox/ParametricSurface )}}
 
 (let [R 2
       r 0.5
       theta_0 0
       alpha_0 0]
   {:params {:R R :r r :theta_0 theta_0 :alpha_0 alpha_0}
-   :schema
-   {:R   {:min 0.5 :max 2 :step 0.01}
-    :r   {:min 0.5 :max 2 :step 0.01}
-    :theta_0 {:min 0 :max Math/PI :step 0.02}
-    :alpha_0 {:min 0 :max Math/PI :step 0.02}}
+   :schema {:R   {:min 0.5 :max 2 :step 0.01}
+            :r   {:min 0.5 :max 2 :step 0.01}
+            :theta_0 {:min 0 :max Math/PI :step 0.02}
+            :alpha_0 {:min 0 :max Math/PI :step 0.02}}
    :keys [:R :r]
    :state->xyz toroidal->rect
    :L L-toroidal
    :initial-state [0 [0 0] [6 1]]
-   :cartesian
-   {:range [[-10 10]
-            [-10 10]
-            [-10 10]]
-    :scale [3 3 3]}})
+   :initial-state-fn (fn [params]
+                       (let [alpha_0 (:alpha_0 params)
+                             u_0 (:theta_0 params)
+                             v_0 0]
+                         [0
+                          u_0 v_0
+                          (Math/cos alpha_0) (Math/sin alpha_0)])
+                       )
+   :cartesian {:range [[-10 10]
+                       [-10 10]
+                       [-10 10]]
+               :scale [3 3 3]}})
+
+;; I'd like to acknowledge the work of the Mark L. Irons, whose papers on the
+;; geodesics of the torus,
+;; [especially this one](http://www.rdrop.com/~half/math/torus/geodesics.xhtml),
+;; got me started on this fascinating subject. Robert Jantzen's
+;; [torus site](http://www34.homepage.villanova.edu/robert.jantzen/notes/torus/)
+;; is another trove of information on this subject..
