@@ -20,7 +20,7 @@
    (let [step (/ (- b a) (dec n))]
      (range a (+ b 0.0000001) step)))
 
- (defn Lorenz [{:keys [params schema]}]
+ (defn ^:export Lorenz [{:keys [params schema]}]
    (reagent.core/with-let
      [!params (reagent.core/atom params)
       W 40

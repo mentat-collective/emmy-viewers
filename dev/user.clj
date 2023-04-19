@@ -1,4 +1,5 @@
 (ns user
+
   (:require [mentat.clerk-utils.build :as b]
             [mentat.clerk-utils.css :as css]))
 
@@ -19,7 +20,7 @@
  "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
-(require '[emmy.env :refer :all])
+(require '[emmy.env])
 (require '[emmy.expression.render :as xr])
 
 (alter-var-root
@@ -27,14 +28,14 @@
  (constantly true))
 
 (def index
-  "dev/examples/index.md")
+  "dev/emmy_viewers/notebook.clj")
 
 (def notebooks
   ["dev/examples/**.clj"
    "dev/examples/**.cljc"])
 
 (def defaults
-  {#_#_:index index
+  {:index index
    :browse? true
    :watch-paths ["src" "dev"]
    :cljs-namespaces
