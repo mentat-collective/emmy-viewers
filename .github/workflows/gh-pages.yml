@@ -20,15 +20,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@4.0
+        uses: DeLaGuardo/setup-clojure@master
         with:
           cli: latest
+          bb: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install babashka
-        uses: just-sultanov/setup-babashka@v2
-        with:
-          version: '0.8.156'
 
       - name: Build static site
         run: bb build-static
