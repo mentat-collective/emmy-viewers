@@ -9,15 +9,28 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - uses: DeLaGuardo/clojure-lint-action@master
-      with:
-        clj-kondo-args: --dependencies --lint "$(clojure -A:nextjournal/clerk -Spath)"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install tools
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          cli: latest
+          bb: latest
+          clj-kondo: latest
 
-    - uses: DeLaGuardo/clojure-lint-action@master
-      with:
-        clj-kondo-args: --lint src test --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache clojure dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.gitlibs
+            ~/.deps.clj
+          key: cljdeps-${{ hashFiles('deps.edn') }}
+          restore-keys: cljdeps-
+
+      - name: Lint dependencies
+        run: clj-kondo --dependencies --lint "$(clojure -Spath -A:nextjournal/clerk)"
+
+      - name: Lint dependencies
+        run: bb lint --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
