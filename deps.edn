@@ -1,21 +1,19 @@
-{:paths ["src" "dev" "resources"]
+{:paths ["src" "resources"]
  :deps
  {io.github.nextjournal/clerk
   {:git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"}
-
-  io.github.mentat-collective/emmy
-  {:git/sha "e4566d3076c5ea49d1aab4fe52be7a9aca6ade82"
-   :exclusions [org.babashka/sci]}
+  org.mentat/emmy {:mvn/version "0.30.0" :exclusions [org.babashka/sci]}
   org.mentat/jsxgraph.cljs {:mvn/version "0.2.0"}
   org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
   org.mentat/mathlive.cljs {:mvn/version "0.2.0"}
   org.mentat/mafs.cljs {:mvn/version "0.2.1"}
   org.mentat/leva.cljs {:mvn/version "0.2.2"}
-  org.mentat/clerk-utils {:mvn/version "0.4.1"}}
+  org.mentat/clerk-utils {:mvn/version "0.5.0"}}
 
  :aliases
  {:nextjournal/clerk
-  {:extra-deps
+  {:extra-paths ["dev"]
+   :extra-deps
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
     io.github.nextjournal/clerk.render

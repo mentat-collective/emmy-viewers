@@ -8,13 +8,15 @@ jobs:
   publish:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/cache@v3
+      - name: Cache Maven packages
+        uses: actions/cache@v3
         with:
-            path: |
-              .cpcache
-              .shadow-cljs
-              ~/.m2
-            key: "1"
+          path: |
+            .cpcache
+            .shadow-cljs
+            ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/deps.edn') }}
+          restore-keys: ${{ runner.os }}-m2
 
       - name: Checkout
         uses: actions/checkout@v3

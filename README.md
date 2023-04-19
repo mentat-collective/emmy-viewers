@@ -4,15 +4,19 @@ A library of [Clerk][clerk-url] viewers and [Reagent][reagent-url] components
 designed for visual representation and exploration of mathematical objects in
 the [Emmy][emmy-url] computer algebra system.
 
+<div align="center">
+
 [![Build Status][build-status]][build-status-url]
 [![License][license]][license-url]
 [![cljdoc badge][cljdoc]][cljdoc-url]
 [![Clojars Project][clojars]][clojars-url]
 [![Discord Shield][discord]][discord-url]
 
+</div>
+
 These viewers are built on the following libraries:
 
-- [Mathbox.cljs][mathbox-url]
+- [MathBox.cljs][mathbox-url]
 - [JSXGraph.cljs][jsxgraph-url]
 - [Mafs.cljs][mafs-url]
 - [Leva.cljs][leva-url]

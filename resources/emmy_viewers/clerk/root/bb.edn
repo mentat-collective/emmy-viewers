@@ -1,9 +1,9 @@
 {:deps {org.babashka/http-server {:mvn/version "0.1.11"}
-        org.babashka/cli {:mvn/version "0.2.23"}
-        io.github.clj-kondo/clj-kondo-bb
-        {:git/tag "v2023.01.20" :git/sha "adfc7df"}}
+        org.babashka/cli {:mvn/version "0.2.23"}}
+ :pods {clj-kondo/clj-kondo {:version "2023.01.20"}}
  :tasks
- {:requires ([babashka.cli :as cli])
+ {:requires ([babashka.cli :as cli]
+             [pod.borkdude.clj-kondo :as clj-kondo])
   :init
   (do (def cli-opts
         (cli/parse-opts *command-line-args* {:coerce {:port :int}}))
@@ -30,7 +30,7 @@
   {:doc "Serve static assets"
    :requires ([babashka.http-server :as server])
    :task (server/exec
-          (merge {:port 8080
+          (merge {:port {{http-server-port}}
                   :dir "public/build"}
                  cli-opts))}
 
@@ -47,10 +47,6 @@
    (do (run 'build-static)
        (run 'serve))}
 
-  release
-  {:doc "Release the library to Clojars."
-   :task (shell "clojure -T:build publish")}
-
   lint-deps
   {:requires ([clj-kondo.core :as kondo])
    :doc "Lint dependencies."
@@ -61,6 +57,6 @@
            :dependencies true})}
 
   lint
-  {:doc "Lint the src and dev directories with clj-kondo."
-   :task (exec 'clj-kondo.core/exec)
-   :exec-args {:lint ["src" "dev"]}}}}
+  {:doc "Lint all code directories with clj-kondo."
+   :task (clj-kondo/print!
+          (clj-kondo/run! {:lint ["src" "dev" "notebooks"]}))}}}

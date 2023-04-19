@@ -50,6 +50,7 @@
 
 ;; We can't put metadata directly on numbers, so here's a better way.
 
+#_{:clj-kondo/ignore [:redundant-do]}
 ^{::clerk/width :wide
   ::clerk/viewer n-viewer}
 (do -3)

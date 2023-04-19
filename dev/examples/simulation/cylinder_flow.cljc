@@ -5,7 +5,8 @@
   (:require
    [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
    [mentat.clerk-utils.show :refer [show-cljs]]
-   #?@(:cljs [[mathbox.core]
+   #?@(:cljs [[demo.mathbox]
+              [mathbox.core]
               [reagent.core]
               [leva.core]
               [mathbox.primitives :as mb]])))
@@ -59,10 +60,10 @@
  (defn clamp [x a b]
    (Math/max a (Math/min b x)))
 
- (defn Cylinder [{:keys [params schema]}]
+ (defn ^:export Cylinder [{:keys [params schema]}]
    (reagent.core/with-let
      [!params (reagent.core/atom params)
-      dt (/ 1 20)
+      _dt (/ 1 20)
       vorticular
       (fn [_ r z]
         (let [{ri :innerRadius
@@ -260,16 +261,16 @@
          [js/examples.simulation.cylinder_flow.Cylinder opts])}}
    {:params
     {:innerRadius 1
-     :outerRadius 5
+     :outerRadius 2
      :innerRotation 0.4
      :outerRotation 0
      :vorticity 1
      :scale 0.25}
 
     :schema
-    {:innerRadius {:min 0 :max 5 :step 0.01}
-     :outerRadius {:min 5 :max 10 :step 0.01}
-     :innerRotation {:min 0 :max 20 :step 0.01}
-     :outerRotation {:min 0 :max 20 :step 0.01}
+    {:innerRadius {:min 0 :max 1 :step 0.01}
+     :outerRadius {:min 1 :max 2 :step 0.01}
+     :innerRotation {:min 0 :max 2 :step 0.01}
+     :outerRotation {:min 0 :max 1 :step 0.01}
      :vorticity {:min 0 :max 1 :step 0.01}
      :scale {:min 0 :max 1 :step 0.01}}})
