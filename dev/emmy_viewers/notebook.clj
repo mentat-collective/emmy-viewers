@@ -15,7 +15,7 @@
  ;; These aliases only apply inside this namespace!
  '(require '[reagent.core :as reagent]))
 
-;; # Emmy-Viewers
+;; # Emmy-Viewers [ALPHA!]
 ;;
 ;; Visualizations over [Emmy](https://emmy.mentat.org).
 
@@ -37,9 +37,9 @@
 ;; > to run and modify this notebook on your machine!
 ;; >
 ;; > See the [Github
-;; > project](https://github.com/mentat-collective/emmy) for more
+;; > project](https://github.com/mentat-collective/emmy-viewers) for more
 ;; > details, and the [cljdoc
-;; > page](https://cljdoc.org/d/org.mentat/emmy/CURRENT/doc/readme) for
+;; > page](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/doc/readme) for
 ;; > detailed API documentation.
 ;;
 ;; ## What is Emmy-Viewers?
@@ -56,32 +56,19 @@
 (docs/git-dependency
  "mentat-collective/emmy-viewers")
 
-;; Require `emmy.env` in your Clojure(Script) namespace:
-
-;; ```clj
-;; (ns my-app
-;;   (:require [emmy.env :as e :refer :all]))
-;; ```
-
-;; ## Guides
-;;
-;; These guides are currently woefully incomplete... we need more! Please hold
-;; tight while we work on these...
-
-;; ## Emmy via SCI
+;; ## Emmy-Viewers via SCI
 ;;
 ;; `Emmy` is compatible with [SCI, the Small Clojure
 ;; Interpreter](https://github.com/babashka/sci).
 ;;
-;; To install `Emmy` into your SCI context, require
-;; the [`emmy.sci`](https://cljdoc.org/d/org.mentat/emmy/CURRENT/api/emmy.sci)
-;; namespace and call `emmy.sci/install!`:
+;; To install `Emmy-Viewers` into your SCI context, require the
+;; `emmy-viewers.sci` namespace and call `emmy-viewers.sci/install!`:
 
 ;; ```clj
 ;; (ns myproject.sci-extensions
-;;   (:require [emmy.sci]))
+;;   (:require [emmy-viewers.sci]))
 
-;; (emmy.sci/install!)
+;; (emmy-viewers.sci/install!)
 ;; ```
 ;;
 ;; If you want more granular control, see the [cljdoc page for
@@ -92,10 +79,10 @@
 ;; > Note that `Emmy` does not ship with a dependency on SCI, so you'll
 ;; > need to install your own version.
 ;;
-;; ## Emmy via Clerk
+;; ## Emmy-Viewers via Clerk
 ;;
-;; Using `Emmy` with Nextjournal's [Clerk](https://clerk.vision/) gives you the
-;; ability to write notebooks like this one.
+;; Using `Emmy-Viewers` with Nextjournal's [Clerk](https://clerk.vision/) gives
+;; you the ability to write notebooks like this one.
 ;;
 ;; Doing this requires that you generate a custom ClojureScript build for your
 ;; Clerk project. The easiest way to do this for an existing project is with
@@ -105,15 +92,16 @@
 ;;
 ;; If this is your first time using Clerk, use the [`emmy/clerk` template
 ;; described below](#project-template) to generate a new project with all steps
-;; described in ["Emmy via SCI"](#emmy-via-sci) already completed.
+;; described in ["Emmy-Viewers via SCI"](#emmy-viewers-via-sci) already
+;; completed.
 ;;
 ;; ## Project Template
 ;;
-;; `Emmy` includes a [`deps-new`](https://github.com/seancorfield/deps-new)
-;; template called
-;; [`emmy/clerk`](https://github.com/mentat-collective/emmy/tree/main/resources/emmy/clerk)
+;; `Emmy-Viewers` includes
+;; a [`deps-new`](https://github.com/seancorfield/deps-new) template called
+;; [`emmy-viewers/clerk`](https://github.com/mentat-collective/emmy-viewers/tree/main/resources/emmy-viewers/clerk)
 ;; that makes it easy to configure a new Clerk project with everything described
-;; in ["Emmy via SCI"](#emmy-via-sci) already configured.
+;; in ["Emmy-Viewers via SCI"](#emmy-viewers-via-sci) already configured.
 
 ;; First, install the [`deps-new`](https://github.com/seancorfield/deps-new)
 ;; tool:
@@ -123,16 +111,16 @@
 ;; ```
 
 ;; To create a new Clerk project based on
-;; [`emmy/clerk`](https://github.com/mentat-collective/emmy/tree/main/resources/emmy/clerk)
+;; [`emmy-viewers/clerk`](https://github.com/mentat-collective/emmy/tree/main/resources/emmy/clerk)
 ;; in a folder called `my-notebook-project`, run the following command:
 
 ^{::clerk/visibility {:code :hide}}
 (clerk/md
  (format "
 ```sh
-clojure -Sdeps '{:deps {io.github.mentat-collective/emmy {:git/sha \"%s\"}}}' \\
+clojure -Sdeps '{:deps {io.github.mentat-collective/emmy-viewers {:git/sha \"%s\"}}}' \\
 -Tnew create \\
-:template emmy/clerk \\
+:template emmy-viewers/clerk \\
 :name myusername/my-notebook-project
 ```" (docs/git-sha)))
 
@@ -140,8 +128,8 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/emmy {:git/sha \"%s\"}}}' \\
 ;; develop within the new project.
 
 ;; If you have an existing Clerk notebook project and are considering adding
-;; `Emmy`, you might consider
-;; using [`emmy/clerk`](https://github.com/mentat-collective/emmy/tree/main/resources/emmy/clerk)
+;; `Emmy-Viewers`, you might consider
+;; using [`emmy-viewers/clerk`](https://github.com/mentat-collective/emmy-viewers/tree/main/resources/emmy-viewers/clerk)
 ;; to get some ideas on how to structure your own project.
 
 ;; ## clj-kondo config
@@ -181,9 +169,9 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/emmy {:git/sha \"%s\"}}}' \\
 
 ;; ## Who is using Emmy-Viewers?
 
-;; If you want to show off your use of Emmy, please [file a
-;; ticket](https://github.com/mentat-collective/emmy-viewers/issues/new) and let us
-;; know!
+;; If you want to show off your use of Emmy-Viewers, please [file a
+;; ticket](https://github.com/mentat-collective/emmy-viewers/issues/new) and let
+;; us know!
 
 ;; ## Thanks and Support
 
