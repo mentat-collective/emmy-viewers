@@ -12,24 +12,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install tools
-        uses: DeLaGuardo/setup-clojure@master
+      - name: Install Babashka
+        uses: DeLaGuardo/setup-clojure@10.2
         with:
-          cli: latest
-          clj-kondo: latest
+          bb: latest
 
-      - name: Cache clojure dependencies
-        uses: actions/cache@v3
+      - name: Cache kondo directory
+        uses: actions/cache@v2
         with:
-          path: |
-            ~/.m2/repository
-            ~/.gitlibs
-            ~/.deps.clj
-          key: cljdeps-${{ hashFiles('deps.edn') }}
-          restore-keys: cljdeps-
+          path: ~/.clj-kondo/.cache
+          key: ${{ runner.os }}-kondo
+          restore-keys: ${{ runner.os }}-kondo
 
       - name: Lint dependencies
-        run: clj-kondo --dependencies --lint "$(clojure -Spath -A:nextjournal/clerk)"
+        run: bb lint-deps
 
-      - name: Lint project source
-        run: clj-kondo --lint src dev --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
+      - name: Lint project files
+        run: bb lint --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
