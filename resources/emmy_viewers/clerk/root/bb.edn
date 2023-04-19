@@ -47,6 +47,15 @@
    (do (run 'build-static)
        (run 'serve))}
 
+  lint-deps
+  {:requires ([clj-kondo.core :as kondo])
+   :doc "Lint dependencies."
+   :task (kondo/run!
+          {:lint [(with-out-str
+                    (babashka.tasks/clojure
+                     "-Spath -A:nextjournal/clerk"))]
+           :dependencies true})}
+
   lint
   {:doc "Lint all code directories with clj-kondo."
    :task (clj-kondo/print!

@@ -59,6 +59,7 @@
                     (babashka.tasks/clojure
                      "-Spath -A:nextjournal/clerk"))]
            :dependencies true})}
+
   lint
   {:doc "Lint the src and dev directories with clj-kondo."
    :task (exec 'clj-kondo.core/exec)
