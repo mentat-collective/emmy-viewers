@@ -45,8 +45,6 @@
 ;; ## What is Emmy-Viewers?
 ;;
 ;; TODO
-
-;; ## Demos
 ;;
 ;; ## Quickstart
 ;;
@@ -55,6 +53,37 @@
 ^{::clerk/visibility {:code :hide}}
 (docs/git-dependency
  "mentat-collective/emmy-viewers")
+
+;; ## Demos
+;;
+;; - [examples.complex](/dev/examples/complex.html)
+;; - [examples.continued-fractions](/dev/examples/continued_fractions.html)
+;; - [examples.expression](/dev/examples/expression.html)
+;; - [examples.functions](/dev/examples/functions.html)
+;; - [examples.index.md](/dev/examples/index.md)
+;; - [examples.mafs](/dev/examples/mafs.html)
+;; - [examples.manifold.pq-knot](/dev/examples/manifold/pq_knot)
+;; - [examples.mathbox.cube-controls](/dev/examples/mathbox/cube_controls.html)
+;; - [examples.matrix](/dev/examples/matrix.html)
+;; - [examples.modint](/dev/examples/modint.html)
+;; - [examples.number](/dev/examples/number.html)
+;; - [examples.operator](/dev/examples/operator.html)
+;; - [examples.polynomial](/dev/examples/polynomial.html)
+;; - [examples.power-series](/dev/examples/power_series.html)
+;; - [examples.quaternion](/dev/examples/quaternion.html)
+;; - [examples.rational-function](/dev/examples/rational_function.html)
+;; - [examples.simulation.cylinder-flow](/dev/examples/simulation/cylinder_flow.html)
+;; - [examples.simulation.double-ellipsoid](/dev/examples/simulation/double_ellipsoid.html)
+;; - [examples.simulation.ellipsoid](/dev/examples/simulation/ellipsoid.html)
+;; - [examples.simulation.lorenz](/dev/examples/simulation/lorenz.html)
+;; - [examples.simulation.oscillator](/dev/examples/simulation/oscillator.html)
+;; - [examples.simulation.phase-portrait](/dev/examples/simulation/phase_portrait.html)
+;; - [examples.simulation.quartic-well](/dev/examples/simulation/quartic_well.html)
+;; - [examples.simulation.toroid](/dev/examples/simulation/toroid.html)
+;; - [examples.stern-brocot](/dev/examples/stern_brocot.html)
+;; - [examples.structure](/dev/examples/structure.html)
+;; - [examples.symbolic.einstein](/dev/examples/symbolic/einstein.html)
+;; - [examples.vega.pendulum](/dev/examples/vega/pendulum.html)
 
 ;; ## Emmy-Viewers via SCI
 ;;
