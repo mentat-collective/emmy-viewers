@@ -16,7 +16,6 @@ jobs:
         uses: DeLaGuardo/setup-clojure@master
         with:
           cli: latest
-          bb: latest
           clj-kondo: latest
 
       - name: Cache clojure dependencies
@@ -32,5 +31,5 @@ jobs:
       - name: Lint dependencies
         run: clj-kondo --dependencies --lint "$(clojure -Spath -A:nextjournal/clerk)"
 
-      - name: Lint dependencies
-        run: bb lint --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
+      - name: Lint project source
+        run: clj-kondo --lint src dev --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
