@@ -1,7 +1,5 @@
 (ns demo.mathbox
-  (:require [emmy.env :as e]
-            [emmy.expression.compile :as xc]
-            [emmy.mechanics.rotation :as rot]
+  (:require [emmy.expression.compile :as xc]
             [emmy.numerical.ode :as ode]
             [goog.events]
             [goog.Timer :as timer]

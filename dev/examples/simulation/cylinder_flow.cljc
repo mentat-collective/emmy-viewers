@@ -63,7 +63,7 @@
  (defn ^:export Cylinder [{:keys [params schema]}]
    (reagent.core/with-let
      [!params (reagent.core/atom params)
-      dt (/ 1 20)
+      _dt (/ 1 20)
       vorticular
       (fn [_ r z]
         (let [{ri :innerRadius

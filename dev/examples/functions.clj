@@ -10,7 +10,6 @@
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as viewer]
             [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [emmy.polynomial :as poly]))
@@ -90,7 +89,7 @@
 (def fn-render-fn
   (q
    (fn [{:keys [range scale samples f]}]
-     (viewer/html
+     (nextjournal.clerk.viewer/html
       [mathbox/MathBox
        {:container {:style {:height "400px" :width "100%"}}
         :renderer  {:background-color 0xffffff}}
