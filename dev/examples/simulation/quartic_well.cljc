@@ -16,7 +16,6 @@
                        [mathbox.primitives :as mb]])))
 
 ;; ## Quartic Well
-
 ;; https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf
 ;;
 ;; TODO here: Abstract out some of the components and get all four going in the

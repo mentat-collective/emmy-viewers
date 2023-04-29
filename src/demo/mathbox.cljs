@@ -48,8 +48,10 @@
 
 (defn make-solver
   [derivative initial-state parameters epsilon]
-  (let [flat-initial-state (flatten initial-state)
-         ;; TODO get around the deref
+  (let [flat-initial-state (if (array? initial-state)
+                             initial-state
+                             (flatten initial-state))
+        ;; TODO get around the deref
         f' (if (implements? IAtom parameters)
              (let [p @parameters]
                (fn [_ ys yps]
@@ -174,7 +176,7 @@
      :channels 4
      :expr (fn [emit i]
              (emit 1 1 1 (- 1 (/ i 16))))}]
-   [mb/Transpose {:order "yx"}]
+   [mb/Transpose {:order "zxy"}]
    [mb/Point
     (-> (dissoc opts :length)
         (assoc :points "<<<"
@@ -189,9 +191,9 @@
    [mb/Array
     {:channels 3
      :id "sampler"
-     :data (let [y0 (initial-state-fn)
-                 s (make-solver state-derivative y0 params 1e-5)
-                 ps (.-state params)
+     :data (let [y0  (initial-state-fn)
+                 s   (make-solver state-derivative y0 params 1e-5)
+                 ps  (.-state params)
                  xyz (double-array 3)
                  pts (atom [])]
              (.solve s 0 (clj->js y0)
@@ -202,8 +204,7 @@
                               (swap! pts conj (js/Array. (aget xyz 0)
                                                          (aget xyz 2)
                                                          (aget xyz 1))))))
-             @pts)
-     }]
+             @pts)}]
    [mb/Line
     {:color 0xff3090
      :size 8
@@ -392,17 +393,14 @@
 ;; ## Toroid Viewer
 
 (defn ToroidViewer
-  [{state  :initial-state
-    params     :params
+  [{params     :params
     keys       :keys
     schema     :schema
     state->xyz :state->xyz
     :as opts}]
   (reagent.core/with-let
     [render-fn (apply js/Function state->xyz)
-     !state    (reagent.core/atom {:time 0 :state state})
      !params   (reagent.core/atom params)
-
      ;; I had to move this here because reagent.core/reaction wasn't available
      ;; in the SCI environment you have when writing viewers...
      !arr      (reagent.core/reaction
@@ -414,10 +412,6 @@
      [leva.core/Controls
       {:atom !params
        :schema schema}]
-     [Evolve
-      {:L      (:L opts)
-       :params !arr
-       :atom   !state}]
      [mathbox.core/MathBox
       {:container  {:style {:height "400px" :width "100%"}}
        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
@@ -441,4 +435,67 @@
                                 (Math/cos alpha_0) (Math/sin alpha_0)]))
          :steps 1500
          :params !arr}]
+       [Torus render-fn !arr]]]]))
+
+(defn ToroidPoint
+  [{state      :initial-state
+    params     :params
+    keys       :keys
+    schema     :schema
+    state->xyz :state->xyz
+    :as opts}]
+  (reagent.core/with-let
+    [render-fn (apply js/Function state->xyz)
+     !state    (reagent.core/atom {:time 0 :state state})
+     !params   (reagent.core/atom params)
+     ;; I had to move this here because reagent.core/reaction wasn't available
+     ;; in the SCI environment you have when writing viewers...
+     !arr      (reagent.core/reaction
+                (apply
+                 array
+                 (map @!params keys)))]
+    [:<>
+     [nextjournal.clerk.render/inspect @!arr]
+     [nextjournal.clerk.render/inspect @!state]
+     [leva.core/Controls
+      {:atom !params
+       :schema schema}]
+     [Evolve
+      {:L      (:L opts)
+       :params !arr
+       :atom   !state}]
+     [mathbox.core/MathBox
+      {:container  {:style {:height "400px" :width "100%"}}
+       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+       :renderer   {:background-color 0xffffff}}
+      [mb/Cartesian (:cartesian opts)
+       [mb/Axis {:axis 1 :width 3}]
+       [mb/Axis {:axis 2 :width 3}]
+       [mb/Axis {:axis 3 :width 3}]
+       [demo.mathbox/Curve
+        {:state-derivative (apply js/Function (:L opts))
+         :state->xyz render-fn
+         :initial-state-fn
+         (fn []
+           (let [s (:state (.-state !state))]
+             (if (array? s)
+               s
+               (clj->js (flatten s)))))
+         :steps 200
+         :params !arr}]
+       [Comet
+        {:dimensions 3
+         :length 20
+         :color 0xa0d0ff
+         :size 10
+         :opacity 0.99
+         :path
+         (let [out #js [0 0 0]]
+           (fn [emit _ _]
+             (render-fn (:state (.-state !state))
+                        out
+                        (.-state !arr))
+             (emit (aget out 0)
+                   (aget out 2)
+                   (aget out 1))))}]
        [Torus render-fn !arr]]]]))

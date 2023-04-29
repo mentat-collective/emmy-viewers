@@ -233,11 +233,11 @@
   (defn transform-data [xs]
     ;; compilation brings these down to like 30ms from 2.5seconds each
     (let [energy-fn (L-energy m1 m2 l1 l2 g)
-          monitor   (xc/compile-state-fn
-                     (energy-monitor energy-fn (first xs))
-                     false
-                     (first xs)
-                     {:calling-convention :structure})
+          monitor (xc/compile-state-fn
+                   (energy-monitor energy-fn (first xs))
+                   false
+                   (first xs)
+                   {:calling-convention :structure})
           xform     (xc/compile-state-fn
                      (angles->rect l1 l2)
                      false
