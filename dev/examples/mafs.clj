@@ -1,24 +1,36 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.mafs
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial
              infinite? abs])
-  (:require [nextjournal.clerk :as clerk]
-            [emmy.env :as e :refer :all]
+  (:require [clojure.walk :refer [postwalk]]
+            [emmy.env :refer :all]
             [emmy.expression.compile :as xc]
-            [emmy.polynomial :as poly]))
+            [emmy.polynomial :as poly]
+            [mentat.clerk-utils.viewers :refer [q]]
+            [nextjournal.clerk :as clerk]))
 
-
-;; TODO do we want a mafs package that stays here?
+;; ## Mafs Viewers
 ;;
-;; TODO can we get the notebook to cache better?
+;; So this trick totally works... except for the fact that the metadata attached
+;; to the subforms is a function, and that blows up on the way over the wire. So
+;; we want to carefully strip metadata OUT of the forms that we send over.
+;;
+;; The test is to get of-x working as well on its own as `mafs` now does.
+
+(def meta-viewer
+  {:pred (comp ifn? ::clerk/viewer meta)
+   :transform-fn
+   (clerk/update-val
+    (fn [v]
+      ((-> v meta ::clerk/viewer) v)))})
+
+(clerk/add-viewers! [meta-viewer])
+
 (def Theme
-  {:foreground "var(--mafs-fg)"
-   :background "var(--mafs-bg)"
-   :red "var(--mafs-red)"
+  {:red "var(--mafs-red)"
    :orange "var(--mafs-orange)"
    :green "var(--mafs-green)"
    :blue "var(--mafs-blue)"
@@ -27,68 +39,88 @@
    :pink "var(--mafs-pink)"
    :yellow "var(--mafs-yellow)"})
 
-(defn fn-transform [f mode]
-  (xc/compile-fn f 1 {:mode mode :cache? false}))
+(defn strip-meta [form]
+  (postwalk (fn [x]
+              (if (meta x)
+                (with-meta x nil)
+                x))
+            form))
 
-;; Let's try it:
+(defn render [form]
+  (clerk/with-viewer
+    {:render-fn
+     (list 'fn ['_] (strip-meta form))}
+    {}))
 
-(-> (fn [x]
-      (+ (square x)
-         (cube x)))
-    (fn-transform :source))
+(defn mafs [& children]
+  (let [[opts children] (if (map? (first children))
+                          [(first children) (rest children)]
+                          [{} children])]
+    (with-meta (into ['mafs.core/Mafs opts] children)
+      {::clerk/viewer render})))
 
-(clerk/code
- (-> (fn [x]
-       (+ (square x)
-          (cube x)))
-     (fn-transform :source)))
+(defn cartesian
+  ([] (cartesian {}))
+  ([opts]
+   (with-meta ['mafs.coordinates/Cartesian opts]
+     {::clerk/viewer
+      #(render (mafs %))})))
 
-(clerk/code
- (-> (fn [x]
-       (+ (square x)
-          (cube x)))
-     (fn-transform :js)))
+(defn of-x [opts]
+  (let [f (xc/compile-fn (:y opts) 1 {:mode :js})
+        form
+        (q
+         (reagent.core/with-let [f' (js/Function. ~@f)]
+           [mafs.plot/OfX ~(assoc opts :y 'f')]))]
+    (with-meta form
+      {::clerk/viewer #(render (mafs (cartesian) %))})))
 
-(def fn-viewer
-  {:transform-fn
-   (comp clerk/mark-presented
-         (clerk/update-val
-          (fn [f]
-            (merge (or (meta f) {})
-                   {:func (fn-transform f :js)}))))
-   :render-fn
-   '(fn [{[x body] :func
-         cart-opts :cartesian
-         plot-opts :plot
-         :or {cart-opts {}
-              plot-opts {}}}]
-      (reagent.core/with-let [f (js/Function. x body)]
-        (nextjournal.clerk.viewer/html
-         [mafs.core/Mafs
-          [mafs.coordinates/Cartesian cart-opts]
-          [mafs.plot/OfX (merge plot-opts {:y f})]])))})
+(defn of-y [opts]
+  (let [f (xc/compile-fn (:x opts) 1 {:mode :js})
+        form
+        (q
+         (reagent.core/with-let [f' (js/Function. ~@f)]
+           [mafs.plot/OfY ~(assoc opts :x 'f')]))]
+    (with-meta form
+      {::clerk/viewer #(render (mafs (cartesian) %))})))
 
-;; ### Demo
-;;
-;; Let's make a function to try!
+(defn leva [opts]
+  ['leva.core/Controls opts])
+
+;; ## Demo!
+
+(defn sigmoid1 [x]
+  (-> (/ 2 (+ 1 (exp (- x))))
+      (- 1)))
+
+(cartesian)
+
+(of-x {:y sin :color (:blue Theme)})
+
+(mafs {:zoom {:min 0.1 :max 2}}
+      (cartesian)
+      (of-x {:y sin :color (:blue Theme)})
+      (of-x {:y (+ cos (D sin)) :color (:green Theme)})
+      (of-y {:x sigmoid1 :color (:pink Theme)}))
+
+(defn derivatives [n f]
+  (into [:<>]
+        (map
+         (fn [i color]
+           (of-x {:y ((expt D i) f)
+                  :color color}))
+         (range n)
+         (vals Theme))))
+
+(mafs {:zoom {:min 0.1 :max 2}}
+      (cartesian)
+      (derivatives 6 (fn [x] (exp (* 4/5 x)))))
 
 (defn my-fn [x]
   (+ (square (sin x))
      (square x)))
 
-;; Then we'll call it with our new viewer:
-
-(clerk/with-viewer fn-viewer
-  (with-meta my-fn {:plot
-                    {:color (:pink Theme)}}))
-
-(defn sigmoid1 [x]
-  (- (/ 2 (+ (exp (negate x)) 1)) 1))
-
-(clerk/with-viewer fn-viewer
-  (with-meta sigmoid1
-    {:plot
-     {:color (:pink Theme)}}))
+(of-x {:y my-fn})
 
 ;; ## Polynomials
 ;;
@@ -100,5 +132,4 @@
         (square x)
         (cube x)))))
 
-^{::clerk/viewer fn-viewer}
-my-poly
+(of-x {:y my-poly})
