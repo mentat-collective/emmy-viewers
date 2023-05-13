@@ -1,8 +1,8 @@
-^#:nextjournal.clerk
-{:toc true
- :no-cache true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns emmy-viewers.notebook
+  #:nextjournal.clerk
+  {:toc true
+   :no-cache true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])

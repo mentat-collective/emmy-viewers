@@ -1,5 +1,6 @@
 (ns user
-  (:require [mentat.clerk-utils.build :as b]
+  (:require [emmy.viewer :as ev]
+            [mentat.clerk-utils.build :as b]
             [mentat.clerk-utils.css :as css]))
 
 (css/set-css!
@@ -19,12 +20,22 @@
  "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
+(require '[emmy.expression :as x])
 (require '[emmy.env])
 (require '[emmy.expression.render :as xr])
+(require '[nextjournal.clerk :as clerk])
 
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
+
+;; Set up defaults.
+
+(clerk/add-viewers!
+ [ev/meta-viewer
+
+  {:pred x/literal?
+   :transform-fn (clerk/update-val x/expression-of)}])
 
 (def index
   "dev/emmy_viewers/notebook.clj")
