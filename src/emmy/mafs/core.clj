@@ -1,7 +1,6 @@
 (ns emmy.mafs.core
   (:refer-clojure :exclude [vector])
-  (:require [emmy.viewer :as ev]
-            [nextjournal.clerk :as clerk]))
+  (:require [emmy.viewer :as ev]))
 
 (defn ^:no-doc default-viewer [child]
   (ev/render
@@ -10,9 +9,9 @@
     child]))
 
 (defn ^:no-doc tagged
-  ([v] (tagged v default-viewer))
+  ([v] (ev/tagged v default-viewer))
   ([v viewer]
-   (with-meta v {::clerk/viewer viewer})))
+   (ev/tagged v viewer)))
 
 (def Theme
   {:red "var(--mafs-red)"

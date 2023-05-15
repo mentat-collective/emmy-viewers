@@ -41,6 +41,11 @@
     ;; TODO nil?
     {}))
 
+(defn ^:no-doc tagged
+  ([v] (tagged v render))
+  ([v viewer]
+   (with-meta v {::clerk/viewer viewer})))
+
 (defn inspect-state [sym]
   ['nextjournal.clerk.viewer/inspect `@~sym])
 
