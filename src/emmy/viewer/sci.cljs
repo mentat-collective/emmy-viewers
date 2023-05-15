@@ -1,4 +1,4 @@
-(ns emmy-viewers.sci
+(ns emmy.viewer.sci
   (:require [emmy.mathbox.physics]
             [emmy.mathbox.plot]
             [emmy.viewer.clock]

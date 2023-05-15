@@ -2,7 +2,7 @@
 (ns emmy-viewers.leva
   #:nextjournal.clerk
   {:toc true :no-cache true}
-  (:require [emmy.leva.core :as leva]
+  (:require [emmy.leva :as leva]
             [emmy.viewer :as ev]))
 
 ;; # Leva Demo

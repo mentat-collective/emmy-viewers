@@ -2,7 +2,7 @@
 {:toc true
  :visibility :hide-ns}
 (ns examples.mathbox.cube-controls
-  (:require [emmy.leva.core :as leva]
+  (:require [emmy.leva :as leva]
             [emmy.viewer :as ev]
             [emmy.mathbox :as box]
             [mentat.clerk-utils.viewers :refer [q]]
@@ -28,8 +28,6 @@
                :max-distance 4}
    :scale 720
    :focus 1})
-
-;; the `mbr` forms live in [[demo.mathbox]] for now.
 
 (defn scene [body]
   (box/mathbox

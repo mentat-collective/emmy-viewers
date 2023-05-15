@@ -1,4 +1,4 @@
-(ns emmy.leva.core
+(ns emmy.leva
   "TODO this should probably live in `emmy.leva`, no core needed."
   (:require [emmy.viewer :as ev]))
 

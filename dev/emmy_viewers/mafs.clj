@@ -7,13 +7,15 @@
              infinite? abs ref partial =])
   (:require [emmy.env :as e :refer :all]
             [emmy.mafs :as mafs]
+            [emmy.polynomial :as poly]
             [emmy.viewer :as ev]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
 ;; ## Server-Side Mafs
 
-(def ->tex (comp clerk/tex ->TeX simplify))
+(def ->tex
+  (comp clerk/tex ->TeX simplify))
 
 (ev/install!)
 
@@ -22,15 +24,10 @@
 
 ;; ## Demo!
 
-(defn sigmoid1 [x]
-  (-> (/ 2 (+ 1 (exp (- x))))
-      (- 1)))
-
 (mafs/of-x
  '(fn [x] (+ 2 (Math/sin x))))
 
-;; TODO how will we handle the vector field idea with a point injected in there?
-;; OH that's where we make the parametric function!!!!!! that is it!
+^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian {:subdivisions 2})
  (mafs/vector-field
@@ -48,28 +45,29 @@
 
 ;; Okay, that's good:
 
-#_(with-let [point [1 1]]
-    (mafs/mafs
-     (mafs/cartesian)
-     (mafs/circle
-      {:center [0 0]
-       :radius `(abs @~point)})
-     (mafs/movable-point
-      {:atom point})))
+(ev/with-let [point [1 1]]
+  (mafs/mafs
+   (mafs/cartesian)
+   (mafs/circle
+    {:center [0 0]
+     :radius `(abs @~point)})
+   (mafs/movable-point
+    {:atom point})))
 
 (defn chain [& points]
-  (first
-   (reduce (fn [[acc tail] p]
-             (let [tip (mapv + tail p)
-                   v   (mafs/vector
-                        {:tail tail :tip tip})]
-               [(conj acc v) tip]))
-           [[:<>] [0 0]]
-           points)))
+  (-> (first
+       (reduce (fn [[acc tail] p]
+                 (let [tip (mapv + tail p)
+                       v   (mafs/vector
+                            {:tail tail :tip tip})]
+                   [(conj acc v) tip]))
+               [[:<>] [0 0]]
+               points))
+      (ev/tagged
+       #(mafs/mafs (mafs/cartesian) %))))
 
-#_(mafs/mafs
-   (mafs/cartesian)
-   (chain [1 2] [1 0] [-1 1]))
+
+(chain [1 2] [1 0] [-1 1])
 
 (defn with-handles [f]
   (let [hint-radius 3]
@@ -112,137 +110,92 @@
            :path :translate
            :color (:orange mafs/Theme)}))))))
 
-#_(with-handles
-    (fn [!state]
-      [:<>
-       (mafs/ellipse
-        {:center (q (:width @~!state))
-         :radius [2 1]})
-       (mafs/ellipse
-        {:center [0 0]
-         :radius (q
-                  (let [{[x _] :width [_ y] :height} @~!state]
-                    [(Math/abs x) (Math/abs y)]))})]))
+#_{:clj-kondo/ignore [:unused-binding]}
+(with-handles
+  (fn [!state]
+    [:<>
+     (mafs/ellipse
+      {:center (q (:width @~!state))
+       :radius [2 1]})
+     (mafs/ellipse
+      {:center [0 0]
+       :radius (q
+                (let [{[x _] :width [_ y] :height} @~!state]
+                  [(Math/abs x) (Math/abs y)]))})]))
 
 
-#_
-(comment
-  (sigmoid1 1)
-  (sin 1)
+(defn sigmoid1 [x]
+  (-> (/ 2 (+ 1 (exp (- x))))
+      (- 1)))
 
-  #_(->tex
-     (simplify
-      (  'x)))
+(defn derivatives [n f]
+  (into [:<>]
+        (map
+         (fn [i color]
+           (mafs/of-x ((expt D i) f) {:color color}))
+         (range n)
+         (vals mafs/Theme))))
 
-  (defn derivatives [n f]
-    (into [:<>]
-          (map
-           (fn [i color]
-             (of-x {:y ((expt D i) f)
-                    :color color}))
-           (range n)
-           (vals Theme))))
 
-  (+ (+ [1 2] [3 4]) [5 6])
-  (clerk/row
-   (mafs {:zoom {:min 0.1 :max 2}}
-         (cartesian)
-         (derivatives 5 tanh))
-   (mafs {:zoom {:min 0.1 :max 2}}
-         (cartesian)
-         (derivatives 5 tanh)))
+(clerk/row
+ (ev/render
+  (mafs/mafs {:zoom {:min 0.1 :max 2}}
+             (mafs/cartesian)
+             (derivatives 5 sin)))
+ (ev/render
+  (mafs/mafs {:zoom {:min 0.1 :max 2}}
+             (mafs/cartesian)
+             (derivatives 5 tanh))))
 
-  (let [cake ((expt D 5) tanh)]
-    (clerk/col
-     (->tex (cake 'x))
-     (mafs {:zoom {:min 0.1 :max 2}}
-           (cartesian)
-           (of-x {:y cake :color (:blue Theme)}))))
+(let [f ((expt D 3) tanh)]
+  (clerk/col
+   (->tex (f 'x))
+   (mafs/mafs {:zoom {:min 0.1 :max 2}}
+              (mafs/cartesian)
+              (mafs/of-x f {:color (:blue mafs/Theme)}))))
 
-  #_(clerk/row
-     (clerk/col
-      (mafs
-       (cartesian)
-       (of-x {:y sin :color (:green Theme)})
-       (of-y {:x sigmoid1
-              :color (:blue Theme)}))
-      (caption "A pair of functions."))
-     (clerk/col
-      (mafs {:zoom {:min 0.1 :max 2}}
-            (cartesian)
-            (derivatives 5 tanh))
-      (caption [:<> "Derivatives of " [:code "tanh"] "."])))
+(clerk/row
+ (clerk/col
+  (mafs/mafs
+   (mafs/cartesian)
+   (mafs/of-x {:y sin :color (:green mafs/Theme)})
+   (mafs/of-y {:x sigmoid1
+               :color (:blue mafs/Theme)}))
+  (caption "A pair of functions."))
+ (clerk/col
+  (mafs/mafs {:zoom {:min 0.1 :max 2}}
+             (mafs/cartesian)
+             (derivatives 5 tanh))
+  (caption [:<> "Derivatives of " [:code "tanh"] "."])))
 
-  (cartesian)
+(mafs/cartesian)
 
-  (of-x {:y sin :color (:blue Theme)})
+(mafs/of-x {:y sin :color (:blue mafs/Theme)})
 
-  (mafs {:zoom {:min 0.1 :max 2}}
-        (cartesian)
-        (of-x {:y sin :color (:blue Theme)})
-        (of-x {:y (+ cos (D sin)) :color (:green Theme)})
-        (of-y {:x sigmoid1 :color (:pink Theme)}))
+(mafs/mafs {:zoom {:min 0.1 :max 2}}
+           (mafs/cartesian)
+           (mafs/of-x
+            {:y sin :color (:blue mafs/Theme)})
+           (mafs/of-x {:y (+ cos (D sin)) :color (:green mafs/Theme)})
+           (mafs/of-y {:x sigmoid1 :color (:pink mafs/Theme)}))
 
-  (defn my-fn [x]
-    (+ (square (sin x))
-       (square x)))
+;; ## Polynomials
+;;
+;; I think this can work out of the box for an Emmy Polynomial.
 
-  (of-x {:y my-fn})
+(def my-poly
+  (let [x (poly/identity)]
+    (+ (- x)
+       (square x)
+       (cube x))))
 
-  ;; ## Polynomials
-  ;;
-  ;; I think this can work out of the box for an Emmy Polynomial.
+(mafs/of-x {:y my-poly})
 
-  (def my-poly
-    (let [x (poly/identity 2)]
-      ((+ (- x)
-          (square x)
-          (cube x)))))
-
-  (def tabbed-viewer
-    {:name `tabbed-viewer
-     :render-fn
-     '(let [->ks (fn [pairs]
-                   (mapv
-                    (fn [{value :nextjournal/value}]
-                      (:nextjournal/value (nth value 0)))
-                    pairs))
-            ->m  (fn [pairs]
-                   (into {}
-                         (map
-                          (fn [{value :nextjournal/value}]
-                            [(:nextjournal/value (nth value 0))
-                             (nth value 1)]))
-                         pairs))]
-        (fn [pairs opts]
-          (reagent.core/with-let
-            [ks (->ks pairs)
-             m  (->m pairs)
-             !k (reagent.core/atom (first ks))]
-            [:<> (into
-                  [:div.flex.items-center.font-sans.text-xs.mb-3
-                   [:span.text-slate-500.mr-2 "View as:"]]
-                  (map (fn [k]
-                         [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
-                          {:class
-                           (if (= @!k k)
-                             "bg-indigo-100 text-indigo-600"
-                             "text-slate-500")
-                           :on-click #(reset! !k k)}
-                          k]))
-                  ks)
-             [nextjournal.clerk.viewer/inspect-presented (get m @!k)]])))})
-
-  (defn multi [m]
-    (clerk/with-viewer
-      tabbed-viewer
-      m))
-
-  (multi
-   {:TeX  (clerk/tex (->TeX (square 'x)))
-    :2TeX (let [cake ((expt D 5) tanh)]
-            (clerk/col
-             (->tex (cake 'y))
-             (mafs {:zoom {:min 0.1 :max 2}}
-                   (cartesian)
-                   (of-x {:y cake :color (:blue Theme)}))))}))
+(ev/multi
+ {:TeX  (clerk/tex (->TeX (square 'x)))
+  :2TeX (let [cake ((expt D 5) tanh)]
+          (clerk/col
+           (->tex (cake 'y))
+           (mafs/mafs {:zoom {:min 0.1 :max 2}}
+                      (mafs/cartesian)
+                      (mafs/of-x {:y cake :color (:blue mafs/Theme)}))))})

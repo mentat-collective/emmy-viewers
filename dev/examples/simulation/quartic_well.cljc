@@ -7,9 +7,7 @@
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
-            #?@(:cljs [[demo.mathbox]
-                       [nextjournal.clerk.render]
-                       [goog.events]
+            #?@(:cljs [[nextjournal.clerk.render]
                        [mathbox.core]
                        [reagent.core]
                        [leva.core]
@@ -72,7 +70,7 @@
       :start true
       :end true}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -93,7 +91,7 @@
       :end true
       :zero false}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -109,7 +107,7 @@
   document!!"
    [{:keys [state-derivative initial-state params steps dt]
      :or {dt 3e-2}}]
-   (let [simulate (demo.mathbox/Lagrangian-collector
+   (let [simulate (emmy.viewer.physics/Lagrangian-collector
                    state-derivative
                    initial-state
                    {:parameters params})]
@@ -147,7 +145,7 @@
         :initial-state initial-state
         :params params
         :steps steps}]
-      [demo.mathbox/Comet
+      [emmy.mathbox.physics/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
@@ -158,50 +156,6 @@
           (let [state (:state (.-state !state))]
             (emit (aget state 1)
                   (aget state 2))))}]]))
-
- (defn WellAxes []
-   [:<>
-    [mathbox.primitives/Axis
-     {:axis "x"
-      :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "x"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true}]
-    [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10}]
-    [mathbox.primitives/Axis
-     {:axis "y" :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "y"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true
-      :zero false}]
-    [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10
-      :offset [20 0]}]])
 
  (defn PotentialLine [{:keys [V !params]}]
    [:<>
@@ -225,14 +179,14 @@
    (let [[a1 b1 c1 body1] V
          V-fn (js/Function. a1 b1 c1 body1)]
      [:<>
-      [mathbox.primitives/Grid
-       {:color 0x808080}]
-      [WellAxes]
+      [emmy.mathbox.plot/AxisGrid
+       {:x-axis {:divide 5}
+        :y-axis {:divide 5}}]
       [PotentialLine
        {:V V-fn
         :!params params}]
       ;; this is the bead traveling with history along the potential.
-      [demo.mathbox/Comet
+      [emmy.mathbox.physics/Comet
        ;; TODO pass a width to the emitted area for how many points we have.
        {:dimensions 2
         :items 2
@@ -386,7 +340,7 @@
         ;;                         })
         ;;          );
         ;; TODO same evolution?
-        [demo.mathbox/Evolve
+        [emmy.viewer.physics/Evolve
          {:L (:L opts)
           :params !arr
           :atom   !state}]

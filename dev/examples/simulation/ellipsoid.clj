@@ -1,16 +1,18 @@
 (ns examples.simulation.ellipsoid
   (:refer-clojure
    :exclude [+ - * / = zero? compare
-             numerator denominator ref partial])
+             numerator denominator ref partial abs infinite?])
   (:require [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
-
+            [emmy.viewer :as ev]
             [examples.expression :as d]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]))
+
+(emmy.viewer/install!)
 
 ;; ## Ellipsoid Particle
 ;;
@@ -77,21 +79,22 @@
 ;;
 ;; Lagrange equations of motion for the ellipsoid:
 
+(ev/multi
+ (take 2 (d/transform-literal
+          (let [L (L-central-triaxial 'm 'a 'b 'c)
+                theta (literal-function 'theta)
+                phi   (literal-function 'phi)]
+            (((Lagrange-equations L) (up theta phi))
+             't)))))
+
+;; And for the sphere:
+
 (clerk/with-viewer d/multiviewer
-  (let [L (L-central-triaxial 'm 'a 'b 'c)
+  (let [L (L-central-triaxial 'm 'r 'r 'r)
         theta (literal-function 'theta)
         phi (literal-function 'phi)]
     (((Lagrange-equations L) (up theta phi))
      't)))
-
-;; And for the sphere:
-
-#_(clerk/with-viewer d/multiviewer
-    (let [L (L-central-triaxial 'm 'r 'r 'r)
-          theta (literal-function 'theta)
-          phi (literal-function 'phi)]
-      (((Lagrange-equations L) (up theta phi))
-       't)))
 
 ;; This is fairly horrifying. This really demands animation, as I bet it looks
 ;; cool, but it's not comprehensible in this form.
@@ -132,10 +135,10 @@
         [mb/Axis {:axis 1 :width 3}]
         [mb/Axis {:axis 2 :width 3}]
         [mb/Axis {:axis 3 :width 3}]
-        [demo.mathbox/Mass
+        [emmy.mathbox.physics/Mass
          (select-keys
           value [:L :state->xyz :initial-state :params])]
-        [demo.mathbox/Ellipse (:ellipse value)]]]))}}
+        [emmy.mathbox.physics/Ellipse (:ellipse value)]]]))}}
 (let [m 10000
       a 3
       b 2
@@ -155,10 +158,11 @@
 
 ;; ## Equations of Motion:
 
-^{::clerk/visibility :hide}
-(clerk/with-viewer d/multiviewer
-  (let [L (L-central-triaxial 'm 'a 'b 'c)
-        theta (literal-function 'theta)
-        phi   (literal-function 'phi)]
-    (((Lagrange-equations L) (up theta phi))
-     't)))
+^{::clerk/visibility {:code :hide}}
+(ev/multi
+ (take 2 (d/transform-literal
+          (let [L (L-central-triaxial 'm 'a 'b 'c)
+                theta (literal-function 'theta)
+                phi   (literal-function 'phi)]
+            (((Lagrange-equations L) (up theta phi))
+             't)))))

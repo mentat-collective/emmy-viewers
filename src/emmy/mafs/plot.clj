@@ -18,11 +18,12 @@
   ([opts]
    (let [opts (if (map? opts) opts {:y opts})]
      (mafs/tagged
-      (if (fn? (:y opts))
-        (let [f (xc/compile-fn (:y opts) 1 {:mode :js})]
+      (if (ifn? (:y opts))
+        (let [sym  (gensym)
+              body (xc/compile-fn (:y opts) 1 {:mode :js})]
           (q
-           (reagent.core/with-let [f' (js/Function. ~@f)]
-             [mafs.plot/OfX ~(assoc opts :y 'f')])))
+           (reagent.core/with-let [~sym (js/Function. ~@body)]
+             [mafs.plot/OfX ~(assoc opts :y sym)])))
         ['mafs.plot/OfX opts])))))
 
 (defn of-y
@@ -43,11 +44,12 @@
   ([opts]
    (let [opts (if (map? opts) opts {:x opts})]
      (mafs/tagged
-      (if (fn? (:x opts))
-        (let [f (xc/compile-fn (:x opts) 1 {:mode :js})]
+      (if (ifn? (:x opts))
+        (let [sym  (gensym)
+              body (xc/compile-fn (:x opts) 1 {:mode :js})]
           (q
-           (reagent.core/with-let [f' (js/Function. ~@f)]
-             [mafs.plot/OfY ~(assoc opts :x 'f')])))
+           (reagent.core/with-let [~sym (js/Function. ~@body)]
+             [mafs.plot/OfY ~(assoc opts :x sym)])))
         ['mafs.plot/OfY opts])))))
 
 (defn parametric
@@ -67,7 +69,7 @@
   ([opts]
    (let [opts (if (map? opts) opts {:xy opts})]
      (mafs/tagged
-      (if (fn? (:xy opts))
+      (if (ifn? (:xy opts))
         (let [f (xc/compile-fn (:xy opts) 1 {:mode :js})]
           (q
            (reagent.core/with-let [f' (js/Function. ~@f)]
@@ -77,7 +79,7 @@
 ;; TODO figure out the parametric function option, we can totally pass the state
 ;; value to this bad boy.
 (defn ^:no-doc compile-2d [f]
-  (if (fn? f)
+  (if (ifn? f)
     (let [[args _ body] (xc/compile-state-fn (fn [] f) [] [0 0] {:mode :js})]
       (list 'js/Function. args body))
     f))

@@ -7,7 +7,8 @@
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
-            #?@(:cljs [[demo.mathbox]
+            #?@(:cljs [[emmy.mathbox.physics]
+                       [emmy.viewer.physics]
                        [nextjournal.clerk.render]
                        [goog.events]
                        [mathbox.core]
@@ -60,58 +61,12 @@
 ;; ## Phase Portrait
 
 (show-cljs
-
- (defn PhaseAxes []
-   [:<>
-    [mb/Axis
-     {:axis "x"
-      :color 0xffffff}]
-    [mb/Scale
-     {:axis "x"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true}]
-    [mb/Format
-     {:expr demo.mathbox/format-number
-      :font ["Helvetica"]}]
-    [mb/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10}]
-    [mb/Axis
-     {:axis "y"
-      :color 0xffffff}]
-    [mb/Scale
-     {:axis "y"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true
-      :zero false}]
-    [mb/Format
-     {:expr demo.mathbox/format-number
-      :font ["Helvetica"]}]
-    [mb/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10
-      :offset [20 0]}]])
-
  (defn PhaseVectors
    "Component that takes a simulator and builds an array of phase vectors... todo
   document!!"
    [{:keys [state-derivative initial-state params steps dt]
      :or {dt 3e-2}}]
-   (let [simulate (demo.mathbox/Lagrangian-collector
+   (let [simulate (emmy.viewer.physics/Lagrangian-collector
                    state-derivative
                    initial-state
                    {:parameters params})]
@@ -139,17 +94,20 @@
         :end true}]]))
 
  (defn Phase [{:keys [!state initial-state L params steps]}]
-   (let [[a2 b2 c2 body2] L
-         state-deriv (js/Function. a2 b2 c2 body2)]
+   (let [state-deriv (apply js/Function L)]
      [:<>
-      [mb/Grid {:color 0x808080}]
-      [PhaseAxes]
+      [emmy.mathbox.plot/AxisGrid
+       {:x-axis
+        {:unit 1
+         :base 10
+         :divide 5}
+        :y-axis {:unit 1 :base 10 :divide 5}}]
       [PhaseVectors
        {:state-derivative state-deriv
         :initial-state initial-state
         :params params
         :steps steps}]
-      [demo.mathbox/Comet
+      [emmy.mathbox.physics/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
@@ -166,55 +124,6 @@
 ;; ## Axes
 
 (show-cljs
- (defn WellAxes
-   "MathBox component for a 2d chart that would honestly look better in mafs."
-   []
-   [:<>
-    [mathbox.primitives/Axis
-     {:axis "x"
-      :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "x"
-      :divide 5
-      :unit Math/PI
-      :base 2
-      :start true
-      :end true}]
-    [mathbox.primitives/Format
-     {:expr
-      (fn [x]
-        (str (demo.mathbox/format-number
-              (/ x Math/PI)) "π"))
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10}]
-    [mathbox.primitives/Axis
-     {:axis "y" :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "y"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true
-      :zero false}]
-    [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10
-      :offset [20 0]}]])
-
  (defn PotentialLine [{:keys [V !params]}]
    [:<>
     ;; This is the potential well. Gotta redo this to make more sense.
@@ -238,19 +147,22 @@
    (let [[a1 b1 c1 body1] V
          V-fn (js/Function. a1 b1 c1 body1)]
      [:<>
-      [mathbox.primitives/Grid
-       {:color 0x808080
-        :unitX Math/PI
-        :baseX 2}]
-      [WellAxes]
+      [emmy.mathbox.plot/AxisGrid
+       {:x-axis
+        {:unit Math/PI
+         :base 2
+         :divide 5
+         :label-maker emmy.mathbox.plot/label-pi}
+        :y-axis {:unit 1 :base 10 :divide 5 :subdivisions 2}}]
       [PotentialLine
        {:V V-fn
         :!params params}]
       ;; this is the bead traveling with history along the potential.
-      [demo.mathbox/Comet
+      [emmy.mathbox.physics/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
+
         :size 5
         :opacity 0.99
         :path
@@ -317,7 +229,7 @@
         [leva.core/Controls
          {:atom !params
           :schema schema}]
-        [demo.mathbox/Evolve
+        [emmy.viewer.physics/Evolve
          {:L (:L opts)
           :params !arr
           :atom   !state}]
@@ -326,6 +238,7 @@
          {:container  {:style {:height "600px" :width "100%"}}
           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
           :renderer   {:background-color 0x000000}}
+         ;; the 2d layer!!
          [mathbox.primitives/Layer
           [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
           [mathbox.primitives/Unit {:scale 720 :focus 1}
@@ -405,7 +318,6 @@
     :initial-state [0 3 0]})
 
 
-
 ;; Next steps:
 
 ;; - TODO how do we do generic drawing?
@@ -413,26 +325,3 @@
 ;; - how expensive is it to make these odex `.simulate` calls?
 ;; - how expensive are the redundant array lookups?
 ;; - convert potential to only need position
-
-#_
-(comment
-  (defn DoublePendulum
-    "For later, here's how to extend this."
-    []
-    [:<>
-     [mathbox.primitives/Array
-      {:width 2
-       :channels 2
-       :items 3
-       :expr (fn [emit _i now]
-               (emit -1 0)
-               (emit 0 0)
-               (emit (Math/sin now) (- (Math/cos now))))}]
-     ;; attach a bob between the two.
-     [mathbox.primitives/Vector {:color 0xffffff :width 2}]
-     ;; JUST attach a point to the second of the two items, ie [1, 2)
-     [mathbox.primitives/Slice {:items [0 1]}]
-     [mathbox.primitives/Point {:color 0x909090 :size 4}]
-
-     [mathbox.primitives/Slice {:items [1 3]}]
-     [mathbox.primitives/Point {:color 0xffffff :size 10}]]))

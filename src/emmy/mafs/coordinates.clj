@@ -1,7 +1,6 @@
 (ns emmy.mafs.coordinates
   (:require [emmy.viewer :as ev]
-            [emmy.mafs.core :as mafs]
-            [nextjournal.clerk :as clerk]))
+            [emmy.mafs.core :as mafs]))
 
 (defn cartesian
   "

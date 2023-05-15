@@ -1,6 +1,5 @@
 (ns user
-  (:require [emmy.viewer :as ev]
-            [mentat.clerk-utils.build :as b]
+  (:require [mentat.clerk-utils.build :as b]
             [mentat.clerk-utils.css :as css]))
 
 (css/set-css!
@@ -20,10 +19,8 @@
  "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
-(require '[emmy.expression :as x])
 (require '[emmy.env])
 (require '[emmy.expression.render :as xr])
-(require '[nextjournal.clerk :as clerk])
 
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
@@ -31,30 +28,21 @@
 
 ;; Set up defaults.
 
-(clerk/add-viewers!
- [ev/meta-viewer
-
-  {:pred x/literal?
-   :transform-fn (clerk/update-val x/expression-of)}])
-
 (def index
   "dev/emmy_viewers/notebook.clj")
 
 (def notebooks
   ["dev/examples/**.clj"
-   "dev/examples/**.cljc"])
+   "dev/examples/**.cljc"
+   "dev/emmy_viewers/**.clj"
+   "dev/emmy_viewers/**.cljc"])
 
 (def defaults
   {:index index
    :browse? true
    :watch-paths ["src" "dev"]
    :cljs-namespaces
-   '[emmy-viewers.sci-extensions
-     examples.manifold.pq-knot
-     examples.simulation.cylinder-flow
-     examples.simulation.lorenz
-     examples.simulation.phase-portrait
-     examples.simulation.quartic-well]})
+   '[emmy-viewers.sci-extensions]})
 
 (def static-defaults
   (assoc defaults

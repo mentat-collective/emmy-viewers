@@ -10,11 +10,6 @@
             [mentat.clerk-utils.docs :as docs]
             [nextjournal.clerk :as clerk]))
 
-^{::clerk/visibility {:code :hide :result :hide}}
-(clerk/eval-cljs
- ;; These aliases only apply inside this namespace!
- '(require '[reagent.core :as reagent]))
-
 ;; # Emmy-Viewers [ALPHA!]
 ;;
 ;; Visualizations over [Emmy](https://emmy.mentat.org).

@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.expression
+  #:nextjournal.clerk {:toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [nextjournal.clerk :as clerk]
@@ -57,6 +56,7 @@
  (+ (square (sin 'x)) (square (cos 'x))))
 
 ;; does it work with the multiviewer?
+
 
 (def multiviewer
   {:pred x/literal?
