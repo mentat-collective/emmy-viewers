@@ -119,8 +119,7 @@
           :renderer  {:background-color 0xffffff}
           :scale 500
           :focus 3}
-         [mb/Camera {:proxy true
-                     :position [1 1 3]}]
+         [mb/Camera {:proxy true :position [1 1 3]}]
          [mb/Cartesian {:range [[-1 1] [-1 1] [-1 1]]
                         :scale [1 1 1]
                         :quaternion [0.7 0 0 0.7]}

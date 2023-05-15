@@ -107,9 +107,10 @@
 ;; The final viewer is a clojure map with these two pieces supplied:
 
 (def fn-viewer
-  {:transform-fn (comp clerk/mark-presented
-                       (clerk/update-val
-                        #(update % :f fn-transform)))
+  {:transform-fn
+   (comp clerk/mark-presented
+         (clerk/update-val
+          #(update % :f fn-transform)))
    :render-fn fn-render-fn})
 
 ;; ### Demo
@@ -159,12 +160,12 @@
 ;; Just for fun, we can even reuse the [[literal-viewer]] component to make a
 ;; version that can toggle between function and TeX:
 
-(def compound-fn-viewer
-  (d/literal-viewer
-   (fn [{:keys [f args]}]
-     {:TeX     (clerk/tex
-                (->TeX (simplify (apply f args))))
-      :mathbox (->mathbox f)})))
+#_#_(def compound-fn-viewer
+      (d/literal-viewer
+       (fn [{:keys [f args]}]
+         {:TeX     (clerk/tex
+                    (->TeX (simplify (apply f args))))
+          :mathbox (->mathbox f)})))
 
 (clerk/with-viewer compound-fn-viewer
   {:f my-fn

@@ -4,12 +4,12 @@
 (ns examples.expression
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
-  (:require [mentat.clerk-utils.viewers :refer [q]]
-            [nextjournal.clerk :as clerk]
+  (:require [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
             [emmy.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
             [emmy.expression :as x]
             [emmy.value :as v]
+            [emmy.viewer :as ev]
             [reagent.core :as-alias reagent]))
 
 ;; ## Hello, Emmy!
@@ -45,55 +45,24 @@
 
 (defn transform-literal [l]
   (let [simple (simplify l)]
-    {:simplified_TeX (clerk/tex (->TeX simple))
-     :simplified     (v/freeze simple)
-     :TeX            (clerk/tex (->TeX l))
-     :original       (v/freeze l)}))
+    [["simplified TeX" (clerk/tex (->TeX simple))]
+     [:simplified     (v/freeze simple)]
+     [:TeX            (clerk/tex (->TeX l))]
+     [:original       (v/freeze l)]]))
 
 ;; Try it out:
+
 
 (transform-literal
  (+ (square (sin 'x)) (square (cos 'x))))
 
-;; Okay, the tricky part here for me was that we are actually dealing with
-;; wrapped values all over, and we need to extract that and run updates there.
-;; Those are also what show up on the other side of the wire.
-
-(defn literal-viewer [xform]
-  {;; Only apply to these forms.
-   :pred x/literal?
-
-   ;; We have to preserve keys because we want to access the keys in the render
-   ;; function, and by default everything gets recursively wrapped. This feels a
-   ;; little wacky.
-   :transform-fn (comp clerk/mark-preserve-keys
-                       (clerk/update-val
-                        (memoize xform)))
-   :render-fn
-   (q
-    (fn [x]
-      (reagent/with-let [!sel (reagent/atom (ffirst x))]
-        [:<>
-         (into
-          [:div.flex.items-center.font-sans.text-xs.mb-3
-           [:span.text-slate-500.mr-2 "View as:"]]
-          (map (fn [[l _]]
-                 [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
-                  {:class (if (= @!sel l)
-                            "bg-indigo-100 text-indigo-600"
-                            "text-slate-500")
-                   :on-click #(reset! !sel l)}
-                  l])
-               x))
-         ;; I guess here the value is a data structure with its viewer info
-         ;; embedded.
-         [viewer/inspect-presented
-          (get x @!sel)]])))})
+;; does it work with the multiviewer?
 
 (def multiviewer
-  (literal-viewer transform-literal))
-
-;; does it work?
+  {:pred x/literal?
+   :transform-fn
+   (clerk/update-val
+    (comp ev/multi transform-literal))})
 
 (clerk/with-viewer multiviewer
   (+ (square (sin 'x))
@@ -102,13 +71,7 @@
 ;; woohoo! We can set it as default viewer for literals in this
 ;; namespace. (Uncomment this form and run `clerk-show` again...)
 
-#_
-(clerk/add-viewers! [multiviewer])
-
-;; If you made a mistake you can totally replace or reset the viewer with:
-
-#_
-(clerk/reset-viewers! (into [multiviewer] (clerk/get-default-viewers)))
+#_(clerk/add-viewers! [multiviewer])
 
 (+ (square (sin 'x))
    (square (cos 'x)))
