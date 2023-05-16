@@ -1,104 +1,201 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.mafs
+  #:nextjournal.clerk
+  {:toc true :no-cache true}
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
-             numerator denominator ref partial
-             infinite? abs])
-  (:require [nextjournal.clerk :as clerk]
-            [emmy.env :as e :refer :all]
-            [emmy.expression.compile :as xc]
-            [emmy.polynomial :as poly]))
+   :exclude [+ - * / zero? compare divide numerator denominator
+             infinite? abs ref partial =])
+  (:require [emmy.env :as e :refer :all]
+            [emmy.mafs :as mafs]
+            [emmy.polynomial :as poly]
+            [emmy.viewer :as ev]
+            [mentat.clerk-utils.viewers :refer [q]]
+            [nextjournal.clerk :as clerk]))
+
+;; ## Server-Side Mafs
+
+(def ->tex
+  (comp clerk/tex ->TeX simplify))
+
+(ev/install!)
+
+(defn caption [text]
+  (clerk/html [:span.text-slate-500.text-xs.text-center.font-sans text]))
+
+;; ## Demo!
+
+(mafs/of-x
+ '(fn [x] (+ 2 (Math/sin x))))
+
+^{::clerk/width :wide}
+(mafs/mafs
+ (mafs/cartesian {:subdivisions 2})
+ (mafs/vector-field
+  {:step 0.5
+   :xy (let [[ax ay] [0.6 0.5]]
+         (fn [[x y]]
+           [(- (- y ay) (- x ax))
+            (- (- (- x ax)) (- y ay))]))
+   :xy-opacity
+   (fn [[x y]]
+     (/ (+ (abs x) (abs y))
+        10))}))
+
+;; This works fine for the point. Now we need some state.
+
+;; Okay, that's good:
+
+(ev/with-let [point [1 1]]
+  (mafs/mafs
+   (mafs/cartesian)
+   (mafs/circle
+    {:center [0 0]
+     :radius `(abs @~point)})
+   (mafs/movable-point
+    {:atom point})))
+
+(defn chain [& points]
+  (-> (first
+       (reduce (fn [[acc tail] p]
+                 (let [tip (mapv + tail p)
+                       v   (mafs/vector
+                            {:tail tail :tip tip})]
+                   [(conj acc v) tip]))
+               [[:<>] [0 0]]
+               points))
+      (ev/tagged
+       #(mafs/mafs (mafs/cartesian) %))))
 
 
-;; TODO do we want a mafs package that stays here?
-;;
-;; TODO can we get the notebook to cache better?
-(def Theme
-  {:foreground "var(--mafs-fg)"
-   :background "var(--mafs-bg)"
-   :red "var(--mafs-red)"
-   :orange "var(--mafs-orange)"
-   :green "var(--mafs-green)"
-   :blue "var(--mafs-blue)"
-   :indigo "var(--mafs-indigo)"
-   :violet "var(--mafs-violet)"
-   :pink "var(--mafs-pink)"
-   :yellow "var(--mafs-yellow)"})
+(chain [1 2] [1 0] [-1 1])
 
-(defn fn-transform [f mode]
-  (xc/compile-fn f 1 {:mode mode :cache? false}))
+(defn with-handles [f]
+  (let [hint-radius 3]
+    (ev/with-state {:translate [0 0]
+                    :rotate [hint-radius 0]
+                    :width [-2 0]
+                    :height [0 1]}
+      (fn [!state]
+        (mafs/mafs
+         {:view-box {:x [-3 3] :y [-3 3]}}
+         (mafs/cartesian)
+         (mafs/transform
+          {:translate (q (:translate @~!state))}
+          (mafs/transform
+           {:rotate (q (let [[x y] (:rotate @~!state)]
+                         (Math/atan2 y x)))}
+           ;; Display a little hint that the point is meant to move radially
+           (mafs/circle
+            {:center [0 0]
+             :radius hint-radius
+             :stroke-style "dashed"
+             :stroke-opacity 0.3
+             :fill-opacity 0})
+           (f !state)
+           (mafs/movable-point
+            {:atom !state
+             :path :width
+             :constrain "horizontal"})
+           (mafs/movable-point
+            {:atom !state
+             :path :height
+             :constrain "vertical"}))
+          (mafs/movable-point
+           {:atom !state
+            :path :rotate
+            :color (:blue mafs/Theme)
+            :constrain '#(mafs.vec/with-mag % 3)}))
+         (mafs/movable-point
+          {:atom !state
+           :path :translate
+           :color (:orange mafs/Theme)}))))))
 
-;; Let's try it:
+#_{:clj-kondo/ignore [:unused-binding]}
+(with-handles
+  (fn [!state]
+    [:<>
+     (mafs/ellipse
+      {:center (q (:width @~!state))
+       :radius [2 1]})
+     (mafs/ellipse
+      {:center [0 0]
+       :radius (q
+                (let [{[x _] :width [_ y] :height} @~!state]
+                  [(Math/abs x) (Math/abs y)]))})]))
 
-(-> (fn [x]
-      (+ (square x)
-         (cube x)))
-    (fn-transform :source))
-
-(clerk/code
- (-> (fn [x]
-       (+ (square x)
-          (cube x)))
-     (fn-transform :source)))
-
-(clerk/code
- (-> (fn [x]
-       (+ (square x)
-          (cube x)))
-     (fn-transform :js)))
-
-(def fn-viewer
-  {:transform-fn
-   (comp clerk/mark-presented
-         (clerk/update-val
-          (fn [f]
-            (merge (or (meta f) {})
-                   {:func (fn-transform f :js)}))))
-   :render-fn
-   '(fn [{[x body] :func
-         cart-opts :cartesian
-         plot-opts :plot
-         :or {cart-opts {}
-              plot-opts {}}}]
-      (reagent.core/with-let [f (js/Function. x body)]
-        (nextjournal.clerk.viewer/html
-         [mafs.core/Mafs
-          [mafs.coordinates/Cartesian cart-opts]
-          [mafs.plot/OfX (merge plot-opts {:y f})]])))})
-
-;; ### Demo
-;;
-;; Let's make a function to try!
-
-(defn my-fn [x]
-  (+ (square (sin x))
-     (square x)))
-
-;; Then we'll call it with our new viewer:
-
-(clerk/with-viewer fn-viewer
-  (with-meta my-fn {:plot
-                    {:color (:pink Theme)}}))
 
 (defn sigmoid1 [x]
-  (- (/ 2 (+ (exp (negate x)) 1)) 1))
+  (-> (/ 2 (+ 1 (exp (- x))))
+      (- 1)))
 
-(clerk/with-viewer fn-viewer
-  (with-meta sigmoid1
-    {:plot
-     {:color (:pink Theme)}}))
+(defn derivatives [n f]
+  (into [:<>]
+        (map
+         (fn [i color]
+           (mafs/of-x ((expt D i) f) {:color color}))
+         (range n)
+         (vals mafs/Theme))))
+
+
+(clerk/row
+ (ev/render
+  (mafs/mafs {:zoom {:min 0.1 :max 2}}
+             (mafs/cartesian)
+             (derivatives 5 sin)))
+ (ev/render
+  (mafs/mafs {:zoom {:min 0.1 :max 2}}
+             (mafs/cartesian)
+             (derivatives 5 tanh))))
+
+(let [f ((expt D 3) tanh)]
+  (clerk/col
+   (->tex (f 'x))
+   (mafs/mafs {:zoom {:min 0.1 :max 2}}
+              (mafs/cartesian)
+              (mafs/of-x f {:color (:blue mafs/Theme)}))))
+
+(clerk/row
+ (clerk/col
+  (mafs/mafs
+   (mafs/cartesian)
+   (mafs/of-x {:y sin :color (:green mafs/Theme)})
+   (mafs/of-y {:x sigmoid1
+               :color (:blue mafs/Theme)}))
+  (caption "A pair of functions."))
+ (clerk/col
+  (mafs/mafs {:zoom {:min 0.1 :max 2}}
+             (mafs/cartesian)
+             (derivatives 5 tanh))
+  (caption [:<> "Derivatives of " [:code "tanh"] "."])))
+
+(mafs/cartesian)
+
+(mafs/of-x {:y sin :color (:blue mafs/Theme)})
+
+(mafs/mafs {:zoom {:min 0.1 :max 2}}
+           (mafs/cartesian)
+           (mafs/of-x
+            {:y sin :color (:blue mafs/Theme)})
+           (mafs/of-x {:y (+ cos (D sin)) :color (:green mafs/Theme)})
+           (mafs/of-y {:x sigmoid1 :color (:pink mafs/Theme)}))
 
 ;; ## Polynomials
 ;;
 ;; I think this can work out of the box for an Emmy Polynomial.
 
 (def my-poly
-  (let [x (poly/identity 2)]
-    ((+ (- x)
-        (square x)
-        (cube x)))))
+  (let [x (poly/identity)]
+    (+ (- x)
+       (square x)
+       (cube x))))
 
-^{::clerk/viewer fn-viewer}
-my-poly
+(mafs/of-x {:y my-poly})
+
+(ev/multi
+ {:TeX  (clerk/tex (->TeX (square 'x)))
+  :2TeX (let [cake ((expt D 5) tanh)]
+          (clerk/col
+           (->tex (cake 'y))
+           (mafs/mafs {:zoom {:min 0.1 :max 2}}
+                      (mafs/cartesian)
+                      (mafs/of-x {:y cake :color (:blue mafs/Theme)}))))})

@@ -1,4 +1,7 @@
-(ns emmy.mafs.line)
+(ns emmy.mafs.line
+  "Server-side rendering functions for the components declared in the
+  [`mafs.line`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.line)
+  namespace of the [`Mafs.cljs` project](https://mafs.mentat.org).")
 
 (defn segment
   "
@@ -9,7 +12,8 @@
   - `:weight`
   - `:style`
   "
-  [])
+  [opts]
+  ['mafs.line/Segment opts])
 
 (defn through-points
   "
@@ -20,7 +24,8 @@
   - `:weight`
   - `:style`
   "
-  [])
+  [opts]
+  ['mafs.line/ThroughPoints opts])
 
 (defn point-slope
   "
@@ -31,7 +36,8 @@
   - `:weight`
   - `:style`
   "
-  [])
+  [opts]
+  ['mafs.line/PointSlope opts])
 
 (defn point-angle
   "
@@ -42,4 +48,5 @@
   - `:weight`
   - `:style`
   "
-  [])
+  [opts]
+  ['mafs.line/PointAngle opts])

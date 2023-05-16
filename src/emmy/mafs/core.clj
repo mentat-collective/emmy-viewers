@@ -1,4 +1,7 @@
 (ns emmy.mafs.core
+  "Server-side rendering functions for the components declared in the
+  [`mafs.core`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.core)
+  namespace of the [`Mafs.cljs` project](https://mafs.mentat.org)."
   (:refer-clojure :exclude [vector])
   (:require [emmy.viewer :as ev]))
 
@@ -99,8 +102,10 @@
   - `:color`
   - `:svg-text-opts`
   "
-  [opts]
-  (tagged ['mafs.core/Text opts]))
+  [& children]
+  (let [[opts children] (ev/split-opts children)]
+    (tagged
+     (into ['mafs.core/Text opts] children))))
 
 (defn vector
   "

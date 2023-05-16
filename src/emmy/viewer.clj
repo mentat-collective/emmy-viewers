@@ -1,25 +1,31 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns emmy.viewer
+  "Namespace containing viewer utilities..."
   {:nextjournal.clerk/toc true}
   (:require [clojure.walk :refer [postwalk]]
             [emmy.expression :as x]
+            [mentat.clerk-utils.css :as css]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
-(def meta-viewer
-  {:name `meta-viewer
-   :pred (comp ifn? ::clerk/viewer meta)
-   :transform-fn
-   (clerk/update-val
-    (fn [v]
-      ((-> v meta ::clerk/viewer) v)))})
+(def ^:no-doc css-map
+  "Map of package keyword to a sequence of the CSS urls required to render viewers
+  from that package.
 
-(defn install! []
-  (clerk/add-viewers!
-   [meta-viewer
-    {:pred x/literal?
-     :transform-fn
-     (clerk/update-val x/expression-of)}]))
+  These will be moved into subprojects at some point, so don't rely directly on
+  this var!"
+  {:mafs ["https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
+          "https://unpkg.com/mafs@0.15.2/core.css"
+          "https://unpkg.com/mafs@0.15.2/font.css"]
+   :jsxgraph ["https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"]
+   :mathbox ["https://unpkg.com/mathbox@2.3.1/build/mathbox.css"]
+   :mathlive ["https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
+              "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css"]})
+
+(defn install-css!
+  ([] (install-css! #{:mafs :jsxgraph :mathbox :mathlive}))
+  ([packages]
+   (apply css/set-css! (mapcat css-map packages))))
 
 (defn ^:no-doc split-opts [children]
   (if (map? (first children))
@@ -66,6 +72,14 @@
 
 ;; ## Viewers
 
+(def meta-viewer
+  {:name `meta-viewer
+   :pred (comp ifn? ::clerk/viewer meta)
+   :transform-fn
+   (clerk/update-val
+    (fn [v]
+      ((-> v meta ::clerk/viewer) v)))})
+
 (def tabbed-viewer
   {:name `tabbed-viewer
    ;; TODO do this nastiness in the transform-fn, not here!
@@ -99,7 +113,15 @@
                          :on-click #(reset! !k k)}
                         k]))
                 ks)
-           [nextjournal.clerk.viewer/inspect-presented (get m @!k)]])))})
+           [nextjournal.clerk.viewer/inspect-presented
+            (get m @!k)]])))})
 
 (defn multi [m]
   (clerk/with-viewer tabbed-viewer m))
+
+(defn install! []
+  (clerk/add-viewers!
+   [meta-viewer
+    {:pred x/literal?
+     :transform-fn
+     (clerk/update-val x/expression-of)}]))

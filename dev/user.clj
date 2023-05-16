@@ -1,32 +1,16 @@
 (ns user
-  (:require [mentat.clerk-utils.build :as b]
-            [mentat.clerk-utils.css :as css]))
-
-(css/set-css!
- ;; mafs
- "https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
- "https://unpkg.com/mafs@0.15.2/core.css"
- "https://unpkg.com/mafs@0.15.2/font.css"
-
- ;; JSXGraph
- "https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"
-
- ;; mathbox
- "https://unpkg.com/mathbox@2.3.1/build/mathbox.css"
-
- ;; mathlive
- "https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
- "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
+  (:require [mentat.clerk-utils.build :as b]))
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
 (require '[emmy.env])
 (require '[emmy.expression.render :as xr])
+(require '[emmy.viewer :as v])
+
+(v/install-css!)
 
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
-
-;; Set up defaults.
 
 (def index
   "dev/emmy_viewers/notebook.clj")
