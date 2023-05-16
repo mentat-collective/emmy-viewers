@@ -26,24 +26,23 @@
  #'xr/*TeX-vertical-down-tuples*
  (constantly true))
 
+;; Set up defaults.
+
 (def index
   "dev/emmy_viewers/notebook.clj")
 
 (def notebooks
   ["dev/examples/**.clj"
-   "dev/examples/**.cljc"])
+   "dev/examples/**.cljc"
+   "dev/emmy_viewers/**.clj"
+   "dev/emmy_viewers/**.cljc"])
 
 (def defaults
   {:index index
    :browse? true
    :watch-paths ["src" "dev"]
    :cljs-namespaces
-   '[emmy-viewers.sci-extensions
-     examples.manifold.pq-knot
-     examples.simulation.cylinder-flow
-     examples.simulation.lorenz
-     examples.simulation.phase-portrait
-     examples.simulation.quartic-well]})
+   '[emmy-viewers.sci-extensions]})
 
 (def static-defaults
   (assoc defaults

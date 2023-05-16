@@ -1,19 +1,14 @@
-^#:nextjournal.clerk
-{:toc true
- :no-cache true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns emmy-viewers.notebook
+  #:nextjournal.clerk
+  {:toc true
+   :no-cache true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
   (:require [emmy.env :as e :refer :all]
             [mentat.clerk-utils.docs :as docs]
             [nextjournal.clerk :as clerk]))
-
-^{::clerk/visibility {:code :hide :result :hide}}
-(clerk/eval-cljs
- ;; These aliases only apply inside this namespace!
- '(require '[reagent.core :as reagent]))
 
 ;; # Emmy-Viewers [ALPHA!]
 ;;
