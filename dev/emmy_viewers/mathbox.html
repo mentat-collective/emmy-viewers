@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html><head><title>Server-Side MathBox</title><meta charset="UTF-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta property="og:description"><meta content="Server-Side MathBox" property="og:title"><meta content="article:clerk" property="og:type"><meta content="summary_large_image" name="twitter:card"><link href="https://unpkg.com/computer-modern@0.1.2/cmu-serif.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mafs@0.15.2/core.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mafs@0.15.2/font.css" rel="stylesheet" type="text/css"><link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathbox@2.3.1/build/mathbox.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css" rel="stylesheet" type="text/css"><script src="https://cdn.tailwindcss.com?plugins=typography" type="text/javascript"></script><script>tailwind.config = {
+  darkMode: "class",
+  content: ["./tw/viewer.js", "./tw/**/*.edn"],
+  safelist: ['dark'],
+  theme: {
+    extend: {},
+    fontFamily: {
+      sans: ["Fira Sans", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+      serif: ["PT Serif", "serif"],
+      mono: ["Fira Mono", "monospace"]
+    }
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</script><style type="text/tailwindcss">@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 18px;
+  }
+  @media (max-width: 600px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  .font-condensed { font-family: "Fira Sans Condensed", sans-serif; }
+  .font-inter     { font-family: "Inter", sans-serif; }
+  body {
+    @apply font-serif antialiased text-gray-900 sm:overscroll-y-none;
+  }
+  code, .code {
+    @apply font-mono text-sm text-gray-900 bg-slate-50 px-0.5 py-px rounded dark:bg-gray-800;
+  }
+  code::before, code::after { @apply content-none !important; }
+  h1, h3, h4, h5, h6 {
+    @apply font-condensed font-bold mt-8 first:mt-0;
+  }
+  h2 {
+    /*We cannot collapse margins due to nesting but we want to*/
+    /*keep the h2’s large margin visible*/
+    @apply font-condensed font-bold mt-8 first:mt-2;
+  }
+  h1 { @apply text-4xl; }
+  h2 { @apply text-3xl; }
+  h3 { @apply text-2xl; }
+
+  @media print {
+      h1 { @apply text-2xl !important; }
+      h2 { @apply text-xl !important; }
+      h3 { @apply text-lg !important; }
+  }
+
+  button { @apply focus:outline-none; }
+  strong { @apply font-bold; }
+  em     { @apply italic; }
+  pre    { @apply m-0 font-mono; }
+}
+
+/* Compatibility */
+/* --------------------------------------------------------------- */
+/* TODO: Verify which colors are in use and replace with Tailwind
+   colors accordingly. Move Nj-specific styles out of here. */
+
+:root {
+  --teal-color: #31afd0;
+  --dark-teal-color: #095960;
+  --near-black-color: #2e2e2c;
+  --red-color: #d64242;
+  --dark-blue-color: #1f2937;
+  --dark-blue-60-color: rgba(28, 42, 56, 0.6);
+  --gray-panel-color: rgba(239, 241, 245, 1.000);
+  --brand-color: var(--dark-blue-color);
+  --link-color: #5046e4;
+  --command-bar-selected-color: var(--teal-color);
+}
+
+.serif      { @apply font-serif; }
+.sans-serif { @apply font-sans; }
+.monospace  { @apply font-mono; }
+.inter      { @apply font-inter; }
+
+.border-color-teal { border-color: var(--dark-teal-color); }
+.teal { color: var(--teal-color); }
+.bg-dark-blue { background: var(--dark-blue-color); }
+.bg-dark-blue-60 { background: rgba(28, 42, 56, 0.6); }
+.bg-gray-panel { background: var(--gray-panel-color); }
+.text-dark-blue  { color: var(--dark-blue-color); }
+.text-dark-blue-60 { color: var(--dark-blue-60-color); }
+.border-dark-blue-30 { border-color: rgba(28, 42, 56, 0.6); }
+.text-brand { color: var(--dark-blue-color); }
+.bg-brand { background: var(--dark-blue-color); }
+.text-selected { color: white; }
+.red { color: var(--red-color); }
+
+/* Disclose Button */
+/* --------------------------------------------------------------- */
+
+.disclose {
+  @apply content-none border-solid cursor-pointer inline-block relative mr-[3px] top-[-2px] transition-all;
+  border-color: var(--near-black-color) transparent;
+  border-width: 6px 4px 0;
+}
+.disclose:hover {
+  border-color: var(--near-black-color) transparent;
+}
+.dark .disclose,
+.dark .disclose:hover {
+  border-color: white transparent;
+}
+.disclose.collapsed {
+  @apply rotate-[-90deg];
+}
+
+/* Layout */
+/* --------------------------------------------------------------- */
+
+.page {
+  @apply max-w-5xl mx-auto px-12 box-border flex-shrink-0;
+}
+.max-w-prose { @apply max-w-[46rem] !important; }
+.max-w-wide  { @apply max-w-3xl !important; }
+
+/* List Styles */
+/* --------------------------------------------------------------- */
+
+.task-list-item + .task-list-item,
+.markdown-viewer ul ul {
+  @apply mt-1 mb-0;
+}
+
+/* compact TOC */
+.markdown-viewer .toc ul {
+  list-style: none;
+  @apply my-1;
+}
+
+/* Code Viewer */
+/* --------------------------------------------------------------- */
+
+.code-viewer {
+  @apply font-mono bg-slate-100 rounded-sm text-sm overflow-x-auto dark:bg-gray-800;
+}
+.code-listing  {
+    @apply -ml-8 -mr-8 relative !important;
+}
+.code-viewer .cm-content {
+  @apply py-4 px-8;
+}
+@media (min-width: 960px){
+    .notebook-viewer .code-viewer .cm-content {
+        @apply py-4 pl-12;
+    }
+    .notebook-viewer .code-listing {
+        width: 48rem !important;
+        @apply -ml-12 mr-0 !important;
+    }
+}
+/* Don’t show focus outline when double-clicking cell in Safari */
+.cm-scroller { @apply focus:outline-none; }
+
+/* Syntax Highlighting */
+/* --------------------------------------------------------------- */
+
+.inspected-value { @apply text-xs font-mono leading-[1.25rem]; }
+.cmt-strong, .cmt-heading { @apply font-bold; }
+.cmt-italic, .cmt-emphasis { @apply italic; }
+.cmt-strikethrough { @apply line-through; }
+.cmt-link { @apply underline; }
+.untyped-value { @apply whitespace-nowrap; }
+
+.cm-editor, .cmt-default, .result-viewer {
+  @apply text-slate-800 dark:text-slate-300;
+}
+.cmt-keyword {
+  @apply text-purple-800 dark:text-pink-400;
+}
+.cmt-atom, .cmt-bool, .cmt-url, .cmt-contentSeparator, .cmt-labelName {
+  @apply text-blue-900 dark:text-blue-300;
+}
+.cmt-inserted, .cmt-literal {
+  @apply text-emerald-700 dark:text-emerald-200;
+}
+.cmt-string, .cmt-deleted {
+  @apply text-rose-700 dark:text-sky-300;
+}
+.cmt-italic.cmt-string {
+  @apply dark:text-sky-200;
+}
+.cmt-regexp, .cmt-escape {
+  @apply text-orange-500 dark:text-orange-300;
+}
+.cmt-variableName {
+  @apply text-blue-800 dark:text-sky-300;
+}
+.cmt-typeName, .cmt-namespace {
+  @apply text-emerald-600 dark:text-emerald-300;
+}
+.cmt-className {
+  @apply text-teal-600 dark:text-teal-200;
+}
+.cmt-macroName {
+  @apply text-teal-700 dark:text-teal-200;
+}
+.cmt-propertyName {
+  @apply text-blue-700 dark:text-blue-200;
+}
+.cmt-comment {
+  @apply text-slate-500 dark:text-slate-400;
+}
+.cmt-meta {
+  @apply text-slate-600 dark:text-slate-400;
+}
+.cmt-invalid {
+  @apply text-red-500 dark:text-red-300;
+}
+
+.result-data {
+  @apply font-mono text-sm overflow-x-auto whitespace-nowrap leading-normal;
+}
+.result-data::-webkit-scrollbar, .path-nav::-webkit-scrollbar {
+  @apply h-0;
+}
+.result-data-collapsed {
+  @apply whitespace-nowrap;
+}
+.result-data-field {
+  @apply ml-4 whitespace-nowrap;
+}
+.result-data-field-link{
+  @apply ml-4 whitespace-nowrap cursor-pointer;
+}
+.result-data-field-link:hover {
+  @apply text-black bg-black/5;
+}
+.result-text-empty {
+  color: rgba(0,0,0,.3);
+}
+.browsify-button:hover {
+  box-shadow: -2px 0 0 2px #edf2f7;
+}
+
+/* Prose */
+/* --------------------------------------------------------------- */
+
+.notebook-viewer,
+.markdown-viewer {
+  @apply prose
+    dark:prose-invert
+    prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+    dark:prose-a:text-blue-300
+    prose-p:mt-4 prose-p:leading-snug
+    prose-ol:mt-4 prose-ol:mb-6 prose-ol:leading-snug
+    prose-ul:mt-4 prose-ul:mb-6 prose-ul:leading-snug
+    prose-blockquote:mt-4 prose-blockquote:leading-snug
+    prose-hr:mt-6 prose-hr:border-t-2 prose-hr:border-solid prose-hr:border-slate-200
+    prose-figure:mt-4
+    prose-figcaption:mt-2 prose-figcaption:text-xs
+    prose-headings:mb-4
+    prose-table:mt-0
+    prose-th:mb-0
+    prose-img:my-0
+    prose-code:font-medium prose-code:bg-slate-100
+    max-w-none;
+}
+.markdown-viewer blockquote p:first-of-type:before,
+.markdown-viewer blockquote p:last-of-type:after {
+  @apply content-none;
+}
+.markdown-node-viewer.result-viewer.fragment-item {
+    @apply mb-0 !important;
+}
+
+/* Images */
+/* --------------------------------------------------------------- */
+
+
+/* Todo Lists */
+/* --------------------------------------------------------------- */
+
+.contains-task-list {
+  @apply pl-6 list-none;
+}
+.contains-task-list input[type="checkbox"] {
+  @apply appearance-none h-4 w-4 rounded border border-slate-200 relative mr-[0.3rem] ml-[-1.5rem] top-[0.15rem];
+}
+.contains-task-list input[type="checkbox"]:checked {
+  @apply border-indigo-600 bg-indigo-600 bg-no-repeat bg-contain;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+}
+
+/* Markdown TOC */
+/* --------------------------------------------------------------- */
+
+.markdown-viewer .toc      { @apply mt-4; }
+.markdown-viewer h1 + .toc { @apply mt-8; }
+
+.markdown-viewer .toc h1,
+.markdown-viewer .toc h2,
+.markdown-viewer .toc h3,
+.markdown-viewer .toc h4,
+.markdown-viewer .toc h5,
+.markdown-viewer .toc h6 {
+  @apply text-base text-indigo-600 font-sans my-0;
+}
+.markdown-viewer .toc a {
+  @apply text-indigo-600 font-normal no-underline hover:underline;
+}
+.markdown-viewer .toc li    { @apply m-0; }
+.markdown-viewer .toc ul ul { @apply pl-4; }
+
+/* Notebook Spacing */
+/* --------------------------------------------------------------- */
+
+.notebook-viewer { @apply py-16; }
+#clerk-static-app .notebook-viewer { @apply pt-[0.8rem] pb-16; }
+.markdown-viewer *:first-child:not(.code-viewer):not(li):not(h2):not(.sidenote) { @apply mt-0; }
+/*.viewer + .viewer { @apply mt-6; }*/
+.viewer + .result-viewer { @apply mt-0; }
+.code-viewer + .result-viewer { @apply mt-3; }
+.markdown-viewer + .markdown-viewer { @apply mt-0; }
+
+/* Sidenotes */
+/* --------------------------------------------------------------- */
+
+.sidenote-ref {
+  @apply top-[-0.5em] w-auto h-auto inline border-0 bg-transparent m-0 pointer-events-none;
+}
+.sidenote {
+  @apply block font-sans text-xs mt-4 bg-slate-100 dark:bg-slate-800 p-4;
+  font-style: normal;
+  font-weight: normal;
+}
+.sidenote-container {
+  @apply mb-4;
+}
+@media (min-width: 860px) {
+  .sidenote sup { @apply inline; }
+  .sidenote-column {
+    @apply w-[165px] absolute right-0 top-0 -mr-[205px];
+  }
+  .sidenote {
+    @apply bg-transparent dark:bg-transparent p-0;
+  }
+  .sidenote:first-child {
+    @apply mt-1;
+  }
+  .sidenotes-layout .markdown-viewer {
+    @apply pr-[241px];
+  }
+  .sidenote-container {
+    @apply relative mb-0;
+  }
+  .sidenotes-layout h1 {
+    @apply w-[756px] !important;
+  }
+}
+.code-viewer + .viewer:not(.code-viewer):not(.code-viewer-folded),
+.code-viewer-folded + .viewer:not(.code-viewer):not(.code-viewer-folded),
+.result-viewer:not(.markdown-node-viewer) + .result-viewer {
+  @apply mt-2;
+}
+.code-viewer + .code-viewer-folded {
+  @apply mt-4;
+}
+.result-viewer {
+  @apply leading-tight mb-6;
+}
+.code-viewer.fragment-item.result-viewer {
+  @apply mb-0 !important;
+}
+.result-viewer figure {
+  @apply mt-0 !important;
+}
+@media (min-width: 768px) {
+  .devcard-desc > div {
+    @apply max-w-full m-0;
+  }
+}
+
+/* Command Palette */
+/* --------------------------------------------------------------- */
+
+.nj-commands-input {
+  @apply bg-transparent text-white;
+}
+.nj-context-menu-item:hover:not([disabled]) {
+  @apply cursor-pointer;
+  background-color: rgba(255,255,255,.14);
+}
+
+/* Devdocs */
+/* --------------------------------------------------------------- */
+
+.logo, .logo-white {
+  @apply block indent-[-999em];
+  background: url(/images/nextjournal-logo.svg) center center no-repeat;
+}
+.devdocs-body {
+  @apply font-inter;
+}
+
+/* Workarounds */
+/* --------------------------------------------------------------- */
+
+/* Fixes vega viewer resizing into infinity */
+.vega-embed .chart-wrapper { @apply h-auto !important; }
+/* fixes fraction separators being overridden by tw’s border-color */
+.katex * { @apply border-black; }
+
+@media print {
+    .dark-mode-toggle,
+    .toc-toggle { @apply hidden; }
+    .notebook-viewer { @apply pt-0; font-size: 12pt !important; margin-left: 0 !important; }
+    .code-viewer .cm-content,
+    .viewer-code .cm-content { @apply whitespace-pre-wrap !important; overflow: none; }
+    .code-viewer .cm-line { font-size: 12pt !important; }
+    html * { page-break-inside: avoid !important; }
+    .toc-panel { @apply hidden; }
+}
+</style><script src="../../_data/8Vw1KZN6egsfXPLyKgS9msBvsCk5PEdAxfCSpJxC3aaTtD9C2bSFQn2gAJVjN6CXzef2zreXC6SBQ947UtiAKQUFx6.js" type="module"></script><link href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" rel="stylesheet" type="text/css"><link href="https://fonts.bunny.net" rel="preconnect"><link href="https://fonts.bunny.net/css?family=fira-mono:400,700%7Cfira-sans:400,400i,500,500i,700,700i%7Cfira-sans-condensed:700,700i%7Cpt-serif:400,400i,700,700i" rel="stylesheet" type="text/css"></head><body><div id="clerk-static-app"></div><script type="module">let state = "{:out-path \"public/build\", :path->doc {\"dev/emmy_viewers/mathbox.clj\" {:path [], :nextjournal/value {:toc {:type :toc, :children [{:children [{:type :toc, :content [{:type :text, :text \"Server-Side MathBox\"}], :heading-level 2, :attrs {:id \"server-side-mathbox\"}, :path [:content 0]}], :type :toc}]}, :sidenotes? false, :toc-visibility true, :atom-var-name->state #viewer-eval (nextjournal.clerk.render/intern-atoms! {}), :ns #viewer-eval (ns emmy-viewers.mathbox), :auto-expand-results? nil, :scope emmy-viewers.mathbox, :bundle? false, :open-graph {:type \"article:clerk\", :title \"Server-Side MathBox\", :description nil}, :title \"Server-Side MathBox\", :blocks [{:path [], :nextjournal/value [:div.viewer.markdown-viewer.w-full.max-w-prose.px-8 {:data-block-id \"emmy-viewers.mathbox/markdown-5dt3D4YDLGKYVvo8rPfjy8FMvuxVR9\"} [\"h2\" {:id \"server-side-mathbox\"} [:<> \"Server-Side MathBox\"]]], :nextjournal/opts {:id \"emmy-viewers.mathbox/markdown-5dt3D4YDLGKYVvo8rPfjy8FMvuxVR9\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/markdown-node-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-with-react-key, :hash \"5drtFhRgc8WMLrXw6DB4bZLsNZjHHp\"}} {:path [], :nextjournal/value \"(def ->tex (comp clerk/tex ->TeX simplify))\", :nextjournal/opts {:id \"emmy-viewers.mathbox/->tex-code\", :loc {:line 15, :end-line 15, :column 1, :end-column 44}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[clojure.core$comp$fn__5876 0x5ad80a72 \\\"clojure.core$comp$fn__5876@5ad80a72\\\"]\", :nextjournal/opts {:id \"emmy-viewers.mathbox/->tex-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}, :nextjournal/blob-id \"G__64317\"}, :nextjournal/opts {:id \"emmy-viewers.mathbox/->tex-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value \"(ev/install!)\", :nextjournal/opts {:id \"emmy-viewers.mathbox/anon-expr-5drdArt2SVtzEyJT9GZeKek5KCzRDa-code\", :loc {:line 17, :end-line 17, :column 1, :end-column 14}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value [{:path [0], :nextjournal/value [{:path [0 0], :nextjournal/value [{:path [0 0 0], :nextjournal/value :name, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [0 0 1], :nextjournal/value emmy.viewer/meta-viewer, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [0 1], :nextjournal/value [{:path [0 1 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [0 1 1], :nextjournal/value \"#object[clojure.core$comp$fn__5876 0x4ed449b6 \\\"clojure.core$comp$fn__5876@4ed449b6\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [0 2], :nextjournal/value [{:path [0 2 0], :nextjournal/value :transform-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [0 2 1], :nextjournal/value \"#object[nextjournal.clerk.viewer$update_val$fn__16206 0x5c508684 \\\"nextjournal.clerk.viewer$update_val$fn__16206@5c508684\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [1], :nextjournal/value [{:path [1 0], :nextjournal/value [{:path [1 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [1 0 1], :nextjournal/value \"#object[emmy.expression$literal_QMARK_ 0x21450fb6 \\\"emmy.expression$literal_QMARK_@21450fb6\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [1 1], :nextjournal/value [{:path [1 1 0], :nextjournal/value :transform-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [1 1 1], :nextjournal/value \"#object[nextjournal.clerk.viewer$update_val$fn__16206 0x355b33ef \\\"nextjournal.clerk.viewer$update_val$fn__16206@355b33ef\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [2], :nextjournal/value [{:path [2 0], :nextjournal/value [{:path [2 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [2 0 1], :nextjournal/value \"#object[clojure.core$char_QMARK___5473 0x10a03740 \\\"clojure.core$char_QMARK___5473@10a03740\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [2 1], :nextjournal/value [{:path [2 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [2 1 1], :nextjournal/value [{:path [2 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [2 1 1 1], :nextjournal/value [{:path [2 1 1 1 0], :nextjournal/value c, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [2 1 1 2], :nextjournal/value [{:path [2 1 1 2 0], :nextjournal/value :span.cmt-string.inspected-value, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [2 1 1 2 1], :nextjournal/value \"\\\\\", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}} {:path [2 1 1 2 2], :nextjournal/value c, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\" \")\" \"}\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [3], :nextjournal/value [{:path [3 0], :nextjournal/value [{:path [3 0 0], :nextjournal/value :closing-paren, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [3 0 1], :nextjournal/value \"\\\"\", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [3 1], :nextjournal/value [{:path [3 1 0], :nextjournal/value :opening-paren, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [3 1 1], :nextjournal/value \"\\\"\", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [3 2], :nextjournal/value [{:path [3 2 0], :nextjournal/value :page-size, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [3 2 1], :nextjournal/value 80, :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-number, :hash \"5dr5kWRtr7mCj9ikbmX2S4HCkE4Xxt\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [3 3], :nextjournal/value [{:path [3 3 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [3 3 1], :nextjournal/value \"#object[clojure.core$string_QMARK___5475 0x3a0807b7 \\\"clojure.core$string_QMARK___5475@3a0807b7\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [3 4], :nextjournal/value [{:path [3 4 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [3 4 1], :nextjournal/value nextjournal.clerk.render/render-quoted-string, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [4], :nextjournal/value [{:path [4 0], :nextjournal/value [{:path [4 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [4 0 1], :nextjournal/value \"#object[clojure.core$number_QMARK_ 0x33ffb0c9 \\\"clojure.core$number_QMARK_@33ffb0c9\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [4 1], :nextjournal/value [{:path [4 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [4 1 1], :nextjournal/value nextjournal.clerk.render/render-number, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [4 2], :nextjournal/value [{:path [4 2 0], :nextjournal/value :transform-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [4 2 1], :nextjournal/value \"#object[nextjournal.clerk.viewer$update_val$fn__16206 0x1911b25d \\\"nextjournal.clerk.viewer$update_val$fn__16206@1911b25d\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [5], :nextjournal/value [{:path [5 0], :nextjournal/value [{:path [5 0 0], :nextjournal/value :name, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [5 0 1], :nextjournal/value nextjournal.clerk.viewer/number-hex-viewer, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [5 1], :nextjournal/value [{:path [5 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [5 1 1], :nextjournal/value [{:path [5 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [5 1 1 1], :nextjournal/value [{:path [5 1 1 1 0], :nextjournal/value num, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [5 1 1 2], :nextjournal/value [{:path [5 1 1 2 0], :nextjournal/value nextjournal.clerk.render/render-number, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [5 1 1 2 1], :nextjournal/value [{:path [5 1 1 2 1 0], :nextjournal/value str, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [5 1 1 2 1 1], :nextjournal/value \"0x\", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}} {:path [5 1 1 2 1 2], :nextjournal/value [{:path [5 1 1 2 1 2 0], :nextjournal/value .toString, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [5 1 1 2 1 2 1], :nextjournal/value [{:path [5 1 1 2 1 2 1 0], :nextjournal/value js/Number., :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [5 1 1 2 1 2 1 1], :nextjournal/value num, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}} {:path [5 1 1 2 1 2 2], :nextjournal/value 16, :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-number, :hash \"5dr5kWRtr7mCj9ikbmX2S4HCkE4Xxt\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \")\" \")\" \")\" \"}\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [6], :nextjournal/value [{:path [6 0], :nextjournal/value [{:path [6 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [6 0 1], :nextjournal/value \"#object[clojure.core$symbol_QMARK_ 0xf713686 \\\"clojure.core$symbol_QMARK_@f713686\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [6 1], :nextjournal/value [{:path [6 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [6 1 1], :nextjournal/value [{:path [6 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [6 1 1 1], :nextjournal/value [{:path [6 1 1 1 0], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [6 1 1 2], :nextjournal/value [{:path [6 1 1 2 0], :nextjournal/value :span.cmt-keyword.inspected-value, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [6 1 1 2 1], :nextjournal/value [{:path [6 1 1 2 1 0], :nextjournal/value str, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [6 1 1 2 1 1], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \"]\" \")\" \"}\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [7], :nextjournal/value [{:path [7 0], :nextjournal/value [{:path [7 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [7 0 1], :nextjournal/value \"#object[clojure.core$keyword_QMARK_ 0x67174f09 \\\"clojure.core$keyword_QMARK_@67174f09\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [7 1], :nextjournal/value [{:path [7 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [7 1 1], :nextjournal/value [{:path [7 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [7 1 1 1], :nextjournal/value [{:path [7 1 1 1 0], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [7 1 1 2], :nextjournal/value [{:path [7 1 1 2 0], :nextjournal/value :span.cmt-atom.inspected-value, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [7 1 1 2 1], :nextjournal/value [{:path [7 1 1 2 1 0], :nextjournal/value str, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [7 1 1 2 1 1], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \"]\" \")\" \"}\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [8], :nextjournal/value [{:path [8 0], :nextjournal/value [{:path [8 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [8 0 1], :nextjournal/value \"#object[clojure.core$nil_QMARK_ 0x5cacf095 \\\"clojure.core$nil_QMARK_@5cacf095\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [8 1], :nextjournal/value [{:path [8 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [8 1 1], :nextjournal/value [{:path [8 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [8 1 1 1], :nextjournal/value [{:path [8 1 1 1 0], :nextjournal/value _, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [8 1 1 2], :nextjournal/value [{:path [8 1 1 2 0], :nextjournal/value :span.cmt-default.inspected-value, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [8 1 1 2 1], :nextjournal/value \"nil\", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\" \"]\" \")\" \"}\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [9], :nextjournal/value [{:path [9 0], :nextjournal/value [{:path [9 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [9 0 1], :nextjournal/value \"#object[clojure.core$boolean_QMARK_ 0x5dda6f9 \\\"clojure.core$boolean_QMARK_@5dda6f9\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [9 1], :nextjournal/value [{:path [9 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [9 1 1], :nextjournal/value [{:path [9 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [9 1 1 1], :nextjournal/value [{:path [9 1 1 1 0], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [9 1 1 2], :nextjournal/value [{:path [9 1 1 2 0], :nextjournal/value :span.cmt-bool.inspected-value, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [9 1 1 2 1], :nextjournal/value [{:path [9 1 1 2 1 0], :nextjournal/value str, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [9 1 1 2 1 1], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \"]\" \")\" \"}\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [10], :nextjournal/value [{:path [10 0], :nextjournal/value [{:path [10 0 0], :nextjournal/value :name, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [10 0 1], :nextjournal/value nextjournal.clerk.viewer/map-entry-viewer, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [10 1], :nextjournal/value [{:path [10 1 0], :nextjournal/value :page-size, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [10 1 1], :nextjournal/value 2, :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-number, :hash \"5dr5kWRtr7mCj9ikbmX2S4HCkE4Xxt\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [10 2], :nextjournal/value [{:path [10 2 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [10 2 1], :nextjournal/value \"#object[clojure.core$map_entry_QMARK_ 0x67e34db8 \\\"clojure.core$map_entry_QMARK_@67e34db8\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [10 3], :nextjournal/value [{:path [10 3 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [10 3 1], :nextjournal/value [{:path [10 3 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [10 3 1 1], :nextjournal/value [{:path [10 3 1 1 0], :nextjournal/value xs, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [10 3 1 1 1], :nextjournal/value opts, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [10 3 1 2], :nextjournal/value [{:path [10 3 1 2 0], :nextjournal/value into, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [10 3 1 2 1], :nextjournal/value [{:path [10 3 1 2 1 0], :nextjournal/value :<>, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [10 3 1 2 2], :nextjournal/value [{:path [10 3 1 2 2 0], :nextjournal/value comp, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [10 3 1 2 2 1], :nextjournal/value [{:path [10 3 1 2 2 1 0], :nextjournal/value nextjournal.clerk.render/inspect-children, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [10 3 1 2 2 1 1], :nextjournal/value opts, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}} {:path [10 3 1 2 2 2], :nextjournal/value [{:path [10 3 1 2 2 2 0], :nextjournal/value interpose, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [10 3 1 2 2 2 1], :nextjournal/value \" \", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\" \")\" \")\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}} {:path [10 3 1 2 3], :nextjournal/value xs, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \")\" \"}\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [11], :nextjournal/value [{:path [11 0], :nextjournal/value [{:path [11 0 0], :nextjournal/value :pred, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [11 0 1], :nextjournal/value \"#object[nextjournal.clerk.viewer$var_from_def_QMARK_ 0x43e6454b \\\"nextjournal.clerk.viewer$var_from_def_QMARK_@43e6454b\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [11 1], :nextjournal/value [{:path [11 1 0], :nextjournal/value :transform-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [11 1 1], :nextjournal/value \"#object[nextjournal.clerk.viewer$update_val$fn__16206 0x52ed7040 \\\"nextjournal.clerk.viewer$update_val$fn__16206@52ed7040\\\"]\", :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (read-string x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5driNqLjrByEWrhxqnAqaiYK9eiYCv\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [12], :nextjournal/value [{:path [12 0], :nextjournal/value [{:path [12 0 0], :nextjournal/value :name, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [12 0 1], :nextjournal/value nextjournal.clerk.viewer/read+inspect-viewer, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:path [12 1], :nextjournal/value [{:path [12 1 0], :nextjournal/value :render-fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [12 1 1], :nextjournal/value [{:path [12 1 1 0], :nextjournal/value fn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 1], :nextjournal/value [{:path [12 1 1 1 0], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [12 1 1 2], :nextjournal/value [{:path [12 1 1 2 0], :nextjournal/value try, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 1], :nextjournal/value [{:path [12 1 1 2 1 0], :nextjournal/value nextjournal.clerk.render/inspect, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 1 1], :nextjournal/value [{:path [12 1 1 2 1 1 0], :nextjournal/value read-string, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 1 1 1], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \"]\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}} {:path [12 1 1 2 2], :nextjournal/value [{:path [12 1 1 2 2 0], :nextjournal/value catch, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 2 1], :nextjournal/value js/Error, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 2 2], :nextjournal/value _e, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 2 3], :nextjournal/value [{:path [12 1 1 2 2 3 0], :nextjournal/value nextjournal.clerk.render/render-unreadable-edn, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}} {:path [12 1 1 2 2 3 1], :nextjournal/value x, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-keyword.inspected-value (str x)]), :hash \"5drtJS1B8fSwesV38M9fttSWDXY6Fr\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :closing-paren (\")\" \")\" \")\" \")\" \"}\"), :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"(\", :page-size 20, :hash \"5drCaZg3GZ5pGiaCNpMq9dEBvceFbm\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [13], :nextjournal/value [{:path [13 0], :nextjournal/value [{:path [13 0 0], :nextjournal/value :closing-paren, :nextjournal/viewer {:render-fn #viewer-fn (fn [x] [:span.cmt-atom.inspected-value (str x)]), :hash \"5dtMJq6BG3cxBNTzMX8N9ybiVihU3P\"}} {:path [13 0 1], :nextjournal/value \"]\", :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-quoted-string, :opening-paren \"\\\"\", :closing-paren (\"\\\"\"), :page-size 80, :hash \"5dsc8hKzdYc787YrnnWStEqLBFykdE\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-entry-viewer, :render-fn #viewer-fn (fn [xs opts] (into [:<>] (comp (nextjournal.clerk.render/inspect-children opts) (interpose \" \")) xs)), :page-size 2, :hash \"5du1Jokva1fSP87JT6oepkbdJbMMKB\"}} {:nextjournal/value {:n 10, :path [13], :total 5, :offset 1}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [14], :nextjournal/value [{:nextjournal/value {:n 10, :path [14], :total 5, :offset 0}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [15], :nextjournal/value [{:nextjournal/value {:n 10, :path [15], :total 5, :offset 0}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [16], :nextjournal/value [{:nextjournal/value {:n 10, :path [16], :total 4, :offset 0}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [17], :nextjournal/value [{:nextjournal/value {:n 10, :path [17], :total 4, :offset 0}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [18], :nextjournal/value [{:nextjournal/value {:n 10, :path [18], :total 4, :offset 0}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:path [19], :nextjournal/value [{:nextjournal/value {:n 10, :path [19], :total 6, :offset 0}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/viewer {:name nextjournal.clerk.viewer/map-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-map, :opening-paren \"{\", :closing-paren (\"}\"), :page-size 10, :hash \"5drc3ac5ux7kS4h2vozdxwsrKDqSmn\"}} {:nextjournal/value {:n 20, :path [], :total 44, :offset 20}, :nextjournal/viewer {:name nextjournal.clerk.viewer/elision-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-elision, :hash \"5drduatKq2QJCDhSX1Pu45i4whSPHk\"}}], :nextjournal/opts {:id \"emmy-viewers.mathbox/anon-expr-5drdArt2SVtzEyJT9GZeKek5KCzRDa-result\"}, :nextjournal/viewer {:render-fn #viewer-fn nextjournal.clerk.render/render-coll, :opening-paren \"[\", :closing-paren (\"]\"), :page-size 20, :hash \"5dsKpRYUuGnwVK3BPfAoiJqkhVbPzH\"}}, :nextjournal/blob-id \"G__64320\"}, :nextjournal/opts {:id \"emmy-viewers.mathbox/anon-expr-5drdArt2SVtzEyJT9GZeKek5KCzRDa-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value \"(emmy.mathbox/mathbox\\n {:container {:style {:height \\\"400px\\\" :width \\\"100%\\\"}}\\n  :renderer  {:background-color 0x000000}}\\n (emmy.mathbox/layer\\n  {}\\n  (emmy.mathbox/cartesian\\n   {:range [[(- Math/PI) (- Math/PI 0.00001)] [-10 10]]\\n    :scale [1 0.5]}\\n   ['emmy.mathbox.plot/AxisGrid\\n    {:subdivisions 2\\n     :x-axis\\n     {:divide 5\\n      :unit Math/PI\\n      :base 2\\n      :label-maker 'emmy.mathbox.plot/label-pi}\\n     :y-axis {:divide 5\\n              :subdivisions 2}}])))\", :nextjournal/opts {:id \"emmy-viewers.mathbox/anon-expr-5drD5tcgTzoChwQWNJKAUHHizvYVEE-code\", :loc {:line 19, :end-line 36, :column 1, :end-column 36}}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value [], :nextjournal/width :wide, :nextjournal/opts {:id \"emmy-viewers.mathbox/anon-expr-5drD5tcgTzoChwQWNJKAUHHizvYVEE-result\"}, :nextjournal/viewer {:render-fn #viewer-fn (fn [_] [mathbox.core/MathBox {:container {:style {:height \"400px\", :width \"100%\"}}, :renderer {:background-color 0}} [mathbox.primitives.transform/Layer {} [mathbox.primitives.view/Cartesian {:range [[-3.141592653589793 3.141582653589793] [-10 10]], :scale [1 0.5]} [emmy.mathbox.plot/AxisGrid {:subdivisions 2, :x-axis {:divide 5, :unit 3.141592653589793, :base 2, :label-maker emmy.mathbox.plot/label-pi}, :y-axis {:divide 5, :subdivisions 2}}]]]]), :hash \"5ds7zavdjWFms4HBWAmcoWwRg5vByV\"}}, :nextjournal/blob-id \"G__64323\"}, :nextjournal/width :wide, :nextjournal/opts {:id \"emmy-viewers.mathbox/anon-expr-5drD5tcgTzoChwQWNJKAUHHizvYVEE-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}}], :css-class nil}, :nextjournal/viewer {:name nextjournal.clerk.viewer/notebook-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-notebook, :hash \"5duAFDxE4sCnRX71Wo6zeCpC9C3djE\"}}}, :cljs-namespaces [emmy-viewers.sci-extensions examples.manifold.pq-knot examples.simulation.cylinder-flow examples.simulation.lorenz examples.simulation.phase-portrait examples.simulation.quartic-well], :index \"dev/emmy_viewers/notebook.clj\", :browse? false, :git/url \"https://github.com/mentat-collective/emmy-viewers\", :paths [\"dev/examples/modint.clj\" \"dev/emmy_viewers/mafs.clj\" \"dev/examples/quaternion.clj\" \"dev/examples/expression.clj\" \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/structure.clj\" \"dev/examples/functions.clj\" \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/simulation/lorenz.cljc\" \"dev/emmy_viewers/leva.clj\" \"dev/examples/symbolic/einstein.clj\" \"dev/emmy_viewers/mathbox.clj\" \"dev/examples/simulation/cylinder_flow.cljc\" \"dev/examples/stern_brocot.clj\" \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/complex.clj\" \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/power_series.clj\" \"dev/examples/manifold/pq_knot.cljc\" \"dev/emmy_viewers/notebook.clj\" \"dev/examples/rational_function.clj\" \"dev/examples/continued_fractions.clj\" \"dev/examples/polynomial.clj\" \"dev/examples/number.clj\" \"dev/examples/operator.clj\" \"dev/examples/mathbox/quickstart.clj\" \"dev/examples/editor.clj\" \"dev/examples/simulation/toroid.clj\" \"dev/examples/manifold/fdg.clj\" \"dev/examples/matrix.clj\" \"dev/examples/simulation/oscillator.clj\" \"dev/examples/vega/pendulum.clj\"], :resource->url {\"/js/viewer.js\" \"_data/8Vw1KZN6egsfXPLyKgS9msBvsCk5PEdAxfCSpJxC3aaTtD9C2bSFQn2gAJVjN6CXzef2zreXC6SBQ947UtiAKQUFx6.js\"}, :current-path \"dev/emmy_viewers/mathbox.clj\", :bundle? false, :git/sha \"33bfd17b3b5612bde4c6c98840645bc7246b12be\", :path->url {\"dev/examples/modint.clj\" \"dev/examples/modint.html\", \"dev/emmy_viewers/mafs.clj\" \"dev/emmy_viewers/mafs.html\", \"dev/examples/quaternion.clj\" \"dev/examples/quaternion.html\", \"dev/examples/expression.clj\" \"dev/examples/expression.html\", \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/simulation/ellipsoid.html\", \"dev/examples/structure.clj\" \"dev/examples/structure.html\", \"dev/examples/functions.clj\" \"dev/examples/functions.html\", \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/mathbox/cube_controls.html\", \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/simulation/double_ellipsoid.html\", \"dev/examples/simulation/lorenz.cljc\" \"dev/examples/simulation/lorenz.html\", \"dev/emmy_viewers/leva.clj\" \"dev/emmy_viewers/leva.html\", \"dev/examples/symbolic/einstein.clj\" \"dev/examples/symbolic/einstein.html\", \"dev/emmy_viewers/mathbox.clj\" \"dev/emmy_viewers/mathbox.html\", \"dev/examples/simulation/cylinder_flow.cljc\" \"dev/examples/simulation/cylinder_flow.html\", \"dev/examples/stern_brocot.clj\" \"dev/examples/stern_brocot.html\", \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/simulation/quartic_well.html\", \"dev/examples/complex.clj\" \"dev/examples/complex.html\", \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/simulation/phase_portrait.html\", \"dev/examples/power_series.clj\" \"dev/examples/power_series.html\", \"dev/examples/manifold/pq_knot.cljc\" \"dev/examples/manifold/pq_knot.html\", \"dev/emmy_viewers/notebook.clj\" \"\", \"dev/examples/rational_function.clj\" \"dev/examples/rational_function.html\", \"dev/examples/continued_fractions.clj\" \"dev/examples/continued_fractions.html\", \"dev/examples/polynomial.clj\" \"dev/examples/polynomial.html\", \"dev/examples/number.clj\" \"dev/examples/number.html\", \"dev/examples/operator.clj\" \"dev/examples/operator.html\", \"dev/examples/mathbox/quickstart.clj\" \"dev/examples/mathbox/quickstart.html\", \"dev/examples/editor.clj\" \"dev/examples/editor.html\", \"dev/examples/simulation/toroid.clj\" \"dev/examples/simulation/toroid.html\", \"dev/examples/manifold/fdg.clj\" \"dev/examples/manifold/fdg.html\", \"dev/examples/matrix.clj\" \"dev/examples/matrix.html\", \"dev/examples/simulation/oscillator.clj\" \"dev/examples/simulation/oscillator.html\", \"dev/examples/vega/pendulum.clj\" \"dev/examples/vega/pendulum.html\"}, :expanded-paths [\"dev/examples/operator.clj\" \"dev/examples/structure.clj\" \"dev/examples/vega/pendulum.clj\" \"dev/examples/simulation/toroid.clj\" \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/simulation/oscillator.clj\" \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/power_series.clj\" \"dev/examples/modint.clj\" \"dev/examples/expression.clj\" \"dev/examples/functions.clj\" \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/mathbox/quickstart.clj\" \"dev/examples/manifold/fdg.clj\" \"dev/examples/polynomial.clj\" \"dev/examples/number.clj\" \"dev/examples/symbolic/einstein.clj\" \"dev/examples/complex.clj\" \"dev/examples/continued_fractions.clj\" \"dev/examples/rational_function.clj\" \"dev/examples/quaternion.clj\" \"dev/examples/matrix.clj\" \"dev/examples/editor.clj\" \"dev/examples/stern_brocot.clj\" \"dev/examples/simulation/lorenz.cljc\" \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/simulation/cylinder_flow.cljc\" \"dev/examples/manifold/pq_knot.cljc\" \"dev/emmy_viewers/notebook.clj\" \"dev/emmy_viewers/mafs.clj\" \"dev/emmy_viewers/mathbox.clj\" \"dev/emmy_viewers/leva.clj\"], :cname \"emmy-viewers.mentat.org\", :watch-paths [\"src\" \"dev\"], :report-fn #object[nextjournal.clerk.builder$stdout_reporter 0x7aa6029a \"nextjournal.clerk.builder$stdout_reporter@7aa6029a\"]}".replaceAll('nextjournal.clerk.view/escape-closing-script-tag', 'script')
+let opts = nextjournal.clerk.sci_env.read_string(state)
+nextjournal.clerk.static_app.init(opts)
+</script></body></html>
