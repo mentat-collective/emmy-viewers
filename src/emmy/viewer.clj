@@ -27,11 +27,6 @@
   ([packages]
    (apply css/set-css! (mapcat css-map packages))))
 
-(defn ^:no-doc split-opts [children]
-  (if (map? (first children))
-    [(first children) (rest children)]
-    [{} children]))
-
 (defn ^:no-doc strip-meta [form]
   (postwalk (fn [x]
               (if (meta x)
@@ -40,15 +35,16 @@
             form))
 
 ;; TODO make this a gensym hardcoded...
-(defn render [form]
+(defn render
+  "Takes the unevaluated body `form` of a Clerk `:render-fn` and returns a "
+  [form]
   (clerk/with-viewer
     {:render-fn
-     (list 'fn ['_] (strip-meta form))}
-    ;; TODO nil?
-    {}))
+     (list 'fn [] (strip-meta form))}
+    nil))
 
-(defn ^:no-doc tagged
-  ([v] (tagged v render))
+(defn ^:no-doc fragment
+  ([v] (fragment v render))
   ([v viewer]
    (with-meta v {::clerk/viewer viewer})))
 
@@ -119,9 +115,13 @@
 (defn multi [m]
   (clerk/with-viewer tabbed-viewer m))
 
+(def literal-viewer
+  {:name `literal-viewer
+   :pred x/literal?
+   :transform-fn
+   (clerk/update-val x/expression-of)})
+
 (defn install! []
   (clerk/add-viewers!
    [meta-viewer
-    {:pred x/literal?
-     :transform-fn
-     (clerk/update-val x/expression-of)}]))
+    literal-viewer]))

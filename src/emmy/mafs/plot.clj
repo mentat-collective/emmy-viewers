@@ -2,11 +2,9 @@
   "Server-side rendering functions for the components declared in the
   [`mafs.plot`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.plot)
   namespace of the [`Mafs.cljs` project](https://mafs.mentat.org)."
-  (:require [emmy.mafs.core :as mafs]
-            [emmy.expression.compile :as xc]
-            [mentat.clerk-utils.viewers :refer [q]]))
+  (:require [emmy.mafs.compile :as c]
+            [emmy.mafs.core :as mafs]))
 
-;; TODO ifn will not cut it!! symbols are ifn.
 (defn of-x
   "
   - `:y`
@@ -19,16 +17,12 @@
   - `:style`"
   ([f opts]
    (of-x (assoc opts :y f)))
-  ([opts]
-   (let [opts (if (map? opts) opts {:y opts})]
-     (mafs/tagged
-      (if (ifn? (:y opts))
-        (let [sym  (gensym)
-              body (xc/compile-fn (:y opts) 1 {:mode :js})]
-          (q
-           (reagent.core/with-let [~sym (js/Function. ~@body)]
-             [mafs.plot/OfX ~(assoc opts :y sym)])))
-        ['mafs.plot/OfX opts])))))
+  ([f-or-opts]
+   (if (map? f-or-opts)
+     (let [[binding opts] (c/compile-1d f-or-opts :y)]
+       (mafs/fragment
+        (c/wrap [binding] ['mafs.plot/OfX opts])))
+     (of-x f-or-opts {}))))
 
 (defn of-y
   "
@@ -45,16 +39,43 @@
   "
   ([f opts]
    (of-y (assoc opts :x f)))
-  ([opts]
-   (let [opts (if (map? opts) opts {:x opts})]
-     (mafs/tagged
-      (if (ifn? (:x opts))
-        (let [sym  (gensym)
-              body (xc/compile-fn (:x opts) 1 {:mode :js})]
-          (q
-           (reagent.core/with-let [~sym (js/Function. ~@body)]
-             [mafs.plot/OfY ~(assoc opts :x sym)])))
-        ['mafs.plot/OfY opts])))))
+  ([f-or-opts]
+   (if (map? f-or-opts)
+     (let [[binding opts] (c/compile-1d f-or-opts :x)]
+       (mafs/fragment
+        (c/wrap [binding] ['mafs.plot/OfY opts])))
+     (of-y f-or-opts {}))))
+
+(defn inequality
+  "
+  - `:x`
+  - `:y`
+  - `:color`
+  - `:weight`
+  - `:stroke-color`
+  - `:stroke-opacity`
+  - `:fill-color`
+  - `:fill-opacity`
+  - `:min-sampling-depth`
+  - :`max-sampling-depth`
+  - `:upper-color`
+  - `:upper-weight`
+  - `:upper-opacity`
+  - `:lower-color`
+  - `:lower-weight`
+  - `:lower-opacity`
+  - `:svg-upper-path-props`
+  - `:svg-lower-path-props`
+  - `:svg-fill-path-props`
+  "
+  [opts]
+  (let [[x-binds x] (c/compile-vals (:x opts) c/compile-1d)
+        [y-binds y] (c/compile-vals (:y opts) c/compile-1d)]
+    (c/wrap (into x-binds y-binds)
+            ['mafs.plot/Inequality
+             (cond-> opts
+               x (assoc :x x)
+               y (assoc :y y))])))
 
 (defn parametric
   "
@@ -68,17 +89,10 @@
   - `:weight`
   - `:style`
   "
-  ;; TODO this is more complicated!!
-  ([f opts]
-   (parametric (assoc opts :xy f)))
   ([opts]
-   (mafs/tagged
-    (if (ifn? (:xy opts))
-      (let [f (xc/compile-fn (:xy opts) 1 {:mode :js})]
-        (q
-         (reagent.core/with-let [f' (js/Function. ~@f)]
-           [mafs.plot/Parametric ~(assoc opts :xy 'f')])))
-      ['mafs.plot/Parametric opts]))))
+   (let [[binding opts] (c/compile-1d opts :xy)]
+     (mafs/fragment
+      (c/wrap [binding] ['mafs.plot/Parametric opts])))))
 
 ;; TODO figure out the parametric function option, we can totally pass the state
 ;; value to this bad boy.
@@ -87,22 +101,6 @@
 ;; required to call the thing. and then when we CALL the functions. I can't do
 ;; this now, I've gotta do the real deal soon. But obviously this is a required
 ;; thing.
-(defn ^:no-doc compile-2d [f]
-  (cond
-    #_#_(map? f)
-    (let [{:keys [params shape f]} f
-          opts {:mode :js :generic-params? true}
-          body (xc/compile-state-fn f shape [0 0] opts)
-          sym  (gensym)]
-      (q (reagent.core/with-let
-           ~[sym (list* 'js/Function. body)]
-           )))
-
-    (ifn? f)
-    (let [body (xc/compile-state-fn f false [0 0] {:mode :js})]
-      (list* 'js/Function. body))
-
-    :else f))
 
 (defn vector-field
   "
@@ -114,12 +112,10 @@
   - `:style`"
   ([f opts]
    (vector-field (assoc opts :xy f)))
-  ([opts]
-   (let [opts (if (map? opts) opts {:xy opts})]
-     ;; TODO do NOT put the `xy` etc in here if they are quoted forms!!
-     (mafs/tagged
-      (q (reagent.core/with-let
-           [xy      ~(compile-2d (:xy opts))
-            opacity ~(compile-2d (:xy-opacity opts))]
-           [mafs.plot/VectorField
-            ~(assoc opts :xy 'xy :xy-opacity 'opacity)]))))))
+  ([f-or-opts]
+   (if (map? f-or-opts)
+     (let [[xy-bind opts] (c/compile-2d f-or-opts :xy)
+           [op-bind opts] (c/compile-2d opts :xy-opacity)]
+       (c/wrap [xy-bind op-bind]
+               ['mafs.plot/VectorField opts]))
+     (vector-field f-or-opts {}))))

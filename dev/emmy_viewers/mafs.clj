@@ -157,25 +157,25 @@
 ;; a movable point and hook it up to our function.
 
 ^{::clerk/width :wide}
-(ev/with-let [!phase [0 0]]
-  [:<>
-   (mafs/mafs
-    {:view-box {:x [-10 10] :y [-2 2]}
-     :preserve-aspect-ratio false}
-    (mafs/cartesian
-     {:subdivisions 4
-      :x-axis
-      {:lines Math/PI
-       :labels 'mafs.core/labelPi}})
-    (mafs/of-x
-     {:y (q (let [shift (first @~!phase)]
-              (fn [x]
-                (Math/sin (- x shift)))))})
-    (mafs/movable-point
-     {:atom !phase
-      :constrain "horizontal"}))
-   [:pre
-    (q (str "Phase shift: " (first @~!phase)))]])
+=(ev/with-let [!phase [0 0]]
+   [:<>
+    (mafs/mafs
+     {:view-box {:x [-10 10] :y [-2 2]}
+      :preserve-aspect-ratio false}
+     (mafs/cartesian
+      {:subdivisions 4
+       :x-axis
+       {:lines Math/PI
+        :labels 'mafs.core/labelPi}})
+     (mafs/of-x
+      {:y (q (let [shift (first @~!phase)]
+               (fn [x]
+                 (Math/sin (- x shift)))))})
+     (mafs/movable-point
+      {:atom !phase
+       :constrain "horizontal"}))
+    [:pre
+     (q (str "Phase shift: " (first @~!phase)))]])
 
 ;; There are a few noteworthy things here: one is how we declared our
 ;; `mafs/movable-point`. We start centered on the origin by setting the initial
@@ -498,7 +498,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; Polygons take a number of points and create a closed shape.
 
-^{::clerk/width :wide}
 (let [a  [2 0]
       b  [-2 0]]
   (ev/with-let [!c [0 2]]
@@ -510,7 +509,7 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
        :stroke-style "dashed"})
      (mafs/polygon
       {:points [(q @~!c) a b]
-       :color (:blue mafs/Theme)})
+       :color :blue})
      (mafs/movable-point {:atom !c}))))
 
 ;; ### Circle
@@ -572,12 +571,12 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
         (mafs/movable-point
          {:atom !state
           :path :rotate
-          :color (:blue mafs/Theme)
+          :color :blue
           :constrain '#(mafs.vec/with-mag % 3)}))
        (mafs/movable-point
         {:atom !state
          :path :translate
-         :color (:orange mafs/Theme)})))))
+         :color :orange})))))
 
 ;; ### Plot
 
@@ -594,8 +593,8 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian)
- (mafs/of-x {:y sin :color (:blue mafs/Theme)})
- (mafs/of-y {:x sigmoid1 :color (:pink mafs/Theme)}))
+ (mafs/of-x {:y sin :color :blue})
+ (mafs/of-y {:x sigmoid1 :color :pink}))
 
 ;; #### Parametric functions
 
@@ -758,10 +757,10 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
                                                                 [HelloBox])
                                                 (mafs/movable-point {:atom !state
                                                                      :path :scale
-                                                                     :color (:blue mafs/theme)}))
+                                                                     :color :blue}))
                                 (mafs/movable-point {:atom !state
                                                      :path :rotate
-                                                     :color (:green mafs/theme)
+                                                     :color :green
                                                      :constrain mafs.vec/normalize}))
                 (mafs/movable-point {:atom !state
                                      :path :translate}))))

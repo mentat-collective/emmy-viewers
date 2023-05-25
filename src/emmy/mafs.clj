@@ -13,7 +13,7 @@
  [emmy.mafs.coordinates cartesian polar]
 
  [emmy.mafs.core
-  Theme mafs point polygon ellipse circle
+  mafs point polygon polyline ellipse circle
   text vector transform movable-point]
 
  [emmy.mafs.debug
@@ -23,4 +23,4 @@
   segment through-points point-slope point-angle]
 
  [emmy.mafs.plot
-  of-x of-y parametric vector-field])
+  of-x of-y inequality parametric vector-field])
