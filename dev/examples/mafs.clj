@@ -5,7 +5,8 @@
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [emmy.env :as e :refer :all]
+  (:require [emmy.mafs.core]
+            [emmy.env :as e :refer :all]
             [emmy.mafs :as mafs]
             [emmy.polynomial :as poly]
             [emmy.viewer :as ev]
@@ -14,10 +15,40 @@
 
 ;; ## Server-Side Mafs
 
-
 (ev/install!)
 
 ;; ## Demo!
+
+(ev/with-let [!phase [0 0]]
+  (let [shifted (ev/with-params {:atom !phase :params [0]}
+                  (fn [shift]
+                    (((cube D) tanh) (- identity shift))))]
+    (mafs/mafs
+     (mafs/cartesian)
+     (mafs/of-x shifted)
+     (mafs/inequality
+      {:y {:<= shifted :> cos} :color :blue})
+     (mafs/movable-point
+      {:atom !phase :constrain "horizontal"}))))
+
+(ev/with-let [!phase [1 0]]
+  (let [path (ev/with-params {:atom !phase :params [0 1]}
+               (fn [x y]
+                 (* (abs [x y])
+                    (up sin (D sin)))))]
+    (mafs/mafs
+     (mafs/cartesian)
+     (mafs/parametric
+      {:color :green
+       :xy path
+       :t [0 (* 2 Math/PI)]})
+     (mafs/movable-point
+      {:atom !phase}))))
+
+(mafs/mafs
+ (mafs/cartesian)
+ (mafs/inequality
+  {:y {:<= sin :> cos} :color :blue}))
 
 (mafs/mafs
  {:height 300}
@@ -25,48 +56,35 @@
  (mafs/vector [1 2] {:color :blue})
  (mafs/text "face" {:color :green}))
 
-
-(mafs/mafs
- (mafs/cartesian)
- (mafs/inequality
-  {:y {:<= sin :> cos} :color :blue})
-
- (mafs/parametric
-  {:color :green
-   :xy (up sin (D sin))
-   :t [0 (* 2 Math/PI)]}))
-
 ^{::clerk/width :wide}
-(mafs/mafs
- (mafs/cartesian {:subdivisions 2})
- (mafs/vector-field
-  {:step 0.5
-   :xy (let [[ax ay] [0.6 0.5]]
-         (fn [[x y]]
-           [(- (- y ay) (- x ax))
-            (- (- (- x ax)) (- y ay))]))
-   :xy-opacity
-   (fn [[x y]]
-     (/ (+ (abs x) (abs y))
-        10))}))
+(ev/with-let [!point [1 0]]
+  (mafs/mafs
+   (mafs/cartesian {:subdivisions 2})
+   (mafs/vector-field
+    {:step 0.5
+     :xy (ev/with-params {:atom !point :params [0 1]}
+           (fn [ax ay]
+             (fn [[x y]]
+               [(- (- y ay) (- x ax))
+                (- (- (- x ax)) (- y ay))])))
+     :xy-opacity (fn [[x y]]
+                   (/ (+ (abs x) (abs y))
+                      10))})
+   (mafs/movable-point {:atom !point})))
 
 ;; ## Next Steps
-;;
-;; The big thing we want to support is a parametrized function.
+
+(ev/with-let [!point [1 1]]
+  (mafs/mafs
+   (mafs/cartesian)
+   (mafs/circle
+    {:center [0 0]
+     :radius `(abs @~!point)})
+   (mafs/movable-point {:atom !point})))
 
 (comment
   ;; This works fine for the point. Now we need some state.
   ;; Okay, that's good:
-
-  (ev/with-let [point [1 1]]
-    (mafs/mafs
-     (mafs/cartesian)
-     (mafs/circle
-      {:center [0 0]
-       :radius `(abs @~point)})
-     (mafs/movable-point
-      {:atom point})))
-
   (defn chain [& points]
     (-> (first
          (reduce (fn [[acc tail] p]
@@ -93,7 +111,7 @@
            {:view-box {:x [-3 3] :y [-3 3]}}
            (mafs/cartesian)
            (mafs/transform
-            {:translate (q (:translate @~!state))}
+            {:translate (ev/get !state :translate)}
             (mafs/transform
              {:rotate (q (let [[x y] (:rotate @~!state)]
                            (Math/atan2 y x)))}

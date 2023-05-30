@@ -2,7 +2,8 @@
   "Server-side rendering functions for the components declared in the
   [`mafs.plot`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.plot)
   namespace of the [`Mafs.cljs` project](https://mafs.mentat.org)."
-  (:require [emmy.mafs.compile :as c]
+  (:require [emmy.viewer :as v]
+            [emmy.mafs.compile :as c]
             [emmy.mafs.core :as mafs]))
 
 (defn of-x
@@ -18,7 +19,7 @@
   ([f opts]
    (of-x (assoc opts :y f)))
   ([f-or-opts]
-   (if (map? f-or-opts)
+   (if (c/opts? f-or-opts)
      (let [[binding opts] (c/compile-1d f-or-opts :y)]
        (mafs/fragment
         (c/wrap [binding] ['mafs.plot/OfX opts])))
@@ -40,7 +41,7 @@
   ([f opts]
    (of-y (assoc opts :x f)))
   ([f-or-opts]
-   (if (map? f-or-opts)
+   (if (c/opts? f-or-opts)
      (let [[binding opts] (c/compile-1d f-or-opts :x)]
        (mafs/fragment
         (c/wrap [binding] ['mafs.plot/OfY opts])))
@@ -113,7 +114,7 @@
   ([f opts]
    (vector-field (assoc opts :xy f)))
   ([f-or-opts]
-   (if (map? f-or-opts)
+   (if (c/opts? f-or-opts)
      (let [[xy-bind opts] (c/compile-2d f-or-opts :xy)
            [op-bind opts] (c/compile-2d opts :xy-opacity)]
        (c/wrap [xy-bind op-bind]

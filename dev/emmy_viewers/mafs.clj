@@ -37,15 +37,13 @@
   (mafs/mafs
    {:height 300}
    (mafs/cartesian {:subdivisions 2})
-   ;; TODO fix the function here!
    (mafs/vector-field
     {:step 0.5
-     :xy
-     (q (let [[ax ay] @~!point]
-          (fn [[x y]]
-            (js/Array.
-             (- (- y ay) (- x ax))
-             (- (- (- x ax)) (- y ay))))))
+     :xy (ev/with-params {:atom !point :params [0 1]}
+           (fn [ax ay]
+             (fn [[x y]]
+               [(- (- y ay) (- x ax))
+                (- (- (- x ax)) (- y ay))])))
      :xy-opacity
      (fn [[x y]]
        (/ (+ (abs x) (abs y))
@@ -74,9 +72,9 @@
 
 ;; ```clj
 ;; (mentat.clerk-utils.css/set-css!
-;;  "https://unpkg.com/mafs@0.15.2/core.css"
+;;  "https://unpkg.com/mafs@0.16.0/core.css"
 ;;  "https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
-;;  "https://unpkg.com/mafs@0.15.2/font.css")
+;;  "https://unpkg.com/mafs@0.16.0/font.css")
 ;; ```
 ;;
 ;; Otherwise find some way to load these CSS files in your project's header.
@@ -168,9 +166,10 @@
        {:lines Math/PI
         :labels 'mafs.core/labelPi}})
      (mafs/of-x
-      {:y (q (let [shift (first @~!phase)]
-               (fn [x]
-                 (Math/sin (- x shift)))))})
+      {:y (ev/with-params {:atom !phase :params [0]}
+            (fn [shift]
+              (fn [x]
+                (sin (- x shift)))))})
      (mafs/movable-point
       {:atom !phase
        :constrain "horizontal"}))
@@ -278,7 +277,7 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ^{::clerk/width :wide}
 (mafs/mafs
  {:height 200}
- (mafs/text {:x 0 :y 0} "I love math!"))
+ (mafs/text "I love math!"))
 
 ;; #### Sizing
 
@@ -311,10 +310,7 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
   {:subdivisions 5})
  (mafs/circle {:center [0 0]
                :radius 1})
- (mafs/text {:x 1.1
-             :y 0.1
-             :attach "ne"}
-            "Oh hi!"))
+ (mafs/text "Oh hi!" {:x 1.1 :y 0.1 :attach "ne"}))
 
 ;; #### Viewbox
 
@@ -631,12 +627,11 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
    (mafs/cartesian {:subdivisions 2})
    (mafs/vector-field
     {:step 0.5
-     :xy
-     (q (let [[ax ay] @~!point]
-          (fn [[x y]]
-            (js/Array.
-             (- (- y ay) (- x ax))
-             (- (- (- x ax)) (- y ay))))))
+     :xy (ev/with-params {:atom !point :params [0 1]}
+           (fn [ax ay]
+             (fn [[x y]]
+               [(- (- y ay) (- x ax))
+                (- (- (- x ax)) (- y ay))])))
      :xy-opacity
      (fn [[x y]]
        (/ (+ (abs x) (abs y))
@@ -676,8 +671,8 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
                :padding 0}
     :preserve-aspect-ratio false}
    (mafs/cartesian)
-   (mafs/of-x {:y (fn [x] (+ (f x) 1.5))})
-   (mafs/of-x {:y (fn [x] (- (f x) 1.5))
+   (mafs/of-x {:y (fn [x] (+ (f x) 3/2))})
+   (mafs/of-x {:y (fn [x] (- (f x) 3/2))
                :min-sampling-depth 15})))
 
 ;; ##### Vector fields

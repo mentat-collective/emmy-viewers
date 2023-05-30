@@ -116,6 +116,7 @@
 
 ;; How about something more complicated?
 
+
 (/ (+ (* 'A 'C 'gMR (expt (sin 'theta) 2) (cos 'theta))
       (* (/ 1 2) 'A (expt 'p_psi 2) (expt (sin 'theta) 2))
       (* (/ 1 2) 'C (expt 'p_psi 2) (expt (cos 'theta) 2))

@@ -152,11 +152,16 @@
   - `:size`
   - `:color`
   - `:svg-text-props`
+
+  TODO add default x y
   "
   ([s] (text s {}))
   ([s opts]
-   (fragment
-    ['mafs.core/Text opts s])))
+   (let [opts (assoc opts
+                     :x (:x opts 0)
+                     :y (:y opts 0))]
+     (fragment
+      ['mafs.core/Text opts s]))))
 
 (defn vector
   "

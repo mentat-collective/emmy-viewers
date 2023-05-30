@@ -2,7 +2,9 @@
 (ns emmy.viewer
   "Namespace containing viewer utilities..."
   {:nextjournal.clerk/toc true}
-  (:require [clojure.walk :refer [postwalk]]
+  (:refer-clojure :exclude [get get-in])
+  (:require [clojure.core :as core]
+            [clojure.walk :refer [postwalk]]
             [emmy.expression :as x]
             [mentat.clerk-utils.css :as css]
             [mentat.clerk-utils.viewers :refer [q]]
@@ -15,8 +17,8 @@
   These will be moved into subprojects at some point, so don't rely directly on
   this var!"
   {:mafs ["https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
-          "https://unpkg.com/mafs@0.15.2/core.css"
-          "https://unpkg.com/mafs@0.15.2/font.css"]
+          "https://unpkg.com/mafs@0.16.0/core.css"
+          "https://unpkg.com/mafs@0.16.0/font.css"]
    :jsxgraph ["https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"]
    :mathbox ["https://unpkg.com/mathbox@2.3.1/build/mathbox.css"]
    :mathlive ["https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
@@ -66,6 +68,26 @@
   `(with-state ~init
      (fn [~sym] ~@body)))
 
+(defrecord ^:no-doc ParamF [f atom params])
+
+(defn ^:no-doc param-f? [m]
+  (instance? ParamF m))
+
+(defn with-params
+  "describe!"
+  [{:keys [params atom]} f]
+  (->ParamF f atom params))
+
+(defn get [sym path]
+  (cond (symbol? sym) (q (get @~sym ~path))
+        (map? sym)    (get sym path)
+        :else         (get @sym path)))
+
+(defn get-in [sym path]
+  (cond (symbol? sym) (q (get-in @~sym ~path))
+        (map? sym)    (get-in sym path)
+        :else         (get-in @sym path)))
+
 ;; ## Viewers
 
 (def meta-viewer
@@ -78,39 +100,32 @@
 
 (def tabbed-viewer
   {:name `tabbed-viewer
-   ;; TODO do this nastiness in the transform-fn, not here!
    :render-fn
-   '(let [->ks (fn [pairs]
-                 (mapv
-                  (fn [{value :nextjournal/value}]
-                    (:nextjournal/value (nth value 0)))
-                  pairs))
-          ->m  (fn [pairs]
-                 (into {}
-                       (map
-                        (fn [{value :nextjournal/value}]
-                          [(:nextjournal/value (nth value 0))
-                           (nth value 1)]))
-                       pairs))]
-      (fn [pairs opts]
-        (reagent.core/with-let
-          [ks (->ks pairs)
-           m  (->m pairs)
-           !k (reagent.core/atom (first ks))]
-          [:<> (into
-                [:div.flex.items-center.font-sans.text-xs.mb-3
-                 [:span.text-slate-500.mr-2 "View as:"]]
-                (map (fn [k]
-                       [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
-                        {:class
-                         (if (= @!k k)
-                           "bg-indigo-100 text-indigo-600"
-                           "text-slate-500")
-                         :on-click #(reset! !k k)}
-                        k]))
-                ks)
-           [nextjournal.clerk.viewer/inspect-presented
-            (get m @!k)]])))})
+   '(fn [pairs opts]
+      (reagent.core/with-let
+        [ks (mapv
+             (fn [{[k] :nextjournal/value}]
+               (:nextjournal/value k))
+             pairs)
+         m  (into {} (map
+                      (fn [{[k v] :nextjournal/value}]
+                        [(:nextjournal/value k) v]))
+                  pairs)
+         !k (reagent.core/atom (first ks))]
+        [:<> (into
+              [:div.flex.items-center.font-sans.text-xs.mb-3
+               [:span.text-slate-500.mr-2 "View as:"]]
+              (map (fn [k]
+                     [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
+                      {:class
+                       (if (= @!k k)
+                         "bg-indigo-100 text-indigo-600"
+                         "text-slate-500")
+                       :on-click #(reset! !k k)}
+                      k]))
+              ks)
+         [nextjournal.clerk.viewer/inspect-presented
+          (get m @!k)]]))})
 
 (defn multi [m]
   (clerk/with-viewer tabbed-viewer m))
@@ -125,3 +140,8 @@
   (clerk/add-viewers!
    [meta-viewer
     literal-viewer]))
+
+(install!)
+(multi
+ {"TeX"  (clerk/tex (emmy.env/->TeX (emmy.env/+ 'x 'y)))
+  "Cake" (emmy.env/+ 1/2 'x 'y)})
