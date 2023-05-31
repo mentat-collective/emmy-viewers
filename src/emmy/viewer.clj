@@ -10,6 +10,20 @@
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
+;; ## Emmy Viewers
+;;
+;; This namespace contains utilities for setting up a project to render
+;; mathematical objects using Clerk, Emmy and viewer libraries like Mafs.cljs
+;; and MathBox.cljs.
+;;
+;; I don't feel confident about the current API boundaries, so expect the layout
+;; here to change. As an example, some of this code is Clerk-specific... but the
+;; functions that build up Reagent fragments could in theory be used
+;; with [Portal](https://github.com/djblue/portal) or other React-aware
+;; libraries.
+;;
+;; ### Project Configuration
+
 (def ^:no-doc css-map
   "Map of package keyword to a sequence of the CSS urls required to render viewers
   from that package.
@@ -29,6 +43,8 @@
   ([packages]
    (apply css/set-css! (mapcat css-map packages))))
 
+;; ## Clerk
+
 (defn ^:no-doc strip-meta [form]
   (postwalk (fn [x]
               (if (meta x)
@@ -36,7 +52,6 @@
                 x))
             form))
 
-;; TODO make this a gensym hardcoded...
 (defn render
   "Takes the unevaluated body `form` of a Clerk `:render-fn` and returns a "
   [form]
@@ -49,6 +64,18 @@
   ([v] (fragment v render))
   ([v viewer]
    (with-meta v {::clerk/viewer viewer})))
+
+;; ## State Utilities
+
+(defn get [sym path]
+  (cond (symbol? sym) (q (get @~sym ~path))
+        (map? sym)    (get sym path)
+        :else         (get @sym path)))
+
+(defn get-in [sym path]
+  (cond (symbol? sym) (q (get-in @~sym ~path))
+        (map? sym)    (get-in sym path)
+        :else         (get-in @sym path)))
 
 (defn inspect-state [sym]
   ['nextjournal.clerk.viewer/inspect `@~sym])
@@ -68,6 +95,8 @@
   `(with-state ~init
      (fn [~sym] ~@body)))
 
+;; ### Parameterized Functions
+
 (defrecord ^:no-doc ParamF [f atom params])
 
 (defn ^:no-doc param-f? [m]
@@ -78,17 +107,9 @@
   [{:keys [params atom]} f]
   (->ParamF f atom params))
 
-(defn get [sym path]
-  (cond (symbol? sym) (q (get @~sym ~path))
-        (map? sym)    (get sym path)
-        :else         (get @sym path)))
-
-(defn get-in [sym path]
-  (cond (symbol? sym) (q (get-in @~sym ~path))
-        (map? sym)    (get-in sym path)
-        :else         (get-in @sym path)))
-
 ;; ## Viewers
+;;
+;; These are custom viewers that seem helpful.
 
 (def meta-viewer
   {:name `meta-viewer
@@ -140,8 +161,3 @@
   (clerk/add-viewers!
    [meta-viewer
     literal-viewer]))
-
-(install!)
-(multi
- {"TeX"  (clerk/tex (emmy.env/->TeX (emmy.env/+ 'x 'y)))
-  "Cake" (emmy.env/+ 1/2 'x 'y)})
