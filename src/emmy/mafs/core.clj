@@ -6,7 +6,7 @@
   (:require [emmy.viewer :as ev]))
 
 (defn ^:no-doc default-viewer [child]
-  (ev/render
+  (ev/fragment
    ['mafs.core/Mafs
     ['mafs.coordinates/Cartesian]
     child]))
@@ -44,7 +44,7 @@
   [& children]
   (fragment
    (into ['mafs.core/Mafs] children)
-   ev/render))
+   ev/reagent-viewer))
 
 (defn point
   "Takes either

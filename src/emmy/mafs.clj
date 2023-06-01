@@ -12,7 +12,7 @@
 (import-vars
  [emmy.mafs.coordinates cartesian polar]
 
- [emmy.mafs.core with-params
+ [emmy.mafs.core
   mafs point polygon polyline ellipse circle
   text vector transform movable-point]
 

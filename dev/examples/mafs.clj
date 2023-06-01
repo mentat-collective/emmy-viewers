@@ -167,16 +167,13 @@
            (range n)
            (vals mafs/Theme))))
 
-
   (clerk/row
-   (ev/render
-    (mafs/mafs {:zoom {:min 0.1 :max 2}}
-               (mafs/cartesian)
-               (derivatives 5 sin)))
-   (ev/render
-    (mafs/mafs {:zoom {:min 0.1 :max 2}}
-               (mafs/cartesian)
-               (derivatives 5 tanh))))
+   (mafs/mafs {:zoom {:min 0.1 :max 2}}
+              (mafs/cartesian)
+              (derivatives 5 sin))
+   (mafs/mafs {:zoom {:min 0.1 :max 2}}
+              (mafs/cartesian)
+              (derivatives 5 tanh)))
 
   (def ->tex
     (comp clerk/tex ->TeX simplify))
@@ -236,3 +233,16 @@
              (mafs/mafs {:zoom {:min 0.1 :max 2}}
                         (mafs/cartesian)
                         (mafs/of-x {:y cake :color :blue}))))}))
+
+
+(ev/with-let [!phase [0 0]]
+  (let [shifted (ev/with-params {:atom !phase :params [0]}
+                  (fn [shift]
+                    (((cube D) tanh) (- identity shift))))]
+    (mafs/mafs
+     (mafs/cartesian)
+     (mafs/of-x shifted)
+     (mafs/inequality
+      {:y {:<= shifted :> cos} :color :blue})
+     (mafs/movable-point
+      {:atom !phase :constrain "horizontal"}))))

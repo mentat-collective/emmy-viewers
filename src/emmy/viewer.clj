@@ -21,103 +21,10 @@
 ;; functions that build up Reagent fragments could in theory be used
 ;; with [Portal](https://github.com/djblue/portal) or other React-aware
 ;; libraries.
-;;
-;; ### Project Configuration
-
-(def ^:no-doc css-map
-  "Map of package keyword to a sequence of the CSS urls required to render viewers
-  from that package.
-
-  These will be moved into subprojects at some point, so don't rely directly on
-  this var!"
-  {:mafs ["https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
-          "https://unpkg.com/mafs@0.16.0/core.css"
-          "https://unpkg.com/mafs@0.16.0/font.css"]
-   :jsxgraph ["https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"]
-   :mathbox ["https://unpkg.com/mathbox@2.3.1/build/mathbox.css"]
-   :mathlive ["https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
-              "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css"]})
-
-(defn install-css!
-  ([] (install-css! #{:mafs :jsxgraph :mathbox :mathlive}))
-  ([packages]
-   (apply css/set-css! (mapcat css-map packages))))
-
-;; ## Clerk
-
-(defn ^:no-doc strip-meta [form]
-  (postwalk (fn [x]
-              (if (meta x)
-                (with-meta x nil)
-                x))
-            form))
-
-(defn render
-  "Takes the unevaluated body `form` of a Clerk `:render-fn` and returns a "
-  [form]
-  (clerk/with-viewer
-    {:render-fn
-     (list 'fn [] (strip-meta form))}
-    nil))
-
-(defn ^:no-doc fragment
-  ([v] (fragment v render))
-  ([v viewer]
-   (with-meta v {::clerk/viewer viewer})))
-
-;; ## State Utilities
-
-(defn get [sym path]
-  (cond (symbol? sym) (q (get @~sym ~path))
-        (map? sym)    (get sym path)
-        :else         (get @sym path)))
-
-(defn get-in [sym path]
-  (cond (symbol? sym) (q (get-in @~sym ~path))
-        (map? sym)    (get-in sym path)
-        :else         (get-in @sym path)))
-
-(defn inspect-state [sym]
-  ['nextjournal.clerk.viewer/inspect `@~sym])
-
-(defn with-state [init f]
-  (let [sym  (gensym)
-        body (f sym)]
-    (with-meta
-      (q (reagent.core/with-let [~sym (reagent.core/atom ~init)]
-           ~body))
-      (update (meta body) ::clerk/viewer #(or % render)))))
-
-(defmacro with-let
-  "Testing out the macro style, works with a single input."
-  {:clj-kondo/lint-as 'clojure.core/let}
-  [[sym init] & body]
-  `(with-state ~init
-     (fn [~sym] ~@body)))
-
-;; ### Parameterized Functions
-
-(defrecord ^:no-doc ParamF [f atom params])
-
-(defn ^:no-doc param-f? [m]
-  (instance? ParamF m))
-
-(defn with-params
-  "describe!"
-  [{:keys [params atom]} f]
-  (->ParamF f atom params))
 
 ;; ## Viewers
 ;;
 ;; These are custom viewers that seem helpful.
-
-(def meta-viewer
-  {:name `meta-viewer
-   :pred (comp ifn? ::clerk/viewer meta)
-   :transform-fn
-   (clerk/update-val
-    (fn [v]
-      ((-> v meta ::clerk/viewer) v)))})
 
 (def tabbed-viewer
   {:name `tabbed-viewer
@@ -157,7 +64,101 @@
    :transform-fn
    (clerk/update-val x/expression-of)})
 
+(def meta-viewer
+  {:name `meta-viewer
+   :pred #(-> % meta ::clerk/viewer)
+   :transform-fn
+   (clerk/update-val
+    (fn [v]
+      (clerk/with-viewer
+        (-> v meta ::clerk/viewer)
+        (vary-meta v dissoc ::clerk/viewer))))})
+
+(defn ^:no-doc strip-meta [form]
+  (postwalk (fn [x]
+              (if (meta x)
+                (vary-meta x dissoc ::clerk/viewer)
+                x))
+            form))
+
+(def reagent-viewer
+  {:name `reagent-viewer
+   :transform-fn
+   (clerk/update-val
+    (fn [form]
+      (clerk/with-viewer
+        {:render-fn
+         (list 'fn [] (strip-meta form))}
+        nil)))})
+
+(defn ^:no-doc fragment
+  ([v] (fragment v reagent-viewer))
+  ([v viewer]
+   (with-meta v {::clerk/viewer viewer})))
+
 (defn install! []
   (clerk/add-viewers!
-   [meta-viewer
-    literal-viewer]))
+   [meta-viewer literal-viewer]))
+
+;; ### Project Configuration
+
+(def ^:no-doc css-map
+  "Map of package keyword to a sequence of the CSS urls required to render viewers
+  from that package.
+
+  These will be moved into subprojects at some point, so don't rely directly on
+  this var!"
+  {:mafs ["https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
+          "https://unpkg.com/mafs@0.16.0/core.css"
+          "https://unpkg.com/mafs@0.16.0/font.css"]
+   :jsxgraph ["https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"]
+   :mathbox ["https://unpkg.com/mathbox@2.3.1/build/mathbox.css"]
+   :mathlive ["https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
+              "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css"]})
+
+(defn install-css!
+  ([] (install-css! #{:mafs :jsxgraph :mathbox :mathlive}))
+  ([packages]
+   (apply css/set-css! (mapcat css-map packages))))
+
+;; ## State Utilities
+
+(defn get [sym path]
+  (cond (symbol? sym) (q (get @~sym ~path))
+        (map? sym)    (get sym path)
+        :else         (get @sym path)))
+
+(defn get-in [sym path]
+  (cond (symbol? sym) (q (get-in @~sym ~path))
+        (map? sym)    (get-in sym path)
+        :else         (get-in @sym path)))
+
+(defn inspect-state [sym]
+  ['nextjournal.clerk.viewer/inspect `@~sym])
+
+(defn with-state [init f]
+  (let [sym  (gensym)
+        body (f sym)]
+    (vary-meta
+     (q (reagent.core/with-let [~sym (reagent.core/atom ~init)]
+          ~body))
+     update ::clerk/viewer #(or % reagent-viewer))))
+
+(defmacro with-let
+  "Testing out the macro style, works with a single input."
+  {:clj-kondo/lint-as 'clojure.core/let}
+  [[sym init] & body]
+  `(with-state ~init
+     (fn [~sym] ~@body)))
+
+;; ### Parameterized Functions
+
+(defrecord ^:no-doc ParamF [f atom params])
+
+(defn ^:no-doc param-f? [m]
+  (instance? ParamF m))
+
+(defn with-params
+  "describe!"
+  [{:keys [params atom]} f]
+  (->ParamF f atom params))

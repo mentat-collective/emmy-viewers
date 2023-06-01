@@ -1,7 +1,7 @@
 {:paths ["src" "resources"]
  :deps
  {io.github.nextjournal/clerk
-  {:git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"}
+  {:git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"}
   org.mentat/emmy {:mvn/version "0.30.0" :exclusions [org.babashka/sci]}
   org.mentat/jsxgraph.cljs {:mvn/version "0.2.0"}
   org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
@@ -9,8 +9,9 @@
   org.mentat/mafs.cljs
   #_{:mvn/version "0.2.1"}
   {:local/root "../mafs.cljs"}
+
   org.mentat/leva.cljs {:mvn/version "0.2.2"}
-  org.mentat/clerk-utils {:mvn/version "0.5.0"}}
+  org.mentat/clerk-utils {:local/root "../clerk-utils"}}
 
  :aliases
  {:nextjournal/clerk
@@ -18,13 +19,14 @@
    :extra-deps
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
+    djblue/portal             {:local/root "../portal"}
     io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"
+     :git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"
      :deps/root "render"}}
    :exec-fn user/build!}
 
   :build
-  {:deps {io.github.clojure/tools.build {:git/tag "v0.8.2" :git/sha "ba1a2bf"}
+  {:deps {io.github.clojure/tools.build {:git/tag "v0.9.4" :git/sha "76b78fe"}
           slipset/deps-deploy {:mvn/version "0.2.0"}}
    :ns-default build}}}

@@ -32,6 +32,7 @@
 
 ;; > The 'show code' link below will expand the example's source.
 
+
 ^{::clerk/visibility {:code :fold}}
 (ev/with-let [!point [0.6 0.6]]
   (mafs/mafs

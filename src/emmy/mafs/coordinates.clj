@@ -12,9 +12,9 @@
   - `:subdivisions`"
   ([] (cartesian {}))
   ([opts]
-   (mafs/fragment
+   (ev/fragment
     ['mafs.coordinates/Cartesian opts]
-    (comp ev/render mafs/mafs))))
+    mafs/mafs)))
 
 (defn polar
   "
@@ -24,6 +24,6 @@
   - `:subdivisions`"
   ([] (polar {}))
   ([opts]
-   (mafs/fragment
+   (ev/fragment
     ['mafs.coordinates/Polar opts]
-    (comp ev/render mafs/mafs))))
+    mafs/mafs)))
