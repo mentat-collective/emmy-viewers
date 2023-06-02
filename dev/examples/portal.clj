@@ -17,11 +17,6 @@
   (def portal
     (p/start!))
 
-  ;; I tried to put a call to `install!` inside of `start!`, but it doesn't seem
-  ;; to take effect.
-  (p/install!)
-
-
   ;; Test a basic reagent fragment:
   (tap> ^{:portal.viewer/default :emmy.portal.viewer/reagent}
         [:pre "Hello!"])

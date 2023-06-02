@@ -10,7 +10,7 @@
       (p/eval-str)))
 
 (defn start! []
-  (let [p (p/open)]
-    (install!)
+  (let [p (p/open {:on-load install!})]
+    (p/register! #'apply)
     (add-tap #'p/submit)
     p))
