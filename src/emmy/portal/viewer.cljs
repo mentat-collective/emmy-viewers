@@ -1,15 +1,44 @@
 (ns emmy.portal.viewer
   (:require [clojure.walk :refer [postwalk]]
+            [clojure.string :as str]
             [mafs.debug]
             [mafs.line]
             [mafs.core]
             [mafs.coordinates]
             [mafs.plot]
+            [portal.colors :as c]
             [portal.ui.api :as p]
+            [portal.ui.inspector :as ins]
             [portal.ui.rpc :as rpc]
+            [portal.ui.theme :as theme]
             ["react" :as react]))
 
-(defn inject [href]
+(def ^:private theme-mapping
+  {:fg         ::c/text
+   :bg         ::background
+   :line-color ::c/border
+   :red        ::c/exception
+   :orange     ::c/uri
+   :green      ::c/string
+   :blue       ::c/namespace
+   :indigo     ::c/boolean
+   :violet     ::c/package
+   :pink       ::c/number
+   :yellow     ::c/tag})
+
+(defn- ->style [theme]
+  (str
+   ".MafsView {"
+   (str/join
+    ";"
+    (reduce-kv
+     (fn [out mafs portal]
+       (conj out (str "--mafs-" (name mafs) ": " (get theme portal))))
+     []
+     theme-mapping))
+   "}"))
+
+(defn- inject [href]
   (let [link (.createElement js/document "link")]
     (set! (.-rel link) "stylesheet")
     (set! (.-href link) href)
@@ -48,20 +77,28 @@
        ;; main.js:3403 Uncaught (in promise) Error: Doesn't support
        ;; namespace: [object Object] at uh (main.js:3403:404) at
        ;; main.js:4704:202
-       #_(-> (rpc/call xform form)
-             (.then (fn [ret]
-                      (set-form! (->f ret)))))
+       (-> (rpc/call 'clojure.core/apply xform [v])
+           (.then (fn [ret]
+                    (set-form! (->f ret)))))
+
        js/undefined)
      #js [])
     form))
 
 (defn show-reagent [v]
-  (let [xform (xform-key (meta v))]
+  (let [xform (xform-key (meta v))
+        theme (-> (theme/use-theme)
+                  (assoc  ::background (ins/get-background)))]
     ;; I want to branch on (fn? xform), but it looks like the xform object
     ;; always returns `false` to `fn?`.
-    (if (or (not xform) (map? xform))
-      (->f v)
-      [expand v])))
+    [:div
+     {:style
+      {:border (str "1px solid " (::c/border theme))
+       :border-radius (:border-radius theme)}}
+     [:style (->style theme)]
+     (if (or (not xform) (map? xform))
+       [(->f v)]
+       [expand v])]))
 
 (p/register-viewer!
  {:name ::reagent
