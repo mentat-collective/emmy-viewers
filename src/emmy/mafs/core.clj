@@ -42,9 +42,8 @@
     clicked on, and passed the point where it was clicked.
   "
   [& children]
-  (fragment
-   (into ['mafs.core/Mafs] children)
-   ev/reagent-viewer))
+  (ev/fragment
+   (into ['mafs.core/Mafs] children)))
 
 (defn point
   "Takes either

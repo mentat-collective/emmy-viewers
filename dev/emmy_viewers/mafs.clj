@@ -5,7 +5,8 @@
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [emmy.env :as e :refer :all]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
             [emmy.mafs :as mafs]
             [emmy.viewer :as ev]
             [mentat.clerk-utils.docs :as docs]
@@ -13,7 +14,7 @@
             [nextjournal.clerk :as clerk]))
 
 ^{::clerk/visibility {:code :hide :result :hide}}
-(ev/install!)
+(ec/install!)
 
 ;; # Mafs.cljs
 ;;

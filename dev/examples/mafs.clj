@@ -6,6 +6,7 @@
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
   (:require [emmy.mafs.core]
+            [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.mafs :as mafs]
             [emmy.polynomial :as poly]
@@ -15,7 +16,7 @@
 
 ;; ## Server-Side Mafs
 
-(ev/install!)
+(ec/install!)
 
 ;; ## Demo!
 
@@ -223,9 +224,10 @@
          (square x)
          (cube x))))
 
+
   (mafs/of-x {:y my-poly})
 
-  (ev/multi
+  (ec/multi
    {:TeX  (clerk/tex (->TeX (square 'x)))
     :2TeX (let [cake ((expt D 5) tanh)]
             (clerk/col

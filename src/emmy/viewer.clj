@@ -3,12 +3,8 @@
   "Namespace containing viewer utilities..."
   {:nextjournal.clerk/toc true}
   (:refer-clojure :exclude [get get-in])
-  (:require [clojure.core :as core]
-            [clojure.walk :refer [postwalk]]
-            [emmy.expression :as x]
-            [mentat.clerk-utils.css :as css]
-            [mentat.clerk-utils.viewers :refer [q]]
-            [nextjournal.clerk :as clerk]))
+  (:require [mentat.clerk-utils :refer [->clerk]]
+            [nextjournal.clerk :as-alias clerk]))
 
 ;; ## Emmy Viewers
 ;;
@@ -23,126 +19,55 @@
 ;; libraries.
 
 ;; ## Viewers
-;;
-;; These are custom viewers that seem helpful.
 
-(def tabbed-viewer
-  {:name `tabbed-viewer
-   :render-fn
-   '(fn [pairs opts]
-      (reagent.core/with-let
-        [ks (mapv
-             (fn [{[k] :nextjournal/value}]
-               (:nextjournal/value k))
-             pairs)
-         m  (into {} (map
-                      (fn [{[k v] :nextjournal/value}]
-                        [(:nextjournal/value k) v]))
-                  pairs)
-         !k (reagent.core/atom (first ks))]
-        [:<> (into
-              [:div.flex.items-center.font-sans.text-xs.mb-3
-               [:span.text-slate-500.mr-2 "View as:"]]
-              (map (fn [k]
-                     [:button.px-3.py-1.font-medium.hover:bg-indigo-50.rounded-full.hover:text-indigo-600.transition
-                      {:class
-                       (if (= @!k k)
-                         "bg-indigo-100 text-indigo-600"
-                         "text-slate-500")
-                       :on-click #(reset! !k k)}
-                      k]))
-              ks)
-         [nextjournal.clerk.viewer/inspect-presented
-          (get m @!k)]]))})
+(def ^:no-doc reagent-viewer
+  "This will hold a reference to the viewer that we want IF Clerk is loaded. See
+  below..."
+  nil)
 
-(defn multi [m]
-  (clerk/with-viewer tabbed-viewer m))
-
-(def literal-viewer
-  {:name `literal-viewer
-   :pred x/literal?
-   :transform-fn
-   (clerk/update-val x/expression-of)})
-
-(def meta-viewer
-  {:name `meta-viewer
-   :pred #(-> % meta ::clerk/viewer)
-   :transform-fn
-   (clerk/update-val
-    (fn [v]
-      (clerk/with-viewer
-        (-> v meta ::clerk/viewer)
-        (vary-meta v dissoc ::clerk/viewer))))})
-
-(defn ^:no-doc strip-meta [form]
-  (postwalk (fn [x]
-              (if (meta x)
-                (vary-meta x dissoc ::clerk/viewer)
-                x))
-            form))
-
-(def reagent-viewer
-  {:name `reagent-viewer
-   :transform-fn
-   (clerk/update-val
-    (fn [form]
-      (clerk/with-viewer
-        {:render-fn
-         (list 'fn [] (strip-meta form))}
-        nil)))})
+#_{:clj-kondo/ignore [:unresolved-namespace]}
+(->clerk
+ (require 'emmy.clerk)
+ (alter-var-root
+  #'reagent-viewer
+  (constantly emmy.clerk/reagent-viewer)))
 
 (defn ^:no-doc fragment
-  ([v] (fragment v reagent-viewer))
-  ([v viewer]
-   (with-meta v {::clerk/viewer viewer})))
+  ([v] (fragment v nil))
+  ([v viewer-or-xform]
+   ;; TODO keep it tidy! don't asoc key if we don't need it.
+   (vary-meta v assoc
+              :portal.viewer/default :emmy.portal.viewer/reagent
+              ::clerk/viewer (or viewer-or-xform reagent-viewer))
 
-(defn install! []
-  (clerk/add-viewers!
-   [meta-viewer literal-viewer]))
-
-;; ### Project Configuration
-
-(def ^:no-doc css-map
-  "Map of package keyword to a sequence of the CSS urls required to render viewers
-  from that package.
-
-  These will be moved into subprojects at some point, so don't rely directly on
-  this var!"
-  {:mafs ["https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
-          "https://unpkg.com/mafs@0.16.0/core.css"
-          "https://unpkg.com/mafs@0.16.0/font.css"]
-   :jsxgraph ["https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"]
-   :mathbox ["https://unpkg.com/mathbox@2.3.1/build/mathbox.css"]
-   :mathlive ["https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
-              "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css"]})
-
-(defn install-css!
-  ([] (install-css! #{:mafs :jsxgraph :mathbox :mathlive}))
-  ([packages]
-   (apply css/set-css! (mapcat css-map packages))))
+   #_(if-let [form (or viewer-or-xform reagent-viewer)]
+       (vary-meta v assoc ::clerk/viewer form)
+       v)))
 
 ;; ## State Utilities
 
 (defn get [sym path]
-  (cond (symbol? sym) (q (get @~sym ~path))
+  (cond (symbol? sym) (list 'clojure.core/get
+                            (list 'clojure.core/deref sym)
+                            path)
         (map? sym)    (get sym path)
         :else         (get @sym path)))
 
 (defn get-in [sym path]
-  (cond (symbol? sym) (q (get-in @~sym ~path))
+  (cond (symbol? sym) (list 'clojure.core/get-in
+                            (list 'clojure.core/deref sym)
+                            path)
         (map? sym)    (get-in sym path)
         :else         (get-in @sym path)))
-
-(defn inspect-state [sym]
-  ['nextjournal.clerk.viewer/inspect `@~sym])
 
 (defn with-state [init f]
   (let [sym  (gensym)
         body (f sym)]
-    (vary-meta
-     (q (reagent.core/with-let [~sym (reagent.core/atom ~init)]
-          ~body))
-     update ::clerk/viewer #(or % reagent-viewer))))
+    (-> (list 'reagent.core/with-let
+              [sym (list 'reagent.core/atom init)]
+              (vary-meta body dissoc ::clerk/viewer))
+        (fragment
+         (::clerk/viewer (meta body))))))
 
 (defmacro with-let
   "Testing out the macro style, works with a single input."

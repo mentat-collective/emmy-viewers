@@ -2,8 +2,7 @@
   "Server-side rendering functions for the components declared in the
   [`mafs.plot`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.plot)
   namespace of the [`Mafs.cljs` project](https://mafs.mentat.org)."
-  (:require [emmy.viewer :as v]
-            [emmy.mafs.compile :as c]
+  (:require [emmy.mafs.compile :as c]
             [emmy.mafs.core :as mafs]))
 
 (defn of-x
