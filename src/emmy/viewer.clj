@@ -37,6 +37,7 @@
   ([v viewer-or-xform]
    ;; TODO keep it tidy! don't asoc key if we don't need it.
    (vary-meta v assoc
+              :portal.viewer/reagent? true
               :portal.viewer/default :emmy.portal.viewer/reagent
               ::clerk/viewer (or viewer-or-xform reagent-viewer))
 
