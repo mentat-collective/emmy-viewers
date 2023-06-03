@@ -3,8 +3,7 @@
   "Namespace containing viewer utilities..."
   {:nextjournal.clerk/toc true}
   (:refer-clojure :exclude [get get-in])
-  (:require [mentat.clerk-utils :refer [->clerk]]
-            [nextjournal.clerk :as-alias clerk]))
+  (:require [nextjournal.clerk :as-alias clerk]))
 
 ;; ## Emmy Viewers
 ;;
@@ -20,17 +19,15 @@
 
 ;; ## Viewers
 
-(def ^:no-doc reagent-viewer
-  "This will hold a reference to the viewer that we want IF Clerk is loaded. See
-  below..."
-  nil)
+;; This will hold a reference to the viewer that we want IF Clerk is loaded. See
+;; below...
+(defonce ^:no-doc reagent-viewer nil)
 
-#_{:clj-kondo/ignore [:unresolved-namespace]}
-(->clerk
- (require 'emmy.clerk)
- (alter-var-root
-  #'reagent-viewer
-  (constantly emmy.clerk/reagent-viewer)))
+(defn expand [v]
+  (let [xform (-> v meta :nextjournal.clerk/viewer)]
+    (if (fn? xform)
+      (expand (xform v))
+      v)))
 
 (defn ^:no-doc fragment
   ([v] (fragment v nil))

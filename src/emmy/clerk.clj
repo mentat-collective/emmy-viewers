@@ -4,6 +4,7 @@
   {:nextjournal.clerk/toc true}
   (:require [clojure.walk :refer [postwalk]]
             [emmy.expression :as x]
+            [emmy.viewer :as ev]
             [emmy.viewer.css :as vc]
             [mentat.clerk-utils.css :as css]
             [nextjournal.clerk :as clerk]))
@@ -69,6 +70,12 @@
         {:render-fn
          (list 'fn [] (strip-meta form))}
         nil)))})
+
+;; TODO is this the cleanest way to do this, as a side effect here?
+
+(alter-var-root
+ #'ev/reagent-viewer
+ (constantly emmy.clerk/reagent-viewer))
 
 ;; ### Emmy-specific viewers
 

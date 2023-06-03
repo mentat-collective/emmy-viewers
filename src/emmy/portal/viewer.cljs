@@ -65,22 +65,11 @@
    (list 'fn [] (strip-meta body))))
 
 (defn expand [v]
-  (let [[form set-form!] (react/useState [:div "Loading..."])
-        xform            (xform-key (meta v))]
+  (let [[form set-form!] (react/useState nil)]
     (react/useEffect
      (fn []
-       ;; I want this branch to perform the RPC call...
-       (set-form! [:pre "Log: " (pr-str [(fn? xform) (type xform) (meta v)])])
-
-       ;; But when I activate it I get this error in the logs:
-       ;;
-       ;; main.js:3403 Uncaught (in promise) Error: Doesn't support
-       ;; namespace: [object Object] at uh (main.js:3403:404) at
-       ;; main.js:4704:202
-       (-> (rpc/call 'clojure.core/apply xform [v])
-           (.then (fn [ret]
-                    (set-form! (->f ret)))))
-
+       (-> (rpc/call 'emmy.viewer/expand v)
+           (.then (comp set-form! ->f)))
        js/undefined)
      #js [])
     form))
@@ -98,7 +87,7 @@
      [:style (->style theme)]
      (if (or (not xform) (map? xform))
        [(->f v)]
-       [expand v])]))
+       [:f> expand v])]))
 
 (p/register-viewer!
  {:name ::reagent
