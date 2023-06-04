@@ -18,7 +18,7 @@
     (p/start!))
 
   ;; Test a basic reagent fragment:
-  (tap> ^{:portal.viewer/default :emmy.portal.viewer/reagent}
+  (tap> ^{:portal.viewer/default :emmy.portal/reagent}
         [:pre "Hello!"])
 
   ;; now try a basic mafs scene:
@@ -41,18 +41,17 @@
          {:atom !phase :constrain "horizontal"})))))
 
   ;; This is the tough one.
-  (tap> (mafs/cartesian))
+  (tap> (mafs/of-x sin))
 
-  ;; This form has a function under `:nextjournal.clerk/viewer`. We want to
-  ;; apply that function BEFORE we render:
-  (let [v (mafs/cartesian)
-        m (meta v)]
-    (tap> ((:nextjournal.clerk/viewer m) v)))
+  ;; WOAH! select the previous one in the UI then do this:
+  (tap> (mafs/mafs
+         (mafs/cartesian)
+         @portal
+         (mafs/of-y exp)))
 
-  ;; here's the metadata:
-  (binding [*print-meta* true]
-    (pr-str (mafs/cartesian)))
+  ;; ## Expressions
 
-  ;; I can't seem to get the API call working! See `src/emmy/portal/viewer.cljs`
-  ;; for my current best attempt and some notes.
-  )
+  (tap>
+   (with-meta
+     (((exp D) (literal-function 'f)) 'x)
+     {:portal.viewer/default :emmy.portal/tex})))

@@ -27,7 +27,7 @@
     "fraction.js": "4.2.0",
     "framer-motion": "6.5.1",
     "jsxgraph": "1.5.0",
-    "katex": "0.12.0",
+    "katex": "^0.16.7",
     "leva": "0.9.34",
     "mafs": "0.16.0",
     "markdown-it": "12.3.2",
