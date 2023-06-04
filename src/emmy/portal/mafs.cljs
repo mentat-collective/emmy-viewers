@@ -1,5 +1,8 @@
 (ns emmy.portal.mafs
+  "The side effect of requiring this viewer namespace makes Mafs.cljs available to
+  Portal."
   (:require [clojure.string :as str]
+            [emmy.viewer.css :refer [css-map]]
             [emmy.portal.css :as css]
             [emmy.portal.reagent :as pr]
             [mafs.debug]
@@ -12,10 +15,7 @@
             [portal.ui.inspector :as ins]
             [portal.ui.theme :as theme]))
 
-(css/inject!
- "https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
- "https://unpkg.com/mafs@0.16.0/core.css"
- "https://unpkg.com/mafs@0.16.0/font.css")
+(apply css/inject! (:mafs css-map))
 
 (def ^:private theme-mapping
   {:fg         ::c/text
@@ -31,26 +31,26 @@
    :yellow     ::c/tag})
 
 (defn- ->style [theme]
-  (str
-   ".MafsView {"
-   (str/join
-    ";"
-    (reduce-kv
-     (fn [out mafs portal]
-       (conj out (str "--mafs-" (name mafs) ": " (get theme portal))))
-     []
-     theme-mapping))
-   "}"))
+  (let [lines (reduce-kv
+               (fn [out mafs portal]
+                 (conj out (str "--mafs-" (name mafs) ": "
+                                (get theme portal))))
+               []
+               theme-mapping)]
+    (str
+     ".MafsView {" (str/join ";" lines) "}")))
 
-(defn show-mafs [v]
+(defn show-mafs [_]
   (let [theme (-> (theme/use-theme)
-                  (assoc ::background (ins/get-background)))]
-    [:div
-     {:style
-      {:border (str "1px solid " (::c/border theme))
-       :border-radius (:border-radius theme)}}
-     [:style (->style theme)]
-     [pr/show-reagent v]]))
+                  (assoc ::background
+                         (ins/get-background)))]
+    (fn [v]
+      [:div
+       {:style
+        {:border (str "1px solid " (::c/border theme))
+         :border-radius (:border-radius theme)}}
+       [:style (->style theme)]
+       [pr/show-reagent v]])))
 
 (p/register-viewer!
  {:name :emmy.portal/mafs
