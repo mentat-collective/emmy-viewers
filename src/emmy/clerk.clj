@@ -72,7 +72,6 @@
         nil)))})
 
 ;; TODO is this the cleanest way to do this, as a side effect here?
-
 (alter-var-root
  #'ev/reagent-viewer
  (constantly emmy.clerk/reagent-viewer))

@@ -15,7 +15,9 @@
 
 (comment
   (def portal
-    (p/start!))
+    (p/start!
+     {:emmy.portal/tex {:macros {"\\f" "#1f(#2)"}}
+      :theme :portal.colors/zenburn}))
 
   ;; Test a basic reagent fragment:
   (tap> ^{:portal.viewer/default :emmy.portal/reagent}
@@ -23,8 +25,7 @@
 
   ;; now try a basic mafs scene:
   (tap>
-   (mafs/mafs
-    (mafs/cartesian)))
+   (mafs/of-x sin))
 
   ;; then a more complicated one!
   (tap>
@@ -41,16 +42,15 @@
          {:atom !phase :constrain "horizontal"})))))
 
   ;; This is the tough one.
-  (tap> (mafs/of-x sin))
+  (tap> (mafs/of-x sin {:color :indigo}))
 
   ;; WOAH! select the previous one in the UI then do this:
   (tap> (mafs/mafs
          (mafs/cartesian)
          @portal
-         (mafs/of-y exp)))
+         (mafs/of-y exp {:color :green})))
 
   ;; ## Expressions
-
   (tap>
    (with-meta
      (((exp D) (literal-function 'f)) 'x)

@@ -1,6 +1,25 @@
 (ns emmy.portal.mafs
-  "The side effect of requiring this viewer namespace makes Mafs.cljs available to
-  Portal."
+  "Portal viewer for rendering Mafs.cljs reagent snippets. Requiring this viewer
+  has the side-effect of requiring all namespaces
+  from [Mafs.cljs](https://github.com/mentat-collective/Mafs.cljs) into the SCI
+  context.
+
+  Generate these fragments using the code in the [[emmy.mafs]] namespace and
+  sub-namespaces.
+
+  To use this viewer, first install the `mafs` npm package:
+
+  ```bash
+  npm install mafs@0.16.0
+  ```
+
+  Then install the viewer:
+
+  ```clojure
+  (emmy.portal/install! \"emmy/portal/mafs.cljs\")
+  ```
+
+  The viewer is automatically installed by the functions in [[emmy.portal]]."
   (:require [clojure.string :as str]
             [emmy.viewer.css :refer [css-map]]
             [emmy.portal.css :as css]
@@ -12,10 +31,13 @@
             [mafs.plot]
             [portal.colors :as c]
             [portal.ui.api :as p]
+            [portal.ui.options :as o]
             [portal.ui.inspector :as ins]
             [portal.ui.theme :as theme]))
 
 (apply css/inject! (:mafs css-map))
+
+(def viewer-name :emmy.portal/mafs)
 
 (def ^:private theme-mapping
   {:fg         ::c/text
@@ -33,31 +55,34 @@
 (defn- ->style [theme]
   (let [lines (reduce-kv
                (fn [out mafs portal]
-                 (conj out (str "--mafs-" (name mafs) ": "
-                                (get theme portal))))
+                 (when-let [v (get theme portal)]
+                   (conj out (str "--mafs-" (name mafs) ": " v))))
                []
                theme-mapping)]
     (str
      ".MafsView {" (str/join ";" lines) "}")))
 
 (defn show-mafs [_]
-  (let [theme (-> (theme/use-theme)
-                  (assoc ::background
-                         (ins/get-background)))]
+  (let [opts  (get (o/use-options) viewer-name)
+        theme (when-not (= :default (:theme opts))
+                (-> (theme/use-theme)
+                    (assoc ::background
+                           (ins/get-background))))]
     (fn [v]
       [:div
        {:style
         {:border (str "1px solid " (::c/border theme))
          :border-radius (:border-radius theme)}}
-       [:style (->style theme)]
+       (when theme
+         [:style (->style theme)])
        [pr/show-reagent v]])))
 
 (p/register-viewer!
- {:name :emmy.portal/mafs
+ {:name viewer-name
   :component show-mafs
   :predicate
   (fn [v]
     (when-let [m (meta v)]
       (or (:portal.viewer/mafs? m)
-          (= :emmy.portal/mafs
+          (= viewer-name
              (:portal.viewer/default m)))))})

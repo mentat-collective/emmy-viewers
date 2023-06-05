@@ -1,6 +1,9 @@
-(ns emmy.portal.css)
+(ns emmy.portal.css
+  "Helper code for installing external CSS into the Portal page.")
 
 (defn inject!
+  "Given some number of `href` arguments, installs them into the header of the
+  current page."
   ([href]
    (let [link (.createElement js/document "link")]
      (set! (.-rel link) "stylesheet")

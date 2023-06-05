@@ -1,15 +1,29 @@
 (ns emmy.portal.reagent
+  "Portal viewer for rendering Reagent snippets.
+
+  Install the viewer like this:
+
+  ```clojure
+  (emmy.portal/install! \"emmy/portal/reagent.cljs\")
+  ```
+
+  The viewer is automatically installed by the functions in [[emmy.portal]]."
   (:require [clojure.walk :refer [postwalk]]
             [portal.ui.api :as p]
             [portal.ui.rpc :as rpc]
             ["react" :as react]))
 
-(def xform-key :nextjournal.clerk/viewer)
+(def viewer-name :emmy.portal/reagent)
 
-;; Without this, I was getting "Rendering error: Could not resolve symbol:
-;; emmy.clerk/reagent-viewer". This symbol was inside one of the metadata
-;; entries.
-(defn strip-meta [form]
+(def xform-key
+  "Currently transforms are stored under this key for compatibility with the
+  Emmy-Viewers Clerk code."
+  :nextjournal.clerk/viewer)
+
+(defn ^:no-doc strip-meta
+  "Given an unevaluated Reagent body, returns an identical form with all metadata
+  stripped off."
+  [form]
   (postwalk
    (fn [x]
      (if (meta x)
@@ -17,11 +31,19 @@
        x))
    form))
 
-(defn ->f [body]
+(defn ->f
+  "Given a quoted Reagent body (which might use functions like
+  `reagent.core/with-let` or third-party components, not just Hiccup syntax),
+  returns a no-argument-function component that renders an `eval`-ed version of
+  `body`."
+  [body]
   (eval
    (list 'fn [] (strip-meta body))))
 
-(defn expand [v]
+(defn expand
+  "Renders the supplied Reagent fragment by expanding it
+  with [[emmy.viewer/expand]] and then evaluating it via [[->f]]."
+  [v]
   (let [[form set-form!] (react/useState nil)]
     (react/useEffect
      (fn []
@@ -31,18 +53,25 @@
      #js [])
     form))
 
-(defn show-reagent [v]
+(defn show-reagent
+  "Renders `v`, an unevaluated Reagent fragment, by either using [[->f]] directly
+  or first expanding it via [[expand]].
+
+  The latter case comes up with a fragment that needs some wrapping context,
+  like `mafs.plot/OfX`. This component can't render alone but needs a wrapping
+  `mafs.core/Mafs`, provided by `expand`."
+  [v]
   (let [xform (xform-key (meta v))]
     (if (or (not xform) (map? xform))
       [(->f v)]
       [:f> expand v])))
 
 (p/register-viewer!
- {:name :emmy.portal/reagent
+ {:name viewer-name
   :component show-reagent
   :predicate
   (fn [v]
     (when-let [m (meta v)]
       (or (:portal.viewer/reagent? m)
-          (= :emmy.portal/reagent
+          (= viewer-name
              (:portal.viewer/default m)))))})

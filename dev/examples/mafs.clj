@@ -1,7 +1,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.mafs
   #:nextjournal.clerk
-  {:toc true :no-cache true}
+  {:toc true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
@@ -19,6 +19,10 @@
 (ec/install!)
 
 ;; ## Demo!
+
+1
+
+{:x "y"}
 
 (ev/with-let [!phase [0 0]]
   (let [shifted (ev/with-params {:atom !phase :params [0]}
