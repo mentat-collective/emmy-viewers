@@ -1,26 +1,12 @@
 (ns user
-  (:require [mentat.clerk-utils.build :as b]
-            [mentat.clerk-utils.css :as css]))
-
-(css/set-css!
- ;; mafs
- "https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
- "https://unpkg.com/mafs@0.15.2/core.css"
- "https://unpkg.com/mafs@0.15.2/font.css"
-
- ;; JSXGraph
- "https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"
-
- ;; mathbox
- "https://unpkg.com/mathbox@2.3.1/build/mathbox.css"
-
- ;; mathlive
- "https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
- "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
+  (:require [mentat.clerk-utils.build :as b]))
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
 (require '[emmy.env])
 (require '[emmy.expression.render :as xr])
+(require '[emmy.clerk :as ec])
+
+(ec/install-css!)
 
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
@@ -31,19 +17,16 @@
 
 (def notebooks
   ["dev/examples/**.clj"
-   "dev/examples/**.cljc"])
+   "dev/examples/**.cljc"
+   "dev/emmy_viewers/**.clj"
+   "dev/emmy_viewers/**.cljc"])
 
 (def defaults
   {:index index
    :browse? true
    :watch-paths ["src" "dev"]
    :cljs-namespaces
-   '[emmy-viewers.sci-extensions
-     examples.manifold.pq-knot
-     examples.simulation.cylinder-flow
-     examples.simulation.lorenz
-     examples.simulation.phase-portrait
-     examples.simulation.quartic-well]})
+   '[emmy-viewers.sci-extensions]})
 
 (def static-defaults
   (assoc defaults
