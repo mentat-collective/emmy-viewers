@@ -2,7 +2,7 @@
 
 ## [unreleased]
 
-- #26:
+- #28:
 
   - Adds [Portal](https://github.com/djblue/portal) support for all existing
     Emmy-Viewers code via `emmy.portal`. See `emmy.portal/{prepare!, install!,
