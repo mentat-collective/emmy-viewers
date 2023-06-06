@@ -71,11 +71,12 @@
   [opts]
   (let [[x-binds x] (c/compile-vals (:x opts) c/compile-1d)
         [y-binds y] (c/compile-vals (:y opts) c/compile-1d)]
-    (c/wrap (into x-binds y-binds)
-            ['mafs.plot/Inequality
-             (cond-> opts
-               x (assoc :x x)
-               y (assoc :y y))])))
+    (mafs/fragment
+     (c/wrap (into x-binds y-binds)
+             ['mafs.plot/Inequality
+              (cond-> opts
+                x (assoc :x x)
+                y (assoc :y y))]))))
 
 (defn parametric
   "

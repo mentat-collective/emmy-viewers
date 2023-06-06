@@ -8,10 +8,7 @@
             [emmy.portal :as p]
             [emmy.viewer :as ev]))
 
-;; Okay, repro time!
-;;
-;; - Start a REPL with the `:portal` profile activated.
-;; - run the following two forms:
+;; ## Portal Support
 
 (comment
   (def portal
