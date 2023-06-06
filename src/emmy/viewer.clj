@@ -1,87 +1,181 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns emmy.viewer
-  "Namespace containing viewer utilities..."
+  "This namespace contains functions for building Reagent fragments that are
+  renderable by Clerk (see [[emmy.clerk]]) or Portal (see [[emmy.portal]])."
   {:nextjournal.clerk/toc true}
   (:refer-clojure :exclude [get get-in])
   (:require [nextjournal.clerk :as-alias clerk]))
 
 ;; ## Emmy Viewers
 ;;
-;; This namespace contains utilities for setting up a project to render
-;; mathematical objects using Clerk, Emmy and viewer libraries like Mafs.cljs
-;; and MathBox.cljs.
+;; This namespace contains functions for building Reagent fragments that are
+;; renderable by Clerk (see [[emmy.clerk]]) or Portal (see [[emmy.portal]]).
 ;;
-;; I don't feel confident about the current API boundaries, so expect the layout
-;; here to change. As an example, some of this code is Clerk-specific... but the
-;; functions that build up Reagent fragments could in theory be used
-;; with [Portal](https://github.com/djblue/portal) or other React-aware
-;; libraries.
+;; These fragments communicate how they're meant to be rendered via metadata. I
+;; think this is a good idea, but we'll see how it evolves!
 
-;; ## Viewers
 
-;; This will hold a reference to the viewer that we want IF Clerk is loaded. See
-;; below...
-(defonce ^:no-doc reagent-viewer nil)
+;; ## Metadata Configuration
+;;
+;; You won't need to call any of the functions in this section manually unless
+;; you're building your own fragment-returning functions. In that case, wrap
+;; your return values in [[fragment]], potentially with a custom transform to,
+;; say, wrap your fragment in some context that it needs to render.
+;;
+;; We do this, for example, in the Mafs plots so that writing `(of-x sin)`
+;; works, even though `(of-x <f>)` needs to be wrapped in `(mafs ...)` to work.
 
-(defn expand [v]
+(defonce ^{:no-doc true
+           :doc "This value is attached by [[fragment]] to its argument's
+  metadata. It's initialized as `nil` here because Clerk is an optional
+  dependency of the library.
+
+  Requiring [[emmy.clerk]] will re-bind this var as a side-effect to an actual
+  Clerk viewer that knows how to render Reagent fragments."}
+  reagent-viewer
+  nil)
+
+(defn expand
+  "If `v` has a `fn?` (say, `f`) registered as Clerk viewer metadata, recurses
+  with the expanded value `(f v)`. Else, returns `v` unchanged."
+  [v]
   (let [xform (-> v meta :nextjournal.clerk/viewer)]
     (if (fn? xform)
       (expand (xform v))
       v)))
 
-(defn ^:no-doc fragment
+(defn fragment
+  "Given some quoted form `v`, adds metadata that allows the libraries supported
+  by Emmy-Viewers to eval and render `v` as a Reagent component.
+
+  Optionally takes a Clerk viewer or transforming function `viewer-or-xform` to
+  be applied at render-time and adds that into the metadata instead of the
+  default [[reagent-viewer]]."
   ([v] (fragment v nil))
   ([v viewer-or-xform]
-   ;; TODO keep it tidy! don't asoc key if we don't need it.
-   (vary-meta v assoc
-              :portal.viewer/mafs? true
-              :portal.viewer/default :emmy.portal/mafs
-              ::clerk/viewer (or viewer-or-xform reagent-viewer))
-
-   #_(if-let [form (or viewer-or-xform reagent-viewer)]
-       (vary-meta v assoc ::clerk/viewer form)
-       v)))
+   (let [viewer (or viewer-or-xform reagent-viewer)]
+     (vary-meta v assoc
+                :portal.viewer/mafs? true
+                :portal.viewer/default :emmy.portal/mafs
+                ::clerk/viewer viewer))))
 
 ;; ## State Utilities
+;;
+;; This next section contains functions that allow you to write natural-seeming
+;; Clojure code that is in fact generating quoted Reagent fragments for defining
+;; `reagent.core/atom` instances and wiring in accesses to the value that will
+;; be contained in those atoms once the component is evaluated and running
+;; client-side.
 
-(defn get [sym path]
+(defn get
+  "Given some symbol `sym` representing an atom and a key for the value inside the
+  atom, returns a client-side fragment of the form `(get @sym k)`.
+
+  If `sym` is a `map?`, acts like `clojure.core/get`.
+
+  If `sym` is anything else, [[get]] treats it as an `IDeref` and
+  returns `(clojure.core/get @sym k)`."
+  [sym k]
   (cond (symbol? sym) (list 'clojure.core/get
                             (list 'clojure.core/deref sym)
-                            path)
-        (map? sym)    (get sym path)
-        :else         (get @sym path)))
+                            k)
+        (map? sym)    (get sym k)
+        :else         (get @sym k)))
 
-(defn get-in [sym path]
+(defn get-in
+  "Given some symbol `sym` representing an atom and an accessor path into the
+  value inside the atom, returns a client-side fragment of the form `(get-in @sym
+  path)`.
+
+  If `sym` is a `map?`, acts like `clojure.core/get-in`.
+
+  If `sym` is anything else, [[get]] treats it as an `IDeref` and
+  returns `(clojure.core/get-in @sym path)`."
+  [sym path]
   (cond (symbol? sym) (list 'clojure.core/get-in
                             (list 'clojure.core/deref sym)
                             path)
         (map? sym)    (get-in sym path)
         :else         (get-in @sym path)))
 
-(defn with-state [init f]
+(defn with-state
+  "This function takes
+
+  - an initial value `init` for a client-side `reagent.core/atom`
+  - a function `f` of type `<symbol> => <reagent fragment>`
+
+  And returns a new reagent fragment that allows for stateful, reactive
+  interaction with `init` via the `<symbol>`.
+
+  All metadata from the return value of `f` is transferred over to the returned
+  form.
+
+  For example:
+  ```clojure
+  (with-state {:k \"v\"}
+    (fn [sym] [:pre (get sym :k)]))
+
+  ;;=> (reagent.core/with-let
+  ;;     [G__95940 (reagent.core/atom {:k \"v\"})]
+  ;;     [:pre (clojure.core/get @G__95940 :k)])
+  ```"
+  [init f]
   (let [sym  (gensym)
         body (f sym)]
     (-> (list 'reagent.core/with-let
               [sym (list 'reagent.core/atom init)]
               (vary-meta body dissoc ::clerk/viewer))
-        (fragment
-         (::clerk/viewer (meta body))))))
+        (with-meta (meta body)))))
 
 (defmacro with-let
-  "Testing out the macro style, works with a single input."
+  "Macro wrapper around [[with-state]] that allows you to provide the body
+  directly, vs providing a function `f` as in [[with-state]].
+
+  ```clojure
+  (with-let [sym {:k \"v\"}]
+    [:pre (get sym :k)])
+  ```
+
+  is equivalent to
+
+  ```clojure
+  (with-state {:k \"v\"}
+    (fn [sym] [:pre (get sym :k)]))
+  ```"
   {:clj-kondo/lint-as 'clojure.core/let}
   [[sym init] & body]
   `(with-state ~init
      (fn [~sym] ~@body)))
 
 ;; ### Parameterized Functions
+;;
+;; This section defines supporting types and the [[with-params]] constructor.
+;; This code is used by namespaces like [[emmy.mafs.compile]] to construct a
+;; form that compiles a parametric function via Emmy, and then wraps that in an
+;; outer function that fetches the parameters out of an atom on each call.
 
 (defrecord ^:no-doc ParamF [f atom params])
 
-(defn ^:no-doc param-f? [m]
+(defn ^:no-doc param-f?
+  "Returns true if `m` is an instance of [[ParamF]], false otherwise."
+  [m]
   (instance? ParamF m))
 
 (defn with-params
-  "describe!"
+  "Takes:
+
+  - A map of the form
+
+  ```clojure
+  {:atom <symbol representing a reagent.core/atom>
+   :params <sequence of keys from the dereferenced atom>}
+  ```
+
+  - a function `f` that takes `(count params)` parameters and returns a new
+    function
+
+  and returns an instance of [[ParamF]] that the various viewer plugins will
+  know how to interpret, based on where the return value of [[with-params]] is
+  being used."
   [{:keys [params atom]} f]
   (->ParamF f atom params))

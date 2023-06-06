@@ -21,7 +21,7 @@
    :extra-deps
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
-    djblue/portal             {:mvn/version "0.41.0"}
+    djblue/portal             {:mvn/version "0.42.0"}
     io.github.nextjournal/clerk
     {:git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"}
     io.github.nextjournal/clerk.render
@@ -35,7 +35,7 @@
    :extra-deps
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
-    djblue/portal             {:mvn/version "0.41.0"}}}
+    djblue/portal             {:mvn/version "0.42.0"}}}
 
   :build
   {:deps {io.github.clojure/tools.build {:git/tag "v0.9.4" :git/sha "76b78fe"}

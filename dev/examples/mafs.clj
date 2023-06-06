@@ -61,6 +61,7 @@
  (mafs/vector [1 2] {:color :blue})
  (mafs/text "face" {:color :green}))
 
+
 ^{::clerk/width :wide}
 (ev/with-let [!point [1 0]]
   (mafs/mafs
