@@ -27,6 +27,11 @@
 
 ;; ## Core Components
 
+(def labelPi
+  "Symbol referencing the client-side `mafs.core/labelPi`, useful to pass as a
+  `:labels` option to the components that take it."
+  'mafs.core/LabelPi)
+
 (def colors
   "Color keywords controlled by the current Mafs theme."
   #{:foreground :background :red :orange :green
@@ -53,9 +58,8 @@
     squish the graph to fill the Mafs viewport or to preserve the aspect ratio of
     the coordinate space.
 
-  - `:on-click`: `(fn [point, mouse-event] ...)`, called when the view is
-    clicked on, and passed the point where it was clicked.
-  "
+  - `:on-click`: Quoted ClojureScript `'(fn [point, mouse-event] ...)`, called
+      when the view is clicked on, and passed the point where it was clicked."
   [& children]
   (ev/fragment
    (into ['mafs.core/Mafs] children)))
@@ -77,7 +81,7 @@
 
   - `:color`: any valid [CSS
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
-     from [[mafs.core/colors]].
+     from [[emmy.mafs.core/colors]].
 
   - `:opacity`: Double in the range [0.0, 0.1] inclusive.
 
@@ -109,7 +113,7 @@
 
   - `:color`: any valid [CSS
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
-     from [[mafs.core/colors]].
+     from [[emmy.mafs.core/colors]].
 
   - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
       the polygon's boundary line.
@@ -207,7 +211,7 @@
 
   - `:color`: any valid [CSS
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
-     from [[mafs.core/colors]].
+     from [[emmy.mafs.core/colors]].
 
   - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
       the polygon's boundary line.
@@ -242,7 +246,7 @@
 
   - `:color`: any valid [CSS
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
-     from [[mafs.core/colors]].
+     from [[emmy.mafs.core/colors]].
 
   - `:opacity`: Double in the range [0.0, 0.1] inclusive.
 
@@ -263,8 +267,8 @@
       ['mafs.core/Vector tip-or-opts]))))
 
 (defn transform
-  "Takes an options map any number of (Reagent-fragment) children and returns a
-  fragment that will transform the children as specified by the options.
+  "Takes an options map and any number of (Reagent-fragment) children and returns
+  a fragment that will transform the children as specified by the options.
 
   Supported options:
 
@@ -297,22 +301,21 @@
 
   Supported options:
 
-  - `:atom`: atom into which the movable point should synchronize its current
-    coordinates `[<x> <y>]`. By default, `reset!`s the atom. Use `:path` to
-    synchronize with some internal path.
+  - `:atom`: symbol referencing a client-side atom into which the movable point
+    should synchronize its current coordinates `[<x> <y>]`. By default, `reset!`s
+    the atom. Use `:path` to synchronize with some internal path.
 
   - `:path`: the (optional) path into the atom. For example, any of these forms
     are valid:
 
   ```clojure
-  (reagent.core/with-let [!xy (reagent.core/atom [0 0])]
+  (emmy.viewer/with-let [!xy [0 0]]
     (movable-point {:atom !xy}))
 
-  (reagent.core/with-let [!state (reagent.core/atom {:coords [0 0]})]
+  (emmy.viewer/with-let [!state {:coords [0 0]}]
     (movable-point {:atom !state :path :coords}))
 
-  (reagent.core/with-let
-    [!state (reagent.core/atom {:nested {:coords [0 0]}})]
+  (emmy.viewer/with-let [!state {:nested {:coords [0 0]}}]
     (movable-point {:atom !state :path [:nested :coords]}))
   ```
 
@@ -322,7 +325,7 @@
 
   - `:color`: any valid [CSS
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
-     from [[mafs.core/colors]].
+     from [[emmy.mafs.core/colors]].
 
   - `:constrain`: Either \"horizontal\" | \"vertical\" | <constraint function>
 
