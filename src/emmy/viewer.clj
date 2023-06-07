@@ -122,10 +122,11 @@
   [init f]
   (let [sym  (gensym)
         body (f sym)]
-    (-> (list 'reagent.core/with-let
-              [sym (list 'reagent.core/atom init)]
-              (vary-meta body dissoc ::clerk/viewer))
-        (with-meta (meta body)))))
+    (fragment
+     (list 'reagent.core/with-let
+           [sym (list 'reagent.core/atom init)]
+           (vary-meta body dissoc ::clerk/viewer))
+     (::clerk/viewer (meta body)))))
 
 (defmacro with-let
   "Macro wrapper around [[with-state]] that allows you to provide the body

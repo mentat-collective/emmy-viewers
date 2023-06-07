@@ -5,17 +5,32 @@
   (:refer-clojure :exclude [vector])
   (:require [emmy.viewer :as ev]))
 
-(defn ^:no-doc default-viewer [child]
+;; ## Viewer Machinery
+
+(defn ^:no-doc default-viewer
+  "Given a Reagent fragment for some standalone Mafs component, returns a version
+  wrapped in `[mafs.core/Mafs [mafs.coordinates/Cartesian] ...]`, allowing it to
+  render standalone."
+  [child]
   (ev/fragment
    ['mafs.core/Mafs
     ['mafs.coordinates/Cartesian]
     child]))
 
 (defn ^:no-doc fragment
-  "Given a reagent fragment , returns "
+  "Mafs-specific version of [[emmy.viewer/fragment]] that
+  supplies [[default-viewer]] as the default, instead
+  of [[emmy.viewer/reagent-viewer]]."
   ([v] (ev/fragment v default-viewer))
   ([v viewer]
    (ev/fragment v viewer)))
+
+;; ## Core Components
+
+(def colors
+  "Color keywords controlled by the current Mafs theme."
+  #{:foreground :background :red :orange :green
+    :blue :indigo :violet :pink :yellow})
 
 (defn mafs
   "Given an optional map of options and any number of children, returns a fragment
@@ -49,7 +64,7 @@
   "Takes either
 
   - a 2-vector of `[<x> <y>]` and (optionally) a map of options
-  - a map with `:x` and `:y` required
+  - a map with `:x` and `:y` entries required
 
   and returns a fragment that will render a dot onto a Mafs scene at location
   $(x, y)$.
@@ -58,15 +73,18 @@
 
   - `:x`: x-coordinate of the point.
 
-  - `:y` y-coordinate of the point.
+  - `:y`: y-coordinate of the point.
 
   - `:color`: any valid [CSS
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
-     from [[mafs.core/Theme]].
+     from [[mafs.core/colors]].
 
   - `:opacity`: Double in the range [0.0, 0.1] inclusive.
 
-  - `:svg-circle-props`: I'll document these when I figure out what's allowed!"
+  - `:svg-circle-props`: A map of property name => value of any property
+    accepted
+    by [SVGCircleElement](https://developer.mozilla.org/en-US/docs/Web/API/SVGCircleElement)
+    or any parent."
   ([[x y] opts]
    (point (assoc opts :x x :y y)))
   ([pair-or-opts]
@@ -76,15 +94,38 @@
       ['mafs.core/Point pair-or-opts]))))
 
 (defn polygon
-  "
-  - `:points`
-  - `:color`
-  - `:weight`
-  - `:fill-opacity`
-  - `:stroke-opacity`
-  - `:stroke-style`
-  - `:svg-polygon-props`
-  "
+  "Takes either
+
+  - a sequence of 2-vectors `[<x> <y>]` specifying the polygon's vertices
+    and (optionally) a map of options
+  - a map with `:point` entry required
+
+  and returns a fragment that will render a polygon onto a Mafs scene bounded by
+  the specified points.
+
+  Supported options:
+
+  - `:points`: a sequence of `[<x> <y>]` coordinates.
+
+  - `:color`: any valid [CSS
+     color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
+     from [[mafs.core/colors]].
+
+  - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
+      the polygon's boundary line.
+
+  - `:fill-opacity`: Double in the range [0.0, 0.1] inclusive specifying the
+      opacity of the interior of the polygon.
+
+  - `:stroke-opacity`: Double in the range [0.0, 0.1] inclusive specifying the
+      opacity of the boundary of the polygon.
+
+  - `:stroke-style`: \"solid\" or \"dashed\". Defaults to \"solid\".
+
+  - `:svg-polygon-props`: A map of property name => value of any property
+    accepted
+    by [SVGPolygonElement](https://developer.mozilla.org/en-US/docs/Web/API/SVGPolygonElement)
+    or any parent."
   ([points opts]
    (polygon (assoc opts :points points)))
   ([points-or-opts]
@@ -94,15 +135,9 @@
       ['mafs.core/Polygon points-or-opts]))))
 
 (defn polyline
-  "
-  - `:points`
-  - `:color`
-  - `:weight`
-  - `:fill-opacity`
-  - `:stroke-opacity`
-  - `:stroke-style`
-  - `:svg-polygon-props`
-  "
+  "Similar to [[polygon]], except the first and last points are not connected.
+
+  See [[polygon]] for supported inputs."
   ([points opts]
    (polyline (assoc opts :points points)))
   ([points-or-opts]
@@ -112,48 +147,76 @@
       ['mafs.core/Polyline points-or-opts]))))
 
 (defn ellipse
-  "
-  - `:center`
-  - `:radius`
-  - `:angle`
-  - `:svg-ellipse-props`
-  - `:color`
-  - `:weight`
-  - `:fill-opacity`
-  - `:stroke-opacity`
-  - `:stroke-style`
-  "
+  "Takes a map with `:center` and `:radius` entries required and returns a
+  fragment that will render the specified ellipse onto a Mafs scene.
+
+  Supported options:
+
+  - `:center`: a 2-vector specifying the `[<x> <y>]` coordinate of the center.
+
+  - `:radius`: a 2-vector specifying `[<width-radius> <height-radius>]`
+
+  - `:angle`: a counter-clockwise angle in radians to rotate the ellipse.
+
+  - `:color`: any valid [CSS
+     color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
+     from [[mafs.core/colors]].
+
+  - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
+      the ellipse's boundary line.
+
+  - `:fill-opacity`: Double in the range [0.0, 0.1] inclusive specifying the
+      opacity of the interior of the ellipse.
+
+  - `:stroke-opacity`: Double in the range [0.0, 0.1] inclusive specifying the
+      opacity of the boundary of the ellipse.
+
+  - `:stroke-style`: \"solid\" or \"dashed\". Defaults to \"solid\".
+
+  - `:svg-ellipse-props`: A map of property name => value of any property
+    accepted
+    by [SVGEllipseElement](https://developer.mozilla.org/en-US/docs/Web/API/SVGEllipseElement)
+    or any parent."
   [opts]
   (fragment
    ['mafs.core/Ellipse opts]))
 
 (defn circle
-  "
-  - `:center`
-  - `:radius`
-  - `:svg-ellipse-props`
-  - `:color`
-  - `:weight`
-  - `:fill-opacity`
-  - `:stroke-opacity`
-  - `:stroke-style`
-  "
+  "Similar to [[ellipse]] but takes a single number for `:radius`.
+
+  See [[ellipse]] for a description of all other supported options."
   [opts]
   (fragment
    ['mafs.core/Circle opts]))
 
 (defn text
-  "
-  - `:x`
-  - `:y`
-  - `:attach`
-  - `:attach-distance`
-  - `:size`
-  - `:color`
-  - `:svg-text-props`
+  "Takes some string `s` (and optionally a map `opts` of options) and returns a
+  fragment that will render `s` onto a Mafs scene.
 
-  TODO add default x y
-  "
+  Supported options:
+
+  - `:x`: The x-coordinate of the element the text should attach to.
+
+  - `:y`: The y-coordinate of the element the text should attach to.
+
+  - `:attach`: The cardinal direction that `s` should be offset from its
+      element. One of \"n\" | \"ne\" | \"e\" | \"se\" | \"s\" | \"sw\" | \"w\" |
+      \"nw\".
+
+  - `:attach-distance`: The distance away from the attaching element.
+
+  - `:color`: any valid [CSS
+     color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
+     from [[mafs.core/colors]].
+
+  - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
+      the polygon's boundary line.
+
+  - `:size`: font size.
+
+  - `:svg-text-props`: A map of property name => value of any property accepted
+      by [SVGTextElement](https://developer.mozilla.org/en-US/docs/Web/API/SVGTextElement)
+      or any parent."
   ([s] (text s {}))
   ([s opts]
    (let [opts (assoc opts
@@ -163,15 +226,34 @@
       ['mafs.core/Text opts s]))))
 
 (defn vector
-  "
-  - `:tail`
-  - `:tip`
-  - `:color`
-  - `:opacity`
-  - `:weight`
-  - `:style`
-  - `:svg-line-props`
-  "
+  "Takes either:
+
+  - a 2-vector of the `[<x> <y>]` coordinates of the vector tip and a map of
+    options
+  - a map with `:tip` entry required
+
+  and returns a fragment that will render a vector onto a Mafs scene.
+
+  Supported options:
+
+  - `:tail`: 2-vector `[<x> <y>]` specifying the coordinates of the vector tip.
+
+  - `:tip`: 2-vector `[<x> <y>]` specifying the coordinates of the vector tip.
+
+  - `:color`: any valid [CSS
+     color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
+     from [[mafs.core/colors]].
+
+  - `:opacity`: Double in the range [0.0, 0.1] inclusive.
+
+  - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
+      the polygon's boundary line.
+
+  - `:style`: \"solid\" or \"dashed\". Defaults to \"solid\".
+
+  - `:svg-line-props`: A map of property name => value of any property accepted
+      by [SVGLineElement](https://developer.mozilla.org/en-US/docs/Web/API/SVGLineElement)
+      or any parent."
   ([tip opts]
    (vector (assoc opts :tip tip)))
   ([tip-or-opts]
@@ -181,29 +263,78 @@
       ['mafs.core/Vector tip-or-opts]))))
 
 (defn transform
-  "TODO allow an emmy matrix, and convert it into their notation internally.
+  "Takes an options map any number of (Reagent-fragment) children and returns a
+  fragment that will transform the children as specified by the options.
 
-  - `:matrix`
-  - `:translate`
-  - `:scale`
-  - `:rotate`
-  - `:shear`
-  "
+  Supported options:
+
+  - `:matrix`: Matrix object generated by the code in [[mafs.matrix]].
+
+  - `:translate`: 2-vector of the form `[<x-translation> <y-translation>]`.
+
+  - `:scale`: either a number (scale factor) or a 2-vector of the form
+    `[<x-scale> <y-scale>]`.
+
+  - `:rotate`: number of radians to rotate the children.
+
+  - `:translate`: 2-vector of the form `[<x-shear> <y-shear>]`."
   [& children]
   (fragment
    (into ['mafs.core/Transform] children)))
 
 (defn movable-point
-  "This version takes an atom and, optionally, a path into the atom.
-  - `:atom`
-  - `:path` optional
-  - `:constrain`
-  - `:color`
+  "Takes an options map and returns a fragment that renders a movable point onto a
+  Mafs scene.
 
-  also discuss
+  Movable points can be dragged around the coordinate plane, or moved via the
+  keyboard. These points can also synchronize their current position into an
+  atom specified by the user, optionally at some nested path.
 
-  - `:point`
-  - `:on-move`"
+  Control the point by either specifying
+
+  - `:atom` (and `:path`, optionally)
+  - `:point` and `:on-move`.
+
+  Supported options:
+
+  - `:atom`: atom into which the movable point should synchronize its current
+    coordinates `[<x> <y>]`. By default, `reset!`s the atom. Use `:path` to
+    synchronize with some internal path.
+
+  - `:path`: the (optional) path into the atom. For example, any of these forms
+    are valid:
+
+  ```clojure
+  (reagent.core/with-let [!xy (reagent.core/atom [0 0])]
+    (movable-point {:atom !xy}))
+
+  (reagent.core/with-let [!state (reagent.core/atom {:coords [0 0]})]
+    (movable-point {:atom !state :path :coords}))
+
+  (reagent.core/with-let
+    [!state (reagent.core/atom {:nested {:coords [0 0]}})]
+    (movable-point {:atom !state :path [:nested :coords]}))
+  ```
+
+  - `:point`: the controlled coordinates `[<x> <y>]` of the point.
+
+  - `:on-move`: called on each update with the new coordinates of the point.
+
+  - `:color`: any valid [CSS
+     color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
+     from [[mafs.core/colors]].
+
+  - `:constrain`: Either \"horizontal\" | \"vertical\" | <constraint function>
+
+    If you supply a function you'll need to quote the function so it makes it
+    over to the client. This function will be called on each point update with the
+    proposed position; return a new 2-vector with the constrained position.
+
+    For example, the following will constrain the point to a sine curve:
+
+  ```clojure
+  (movable-point {:constrain '(fn [[x _]] [x (Math/sin x)])})
+  ```"
   [opts]
   (fragment
    ['mafs.core/MovablePoint opts]))

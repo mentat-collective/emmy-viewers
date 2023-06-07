@@ -13,6 +13,8 @@
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
+{::clerk/width :wide}
+
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
@@ -100,14 +102,12 @@
 ;; We'll start with the same setup we had in “Installation” — just a Cartesian
 ;; coordinate plane with nothing too interesting on it.
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian))
 
 ;; `Cartesian` is pretty customizable. Let's make our graph a little bit more
 ;; sophisticated-looking by adding some subdivisions.
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian {:subdivisions 4}))
 
@@ -116,7 +116,6 @@
 ;; Plotting a function works by passing a Clojure function defined with Emmy
 ;; TODO or a literal clojureScript function. Let's plot `(sin x)`.
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian {:subdivisions 4})
  (mafs/of-x {:y sin}))
@@ -133,7 +132,6 @@
 ;; - Zoom the y-axis in a bit
 ;; - Tell Mafs to let us squish the viewport
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:view-box {:x [-10 10] :y [-2 2]}
   :preserve-aspect-ratio false}
@@ -156,27 +154,26 @@
 ;; only natural to slide the wave back and forth to adjust the phase. Let's add
 ;; a movable point and hook it up to our function.
 
-^{::clerk/width :wide}
-=(ev/with-let [!phase [0 0]]
-   [:<>
-    (mafs/mafs
-     {:view-box {:x [-10 10] :y [-2 2]}
-      :preserve-aspect-ratio false}
-     (mafs/cartesian
-      {:subdivisions 4
-       :x-axis
-       {:lines Math/PI
-        :labels 'mafs.core/labelPi}})
-     (mafs/of-x
-      {:y (ev/with-params {:atom !phase :params [0]}
-            (fn [shift]
-              (fn [x]
-                (sin (- x shift)))))})
-     (mafs/movable-point
-      {:atom !phase
-       :constrain "horizontal"}))
-    [:pre
-     (q (str "Phase shift: " (first @~!phase)))]])
+(ev/with-let [!phase [0 0]]
+  [:<>
+   (mafs/mafs
+    {:view-box {:x [-10 10] :y [-2 2]}
+     :preserve-aspect-ratio false}
+    (mafs/cartesian
+     {:subdivisions 4
+      :x-axis
+      {:lines Math/PI
+       :labels 'mafs.core/labelPi}})
+    (mafs/of-x
+     {:y (ev/with-params {:atom !phase :params [0]}
+           (fn [shift]
+             (fn [x]
+               (sin (- x shift)))))})
+    (mafs/movable-point
+     {:atom !phase
+      :constrain "horizontal"}))
+   [:pre
+    (q (str "Phase shift: " (first @~!phase)))]])
 
 ;; There are a few noteworthy things here: one is how we declared our
 ;; `mafs/movable-point`. We start centered on the origin by setting the initial
@@ -251,7 +248,7 @@
 ;; [`mafs/clerk`](https://github.com/mentat-collective/mafs.cljs/tree/main/resources/mafs/clerk)
 ;; in a folder called `my-notebook-project`, run the following command:
 
-{::clerk/visibility {:code :hide}}
+^{::clerk/visibility {:code :hide}}
 (clerk/md
  (format "
 ```sh
@@ -276,7 +273,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; This component is the entrypoint into rendering visualizations. It must wrap
 ;; all other Mafs components. On its own, it renders a blank canvas.
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:height 200}
  (mafs/text "I love math!"))
@@ -302,7 +298,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; Panning is enabled by default, but zooming is opt-in. The default zoom limits
 ;; are `{:min 0.5 :max 0.5}`.
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:zoom {:min 0.1 :max 2}
   :view-box {:x [-0.25 0.25]
@@ -320,7 +315,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; a useful "viewbox" designating the region in which interesting things are
 ;; happening. Mafs allows you to specify this with the `:view-box` prop.
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:view-box {:x [-5 5]
              :y [-5 5]}}
@@ -333,7 +327,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; Mafs viewport. Setting it to false will stretch the viewbox to fit the
 ;; viewport, tossing aside the aspect ratio preservation.
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:view-box {:x [-5 5]
              :y [-5 5]}
@@ -349,7 +342,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; Mafs adds a `:padding` of `0.5` to all visualizations by default. To change
 ;; or remove padding, you can specify `:padding` in the `:view-box` value.
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:view-box {:x [-5 5]
              :y [-5 5]
@@ -365,7 +357,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; #### Cartesian Coordinates
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian))
 
@@ -385,7 +376,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; Mafs also exports a helper function, `mafs/labelPi` which can be passed to
 ;; `:labels` to render in terms of $\pi$.
 
-^{::clerk/width :wide}
 (mafs/mafs
  {:view-box {:x [-8 8]
              :y [(* 2 (- Math/PI))
@@ -403,7 +393,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; #### Polar Coordinates
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/polar
   {:subdivisions 5
@@ -419,7 +408,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; Points are dots that can be rendered at a location `(x, y)`.
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian)
  (mafs/point {:x 1 :y 1}))
@@ -431,7 +419,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; #### Line Segment
 
-^{::clerk/width :wide}
 (ev/with-let
   [!state {:point1 [-1 -1]
            :point2 [2 1]}]
@@ -447,7 +434,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; Line through two points
 
-^{::clerk/width :wide}
 (ev/with-let
   [!state {:point1 [-1 -1]
            :point2 [2 1]}]
@@ -463,7 +449,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; #### Point and slope
 
-^{::clerk/width :wide}
 (ev/with-let
   [!state {:point [-1 -1]
            :slope [0 1]}]
@@ -483,7 +468,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; #### Point and angle
 
-^{::clerk/width :wide}
 (ev/with-let [!state [-1 -1]]
   (mafs/mafs {:view-box {:y [-1 1]}}
              (mafs/cartesian)
@@ -514,7 +498,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; Circles take a center vector and a radius.
 
-^{::clerk/width :wide}
 (ev/with-let [!point-on-circle
               [(/ (Math/sqrt 2) 2)
                (/ (Math/sqrt 2) 2)]]
@@ -531,7 +514,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; Ellipses take a center vector, radius vector, and an angle.
 
-^{::clerk/width :wide}
 (let [hint-radius 3]
   (ev/with-state {:translate [0 0]
                   :rotate [hint-radius 0]
@@ -588,7 +570,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
   (- (/ 2 (+ 1 (exp (- x))))
      1))
 
-^{::clerk/width :wide}
 (mafs/mafs
  (mafs/cartesian)
  (mafs/of-x {:y sin :color :blue})
@@ -597,7 +578,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; #### Parametric functions
 
 
-^{::clerk/width :wide}
 (ev/with-let [!point [0.5 0]]
   (mafs/mafs {:view-box {:x [-1 1] :y [-1 1]}}
              (mafs/cartesian {:subdivisions 4})
@@ -623,7 +603,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; scaled down (for legibility) and plotted on the coordinate plane. You must
 ;; also pass a `:step` to indicate how dense the vector field is.
 
-^{::clerk/width :wide}
 (ev/with-let [!point [0.6 0.6]]
   (mafs/mafs
    (mafs/cartesian {:subdivisions 2})
@@ -665,7 +644,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; has `:min-sampling-depth` increased to `15`, Neither approach is perfect, but
 ;; the bottom render is indistinguishable from a perfect plot.
 
-^{::clerk/width :wide}
 (let [f (fn [x] (sin (/ 1 x)))]
   (mafs/mafs
    {:view-box {:x [(/ -1 32) (/ 1 32)]
@@ -690,7 +668,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; optional `:attach` will orient the text along a cardinal direction (`"n"`,
 ;; `"s"`, `"nw"` etc.)
 
-^{::clerk/width :wide}
 (ev/with-let [!point [0.6 0.6]]
   (mafs/mafs
    {:view-box {:y [0 2] :x [-3 5]}}
@@ -712,7 +689,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; both vectors and matrices), exposing them as `mafs.vec` and `mafs.matrix`.
 ;; Those utilities are used extensively here.
 
-^{::clerk/width :wide}
 (ev/with-let [!point [0.4 0.6]]
   (q (let [[x y :as vec1] @~!point
            angle (Math/atan2 y x)
@@ -730,7 +706,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; Sometimes it can be useful to apply 2D transformations to one or more
 ;; components collectively. This is where `mafs/transform` comes in handy.
 
-{::clerk/width :wide}
 #_(show-sci
    (defn HelloBox []
      [:<>
@@ -802,7 +777,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; in `mafs.debug/TransformWrapper`. It's mainly useful when building new custom
 ;; components.
 
-^{::clerk/width :wide}
 (defn pizza-slice []
   (let [mask-id
         (str "pizza-slice-mask-"
@@ -837,7 +811,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; view, showing both the minimum and maximum `x` and `y` values, as well as
 ;; what panes are visible according to the pane context.
 
-^{::clerk/width :wide}
 (mafs/mafs {:view-box {:x [-1 1] :y [-1 1]}}
            (mafs/cartesian)
            (mafs/viewport-info))
@@ -851,7 +824,6 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 ;; or vertically, or constrained to an arbitrary function. This example
 ;; constrains movement horizontally:
 
-^{::clerk/width :wide}
 (ev/with-let [!sep [1 0]]
   (q (let [n 10
            f (fn [x]

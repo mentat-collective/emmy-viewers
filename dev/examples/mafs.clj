@@ -21,6 +21,9 @@
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
+
+(mafs/movable-point {:constrain '(fn [[x _]] [x (Math/sin x)])})
+
 ;; parametrized function controlled by a stateful point:
 
 (ev/with-let [!phase [0 0]]
