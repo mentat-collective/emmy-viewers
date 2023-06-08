@@ -28,7 +28,8 @@
    :custom-js ec/custom-js
 
    ;; Enable this and disable `:custom-js` to build new custom components.
-   #_#_:cljs-namespaces '[emmy-viewers.sci-extensions]})
+   ;; :cljs-namespaces '[emmy-viewers.sci-extensions]
+   })
 
 (def static-defaults
   (assoc defaults

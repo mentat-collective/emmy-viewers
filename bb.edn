@@ -23,7 +23,7 @@
   {:doc "Generate a fresh static build."
    :task
    (apply shell
-          "clojure -X:nextjournal/clerk"
+          "clojure -X:nextjournal/clerk:portal"
           *command-line-args*)}
 
   serve
