@@ -127,7 +127,7 @@
   - `:stroke-style`: \"solid\" or \"dashed\". Defaults to \"solid\".
 
   - `:svg-polygon-props`: A map of property name => value of any property
-    accepted
+    acceptedr
     by [SVGPolygonElement](https://developer.mozilla.org/en-US/docs/Web/API/SVGPolygonElement)
     or any parent."
   ([points opts]
@@ -213,8 +213,7 @@
      color](https://developer.mozilla.org/en-US/docs/Web/CSS/color), or any keyword
      from [[emmy.mafs.core/colors]].
 
-  - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
-      the polygon's boundary line.
+  - `:weight`: Double in the range [0.0, 0.1] inclusive.
 
   - `:size`: font size.
 
@@ -250,8 +249,7 @@
 
   - `:opacity`: Double in the range [0.0, 0.1] inclusive.
 
-  - `:weight`: Double in the range [0.0, 0.1] inclusive specifying the weight of
-      the polygon's boundary line.
+  - `:weight`: Double in the range [0.0, 0.1] inclusive.
 
   - `:style`: \"solid\" or \"dashed\". Defaults to \"solid\".
 
