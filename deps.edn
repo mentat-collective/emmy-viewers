@@ -7,7 +7,7 @@
   org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
   org.mentat/mathlive.cljs {:mvn/version "0.2.0"}
   org.mentat/mafs.cljs {:mvn/version "0.3.0"}
-  org.mentat/clerk-utils {:mvn/version "0.5.1"}}
+  org.mentat/clerk-utils {:mvn/version "0.6.0"}}
 
  :aliases
  {:nextjournal/clerk
@@ -15,6 +15,8 @@
    :extra-deps
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
+    io.github.nextjournal/cas-client
+    {:git/sha "84ab35c3321c1e51a589fddbeee058aecd055bf8"}
     io.github.nextjournal/clerk
     {:git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"}
     io.github.nextjournal/clerk.render
@@ -29,7 +31,7 @@
    {djblue/portal {:mvn/version "0.42.0"}}}
 
   :build
-  {:deps {io.github.clojure/tools.build
-          {:git/tag "v0.9.4" :git/sha "76b78fe"}
-          slipset/deps-deploy {:mvn/version "0.2.0"}}
+  {:deps
+   {io.github.clojure/tools.build {:git/tag "v0.9.4" :git/sha "76b78fe"}
+    slipset/deps-deploy {:mvn/version "0.2.0"}}
    :ns-default build}}}

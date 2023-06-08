@@ -13,6 +13,11 @@
             [mentat.clerk-utils.css :as css]
             [nextjournal.clerk :as clerk]))
 
+(def custom-js
+  "CDN address of a pre-built JS bundle for Clerk with support for all of this
+  library's viewers."
+  "https://cas.clerk.garden/tree/8Vte6FRyXPDS2WHMjDrHzhQ1TzjWYyXKn3KtkWWsAPygAvx9dJNZ9a36Z5TdMRLPLWxrRkS7pZXxrENBPjXzpXxNj9/.clerk/shadow-cljs/main.js")
+
 ;; ## Viewers
 ;;
 ;; This first section contains Clerk viewer implementations that are helpful for

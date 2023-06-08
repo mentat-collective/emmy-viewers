@@ -47,7 +47,6 @@ The project's [demos][emmy-viewers-url] are generated using Nextjournal's
 [Clerk][clerk-url]. If you'd like to edit or play with the demos, you'll need to
 install
 
-- [node.js](https://nodejs.org/en/)
 - The [Clojure command line tool](https://clojure.org/guides/install_clojure)
 - [Babashka](https://github.com/babashka/babashka#installation)
 
