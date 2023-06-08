@@ -14,7 +14,8 @@
 
  [emmy.mafs.core
   mafs point polygon polyline ellipse circle
-  text vector transform movable-point]
+  text vector transform movable-point
+  labelPi colors]
 
  [emmy.mafs.debug
   transform-widget viewport-info]

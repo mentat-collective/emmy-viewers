@@ -6,14 +6,8 @@
   org.mentat/leva.cljs {:mvn/version "0.2.2"}
   org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
   org.mentat/mathlive.cljs {:mvn/version "0.2.0"}
-
-  org.mentat/mafs.cljs
-  {:git/url "https://github.com/mentat-collective/Mafs.cljs.git"
-   :git/sha "1dde18a529992788859b61b9bfa1ca393e10e15d"}
-
-  org.mentat/clerk-utils
-  {:git/url "https://github.com/mentat-collective/Clerk-Utils.git"
-   :git/sha "1e0c4473073cadb35f938c6cea5dceeb3f5f95bd"}}
+  org.mentat/mafs.cljs {:mvn/version "0.3.0"}
+  org.mentat/clerk-utils {:mvn/version "0.5.1"}}
 
  :aliases
  {:nextjournal/clerk
@@ -22,6 +16,7 @@
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
     djblue/portal             {:mvn/version "0.42.0"}
+
     io.github.nextjournal/clerk
     {:git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"}
     io.github.nextjournal/clerk.render

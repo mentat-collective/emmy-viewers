@@ -6,8 +6,8 @@
             [emmy.mafs.core :as mafs]))
 
 (defn cartesian
-  "Takes an options map and returns a fragment that will render a Cartesian
-  coordinate plane into the Mafs scene.
+  "Takes an (optional) options map `opts` and returns a fragment that will render
+  a cartesian coordinate plane into the Mafs scene.
 
   Supported options:
 
@@ -37,8 +37,8 @@
     mafs/mafs)))
 
 (defn polar
-  "Takes an options map and returns a fragment that will render a Polar
-  coordinate plane into the Mafs scene.
+  "Takes an (optional) options map `opts` and returns a fragment that will render
+  a polar coordinate plane into the Mafs scene.
 
   Supported options:
 
