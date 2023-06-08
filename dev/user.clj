@@ -25,8 +25,11 @@
   {:index index
    :browse? true
    :watch-paths ["src" "dev"]
-   :cljs-namespaces
-   '[emmy-viewers.sci-extensions]})
+   :custom-js ec/custom-js
+
+   ;; Enable this and disable `:custom-js` to build new custom components.
+   ;; :cljs-namespaces '[emmy-viewers.sci-extensions]
+   })
 
 (def static-defaults
   (assoc defaults

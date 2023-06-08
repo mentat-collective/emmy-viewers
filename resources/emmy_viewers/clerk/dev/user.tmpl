@@ -1,5 +1,6 @@
 (ns user
-  (:require [mentat.clerk-utils.build :as b]
+  (:require [emmy-viewers.clerk :as ec]
+            [mentat.clerk-utils.build :as b]
             [nextjournal.clerk :as clerk]))
 
 (def index
@@ -13,7 +14,11 @@
    ;; Comment out the following line to tell Clerk to generate its own index
    ;; with a list of all built pages.
    :index index
-   :cljs-namespaces '[{{top/ns}}.sci-extensions]
+
+   ;; Comment out the following line and enable the `:cljs-namespaces` line to
+   ;; build a custom JS bundle.
+   :custom-js ec/custom-js
+   ;; :cljs-namespaces '[{{top/ns}}.sci-extensions]
    })
 
 (def serve-defaults

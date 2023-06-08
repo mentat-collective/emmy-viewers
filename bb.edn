@@ -23,7 +23,7 @@
   {:doc "Generate a fresh static build."
    :task
    (apply shell
-          "clojure -X:nextjournal/clerk"
+          "clojure -X:nextjournal/clerk:portal"
           *command-line-args*)}
 
   serve
@@ -57,7 +57,7 @@
    :task (kondo/run!
           {:lint [(with-out-str
                     (babashka.tasks/clojure
-                     "-Spath -A:nextjournal/clerk"))]
+                     "-Spath -A:nextjournal/clerk:portal"))]
            :dependencies true})}
 
   lint
