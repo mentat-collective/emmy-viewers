@@ -66,12 +66,13 @@
       [(->f v)]
       [:f> expand v])))
 
+(defn reagent? [v]
+  (when-let [m (meta v)]
+    (or (:portal.viewer/reagent? m)
+        (= viewer-name
+           (:portal.viewer/default m)))))
+
 (p/register-viewer!
  {:name viewer-name
   :component show-reagent
-  :predicate
-  (fn [v]
-    (when-let [m (meta v)]
-      (or (:portal.viewer/reagent? m)
-          (= viewer-name
-             (:portal.viewer/default m)))))})
+  :predicate reagent?})

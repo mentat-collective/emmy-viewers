@@ -4,6 +4,7 @@
              infinite? abs ref partial =])
   (:require [emmy.mafs.core]
             [emmy.env :as e :refer :all]
+            [emmy.leva :as leva]
             [emmy.mafs :as mafs]
             [emmy.portal :as p]
             [emmy.viewer :as ev]
@@ -33,6 +34,21 @@
          {:atom !phase :constrain "horizontal"})))))
 
   (tap> (mafs/of-x sin {:color :indigo}))
+
+  ;; ## Leva
+
+  (tap>
+   (ev/with-let [!synced {:number 10
+                          :color {:r 10 :g 12 :b 4}
+                          :string "Hi!"
+                          :point {:x 1 :y 1}}]
+     [:<>
+      [:pre (pr-str !synced)]
+      (leva/controls
+       {:folder {:name "Quickstart!"}
+        :atom !synced})]))
+
+  ;; ## Expressions / TeX
 
   (tap>
    (with-meta
