@@ -22,9 +22,6 @@
   The viewer is automatically installed by the functions in [[emmy.portal]]."
   (:require [emmy.viewer.css :refer [css-map]]
             [emmy.portal.css :as css]
-            #_["shadergraph" :as box]
-            ["leva"]
-            [leva.core]
-            #_[leva.core]))
+            [leva.core]))
 
 (apply css/inject! (:leva css-map))
