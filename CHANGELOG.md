@@ -2,6 +2,16 @@
 
 ## [unreleased]
 
+- #34 renames `emmy-viewers.sci` to `emmy.viewer.sci`.
+
+- #30:
+
+  - Adds `emmy.mathbox`, with functions for creating Reagent fragments that
+    configure the components from [MathBox.cljs](https://mathbox.mentat.org/)
+    for Clerk (no Portal yet!)
+
+  - `dev/emmy_viewers/mathbox.clj` shows off a basic demo
+
 - #32:
 
   - Adds `emmy.mathlive`, with functions for creating Reagent fragments that
