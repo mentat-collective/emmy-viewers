@@ -2,6 +2,18 @@
 
 ## [unreleased]
 
+- #31:
+
+  - Adds `emmy.jsxgraph`, with functions for creating Reagent fragments that
+    configure the components from [JSXGraph.cljs](https://jsxgraph.mentat.org/)
+    for Portal or Clerk
+
+  - `dev/emmy_viewers/jsxgraph.clj` shows off some basic demos, though these are
+    not yet organized
+
+  - `emmy/portal/jsxgraph.cljs` gives Portal the ability to render Leva
+    components by loading JSXGraph into portal's SCI context.
+
 - #29:
 
   - Upgrades viewer dependencies (other than MathBox) to versions compatible
