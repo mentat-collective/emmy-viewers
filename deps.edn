@@ -1,11 +1,11 @@
 {:paths ["src" "resources"]
  :deps
  {org.clojure/data.json {:mvn/version "2.4.0"}
-  org.mentat/emmy {:mvn/version "0.30.0"}
-  org.mentat/jsxgraph.cljs {:mvn/version "0.2.0"}
-  org.mentat/leva.cljs {:mvn/version "0.2.2"}
+  org.mentat/emmy {:mvn/version "0.31.0"}
+  org.mentat/jsxgraph.cljs {:mvn/version "0.2.1"}
+  org.mentat/leva.cljs {:mvn/version "0.3.0"}
   org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
-  org.mentat/mathlive.cljs {:mvn/version "0.2.0"}
+  org.mentat/mathlive.cljs {:mvn/version "0.2.1"}
   org.mentat/mafs.cljs {:mvn/version "0.3.0"}
   org.mentat/clerk-utils {:mvn/version "0.6.0"}}
 

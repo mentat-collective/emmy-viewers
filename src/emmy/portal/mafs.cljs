@@ -55,8 +55,9 @@
 (defn- ->style [theme]
   (let [lines (reduce-kv
                (fn [out mafs portal]
-                 (when-let [v (get theme portal)]
-                   (conj out (str "--mafs-" (name mafs) ": " v))))
+                 (if-let [v (get theme portal)]
+                   (conj out (str "--mafs-" (name mafs) ": " v))
+                   out))
                []
                theme-mapping)]
     (str
@@ -84,5 +85,6 @@
   (fn [v]
     (when-let [m (meta v)]
       (or (:portal.viewer/mafs? m)
+          (:portal.viewer/reagent? m)
           (= viewer-name
              (:portal.viewer/default m)))))})

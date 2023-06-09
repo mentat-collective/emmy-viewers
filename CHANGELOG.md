@@ -2,6 +2,48 @@
 
 ## [unreleased]
 
+- #32:
+
+  - Adds `emmy.mathlive`, with functions for creating Reagent fragments that
+    configure the components from [MathLive.cljs](https://mathlive.mentat.org/)
+    for Portal or Clerk
+
+  - `dev/emmy_viewers/mathlive.clj` shows off a basic demo
+
+  - `emmy/portal/mathlive.cljs` gives Portal the ability to render MathLive
+    Mathfield instances by loading MathLive into portal's SCI context.
+
+- #31:
+
+  - Adds `emmy.jsxgraph`, with functions for creating Reagent fragments that
+    configure the components from [JSXGraph.cljs](https://jsxgraph.mentat.org/)
+    for Portal or Clerk
+
+  - `dev/emmy_viewers/jsxgraph.clj` shows off some basic demos, though these are
+    not yet organized
+
+  - `emmy/portal/jsxgraph.cljs` gives Portal the ability to render JSXGraph
+    components by loading JSXGraph into portal's SCI context.
+
+- #29:
+
+  - Upgrades viewer dependencies (other than MathBox) to versions compatible
+    with Portal and able to be evaluated via SCI
+
+  - Adds `emmy.leva`, with functions for creating Reagent fragments that
+    configure the components from [Leva.cljs](https://leva.mentat.org/) for
+    Portal or Clerk
+
+  - `dev/emmy_viewers/leva.clj` shows off some basic demos, though these are not
+    yet organized
+
+  - `emmy.viewer/fragment` now tags its inputs as Reagent components, vs the
+    accidental `mafs`-specific tagging that existed before. `mafs` components
+    receive correct metadata to render with or without styling.
+
+  - `emmy/portal/leva.cljs` gives Portal the ability to render Leva components
+    by loading Leva into portal's SCI context.
+
 - #26:
 
   - Adds `emmy.clerk` with support for configuring Clerk projects and specific

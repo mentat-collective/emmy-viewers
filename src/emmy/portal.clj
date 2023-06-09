@@ -12,7 +12,10 @@
   via [[portal.api/eval-str]]."
   ["emmy/portal/tex.cljs"
    "emmy/portal/reagent.cljs"
-   "emmy/portal/mafs.cljs"])
+   "emmy/portal/mafs.cljs"
+   "emmy/portal/leva.cljs"
+   "emmy/portal/jsxgraph.cljs"
+   "emmy/portal/mathlive.cljs"])
 
 (defn prepare!
   "Installs any npm dependencies specified by a `deps.cljs` file in some
