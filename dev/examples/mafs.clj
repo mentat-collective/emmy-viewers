@@ -98,16 +98,16 @@
 ;; Build up a more complex set of fragments with a combinators:
 
 (defn chain [& points]
-  (-> (first
-       (reduce (fn [[acc tail] p]
-                 (let [tip (mapv + tail p)
-                       v   (mafs/vector
-                            {:tail tail :tip tip})]
-                   [(conj acc v) tip]))
-               [[:<>] [0 0]]
-               points))
-      (ev/fragment
-       #(mafs/mafs (mafs/cartesian) %))))
+  (mafs/mafs
+   (mafs/cartesian)
+   (first
+    (reduce (fn [[acc tail] p]
+              (let [tip (mapv + tail p)
+                    v   (mafs/vector
+                         {:tail tail :tip tip})]
+                [(conj acc v) tip]))
+            [[:<>] [0 0]]
+            points))))
 
 ;; apply it:
 
