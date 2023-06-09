@@ -2,6 +2,11 @@
 
 ## [unreleased]
 
+- #29:
+
+  - Upgrades viewer dependencies (other than MathBox) to versions compatible
+    with Portal and able to be evaluated via SCI
+
 - #26:
 
   - Adds `emmy.clerk` with support for configuring Clerk projects and specific

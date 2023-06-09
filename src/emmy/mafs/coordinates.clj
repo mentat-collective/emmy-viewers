@@ -2,8 +2,7 @@
   "Server-side rendering functions for the components declared in the
   [`mafs.coordinates`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.coordinates)
   namespace of the [`Mafs.cljs` project](https://mafs.mentat.org)."
-  (:require [emmy.viewer :as ev]
-            [emmy.mafs.core :as mafs]))
+  (:require [emmy.mafs.core :as mafs]))
 
 (defn cartesian
   "Takes an (optional) options map `opts` and returns a fragment that will render

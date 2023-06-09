@@ -28,9 +28,7 @@
   :portal
   {:extra-paths ["dev"]
    :extra-deps
-   {djblue/portal
-    {:local/root "../portal"}
-    #_{:mvn/version "0.42.0"}}}
+   {djblue/portal {:mvn/version "0.42.0"}}}
 
   :build
   {:deps
