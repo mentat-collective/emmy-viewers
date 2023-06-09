@@ -2,13 +2,17 @@
 {:toc true
  :visibility :hide-ns}
 (ns examples.mathbox.cube-controls
-  (:require [emmy.leva :as leva]
+  (:require [emmy.clerk :as ec]
+            [emmy.leva :as leva]
             [emmy.viewer :as ev]
             [emmy.mathbox :as box]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
-(ev/install!)
+{::clerk/width :wide}
+
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
 
 ;; ## Hello World!
 
@@ -17,11 +21,12 @@
 ;; repository and generate a version that we can
 ;;
 ;; - configure from our JVM source code
-;; - display in a browser window in all of its Javascripty MathBox glory.
+;; - display in a browser window in all of its JavaScripty MathBox glory.
 ;;
 ;; ### Cube Viewer
 ;;
 ;; default options:
+
 (def opts
   {:container {:style {:height "400px" :width "100%"}}
    :renderer  {:background-color 0xeeeeee
@@ -29,11 +34,11 @@
    :scale 720
    :focus 1})
 
-(defn scene [body]
+(defn scene [& children]
   (box/mathbox
    opts
    (box/camera {:position [2.5 1 2.5] :proxy true})
-   (box/cartesian {} body)))
+   (apply box/cartesian {} children)))
 
 (defn color-cube
   "Now THIS is some wild viewer writing!! This works with a dereferenced symbol OR
@@ -54,9 +59,8 @@
                          :colors "<"
                          :color 0xffffff
                          :size 'size})]))
-      (ev/tagged scene)))
+      (ev/fragment scene)))
 
-^{::clerk/width :wide}
 (color-cube
  {:width 8
   :height 5
@@ -65,28 +69,19 @@
   :opacity 1.0})
 
 ;; ## Stateful Example
-;;
-;; Here's the same example, but with sliders installed that can push state back
-;; to the server.
 
-^::clerk/sync
-(defonce !cube-state
-  (atom
-   {:width 8
-    :height 5
-    :depth 11
-    :size 20
-    :opacity 1.0}))
-
-@!cube-state
-
-(leva/controls
- {:atom `!cube-state
-  :schema
-  {:width {:min 0 :max 100 :step 1}
-   :height {:min 0 :max 100 :step 1}
-   :depth {:min 0 :max 100 :step 1}
-   :opacity {:min 0 :max 1}}})
-
-^{::clerk/width :wide}
-(color-cube `@!cube-state)
+(ev/with-let
+  [!cube-state {:width 8
+                :height 5
+                :depth 11
+                :size 20
+                :opacity 1.0}]
+  (scene
+   (leva/controls
+    {:atom !cube-state
+     :schema
+     {:width {:min 0 :max 100 :step 1}
+      :height {:min 0 :max 100 :step 1}
+      :depth {:min 0 :max 100 :step 1}
+      :opacity {:min 0 :max 1}}})
+   (color-cube `@~!cube-state)))
