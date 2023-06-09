@@ -37,7 +37,6 @@
           (fn [{:keys [L params initial-state state->xyz] :as m}]
             (assoc m
                    :L
-
                    (xc/compile-state-fn
                     (compose e/Lagrangian->state-derivative L)
                     params
@@ -62,7 +61,7 @@
         [mb/Axis {:axis 1 :width 3}]
         [mb/Axis {:axis 2 :width 3}]
         [mb/Axis {:axis 3 :width 3}]
-        [demo.mathbox/Mass
+        [emmy.mathbox.physics/Mass
          (select-keys
           value [:L :state->xyz :initial-state :params])]]]))}}
 {:state->xyz coordinate
