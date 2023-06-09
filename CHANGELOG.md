@@ -2,6 +2,17 @@
 
 ## [unreleased]
 
+- #32:
+
+  - Adds `emmy.mathlive`, with functions for creating Reagent fragments that
+    configure the components from [MathLive.cljs](https://mathlive.mentat.org/)
+    for Portal or Clerk
+
+  - `dev/emmy_viewers/mathlive.clj` shows off a basic demo
+
+  - `emmy/portal/mathlive.cljs` gives Portal the ability to render MathLive
+    Mathfield instances by loading MathLive into portal's SCI context.
+
 - #31:
 
   - Adds `emmy.jsxgraph`, with functions for creating Reagent fragments that
@@ -11,7 +22,7 @@
   - `dev/emmy_viewers/jsxgraph.clj` shows off some basic demos, though these are
     not yet organized
 
-  - `emmy/portal/jsxgraph.cljs` gives Portal the ability to render Leva
+  - `emmy/portal/jsxgraph.cljs` gives Portal the ability to render JSXGraph
     components by loading JSXGraph into portal's SCI context.
 
 - #29:

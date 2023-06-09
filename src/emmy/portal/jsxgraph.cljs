@@ -7,7 +7,7 @@
   Generate these fragments using the code in the [[emmy.jsxgraph]] namespace and
   sub-namespaces.
 
-  To use this viewer, first install the `leva` npm package:
+  To use this viewer, first install the `jsxgraph` npm package:
 
   ```bash
   npm install jsxgraph@1.5.0
