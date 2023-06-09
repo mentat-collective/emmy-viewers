@@ -36,7 +36,6 @@
             [portal.ui.theme :as theme]))
 
 (apply css/inject! (:mafs css-map))
-(apply css/inject! (:jsxgraph css-map))
 
 (def viewer-name :emmy.portal/mafs)
 
