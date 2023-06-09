@@ -55,8 +55,8 @@
   ([v viewer-or-xform]
    (let [viewer (or viewer-or-xform reagent-viewer)]
      (vary-meta v assoc
-                :portal.viewer/mafs? true
-                :portal.viewer/default :emmy.portal/mafs
+                :portal.viewer/reagent? true
+                :portal.viewer/default :emmy.portal/reagent
                 ::clerk/viewer viewer))))
 
 ;; ## State Utilities

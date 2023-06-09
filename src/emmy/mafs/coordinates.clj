@@ -32,7 +32,7 @@
       line, or [[mafs.core/labelPi]]. "
   ([] (cartesian {}))
   ([opts]
-   (ev/fragment
+   (mafs/fragment
     ['mafs.coordinates/Cartesian opts]
     mafs/mafs)))
 
@@ -59,6 +59,6 @@
       line, or [[mafs.core/labelPi]]. "
   ([] (polar {}))
   ([opts]
-   (ev/fragment
+   (mafs/fragment
     ['mafs.coordinates/Polar opts]
     mafs/mafs)))

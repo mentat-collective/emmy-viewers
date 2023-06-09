@@ -7,23 +7,31 @@
 
 ;; ## Viewer Machinery
 
+(defn mafs-meta [v]
+  (vary-meta v assoc
+             :portal.viewer/mafs? true
+             :portal.viewer/default :emmy.portal/mafs))
+
 (defn ^:no-doc default-viewer
   "Given a Reagent fragment for some standalone Mafs component, returns a version
   wrapped in `[mafs.core/Mafs [mafs.coordinates/Cartesian] ...]`, allowing it to
   render standalone."
   [child]
-  (ev/fragment
-   ['mafs.core/Mafs
-    ['mafs.coordinates/Cartesian]
-    child]))
+  (mafs-meta
+   (ev/fragment
+    ['mafs.core/Mafs
+     ['mafs.coordinates/Cartesian]
+     child])))
 
 (defn ^:no-doc fragment
   "Mafs-specific version of [[emmy.viewer/fragment]] that
   supplies [[default-viewer]] as the default, instead
   of [[emmy.viewer/reagent-viewer]]."
-  ([v] (ev/fragment v default-viewer))
+  ([v]
+   (fragment v default-viewer))
   ([v viewer]
-   (ev/fragment v viewer)))
+   (mafs-meta
+    (ev/fragment v viewer))))
 
 ;; ## Core Components
 
@@ -61,8 +69,9 @@
   - `:on-click`: Quoted ClojureScript `'(fn [point, mouse-event] ...)`, called
       when the view is clicked on, and passed the point where it was clicked."
   [& children]
-  (ev/fragment
-   (into ['mafs.core/Mafs] children)))
+  (mafs-meta
+   (ev/fragment
+    (into ['mafs.core/Mafs] children))))
 
 (defn point
   "Takes either

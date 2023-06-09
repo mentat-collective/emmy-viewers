@@ -7,7 +7,7 @@
   Generate these fragments using the code in the [[emmy.mafs]] namespace and
   sub-namespaces.
 
-  To use this viewer, first install the `mafs` npm package:
+  To use this viewer, first install the `leva` npm package:
 
   ```bash
   npm install leva@0.9.34
@@ -20,8 +20,4 @@
   ```
 
   The viewer is automatically installed by the functions in [[emmy.portal]]."
-  (:require [emmy.viewer.css :refer [css-map]]
-            [emmy.portal.css :as css]
-            [leva.core]))
-
-(apply css/inject! (:leva css-map))
+  (:require [leva.core]))

@@ -18,20 +18,18 @@
      {:emmy.portal/tex {:macros {"\\f" "#1f(#2)"}}
       :theme :portal.colors/zenburn}))
 
-  (tap> (mafs/of-x sin))
-
   (tap>
-   (ev/with-let [!phase [0 0]]
-     (let [shifted (ev/with-params {:atom !phase :params [0]}
-                     (fn [shift]
-                       (((cube D) tanh) (- identity shift))))]
-       (mafs/mafs
-        (mafs/cartesian)
-        (mafs/of-x shifted)
-        (mafs/inequality
-         {:y {:<= shifted :> cos} :color :blue})
-        (mafs/movable-point
-         {:atom !phase :constrain "horizontal"})))))
+   (emmy.mafs.core/mafs-meta
+    (ev/with-let [!phase [0 0]]
+      (let [shifted (ev/with-params {:atom !phase :params [0]}
+                      (fn [shift]
+                        (((cube D) tanh) (- identity shift))))]
+        (mafs/mafs
+         (mafs/cartesian)
+         (mafs/of-x shifted)
+         (mafs/inequality
+          {:y {:<= shifted :> cos} :color :blue})
+         (mafs/movable-point {:atom !phase :constrain "horizontal"}))))))
 
   (tap> (mafs/of-x sin {:color :indigo}))
 
@@ -43,7 +41,7 @@
                           :string "Hi!"
                           :point {:x 1 :y 1}}]
      [:<>
-      [:pre (pr-str !synced)]
+      [:pre `(pr-str @~!synced)]
       (leva/controls
        {:folder {:name "Quickstart!"}
         :atom !synced})]))
