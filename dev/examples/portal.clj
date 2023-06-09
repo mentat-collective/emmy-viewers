@@ -6,6 +6,7 @@
             [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
             [emmy.mafs :as mafs]
+            [emmy.mathlive :as ml]
             [emmy.portal :as p]
             [emmy.viewer :as ev]
             [portal.api]))
@@ -17,6 +18,9 @@
     (p/start!
      {:emmy.portal/tex {:macros {"\\f" "#1f(#2)"}}
       :theme :portal.colors/zenburn}))
+
+  (tap>
+   (ml/mathfield {:default-value "1+x"}))
 
   (tap>
    (emmy.mafs.core/mafs-meta
