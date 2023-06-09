@@ -2,6 +2,8 @@
 
 ## [unreleased]
 
+- #34 renames `emmy-viewers.sci` to `emmy.viewer.sci`.
+
 - #30:
 
   - Adds `emmy.mathbox`, with functions for creating Reagent fragments that

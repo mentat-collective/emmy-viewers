@@ -1,4 +1,4 @@
-(ns emmy-viewers.sci
+(ns emmy.viewer.sci
   (:require [demo.mathbox]
             [demo.mathlive]
             [leva.sci]
