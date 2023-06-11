@@ -8,7 +8,7 @@
             [emmy.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
             [emmy.expression :as x]
             [emmy.clerk :as ec]
-            [emmy.viewer :as ev]
+            [emmy.value :as v]
             [reagent.core :as-alias reagent]))
 
 ;; ## Hello, Emmy!
@@ -57,7 +57,6 @@
 
 ;; does it work with the multiviewer?
 
-
 (def multiviewer
   {:pred x/literal?
    :transform-fn
@@ -77,6 +76,7 @@
    (square (cos 'x)))
 
 ;; How about something more complicated?
+
 
 (/ (+ (* 'A 'C 'gMR (expt (sin 'theta) 2) (cos 'theta))
       (* (/ 1 2) 'A (expt 'p_psi 2) (expt (sin 'theta) 2))
