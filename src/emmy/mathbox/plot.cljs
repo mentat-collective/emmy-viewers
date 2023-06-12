@@ -1,10 +1,6 @@
 (ns emmy.mathbox.plot
   "Some first attempts at a higher-level plotting interface using MathBox."
-  (:require [goog.events]
-            [leva.core]
-            [mathbox.core]
-            [mathbox.primitives :as mb]
-            [nextjournal.clerk.render]))
+  (:require [mathbox.primitives :as mb]))
 
 (defn format-number [x]
   (-> (.toFixed x 2)

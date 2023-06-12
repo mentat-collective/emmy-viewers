@@ -1,6 +1,5 @@
 (ns emmy.mathbox.physics
   (:require [emmy.viewer.physics :as ph]
-            [goog.events]
             [leva.core]
             [mathbox.core]
             [mathbox.primitives :as mb]

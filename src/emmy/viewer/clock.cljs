@@ -4,6 +4,11 @@
             ["react" :as react])
   (:import [goog Timer]))
 
+;; TODO rewrite as useStopwatch for compatibility with Portal and friends:
+;; https://github.com/stevenpetryk/mafs/blob/main/src/animation/useStopwatch.ts
+;;
+;; TODO get the phase portrait example chopped up!!
+
 (defn Clock*
   "Function component for a relative clock. onTick is called with a single arg for
   seconds."

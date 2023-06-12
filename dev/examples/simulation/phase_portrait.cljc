@@ -10,7 +10,6 @@
             #?@(:cljs [[emmy.mathbox.physics]
                        [emmy.viewer.physics]
                        [nextjournal.clerk.render]
-                       [goog.events]
                        [mathbox.core]
                        [reagent.core]
                        [leva.core]
@@ -225,14 +224,10 @@
                    (map @!params keys)))]
      (fn [_]
        [:<>
-        [nextjournal.clerk.render/inspect @!arr]
-        [leva.core/Controls
-         {:atom !params
-          :schema schema}]
-        [emmy.viewer.physics/Evolve
-         {:L (:L opts)
-          :params !arr
-          :atom   !state}]
+        [:div.hidden
+         [nextjournal.clerk.render/inspect @!arr]]
+        [leva.core/Controls {:atom !params :schema schema}]
+        [emmy.viewer.physics/Evolve {:L (:L opts) :params !arr :atom !state}]
 
         [mathbox.core/MathBox
          {:container  {:style {:height "600px" :width "100%"}}
@@ -247,9 +242,7 @@
              :range [[-1 1] [-1 1]]
              :scale [0.25 0.25]
              :position [-0.5 0.35 0]}
-            [Pendulum
-             {:!state !state
-              :params !params}]]
+            [Pendulum {:!state !state :params !params}]]
 
            [mathbox.primitives/Cartesian
             {:id "well"
@@ -316,12 +309,3 @@
     :L L-pendulum
     :V V
     :initial-state [0 3 0]})
-
-
-;; Next steps:
-
-;; - TODO how do we do generic drawing?
-;; - TODO clerk/sync
-;; - how expensive is it to make these odex `.simulate` calls?
-;; - how expensive are the redundant array lookups?
-;; - convert potential to only need position
