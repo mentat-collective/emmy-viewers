@@ -1,7 +1,8 @@
 (ns emmy.mathbox.plot
-  (:require [emmy.viewer.compile :as c]
-            [emmy.mathbox :as box]
-            [emmy.viewer :as ev]))
+  (:require [emmy.mathbox :as box]
+            [emmy.mathbox.compile :as mc]
+            [emmy.viewer :as ev]
+            [emmy.viewer.compile :as c]))
 
 ;; ## Function Viewer
 
@@ -41,6 +42,18 @@
                 ['emmy.mathbox.plot/OfZ opts])
         (ev/fragment #(scene {} %)))))
 
+(defn parametric-path
+  [{:keys [f] :as opts}]
+  (let [opts (if (ev/param-f? f)
+               (update opts :f update :f (fn [f]
+                                           (fn [& params]
+                                             (let [inner (apply f params)]
+                                               (fn [[x]] (inner x))))))
+               (assoc opts :f (fn [[t]] (f t))))
+        [f-bind opts] (mc/compile-3d opts :f 1)]
+    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricPath opts])
+        (ev/fragment #(scene {} %)))))
+
 (defn of-xy
   [opts]
   (let [[z-bind opts] (c/compile-2d opts :z)]
@@ -61,6 +74,6 @@
 
 (defn parametric-surface
   [opts]
-  (let [[f-bind opts] (c/compile-2d opts :f)]
+  (let [[f-bind opts] (mc/compile-3d opts :f 2)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricSurface opts])
         (ev/fragment #(scene {} %)))))

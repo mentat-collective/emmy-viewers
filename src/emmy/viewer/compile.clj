@@ -5,8 +5,7 @@
   See [[emmy.mafs.plot]] for example uses."
   (:require [emmy.expression.compile :as xc]
             [emmy.structure :as s]
-            [emmy.viewer :as v]
-            [mentat.clerk-utils.viewers :refer [q]]))
+            [emmy.viewer :as v]))
 
 (defn compile?
   "Returns true if `f` is an argument that should be compiled by Emmy, false
@@ -30,7 +29,6 @@
 
 ;; ## Compile Functions
 
-#_{:clj-kondo/ignore [:unused-binding]}
 (defn param-1d
   "Takes:
 
@@ -51,11 +49,9 @@
     params
     [0]
     {:mode :js})
-   (let [psym (gensym)]
-     (q
-      (let [~psym (mapv @~atom ~params)]
-        (fn [x]
-          (~sym [x] ~psym)))))])
+   `(let [psym# (mapv @~atom ~params)]
+      (fn [x#]
+        (~sym [x#] psym#)))])
 
 (defn compile-1d
   "Takes
@@ -79,7 +75,6 @@
         [[sym (list* 'js/Function. body)]
          (assoc opts k new-f)]))))
 
-#_{:clj-kondo/ignore [:unused-binding]}
 (defn param-2d
   "Takes:
 
@@ -95,11 +90,9 @@
   See the body of [[compile-2d]] for more details."
   [sym {:keys [f params atom]}]
   [(xc/compile-state-fn f params [0 0] {:mode :js})
-   (let [psym (gensym)]
-     (q
-      (let [~psym (mapv @~atom ~params)]
-        (fn [xy]
-          (~sym xy ~psym)))))])
+   `(let [psym# (mapv @~atom ~params)]
+      (fn [xy#]
+        (~sym xy# psym#)))])
 
 (defn compile-2d
   "Takes

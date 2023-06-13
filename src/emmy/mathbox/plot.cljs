@@ -1,6 +1,11 @@
 (ns emmy.mathbox.plot
-  "Some first attempts at a higher-level plotting interface using MathBox."
+  "Some first attempts at a higher-level plotting interface using MathBox.
+
+  Eventually we'll want everything from https://www.math3d.org/"
   (:require [mathbox.primitives :as mb]))
+
+;; TODO I think these can wait until we get the phase portrait example really
+;; copied over. The first batch below should go in... first.
 
 (defn format-number [x]
   (-> (.toFixed x 2)
@@ -149,27 +154,21 @@
      [mb/Line {:color color :width 4}]]))
 
 (defn ParametricPath
-  "DONE This is for 2d manifolds embedded in R3."
-  [_]
-  (let [out #js [0 0 0]]
-    (fn [{:keys [f color width]
-         :or {color "#58a6ff"
-              width 256}
-         :as opts}]
-      (let [expr (fn [emit t _ _]
-                   (f t out)
-                   (emit (aget out 0)
-                         (aget out 2)
-                         (aget out 1)))]
-        [:<>
-         [mb/Interval
-          (-> (dissoc opts :f :color)
-              (assoc :width width
-                     :live false
-                     :axis 1
-                     :channels 3
-                     :expr expr))]
-         [mb/Line {:color color :width 4}]]))))
+  "`:t` range..."
+  [{:keys [f t color width]
+    :or {color "#58a6ff"
+         width 128}
+    :as opts}]
+  [:<>
+   [mb/Interval
+    (-> (dissoc opts :f :t :color)
+        (assoc :width width
+               :live false
+               :axis 1
+               :channels 3
+               :range t
+               :expr f))]
+   [mb/Line {:color color :width 4}]])
 
 ;; ## 2D Plotting
 
@@ -237,30 +236,27 @@
 
 (defn ParametricSurface
   "DONE This is for 2d manifolds embedded in R3."
-  [_]
-  (let [in  #js [0 0]
-        out #js [0 0 0]]
-    (fn [{:keys [f] :as opts}]
-      (let [expr (fn [emit x y _i _j _time]
-                   (aset in 0 x)
-                   (aset in 1 y)
-                   (f in out nil)
-                   ;; xzy
-                   (emit (aget out 0)
-                         (aget out 2)
-                         (aget out 1)))]
-        [:<>
-         [mb/Area
-          (-> opts
-              (dissoc :f :surface)
-              (assoc :expr expr))]
-         [mb/Surface
-          (merge
-           {:shaded true
-            :opacity 0.5
-            :lineX true
-            :lineY true
-            :color 0xffffff
-            :width 1}
-           (:surface opts {})
-           {:points "<"})]]))))
+  [{:keys [f u v] :as opts}]
+  [:<>
+   [mb/Area
+    (merge
+     {:live false
+      :width 64
+      :height 64}
+     (-> opts
+         (dissoc :f :surface :u :v)
+         (assoc :expr f
+                :items 1
+                :channels 3
+                :rangeX u
+                :rangeY v)))]
+   [mb/Surface
+    (merge
+     {:shaded true
+      :opacity 0.5
+      :lineX true
+      :lineY true
+      :color 0xffffff
+      :width 1}
+     (:surface opts {})
+     {:points "<"})]])

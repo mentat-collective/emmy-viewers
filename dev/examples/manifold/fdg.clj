@@ -7,12 +7,17 @@
   (:require [emmy.calculus.manifold :as cm]
             [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
-            [emmy.expression.compile :as xc]
             [emmy.leva :as leva]
             [emmy.mathbox :as box]
+            [emmy.mathbox.plot :as p]
             [emmy.viewer :as ev]))
 
+{:nextjournal.clerk/width :wide}
+
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
+
+;; ## Fun with Manifolds
 
 (defn scene [& children]
   (box/mathbox
@@ -26,32 +31,14 @@
           children)))
 
 (defn surface
-  ([f] (surface f {}))
-  ([f opts]
+  ([{:keys [f] :as opts}]
    (let [f (if (cm/coordinate-system? f)
              (fn [[x y]]
                (cm/manifold-point-representation
                 (cm/coords->point f [x y])))
-             f)
-         compiled (xc/compile-state-fn
-                   f
-                   false
-                   [0 0]
-                   {:mode :js
-                    :calling-convention :primitive
-                    :generic-params? false})
-         sym (gensym)]
-     (-> (list 'reagent.core/with-let [sym (list* 'js/Function. compiled)]
-               ['emmy.mathbox.plot/ParametricSurface
-                (merge {:width 64
-                        :height 64
-                        :rangeX [0 (* 2 Math/PI)]
-                        :rangeY [0 (* 2 Math/PI)]
-                        :axes [1 3]
-                        :live false
-                        :items 1
-                        :channels 3}
-                       (assoc opts :f sym))])
+             f)]
+     (-> (p/parametric-surface
+          (assoc opts :f f))
          (ev/fragment scene)))))
 
 (defn toroidal->rect [R r]
@@ -61,6 +48,30 @@
      (up (+ R (* r (cos theta)))
          0
          (* r (sin theta))))))
+
+(defn mobius [[u v]]
+  [(* (cos u) (+ 1 (* (/ v 2) (cos (/ u 2)))))
+   (* (sin u) (+ 1 (* (/ v 2) (cos (/ u 2)))))
+   (* (/ v 2) (sin (/ u 2)))])
+
+(surface
+ {:f mobius
+  :u [0 (* 2 Math/PI)]
+  :v [-1 1]})
+
+
+(ev/with-let [!opts {:u (* 2 Math/PI) :v 1}]
+  (scene
+   (leva/controls
+    {:folder {:name "Mobius"}
+     :schema
+     {:u {:min 0 :max (* 2 Math/PI) :step 0.01}
+      :v {:min -1 :max 1 :step 0.01}}
+     :atom !opts})
+   (surface
+    {:f mobius
+     :u [0 (ev/get !opts :u)]
+     :v [-1 (ev/get !opts :v)]})))
 
 (defn klein [[u v]]
   [(* -2/15 (cos u)
@@ -82,22 +93,72 @@
    (* 2/15 (sin v)
       (+ 3 (* 5 (cos u) (sin u))))])
 
-(surface klein)
+(surface
+ {:f klein
+  :u [0 (* 2 Math/PI)]
+  :v [0 (* 2 Math/PI)]})
 
-(scene
- (surface (toroidal->rect 2 0.5))
- (surface S2-spherical))
+(ev/with-let [!opts {:scale 1 :R 2 :r 0.5}]
+  (scene
+   (leva/controls
+    {:atom !opts
+     :folder {:name "Torus and Spring"}
+     :schema
+     {:scale {:min 0.5 :max 2 :step 0.01}
+      :R     {:min 0.5 :max 2 :step 0.01}
+      :r     {:min 0.5 :max 2 :step 0.01}}})
+   (p/parametric-path
+    {:f (ev/with-params {:atom !opts :params [:scale :R]}
+          (fn [scale R]
+            (up (* R cos) (* R sin) (* scale 0.3 identity))))
+     :t [-10 10]})
+   (surface
+    {:f (ev/with-params {:atom !opts :params [:R :r]}
+          toroidal->rect)
+     :u [0 (* 2 Math/PI)]
+     :v [0 (* 2 Math/PI)]})))
 
-(scene
- (ev/with-let [!opts {:opacity 0.8 :x Math/PI :y Math/PI}]
-   [:<>
-    (leva/controls
-     {:schema
-      {:opacity {:min 0 :max 1 :step 0.01}
-       :x {:step 0.1}
-       :y {:step 0.1}}
-      :atom !opts})
-    (surface S2-spherical
-             {:rangeX [0 (ev/get !opts :x)]
-              :rangeY [0 (ev/get !opts :y)]
-              :surface {:opacity (ev/get !opts :opacity)}})]))
+(comment
+  (surface
+   {:f (toroidal->rect 2 0.5)
+    :u [0 (* 2 Math/PI)]
+    :v [0 (* 2 Math/PI)]})
+
+  (surface
+   {:f S2-spherical
+    :u [0 (* 2 Math/PI)]
+    :v [0 (* 2 Math/PI)]})
+
+  (scene
+   (ev/with-let [!opts {:R Math/PI :r Math/PI}]
+     [:<>
+      (leva/controls
+       {:folder {:name "Torus"}
+        :schema
+        {:R {:min 0.5 :max 2 :step 0.01}
+         :r {:min 0.5 :max 2 :step 0.01}}
+        :atom !opts})
+      (surface
+       {:f (ev/with-params {:atom !opts :params [:R :r]}
+             toroidal->rect)
+        :u [0 (* 2 Math/PI)]
+        :v [0 (* 2 Math/PI)]})]))
+
+  (ev/with-let
+    [!opts {:opacity 0.8
+            :theta (* 2 Math/PI)
+            :phi Math/PI}]
+    (scene
+     (leva/controls
+      {:folder {:name "S2-spherical"}
+       :schema
+       {:opacity {:min 0 :max 1 :step 0.01}
+        :theta   {:min 0 :max (* 2 Math/PI) :step 0.01}
+        :phi     {:min 0 :max Math/PI :step 0.01}}
+       :atom !opts})
+     (surface
+      {:f S2-spherical
+       :u [0 (ev/get !opts :phi)]
+       :v [0 (ev/get !opts :theta)]
+       :surface
+       {:opacity (ev/get !opts :opacity)}}))))
