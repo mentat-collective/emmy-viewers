@@ -151,7 +151,7 @@
 ;; ### Parameterized Functions
 ;;
 ;; This section defines supporting types and the [[with-params]] constructor.
-;; This code is used by namespaces like [[emmy.mafs.compile]] to construct a
+;; This code is used by namespaces like [[emmy.viewer.compile]] to construct a
 ;; form that compiles a parametric function via Emmy, and then wraps that in an
 ;; outer function that fetches the parameters out of an atom on each call.
 

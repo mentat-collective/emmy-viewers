@@ -6,10 +6,43 @@
             [nextjournal.clerk.render]
             [reagent.core :as r]))
 
+(defn CurveSource
+  [{:keys [f' initial-state-fn params state->xyz steps dt]
+    :or {steps 1000 dt 3e-2}}]
+  [mb/Array
+   {:channels 3
+    :data
+    (let [y0  (initial-state-fn)
+          s   (ph/make-solver f' y0 {:parameters params :epsilon 1e-5})
+          ps  (.-state params)
+          xyz (double-array 3)
+          pts (atom [])]
+      (.solve s 0 (clj->js y0)
+              (* steps dt)
+              (.grid s dt
+                     (fn [_ ys]
+                       (state->xyz ys xyz ps)
+                       (swap! pts conj #js [(aget xyz 0)
+                                            (aget xyz 2)
+                                            (aget xyz 1)]))))
+      @pts)}])
+
+(defn Curve
+  "Component that takes a simulator and builds an array of points connected
+   into a curve."
+  [opts]
+  [:<>
+   [CurveSource opts]
+   [mb/Line
+    {:color 0xff3090
+     :size 8
+     :points "<"
+     :end true}]])
+
 (defn Tail [{:keys [length] :as opts}]
   [:<>
    [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
-   ;; Ah, this is the color channel, and fades out the tail as you go.
+   ;; This is the color channel, and fades out the tail as you go.
    [mb/Array
     {:width length
      :channels 4
@@ -20,35 +53,6 @@
     (-> (dissoc opts :length)
         (assoc :points "<<<"
                :colors "<"))]])
-
-(defn Curve
-  "Component that takes a simulator and builds an array of points connected
-   into a curve."
-  [{:keys [state-derivative initial-state-fn params state->xyz steps dt]
-    :or {steps 1000 dt 3e-2}}]
-  [:<>
-   [mb/Array
-    {:channels 3
-     :id "sampler"
-     :data (let [y0  (initial-state-fn)
-                 s   (ph/make-solver state-derivative y0 params 1e-5)
-                 ps  (.-state params)
-                 xyz (double-array 3)
-                 pts (atom [])]
-             (.solve s 0 (clj->js y0)
-                     (* steps dt)
-                     (.grid s dt
-                            (fn [_ ys]
-                              (state->xyz ys xyz ps)
-                              (swap! pts conj (js/Array. (aget xyz 0)
-                                                         (aget xyz 2)
-                                                         (aget xyz 1))))))
-             @pts)}]
-   [mb/Line
-    {:color 0xff3090
-     :size 8
-     :points "<"
-     :end true}]])
 
 (defn Comet
   "Path is a function of i, t
@@ -69,28 +73,26 @@
    [Tail (dissoc opts :dimensions :path :items)]])
 
 (defn Mass
-  "Mass using Colin's new code."
-  [{state :initial-state
-    state->xyz :state->xyz
-    L :L
-    params :params}]
-  (let [render-fn   (apply js/Function state->xyz)
-        state-deriv (apply js/Function L)
-        my-updater  (ph/Lagrangian-updater state-deriv state {:parameters params})]
-    [Comet
-     {:dimensions 3
-      :length 16
-      :color 0x3090ff
-      :size 10
-      :opacity 0.99
-      :path
-      (let [out #js [0 0 0]]
-        (fn [emit _ t]
-          (-> (my-updater t)
-              (render-fn out params))
-          (emit (aget out 0)
-                (aget out 2)
-                (aget out 1))))}]))
+  "TODO if I make a 2-level component to compile the function then what the heck
+  do I do if it changes? Do I not worry about that?
+
+  TODO I made it here so it's already compiled... does that make sense??"
+  [{state->xyz :state->xyz
+    !state     :atom
+    params     :params}]
+  [Comet
+   {:dimensions 3
+    :length 16
+    :color 0x3090ff
+    :size 10
+    :opacity 0.99
+    :path
+    (let [out #js [0 0 0]]
+      (fn [emit _ _]
+        (state->xyz (.-state !state) out params)
+        (emit (aget out 0)
+              (aget out 2)
+              (aget out 1))))}])
 
 (def ^:private two-pi (* 2 Math/PI))
 

@@ -1,4 +1,9 @@
 (ns emmy.viewer.clock
+  "Timer component, useful for various animations.
+
+  NOTE that this is currently implemented with `goog.Timer`. For Portal
+  compatibility, I'll back this out soon and rewrite the component using request
+  AnimationFrame."
   (:require [goog.events]
             [goog.Timer :as timer]
             ["react" :as react])
@@ -6,12 +11,10 @@
 
 ;; TODO rewrite as useStopwatch for compatibility with Portal and friends:
 ;; https://github.com/stevenpetryk/mafs/blob/main/src/animation/useStopwatch.ts
-;;
-;; TODO get the phase portrait example chopped up!!
 
 (defn Clock*
-  "Function component for a relative clock. onTick is called with a single arg for
-  seconds."
+  "Function component for a relative clock. `onTick` is called with a single arg
+  for seconds."
   [{:keys [interval running? onTick]
     :or   {running? true
            interval 1}}]
@@ -59,5 +62,7 @@
          js/undefined))
      #js [onTick])))
 
-(defn ^:export Clock [opts]
+(defn Clock
+  "Wrapper around the function component [[Clock*]]."
+  [opts]
   [:f> Clock* opts])

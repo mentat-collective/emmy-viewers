@@ -1,9 +1,8 @@
-(ns ^:no-doc emmy.mafs.compile
+(ns ^:no-doc emmy.viewer.compile
   "This namespace contains functions for compiling Emmy function objects down to
-  JavaScript `js/Function` constructor calls in all the ways needed by
-  components in Mafs.cljs.
+  JavaScript `js/Function` constructor calls.
 
-  Most of the components that use this compilation code live in [[emmy.mafs]]."
+  See [[emmy.mafs.plot]] for example uses."
   (:require [emmy.expression.compile :as xc]
             [emmy.structure :as s]
             [emmy.viewer :as v]

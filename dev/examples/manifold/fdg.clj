@@ -1,19 +1,18 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.manifold.fdg
-  #:nextjournal.clerk
-  {:toc true :no-cache true}
+  #:nextjournal.clerk{:toc true :no-cache true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [mentat.clerk-utils.viewers :refer [q]]
-            [emmy.calculus.manifold :as cm]
+  (:require [emmy.calculus.manifold :as cm]
+            [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [emmy.leva :as leva]
             [emmy.mathbox :as box]
             [emmy.viewer :as ev]))
 
-(ev/install!)
+(ec/install!)
 
 (defn scene [& children]
   (box/mathbox
@@ -26,8 +25,8 @@
           (box/axis {:axis 3 :width 3})
           children)))
 
-(defn manifold
-  ([f] (manifold f {}))
+(defn surface
+  ([f] (surface f {}))
   ([f opts]
    (let [f (if (cm/coordinate-system? f)
              (fn [[x y]]
@@ -42,9 +41,9 @@
                     :calling-convention :primitive
                     :generic-params? false})
          sym (gensym)]
-     (-> (q (reagent.core/with-let [~sym (js/Function. ~@compiled)]
-              [emmy.mathbox.plot/Manifold
-               ~(merge {:width 64
+     (-> (list 'reagent.core/with-let [sym (list* 'js/Function. compiled)]
+               ['emmy.mathbox.plot/ParametricSurface
+                (merge {:width 64
                         :height 64
                         :rangeX [0 (* 2 Math/PI)]
                         :rangeY [0 (* 2 Math/PI)]
@@ -52,8 +51,8 @@
                         :live false
                         :items 1
                         :channels 3}
-                       (assoc opts :f sym))]))
-         (ev/tagged scene)))))
+                       (assoc opts :f sym))])
+         (ev/fragment scene)))))
 
 (defn toroidal->rect [R r]
   (fn [[theta phi]]
@@ -64,18 +63,19 @@
          (* r (sin theta))))))
 
 (scene
- (manifold (toroidal->rect 2 0.5))
- (manifold S2-spherical))
+ (surface (toroidal->rect 2 0.5))
+ (surface S2-spherical))
 
-
-(ev/with-let [!opts {:opacity 0.8 :x Math/PI :y Math/PI}]
-  [:<>
-   (leva/controls
-    {:schema {:opacity {:min 0 :max 1 :step 0.01}
-              :x {:step 0.1}
-              :y {:step 0.1}}
-     :atom !opts})
-   (manifold S2-spherical
-             {:rangeX [0 (q (:x @~!opts))]
-              :rangeY [0 (q (:y @~!opts))]
-              :surface {:opacity (q (:opacity @~!opts))}})])
+(scene
+ (ev/with-let [!opts {:opacity 0.8 :x Math/PI :y Math/PI}]
+   [:<>
+    (leva/controls
+     {:schema
+      {:opacity {:min 0 :max 1 :step 0.01}
+       :x {:step 0.1}
+       :y {:step 0.1}}
+      :atom !opts})
+    (surface S2-spherical
+             {:rangeX [0 (ev/get !opts :x)]
+              :rangeY [0 (ev/get !opts :y)]
+              :surface {:opacity (ev/get !opts :opacity)}})]))

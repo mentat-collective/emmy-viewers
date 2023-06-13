@@ -62,6 +62,7 @@
      (up 'theta 'phi)
      (up 'v_theta 'v_phi)))
 
+
 (defn L-toroidal [R r]
   (comp
    (- T-free-particle

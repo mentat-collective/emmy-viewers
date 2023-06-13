@@ -1,13 +1,13 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.number
-  (:require [emmy.viewer :as ev]
+  #:nextjournal.clerk
+  {:toc true}
+  (:require [emmy.clerk :as ec]
             [emmy.mafs :as mafs]
             [nextjournal.clerk :as clerk]))
 
-^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
-(ev/install!)
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
 
 ;; ## Numbers
 
@@ -32,7 +32,7 @@
              :y [-0.25 0.25]}}
            (mafs/cartesian)
            (for [x xs]
-             (mafs/point {:key x :x x :y 0})))))
+             (mafs/point [x 0] {:key x})))))
 
 ;; Here are some individual numbers:
 

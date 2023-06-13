@@ -55,7 +55,7 @@
      (e/literal-function 'x))
     't))))
 
-^{::clerk/visibility {:code :hide :result :hide}}
+#_^{::clerk/visibility {:code :hide :result :hide}}
 (show-cljs
  (defn PhaseAxes []
    [:<>
@@ -128,7 +128,9 @@
             (simulate in
                       steps
                       dt
-                      emit)))}]
+                      (fn [ys]
+                        (emit (aget ys 1)
+                              (aget ys 2))))))}]
       [mb/Vector
        {:color 0x3090ff
         :size 3
@@ -341,7 +343,7 @@
         ;;          );
         ;; TODO same evolution?
         [emmy.viewer.physics/Evolve
-         {:L (:L opts)
+         {:derivative (:L opts)
           :params !arr
           :atom   !state}]
 

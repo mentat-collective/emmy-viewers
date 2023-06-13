@@ -1,4 +1,7 @@
-(ns emmy.viewer.clock)
+(ns emmy.viewer.clock
+  "Clock component!")
 
-(defn clock [opts]
+(defn clock
+  "Returns a reagent fragment that renders a Clock component into the scene."
+  [opts]
   [`Clock opts])

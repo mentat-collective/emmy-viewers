@@ -5,12 +5,12 @@
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [emmy.env :as e :refer :all]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
             [emmy.mathbox :as box]
-            [emmy.viewer :as ev]
             [nextjournal.clerk :as clerk]))
 
-(ev/install!)
+(ec/install!)
 
 ;; ## Your First Scene
 
