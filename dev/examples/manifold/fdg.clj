@@ -62,6 +62,28 @@
          0
          (* r (sin theta))))))
 
+(defn klein [[u v]]
+  [(* -2/15 (cos u)
+      (+ (- (* 3 (cos v))
+            (* 30 (sin u)))
+         (- (* 90 (sin u) (expt (cos u) 4))
+            (* 60 (sin u) (expt (cos u) 6)))
+         (* 5 (cos u) (cos v) (sin u))))
+   (* -1/15 (sin u)
+      (+ (- (* 3 (cos v))
+            (* 3 (square (cos u)) (cos v))
+            (* 48 (cos v) (expt (cos u) 4)))
+         (- (* 48 (cos v) (expt (cos u) 6))
+            (* 60 (sin u)))
+         (- (* 5 (cos u) (cos v) (sin u))
+            (* 5 (cube (cos u)) (cos v) (sin u))
+            (* 80 (expt (cos u) 5) (cos v) (sin u)))
+         (* 80 (expt (cos u) 7) (cos v) (sin u))))
+   (* 2/15 (sin v)
+      (+ 3 (* 5 (cos u) (sin u))))])
+
+(surface klein)
+
 (scene
  (surface (toroidal->rect 2 0.5))
  (surface S2-spherical))
