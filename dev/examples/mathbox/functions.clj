@@ -46,10 +46,10 @@
                       (* amplitude (D my-fn))))
                :color "green" :width 256})
    (plot/of-xz
-    {:y (ev/with-params {:atom !state :params [:amplitude]}
+    {:width  128
+     :height 128
+     :y (ev/with-params {:atom !state :params [:amplitude]}
           (fn [amplitude]
             (fn [[x y]]
               (* amplitude
-                 (cos (* x y))))))
-     :width 128
-     :height 128})))
+                 (cos (* x y))))))})))

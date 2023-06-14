@@ -2,7 +2,8 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial abs infinite?])
-  (:require [emmy.env :as e :refer :all]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [emmy.viewer :as ev]
             [examples.expression :as d]
@@ -12,7 +13,7 @@
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]))
 
-(emmy.viewer/install!)
+(ec/install!)
 
 ;; ## Ellipsoid Particle
 ;;

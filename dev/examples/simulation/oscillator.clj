@@ -26,7 +26,6 @@
 
 ;; TODO note that we have some weird missing newlines.
 
-
 (def m 10)
 (def k 200)
 (def g 9.8)

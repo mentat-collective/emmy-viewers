@@ -59,19 +59,25 @@
   :u [0 (* 2 Math/PI)]
   :v [-1 1]})
 
+(defn slider-surface [name {:keys [f u v]}]
+  (ev/with-let [!opts {:u (peek u) :v (peek v)}]
+    (scene
+     (leva/controls
+      {:folder {:name name}
+       :schema
+       {:u {:min (first u) :max (second u) :step 0.01}
+        :v {:min (first v) :max (second v) :step 0.01}}
+       :atom !opts})
+     (surface
+      {:f f
+       :u [0 (ev/get !opts :u)]
+       :v [-1 (ev/get !opts :v)]}))))
 
-(ev/with-let [!opts {:u (* 2 Math/PI) :v 1}]
-  (scene
-   (leva/controls
-    {:folder {:name "Mobius"}
-     :schema
-     {:u {:min 0 :max (* 2 Math/PI) :step 0.01}
-      :v {:min -1 :max 1 :step 0.01}}
-     :atom !opts})
-   (surface
-    {:f mobius
-     :u [0 (ev/get !opts :u)]
-     :v [-1 (ev/get !opts :v)]})))
+(slider-surface
+ "Mobius"
+ {:f mobius
+  :u [0 (* 2 Math/PI)]
+  :v [-1 1]})
 
 (defn klein [[u v]]
   [(* -2/15 (cos u)
@@ -144,6 +150,7 @@
         :u [0 (* 2 Math/PI)]
         :v [0 (* 2 Math/PI)]})]))
 
+  ;; TODO try slider surface?
   (ev/with-let
     [!opts {:opacity 0.8
             :theta (* 2 Math/PI)
