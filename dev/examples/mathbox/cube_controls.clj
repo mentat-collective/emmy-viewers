@@ -27,7 +27,6 @@
 ;;
 ;; default options:
 
-
 (def opts
   {:container {:style {:height "400px" :width "100%"}}
    :renderer  {:background-color 0xeeeeee

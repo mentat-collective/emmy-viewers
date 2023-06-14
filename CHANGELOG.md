@@ -2,6 +2,13 @@
 
 ## [unreleased]
 
+- #39:
+
+  - moves `emmy.mafs.compile` to `emmy.viewer.compile`, for future use by
+    MathBox.
+
+  - ports examples over the new style with `emmy.clerk` and friends.
+
 - #34 renames `emmy-viewers.sci` to `emmy.viewer.sci`.
 
 - #30:
