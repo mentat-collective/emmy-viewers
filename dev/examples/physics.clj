@@ -8,7 +8,7 @@
   (:require [emmy.mafs.core]
             [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
-            [emmy.viewer :as ev]
+            #_[emmy.viewer :as ev]
             [nextjournal.clerk :as clerk]))
 
 {::clerk/width :wide}

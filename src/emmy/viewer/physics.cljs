@@ -1,6 +1,5 @@
 (ns emmy.viewer.physics
-  (:require [emmy.numerical.ode :as ode]
-            [emmy.viewer.clock :as clock]
+  (:require [emmy.viewer.clock :as clock]
             ["odex" :as o]))
 
 

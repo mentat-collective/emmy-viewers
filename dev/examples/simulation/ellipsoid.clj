@@ -5,7 +5,6 @@
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
-            [emmy.viewer :as ev]
             [examples.expression :as d]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
@@ -80,7 +79,7 @@
 ;;
 ;; Lagrange equations of motion for the ellipsoid:
 
-(ev/multi
+(ec/multi
  (take 2 (d/transform-literal
           (let [L (L-central-triaxial 'm 'a 'b 'c)
                 theta (literal-function 'theta)
@@ -160,7 +159,7 @@
 ;; ## Equations of Motion:
 
 ^{::clerk/visibility {:code :hide}}
-(ev/multi
+(ec/multi
  (take 2 (d/transform-literal
           (let [L (L-central-triaxial 'm 'a 'b 'c)
                 theta (literal-function 'theta)

@@ -36,12 +36,12 @@
                  (assoc :axis axis)
                  (dissoc :label-maker))]
     [:<>
-     [mathbox.primitives/Axis {:axis axis}]
-     [mathbox.primitives/Scale opts]
-     [mathbox.primitives/Format
+     [mb/Axis {:axis axis}]
+     [mb/Scale opts]
+     [mb/Format
       {:expr (or label-maker format-number)
        :font ["Helvetica"]}]
-     [mathbox.primitives/Label
+     [mb/Label
       (cond-> {:color 0xffffff
                :background 0x000000
                :depth 0.5
@@ -58,7 +58,7 @@
   (let [x-opts (merge axis-defaults x-axis)
         y-opts (merge axis-defaults y-axis)]
     [:<>
-     [mathbox.primitives/Grid
+     [mb/Grid
       {:color 0x808080
        :unit-x (:unit x-opts)
        :base-x (:base x-opts)
@@ -174,8 +174,7 @@
 
 (defn- Surface2D [_]
   (fn [{:keys [expr width height]
-       :or {width 64
-            height 64}
+       :or {width 64 height 64}
        :as opts}]
     [:<>
      [mb/Area

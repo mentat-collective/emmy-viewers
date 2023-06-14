@@ -6,12 +6,12 @@
             #?(:clj [emmy.expression.compile :as xc])
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
-            [mentat.clerk-utils.show :refer [show-cljs]]
+            #_[mentat.clerk-utils.show :refer [show-cljs]]
             #?@(:cljs [[nextjournal.clerk.render]
                        [mathbox.core]
                        [reagent.core]
                        [leva.core]
-                       [mathbox.primitives :as mb]])))
+                       #_[mathbox.primitives :as mb]])))
 
 ;; ## Quartic Well
 ;; https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf
