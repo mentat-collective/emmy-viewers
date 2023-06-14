@@ -77,3 +77,9 @@
   (let [[f-bind opts] (mc/compile-3d opts :f 2)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricSurface opts])
         (ev/fragment #(scene {} %)))))
+
+(defn vector-field
+  [opts]
+  (let [[f-bind opts] (mc/compile-3d opts :f 3)]
+    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/VectorField opts])
+        (ev/fragment #(scene {} %)))))

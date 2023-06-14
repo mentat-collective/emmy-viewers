@@ -6,7 +6,7 @@
 
 (defn frame
   [{:keys [sym dimensions param-f]}]
-  {:pre [(#{1 2} dimensions)]}
+  {:pre [(#{1 2 3} dimensions)]}
   (let [in      (gensym)
         syms    (repeatedly dimensions gensym)
         indices (range dimensions)]
@@ -45,7 +45,7 @@
             [body new-f] (if (v/param-f? v)
                            (param-3d sym v dimensions)
                            [(xc/compile-state-fn
-                             v false [0 0]
+                             v false (into [] (repeat dimensions 0))
                              {:mode :js
                               :generic-params? false
                               :calling-convention :primitive})

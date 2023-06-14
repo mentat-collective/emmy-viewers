@@ -259,3 +259,38 @@
       :width 1}
      (:surface opts {})
      {:points "<"})]])
+
+;; Finish getting info from
+;; https://github.com/ChristopherChudzicki/math3d-react/blob/master/client/src/components/MathBox/MathBoxComponents.js#L1424-L1435
+;;
+;; and make sure it feels like the mafs vectorfield example. Should we normalize
+;; down? Probably not, let the user do that.
+
+(defn VectorField [{:keys [f x y z] :as opts}]
+  [:<>
+   [mb/Volume
+    (merge
+     {:live false
+      :width 10
+      :height 10
+      :depth 10}
+     (-> opts
+         (dissoc :f :x :y :z)
+         (assoc :expr
+                (let [scale 0.2]
+                  (fn [emit x y z]
+                    (emit x z y)
+                    (f (fn [x' z' y']
+                         (emit (+ x (* scale x'))
+                               (+ z (* scale z'))
+                               (+ y (* scale y'))))
+                       x y z)))
+                :items 2
+                :channels 3
+                :rangeX x
+                :rangeY y
+                :rangeZ z)))]
+   [mb/Vector {:points "<"
+               :color "blue"
+               :size 4
+               :end true}]])

@@ -35,6 +35,24 @@
 
 (plot/of-x {:z my-fn :color "blue" :width 256})
 
+(defn normalize [v]
+  (/ v (abs v)))
+
+(ev/with-let [!state {:ax 1 :ay 0}]
+  (plot/scene
+   (emmy.leva/controls {:atom !state})
+   (plot/vector-field
+    {:f (ev/with-params {:atom !state :params [:ax :ay]}
+          (fn [ax ay]
+            (fn [[x y]]
+              (normalize
+               [(- (- y ay) (- x ax))
+                (- (- (- x ax)) (- y ay))
+                0]))))
+     :x [-1 1]
+     :y [-1 1]
+     :z [-1 1]})))
+
 (ev/with-let [!state {:amplitude 1}]
   (plot/scene
    {:range [[-6 6] [-6 6] [-6 6]]
