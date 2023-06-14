@@ -2,8 +2,8 @@
   "Server-side rendering functions for the components declared in the
   [`mafs.plot`](https://cljdoc.org/d/org.mentat/mafs.cljs/CURRENT/api/mafs.plot)
   namespace of the [`Mafs.cljs` project](https://mafs.mentat.org)."
-  (:require [emmy.mafs.compile :as c]
-            [emmy.mafs.core :as mafs]))
+  (:require [emmy.mafs.core :as mafs]
+            [emmy.viewer.compile :as c]))
 
 (defn of-x
   "Takes either
@@ -293,6 +293,7 @@
    (if (c/opts? f-or-opts)
      (let [[xy-bind opts] (c/compile-2d f-or-opts :xy)
            [op-bind opts] (c/compile-2d opts :xy-opacity)]
-       (c/wrap [xy-bind op-bind]
-               ['mafs.plot/VectorField opts]))
+       (mafs/fragment
+        (c/wrap [xy-bind op-bind]
+                ['mafs.plot/VectorField opts])))
      (vector-field f-or-opts {}))))
