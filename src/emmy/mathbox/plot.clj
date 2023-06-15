@@ -1,4 +1,5 @@
 (ns emmy.mathbox.plot
+  (:refer-clojure :exclude [vector])
   (:require [emmy.mathbox :as box]
             [emmy.mathbox.compile :as mc]
             [emmy.viewer :as ev]
@@ -17,6 +18,26 @@
           (box/axis {:axis 2 :width 3})
           (box/axis {:axis 3 :width 3})
           children)))
+
+(defn point [opts]
+  (ev/fragment
+   ['emmy.mathbox.plot/Point opts]
+   #(scene {} %)))
+
+(defn line [opts]
+  (ev/fragment
+   ['emmy.mathbox.plot/Line opts]
+   #(scene {} %)))
+
+(defn vector [opts]
+  (ev/fragment
+   ['emmy.mathbox.plot/Vector opts]
+   #(scene {} %)))
+
+(defn point [opts]
+  (ev/fragment
+   ['emmy.mathbox.plot/Point opts]
+   #(scene {} %)))
 
 (defn of-x
   [opts]
@@ -42,7 +63,7 @@
                 ['emmy.mathbox.plot/OfZ opts])
         (ev/fragment #(scene {} %)))))
 
-(defn parametric-path
+(defn parametric-curve
   [{:keys [f] :as opts}]
   (let [opts (if (ev/param-f? f)
                (update opts :f update :f (fn [f]
@@ -51,7 +72,7 @@
                                                (fn [[x]] (inner x))))))
                (assoc opts :f (fn [[t]] (f t))))
         [f-bind opts] (mc/compile-3d opts :f 1)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricPath opts])
+    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricCurve opts])
         (ev/fragment #(scene {} %)))))
 
 (defn of-xy
@@ -70,6 +91,11 @@
   [opts]
   (let [[x-bind opts] (c/compile-2d opts :x)]
     (-> (c/wrap [x-bind] ['emmy.mathbox.plot/OfYZ opts])
+        (ev/fragment #(scene {} %)))))
+
+(defn polar-surface [opts]
+  (let [[z-bind opts] (c/compile-2d opts :z)]
+    (-> (c/wrap [z-bind] ['emmy.mathbox.plot/PolarSurface opts])
         (ev/fragment #(scene {} %)))))
 
 (defn parametric-surface

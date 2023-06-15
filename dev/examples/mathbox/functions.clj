@@ -35,6 +35,11 @@
 
 (plot/of-x {:z my-fn :color "blue" :width 256})
 
+(plot/polar-surface
+ {:z (fn [[r theta]]
+       (* 1/4 (square r)
+          (cos (* 3 theta))))})
+
 (defn normalize [v]
   (/ v (abs v)))
 

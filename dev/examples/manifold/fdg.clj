@@ -127,7 +127,8 @@
       :u [0 (* 2 Math/PI)]
       :v [0 (* 2 Math/PI)]})]))
 
-;; Torus with a parametric path overlaid, both interactive:
+;; Torus with a parametric curve overlaid, both interactive:
+
 
 (ev/with-let [!opts {:scale 1 :R 2 :r 0.5}]
   (scene
@@ -138,7 +139,7 @@
      {:scale {:min 0.5 :max 2 :step 0.01}
       :R     {:min 0.5 :max 2 :step 0.01}
       :r     {:min 0.5 :max 2 :step 0.01}}})
-   (p/parametric-path
+   (p/parametric-curve
     {:f (ev/with-params {:atom !opts :params [:scale :R]}
           (fn [scale R]
             (up (* R cos) (* R sin) (* scale 0.3 identity))))
