@@ -13,8 +13,7 @@
 ;;
 ;; These fragments communicate how they're meant to be rendered via metadata. I
 ;; think this is a good idea, but we'll see how it evolves!
-
-
+;;
 ;; ## Metadata Configuration
 ;;
 ;; You won't need to call any of the functions in this section manually unless

@@ -12,6 +12,8 @@
 
 {:nextjournal.clerk/width :wide}
 
+
+
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
@@ -23,8 +25,11 @@
 
 (defn my-fn [x]
   (+ -1
+
      (square (sin x))
      (square (cos (* 2 x)))))
+
+
 
 ;; The function works locally, with numbers or symbols:
 
@@ -53,25 +58,20 @@
               (normalize
                [(- (- y ay) (- x ax))
                 (- (- (- x ax)) (- y ay))
-                0]))))
-     :x [-1 1]
-     :y [-1 1]
-     :z [-1 1]})))
+                0]))))})))
 
 (ev/with-let [!state {:amplitude 1}]
   (plot/scene
-   {:range [[-6 6] [-6 6] [-6 6]]
-    :scale [1 1 1]}
    (emmy.leva/controls {:atom !state})
    (plot/of-x {:z my-fn :color "blue" :width 256})
-   (plot/of-z {:y (ev/with-params {:atom !state :params [:amplitude]}
+   (plot/of-y {:z (ev/with-params {:atom !state :params [:amplitude]}
                     (fn [amplitude]
                       (* amplitude (D my-fn))))
                :color "green" :width 256})
-   (plot/of-xz
+   (plot/of-xy
     {:width  128
      :height 128
-     :y (ev/with-params {:atom !state :params [:amplitude]}
+     :z (ev/with-params {:atom !state :params [:amplitude]}
           (fn [amplitude]
             (fn [[x y]]
               (* amplitude

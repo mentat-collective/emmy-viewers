@@ -2,6 +2,82 @@
   "Plotting API over MathBox."
   (:require [mathbox.primitives :as mb]))
 
+;; ## Default Plots
+
+(defn ^:no-doc split-opts [children]
+  (if (map? (first children))
+    [(first children) (rest children)]
+    [{} children]))
+
+(def ^:no-doc axis->idx
+  {:x 1
+   :y 3
+   :z 2
+   :xy [1 3] :yx [3 1]
+   :yz [3 2] :zy [2 3]
+   :xz [1 2] :zx [2 1]})
+
+(defn LabeledAxis
+  ([k] [LabeledAxis k {}])
+  ([k {:keys [ticks? label-ticks? label?]
+       :or {ticks? true
+            label-ticks? true
+            label? true}}]
+   (let [label (name k)
+         idx   (axis->idx k)]
+     [mb/Group {:visible true :classes ["axis"]}
+      [mb/Axis {:axis idx
+                :opacity 1
+                :width 1
+                :size 2
+                :color "#808080"
+                :zOrder 0 :zIndex 0 :zBias 0 }]
+      (when ticks?
+        [mb/Group {:classes ["ticks"] :visible true}
+         [mb/Scale {:divide 10 :nice true :zero false :axis idx}]
+         [mb/Ticks {:width 2}]
+         (when label-ticks?
+           [:<>
+            [mb/Format {:digits 2}]
+            [mb/Label {:classes ["tick-labels"]}]])])
+      (when label?
+        [mb/Group {:classes ["label"] :visible true}
+         [mb/Array {:channels 3
+                    :live false
+                    :data [(assoc [0 0 0] (dec idx) 5)]}]
+         [mb/Text {:weight "bold" :data [label]}]
+         [mb/Label {:offset [0 40 0]}]])])))
+
+(defn Grid [k]
+  (let [axes (axis->idx k)]
+    [mb/Grid
+     {:axes axes
+      :opacity 1
+      :width 0.5
+      :color"#808080"
+      :niceX false
+      :niceY false
+      :zOrder 0 :zIndex 0 :zBias 0}]))
+
+(defn Scene
+  "TODO add options!"
+  [& children]
+  (let [[opts children] (split-opts children)
+        {:keys [axes grids axis-options]
+         :or {axes  [:x :y :z]
+              grids [:xy]}}
+        opts]
+    (into [mb/Cartesian
+           {:range [[-5 5] [-5 5] [-5 5]]
+            :scale [1 1 1]}
+           [mb/Camera {:proxy true :position [0.5 0.6 2]}]]
+          (concat
+           children
+           (map (fn [axis]
+                  [LabeledAxis axis (get axis-options axis {})])
+                axes)
+           (map Grid grids)))))
+
 ;; ## Objects
 
 (defn Point [])
@@ -147,7 +223,7 @@
                    (emit x (z in) y))]
         [Surface2D
          (-> (dissoc opts :z)
-             (assoc :axes [1 3]
+             (assoc :axes (axis->idx :xy)
                     :expr expr))]))))
 
 (defn OfXZ [_]
@@ -159,7 +235,7 @@
                    (emit x z (y in)))]
         [Surface2D
          (-> (dissoc opts :y)
-             (assoc :axes [1 2]
+             (assoc :axes (axis->idx :xz)
                     :expr expr))]))))
 
 (defn OfYZ [_]
@@ -171,7 +247,7 @@
                    (emit (x in) z y))]
         [Surface2D
          (-> (dissoc opts :x)
-             (assoc :axes [3 2]
+             (assoc :axes (axis->idx :yz)
                     :expr expr))]))))
 
 (defn PolarSurface [_]

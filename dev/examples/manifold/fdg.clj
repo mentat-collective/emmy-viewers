@@ -8,7 +8,6 @@
             [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
-            [emmy.mathbox :as box]
             [emmy.mathbox.plot :as p]
             [emmy.viewer :as ev]))
 
@@ -19,17 +18,6 @@
 
 ;; ## Fun with Manifolds
 
-(defn scene [& children]
-  (box/mathbox
-   {:container  {:style {:height "400px" :width "100%"}}
-    :renderer   {:background-color 0xffffff}}
-   (apply box/cartesian
-          {:range [[-10 10] [-10 10] [-10 10]] :scale [3 3 3]}
-          (box/axis {:axis 1 :width 3})
-          (box/axis {:axis 2 :width 3})
-          (box/axis {:axis 3 :width 3})
-          children)))
-
 (defn surface
   ([{:keys [f] :as opts}]
    (let [f (if (cm/coordinate-system? f)
@@ -39,16 +27,21 @@
              f)]
      (-> (p/parametric-surface
           (assoc opts :f f))
-         (ev/fragment scene)))))
+         (ev/fragment p/scene)))))
 
 (defn slider-surface [name {:keys [f u v]}]
   (ev/with-let [!opts {:u (peek u) :v (peek v)}]
-    (scene
+    (p/scene
+     {:axis-options
+      {:x {:label-ticks? false}
+       :y {:label-ticks? false}
+       :z {:label-ticks? false}}
+      :grids []}
      (leva/controls
       {:folder {:name name}
        :schema
-       {:u {:min (first u) :max (second u) :step 0.01}
-        :v {:min (first v) :max (second v) :step 0.01}}
+       {:u {:min (first u) :max (peek u) :step 0.01}
+        :v {:min (first v) :max (peek v) :step 0.01}}
        :atom !opts})
      (surface
       {:f f
@@ -112,7 +105,8 @@
 
 ;; Parametrized torus:
 
-(scene
+
+(p/scene
  (ev/with-let [!opts {:R Math/PI :r Math/PI}]
    [:<>
     (leva/controls
@@ -129,9 +123,8 @@
 
 ;; Torus with a parametric curve overlaid, both interactive:
 
-
 (ev/with-let [!opts {:scale 1 :R 2 :r 0.5}]
-  (scene
+  (p/scene
    (leva/controls
     {:atom !opts
      :folder {:name "Torus and Spring"}
@@ -163,7 +156,7 @@
   [!opts {:opacity 0.8
           :theta (* 2 Math/PI)
           :phi Math/PI}]
-  (scene
+  (p/scene
    (leva/controls
     {:folder {:name "S2-spherical"}
      :schema
