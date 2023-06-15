@@ -128,7 +128,7 @@
               :origin outer-origin}]
             [mathbox.primitives/Format
              {:expr (fn [x]
-                      (str (emmy.mathbox.plot/format-number (/ x Math/PI))
+                      (str (emmy.viewer.plot/format-number (/ x Math/PI))
                            "π"))
               :font ["Helvetica"]}]
             [mathbox.primitives/Label
@@ -152,7 +152,7 @@
               :zero false
               :origin outer-origin}]
             [mathbox.primitives/Format
-             {:expr emmy.mathbox.plot/format-number
+             {:expr emmy.viewer.plot/format-number
               :font ["Helvetica"]}]
             [mathbox.primitives/Label
              {:color 0xffffff

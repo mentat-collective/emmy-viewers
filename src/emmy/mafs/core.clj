@@ -35,11 +35,6 @@
 
 ;; ## Core Components
 
-(def labelPi
-  "Symbol referencing the client-side `mafs.core/labelPi`, useful to pass as a
-  `:labels` option to the components that take it."
-  'mafs.core/LabelPi)
-
 (def colors
   "Color keywords controlled by the current Mafs theme."
   #{:foreground :background :red :orange :green

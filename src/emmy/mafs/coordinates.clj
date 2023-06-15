@@ -28,7 +28,7 @@
       none.
 
   - `:labels`: A quoted ClojureScript function that returns a label for each
-      line, or [[mafs.core/labelPi]]. "
+      line, or [[emmy.viewer.plot/label-pi]]. "
   ([] (cartesian {}))
   ([opts]
    (mafs/fragment
@@ -55,7 +55,7 @@
   - `:axis`: boolean that specifies whether or not to draw the axis line.
 
   - `:labels`: A quoted ClojureScript function that returns a label for each
-      line, or [[mafs.core/labelPi]]. "
+      line, or [[emmy.viewer.plot/label-pi]]. "
   ([] (polar {}))
   ([opts]
    (mafs/fragment

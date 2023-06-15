@@ -2,6 +2,11 @@
 
 ## [unreleased]
 
+- #40:
+
+  - Adds `emmy.viewer.plot` with `format-number` and `label-pi` functions,
+    replacing `mafs.core/labelPi`.
+
 - #39:
 
   - moves `emmy.mafs.compile` to `emmy.viewer.compile`, for future use by
