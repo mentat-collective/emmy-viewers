@@ -13,7 +13,7 @@
   ["emmy/portal/tex.cljs"
    "emmy/portal/reagent.cljs"
    "emmy/portal/mafs.cljs"
-   "emmy/portal/leva.cljs"
+   #_"emmy/portal/leva.cljs"
    "emmy/portal/jsxgraph.cljs"
    "emmy/portal/mathlive.cljs"])
 

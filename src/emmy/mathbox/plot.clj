@@ -6,6 +6,8 @@
             [emmy.viewer.compile :as c]))
 
 ;; ## Function Viewer
+;;
+;; TODO take a `compile?` flag for the compiler namespaces, so pq knots work.
 
 (defn scene [& children]
   (box/mathbox
@@ -53,12 +55,15 @@
         (ev/fragment scene))))
 
 (defn parametric-curve
+  "TODO tidy..."
   [{:keys [f] :as opts}]
   (let [opts (if (ev/param-f? f)
-               (update opts :f update :f (fn [f]
-                                           (fn [& params]
-                                             (let [inner (apply f params)]
-                                               (fn [[x]] (inner x))))))
+               (update opts :f
+                       update :f
+                       (fn [f]
+                         (fn [& params]
+                           (let [inner (apply f params)]
+                             (fn [[x]] (inner x))))))
                (assoc opts :f (fn [[t]] (f t))))
         [f-bind opts] (mc/compile-3d opts :f 1)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricCurve opts])

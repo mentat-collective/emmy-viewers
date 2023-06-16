@@ -4,7 +4,6 @@
 
   See [[emmy.mafs.plot]] for example uses."
   (:require [emmy.expression.compile :as xc]
-            [emmy.structure :as s]
             [emmy.viewer :as v]))
 
 (defn compile?
@@ -68,7 +67,6 @@
     (if-not (compile? v)
       [[] opts]
       (let [sym          (gensym)
-            v            (if (vector? v) (s/vector->up v) v)
             [body new-f] (if (v/param-f? v)
                            (param-1d sym v)
                            [(xc/compile-fn v 1 {:mode :js}) sym])]
@@ -110,7 +108,6 @@
     (if-not (compile? v)
       [[] opts]
       (let [sym          (gensym)
-            v            (if (vector? v) (s/vector->up v) v)
             [body new-f] (if (v/param-f? v)
                            (param-2d sym v)
                            [(xc/compile-state-fn v false [0 0] {:mode :js}) sym])]

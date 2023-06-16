@@ -1,6 +1,5 @@
 (ns ^:no-doc emmy.mathbox.compile
   (:require [emmy.expression.compile :as xc]
-            [emmy.structure :as s]
             [emmy.viewer :as v]
             [emmy.viewer.compile :as vc]))
 
@@ -41,7 +40,6 @@
     (if-not (vc/compile? v)
       [[] opts]
       (let [sym          (gensym)
-            v            (if (vector? v) (s/vector->up v) v)
             [body new-f] (if (v/param-f? v)
                            (param-3d sym v dimensions)
                            [(xc/compile-state-fn

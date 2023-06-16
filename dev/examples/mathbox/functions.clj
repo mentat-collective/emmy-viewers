@@ -25,16 +25,12 @@
 
 (defn my-fn [x]
   (+ -1
-
      (square (sin x))
      (square (cos (* 2 x)))))
-
-
 
 ;; The function works locally, with numbers or symbols:
 
 [(my-fn 1) (my-fn 'x)]
-
 
 ;; Then we'll call it with our new viewer:
 
@@ -59,6 +55,7 @@
                [(- (- y ay) (- x ax))
                 (- (- (- x ax)) (- y ay))
                 0]))))})))
+
 
 (ev/with-let [!state {:amplitude 1}]
   (plot/scene
