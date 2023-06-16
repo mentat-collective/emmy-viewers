@@ -16,7 +16,8 @@
 (comment
   (def portal
     (p/start!
-     {:emmy.portal/tex {:macros {"\\f" "#1f(#2)"}}
+     {:emmy.portal/tex
+      {:macros {"\\f" "#1f(#2)"}}
       :theme :portal.colors/zenburn}))
 
   (tap>
