@@ -61,7 +61,7 @@
                []
                theme-mapping)]
     (str
-     ".MafsView {" (str/join ";" lines) "}")))
+     ".mafs-portal .MafsView {" (str/join ";" lines) "}")))
 
 (defn show-mafs [_]
   (let [opts  (get (o/use-options) viewer-name)
@@ -70,7 +70,7 @@
                     (assoc ::background
                            (ins/get-background))))]
     (fn [v]
-      [:div
+      [:div.mafs-portal
        {:style
         {:border (str "1px solid " (::c/border theme))
          :border-radius (:border-radius theme)}}
