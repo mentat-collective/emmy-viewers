@@ -95,7 +95,8 @@
 (defn parametric-surface
   [opts]
   (let [[f-bind opts] (mc/compile-3d opts :f 2)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricSurface opts])
+    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricSurface
+                          (dissoc opts :simplify?)])
         (ev/fragment scene))))
 
 (defn vector-field

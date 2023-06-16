@@ -24,10 +24,11 @@
                 (aget out# 1))))))
 
 (defn param-3d
-  [sym {:keys [f params] :as param-f} dimensions]
+  [sym {:keys [f params] :as param-f} dimensions simplify?]
   [(xc/compile-state-fn
     f params (into [] (repeat dimensions 0))
     {:mode :js
+     :simplify? simplify?
      :calling-convention :primitive})
    (frame
     {:sym sym
@@ -40,12 +41,14 @@
     (if-not (vc/compile? v)
       [[] opts]
       (let [sym          (gensym)
+            simplify?    (:simplify? opts true)
             [body new-f] (if (v/param-f? v)
-                           (param-3d sym v dimensions)
+                           (param-3d sym v dimensions simplify?)
                            [(xc/compile-state-fn
                              v false (into [] (repeat dimensions 0))
                              {:mode :js
                               :generic-params? false
+                              :simplify? simplify?
                               :calling-convention :primitive})
                             (frame
                              {:sym sym :dimensions dimensions})])]
