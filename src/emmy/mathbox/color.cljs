@@ -27,6 +27,6 @@
   (let [color  (if (.-isColor ^js color)
                  color
                  (three/Color. color))
-        l      (.-l ^js (.getHSL color #js {}))
+        l      (.-l ^js (.getHSL ^js color #js {}))
         offset (* l amt (- 1 l))]
-    (.offsetHSL color 0 0 offset)))
+    (.offsetHSL ^js color 0 0 offset)))
