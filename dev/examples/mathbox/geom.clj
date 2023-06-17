@@ -6,6 +6,7 @@
              infinite? abs ref partial =])
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
+            [emmy.viewer :as ev]
             [emmy.mathbox.plot :as p]))
 
 {:nextjournal.clerk/width :wide}
@@ -13,15 +14,17 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
-(p/scene
- (p/point {:coords [0.5 -0.5 -0.5]
-           :size 60
-           :color "LimeGreen"
-           :label "Pebble"})
- (p/line
-  {:coords [[3 2 1] [-1 2 3]]
-   :label {:start "start"
-           :end "end"}})
- (p/vector
-  {:tip [1 2 3]
-   :color "blue"}))
+(ev/with-let [!size {:size 20 :pos 1}]
+  [:<> (emmy.leva/controls {:atom !size :schema {:size {:min 20 :max 100 :step 1}}})
+   (p/scene
+    (p/point {:coords [0.5 -0.5 (ev/get !size :pos)]
+              :size (ev/get !size :size)
+              :color "LimeGreen"
+              :label "e^{i x}"})
+    (p/line
+     {:coords [[3 2 1] [-1 2 3]]
+      :label {:start "start"
+              :end "end"}})
+    (p/vector
+     {:tip [1 2 3]
+      :color "blue"}))])

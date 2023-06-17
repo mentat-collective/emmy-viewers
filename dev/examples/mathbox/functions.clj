@@ -34,10 +34,12 @@
 
 ;; Then we'll call it with our new viewer:
 
-(plot/of-x {:z my-fn :color "blue" :width 256})
+(plot/of-x {:range [-1 1] :z my-fn :color "blue" :width 256})
 
-(ev/with-let [!opts {:color "#3090ff"}]
+(ev/with-let [!opts {:x-max 5
+                     :color "#3090ff"}]
   (plot/scene
+   {:range [[-5 (ev/get !opts :x-max)] [-5 5] [-5 5]]}
    (emmy.leva/controls
     {:folder {:name "Plot Color"}
      :atom !opts})

@@ -20,14 +20,14 @@
 (defn slider-surface [name {:keys [u v] :as opts}]
   (ev/with-let [!opts {:u (peek u) :v (peek v)}]
     (p/scene
-     {:axis-options
+     {:axes
       {:x {:divisions 10
-           #_#_:label-ticks? false}
+           :label {:position 3}}
        :y {:divisions 10
-           #_#_:label-ticks? false}
+           :ticks {:labels? false}}
        :z {:divisions 10
-           #_#_:label-ticks? false}}
-      #_#_:grids []}
+           :label-ticks? false}}
+      :grids []}
      (leva/controls
       {:folder {:name name}
        :schema

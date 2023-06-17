@@ -1,10 +1,11 @@
 (ns emmy.mathbox.plot
   "Higher-level mathematical plotting components built on the primitives provided
   by `Mathbox.cljs`."
+  (:refer-clojure :exclude [max])
   (:require [emmy.mathbox.color :as color]
             [emmy.viewer.plot :as p]
             [mathbox.primitives :as mb]
-            ["katex" :as k]
+            ["katex" :as katex]
             ["mathbox" :as box]))
 
 ;; ## Utilities
@@ -38,7 +39,7 @@
         (fn [el _ children]
           (el "span"
               #js {:innerHTML
-                   (k/renderToString children)}))}))
+                   (katex/renderToString children)}))}))
 
 (def ^:no-doc text-render
   "HTML renderer for MathBox that renders its children as a bold HTML element."
@@ -53,6 +54,24 @@
 ;;
 ;; The next section provides components for building up the default mathematical
 ;; scene used to host the plots and objects represented by the components.
+
+(defn DomLabel [{:keys [tex? label size offset]
+                 :or {tex? true}}]
+  (let [offset (or offset [0 20])]
+    [:<>
+     [mb/Html
+      {:items 1
+       :live false
+       :expr
+       (let [f (if tex? latex-render text-render)]
+         (fn [emit el]
+           (emit
+            (el f {} label))))}]
+     [mb/Dom
+      {:size size
+       :zoom 1
+       :outline 2
+       :offset offset}]]))
 
 (defn Ticks
   "TODO Component that renders ticks"
@@ -87,102 +106,137 @@
             [20 0 0]
             [0 -20 0])}]])]))
 
-;; TODO
-;; - take false or label options for labels
-
 (defn AxisLabel
   "
   - `:axis`: the axis index, either `:x`, `:y` or `:z`.
 
   - `:label`: the label.
 
-  - `:position`: the distance along the axis to place the label.
+  - `:position`: the distance along the axis to place the label. NOTE That this is a hack currently!
 
   - `:size`: size of the label.
 
   - `:tex?`: if true (default), use katex to render the label."
 
-  [{:keys [axis label position size tex?]
-    :or {size  14
-         label ""
-         tex? true}}]
+  [{:keys [axis position size tex?]
+    :or {size     14
+         position 5
+         tex? true}
+    :as opts}]
   {:pre [(#{:x :y :z} axis)]}
-  (when-not (= label "")
-    (let [idx (axis->idx axis)]
-      [:<>
-       [mb/Array
-        {:channels 3
-         :live false
-         :data [(assoc [0 0 0] (dec idx) position)]}]
-       [mb/Html
-        {:items 1
-         :live false
-         :expr
-         (let [f (if tex? latex-render text-render)]
-           (fn [emit el]
-             (emit
-              (el f {} label))))}]
-       [mb/Dom
-        {:size size
-         :zoom 1
-         :outline 2
-         :offset [0 20 0]}]])))
+  (let [label (:label opts "")]
+    (when-not (= label "")
+      (let [idx (axis->idx axis)]
+        [:<>
+         [mb/Array
+          {:channels 3
+           :live false
+           :data [(assoc [0 0 0] (dec idx) position)]}]
+         [DomLabel
+          {:tex? tex?
+           :size size
+           :label label}]]))))
 
 (defn LabeledAxis
   "Component that takes a `k` equal to `:x`, `:y` or `:z` and renders the
   equivalent axis into the mathematical scene.
 
+  - `:axis`: the axis index, either `:x`, `:y` or `:z`.
+
   Optional arguments:
 
-  - `:ticks?` if true (default),
-  "
-  ([k] [LabeledAxis k {}])
-  ([k {:keys [ticks? label-ticks? label? divisions width label opacity color z-order z-index z-bias]
-       :or {ticks? true
-            label-ticks? true
-            divisions 10
-            label? true
-            z-bias 0
-            z-index 0
-            opacity 1
-            width 1
-            color "#808080"}}]
-   {:pre [(#{:x :y :z} k)]}
-   (let [label (or label (name k))
-         idx   (axis->idx k)
-         ;; TODO get this subbed out for the real max.
-         max   5]
-     [mb/Group {:visible true :classes ["axis"]}
-      [mb/Axis
-       {:axis idx
-        :opacity opacity
-        :width width
-        :color color
-        :zOrder z-order :zIndex z-index :zBias z-bias
-        :start false :end false}]
-      (when ticks?
-        [Ticks
-         {:axis k
-          :divisions divisions
-          :labels? label-ticks?
-          :width 2}])
-      ;; make sure this points at the right data source??
-      (when label?
-        [AxisLabel
-         {:axis     k
-          :label    (or label (name k))
-          :position max}])])))
+  - `:ticks`: either true (default) or a map of tick options.
+  - `:label`: either true (default) or a map of options.
 
-(defn Grid [k]
-  (let [axes (axis->idx k)]
+  TODO consider removing the `max` here and spooling upward from the axis to its
+  cartesian parent to get the proper label position. see `getCartesian` and
+  `copyCartesianRange` in math3d-react."
+  [{:keys [axis width opacity color z-order z-index z-bias
+           max]
+    :or {z-bias 0
+         z-index 0
+         opacity 1
+         width 1
+         color "#808080"}
+    :as opts}]
+  {:pre [(#{:x :y :z} axis)]}
+  [mb/Group {:visible true :classes ["axis"]}
+   [mb/Axis
+    {:axis (axis->idx axis)
+     :opacity opacity
+     :width width
+     :color color
+     :zOrder z-order :zIndex z-index :zBias z-bias
+     :start false :end false}]
+   (when-let [ticks (:ticks opts true)]
+     (let [opts (if (map? ticks) ticks {})]
+       [Ticks (assoc opts :axis axis)]))
+   (when-let [label (:label opts true)]
+     (let [base (cond
+                  (true? label) {:label (name axis)}
+                  (map? label)  (update label :label #(or % (name axis)))
+                  :else         {:label label})]
+       [AxisLabel
+        (cond-> (assoc base :axis axis)
+          max (assoc :position (:position base max)))]))])
+
+(defn Grid
+  "
+  - `:snap` can be true or a pair, snapping the first and second axes.
+  - `:divisions` is a pair or number that refers to the axes in their order."
+  [{:keys [axes width opacity color z-order z-index z-bias
+           snap divisions]
+    :or {z-bias 0
+         z-index 0
+         width 0.5
+         opacity 1
+         color "#808080"}}]
+  {:pre [(#{:xy :yx :xz :zx :yz :zy} axes)]}
+  (let [[x-div y-div] (cond (vector? divisions) divisions
+                            (number? divisions) [divisions divisions]
+                            :else [10 10])
+        [snap-x snap-y] (cond (vector? snap) snap
+                              snap [true true]
+                              :else [false false])]
     [mb/Grid
-     {:axes axes
-      :opacity 1
-      :width 0.5
-      :color"#808080"
-      :niceX false
-      :niceY false
-      :zOrder 0 :zIndex 0 :zBias 0}]))
+     {:axes (axis->idx axes)
+      :opacity opacity
+      :width width
+      :color color
+      :niceX snap-x
+      :niceY snap-y
+      :divideX x-div
+      :divideY y-div
+      :zOrder z-order :zIndex z-index :zBias z-bias}]))
+
+(defn SceneAxes [axes range]
+  (let [m (if (vector? axes)
+            (zipmap axes (repeat true))
+            axes)]
+    (into [:<>]
+          (map
+           (fn [[axis opts]]
+             (when opts
+               (let [idx  (axis->idx axis)
+                     opts (if (map? opts) opts {})]
+                 [LabeledAxis
+                  (assoc opts
+                         :axis axis
+                         :max (get-in range [(dec idx) 1]))]))))
+          m)))
+
+(defn SceneGrids [grids]
+  (let [m (if (vector? grids)
+            (zipmap grids (repeat true))
+            grids)]
+    (into [:<>]
+          (map
+           (fn [[grid opts]]
+             (when opts
+               [Grid
+                (-> (if (map? opts) opts {})
+                    (assoc :axes grid))])))
+          m)))
 
 (defn Scene
   "TODO add options!
@@ -190,24 +244,21 @@
   TODO make a bare-bones scene."
   [& children]
   (let [[opts children] (split-opts children)
-        {:keys [axes grids axis-options]
-         :or {axes  [:x :y :z]
-              grids [:xy]}}
-        opts]
-    (into [mb/Cartesian
-           {:range [[-5 5] [-5 5] [-5 5]]
-            :scale [1 1 1]}
-           [mb/Camera {:proxy true :position [0.5 0.6 2]}]]
-          (concat
-           children
-           (map (fn [axis]
-                  [LabeledAxis axis (get axis-options axis {})])
-                axes)
-           (map Grid grids)))))
+        {:keys [camera range scale axes grids]
+         :or {range  [[-5 5] [-5 5] [-5 5]]
+              scale  [1 1 1]
+              camera [0.5 0.6 2]
+              axes  [:x :y :z]
+              grids [:xy]}} opts
+        range [(range 0) (range 2) (range 1)]]
+    [mb/Cartesian
+     {:range range :scale scale}
+     [mb/Camera {:proxy true :position camera}]
+     (into [:<>] children)
+     [SceneAxes axes range]
+     [SceneGrids grids]]))
 
 ;; ## Objects
-
-;; TODO opacity, z-index, z-bias... separate out the labels piece too maybe?
 
 (defn Point
   [{:keys [label size coords opacity color z-order z-index z-bias]
@@ -227,11 +278,15 @@
      :zBias z-bias
      :zOrder z-order}]
    (when label
-     [:<>
-      [mb/Format {:weight "bold" :data [label]}]
-      [mb/Label {:offset [0 40 0]}]])])
+     (let [opts   (if (map? label)
+                    label
+                    {:label label})
+           offset [0 (+ (/ size 2) 10)]]
+       [DomLabel
+        (assoc opts :offset offset)]))])
 
 (defn Line
+  "TODO points"
   [{:keys [coords arrow-size width
            start? end? label
            opacity color z-order z-index z-bias]
@@ -263,6 +318,7 @@
         [mb/Label {:offset [0 40 0]}]]))])
 
 (defn Vector
+  "Same as line, with tip and tail options and an end by default."
   [{:keys [tip tail]
     :or {tail [0 0 0]}
     :as opts}]
@@ -271,6 +327,37 @@
                    :end? (:end? opts true)))])
 
 ;; ## One-Dimensional Plots
+
+(defn- Curve1D
+  [{:keys [samples range axis expr
+           arrow-size width start? end?
+           opacity color z-order z-index z-bias]
+    :or {axis 1
+         samples 128
+         z-index 0
+         z-bias 0
+         opacity 1
+         arrow-size 6
+         width 4
+         color "#58a6ff"}}]
+  [:<>
+   [mb/Interval
+    (cond-> {:axis axis
+             :channels 3
+             :live false
+             :expr expr
+             :width samples}
+      range (assoc :range range))]
+   [mb/Line
+    {:size arrow-size
+     :width width
+     :opacity opacity
+     :start start?
+     :end end?
+     :color color
+     :zIndex z-index
+     :zBias z-bias
+     :zOrder z-order}]])
 
 (defn OfX
   "Supported arguments:
@@ -285,9 +372,9 @@
      (js/Error. (str "Error: specify only one of `:y` or `:z`, not both!"))))
   (let [expr (cond
                y (fn [emit x _i _time _delta]
-                   (emit x (y x) 0))
+                   (emit x 0 (y x)))
                z (fn [emit x _i _time _delta]
-                   (emit x 0 (z x)))
+                   (emit x (z x) 0))
                :else
                (throw
                 (js/Error.
