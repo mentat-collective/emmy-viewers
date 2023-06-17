@@ -1,9 +1,9 @@
 {:deps {org.babashka/http-server {:mvn/version "0.1.11"}
-        org.babashka/cli {:mvn/version "0.2.23"}}
- :pods {clj-kondo/clj-kondo {:version "2023.01.20"}}
+        org.babashka/cli {:mvn/version "0.2.23"}
+        io.github.clj-kondo/clj-kondo-bb
+        {:git/tag "v2023.01.20" :git/sha "adfc7df"}}
  :tasks
- {:requires ([babashka.cli :as cli]
-             [pod.borkdude.clj-kondo :as clj-kondo])
+ {:requires ([babashka.cli :as cli])
   :init
   (do (def cli-opts
         (cli/parse-opts *command-line-args* {:coerce {:port :int}}))
@@ -57,6 +57,6 @@
            :dependencies true})}
 
   lint
-  {:doc "Lint all code directories with clj-kondo."
-   :task (clj-kondo/print!
-          (clj-kondo/run! {:lint ["src" "dev" "notebooks"]}))}}}
+  {:doc "Lint the src and dev directories with clj-kondo."
+   :task (exec 'clj-kondo.core/exec)
+   :exec-args {:lint ["src" "dev"]}}}}
