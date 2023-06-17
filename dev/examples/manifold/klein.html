@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Can you find the Emmy logo hidden inside?" property="og:description"><meta content="Fun with Klein Bottles" property="og:title"><meta content="article:clerk" property="og:type"><meta content="summary_large_image" name="twitter:card"><link href="https://unpkg.com/computer-modern@0.1.2/cmu-serif.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mafs@0.17.0/core.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mafs@0.17.0/font.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathbox@2.3.1/build/mathbox.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css" rel="stylesheet" type="text/css"><link href="https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css" rel="stylesheet" type="text/css"><link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css"><script src="https://cdn.tailwindcss.com?plugins=typography" type="text/javascript"></script><script>tailwind.config = {
+  darkMode: "class",
+  content: ["./tw/viewer.js", "./tw/**/*.edn"],
+  safelist: ['dark'],
+  theme: {
+    extend: {},
+    fontFamily: {
+      sans: ["Fira Sans", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+      serif: ["PT Serif", "serif"],
+      mono: ["Fira Mono", "monospace"]
+    }
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</script><style type="text/tailwindcss">@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 18px;
+  }
+  @media (max-width: 600px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  .font-condensed { font-family: "Fira Sans Condensed", sans-serif; }
+  .font-inter     { font-family: "Inter", sans-serif; }
+  body {
+    @apply font-serif antialiased text-gray-900 sm:overscroll-y-none;
+  }
+  code, .code {
+    @apply font-mono text-sm text-gray-900 bg-slate-50 px-0.5 py-px rounded dark:bg-gray-800;
+  }
+  code::before, code::after { @apply content-none !important; }
+  h1, h3, h4, h5, h6 {
+    @apply font-condensed font-bold mt-8 first:mt-0;
+  }
+  h2 {
+    /*We cannot collapse margins due to nesting but we want to*/
+    /*keep the h2’s large margin visible*/
+    @apply font-condensed font-bold mt-8 first:mt-2;
+  }
+  h1 { @apply text-4xl; }
+  h2 { @apply text-3xl; }
+  h3 { @apply text-2xl; }
+
+  @media print {
+      h1 { @apply text-2xl !important; }
+      h2 { @apply text-xl !important; }
+      h3 { @apply text-lg !important; }
+  }
+
+  button { @apply focus:outline-none; }
+  strong { @apply font-bold; }
+  em     { @apply italic; }
+  pre    { @apply m-0 font-mono; }
+  table img { @apply inline-block; }
+}
+
+/* Compatibility */
+/* --------------------------------------------------------------- */
+/* TODO: Verify which colors are in use and replace with Tailwind
+   colors accordingly. Move Nj-specific styles out of here. */
+
+:root {
+  --teal-color: #31afd0;
+  --dark-teal-color: #095960;
+  --near-black-color: #2e2e2c;
+  --red-color: #d64242;
+  --dark-blue-color: #1f2937;
+  --dark-blue-60-color: rgba(28, 42, 56, 0.6);
+  --gray-panel-color: rgba(239, 241, 245, 1.000);
+  --brand-color: var(--dark-blue-color);
+  --link-color: #5046e4;
+  --command-bar-selected-color: var(--teal-color);
+}
+
+.serif      { @apply font-serif; }
+.sans-serif { @apply font-sans; }
+.monospace  { @apply font-mono; }
+.inter      { @apply font-inter; }
+
+.border-color-teal { border-color: var(--dark-teal-color); }
+.teal { color: var(--teal-color); }
+.bg-dark-blue { background: var(--dark-blue-color); }
+.bg-dark-blue-60 { background: rgba(28, 42, 56, 0.6); }
+.bg-gray-panel { background: var(--gray-panel-color); }
+.text-dark-blue  { color: var(--dark-blue-color); }
+.text-dark-blue-60 { color: var(--dark-blue-60-color); }
+.border-dark-blue-30 { border-color: rgba(28, 42, 56, 0.6); }
+.text-brand { color: var(--dark-blue-color); }
+.bg-brand { background: var(--dark-blue-color); }
+.text-selected { color: white; }
+.red { color: var(--red-color); }
+
+/* Disclose Button */
+/* --------------------------------------------------------------- */
+
+.disclose {
+  @apply content-none border-solid cursor-pointer inline-block relative mr-[3px] top-[-2px] transition-all;
+  border-color: var(--near-black-color) transparent;
+  border-width: 6px 4px 0;
+}
+.disclose:hover {
+  border-color: var(--near-black-color) transparent;
+}
+.dark .disclose,
+.dark .disclose:hover {
+  border-color: white transparent;
+}
+.disclose.collapsed {
+  @apply rotate-[-90deg];
+}
+
+/* Layout */
+/* --------------------------------------------------------------- */
+
+.page {
+  @apply max-w-5xl mx-auto px-12 box-border flex-shrink-0;
+}
+.max-w-prose { @apply max-w-[46rem] !important; }
+.max-w-wide  { @apply max-w-3xl !important; }
+
+/* List Styles */
+/* --------------------------------------------------------------- */
+
+.task-list-item + .task-list-item,
+.markdown-viewer ul ul {
+  @apply mt-1 mb-0;
+}
+
+/* compact TOC */
+.markdown-viewer .toc ul {
+  list-style: none;
+  @apply my-1;
+}
+
+/* Code Viewer */
+/* --------------------------------------------------------------- */
+
+.code-viewer {
+  @apply font-mono bg-slate-100 rounded-sm text-sm overflow-x-auto dark:bg-gray-800;
+}
+.code-listing  {
+    @apply -ml-8 -mr-8 relative !important;
+}
+.code-viewer .cm-content {
+  @apply py-4 px-8;
+}
+@media (min-width: 960px){
+    .notebook-viewer .code-viewer .cm-content {
+        @apply pb-2 pl-12;
+    }
+    .notebook-viewer .code-listing {
+        width: 48rem !important;
+        @apply -ml-12 mr-0 !important;
+    }
+}
+/* Don’t show focus outline when double-clicking cell in Safari */
+.cm-scroller { @apply focus:outline-none; }
+
+/* Syntax Highlighting */
+/* --------------------------------------------------------------- */
+
+.inspected-value { @apply text-xs font-mono leading-[1.25rem]; }
+.cmt-strong, .cmt-heading { @apply font-bold; }
+.cmt-italic, .cmt-emphasis { @apply italic; }
+.cmt-strikethrough { @apply line-through; }
+.cmt-link { @apply underline; }
+.untyped-value { @apply whitespace-nowrap; }
+
+.cm-editor, .cmt-default, .result-viewer {
+  @apply text-slate-800 dark:text-slate-300;
+}
+.cmt-keyword {
+  @apply text-purple-800 dark:text-pink-400;
+}
+.cmt-atom, .cmt-bool, .cmt-url, .cmt-contentSeparator, .cmt-labelName {
+  @apply text-blue-900 dark:text-blue-300;
+}
+.cmt-inserted, .cmt-literal {
+  @apply text-emerald-700 dark:text-emerald-200;
+}
+.cmt-string, .cmt-deleted {
+  @apply text-rose-700 dark:text-sky-300;
+}
+.cmt-italic.cmt-string {
+  @apply dark:text-sky-200;
+}
+.cmt-regexp, .cmt-escape {
+  @apply text-orange-500 dark:text-orange-300;
+}
+.cmt-variableName {
+  @apply text-blue-800 dark:text-sky-300;
+}
+.cmt-typeName, .cmt-namespace {
+  @apply text-emerald-600 dark:text-emerald-300;
+}
+.cmt-className {
+  @apply text-teal-600 dark:text-teal-200;
+}
+.cmt-macroName {
+  @apply text-teal-700 dark:text-teal-200;
+}
+.cmt-propertyName {
+  @apply text-blue-700 dark:text-blue-200;
+}
+.cmt-comment {
+  @apply text-slate-500 dark:text-slate-400;
+}
+.cmt-meta {
+  @apply text-slate-600 dark:text-slate-400;
+}
+.cmt-invalid {
+  @apply text-red-500 dark:text-red-300;
+}
+
+.result-data {
+  @apply font-mono text-sm overflow-x-auto whitespace-nowrap leading-normal;
+}
+.result-data::-webkit-scrollbar, .path-nav::-webkit-scrollbar {
+  @apply h-0;
+}
+.result-data-collapsed {
+  @apply whitespace-nowrap;
+}
+.result-data-field {
+  @apply ml-4 whitespace-nowrap;
+}
+.result-data-field-link{
+  @apply ml-4 whitespace-nowrap cursor-pointer;
+}
+.result-data-field-link:hover {
+  @apply text-black bg-black/5;
+}
+.result-text-empty {
+  color: rgba(0,0,0,.3);
+}
+.browsify-button:hover {
+  box-shadow: -2px 0 0 2px #edf2f7;
+}
+
+/* Prose */
+/* --------------------------------------------------------------- */
+
+.notebook-viewer,
+.markdown-viewer {
+  @apply prose
+    dark:prose-invert
+    prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+    dark:prose-a:text-blue-300
+    prose-p:mt-4 prose-p:leading-snug
+    prose-ol:mt-4 prose-ol:mb-6 prose-ol:leading-snug
+    prose-ul:mt-4 prose-ul:mb-6 prose-ul:leading-snug
+    prose-blockquote:mt-4 prose-blockquote:leading-snug
+    prose-hr:mt-6 prose-hr:border-t-2 prose-hr:border-solid prose-hr:border-slate-200
+    prose-figure:mt-4
+    prose-figcaption:mt-2 prose-figcaption:text-xs
+    prose-headings:mb-4
+    prose-table:mt-0
+    prose-th:mb-0
+    prose-img:my-0
+    prose-code:font-medium prose-code:bg-slate-100
+    max-w-none;
+}
+.markdown-viewer blockquote p:first-of-type:before,
+.markdown-viewer blockquote p:last-of-type:after {
+  @apply content-none;
+}
+.markdown-node-viewer.result-viewer.fragment-item {
+    @apply mb-0 !important;
+}
+
+/* Images */
+/* --------------------------------------------------------------- */
+
+
+/* Todo Lists */
+/* --------------------------------------------------------------- */
+
+.contains-task-list {
+  @apply pl-6 list-none;
+}
+.contains-task-list input[type="checkbox"] {
+  @apply appearance-none h-4 w-4 rounded border border-slate-200 relative mr-[0.3rem] ml-[-1.5rem] top-[0.15rem];
+}
+.contains-task-list input[type="checkbox"]:checked {
+  @apply border-indigo-600 bg-indigo-600 bg-no-repeat bg-contain;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+}
+
+/* Markdown TOC */
+/* --------------------------------------------------------------- */
+
+.markdown-viewer .toc      { @apply mt-4; }
+.markdown-viewer h1 + .toc { @apply mt-8; }
+
+.markdown-viewer .toc h1,
+.markdown-viewer .toc h2,
+.markdown-viewer .toc h3,
+.markdown-viewer .toc h4,
+.markdown-viewer .toc h5,
+.markdown-viewer .toc h6 {
+  @apply text-base text-indigo-600 font-sans my-0;
+}
+.markdown-viewer .toc a {
+  @apply text-indigo-600 font-normal no-underline hover:underline;
+}
+.markdown-viewer .toc li    { @apply m-0; }
+.markdown-viewer .toc ul ul { @apply pl-4; }
+
+/* Notebook Spacing */
+/* --------------------------------------------------------------- */
+
+.markdown-viewer *:first-child:not(.code-viewer):not(li):not(h2):not(.sidenote) { @apply mt-0; }
+/*.viewer + .viewer { @apply mt-6; }*/
+.viewer + .result-viewer { @apply mt-0; }
+.code-viewer + .result-viewer { @apply mt-3; }
+.markdown-viewer + .markdown-viewer { @apply mt-0; }
+
+/* Sidenotes */
+/* --------------------------------------------------------------- */
+
+.sidenote-ref {
+  @apply top-[-0.5em] w-auto h-auto inline border-0 bg-transparent m-0 pointer-events-none;
+}
+.sidenote {
+  @apply block font-sans text-xs mt-4 bg-slate-100 dark:bg-slate-800 p-4;
+  font-style: normal;
+  font-weight: normal;
+}
+.sidenote-container {
+  @apply mb-4;
+}
+@media (min-width: 860px) {
+  .sidenote sup { @apply inline; }
+  .sidenote-column {
+    @apply w-[165px] absolute right-0 top-0 -mr-[205px];
+  }
+  .sidenote {
+    @apply bg-transparent dark:bg-transparent p-0;
+  }
+  .sidenote:first-child {
+    @apply mt-1;
+  }
+  .sidenotes-layout .markdown-viewer {
+    @apply pr-[241px];
+  }
+  .sidenote-container {
+    @apply relative mb-0;
+  }
+  .sidenotes-layout h1 {
+    @apply w-[756px] !important;
+  }
+}
+.code-viewer + .viewer:not(.code-viewer):not(.code-viewer-folded),
+.code-viewer-folded + .viewer:not(.code-viewer):not(.code-viewer-folded),
+.result-viewer:not(.markdown-node-viewer) + .result-viewer {
+  @apply mt-2;
+}
+.code-viewer + .code-viewer-folded {
+  @apply mt-4;
+}
+.result-viewer {
+  @apply leading-tight mb-6;
+}
+.code-viewer.fragment-item.result-viewer {
+  @apply mb-0 !important;
+}
+.result-viewer figure {
+  @apply mt-0 !important;
+}
+@media (min-width: 768px) {
+  .devcard-desc > div {
+    @apply max-w-full m-0;
+  }
+}
+
+/* Command Palette */
+/* --------------------------------------------------------------- */
+
+.nj-commands-input {
+  @apply bg-transparent text-white;
+}
+.nj-context-menu-item:hover:not([disabled]) {
+  @apply cursor-pointer;
+  background-color: rgba(255,255,255,.14);
+}
+
+/* Devdocs */
+/* --------------------------------------------------------------- */
+
+.logo, .logo-white {
+  @apply block indent-[-999em];
+  background: url(/images/nextjournal-logo.svg) center center no-repeat;
+}
+.devdocs-body {
+  @apply font-inter;
+}
+
+/* Workarounds */
+/* --------------------------------------------------------------- */
+
+/* Fixes vega viewer resizing into infinity */
+.vega-embed .chart-wrapper { @apply h-auto !important; }
+/* fixes fraction separators being overridden by tw’s border-color */
+.katex * { @apply border-black; }
+
+@media print {
+    .dark-mode-toggle,
+    .toc-toggle { @apply hidden; }
+    .notebook-viewer { @apply pt-0; font-size: 12pt !important; margin-left: 0 !important; }
+    .code-viewer .cm-content,
+    .viewer-code .cm-content { @apply whitespace-pre-wrap !important; overflow: none; }
+    .code-viewer .cm-line { font-size: 12pt !important; }
+    html * { page-break-inside: avoid !important; }
+    .toc-panel { @apply hidden; }
+}
+</style><script src="./../../../_data/8VwWuJaq7vL2cvUrnKLCVPGwypWbK4TgydUHbhe58t4mRmhjzfyTtMEGcEzxL8ntCuq7Q5akwcJaEeGCEpKbEEFDTH.js" type="module"></script><link href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" rel="stylesheet" type="text/css"><link href="https://fonts.bunny.net" rel="preconnect"><link href="https://fonts.bunny.net/css?family=fira-mono:400,700%7Cfira-sans:400,400i,500,500i,700,700i%7Cfira-sans-condensed:700,700i%7Cpt-serif:400,400i,700,700i" rel="stylesheet" type="text/css"></head><body class="dark:bg-gray-900"><div id="clerk"></div><script type="module">let viewer = nextjournal.clerk.sci_env
+let state = "{:bundle? false, :path->doc {\"dev/examples/manifold/klein.clj\" {:path [], :nextjournal/value {:toc {:type :toc, :children [{:type :toc, :content [{:type :text, :text \"Fun with Klein Bottles\"}], :heading-level 1, :attrs {:id \"fun-with-klein-bottles\"}, :path [:content 0], :children [{:type :toc, :content [{:type :text, :text \"Mobius Strip\"}], :heading-level 2, :attrs {:id \"mobius-strip\"}, :path [:content 1]} {:type :toc, :content [{:type :text, :text \"Klein bagel\"}], :heading-level 2, :attrs {:id \"klein-bagel\"}, :path [:content 2]} {:type :toc, :content [{:type :text, :text \"Klein bottle:\"}], :heading-level 2, :attrs {:id \"klein-bottle:\"}, :path [:content 4]}]}]}, :sidenotes? false, :toc-visibility true, :atom-var-name->state #viewer-eval (nextjournal.clerk.render/intern-atoms! {}), :ns #viewer-eval (ns examples.manifold.klein), :scope examples.manifold.klein, :bundle? false, :header {:path [], :nextjournal/value [:div.viewer.w-full.max-w-prose.px-8.not-prose.mt-3 [:div.mb-8.text-xs.sans-serif.text-slate-400 nil [:<> [:a.font-medium.border-b.border-dotted.border-slate-300.hover:text-indigo-500.hover:border-indigo-500.dark:border-slate-500.dark:hover:text-white.dark:hover:border-white.transition {:href \"./../../../\"} \"Index\"] [:span.mx-2 \"•\"]] [:span \"Generated with \" [:a.font-medium.border-b.border-dotted.border-slate-300.hover:text-indigo-500.hover:border-indigo-500.dark:border-slate-500.dark:hover:text-white.dark:hover:border-white.transition {:href \"https://clerk.vision\"} \"Clerk\"] \" from \" [:a.font-medium.border-b.border-dotted.border-slate-300.hover:text-indigo-500.hover:border-indigo-500.dark:border-slate-500.dark:hover:text-white.dark:hover:border-white.transition {:href \"https://github.com/mentat-collective/emmy-viewers/blob/20899f7dde6ba588d2aa7a990e0cf2b51040c212/dev/examples/manifold/klein.clj\"} \"dev/examples/manifold/klein.clj\" [:<> \"@\" [:span.tabular-nums \"20899f7\"]]]]]], :nextjournal/viewer {:name nextjournal.clerk.viewer/html-viewer, :render-fn #viewer-fn identity, :hash \"5du5eveS8XMqMDMYH5rpQ1bqryEJdg\"}}, :open-graph {:type \"article:clerk\", :title \"Fun with Klein Bottles\", :description \"Can you find the Emmy logo hidden inside?\"}, :title \"Fun with Klein Bottles\", :blocks [{:path [], :nextjournal/value [:div.viewer.markdown-viewer.w-full.max-w-prose.px-8 {:data-block-id \"examples.manifold.klein/markdown-5dsn26JnAdBUFFGbWmCj71ixssoDVo\"} [\"h1\" {:id \"fun-with-klein-bottles\"} [:<> \"Fun with Klein Bottles\"]]], :nextjournal/opts {:id \"examples.manifold.klein/markdown-5dsn26JnAdBUFFGbWmCj71ixssoDVo\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/markdown-node-viewer, :render-fn #viewer-fn identity, :hash \"5dsg4Bx9A9L7WvvCgamUoRtxUsmYCe\"}} {:path [], :nextjournal/value \"(defn slider-surface [name {:keys [u v] :as opts}]\\n  (ev/with-let [!opts {:u (peek u) :v (peek v)}]\\n    (p/scene\\n     {:axis-options\\n      {:x {:label-ticks? false}\\n       :y {:label-ticks? false}\\n       :z {:label-ticks? false}}\\n      :grids []}\\n     (leva/controls\\n      {:folder {:name name}\\n       :schema\\n       {:u {:min (first u) :max (peek u) :step 0.01}\\n        :v {:min (first v) :max (peek v) :step 0.01}}\\n       :atom !opts})\\n     (p/parametric-surface\\n      (assoc opts\\n             :u [0 (ev/get !opts :u)]\\n             :v [-1 (ev/get !opts :v)])))))\", :nextjournal/opts {:loc {:line 20, :end-line 37, :column 1, :end-column 44}, :id \"examples.manifold.klein/slider-surface-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[examples.manifold.klein$slider_surface 0x1667428 \\\"examples.manifold.klein$slider_surface@1667428\\\"]\", :nextjournal/width :wide, :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (nextjournal.clerk.viewer/read-string-without-tag-table x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dsbvuFDJTLDvvbFXXK9kuLT2juAD6\"}, :nextjournal/opts {:id \"examples.manifold.klein/slider-surface-result\"}}, :nextjournal/blob-id nil}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/slider-surface-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value [:div.viewer.markdown-viewer.w-full.max-w-prose.px-8 {:data-block-id \"examples.manifold.klein/markdown-5drwx186UYK2QVQpCPcM8q1zNRiHbT\"} [\"h2\" {:id \"mobius-strip\"} [:<> \"Mobius Strip\"]]], :nextjournal/opts {:id \"examples.manifold.klein/markdown-5drwx186UYK2QVQpCPcM8q1zNRiHbT\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/markdown-node-viewer, :render-fn #viewer-fn identity, :hash \"5dsg4Bx9A9L7WvvCgamUoRtxUsmYCe\"}} {:path [], :nextjournal/value \"(defn mobius [[u v]]\\n  [(* (cos u) (+ 1 (* (/ v 2) (cos (/ u 2)))))\\n   (* (sin u) (+ 1 (* (/ v 2) (cos (/ u 2)))))\\n   (* (/ v 2) (sin (/ u 2)))])\", :nextjournal/opts {:loc {:line 41, :end-line 44, :column 1, :end-column 31}, :id \"examples.manifold.klein/mobius-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[examples.manifold.klein$mobius 0x5d9b4c0b \\\"examples.manifold.klein$mobius@5d9b4c0b\\\"]\", :nextjournal/width :wide, :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (nextjournal.clerk.viewer/read-string-without-tag-table x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dsbvuFDJTLDvvbFXXK9kuLT2juAD6\"}, :nextjournal/opts {:id \"examples.manifold.klein/mobius-result\"}}, :nextjournal/blob-id nil}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/mobius-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value \"(slider-surface\\n \\\"Mobius\\\"\\n {:f mobius\\n  :u [0 (* 2 Math/PI)]\\n  :v [-1 1]})\", :nextjournal/opts {:loc {:line 46, :end-line 50, :column 1, :end-column 14}, :id \"examples.manifold.klein/anon-expr-5dtqEoJ25zJvHXP33Fw8Bb9xz62JkZ-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value nil, :nextjournal/width :wide, :nextjournal/viewer {:render-fn #viewer-fn (fn [] (reagent.core/with-let [G__65324 (reagent.core/atom {:u 6.283185307179586, :v 1})] [mathbox.core/MathBox {:container {:style {:height \"400px\", :width \"100%\"}}, :renderer {:background-color 16777215}} [emmy.mathbox.plot/Scene {:axis-options {:x {:label-ticks? false}, :y {:label-ticks? false}, :z {:label-ticks? false}}, :grids []} [leva.core/Controls {:folder {:name \"Mobius\"}, :schema {:u {:min 0, :max 6.283185307179586, :step 0.01}, :v {:min -1, :max 1, :step 0.01}}, :atom G__65324}] (reagent.core/with-let [G__65325 (js/Function. \"a0003\" \"a0004\" \"a0005\" \"  const y0001 = a0003[0];\\n  const y0002 = a0003[1];\\n  const _0007 = Math.cos(y0001);\\n  const _0008 = 0.5;\\n  const _0010 = Math.sin(y0001);\\n  const _0012 = _0008 * y0001;\\n  const _0013 = Math.cos(_0012);\\n  a0004[0] = _0008 * y0002 * _0007 * _0013 + _0007;\\n  a0004[1] = _0008 * y0002 * _0010 * _0013 + _0010;\\n  a0004[2] = _0008 * y0002 * Math.sin(_0012);\")] [emmy.mathbox.plot/ParametricSurface {:f (clojure.core/let [G__65326 (js/Array. 0 0) out__63580__auto__ (js/Array. 0 0 0) psym__63581__auto__ nil] (clojure.core/fn [emit__63582__auto__ G__65327 G__65328] (clojure.core/aset G__65326 0 G__65327) (clojure.core/aset G__65326 1 G__65328) (G__65325 G__65326 out__63580__auto__ psym__63581__auto__) (emit__63582__auto__ (clojure.core/aget out__63580__auto__ 0) (clojure.core/aget out__63580__auto__ 2) (clojure.core/aget out__63580__auto__ 1)))), :u [0 (clojure.core/get (clojure.core/deref G__65324) :u)], :v [-1 (clojure.core/get (clojure.core/deref G__65324) :v)]}])]])), :hash \"5dsv2kxu6urynZze7K4bqJy8ipJeMa\"}, :nextjournal/opts {:id \"examples.manifold.klein/anon-expr-5dtqEoJ25zJvHXP33Fw8Bb9xz62JkZ-result\"}}, :nextjournal/blob-id \"5dsiBnV6z4KbqPajEpCtejB63Zpqvj\"}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/anon-expr-5dtqEoJ25zJvHXP33Fw8Bb9xz62JkZ-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value [:div.viewer.markdown-viewer.w-full.max-w-prose.px-8 {:data-block-id \"examples.manifold.klein/markdown-5dsjH62bTewr3KHJQRtnHoHFufLc58\"} [\"h2\" {:id \"klein-bagel\"} [:<> \"Klein bagel\"]]], :nextjournal/opts {:id \"examples.manifold.klein/markdown-5dsjH62bTewr3KHJQRtnHoHFufLc58\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/markdown-node-viewer, :render-fn #viewer-fn identity, :hash \"5dsg4Bx9A9L7WvvCgamUoRtxUsmYCe\"}} {:path [], :nextjournal/value \"(defn klein-bagel [r]\\n  (fn [[theta v]]\\n    (let [R (+ r (- (* (cos (/ theta 2)) (sin v))\\n                    (* (sin (/ theta 2)) (sin (* 2 v)))))]\\n      [(* R (cos theta))\\n       (* R (sin theta))\\n       (+ (* (sin (/ theta 2))\\n             (sin v))\\n          (* (cos (/ theta 2))\\n             (sin (* 2 v))))])))\", :nextjournal/opts {:loc {:line 54, :end-line 63, :column 1, :end-column 33}, :id \"examples.manifold.klein/klein-bagel-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[examples.manifold.klein$klein_bagel 0xcdf7549 \\\"examples.manifold.klein$klein_bagel@cdf7549\\\"]\", :nextjournal/width :wide, :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (nextjournal.clerk.viewer/read-string-without-tag-table x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dsbvuFDJTLDvvbFXXK9kuLT2juAD6\"}, :nextjournal/opts {:id \"examples.manifold.klein/klein-bagel-result\"}}, :nextjournal/blob-id nil}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/klein-bagel-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value [:div.viewer.markdown-viewer.w-full.max-w-prose.px-8 {:data-block-id \"examples.manifold.klein/markdown-5dsD33ByiZLZwdqSKuXLjAvhH2Pybg\"} [:p [:<> \"Can you find the Emmy logo hidden inside?\"]]], :nextjournal/opts {:id \"examples.manifold.klein/markdown-5dsD33ByiZLZwdqSKuXLjAvhH2Pybg\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/markdown-node-viewer, :render-fn #viewer-fn identity, :hash \"5dsg4Bx9A9L7WvvCgamUoRtxUsmYCe\"}} {:path [], :nextjournal/value \"(ev/with-let [!r {:r 2}]\\n  [:<>\\n   (leva/controls {:atom !r\\n                   :folder {:name \\\"Klein Bagel\\\"}\\n                   :schema {:r {:min 2 :max 6 :step 0.01}}})\\n   (slider-surface\\n    \\\"Klein Bagel\\\"\\n    {:f (ev/with-params {:atom !r :params [:r]}\\n          klein-bagel)\\n     :opacity 0.75\\n     :u [1 (* 2 Math/PI)]\\n     :v [0 (* 2 Math/PI)]})])\", :nextjournal/opts {:loc {:line 67, :end-line 78, :column 1, :end-column 30}, :id \"examples.manifold.klein/anon-expr-5dtKMYsd9YVC5DFMuNJQh66YWi38ep-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value nil, :nextjournal/width :wide, :nextjournal/viewer {:render-fn #viewer-fn (fn [] (reagent.core/with-let [G__65340 (reagent.core/atom {:r 2})] [:<> [leva.core/Controls {:atom G__65340, :folder {:name \"Klein Bagel\"}, :schema {:r {:min 2, :max 6, :step 0.01}}}] (reagent.core/with-let [G__65341 (reagent.core/atom {:u 6.283185307179586, :v 6.283185307179586})] [mathbox.core/MathBox {:container {:style {:height \"400px\", :width \"100%\"}}, :renderer {:background-color 16777215}} [emmy.mathbox.plot/Scene {:axis-options {:x {:label-ticks? false}, :y {:label-ticks? false}, :z {:label-ticks? false}}, :grids []} [leva.core/Controls {:folder {:name \"Klein Bagel\"}, :schema {:u {:min 1, :max 6.283185307179586, :step 0.01}, :v {:min 0, :max 6.283185307179586, :step 0.01}}, :atom G__65341}] (reagent.core/with-let [G__65342 (js/Function. \"a0004\" \"a0005\" \"a0006\" \"  const y0001 = a0004[0];\\n  const y0002 = a0004[1];\\n  const p0003 = a0006[0];\\n  const _0008 = 2.0 * y0002;\\n  const _0009 = Math.cos(y0001);\\n  const _0010 = 0.5;\\n  const _0012 = Math.sin(y0002);\\n  const _0015 = Math.sin(y0001);\\n  const _0018 = _0010 * y0001;\\n  const _0019 = Math.sin(_0008);\\n  const _0020 = Math.sin(_0018);\\n  const _0021 = Math.cos(_0018);\\n  a0005[0] = _0012 * _0009 * _0021 - _0009 * _0020 * _0019 + p0003 * _0009;\\n  a0005[1] = _0012 * _0015 * _0021 - _0015 * _0020 * _0019 + p0003 * _0015;\\n  a0005[2] = _0012 * _0020 + _0021 * _0019;\")] [emmy.mathbox.plot/ParametricSurface {:f (clojure.core/let [G__65343 (js/Array. 0 0) out__63580__auto__ (js/Array. 0 0 0) psym__63581__auto__ (clojure.core/apply array (clojure.core/map (clojure.core/deref G__65340) [:r]))] (clojure.core/fn [emit__63582__auto__ G__65344 G__65345] (clojure.core/aset G__65343 0 G__65344) (clojure.core/aset G__65343 1 G__65345) (G__65342 G__65343 out__63580__auto__ psym__63581__auto__) (emit__63582__auto__ (clojure.core/aget out__63580__auto__ 0) (clojure.core/aget out__63580__auto__ 2) (clojure.core/aget out__63580__auto__ 1)))), :opacity 0.75, :u [0 (clojure.core/get (clojure.core/deref G__65341) :u)], :v [-1 (clojure.core/get (clojure.core/deref G__65341) :v)]}])]])])), :hash \"5dttPnbyVYaD7X7KSFqfGdyTvtXu9g\"}, :nextjournal/opts {:id \"examples.manifold.klein/anon-expr-5dtKMYsd9YVC5DFMuNJQh66YWi38ep-result\"}}, :nextjournal/blob-id \"5dsRGbEd4YLTqpivVFvYpt9hxbzR5L\"}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/anon-expr-5dtKMYsd9YVC5DFMuNJQh66YWi38ep-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value [:div.viewer.markdown-viewer.w-full.max-w-prose.px-8 {:data-block-id \"examples.manifold.klein/markdown-5dsLxhJtsnSs53nA62oJ7Ku6ESmkaC\"} [\"h2\" {:id \"klein-bottle:\"} [:<> \"Klein bottle:\"]]], :nextjournal/opts {:id \"examples.manifold.klein/markdown-5dsLxhJtsnSs53nA62oJ7Ku6ESmkaC\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/markdown-node-viewer, :render-fn #viewer-fn identity, :hash \"5dsg4Bx9A9L7WvvCgamUoRtxUsmYCe\"}} {:path [], :nextjournal/value \"(defn klein-bottle [[u v]]\\n  [(* -2/15 (cos u)\\n      (+ (- (* 3 (cos v))\\n            (* 30 (sin u)))\\n         (- (* 90 (sin u) (expt (cos u) 4))\\n            (* 60 (sin u) (expt (cos u) 6)))\\n         (* 5 (cos u) (cos v) (sin u))))\\n   (* -1/15 (sin u)\\n      (+ (- (* 3 (cos v))\\n            (* 3 (square (cos u)) (cos v))\\n            (* 48 (cos v) (expt (cos u) 4)))\\n         (- (* 48 (cos v) (expt (cos u) 6))\\n            (* 60 (sin u)))\\n         (- (* 5 (cos u) (cos v) (sin u))\\n            (* 5 (cube (cos u)) (cos v) (sin u))\\n            (* 80 (expt (cos u) 5) (cos v) (sin u)))\\n         (* 80 (expt (cos u) 7) (cos v) (sin u))))\\n   (* 2/15 (sin v)\\n      (+ 3 (* 5 (cos u) (sin u))))])\", :nextjournal/opts {:loc {:line 82, :end-line 100, :column 1, :end-column 37}, :id \"examples.manifold.klein/klein-bottle-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value \"#object[examples.manifold.klein$klein_bottle 0x2ea597ca \\\"examples.manifold.klein$klein_bottle@2ea597ca\\\"]\", :nextjournal/width :wide, :nextjournal/viewer {:name nextjournal.clerk.viewer/read+inspect-viewer, :render-fn #viewer-fn (fn [x] (try [nextjournal.clerk.render/inspect (nextjournal.clerk.viewer/read-string-without-tag-table x)] (catch js/Error _e (nextjournal.clerk.render/render-unreadable-edn x)))), :hash \"5dsbvuFDJTLDvvbFXXK9kuLT2juAD6\"}, :nextjournal/opts {:id \"examples.manifold.klein/klein-bottle-result\"}}, :nextjournal/blob-id nil}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/klein-bottle-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}} {:path [], :nextjournal/value \"(slider-surface\\n \\\"Klein\\\"\\n {:f klein-bottle\\n  :u [0 Math/PI]\\n  :v [0 (* 2 Math/PI)]})\", :nextjournal/opts {:loc {:line 102, :end-line 106, :column 1, :end-column 25}, :id \"examples.manifold.klein/anon-expr-5dqr1bgdv2oeQGeV9pLcjPjr6muJ3Y-code\", :language \"clojure\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/code-block-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-code-block, :hash \"5dru1FUcVRTRrVKJFbNw4FG2wXmiwB\"}} {:path [], :nextjournal/value {:nextjournal/presented {:path [], :nextjournal/value nil, :nextjournal/width :wide, :nextjournal/viewer {:render-fn #viewer-fn (fn [] (reagent.core/with-let [G__65353 (reagent.core/atom {:u 3.141592653589793, :v 6.283185307179586})] [mathbox.core/MathBox {:container {:style {:height \"400px\", :width \"100%\"}}, :renderer {:background-color 16777215}} [emmy.mathbox.plot/Scene {:axis-options {:x {:label-ticks? false}, :y {:label-ticks? false}, :z {:label-ticks? false}}, :grids []} [leva.core/Controls {:folder {:name \"Klein\"}, :schema {:u {:min 0, :max 3.141592653589793, :step 0.01}, :v {:min 0, :max 6.283185307179586, :step 0.01}}, :atom G__65353}] (reagent.core/with-let [G__65354 (js/Function. \"a0003\" \"a0004\" \"a0005\" \"  const y0001 = a0003[0];\\n  const y0002 = a0003[1];\\n  const _0007 = Math.cos(y0001);\\n  const _0008 = Math.sin(y0002);\\n  const _0010 = Math.cos(y0002);\\n  const _0011 = Math.sin(y0001);\\n  const _0013 = 0.6666666666666666;\\n  const _0014 = Math.pow(_0007, 7.0);\\n  const _0015 = Math.pow(_0011, 3.0);\\n  const _0016 = Math.pow(_0007, 5.0);\\n  a0004[0] = 8.0 * _0014 * _0011 - 12.0 * _0016 * _0011 - 0.6666666666666666 * _0010 * Math.pow(_0007, 2.0) * _0011 - 0.4 * _0010 * _0007 + 4.0 * _0007 * _0011;\\n  a0004[1] = 5.333333333333333 * _0010 * Math.pow(_0007, 9.0) - 10.666666666666666 * _0010 * _0014 + 3.2 * _0010 * Math.pow(_0007, 4.0) * _0015 + 5.0 * _0010 * _0016 + _0013 * _0010 * Math.pow(_0007, 3.0) - 0.2 * _0010 * _0015 - 0.3333333333333333 * _0010 * _0007 + 4.0 * Math.pow(_0011, 2.0);\\n  a0004[2] = _0013 * _0008 * _0007 * _0011 + 0.4 * _0008;\")] [emmy.mathbox.plot/ParametricSurface {:f (clojure.core/let [G__65355 (js/Array. 0 0) out__63580__auto__ (js/Array. 0 0 0) psym__63581__auto__ nil] (clojure.core/fn [emit__63582__auto__ G__65356 G__65357] (clojure.core/aset G__65355 0 G__65356) (clojure.core/aset G__65355 1 G__65357) (G__65354 G__65355 out__63580__auto__ psym__63581__auto__) (emit__63582__auto__ (clojure.core/aget out__63580__auto__ 0) (clojure.core/aget out__63580__auto__ 2) (clojure.core/aget out__63580__auto__ 1)))), :u [0 (clojure.core/get (clojure.core/deref G__65353) :u)], :v [-1 (clojure.core/get (clojure.core/deref G__65353) :v)]}])]])), :hash \"5dr8hnCcUyog1LeeQeq4GgYgvAsbAF\"}, :nextjournal/opts {:id \"examples.manifold.klein/anon-expr-5dqr1bgdv2oeQGeV9pLcjPjr6muJ3Y-result\"}}, :nextjournal/blob-id \"5dtyDr9BF79pYtaomSemYuCBXHs63N\"}, :nextjournal/width :wide, :nextjournal/opts {:id \"examples.manifold.klein/anon-expr-5dqr1bgdv2oeQGeV9pLcjPjr6muJ3Y-result\"}, :nextjournal/viewer {:name nextjournal.clerk.viewer/result-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-result, :hash \"5dtGVHesd2XCTLFYF3aY4kJvkrX1x1\"}}]}, :nextjournal/viewer {:name nextjournal.clerk.viewer/notebook-viewer, :render-fn #viewer-fn nextjournal.clerk.render/render-notebook, :hash \"5duAFDxE4sCnRX71Wo6zeCpC9C3djE\"}}}, :path->url {\"dev/examples/modint.clj\" \"dev/examples/modint.html\", \"dev/emmy_viewers/mafs.clj\" \"dev/emmy_viewers/mafs.html\", \"dev/examples/quaternion.clj\" \"dev/examples/quaternion.html\", \"dev/examples/expression.clj\" \"dev/examples/expression.html\", \"dev/examples/simulation/ellipsoid.clj\" \"dev/examples/simulation/ellipsoid.html\", \"dev/examples/structure.clj\" \"dev/examples/structure.html\", \"dev/examples/functions.clj\" \"dev/examples/functions.html\", \"dev/examples/mathbox/functions.clj\" \"dev/examples/mathbox/functions.html\", \"dev/examples/portal.clj\" \"dev/examples/portal.html\", \"dev/examples/mathbox/cube_controls.clj\" \"dev/examples/mathbox/cube_controls.html\", \"dev/examples/simulation/double_ellipsoid.clj\" \"dev/examples/simulation/double_ellipsoid.html\", \"dev/examples/simulation/lorenz.cljc\" \"dev/examples/simulation/lorenz.html\", \"dev/emmy_viewers/leva.clj\" \"dev/emmy_viewers/leva.html\", \"dev/emmy_viewers/jsxgraph.clj\" \"dev/emmy_viewers/jsxgraph.html\", \"dev/examples/symbolic/einstein.clj\" \"dev/examples/symbolic/einstein.html\", \"dev/emmy_viewers/mathbox.clj\" \"dev/emmy_viewers/mathbox.html\", \"dev/examples/simulation/cylinder_flow.cljc\" \"dev/examples/simulation/cylinder_flow.html\", \"dev/examples/stern_brocot.clj\" \"dev/examples/stern_brocot.html\", \"dev/examples/simulation/quartic_well.cljc\" \"dev/examples/simulation/quartic_well.html\", \"dev/examples/complex.clj\" \"dev/examples/complex.html\", \"dev/examples/manifold/klein.clj\" \"dev/examples/manifold/klein.html\", \"dev/examples/simulation/phase_portrait.cljc\" \"dev/examples/simulation/phase_portrait.html\", \"dev/examples/power_series.clj\" \"dev/examples/power_series.html\", \"dev/examples/manifold/pq_knot.clj\" \"dev/examples/manifold/pq_knot.html\", \"dev/emmy_viewers/notebook.clj\" \"\", \"dev/examples/rational_function.clj\" \"dev/examples/rational_function.html\", \"dev/examples/continued_fractions.clj\" \"dev/examples/continued_fractions.html\", \"dev/examples/polynomial.clj\" \"dev/examples/polynomial.html\", \"dev/examples/number.clj\" \"dev/examples/number.html\", \"dev/emmy_viewers/mathlive.clj\" \"dev/emmy_viewers/mathlive.html\", \"dev/examples/operator.clj\" \"dev/examples/operator.html\", \"dev/examples/mathbox/quickstart.clj\" \"dev/examples/mathbox/quickstart.html\", \"dev/examples/mafs.clj\" \"dev/examples/mafs.html\", \"dev/examples/simulation/toroid.clj\" \"dev/examples/simulation/toroid.html\", \"dev/examples/manifold/fdg.clj\" \"dev/examples/manifold/fdg.html\", \"dev/examples/mathbox/geom.clj\" \"dev/examples/mathbox/geom.html\", \"dev/examples/matrix.clj\" \"dev/examples/matrix.html\", \"dev/examples/simulation/oscillator.clj\" \"dev/examples/simulation/oscillator.html\", \"dev/examples/vega/pendulum.clj\" \"dev/examples/vega/pendulum.html\"}, :current-path \"dev/examples/manifold/klein.clj\", :resource->url {\"/js/viewer.js\" \"_data/8VwWuJaq7vL2cvUrnKLCVPGwypWbK4TgydUHbhe58t4mRmhjzfyTtMEGcEzxL8ntCuq7Q5akwcJaEeGCEpKbEEFDTH.js\"}, :index \"dev/emmy_viewers/notebook.clj\"}".replaceAll('nextjournal.clerk.view/escape-closing-script-tag', 'script')
+viewer.init(viewer.read_string(state))
+</script></body></html>
