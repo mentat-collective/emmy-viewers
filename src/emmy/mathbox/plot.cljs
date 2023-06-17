@@ -55,50 +55,78 @@
 ;; scene used to host the plots and objects represented by the components.
 
 (defn Ticks
-  [{:keys [axis divisions labels width label-fn
-           snap?]
-    :or {width 2
+  "TODO Component that renders ticks"
+  [{:keys [axis divisions width
+           snap? zero? start? end?
+           labels? label-fn]
+    :or {divisions 10
+         width 2
+         labels? true
+         label-fn p/format-number
          snap? false
-         label-fn p/format-number}}]
-  [:<>
-   [mb/Scale
-    {:divide divisions
-     :zero false
-     :nice snap?
-     :axis axis}]
-   [mb/Ticks {:width width}]
-   (when labels
-     [:<>
-      [mb/Format
-       {:expr (fn [x] (label-fn x))}]
-      [mb/Label
-       {:offset
-        (if (= axis 2)
-          [20 0 0]
-          [0 -20 0])}]])])
+         zero? false
+         start? true
+         end? true}}]
+  {:pre [(#{:x :y :z} axis)]}
+  (let [idx (axis->idx axis)]
+    [:<>
+     [mb/Scale
+      {:divide divisions
+       :zero zero?
+       :start start?
+       :end end?
+       :nice snap?
+       :axis idx}]
+     [mb/Ticks {:width width}]
+     (when labels?
+       [:<>
+        [mb/Format {:expr (fn [x] (label-fn x))}]
+        [mb/Label
+         {:offset
+          (if (= idx 2)
+            [20 0 0]
+            [0 -20 0])}]])]))
 
 ;; TODO
 ;; - take false or label options for labels
 
-(defn AxisLabel [{:keys [axis label position size]
-                  :or {size 14}}]
+(defn AxisLabel
+  "
+  - `:axis`: the axis index, either `:x`, `:y` or `:z`.
+
+  - `:label`: the label.
+
+  - `:position`: the distance along the axis to place the label.
+
+  - `:size`: size of the label.
+
+  - `:tex?`: if true (default), use katex to render the label."
+
+  [{:keys [axis label position size tex?]
+    :or {size  14
+         label ""
+         tex? true}}]
+  {:pre [(#{:x :y :z} axis)]}
   (when-not (= label "")
-    [:<>
-     [mb/Array
-      {:channels 3
-       :live false
-       :data [(assoc [0 0 0] (dec axis) position)]}]
-     [mb/Html
-      {:items 1
-       :live false
-       :expr (fn [emit el]
-               (emit
-                (el latex-render {} label)))}]
-     [mb/Dom
-      {:size size
-       :zoom 1
-       :outline 2
-       :offset [0 20 0]}]]))
+    (let [idx (axis->idx axis)]
+      [:<>
+       [mb/Array
+        {:channels 3
+         :live false
+         :data [(assoc [0 0 0] (dec idx) position)]}]
+       [mb/Html
+        {:items 1
+         :live false
+         :expr
+         (let [f (if tex? latex-render text-render)]
+           (fn [emit el]
+             (emit
+              (el f {} label))))}]
+       [mb/Dom
+        {:size size
+         :zoom 1
+         :outline 2
+         :offset [0 20 0]}]])))
 
 (defn LabeledAxis
   "Component that takes a `k` equal to `:x`, `:y` or `:z` and renders the
@@ -121,7 +149,9 @@
             color "#808080"}}]
    {:pre [(#{:x :y :z} k)]}
    (let [label (or label (name k))
-         idx   (axis->idx k)]
+         idx   (axis->idx k)
+         ;; TODO get this subbed out for the real max.
+         max   5]
      [mb/Group {:visible true :classes ["axis"]}
       [mb/Axis
        {:axis idx
@@ -132,16 +162,16 @@
         :start false :end false}]
       (when ticks?
         [Ticks
-         {:axis idx
+         {:axis k
           :divisions divisions
-          :labels label-ticks?
+          :labels? label-ticks?
           :width 2}])
       ;; make sure this points at the right data source??
       (when label?
         [AxisLabel
-         {:axis  idx
-          :label (or label (name k))
-          :position 5}])])))
+         {:axis     k
+          :label    (or label (name k))
+          :position max}])])))
 
 (defn Grid [k]
   (let [axes (axis->idx k)]
