@@ -73,6 +73,7 @@
                     (fn [amplitude]
                       (* amplitude (D my-fn))))
                :color "green" :width 256})
+
    (plot/of-xy
     {:width  128
      :height 128

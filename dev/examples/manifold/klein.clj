@@ -21,10 +21,13 @@
   (ev/with-let [!opts {:u (peek u) :v (peek v)}]
     (p/scene
      {:axis-options
-      {:x {:label-ticks? false}
-       :y {:label-ticks? false}
-       :z {:label-ticks? false}}
-      :grids []}
+      {:x {:divisions 10
+           #_#_:label-ticks? false}
+       :y {:divisions 10
+           #_#_:label-ticks? false}
+       :z {:divisions 10
+           #_#_:label-ticks? false}}
+      #_#_:grids []}
      (leva/controls
       {:folder {:name name}
        :schema

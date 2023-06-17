@@ -1,16 +1,28 @@
 (ns emmy.mathbox.plot
-  "Plotting API over MathBox."
+  "Higher-level mathematical plotting components built on the primitives provided
+  by `Mathbox.cljs`."
   (:require [emmy.mathbox.color :as color]
-            [mathbox.primitives :as mb]))
+            [emmy.viewer.plot :as p]
+            [mathbox.primitives :as mb]
+            ["katex" :as k]
+            ["mathbox" :as box]))
 
-;; ## Default Plots
+;; ## Utilities
 
-(defn ^:no-doc split-opts [children]
+(defn ^:no-doc split-opts
+  "Returns a pair of a parameters map and the rest of the children. Useful for
+  allowing a component to take a props map optionally."
+  [children]
   (if (map? (first children))
     [(first children) (rest children)]
     [{} children]))
 
 (def ^:no-doc axis->idx
+  "Map of axis keyword => the MathBox dimensions that represent the axis or axes.
+
+  MathBox's `emit` calls confusingly take inputs in 'xzy' order! Rather than
+  swizzle everything I'm using this map to track the actual indices and being
+  careful."
   {:x 1
    :y 3
    :z 2
@@ -18,36 +30,118 @@
    :yz [3 2] :zy [2 3]
    :xz [1 2] :zx [2 1]})
 
+(def ^:no-doc latex-render
+  "HTML renderer for MathBox that renders its children using katex."
+  (.createClass
+   box/DOM
+   #js {:render
+        (fn [el _ children]
+          (el "span"
+              #js {:innerHTML
+                   (k/renderToString children)}))}))
+
+(def ^:no-doc text-render
+  "HTML renderer for MathBox that renders its children as a bold HTML element."
+  (.createClass
+   box/DOM
+   #js {:render
+        (fn [el _ children]
+          (el "b" #js {:style #js {:color "gray"}}
+              children))}))
+
+;; ## Default Plots
+;;
+;; The next section provides components for building up the default mathematical
+;; scene used to host the plots and objects represented by the components.
+
+(defn Ticks
+  [{:keys [axis divisions labels width label-fn
+           snap?]
+    :or {width 2
+         snap? false
+         label-fn p/format-number}}]
+  [:<>
+   [mb/Scale
+    {:divide divisions
+     :zero false
+     :nice snap?
+     :axis axis}]
+   [mb/Ticks {:width width}]
+   (when labels
+     [:<>
+      [mb/Format
+       {:expr (fn [x] (label-fn x))}]
+      [mb/Label
+       {:offset
+        (if (= axis 2)
+          [20 0 0]
+          [0 -20 0])}]])])
+
+;; TODO
+;; - take false or label options for labels
+
+(defn AxisLabel [{:keys [axis label position size]
+                  :or {size 14}}]
+  (when-not (= label "")
+    [:<>
+     [mb/Array
+      {:channels 3
+       :live false
+       :data [(assoc [0 0 0] (dec axis) position)]}]
+     [mb/Html
+      {:items 1
+       :live false
+       :expr (fn [emit el]
+               (emit
+                (el latex-render {} label)))}]
+     [mb/Dom
+      {:size size
+       :zoom 1
+       :outline 2
+       :offset [0 20 0]}]]))
+
 (defn LabeledAxis
+  "Component that takes a `k` equal to `:x`, `:y` or `:z` and renders the
+  equivalent axis into the mathematical scene.
+
+  Optional arguments:
+
+  - `:ticks?` if true (default),
+  "
   ([k] [LabeledAxis k {}])
-  ([k {:keys [ticks? label-ticks? label?]
+  ([k {:keys [ticks? label-ticks? label? divisions width label opacity color z-order z-index z-bias]
        :or {ticks? true
             label-ticks? true
-            label? true}}]
-   (let [label (name k)
+            divisions 10
+            label? true
+            z-bias 0
+            z-index 0
+            opacity 1
+            width 1
+            color "#808080"}}]
+   {:pre [(#{:x :y :z} k)]}
+   (let [label (or label (name k))
          idx   (axis->idx k)]
      [mb/Group {:visible true :classes ["axis"]}
-      [mb/Axis {:axis idx
-                :opacity 1
-                :width 1
-                :size 2
-                :color "#808080"
-                :zOrder 0 :zIndex 0 :zBias 0 }]
+      [mb/Axis
+       {:axis idx
+        :opacity opacity
+        :width width
+        :color color
+        :zOrder z-order :zIndex z-index :zBias z-bias
+        :start false :end false}]
       (when ticks?
-        [mb/Group {:classes ["ticks"] :visible true}
-         [mb/Scale {:divide 10 :nice true :zero false :axis idx}]
-         [mb/Ticks {:width 2}]
-         (when label-ticks?
-           [:<>
-            [mb/Format {:digits 2}]
-            [mb/Label {:classes ["tick-labels"]}]])])
+        [Ticks
+         {:axis idx
+          :divisions divisions
+          :labels label-ticks?
+          :width 2}])
+      ;; make sure this points at the right data source??
       (when label?
-        [mb/Group {:classes ["label"] :visible true}
-         [mb/Array {:channels 3
-                    :live false
-                    :data [(assoc [0 0 0] (dec idx) 5)]}]
-         [mb/Text {:weight "bold" :data [label]}]
-         [mb/Label {:offset [0 40 0]}]])])))
+        [AxisLabel
+         {:axis  idx
+          :label (or label (name k))
+          :position 5}])])))
 
 (defn Grid [k]
   (let [axes (axis->idx k)]
