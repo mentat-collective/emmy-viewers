@@ -2,7 +2,7 @@
   "This namespace contains functions for compiling Emmy function objects down to
   JavaScript `js/Function` constructor calls.
 
-  See [[emmy.mafs.plot]] for example uses."
+  See [[emmy.mafs.plot]] and [[emmy.mathbox.plot]] for example uses."
   (:require [emmy.expression.compile :as xc]
             [emmy.viewer :as v]))
 
@@ -11,7 +11,7 @@
   otherwise.
 
   NOTE that this predicate is quite permissive. Anything that does NOT pass this
-  test will be treated as a quoted form that `Mafs.cljs` knows how to do
+  test will be treated as a quoted form that the end component knows how to do
   something with."
   [f]
   (or (v/param-f? f)
@@ -37,7 +37,7 @@
   and returns a pair of
 
   - a function body of the form `(js/Function. ...)`
-  - the NEW quoted form that should be passed along to Mafs.
+  - the NEW quoted form that should be passed along.
 
   See the body of [[compile-1d]] for more details."
   [sym {:keys [f params atom]}]
@@ -55,12 +55,12 @@
 (defn compile-1d
   "Takes
 
-  - an options map `opts` supplied to some Mafs component
+  - an options map `opts`
   - the `k` that maps to the function (of one Double argument) to compile
 
   and returns a pair of
 
-  - a sequence of new bindings
+  - a new binding pair
   - the options map updated to reference the new compiled fn via symbol."
   [opts k]
   (let [v (get opts k)]
@@ -83,7 +83,7 @@
   and returns a pair of
 
   - a function body of the form `(js/Function. ...)`
-  - the NEW quoted form that should be passed along to Mafs.
+  - the NEW quoted form that should be passed along.
 
   See the body of [[compile-2d]] for more details."
   [sym {:keys [f params atom]}]
@@ -95,13 +95,13 @@
 (defn compile-2d
   "Takes
 
-  - an options map `opts` supplied to some Mafs component
+  - an options map `opts`
   - the `k` that maps to the function (of one `[double double]`-shaped argument)
     to compile
 
   and returns a pair of
 
-  - a sequence of new bindings
+  - a new binding pair
   - the options map updated to reference the new compiled fn via symbol."
   [opts k]
   (let [v (get opts k)]

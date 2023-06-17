@@ -32,6 +32,8 @@
 ;; we can totally port this!!!
 
 ;; more 3d curves, look at this https://rockey-math.github.io/mathbox/graph3d-curve
+;;
+;; yarn curve: https://www.cs.cmu.edu/~kmcrane/Projects/Other/YarnCurve.pdf
 
 (defn make-unit
   "Given a vector, returns a vector of unit length pointing in the same direction

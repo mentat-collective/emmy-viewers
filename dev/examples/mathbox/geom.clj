@@ -6,9 +6,7 @@
              infinite? abs ref partial =])
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
-            [emmy.leva :as leva]
-            [emmy.mathbox.plot :as p]
-            [emmy.viewer :as ev]))
+            [emmy.mathbox.plot :as p]))
 
 {:nextjournal.clerk/width :wide}
 

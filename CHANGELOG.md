@@ -10,6 +10,10 @@
   - Upgrades the `examples.manifold.pq-knot` to full server-side function style,
     removing it from the JS bundle.
 
+  - Fixes the `:emmy.portal/mafs` viewer so that its theming applies in scope;
+    this lets you toggle the theme away by activating `:emmy.portal/reagent`
+    without affecting the other Mafs scenes in portal.
+
 - #39:
 
   - moves `emmy.mafs.compile` to `emmy.viewer.compile`, for future use by
