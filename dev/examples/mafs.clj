@@ -21,7 +21,6 @@
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
-
 ;; parametrized function controlled by a stateful point:
 
 (ev/with-let [!phase [0 0]]

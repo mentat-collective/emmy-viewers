@@ -71,11 +71,6 @@
 
 ;; ## Primitives
 
-(defn ^:no-doc split-opts [children]
-  (if (map? (first children))
-    [(first children) (rest children)]
-    [{} children]))
-
 (defn group
   "*Group elements for visibility and activity*
 

@@ -139,7 +139,7 @@
   {:subdivisions 4
    :x-axis
    {:lines Math/PI
-    :labels 'mafs.core/labelPi}})
+    :labels 'emmy.viewer.plot/label-pi}})
  (mafs/of-x {:y sin}))
 
 ;; At this point, it's worth noting that you haven't _instructed_ the library to
@@ -163,7 +163,7 @@
      {:subdivisions 4
       :x-axis
       {:lines Math/PI
-       :labels 'mafs.core/labelPi}})
+       :labels 'emmy.viewer.plot/label-pi}})
     (mafs/of-x
      {:y (ev/with-params {:atom !phase :params [0]}
            (fn [shift]
@@ -373,8 +373,8 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
 
 ;; The entire axis can also be set to `false` to disable it entirely.
 
-;; Mafs also exports a helper function, `mafs/labelPi` which can be passed to
-;; `:labels` to render in terms of $\pi$.
+;; Emmy also exports a helper function, `emmy.viewer.plot/label-pi` which can be
+;; passed to `:labels` to render in terms of $\pi$.
 
 (mafs/mafs
  {:view-box {:x [-8 8]
@@ -389,7 +389,7 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/mafs.cljs {:git/sha \"%s\"}}
    :y-axis
    {:lines Math/PI
     :subdivisions 4
-    :labels 'mafs.core/labelPi}}))
+    :labels 'emmy.viewer.plot/label-pi}}))
 
 ;; #### Polar Coordinates
 

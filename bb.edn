@@ -19,6 +19,10 @@
   {:doc "Runs `user/serve!` with a watcher process generating custom JS."
    :task (X "clojure -X:nextjournal/clerk user/serve!")}
 
+  test:cljs
+  {:doc "Run CLJS tests."
+   :task (shell "npm run test")}
+
   build-static
   {:doc "Generate a fresh static build."
    :task
