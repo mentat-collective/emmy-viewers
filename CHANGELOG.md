@@ -2,6 +2,9 @@
 
 ## [unreleased]
 
+- #32 updates the `emmy-viewers/clerk` template to use the new pre-compiled
+  bundle and all of the good stuff in it.
+
 - #40 is a huge PR that adds a full 3D plotting system into emmy-viewers!!
 
   - Adds `emmy.viewer.plot` with `format-number` and `label-pi` functions,
