@@ -57,10 +57,29 @@
 ;; scene used to host the plots and objects represented by the components.
 
 (defn DomLabel
-  "TODO this is seriously expensive, back it out!!"
+  "Component that _quite indulgently_ mounts a DOM element into the current MathBox scene.
+
+  NOTE that this is quite expensive and will slow down your updates! But when
+  you need to show LaTeX this is where you should turn.
+
+  Required arguments:
+
+  - `:label`: string with the label you'd like to mount.
+
+  Optional arguments:
+
+  - `:tex?`: when `true` (default), mounts the label into the dom after
+    processing it with [katex](https://katex.org/).
+
+  - `:size`: size of the label. Defaults to 12.
+
+  - `:offset`: `[<x-offset> <y-offset>]` for this label on the DOM. Defaults to
+    `[0 20]`."
   [{:keys [tex? label size offset]
-    :or {tex? true}}]
-  (let [offset (or offset [0 20])]
+    :or {tex? true
+         size 12}}]
+  (let [size   (or size 12)
+        offset (or offset [0 20])]
     [:<>
      [mb/Html
       {:items 1
@@ -77,7 +96,37 @@
        :offset offset}]]))
 
 (defn Ticks
-  "TODO Component that renders ticks"
+  "Component that renders tick marks onto a scene, lined up with an axis.
+
+  Required arguments:
+
+  - `:axis`: one of `:x`, `:y` or `:z`.
+
+  Optional arguments:
+
+  - `:divisions`: the number of divisions (ticks) to generate. Defaults to 10.
+
+  - `:width`: width of each tick. Defaults to 2.
+
+  - `:snap?` if `true`, the ticks will snap to \"nice\" values. `false` by default.
+
+  - `:start?` if `true` (default), renders the starting tick.
+
+  - `:end?` if `true` (default), renders the ending tick.
+
+  - `:zero?` if `true`, renders the tick at 0. `false` by default.
+
+  - `:size`: size of the label. Defaults to 12.
+
+  - `:offset`: `[<x-offset> <y-offset>]` for this label on the DOM. Defaults to
+    `[0 20]`.
+
+  - `:labels?`: if `true` (default), renders a printed label underneath each
+    tick for the `:x` and `:y` axes, or alongside the axis for `:z`.
+
+  - `:label-fn`: `(fn [x] <string>)` for generating the printed representation
+    of each tick mark's value. Defaults to [[emmy.viewer.plot/format-number]]. You
+    might also enjoy [[emmy.viewer.plot/label-pi]]."
   [{:keys [axis divisions width
            snap? zero? start? end?
            labels? label-fn]
@@ -110,22 +159,29 @@
             [0 -20 0])}]])]))
 
 (defn AxisLabel
-  "
-  - `:axis`: the axis index, either `:x`, `:y` or `:z`.
+  "Component that renders an axis label above the referenced `axis`.
 
-  - `:label`: the label.
+  Required arguments:
 
-  - `:position`: the distance along the axis to place the label. NOTE That this is a hack currently!
+  - `:axis`: one of `:x`, `:y` or `:z`.
 
-  - `:size`: size of the label.
-  "
+  Optional arguments:
 
+  - `:label`: the label to show. If `label` is falsey or equal to `\"\"`, this
+    component won't render.
+
+  - `:position`: the distance along the axis to place the label. Defaults to 5.
+
+    NOTE: Ideally we would figure out the parent `Cartesian` and pick the top of
+    the range for the axis specified as the default.
+
+  - `:size`: size of the label. Defaults to 16."
   [{:keys [axis position size]
     :or {size 16
          position 5}
     :as opts}]
   {:pre [(#{:x :y :z} axis)]}
-  (let [label (:label opts "")]
+  (let [label (or (:label opts) "")]
     (when-not (= label "")
       (let [idx (axis->idx axis)]
         [:<>
@@ -135,26 +191,57 @@
            :data [(assoc [0 0 0] (dec idx) position)]}]
          [mb/Text
           {:weight "bold"
-           :detail 30
            :data [label]}]
          [mb/Label
           {:size size
            :offset [0 40]}]]))))
 
+;; TODO consider removing the `max` here and spooling upward from the axis to
+;; its cartesian parent to get the proper label position. see `getCartesian` and
+;; `copyCartesianRange` in math3d-react.
+
 (defn LabeledAxis
   "Component that takes a `k` equal to `:x`, `:y` or `:z` and renders the
-  equivalent axis into the mathematical scene.
+  equivalent axis into the MathBox scene.
 
-  - `:axis`: the axis index, either `:x`, `:y` or `:z`.
+  Required arguments:
+
+  - `:axis`: one of `:x`, `:y` or `:z`.
 
   Optional arguments:
 
-  - `:ticks`: either true (default) or a map of tick options.
+  - `:ticks`: either `true` (default), falsey or a map of [[Ticks]] options.
+    See [[Ticks]] for details on what's allowed.
+
+    `true` will include default ticks, while `false` or `nil` will remove ticks.
+
+  - `:label`: either `true` (default) or a map of [[AxisLabel]] options.
+    See [[AxisLabel]] for details on what's allowed.
+
+    `true` will include the default label, ticks, while `false` or `nil` will
+    remove the label.
+
+  - `:width`: width of the rendered axis line.
+
+  - `:opacity`: opacity of the axis (not currently passed on to ticks or
+    labels). Defaults to 1.0.
+
+  - `:color`: color of the axis. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the full labeled axis.
+
+  - `:z-index`: zIndex of the full labeled axis. Defaults to 0.
+
+  - `:z-bias`: zBias of the full labeled axis. Defaults to 0.
+
   - `:label`: either true (default) or a map of options.
 
-  TODO consider removing the `max` here and spooling upward from the axis to its
-  cartesian parent to get the proper label position. see `getCartesian` and
-  `copyCartesianRange` in math3d-react."
+  - `:max`: the maximum value reached along this axis. This is used to pass a
+  default `:position` argument to the [[AxisLabel]] component if one isn't set.
+
+  NOTE this is a hack, see the comment above the component for an alternate
+  approach."
   [{:keys [axis width opacity color z-order z-index z-bias
            max]
     :or {z-bias 0
@@ -186,9 +273,40 @@
           max (assoc :position (:position base max)))]))])
 
 (defn Grid
-  "
-  - `:snap` can be true or a pair, snapping the first and second axes.
-  - `:divisions` is a pair or number that refers to the axes in their order."
+  "Component that takes a `k` equal to `:xy`, `:yz` or `:xz` and renders a grid in
+  the specified plane into the MathBox scene.
+
+  Required arguments:
+
+  - `:axes`: one of `:xy`, `:yz` or `:xz`.
+
+  Optional arguments:
+
+  - `:snap`: either `true`, `false`, a single number or a 2-vector of numbers of
+    the form `[<snap-x?> <snap-y?>]`. A non-vector value becomes a pair with the
+    same value in both slots.
+
+    \"snapping\" the grid means that gridlines will snap to nice numbers.
+    `false` by default.
+
+  - `:divisions`: either `true`, `false`, a single number or a 2-vector of
+    numbers of the form `[<first-axis-divisions> <second-axis-divisions>]`. A
+    non-vector value becomes a pair with the same value in both slots.
+
+    divisions set the number of gridlines that appear in each dimension.
+
+  - `:width`: width of the lines on the rendered grid.
+
+  - `:opacity`: opacity of the grid. Defaults to 1.0.
+
+  - `:color`: color of the grid. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the grid.
+
+  - `:z-index`: zIndex of the grid. Defaults to 0.
+
+  - `:z-bias`: zBias of the grid. Defaults to 0."
   [{:keys [axes width opacity color z-order z-index z-bias
            snap divisions]
     :or {z-bias 0
@@ -214,7 +332,23 @@
       :divideY y-div
       :zOrder z-order :zIndex z-index :zBias z-bias}]))
 
-(defn SceneAxes [axes range]
+(defn SceneAxes
+  "Component that renders multiple [[LabeledAxis]] components into a scene.
+
+  `axes` can be either
+
+  - a vector like `[:x :y]`
+  - a map of `{<axis-key> <boolean-or-[[LabeledAxis]]-arguments>}`
+
+  `range` is a 3-vector with the rendered ranges in the `x`, `y` and `z`
+  directions.
+
+  Any axis entries missing from `axes` won't be rendered.
+
+  NOTE: This argument is only used to fill in the `:max` argument
+  to [[LabeledAxis]] for default label positioning. It should go away once we
+  get a better strategy!"
+  [axes range]
   (let [m (if (vector? axes)
             (zipmap axes (repeat true))
             axes)]
@@ -230,7 +364,16 @@
                          :max (get-in range [(dec idx) 1]))]))))
           m)))
 
-(defn SceneGrids [grids]
+(defn SceneGrids
+  "Component that renders multiple [[Grid]] objects into a scene.
+
+  `grids` can be either
+
+  - a vector like `[:xy :yz]`
+  - a map of `{<axis-key> <boolean-or-[[Grid]]-arguments>}`
+
+  Any plane entries missing from `grids` won't be rendered."
+  [grids]
   (let [m (if (vector? grids)
             (zipmap grids (repeat true))
             grids)]
@@ -244,9 +387,40 @@
           m)))
 
 (defn Scene
-  "TODO add options!
+  "Component that renders a mathematical 3d plotting scene into MathBox.
+  Takes any number of children and nests them into a
+  configured [[mathbox.coordinates/Cartesian]] component.
 
-  TODO make a bare-bones scene."
+  Optional arguments:
+
+  - `:range`: triple of the form `[<x-range> <y-range> <z-range>]`. Each range
+    entry is a pair of `[<min-value> <max-value>]`.
+
+    Defaults to `[-5 5]` in each dimension.
+
+  - `:scale`: `[<x-scale> <y-scale> <z-scale>]` for tuning the relative space
+    given to each dimension in the rendering. Each entry defaults to 1.
+
+  - `:camera`: Camera position in units I don't really understand yet! Defaults
+    to `[0.5 0.6 2]`.
+
+  - `:axes`: can be either
+
+    - a vector like `[:x :y]`
+    - a map of `{<axis-key> <boolean-or-[[LabeledAxis]]-arguments>}`
+
+    Any axis entries missing from `:axes` won't be rendered.
+
+    See [[LabeledAxis]] for more detail on allowed configuration values.
+
+  - `:grids`: either
+
+    - a vector like `[:xy :yz]`
+    - a map of `{<axis-key> <boolean-or-[[Grid]]-arguments>}`
+
+    Any plane entries missing from `:grids` won't be rendered.
+
+    See [[Grid]] for more detail on allowed configuration values."
   [& children]
   (let [[opts children] (split-opts children)
         {:keys [camera range scale axes grids]
@@ -264,9 +438,36 @@
      [SceneGrids grids]]))
 
 ;; ## Objects
+;;
+;; Next we have a number of geometric objects.
 
 (defn Point
-  "TODO back out the domlabel thing unless the user specifies that they want it."
+  "Component that renders a point into the scene at `coords`.
+
+  Required arguments:
+
+  - `:coords`: 3-vector of the form `[<x> <y> <z>]` specifying the point's
+    coordinates.
+
+  Optional arguments:
+
+  - `:label`: either a string label or an options map input to [[DomLabel]]. If
+    `:tex?` is true in this map, the component will use katex to render the label.
+
+    NOTE that this is computationally expensive for reasons I don't understand!
+
+  - `:size`: size of the point. Defaults to 16.
+
+  - `:opacity`: opacity of the point. Defaults to 1.0.
+
+  - `:color`: color of the point. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the point.
+
+  - `:z-index`: zIndex of the point. Defaults to 0.
+
+  - `:z-bias`: zBias of the point. Defaults to 0."
   [{:keys [label size coords opacity color z-order z-index z-bias]
     :or {size 16
          z-index 0
@@ -297,7 +498,45 @@
           [mb/Label {:offset [0 (+ (/ size 2) 40)]}]])))])
 
 (defn Line
-  "TODO points"
+  "Component that renders a line segment into the scene as specified by `coords`.
+
+  Required arguments:
+
+  - `:coords`: a pair of 3-vectors of the form `[<x> <y> <z>]` specifying the
+    line segment's starting and ending coordinates.
+
+  Optional arguments:
+
+  - `:label`: either:
+
+    - a string label,
+    - a map with optional keys `:start` and `:end`
+    - a vector of the form `[<start> <end>]`
+
+    specifying the labels to hover over the start and end of the rendered line
+    segment.
+
+  - `:width`: width of the line. Defaults to 4.
+
+  - `:start?` if `true`, renders an arrow at the start of the segment. Defaults
+    to `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the segment. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:opacity`: opacity of the point. Defaults to 1.0.
+
+  - `:color`: color of the point. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the point.
+
+  - `:z-index`: zIndex of the point. Defaults to 0.
+
+  - `:z-bias`: zBias of the point. Defaults to 0."
   [{:keys [coords arrow-size width
            start? end? label
            opacity color z-order z-index z-bias]
@@ -329,7 +568,21 @@
         [mb/Label {:offset [0 40 0]}]]))])
 
 (defn Vector
-  "Same as line, with tip and tail options and an end by default."
+  "Component that renders a vector into the scene with the specified `tip` and
+  `tail`.
+
+  Required arguments:
+
+  - `:tip`: 3-vector of the form `[<x> <y> <z>]` specifying the tip of the
+    vector.
+
+  Optional arguments:
+
+  - `:tail`: 3-vector of the form `[<x> <y> <z>]` specifying the tail of the
+    vector. Defaults to `[0 0 0]`.
+
+  See [[Line]] for all other supported options. All defaults are identical,
+  except `:end?` defaults to `true`."
   [{:keys [tip tail]
     :or {tail [0 0 0]}
     :as opts}]
@@ -339,7 +592,8 @@
 
 ;; ## One-Dimensional Plots
 
-(defn- Curve1D
+(defn ^:no-doc Curve1D
+  "Component backing all of the 1-dimensional curve components below."
   [{:keys [samples range axis expr
            arrow-size width start? end?
            opacity color z-order z-index z-bias]
@@ -371,13 +625,90 @@
      :zOrder z-order}]])
 
 (defn ParametricCurve
-  "`:t` range..."
+  "Component that plots a parametric curve `f` into the scene along the range
+  specified by `t`.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [t] [<x> <y> <z>])`, valid within the range
+    specified by `:t`.
+
+  - `:t` 2-vector of the form `[<min-t> <max-t>]` specifying the domain of the
+    parametric function `f`.
+
+  Optional arguments:
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
   [{:keys [f t] :as opts}]
   [Curve1D
    (-> (dissoc opts :f :t)
        (assoc :expr f :range t))])
 
-(defn OfX [{:keys [y z] :as opts}]
+(defn OfX
+  "Component that plots a function in either the `y` or `z` directions as a
+  function of `x` values.
+
+  Required arguments:
+
+  - `:y` or `:z`: function of the form `(fn [x] <y-or-z>)`, valid within the
+    scene's x-axis range or the range specified by `:range`.
+
+    NOTE that you may only supply ONE of these two! Supplying both will trigger
+    an error.
+
+  Optional arguments:
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:range` 2-vector of the form `[<min-x> <max-x>]` specifying the range to
+    feed into `:y` or `:z`.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
+  [{:keys [y z] :as opts}]
   (when (and y z)
     (throw
      (js/Error. (str "Error: specify only one of `:y` or `:z`, not both!"))))
@@ -395,6 +726,46 @@
          (assoc :expr expr :axis 1))]))
 
 (defn OfY
+  "Component that plots a function in either the `x` or `z` directions as a
+  function of `y` values.
+
+  Required arguments:
+
+  - `:x` or `:z`: function of the form `(fn [y] <x-or-z>)`, valid within the
+    scene's y-axis range or the range specified by `:range`.
+
+    NOTE that you may only supply ONE of these two! Supplying both will trigger
+    an error.
+
+  Optional arguments:
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:range` 2-vector of the form `[<min-y> <max-y>]` specifying the range to
+    feed into `:x` or `:z`.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
   [{:keys [x z] :as opts}]
   (when (and x z)
     (throw (js/Error. (str "Error: specify only one of `:x` or `:z`, not both!"))))
@@ -412,6 +783,46 @@
          (assoc :expr expr :axis 3))]))
 
 (defn OfZ
+  "Component that plots a function in either the `x` or `y` directions as a
+  function of `z` values.
+
+  Required arguments:
+
+  - `:x` or `:y`: function of the form `(fn [z] <x-or-y>)`, valid within the
+    scene's z-axis range or the range specified by `:range`.
+
+    NOTE that you may only supply ONE of these two! Supplying both will trigger
+    an error.
+
+  Optional arguments:
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:range` 2-vector of the form `[<min-z> <max-z>]` specifying the range to
+    feed into `:x` or `:y`.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
   [{:keys [x y] :as opts}]
   (when (and x y)
     (throw (js/Error. (str "Error: specify only one of `:x` or `:y`, not both!"))))
@@ -430,8 +841,12 @@
 
 ;; ## 2D Plotting
 
-(defn SurfaceGrid
-  "TODO don't pass color."
+(defn ^:no-doc SurfaceGrid
+  "Component for rendering lines of constant `u` and `v` onto a 2D surface.
+
+  NOTE that this is in-progress and doesn't yet support custom color functions,
+  only constants! Once we get that fixed up we can properly generate the color
+  outside and not pass this color argument in."
   [{:keys [color grid-u grid-v grid-opacity grid-width grid-color z-order]
     :or {grid-u 8
          grid-v 8
@@ -468,9 +883,8 @@
                :width grid-width
                :opacity grid-opacity}]]))
 
-;; rename u-lines, v-lines etc
-(defn- Surface2D
-  "TODO cut this up into data sources etc."
+(defn ^:no-doc Surface2D
+  "Component backing all of the 2-dimensional surface components below."
   [{:keys [expr
            u-range v-range u-samples v-samples
            shaded?
@@ -478,6 +892,8 @@
     :or {u-samples 64
          v-samples 64
          z-order 25
+         z-index 0
+         z-bias 0
          opacity 0.75
          color 0xffffff
          shaded? true}
@@ -508,63 +924,111 @@
            :z-order z-order
            :color color)]])
 
+(defn ParametricSurface
+  "Component that plots a parametric surface defined by `f` into the scene along
+  the area specified by `u` and `v`.
 
-(defn OfXY [_]
-  (let [in #js [0 0]]
-    (fn [{:keys [z] :as opts}]
-      (let [expr (fn [emit x y _i _j _time]
-                   (aset in 0 x)
-                   (aset in 1 y)
-                   (emit x (z in) y))]
-        [Surface2D
-         (-> (dissoc opts :z)
-             (cs/rename-keys {:x-range :u-range
-                              :y-range :v-range
-                              :x-samples :u-samples
-                              :y-samples :v-samples
-                              :grid-x :grid-u
-                              :grid-y :grid-v})
-             (assoc :axes (axis->idx :xy)
-                    :expr expr))]))))
+  Required arguments:
 
-(defn OfXZ [_]
-  (let [in #js [0 0]]
-    (fn [{:keys [y] :as opts}]
-      (let [expr (fn [emit x z _i _j _time]
-                   (aset in 0 x)
-                   (aset in 1 z)
-                   (emit x z (y in)))]
-        [Surface2D
-         (-> (dissoc opts :y)
-             (cs/rename-keys {:x-range :u-range
-                              :z-range :v-range
-                              :x-samples :u-samples
-                              :z-samples :v-samples
-                              :grid-x :grid-u
-                              :grid-z :grid-v})
-             (assoc :axes (axis->idx :xz)
-                    :expr expr))]
-        ))))
+  - `:f`: function of the form `(fn [[u v]] [<x> <y> <z>])`, valid within the
+    area specified by `:u` and `:v`.
 
-(defn OfYZ [_]
-  (let [in #js [0 0]]
-    (fn [{:keys [x] :as opts}]
-      (let [expr (fn [emit y z _i _j _time]
-                   (aset in 0 y)
-                   (aset in 1 z)
-                   (emit (x in) z y))]
-        [Surface2D
-         (-> (dissoc opts :x)
-             (cs/rename-keys {:y-range :u-range
-                              :z-range :v-range
-                              :y-samples :u-samples
-                              :z-samples :v-samples
-                              :grid-y :grid-u
-                              :grid-z :grid-v})
-             (assoc :axes (axis->idx :yz)
-                    :expr expr))]))))
+  - `:u` 2-vector of the form `[<min-u> <max-u>]` specifying the interval of the
+    first input to `f`.
 
-(defn PolarSurface [_]
+  - `:v`: 2-vector of the form `[<min-v> <max-v>]` specifying the interval of the
+    second input to `f`.
+
+  Optional arguments:
+
+  - `:u-samples`: the number of u samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:v-samples`: the number of v samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  Optional arguments for configuring grid lines:
+
+  - `:grid-u`: the number of lines of constant `u` to plot along the surface.
+
+  - `:grid-v`: the number of lines of constant `v` to plot along the surface.
+
+  - `:grid-opacity`: opacity of the grid lines. Defaults to 0.5.
+
+  - `:grid-width`: width of the grid lines.
+
+  - `:grid-color`: color of the grid lines. Defaults to a darkened version of
+    `:color`."
+  [{:keys [f] :as opts}]
+  [Surface2D
+   (-> (dissoc opts :f)
+       (assoc :expr f)
+       (cs/rename-keys
+        {:u :u-range
+         :v :v-range}))])
+
+(defn PolarSurface
+  "Component that plots a polar surface defined by `:f` into the scene along the
+  area specified by `:r-range` and `:theta-range`.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [[r theta]] [<z>])`, valid within the
+    area specified by `:r-range` and `:theta-range`.
+
+  - `:r-range`: 2-vector of the form `[<min-r> <max-r>]` specifying the interval
+    of the first input to `f`.
+
+  - `:theta-range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying
+    the interval of the second input to `f`.
+
+  Optional arguments:
+
+  - `:r-samples`: the number of r samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:theta-samples`: the number of theta samples to use to generate the
+    surface. Defaults to 64.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  Optional arguments for configuring grid lines:
+
+  - `:grid-r`: the number of lines of constant `r` to plot along the surface.
+
+  - `:grid-theta`: the number of lines of constant `theta` to plot along the surface.
+
+  - `:grid-opacity`: opacity of the grid lines. Defaults to 0.5.
+
+  - `:grid-width`: width of the grid lines.
+
+  - `:grid-color`: color of the grid lines. Defaults to a darkened version of
+    `:color`."
+  [_]
   (let [in #js [0 0]]
     (fn [{:keys [z r-range theta-range]
          :or {r-range [0 3]
@@ -590,15 +1054,204 @@
                :grid-r :grid-u
                :grid-theta :grid-v}))]))))
 
-(defn ParametricSurface
-  "DONE This is for 2d manifolds embedded in R3."
-  [{:keys [f] :as opts}]
-  [Surface2D
-   (-> (dissoc opts :f)
-       (assoc :expr f)
-       (cs/rename-keys
-        {:u :u-range
-         :v :v-range}))])
+(defn OfXY
+  "Component that plots an explicit surface defined by `:z` into the scene along the
+  area specified by `:x-range` and `:y-range`.
+
+  Required arguments:
+
+  - `:z`: function of the form `(fn [[x y]] [<z>])`, valid within the
+    area specified by `:x-range` and `:y-range`.
+
+  - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
+    of the first input to `f`.
+
+  - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
+    of the second input to `f`.
+
+  Optional arguments:
+
+  - `:x-samples`: the number of x samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:y-samples`: the number of y samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  Optional arguments for configuring grid lines:
+
+  - `:grid-x`: the number of lines of constant `x` to plot along the surface.
+
+  - `:grid-y`: the number of lines of constant `y` to plot along the surface.
+
+  - `:grid-opacity`: opacity of the grid lines. Defaults to 0.5.
+
+  - `:grid-width`: width of the grid lines.
+
+  - `:grid-color`: color of the grid lines. Defaults to a darkened version of
+    `:color`."
+  [_]
+  (let [in #js [0 0]]
+    (fn [{:keys [z] :as opts}]
+      (let [expr (fn [emit x y _i _j _time]
+                   (aset in 0 x)
+                   (aset in 1 y)
+                   (emit x (z in) y))]
+        [Surface2D
+         (-> (dissoc opts :z)
+             (cs/rename-keys {:x-range :u-range
+                              :y-range :v-range
+                              :x-samples :u-samples
+                              :y-samples :v-samples
+                              :grid-x :grid-u
+                              :grid-y :grid-v})
+             (assoc :axes (axis->idx :xy)
+                    :expr expr))]))))
+
+(defn OfXZ
+  "Component that plots an explicit surface defined by `:z` into the scene along the
+  area specified by `:x-range` and `:z-range`.
+
+  Required arguments:
+
+  - `:y`: function of the form `(fn [[x z]] [<y>])`, valid within the
+    area specified by `:x-range` and `:z-range`.
+
+  - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
+    of the first input to `f`.
+
+  - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
+    of the second input to `f`.
+
+  Optional arguments:
+
+  - `:x-samples`: the number of x samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:z-samples`: the number of z samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  Optional arguments for configuring grid lines:
+
+  - `:grid-x`: the number of lines of constant `x` to plot along the surface.
+
+  - `:grid-z`: the number of lines of constant `z` to plot along the surface.
+
+  - `:grid-opacity`: opacity of the grid lines. Defaults to 0.5.
+
+  - `:grid-width`: width of the grid lines.
+
+  - `:grid-color`: color of the grid lines. Defaults to a darkened version of
+    `:color`."
+  [_]
+  (let [in #js [0 0]]
+    (fn [{:keys [y] :as opts}]
+      (let [expr (fn [emit x z _i _j _time]
+                   (aset in 0 x)
+                   (aset in 1 z)
+                   (emit x z (y in)))]
+        [Surface2D
+         (-> (dissoc opts :y)
+             (cs/rename-keys {:x-range :u-range
+                              :z-range :v-range
+                              :x-samples :u-samples
+                              :z-samples :v-samples
+                              :grid-x :grid-u
+                              :grid-z :grid-v})
+             (assoc :axes (axis->idx :xz)
+                    :expr expr))]
+        ))))
+
+(defn OfYZ
+  "Component that plots an explicit surface defined by `:x` into the scene along the
+  area specified by `:y-range` and `:z-range`.
+
+  Required arguments:
+
+  - `:x`: function of the form `(fn [[y z]] [<x>])`, valid within the
+    area specified by `:y-range` and `:z-range`.
+
+  - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
+    of the first input to `f`.
+
+  - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
+    of the second input to `f`.
+
+  Optional arguments:
+
+  - `:y-samples`: the number of y samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:z-samples`: the number of z samples to use to generate the surface.
+    Defaults to 64.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  Optional arguments for configuring grid lines:
+
+  - `:grid-y`: the number of lines of constant `y` to plot along the surface.
+
+  - `:grid-z`: the number of lines of constant `z` to plot along the surface.
+
+  - `:grid-opacity`: opacity of the grid lines. Defaults to 0.5.
+
+  - `:grid-width`: width of the grid lines.
+
+  - `:grid-color`: color of the grid lines. Defaults to a darkened version of
+    `:color`."
+  [_]
+  (let [in #js [0 0]]
+    (fn [{:keys [x] :as opts}]
+      (let [expr (fn [emit y z _i _j _time]
+                   (aset in 0 y)
+                   (aset in 1 z)
+                   (emit (x in) z y))]
+        [Surface2D
+         (-> (dissoc opts :x)
+             (cs/rename-keys {:y-range :u-range
+                              :z-range :v-range
+                              :y-samples :u-samples
+                              :z-samples :v-samples
+                              :grid-y :grid-u
+                              :grid-z :grid-v})
+             (assoc :axes (axis->idx :yz)
+                    :expr expr))]))))
 
 ;; Finish getting info from
 ;; https://github.com/ChristopherChudzicki/math3d-react/blob/master/client/src/components/MathBox/MathBoxComponents.js#L1424-L1435
@@ -606,7 +1259,9 @@
 ;; and make sure it feels like the mafs vectorfield example. Should we normalize
 ;; down? Probably not, let the user do that.
 
-(defn VectorField [{:keys [f x y z] :as opts}]
+(defn VectorField
+  "Currently in-progress component for displaying 3-dimensional vector fields."
+  [{:keys [f x y z] :as opts}]
   [:<>
    [mb/Volume
     (merge
