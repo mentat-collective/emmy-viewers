@@ -1,9 +1,10 @@
-# emmy/clerk template
+# emmy-viewers/clerk template
 
 This directory contains a [`deps-new`][deps-new-url] template that creates a new
-[Emmy][emmy-url] project with everything described in the ["Emmy via
-Clerk"](https://emmy.mentat.org/#emmy-via-clerk) section of the [`Emmy`
-documentation notebook][emmy-url] already configured.
+[Emmy-Viewers][emmy-viewers-url] project with everything described in the ["Emmy
+via Clerk"](https://emmy-viewers.mentat.org/#emmy-viewers-via-clerk) section of
+the [`Emmy-Viewers` documentation notebook][emmy-viewers-notebook] already
+configured.
 
 To use the template, install the [`deps-new`][deps-new-url] tool:
 
@@ -11,12 +12,12 @@ To use the template, install the [`deps-new`][deps-new-url] tool:
 clojure -Ttools install io.github.seancorfield/deps-new '{:git/tag "v0.5.0"}' :as new
 ```
 
-Then create a project using the `emmy/clerk` template:
+Then create a project using the `emmy-viewers/clerk` template:
 
 ```
-clojure -Sdeps '{:deps {io.github.mentat-collective/emmy {:git/sha "a6a79daebb82f95a7239e5ad0e8477ac8a27e539"}}}' \
+clojure -Sdeps '{:deps {io.github.mentat-collective/emmy-viewers {:git/sha "034bc313d95df7ae8f304de263b9bcee01347df5"}}}' \
 -Tnew create \
-:template emmy/clerk \
+:template emmy-viewers/clerk \
 :name myusername/my-emmy-project
 ```
 
@@ -29,16 +30,16 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/emmy {:git/sha "a6a79daebb82
 > To use a different version of the template, delete the `:git/tag` entry and
 > replace the `:git/sha` above with the long-form SHA of version you need from
 > the [Emmy commit
-> history](https://github.com/mentat-collective/emmy/commits/main).
+> history](https://github.com/mentat-collective/emmy-viewers/commits/main).
 
 The generated project will contains more guides and information in its
 `README.md` and in the generated Clerk notebook.
 
 ## Template Keyword Options
 
-You can customize the `emmy/clerk` template by supplying any of the following
-key-value pairs to the above command (See [`template.edn`][template-edn-url] for
-default values):
+You can customize the `emmy-viewers/clerk` template by supplying any of the
+following key-value pairs to the above command (See
+[`template.edn`][template-edn-url] for default values):
 
 - `:description`: This string is inserted at the top of your generated project's
   README.md.
@@ -61,7 +62,8 @@ default values):
 - `:http-server-port`: The port used by `bb serve` and `bb publish-local` to
   serve the local statically built site.
 - `:cname`: If you're serving your GitHub Pages build from a custom URL, pass
-  the value (like `"emmy.mentat.org"`) of the custom site via this argument.
+  the value (like `"emmy-viewers.mentat.org"`) of the custom site via this
+  argument.
 
 ## Thanks and Support
 
@@ -78,6 +80,7 @@ Distributed under the [MIT License](LICENSE). See [LICENSE](LICENSE).
 [clojars-url]: https://clojars.org/org.mentat/emmy
 [clerk-url]: https://clerk.vision
 [deps-new-url]: https://github.com/seancorfield/deps-new
-[emmy-url]: https://github.com/mentat-collective/emmy
+[emmy-viewers-url]: https://github.com/mentat-collective/emmy-viewers
+[emmy-viewers-notebook]: https://emmy-viewers.mentat.org
 [shadow-url]: https://shadow-cljs.github.io/docs/UsersGuide.html
-[template-edn-url]: https://github.com/mentat-collective/emmy/blob/main/resources/emmy/clerk/template.edn
+[template-edn-url]: https://github.com/mentat-collective/emmy-viewers/blob/main/resources/emmy-viewers/clerk/template.edn
