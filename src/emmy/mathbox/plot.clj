@@ -12,7 +12,7 @@
 (defn scene [& children]
   (box/mathbox
    {:container {:style {:height "400px" :width "100%"}}
-    :renderer  {:background-color 0xffffff}}
+    :renderer  {:background-opacity 0}}
    (into  ['emmy.mathbox.plot/Scene] children)))
 
 (defn point [opts]
