@@ -33,8 +33,8 @@
        :atom !opts})
      (p/parametric-surface
       (assoc opts
-             :u [0 (ev/get !opts :u)]
-             :v [-1 (ev/get !opts :v)])))))
+             :u [(first u) (ev/get !opts :u)]
+             :v [(first v) (ev/get !opts :v)])))))
 
 ;; ## Mobius Strip
 
@@ -74,7 +74,7 @@
     {:f (ev/with-params {:atom !r :params [:r]}
           klein-bagel)
      :opacity 0.75
-     :u [1 (* 2 Math/PI)]
+     :u [0 (* 2 Math/PI)]
      :v [0 (* 2 Math/PI)]})])
 
 ;; ## Klein bottle:
@@ -104,3 +104,24 @@
  {:f klein-bottle
   :u [0 Math/PI]
   :v [0 (* 2 Math/PI)]})
+
+;; ## Plucker's Conoid
+
+(defn pluckers-conoid [n]
+  (fn [[u v]]
+    [(* v (cos u))
+     (* v (sin u))
+     (sin (* n u))]))
+
+(ev/with-let [!n {:n 2}]
+  [:<>
+   (leva/controls {:atom !n
+                   :folder {:name "Plucker's Conoid"}
+                   :schema {:n {:min 2 :max 6 :step 1}}})
+   (slider-surface
+    "Plucker's Conoid"
+    {:f (ev/with-params {:atom !n :params [:n]}
+          pluckers-conoid)
+     :opacity 0.75
+     :u [0 (* 2 Math/PI)]
+     :v [0 2]})])
