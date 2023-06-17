@@ -2,7 +2,8 @@
   "Higher-level mathematical plotting components built on the primitives provided
   by `Mathbox.cljs`."
   (:refer-clojure :exclude [max])
-  (:require [emmy.mathbox.color :as color]
+  (:require [clojure.set :as cs]
+            [emmy.mathbox.color :as color]
             [emmy.viewer.plot :as p]
             [mathbox.primitives :as mb]
             ["katex" :as katex]
@@ -132,10 +133,10 @@
           {:channels 3
            :live false
            :data [(assoc [0 0 0] (dec idx) position)]}]
-         [mb/Text {:font "Helvetica"
-                   :weight "bold"
-                   :detail 30
-                   :data [label]}]
+         [mb/Text
+          {:weight "bold"
+           :detail 30
+           :data [label]}]
          [mb/Label
           {:size size
            :offset [0 40]}]]))))
@@ -265,6 +266,7 @@
 ;; ## Objects
 
 (defn Point
+  "TODO back out the domlabel thing unless the user specifies that they want it."
   [{:keys [label size coords opacity color z-order z-index z-bias]
     :or {size 16
          z-index 0
@@ -282,12 +284,17 @@
      :zBias z-bias
      :zOrder z-order}]
    (when label
-     (let [opts   (if (map? label)
-                    label
-                    {:label label})
-           offset [0 (+ (/ size 2) 10)]]
-       [DomLabel
-        (assoc opts :offset offset)]))])
+     (let [opts (if (map? label)
+                  label
+                  {:label label})]
+       (if (:tex? opts)
+         [DomLabel
+          (assoc opts :offset [0 (+ (/ size 2) 10)])]
+         [:<>
+          [mb/Format
+           {:weight "bold"
+            :data [(:label opts)]}]
+          [mb/Label {:offset [0 (+ (/ size 2) 40)]}]])))])
 
 (defn Line
   "TODO points"
@@ -423,87 +430,84 @@
 
 ;; ## 2D Plotting
 
+(defn SurfaceGrid
+  "TODO don't pass color."
+  [{:keys [color grid-u grid-v grid-opacity grid-width grid-color z-order]
+    :or {grid-u 8
+         grid-v 8
+         grid-width 1
+         grid-opacity 0.5}}]
+  ;; TODO Ah! So if it's a color FUNCTION, then we go gray; otherwise, we
+  ;; really want a color node that takes the r, g, b off the Color. and 1.0
+  ;; for the final value, and then uses this lighten value for the lines.
+  ;;
+  ;; and then see updateColorExpr for what actually happens with that
+  ;; colorExpr, it's not quite normal.
+  (let [line-color (or grid-color
+                       ;; this is here for when we sub in fns.
+                       (if true
+                         (color/lighten color -0.75)
+                         "gray"))]
+    [:<>
+     ;; TODO enable separate x and y lines, and disable if 0?? remember to
+     ;; get sources right.
+     ;;
+     ;; TODO separate x and y colors? and call it u and v colors for SURE in
+     ;; parametric. TODO fix the data source... I think when opacity goes to
+     ;; 0 we target some new source?? CSS selector, select the data.
+     [mb/Resample {:source "<" :height grid-v}]
+     [mb/Line {:zBias 5 :zOrder (+ z-order 0.001)
+               :color line-color
+               :width grid-width
+               :opacity grid-opacity}]
+     [mb/Resample {:source "<<" :width grid-u}]
+     [mb/Transpose {:order "yx"}]
+     [mb/Line {:zBias 5
+               :zOrder (+ z-order 0.001)
+               :color line-color
+               :width grid-width
+               :opacity grid-opacity}]]))
+
+;; rename u-lines, v-lines etc
 (defn- Surface2D
   "TODO cut this up into data sources etc."
-  [{:keys [expr width height z-order
-           opacity
-           x-lines
-           y-lines
-           grid-width
-           grid-opacity
-           grid-color
-           color
-           shaded?]
-    :or {width 64 height 64 z-order 25
+  [{:keys [expr
+           u-range v-range u-samples v-samples
+           shaded?
+           opacity color z-order z-index z-bias]
+    :or {u-samples 64
+         v-samples 64
+         z-order 25
          opacity 0.75
          color 0xffffff
-         x-lines 8
-         y-lines 8
-         grid-width 1
-         grid-opacity 0.5
          shaded? true}
     :as opts}]
   [:<>
    [mb/Area
-    ;; TODO sub in actual options specification, this is sill to do area opts
-    ;; like this.
-    (-> opts
-        (dissoc :surface :z-order :color :shaded?
-                :opacity
-                :x-lines
-                :y-lines
-                :grid-width
-                :grid-opacity
-                :grid-color)
-        (assoc :live false
-               :items 1
-               :channels 3
-               :width width
-               :height height
-               :expr expr))]
+    (cond->
+        {:live false
+         :items 1
+         :channels 3
+         :width u-samples
+         :height v-samples
+         :expr expr}
+      u-range (assoc :rangeX u-range)
+      v-range (assoc :rangeY v-range))]
    [mb/Surface
-    (merge
-     {:shaded shaded?
+    {:shaded shaded?
+     :width 1
+     :lineX false
+     :lineY false
+     :opacity opacity
+     :color color
+     :zIndex z-index
+     :zBias z-bias
+     :zOrder z-order}]
+   [SurfaceGrid
+    (assoc opts
+           :z-order z-order
+           :color color)]])
 
-      :opacity opacity
-      :zOrder z-order
-      :lineX false
-      :lineY false
-      :color color
-      :width 1}
-     (:surface opts {})
-     {:points "<"})]
-   ;; TODO Ah! So if it's a color FUNCTION, then we go gray; otherwise, we
-   ;; really want a color node that takes the r, g, b off the Color. and 1.0
-   ;; for the final value, and then uses this lighten value for the lines.
-   ;;
-   ;; and then see updateColorExpr for what actually happens with that
-   ;; colorExpr, it's not quite normal.
-
-   (let [line-color (or grid-color
-                        ;; this is here for when we sub in fns.
-                        (if true
-                          (color/lighten color -0.75)
-                          "gray"))]
-     [:<>
-      ;; TODO enable separate x and y lines, and disable if 0?? remember to
-      ;; get sources right.
-      ;;
-      ;; TODO separate x and y colors? and call it u and v colors for SURE in
-      ;; parametric. TODO fix the data source... I think when opacity goes to
-      ;; 0 we target some new source?? CSS selector, select the data.
-      [mb/Resample {:source "<" :height y-lines}]
-      [mb/Line {:zBias 5 :zOrder (+ z-order 0.001)
-                :color line-color
-                :width grid-width
-                :opacity grid-opacity}]
-      [mb/Resample {:source "<<" :width x-lines}]
-      [mb/Transpose {:order "yx"}]
-      [mb/Line {:zBias 5
-                :zOrder (+ z-order 0.001)
-                :color line-color
-                :width grid-width
-                :opacity grid-opacity}]])])
 
 (defn OfXY [_]
   (let [in #js [0 0]]
@@ -514,6 +518,12 @@
                    (emit x (z in) y))]
         [Surface2D
          (-> (dissoc opts :z)
+             (cs/rename-keys {:x-range :u-range
+                              :y-range :v-range
+                              :x-samples :u-samples
+                              :y-samples :v-samples
+                              :grid-x :grid-u
+                              :grid-y :grid-v})
              (assoc :axes (axis->idx :xy)
                     :expr expr))]))))
 
@@ -526,8 +536,15 @@
                    (emit x z (y in)))]
         [Surface2D
          (-> (dissoc opts :y)
+             (cs/rename-keys {:x-range :u-range
+                              :z-range :v-range
+                              :x-samples :u-samples
+                              :z-samples :v-samples
+                              :grid-x :grid-u
+                              :grid-z :grid-v})
              (assoc :axes (axis->idx :xz)
-                    :expr expr))]))))
+                    :expr expr))]
+        ))))
 
 (defn OfYZ [_]
   (let [in #js [0 0]]
@@ -538,12 +555,21 @@
                    (emit (x in) z y))]
         [Surface2D
          (-> (dissoc opts :x)
+             (cs/rename-keys {:y-range :u-range
+                              :z-range :v-range
+                              :y-samples :u-samples
+                              :z-samples :v-samples
+                              :grid-y :grid-u
+                              :grid-z :grid-v})
              (assoc :axes (axis->idx :yz)
                     :expr expr))]))))
 
 (defn PolarSurface [_]
   (let [in #js [0 0]]
-    (fn [{:keys [z r theta] :as opts}]
+    (fn [{:keys [z r-range theta-range]
+         :or {r-range [0 3]
+              theta-range [0 (* 2 Math/PI)]}
+         :as opts}]
       (let [expr (fn [emit r theta _i _j _time]
                    (aset in 0 r)
                    (aset in 1 theta)
@@ -551,21 +577,28 @@
                          (z in)
                          (* r (Math/sin theta))))]
         [Surface2D
-         (-> (dissoc opts :z :r :theta)
+         (-> (dissoc opts :z)
              (assoc :axes [1 3]
-                    :rangeX (or r [0 3])
-                    :rangeY (or theta [0 (* 2 Math/PI)])
-                    :expr expr))]))))
+                    :expr expr
+                    :r-range r-range
+                    :theta-range theta-range)
+             (cs/rename-keys
+              {:r-range :u-range
+               :theta-range :v-range
+               :r-samples :u-samples
+               :theta-samples :v-samples
+               :grid-r :grid-u
+               :grid-theta :grid-v}))]))))
 
 (defn ParametricSurface
   "DONE This is for 2d manifolds embedded in R3."
-  [{:keys [f u v] :as opts}]
+  [{:keys [f] :as opts}]
   [Surface2D
-   (-> opts
-       (dissoc :f :u :v)
-       (assoc :expr f
-              :rangeX u
-              :rangeY v))])
+   (-> (dissoc opts :f)
+       (assoc :expr f)
+       (cs/rename-keys
+        {:u :u-range
+         :v :v-range}))])
 
 ;; Finish getting info from
 ;; https://github.com/ChristopherChudzicki/math3d-react/blob/master/client/src/components/MathBox/MathBoxComponents.js#L1424-L1435

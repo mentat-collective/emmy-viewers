@@ -95,13 +95,14 @@
     {:f (ev/with-params {:atom !opts :params [:R :r :p :q]}
           torus-knot)
      :t [(- Math/PI) Math/PI]
-     :width 512})
+     :samples 512})
 
    (plot/parametric-surface
     {:f (ev/with-params {:atom !opts :params [:R :r]}
           toroidal->rect)
      :u [(- Math/PI) Math/PI]
      :v [(- Math/PI) Math/PI]})))
+
 
 (defn circle
   "Given some radius `r` and `angle`, returns the x-y-z coordinates of a point at
@@ -164,13 +165,13 @@
           torus-knot-tube)
      :simplify? false
      :color 0xcc0040
+     :opacity 1
+     :u-samples 512
+     :v-samples 16
      :grid-color 0xffffff
      :grid-opacity 1
-     :opacity 1
-     :width 512
-     :height 16
-     :x-lines 100
-     :y-lines 4
+     :grid-u 100
+     :grid-v 4
      :u [(- Math/PI) Math/PI]
      :v [(- Math/PI) Math/PI]})
    `(when (:torus? @~!opts)

@@ -12,8 +12,6 @@
 
 {:nextjournal.clerk/width :wide}
 
-
-
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
@@ -47,8 +45,8 @@
    (plot/polar-surface
     {:shaded? true
      :color (ev/get !opts :color)
-     :x-lines 8
-     :y-lines 8
+     :grid-r 8
+     :grid-theta 8
      :z (fn [[r theta]]
           (* 1/4 (square r)
              (cos (* 3 theta))))})))
@@ -78,8 +76,8 @@
                :color "green" :samples 256})
 
    (plot/of-xy
-    {:width  128
-     :height 128
+    {:x-samples 128
+     :y-samples 128
      :z (ev/with-params {:atom !state :params [:amplitude]}
           (fn [amplitude]
             (fn [[x y]]

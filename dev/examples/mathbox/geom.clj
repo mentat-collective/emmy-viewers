@@ -5,6 +5,7 @@
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
   (:require [emmy.clerk :as ec]
+            [emmy.leva]
             [emmy.env :as e :refer :all]
             [emmy.viewer :as ev]
             [emmy.mathbox.plot :as p]))
@@ -15,7 +16,8 @@
 (ec/install!)
 
 (ev/with-let [!size {:size 20 :pos 1}]
-  [:<> (emmy.leva/controls {:atom !size :schema {:size {:min 20 :max 100 :step 1}}})
+  [:<> (emmy.leva/controls
+        {:atom !size :schema {:size {:min 20 :max 100 :step 1}}})
    (p/scene
     (p/point {:coords [0.5 -0.5 (ev/get !size :pos)]
               :size (ev/get !size :size)

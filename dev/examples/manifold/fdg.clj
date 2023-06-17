@@ -32,16 +32,15 @@
 (p/of-xy
  {:x-lines 8
   :y-lines 8
-  :rangeX [-2 2]
-  :rangeY [-2 2]
+  :x-range [-2 2]
+  :y-range [-2 2]
   :color "#3090FF"
   :z (fn [[x y]]
        (- (square x) (square y)))})
 
-;; TODO get the lines straight, options etc
 (p/of-yz
- {:rangeX [-2 2]
-  :rangeY [-2 2]
+ {:y-range [-2 2]
+  :z-range [-2 2]
   :x (fn [[x y]]
        (- (square x)
           (square y)))})
@@ -129,6 +128,5 @@
     {:f S2-spherical
      :u [0 (ev/get !opts :phi)]
      :v [0 (ev/get !opts :theta)]
-     :color (ev/get !opts :color)
-     :surface
-     {:opacity (ev/get !opts :opacity)}})))
+     :opacity (ev/get !opts :opacity)
+     :color (ev/get !opts :color)})))
