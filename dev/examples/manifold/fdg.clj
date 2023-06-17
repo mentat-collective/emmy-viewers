@@ -92,6 +92,7 @@
       :r     {:min 0.5 :max 2 :step 0.01}}})
    (p/parametric-curve
     {:f (ev/with-params {:atom !opts :params [:scale :R]}
+
           (fn [scale R]
             (up (* R cos) (* R sin) (* scale 0.3 identity))))
      :t [-10 10]})

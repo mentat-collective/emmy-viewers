@@ -55,8 +55,10 @@
 ;; The next section provides components for building up the default mathematical
 ;; scene used to host the plots and objects represented by the components.
 
-(defn DomLabel [{:keys [tex? label size offset]
-                 :or {tex? true}}]
+(defn DomLabel
+  "TODO this is seriously expensive, back it out!!"
+  [{:keys [tex? label size offset]
+    :or {tex? true}}]
   (let [offset (or offset [0 20])]
     [:<>
      [mb/Html
@@ -115,13 +117,11 @@
   - `:position`: the distance along the axis to place the label. NOTE That this is a hack currently!
 
   - `:size`: size of the label.
+  "
 
-  - `:tex?`: if true (default), use katex to render the label."
-
-  [{:keys [axis position size tex?]
-    :or {size     14
-         position 5
-         tex? true}
+  [{:keys [axis position size]
+    :or {size 16
+         position 5}
     :as opts}]
   {:pre [(#{:x :y :z} axis)]}
   (let [label (:label opts "")]
@@ -132,10 +132,13 @@
           {:channels 3
            :live false
            :data [(assoc [0 0 0] (dec idx) position)]}]
-         [DomLabel
-          {:tex? tex?
-           :size size
-           :label label}]]))))
+         [mb/Text {:font "Helvetica"
+                   :weight "bold"
+                   :detail 30
+                   :data [label]}]
+         [mb/Label
+          {:size size
+           :offset [0 40]}]]))))
 
 (defn LabeledAxis
   "Component that takes a `k` equal to `:x`, `:y` or `:z` and renders the
@@ -167,7 +170,8 @@
      :width width
      :color color
      :zOrder z-order :zIndex z-index :zBias z-bias
-     :start false :end false}]
+     :start false
+     :end false}]
    (when-let [ticks (:ticks opts true)]
      (let [opts (if (map? ticks) ticks {})]
        [Ticks (assoc opts :axis axis)]))
@@ -268,7 +272,7 @@
          opacity 1
          color color/default}}]
   [:<>
-   [mb/Array {:items 1 :channels 3 :data [coords]}]
+   [mb/Array {:items 1 :live false :channels 3 :data [coords]}]
    [mb/Swizzle {:order "xzy"}]
    [mb/Point
     {:size size
@@ -297,7 +301,7 @@
          width 4
          color "#3498db"}}]
   [:<>
-   [mb/Array {:items 1 :channels 3 :data [coords]}]
+   [mb/Array {:items 1 :live false :channels 3 :data [coords]}]
    [mb/Line
     {:size arrow-size
      :width width
@@ -333,7 +337,7 @@
            arrow-size width start? end?
            opacity color z-order z-index z-bias]
     :or {axis 1
-         samples 128
+         samples 256
          z-index 0
          z-bias 0
          opacity 1
@@ -359,14 +363,14 @@
      :zBias z-bias
      :zOrder z-order}]])
 
-(defn OfX
-  "Supported arguments:
+(defn ParametricCurve
+  "`:t` range..."
+  [{:keys [f t] :as opts}]
+  [Curve1D
+   (-> (dissoc opts :f :t)
+       (assoc :expr f :range t))])
 
-  - "
-  [{:keys [y z color samples]
-    :or {color "#58a6ff"
-         samples 256}
-    :as opts}]
+(defn OfX [{:keys [y z] :as opts}]
   (when (and y z)
     (throw
      (js/Error. (str "Error: specify only one of `:y` or `:z`, not both!"))))
@@ -379,23 +383,12 @@
                (throw
                 (js/Error.
                  (str "Error: you must specify either `:y` or `:z`."))))]
-    [:<>
-     [mb/Interval
-      (merge (:interval opts {})
-             {:axis 1
-              :channels 3
-              :live false
-              :expr expr
-              :width samples})]
-     [mb/Line
-      (merge {:color color :width 4}
-             (:line opts {}))]]))
+    [Curve1D
+     (-> (dissoc opts :y :z)
+         (assoc :expr expr :axis 1))]))
 
 (defn OfY
-  [{:keys [x z color width]
-    :or {color "#58a6ff"
-         width 256}
-    :as opts}]
+  [{:keys [x z] :as opts}]
   (when (and x z)
     (throw (js/Error. (str "Error: specify only one of `:x` or `:z`, not both!"))))
   (let [expr (cond
@@ -407,21 +400,12 @@
                (throw
                 (js/Error.
                  (str "Error: you must specify either `:x` or `:z`."))))]
-    [:<>
-     [mb/Interval
-      (-> (dissoc opts :x :z :color)
-          (assoc :width width
-                 :live false
-                 :axis 3
-                 :channels 3
-                 :expr expr))]
-     [mb/Line {:color color :width 4}]]))
+    [Curve1D
+     (-> (dissoc opts :x :z)
+         (assoc :expr expr :axis 3))]))
 
 (defn OfZ
-  [{:keys [x y color width]
-    :or {color "#58a6ff"
-         width 256}
-    :as opts}]
+  [{:keys [x y] :as opts}]
   (when (and x y)
     (throw (js/Error. (str "Error: specify only one of `:x` or `:y`, not both!"))))
   (let [expr (cond
@@ -433,32 +417,9 @@
                (throw
                 (js/Error.
                  (str "Error: you must specify either `:x` or `:y`."))))]
-    [:<>
-     [mb/Interval
-      (-> (dissoc opts :x :y :color)
-          (assoc :width width
-                 :live false
-                 :axis 2
-                 :channels 3
-                 :expr expr))]
-     [mb/Line {:color color :width 4}]]))
-
-(defn ParametricCurve
-  "`:t` range..."
-  [{:keys [f t color width]
-    :or {color "#58a6ff"
-         width 128}
-    :as opts}]
-  [:<>
-   [mb/Interval
-    (-> (dissoc opts :f :t :color)
-        (assoc :width width
-               :live false
-               :axis 1
-               :channels 3
-               :range t
-               :expr f))]
-   [mb/Line {:color color :width 4}]])
+    [Curve1D
+     (-> (dissoc opts :x :y)
+         (assoc :expr expr :axis 2))]))
 
 ;; ## 2D Plotting
 

@@ -12,6 +12,7 @@
 (defn scene [& children]
   (box/mathbox
    {:container {:style {:height "400px" :width "100%"}}
+    :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
     :renderer  {:background-opacity 0}}
    (into  ['emmy.mathbox.plot/Scene] children)))
 

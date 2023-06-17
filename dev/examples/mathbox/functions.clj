@@ -34,7 +34,8 @@
 
 ;; Then we'll call it with our new viewer:
 
-(plot/of-x {:range [-1 1] :z my-fn :color "blue" :width 256})
+
+(plot/of-x {:z my-fn :samples 256})
 
 (ev/with-let [!opts {:x-max 5
                      :color "#3090ff"}]
@@ -70,11 +71,11 @@
 (ev/with-let [!state {:amplitude 1}]
   (plot/scene
    (emmy.leva/controls {:atom !state})
-   (plot/of-x {:z my-fn :color "blue" :width 256})
+   (plot/of-x {:z my-fn :color "blue" :samples 256})
    (plot/of-y {:z (ev/with-params {:atom !state :params [:amplitude]}
                     (fn [amplitude]
                       (* amplitude (D my-fn))))
-               :color "green" :width 256})
+               :color "green" :samples 256})
 
    (plot/of-xy
     {:width  128
