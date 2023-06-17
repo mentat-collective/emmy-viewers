@@ -1,6 +1,7 @@
 (ns emmy.mathbox.plot
   "Plotting API over MathBox."
-  (:require [mathbox.primitives :as mb]))
+  (:require [emmy.mathbox.color :as color]
+            [mathbox.primitives :as mb]))
 
 ;; ## Default Plots
 
@@ -60,7 +61,9 @@
       :zOrder 0 :zIndex 0 :zBias 0}]))
 
 (defn Scene
-  "TODO add options!"
+  "TODO add options!
+
+  TODO make a bare-bones scene."
   [& children]
   (let [[opts children] (split-opts children)
         {:keys [axes grids axis-options]
@@ -80,9 +83,68 @@
 
 ;; ## Objects
 
-(defn Point [])
-(defn Line [])
-(defn Vector [])
+;; TODO opacity, z-index, z-bias... separate out the labels piece too maybe?
+
+(defn Point
+  [{:keys [label size coords opacity color z-order z-index z-bias]
+    :or {size 16
+         z-index 0
+         z-bias 0
+         opacity 1
+         color color/default}}]
+  [:<>
+   [mb/Array {:items 1 :channels 3 :data [coords]}]
+   [mb/Swizzle {:order "xzy"}]
+   [mb/Point
+    {:size size
+     :opacity opacity
+     :color color
+     :zIndex z-index
+     :zBias z-bias
+     :zOrder z-order}]
+   (when label
+     [:<>
+      [mb/Format {:weight "bold" :data [label]}]
+      [mb/Label {:offset [0 40 0]}]])])
+
+(defn Line
+  [{:keys [coords arrow-size width
+           start? end? label
+           opacity color z-order z-index z-bias]
+    :or {z-index 0
+         z-bias 0
+         opacity 1
+         arrow-size 6
+         width 4
+         color "#3498db"}}]
+  [:<>
+   [mb/Array {:items 1 :channels 3 :data [coords]}]
+   [mb/Line
+    {:size arrow-size
+     :width width
+     :opacity opacity
+     :start start?
+     :end end?
+     :color color
+     :zIndex z-index
+     :zBias z-bias
+     :zOrder z-order}]
+   (when label
+     (let [data (cond (vector? label) label
+                      (map? label)
+                      [(:start label "") (:end label "")]
+                      :else ["" label])]
+       [:<>
+        [mb/Format {:weight "bold" :data data}]
+        [mb/Label {:offset [0 40 0]}]]))])
+
+(defn Vector
+  [{:keys [tip tail]
+    :or {tail [0 0 0]}
+    :as opts}]
+  [Line (-> (dissoc opts :tip :tail)
+            (assoc :coords [tail tip]
+                   :end? (:end? opts true)))])
 
 ;; ## One-Dimensional Plots
 
@@ -189,14 +251,30 @@
 
 ;; ## 2D Plotting
 
-(defn- Surface2D [_]
-  (fn [{:keys [expr width height]
-       :or {width 64 height 64}
+(defn- Surface2D
+  "TODO cut this up into data sources etc."
+  [_]
+  (fn [{:keys [expr width height z-order
+              x-lines
+              y-lines
+              grid-width
+              grid-opacity
+              color
+              shaded?]
+       :or {width 64 height 64 z-order 25
+            color 0xffffff
+            x-lines 8
+            y-lines 8
+            grid-width 1
+            grid-opacity 0.5
+            shaded? true}
        :as opts}]
     [:<>
      [mb/Area
+      ;; TODO sub in actual options specification
       (-> opts
-          (dissoc :surface)
+          (dissoc :surface :z-order :color :shaded?
+                  :x-lines :y-lines :grid-width :grid-opacity)
           (assoc :live false
                  :items 1
                  :channels 3
@@ -205,14 +283,38 @@
                  :expr expr))]
      [mb/Surface
       (merge
-       {:shaded true
-        :opacity 0.5
-        :lineX true
-        :lineY true
-        :color 0xffffff
+       {:shaded shaded?
+        :opacity 0.75
+        :zOrder z-order
+        :lineX false
+        :lineY false
+        :color color
         :width 1}
        (:surface opts {})
-       {:points "<"})]]))
+       {:points "<"})]
+     ;; TODO Ah! So if it's a color FUNCTION, then we go gray; otherwise, we
+     ;; really want a color node that takes the r, g, b off the Color. and 1.0
+     ;; for the final value, and then uses this lighten value for the lines.
+     ;;
+     ;; and then see updateColorExpr for what actually happens with that
+     ;; colorExpr, it's not quite normal.
+     (let [line-color
+           (if true
+             (color/lighten color -0.75)
+             "gray")]
+       [:<>
+        [mb/Resample {:source "<" :height y-lines}]
+        [mb/Line {:zBias 5 :zOrder (+ z-order 0.001)
+                  :color line-color
+                  :width grid-width
+                  :opacity grid-opacity}]
+        [mb/Resample {:source "<<" :width x-lines}]
+        [mb/Transpose {:order "yxzw"}]
+        [mb/Line {:zBias 5
+                  :zOrder (+ z-order 0.001)
+                  :color line-color
+                  :width grid-width
+                  :opacity grid-opacity}]])]))
 
 (defn OfXY [_]
   (let [in #js [0 0]]
@@ -269,29 +371,12 @@
 (defn ParametricSurface
   "DONE This is for 2d manifolds embedded in R3."
   [{:keys [f u v] :as opts}]
-  [:<>
-   [mb/Area
-    (merge
-     {:live false
-      :width 64
-      :height 64}
-     (-> opts
-         (dissoc :f :surface :u :v)
-         (assoc :expr f
-                :items 1
-                :channels 3
-                :rangeX u
-                :rangeY v)))]
-   [mb/Surface
-    (merge
-     {:shaded true
-      :opacity 0.5
-      :lineX true
-      :lineY true
-      :color 0xffffff
-      :width 1}
-     (:surface opts {})
-     {:points "<"})]])
+  [Surface2D
+   (-> opts
+       (dissoc :f :u :v)
+       (assoc :expr f
+              :rangeX u
+              :rangeY v))])
 
 ;; Finish getting info from
 ;; https://github.com/ChristopherChudzicki/math3d-react/blob/master/client/src/components/MathBox/MathBoxComponents.js#L1424-L1435

@@ -7,6 +7,9 @@
   - Adds `emmy.viewer.plot` with `format-number` and `label-pi` functions,
     replacing `mafs.core/labelPi`.
 
+  - Upgrades the `examples.manifold.pq-knot` to full server-side function style,
+    removing it from the JS bundle.
+
 - #39:
 
   - moves `emmy.mafs.compile` to `emmy.viewer.compile`, for future use by

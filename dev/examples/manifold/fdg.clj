@@ -1,6 +1,6 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.manifold.fdg
-  #:nextjournal.clerk{:toc true :no-cache true}
+  #:nextjournal.clerk{:toc true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
@@ -29,7 +29,7 @@
           (assoc opts :f f))
          (ev/fragment p/scene)))))
 
-(defn slider-surface [name {:keys [f u v]}]
+(defn slider-surface [name {:keys [u v] :as opts}]
   (ev/with-let [!opts {:u (peek u) :v (peek v)}]
     (p/scene
      {:axis-options
@@ -44,9 +44,9 @@
         :v {:min (first v) :max (peek v) :step 0.01}}
        :atom !opts})
      (surface
-      {:f f
-       :u [0 (ev/get !opts :u)]
-       :v [-1 (ev/get !opts :v)]}))))
+      (assoc opts
+             :u [0 (ev/get !opts :u)]
+             :v [-1 (ev/get !opts :v)])))))
 
 ;; Mobius strip:
 
@@ -54,6 +54,24 @@
   [(* (cos u) (+ 1 (* (/ v 2) (cos (/ u 2)))))
    (* (sin u) (+ 1 (* (/ v 2) (cos (/ u 2)))))
    (* (/ v 2) (sin (/ u 2)))])
+
+(p/of-xy
+ {:x-lines 8
+  :y-lines 8
+  :rangeX [-2 2]
+  :rangeY [-2 2]
+  :color "#3090FF"
+  :z (fn [[x y]]
+       (- (square x) (square y)))})
+
+;; TODO get the lines straight, options etc
+(p/of-yz
+ {:rangeX [-2 2]
+  :rangeY [-2 2]
+  :x (fn [[x y]]
+       (- (square x)
+          (square y)))})
+
 
 (slider-surface
  "Mobius"
@@ -83,9 +101,10 @@
    (* 2/15 (sin v)
       (+ 3 (* 5 (cos u) (sin u))))])
 
-(surface
+(slider-surface
+ "Klein"
  {:f klein
-  :u [0 (* 2 Math/PI)]
+  :u [0 Math/PI]
   :v [0 (* 2 Math/PI)]})
 
 (defn toroidal->rect [R r]
@@ -105,21 +124,28 @@
 
 ;; Parametrized torus:
 
-
 (p/scene
- (ev/with-let [!opts {:R Math/PI :r Math/PI}]
-   [:<>
-    (leva/controls
-     {:folder {:name "Torus"}
-      :schema
-      {:R {:min 0.5 :max 2 :step 0.01}
-       :r {:min 0.5 :max 2 :step 0.01}}
-      :atom !opts})
-    (surface
-     {:f (ev/with-params {:atom !opts :params [:R :r]}
-           toroidal->rect)
-      :u [0 (* 2 Math/PI)]
-      :v [0 (* 2 Math/PI)]})]))
+ (p/point {:coords [0 1 1]
+           :color "LimeGreen"
+           :label "donkey"})
+ (p/line
+  {:coords [[0 0 0] [3 3 3]]
+   :label "line"}))
+#_(p/scene
+   (ev/with-let [!opts {:R Math/PI :r Math/PI}]
+     [:<>
+      (leva/controls
+       {:folder {:name "Torus"}
+        :schema
+        {:R {:min 0.5 :max 2 :step 0.01}
+         :r {:min 0.5 :max 2 :step 0.01}}
+        :atom !opts})
+      (surface
+       {:color "LimeGreen"
+        :f (ev/with-params {:atom !opts :params [:R :r]}
+             toroidal->rect)
+        :u [0 (* 2 Math/PI)]
+        :v [0 (* 2 Math/PI)]})]))
 
 ;; Torus with a parametric curve overlaid, both interactive:
 
@@ -147,7 +173,7 @@
 
 (surface
  {:f S2-spherical
-  :u [0 (* 2 Math/PI)]
+  :u [0 Math/PI]
   :v [0 (* 2 Math/PI)]})
 
 ;; parametrized:

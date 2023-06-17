@@ -36,10 +36,19 @@
 
 (plot/of-x {:z my-fn :color "blue" :width 256})
 
-(plot/polar-surface
- {:z (fn [[r theta]]
-       (* 1/4 (square r)
-          (cos (* 3 theta))))})
+(ev/with-let [!opts {:color "#3090ff"}]
+  (plot/scene
+   (emmy.leva/controls
+    {:folder {:name "Plot Color"}
+     :atom !opts})
+   (plot/polar-surface
+    {:shaded? true
+     :color (ev/get !opts :color)
+     :x-lines 8
+     :y-lines 8
+     :z (fn [[r theta]]
+          (* 1/4 (square r)
+             (cos (* 3 theta))))})))
 
 (defn normalize [v]
   (/ v (abs v)))
@@ -55,7 +64,6 @@
                [(- (- y ay) (- x ax))
                 (- (- (- x ax)) (- y ay))
                 0]))))})))
-
 
 (ev/with-let [!state {:amplitude 1}]
   (plot/scene
