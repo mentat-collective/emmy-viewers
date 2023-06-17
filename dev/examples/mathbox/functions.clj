@@ -12,6 +12,7 @@
 
 {:nextjournal.clerk/width :wide}
 
+
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
@@ -32,8 +33,8 @@
 
 ;; Then we'll call it with our new viewer:
 
-
-(plot/of-x {:z my-fn :samples 256})
+(plot/scene
+ (plot/of-x {:z my-fn :samples 256}))
 
 (ev/with-let [!opts {:x-max 5
                      :color "#3090ff"}]
@@ -74,6 +75,7 @@
                     (fn [amplitude]
                       (* amplitude (D my-fn))))
                :color "green" :samples 256})
+
 
    (plot/of-xy
     {:x-samples 128

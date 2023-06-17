@@ -2,13 +2,13 @@
   "Server-side rendering functions for the components declared in the
   [`emmy.mathbox.plot`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.plot)
   namespace."
-  "Higher-level mathematical plotting components built on the primitives provided
-  by `Mathbox.cljs`."
   (:refer-clojure :exclude [vector])
   (:require [emmy.mathbox :as box]
             [emmy.mathbox.compile :as mc]
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as c]))
+
+;; ## Utilities
 
 (defn ^:no-doc split-opts
   "Returns a pair of a parameters map and the rest of the children. Useful for
@@ -27,6 +27,8 @@
 
 (def ^:no-doc client-keys
   [:range :scale :camera :axes :grids])
+
+;; ## Scene Elements
 
 (defn labeled-axis
   "Returns a fragment that takes a `k` equal to `:x`, `:y` or `:z` and renders the
@@ -157,6 +159,8 @@
      (merge box-defaults box-opts)
      (into ['emmy.mathbox.plot/Scene client-opts] children))))
 
+;; ## Geometric Primitives
+
 (defn point
   "Returns a fragment that renders a point into the scene at `coords`.
 
@@ -254,6 +258,10 @@
   (ev/fragment
    ['emmy.mathbox.plot/Vector opts]
    scene))
+
+;; ## Curves and Surfaces
+;;
+;; ### Curves
 
 (defn parametric-curve
   "Returns a fragment that plots a parametric curve `f` into the scene along the
@@ -449,6 +457,8 @@
     (-> (c/wrap [x-bind y-bind]
                 ['emmy.mathbox.plot/OfZ opts])
         (ev/fragment scene))))
+
+;; ### Surfaces
 
 (defn parametric-surface
   "Returns a fragment that plots a parametric surface defined by `f` into the
@@ -715,6 +725,8 @@
   (let [[x-bind opts] (c/compile-2d opts :x)]
     (-> (c/wrap [x-bind] ['emmy.mathbox.plot/OfYZ opts])
         (ev/fragment scene))))
+
+;; ## Vector Fields
 
 (defn vector-field
   "Currently in-progress component for displaying 3-dimensional vector fields."

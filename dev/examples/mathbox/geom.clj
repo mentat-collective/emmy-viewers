@@ -19,10 +19,14 @@
   [:<> (emmy.leva/controls
         {:atom !size :schema {:size {:min 20 :max 100 :step 1}}})
    (p/scene
-    (p/point {:coords [0.5 -0.5 (ev/get !size :pos)]
-              :size (ev/get !size :size)
-              :color "LimeGreen"
-              :label "e^{i x}"})
+    (p/point
+     {:coords [0.5 -0.5 (ev/get !size :pos)]
+      :size (ev/get !size :size)
+
+      :color "LimeGreen"
+      :label
+      {:tex? true
+       :label "e^{i x}"}})
     (p/line
      {:coords [[3 2 1] [-1 2 3]]
       :label {:start "start"

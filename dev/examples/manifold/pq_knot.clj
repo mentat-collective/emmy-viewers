@@ -148,6 +148,7 @@
 
 ^{:nextjournal.clerk/width :full
   :nextjournal.clerk/visibility {:code :fold}}
+
 (ev/with-let [!opts {:p 7 :q 8 :r1 1.791 :r2 0.95 :r3 0.1 :torus? false}]
   (scene
    (leva/controls
@@ -179,6 +180,5 @@
         {:f (ev/with-params {:atom !opts :params [:r1 :r2 :r3]}
               (fn [r1 r2 r3]
                 (toroidal->rect r1 (+ r2 r3))))
-         :opacity 0.75
          :u [(- Math/PI) Math/PI]
          :v [(- Math/PI) Math/PI]}))))

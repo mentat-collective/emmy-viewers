@@ -71,14 +71,13 @@
   - `:tex?`: when `true` (default), mounts the label into the dom after
     processing it with [katex](https://katex.org/).
 
-  - `:size`: size of the label. Defaults to 12.
+  - `:size`: size of the label. Defaults to 12, or 18 if `:tex?` is true.
 
   - `:offset`: `[<x-offset> <y-offset>]` for this label on the DOM. Defaults to
     `[0 20]`."
   [{:keys [tex? label size offset]
-    :or {tex? true
-         size 12}}]
-  (let [size   (or size 12)
+    :or {tex? true}}]
+  (let [size   (or size (if tex? 18 12))
         offset (or offset [0 20])]
     [:<>
      [mb/Html

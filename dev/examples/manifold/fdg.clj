@@ -123,7 +123,6 @@
       :theta   {:min 0 :max (* 2 Math/PI) :step 0.01}
       :phi     {:min 0 :max Math/PI :step 0.01}}
      :atom !opts})
-
    (surface
     {:f S2-spherical
      :u [0 (ev/get !opts :phi)]

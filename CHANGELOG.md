@@ -2,7 +2,7 @@
 
 ## [unreleased]
 
-- #40:
+- #40 is a huge PR that adds a full 3D plotting system into emmy-viewers!!
 
   - Adds `emmy.viewer.plot` with `format-number` and `label-pi` functions,
     replacing `mafs.core/labelPi`.
@@ -13,6 +13,38 @@
   - Fixes the `:emmy.portal/mafs` viewer so that its theming applies in scope;
     this lets you toggle the theme away by activating `:emmy.portal/reagent`
     without affecting the other Mafs scenes in portal.
+
+  - Adds our first set of ClojureScript tests
+
+  - Adds the following functions in `emmy.mathbox.plot`, backed by components on
+    the ClojureScript side:
+
+    - `scene` sets up a batteries-included MathBox scene that can host all of
+      the objects and curves described below.
+
+    - `point`, `line` and `vector` provide geometric primitives; `point` even
+      supports LaTeX labels.
+
+    - `parametric-curve`, `of-x`, `of-y` and `of-z` support 1d => 1d curves
+
+    - `polar-surface`, `of-xy`, `of-yz` and `of-xz` support 2d => 1d surface
+      plotting
+
+    - `parametric-surface` supports full 2d => 3d surface generation
+
+    - `vector-field` is still in progress, but the basics work. This will
+      eventually expand into the ability to generate vectors along 1d intervals,
+      2d areas or 3d volumes.
+
+  Huge thanks to Chris Chudzicki of https://www.math3d.org/, who inspired my API
+  here. Steven Petryk and his work on Mafs filled in the gaps for me.
+
+  See these namespaces for examples of the new API in action:
+
+    - https://emmy-viewers.mentat.org/dev/examples/mathbox/functions
+    - https://emmy-viewers.mentat.org/dev/examples/mathbox/geom
+    - https://emmy-viewers.mentat.org/dev/examples/manifold/fdg
+    - https://emmy-viewers.mentat.org/dev/examples/manifold/pq_knot
 
 - #39:
 
