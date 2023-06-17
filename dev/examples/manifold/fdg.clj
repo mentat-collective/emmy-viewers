@@ -29,32 +29,6 @@
           (assoc opts :f f))
          (ev/fragment p/scene)))))
 
-(defn slider-surface [name {:keys [u v] :as opts}]
-  (ev/with-let [!opts {:u (peek u) :v (peek v)}]
-    (p/scene
-     {:axis-options
-      {:x {:label-ticks? false}
-       :y {:label-ticks? false}
-       :z {:label-ticks? false}}
-      :grids []}
-     (leva/controls
-      {:folder {:name name}
-       :schema
-       {:u {:min (first u) :max (peek u) :step 0.01}
-        :v {:min (first v) :max (peek v) :step 0.01}}
-       :atom !opts})
-     (surface
-      (assoc opts
-             :u [0 (ev/get !opts :u)]
-             :v [-1 (ev/get !opts :v)])))))
-
-;; Mobius strip:
-
-(defn mobius [[u v]]
-  [(* (cos u) (+ 1 (* (/ v 2) (cos (/ u 2)))))
-   (* (sin u) (+ 1 (* (/ v 2) (cos (/ u 2)))))
-   (* (/ v 2) (sin (/ u 2)))])
-
 (p/of-xy
  {:x-lines 8
   :y-lines 8
@@ -71,41 +45,6 @@
   :x (fn [[x y]]
        (- (square x)
           (square y)))})
-
-
-(slider-surface
- "Mobius"
- {:f mobius
-  :u [0 (* 2 Math/PI)]
-  :v [-1 1]})
-
-;; Klein bottle:
-
-(defn klein [[u v]]
-  [(* -2/15 (cos u)
-      (+ (- (* 3 (cos v))
-            (* 30 (sin u)))
-         (- (* 90 (sin u) (expt (cos u) 4))
-            (* 60 (sin u) (expt (cos u) 6)))
-         (* 5 (cos u) (cos v) (sin u))))
-   (* -1/15 (sin u)
-      (+ (- (* 3 (cos v))
-            (* 3 (square (cos u)) (cos v))
-            (* 48 (cos v) (expt (cos u) 4)))
-         (- (* 48 (cos v) (expt (cos u) 6))
-            (* 60 (sin u)))
-         (- (* 5 (cos u) (cos v) (sin u))
-            (* 5 (cube (cos u)) (cos v) (sin u))
-            (* 80 (expt (cos u) 5) (cos v) (sin u)))
-         (* 80 (expt (cos u) 7) (cos v) (sin u))))
-   (* 2/15 (sin v)
-      (+ 3 (* 5 (cos u) (sin u))))])
-
-(slider-surface
- "Klein"
- {:f klein
-  :u [0 Math/PI]
-  :v [0 (* 2 Math/PI)]})
 
 (defn toroidal->rect [R r]
   (fn [[theta phi]]
@@ -125,27 +64,20 @@
 ;; Parametrized torus:
 
 (p/scene
- (p/point {:coords [0 1 1]
-           :color "LimeGreen"
-           :label "donkey"})
- (p/line
-  {:coords [[0 0 0] [3 3 3]]
-   :label "line"}))
-#_(p/scene
-   (ev/with-let [!opts {:R Math/PI :r Math/PI}]
-     [:<>
-      (leva/controls
-       {:folder {:name "Torus"}
-        :schema
-        {:R {:min 0.5 :max 2 :step 0.01}
-         :r {:min 0.5 :max 2 :step 0.01}}
-        :atom !opts})
-      (surface
-       {:color "LimeGreen"
-        :f (ev/with-params {:atom !opts :params [:R :r]}
-             toroidal->rect)
-        :u [0 (* 2 Math/PI)]
-        :v [0 (* 2 Math/PI)]})]))
+ (ev/with-let [!opts {:R Math/PI :r Math/PI}]
+   [:<>
+    (leva/controls
+     {:folder {:name "Torus"}
+      :schema
+      {:R {:min 0.5 :max 2 :step 0.01}
+       :r {:min 0.5 :max 2 :step 0.01}}
+      :atom !opts})
+    (surface
+     {:color "LimeGreen"
+      :f (ev/with-params {:atom !opts :params [:R :r]}
+           toroidal->rect)
+      :u [0 (* 2 Math/PI)]
+      :v [0 (* 2 Math/PI)]})]))
 
 ;; Torus with a parametric curve overlaid, both interactive:
 
@@ -181,6 +113,7 @@
 (ev/with-let
   [!opts {:opacity 0.8
           :theta (* 2 Math/PI)
+          :color "#3090FF"
           :phi Math/PI}]
   (p/scene
    (leva/controls
@@ -194,5 +127,6 @@
     {:f S2-spherical
      :u [0 (ev/get !opts :phi)]
      :v [0 (ev/get !opts :theta)]
+     :color (ev/get !opts :color)
      :surface
      {:opacity (ev/get !opts :opacity)}})))

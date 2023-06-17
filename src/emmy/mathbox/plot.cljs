@@ -253,68 +253,85 @@
 
 (defn- Surface2D
   "TODO cut this up into data sources etc."
-  [_]
-  (fn [{:keys [expr width height z-order
-              x-lines
-              y-lines
-              grid-width
-              grid-opacity
-              color
-              shaded?]
-       :or {width 64 height 64 z-order 25
-            color 0xffffff
-            x-lines 8
-            y-lines 8
-            grid-width 1
-            grid-opacity 0.5
-            shaded? true}
-       :as opts}]
-    [:<>
-     [mb/Area
-      ;; TODO sub in actual options specification
-      (-> opts
-          (dissoc :surface :z-order :color :shaded?
-                  :x-lines :y-lines :grid-width :grid-opacity)
-          (assoc :live false
-                 :items 1
-                 :channels 3
-                 :width width
-                 :height height
-                 :expr expr))]
-     [mb/Surface
-      (merge
-       {:shaded shaded?
-        :opacity 0.75
-        :zOrder z-order
-        :lineX false
-        :lineY false
-        :color color
-        :width 1}
-       (:surface opts {})
-       {:points "<"})]
-     ;; TODO Ah! So if it's a color FUNCTION, then we go gray; otherwise, we
-     ;; really want a color node that takes the r, g, b off the Color. and 1.0
-     ;; for the final value, and then uses this lighten value for the lines.
-     ;;
-     ;; and then see updateColorExpr for what actually happens with that
-     ;; colorExpr, it's not quite normal.
-     (let [line-color
-           (if true
-             (color/lighten color -0.75)
-             "gray")]
-       [:<>
-        [mb/Resample {:source "<" :height y-lines}]
-        [mb/Line {:zBias 5 :zOrder (+ z-order 0.001)
-                  :color line-color
-                  :width grid-width
-                  :opacity grid-opacity}]
-        [mb/Resample {:source "<<" :width x-lines}]
-        [mb/Transpose {:order "yxzw"}]
-        [mb/Line {:zBias 5
-                  :zOrder (+ z-order 0.001)
-                  :color line-color
-                  :width grid-width
-                  :opacity grid-opacity}]])]))
+  [{:keys [expr width height z-order
+           opacity
+           x-lines
+           y-lines
+           grid-width
+           grid-opacity
+           grid-color
+           color
+           shaded?]
+    :or {width 64 height 64 z-order 25
+         opacity 0.75
+         color 0xffffff
+         x-lines 8
+         y-lines 8
+         grid-width 1
+         grid-opacity 0.5
+         shaded? true}
+    :as opts}]
+  [:<>
+   [mb/Area
+    ;; TODO sub in actual options specification, this is sill to do area opts
+    ;; like this.
+    (-> opts
+        (dissoc :surface :z-order :color :shaded?
+                :opacity
+                :x-lines
+                :y-lines
+                :grid-width
+                :grid-opacity
+                :grid-color)
+        (assoc :live false
+               :items 1
+               :channels 3
+               :width width
+               :height height
+               :expr expr))]
+   [mb/Surface
+    (merge
+     {:shaded shaded?
+
+      :opacity opacity
+      :zOrder z-order
+      :lineX false
+      :lineY false
+      :color color
+      :width 1}
+     (:surface opts {})
+     {:points "<"})]
+   ;; TODO Ah! So if it's a color FUNCTION, then we go gray; otherwise, we
+   ;; really want a color node that takes the r, g, b off the Color. and 1.0
+   ;; for the final value, and then uses this lighten value for the lines.
+   ;;
+   ;; and then see updateColorExpr for what actually happens with that
+   ;; colorExpr, it's not quite normal.
+
+   (let [line-color (or grid-color
+                        ;; this is here for when we sub in fns.
+                        (if true
+                          (color/lighten color -0.75)
+                          "gray"))]
+     [:<>
+      ;; TODO enable separate x and y lines, and disable if 0?? remember to
+      ;; get sources right.
+      ;;
+      ;; TODO separate x and y colors? and call it u and v colors for SURE in
+      ;; parametric. TODO fix the data source... I think when opacity goes to
+      ;; 0 we target some new source?? CSS selector, select the data.
+      [mb/Resample {:source "<" :height y-lines}]
+      [mb/Line {:zBias 5 :zOrder (+ z-order 0.001)
+                :color line-color
+                :width grid-width
+                :opacity grid-opacity}]
+      [mb/Resample {:source "<<" :width x-lines}]
+      [mb/Transpose {:order "yx"}]
+      [mb/Line {:zBias 5
+                :zOrder (+ z-order 0.001)
+                :color line-color
+                :width grid-width
+                :opacity grid-opacity}]])])
 
 (defn OfXY [_]
   (let [in #js [0 0]]

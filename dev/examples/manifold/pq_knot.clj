@@ -161,21 +161,21 @@
           {:atom !opts :params [:r1 :r2 :r3 :p :q]}
           torus-knot-tube)
      :simplify? false
-     :surface {:color 0xcc0040
-               :lineX false
-               :shaded true
-               :opacity 1}
+     :color 0xcc0040
+     :grid-color 0xffffff
+     :grid-opacity 1
+     :opacity 1
      :width 512
      :height 16
+     :x-lines 100
+     :y-lines 4
      :u [(- Math/PI) Math/PI]
      :v [(- Math/PI) Math/PI]})
-   (box/resample {:height 5})
-   (box/line {:color 0xffffff
-              :width 2})
    `(when (:torus? @~!opts)
       ~(plot/parametric-surface
         {:f (ev/with-params {:atom !opts :params [:r1 :r2 :r3]}
               (fn [r1 r2 r3]
                 (toroidal->rect r1 (+ r2 r3))))
+         :opacity 0.75
          :u [(- Math/PI) Math/PI]
          :v [(- Math/PI) Math/PI]}))))
