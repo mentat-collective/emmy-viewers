@@ -38,12 +38,16 @@
 ;; the interior is denoted by $r$. Now...
 
 (defn toroidal->rect [R r]
-  (fn [[_ [theta phi] _]]
+  (fn [[theta phi]]
     (*
      (rot/rotate-z-matrix phi)
      (s/up (+ R (* r (cos theta)))
            0
            (* r (sin theta))))))
+
+(defn t->r [R r]
+  (comp (toroidal->rect R r)
+        coordinate))
 
 ;; Next, the Lagrangian. T, the kinetic energy, is just $mv^2/2$.
 ;; For this demonstration, we aren't interested in dynamics, so
@@ -67,8 +71,7 @@
   (comp
    (- T-free-particle
       V-free-particle)
-   (F->C
-    (toroidal->rect R r))))
+   (F->C (t->r R r))))
 
 ;; Let's have a look:
 
@@ -103,6 +106,13 @@
          (clerk/update-val
           (fn [{:keys [L params initial-state state->xyz
                       keys] :as m}]
+            (prn (xc/compile-state-fn
+                  state->xyz
+                  (mapv params keys)
+                  initial-state
+                  {:mode :js
+                   :calling-convention :primitive
+                   :generic-params? true}))
             (assoc m
                    :L
                    (xc/compile-state-fn
@@ -134,7 +144,7 @@
     :theta_0 {:min 0 :max Math/PI :step 0.02}
     :alpha_0 {:min 0 :max Math/PI :step 0.02}}
    :keys [:R :r]
-   :state->xyz toroidal->rect
+   :state->xyz t->r
    :L L-toroidal
    :initial-state [0 [0 0] [6 1]]
    :cartesian

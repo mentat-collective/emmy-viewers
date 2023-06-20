@@ -3,6 +3,7 @@
             [demo.mathlive]
             [emmy.mathbox.physics]
             [emmy.mathbox.plot]
+            [emmy.viewer.physics]
             [emmy.viewer.plot]
             [emmy.viewer.stopwatch]
             [leva.sci]
@@ -28,5 +29,6 @@
      'demo.mathlive         (sci/copy-ns demo.mathlive (sci/create-ns 'demo.mathlive))
      'emmy.mathbox.physics  (sci/copy-ns emmy.mathbox.physics (sci/create-ns 'emmy.mathbox.physics))
      'emmy.mathbox.plot     (sci/copy-ns emmy.mathbox.plot (sci/create-ns 'emmy.mathbox.plot))
+     'emmy.viewer.physics   (sci/copy-ns emmy.viewer.physics (sci/create-ns 'emmy.viewer.physics))
      'emmy.viewer.plot      (sci/copy-ns emmy.viewer.plot (sci/create-ns 'emmy.viewer.plot))
      'emmy.viewer.stopwatch (sci/copy-ns emmy.viewer.stopwatch (sci/create-ns 'emmy.viewer.stopwatch))}}))
