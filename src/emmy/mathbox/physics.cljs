@@ -5,42 +5,54 @@
             [mathbox.primitives :as mb]
             [nextjournal.clerk.render]))
 
-(defn Curve
-  "TODO try to use point-integrator in the other namespace."
+(defn- in->out [in out]
+  (aset out 0 (aget in 0))
+  (aset out 1 (aget in 1))
+  (aset out 2 (aget in 2)))
+
+(defn ODECurve
+  "TODO try to use point-integrator in the other namespace.
+
+   TODO can I use Curve1D?"
   [_]
   (let [xyz #js [0 0 0]]
-    (fn [{:keys [f' y0 state->xyz steps dt epsilon]
+    (fn [{:keys [f' initial-state state->xyz steps dt epsilon
+                arrow-size width start? end?
+                opacity color z-order z-index z-bias]
          :or {steps 1000
               dt 3e-2
               epsilon 1e-5
-              state->xyz
-              (fn [in out]
-                (aset out 0 (aget in 0))
-                (aset out 1 (aget in 1))
-                (aset out 2 (aget in 2)))}}]
-      [:<>
-       [mb/Array
-        {:channels 3
-         :data
-         (let [s   (ph/make-solver f' (count y0) {:epsilon epsilon})
-               pts (js/Array. steps)
-               idx (volatile! -1)]
-           (.solve s 0 (clj->js y0)
-                   (* steps dt)
-                   (.grid s dt
-                          (fn [_ ys]
-                            (state->xyz ys xyz)
-                            (aset pts
-                                  (vswap! idx inc)
-                                  #js [(aget xyz 0)
-                                       (aget xyz 2)
-                                       (aget xyz 1)]))))
-           pts)}]
-       [mb/Line
-        {:color 0xff3090
-         :size 8
-         :points "<"
-         :end true}]])))
+              z-index 0
+              z-bias 0
+              opacity 1
+              arrow-size 6
+              width 4
+              color 0xff3090
+              state->xyz in->out}}]
+      (let [y0        (clj->js initial-state)
+            dimension (count initial-state)
+            solver    (ph/point-integrator f' dimension {:epsilon epsilon})]
+        [:<>
+         [mb/Array
+          {:channels 3
+           :items steps
+           :live false
+           :width 1
+           :expr
+           (fn [emit]
+             (solver y0 steps dt
+                     (fn [ys]
+                       (state->xyz ys xyz)
+                       (emit (aget xyz 0)
+                             (aget xyz 2)
+                             (aget xyz 1)))))}]
+         [mb/Vector
+          {:size arrow-size
+           :width width
+           :opacity opacity
+           :color color
+           :start start? :end end?
+           :zIndex z-index :zBias z-bias :zOrder z-order}]]))))
 
 (defn Tail [{:keys [length] :as opts}]
   [:<>

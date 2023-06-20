@@ -26,7 +26,7 @@
 
 (let [params (list 'js/Array. 2 0.5)]
   (p/scene
-   ['emmy.mathbox.physics/Curve
+   ['emmy.mathbox.physics/ODECurve
     {:steps       8000
      :f'          `(reagent.core/with-let [sym# ~(list* 'js/Function. fn-body)]
                      (fn [in# out#]
@@ -34,8 +34,7 @@
      :state->xyz `(reagent.core/with-let [sym# ~(list* 'js/Function. xform-body)]
                     (fn [in# out#]
                       (sym# in# out# ~params)))
-     :y0 [0 0 0 '(Math/cos 0.44) '(Math/sin 0.44)]}]))
-
+     :initial-state [0 0 0 '(Math/cos 0.44) '(Math/sin 0.44)]}]))
 
 (defn lorenz
   "https://en.wikipedia.org/wiki/Lorenz_system"
@@ -53,6 +52,7 @@
                  {:mode :js
                   :simplify? true
                   :calling-convention :primitive})]
+
     (p/scene
      {:range [[-10 10] [-10 10] [0 30]]
       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
@@ -65,14 +65,17 @@
                 :rho {:min -2 :max 30 :step 0.01}
                 :beta {:min -4 :max 5 :step 0.01}
                 :steps {:min 500 :max 9000 :step 50}}})
-     ['emmy.mathbox.physics/Curve
+     ['emmy.mathbox.physics/ODECurve
       {:steps (ev/get !params :steps)
        :dt 1e-2
+       :width 2
+       :arrow-size 8
+       :end? true
        :f' `(reagent.core/with-let [sym# ~(list* 'js/Function. fn-body)]
               (let [psym# (apply ~'array (map @~!params [:sigma :rho :beta]))]
                 (fn [in# out#]
                   (sym# in# out# psym#))))
-       :y0 [0 1 1.05]}])))
+       :initial-state [0 1 1.05]}])))
 
 ;; TODO next steps: get it so I can pass a proper f' in!
 
