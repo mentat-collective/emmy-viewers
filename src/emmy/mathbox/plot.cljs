@@ -430,8 +430,9 @@
               grids [:xy]}} opts
         range [(range 0) (range 2) (range 1)]]
     [mb/Cartesian
-     {:range range :scale scale}
-     [mb/Camera {:proxy true :position camera}]
+     {:range range :scale [(nth scale 0) (nth scale 2) (nth scale 1)]}
+     [mb/Camera
+      {:proxy true :position [(nth camera 0) (nth camera 2) (nth camera 1)]}]
      (into [:<>] children)
      [SceneAxes axes range]
      [SceneGrids grids]]))

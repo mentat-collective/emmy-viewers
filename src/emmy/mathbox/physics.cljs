@@ -12,7 +12,12 @@
     (fn [{:keys [f' y0 state->xyz steps dt epsilon]
          :or {steps 1000
               dt 3e-2
-              epsilon 1e-5}}]
+              epsilon 1e-5
+              state->xyz
+              (fn [in out]
+                (aset out 0 (aget in 0))
+                (aset out 1 (aget in 1))
+                (aset out 2 (aget in 2)))}}]
       [:<>
        [mb/Array
         {:channels 3
