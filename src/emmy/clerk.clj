@@ -17,7 +17,7 @@
 (def custom-js
   "CDN address of a pre-built JS bundle for Clerk with support for all of this
   library's viewers."
-  "https://cas.clerk.garden/tree/8VtW9hma84U9rQnd5P1MCZbWGTBeCgWZUiRNPxb7ihA2Y1qzE5rtZu4tXm5Xvg5ZU4vXvAEBWjVbgUez6dVd3dR5Xx/.clerk/shadow-cljs/main.js")
+  "https://cas.clerk.garden/tree/8Vx3qnFoB2pE6Yk63LD14HRLNhXBapzwyjVaaxr4p4GiMf8QXiMc5kT4xePqWes8CkQaBBwqyPKCrYBzvd5XY8uGtX/.clerk/shadow-cljs/main.js")
 
 ;; ## Viewers
 ;;
@@ -199,10 +199,10 @@
   All remaining `opts` are forwarded to [[nextjournal.clerk/serve!]]."
   ([] (serve! {}))
   ([opts]
-   (let [opts (cond-> opts
-                (or (:cljs-namespaces opts)
-                    (:custom-js opts))
-                (assoc :custom-js custom-js))]
+   (let [opts (if (or (:cljs-namespaces opts)
+                      (:custom-js opts))
+                opts
+                (assoc opts :custom-js custom-js))]
      (install-css!)
      (b/serve! opts))))
 
@@ -211,7 +211,7 @@
   processes, if they are running, and resets all custom CSS entries."
   []
   (css/reset-css!)
-  b/halt!)
+  (b/halt!))
 
 (defn build!
   "Version of [[nextjournal.clerk/build!]] that swaps out the default JS bundle
