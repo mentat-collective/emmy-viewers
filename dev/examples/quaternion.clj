@@ -1,6 +1,5 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.quaternion)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.quaternion
+  {:nextjournal.clerk/toc true})
 
 ;; ## Quaternion

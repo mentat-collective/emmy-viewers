@@ -1,5 +1,6 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.oscillator
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])

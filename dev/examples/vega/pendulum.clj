@@ -7,7 +7,9 @@
 ;; the [Emmy](https://github.com/emmy/emmy) Clojure library and
 ;; the Clerk rendering environment.
 
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.vega.pendulum
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / partial ref zero? numerator denominator compare = run!
              abs infinite?])
