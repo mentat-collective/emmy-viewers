@@ -1,3 +1,4 @@
+
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.mathbox.ode
   {:nextjournal.clerk/toc true}
