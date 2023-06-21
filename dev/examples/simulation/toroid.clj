@@ -104,8 +104,7 @@
 ;; \phi)$-space.
 
 ^{::clerk/width :full}
-(ev/with-let [!params {:R 2 :r 0.5
-                       :theta_0 1 :alpha_0 0 :steps 1500}]
+(ev/with-let [!params {:R 2 :r 0.5 :theta_0 1 :alpha_0 0 :steps 1500}]
   (plot/scene
    (leva/controls
     {:atom !params

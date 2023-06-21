@@ -1,5 +1,5 @@
 (ns emmy.viewer.stopwatch
-  "Timer component, useful for various animations.
+  "Stopwatch component, useful for various animations.
 
   NOTE that this is currently implemented with `goog.Timer`. For Portal
   compatibility, I'll back this out soon and rewrite the component using request

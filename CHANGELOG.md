@@ -2,6 +2,29 @@
 
 ## [unreleased]
 
+- #44:
+
+  - Adds `emmy.viewer.physics` and `emmy.mathbox.physics` in support of the new
+    `emmy.mathbox.physics/ode-curve` function, similar to `parametric-curve` but
+    powered by a derivative function and initial state. See the new
+    [ode](https://emmy-viewers.mentat.org/dev/examples/mathbox/ode) example page
+    for a demo.
+
+  - Adds a new Lorenz attractor example at `examples.mathbox.ode`.
+
+  - Adds `emmy.clerk/{build!,serve!,halt!}` to make it more straightforward to
+    configure Clerk with our custom JS bundle.
+
+  - Adds a var-arg `viewers` argument for other viewers to
+    `emmy.clerk/install!`.
+
+  - Adds `emmy.viewer.stopwatch` with a client and server-side stopwatch
+    component; this is currently alpha, but will be used for running physics
+    animations.
+
+  - Migrates `examples.simulation.toroid` to full server-side style with no more
+    custom viewer.
+
 - #32 updates the `emmy-viewers/clerk` template to use the new pre-compiled
   bundle and all of the good stuff in it.
 

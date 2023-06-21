@@ -145,12 +145,15 @@
 
 (defn install!
   "Calling this function at the top of a Clerk notebook installs all appropriate
-  default viewers for Emmy.
+  default viewers for Emmy, along with any `viewers` supplied to [[install!]].
 
   [[install!]] is required for any Mafs, MathBox etc code to render correctly."
   [& viewers]
-  (clerk/add-viewers!
-   (into [meta-viewer literal-viewer] viewers)))
+  (let [high-priority [meta-viewer]
+        low-priority  [literal-viewer]]
+    (clerk/add-viewers!
+     (into high-priority
+           (concat viewers low-priority)))))
 
 ;; ### Project Configuration
 
@@ -244,7 +247,6 @@
          (b/build! (merge opts))
          (finally
            (apply css/set-css! existing)))))
-
 
 ;; ## State Utilities
 

@@ -95,6 +95,8 @@ This will open a browser window to `http://localhost:7777` with the contents of
 the documentation notebook. Any edits you make to any file in the `src` or `dev`
 directories will be picked up and displayed in the browser on save.
 
+## Dependencies
+
 These viewers are built on the following libraries:
 
 - [MathBox.cljs][mathbox-url]

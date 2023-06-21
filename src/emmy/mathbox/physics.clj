@@ -8,7 +8,22 @@
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as vc]))
 
-(defn ^:no-doc ode-compile [opts k initial-state]
+(defn ^:no-doc ode-compile
+  "For generating compile fragments for use with Odex, or other applications that
+  provide inputs and outputs for the user.
+
+  Takes
+
+  - an options map `opts`
+  - the `k` that maps to the function to compile; this function should take a
+    flattened array of the same dimension as `initial-state`.
+  - an `initial-state`
+
+  and returns a pair of
+
+  - a new binding pair
+  - the options map updated to reference the new compiled fn via symbol."
+  [opts k initial-state]
   (let [v (get opts k)]
     (if-not (vc/compile? v)
       [[] opts]

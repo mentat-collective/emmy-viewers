@@ -4,15 +4,6 @@
             [emmy.viewer :as v]
             [emmy.viewer.compile :as vc]))
 
-(defn vectorize [f]
-  (if (v/param-f? f)
-    (update f :f
-            (fn [f]
-              (fn [& params]
-                (let [inner (apply f params)]
-                  (fn [[x]] (inner x))))))
-    (fn [[t]] (f t))))
-
 (defn frame
   "Given a map with entries:
 

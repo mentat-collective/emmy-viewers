@@ -1,5 +1,5 @@
 (ns emmy.viewer.stopwatch
-  "Clock component!")
+  "Alpha component for running a stopwatch inside Reagent.")
 
 (defn stopwatch
   "Returns a reagent fragment that renders a Clock component into the scene."
