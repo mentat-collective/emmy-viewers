@@ -74,7 +74,7 @@
       :start true
       :end true}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -95,7 +95,7 @@
       :end true
       :zero false}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -183,7 +183,7 @@
     [mathbox.primitives/Format
      {:expr
       (fn [x]
-        (str (demo.mathbox/format-number
+        (str (emmy.mathbox.plot/format-number
               (/ x Math/PI)) "π"))
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
@@ -204,7 +204,7 @@
       :end true
       :zero false}]
     [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff

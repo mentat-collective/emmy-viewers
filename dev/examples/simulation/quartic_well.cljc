@@ -72,7 +72,7 @@
       :start true
       :end true}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -93,7 +93,7 @@
       :end true
       :zero false}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -172,7 +172,7 @@
       :start true
       :end true}]
     [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff
@@ -192,7 +192,7 @@
       :end true
       :zero false}]
     [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.mathbox.plot/format-number
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff

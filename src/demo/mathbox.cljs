@@ -12,23 +12,6 @@
             [reagent.core :as r])
   (:import [goog Timer]))
 
-(defn format-number [x]
-  (-> (.toFixed x 2)
-      (.replace #"\.0+$" "")))
-
-;; ## Components
-
-(defn Function1 [{:keys [samples f] :or {samples 256}}]
-  (let [f' (xc/sci-eval f)]
-    [:<>
-     [mb/Interval
-      {:width samples
-       :channels 2
-       :expr (fn [emit x _ time]
-               (emit x (f' x time)))}]
-     [mb/Line {:color 0x3090ff :width 4}]
-     [mb/Point {:color 0x3090ff :size 8}]]))
-
 ;; ## Simulation
 
 (defn Lagrangian-updater
