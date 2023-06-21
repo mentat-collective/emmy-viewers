@@ -425,7 +425,7 @@
         {:keys [camera range scale axes grids]
          :or {range  [[-5 5] [-5 5] [-5 5]]
               scale  [1 1 1]
-              camera [0.5 0.6 2]
+              camera [0.5 2 0.6]
               axes  [:x :y :z]
               grids [:xy]}} opts
         range [(range 0) (range 2) (range 1)]]
