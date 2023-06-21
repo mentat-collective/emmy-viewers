@@ -1,19 +1,63 @@
 (ns emmy.mathbox.physics
   (:require [emmy.viewer.physics :as ph]
-            [leva.core]
-            [mathbox.core]
-            [mathbox.primitives :as mb]
-            [nextjournal.clerk.render]))
+            [mathbox.primitives :as mb]))
 
-(defn- in->out [in out]
+(defn- in->out
+  "Identity function for [[ODECurve]]. Copies the input over to the output array
+  unchanged."
+  [in out]
   (aset out 0 (aget in 0))
   (aset out 1 (aget in 1))
   (aset out 2 (aget in 2)))
 
 (defn ODECurve
-  "TODO try to use point-integrator in the other namespace.
+  "Component that plots a curve by integrating a system of ordinary differential
+  equations represented by `f'` forward from the initial input state
+  `initial-state` for `steps` steps of `dt` each.
 
-   TODO can I use Curve1D?"
+  Required arguments:
+
+  - `:f'`: function of the form `(fn [[y0 y1 ...]] [<y0'> <y1'> ...])` that
+    returns a vector of the derivatives of each input variable.
+
+  - `:initial-state`: the initial input vector to `:f'`.
+
+  Optional arguments:
+
+  - `:state->xyz`: function of the form `(fn [[y0 y1 ...]] [<x> <y> <z>])`,
+    responsible for transforming each integrated state into a 3D point. Defaults
+    to `identity`.
+
+  - `:steps`: the number of `:dt`-spaced steps for the integrator to take.
+    Defaults to 1000.
+
+  - `:dt`: the distance of each evenly spaced step taken by the integrator.
+    Defaults to 3e-2.
+
+  - `:epsilon`: error tolerance passed along
+    to [odex-js](https://github.com/littleredcomputer/odex-js). Defaults to 1e-5.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
   [_]
   (let [xyz #js [0 0 0]]
     (fn [{:keys [f' initial-state state->xyz steps dt epsilon
@@ -29,9 +73,10 @@
               width 4
               color 0xff3090
               state->xyz in->out}}]
-      (let [y0        (clj->js initial-state)
-            dimension (count initial-state)
-            solver    (ph/point-integrator f' dimension {:epsilon epsilon})]
+      (let [state     (flatten initial-state)
+            dimension (count state)
+            solver    (ph/point-integrator f' dimension {:epsilon epsilon})
+            y0        (clj->js state)]
         [:<>
          [mb/Array
           {:channels 3
@@ -53,58 +98,3 @@
            :color color
            :start start? :end end?
            :zIndex z-index :zBias z-bias :zOrder z-order}]]))))
-
-(defn Tail [{:keys [length] :as opts}]
-  [:<>
-   [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
-   ;; This is the color channel, and fades out the tail as you go.
-   [mb/Array
-    {:width length
-     :channels 4
-     :expr (fn [emit i]
-             (emit 1 1 1 (- 1 (/ i 16))))}]
-   [mb/Transpose {:order "zxy"}]
-   [mb/Point
-    (-> (dissoc opts :length)
-        (assoc :points "<<<"
-               :colors "<"))]])
-
-(defn Comet
-  "Path is a function of i, t
-  dimensions is how many you want to emit
-  history is tail length,
-  rest of options go to the final point
-
-  Note that i think we have to emit with xzy?? weird..."
-  [{:keys [dimensions path length items]
-    :or {items 1}
-    :as opts}]
-  [:<>
-   [mb/Array
-    {:history length
-     :items items
-     :channels dimensions
-     :expr path}]
-   [Tail (dissoc opts :dimensions :path :items)]])
-
-(defn Mass
-  "TODO if I make a 2-level component to compile the function then what the heck
-  do I do if it changes? Do I not worry about that?
-
-  TODO I made it here so it's already compiled... does that make sense??"
-  [{state->xyz :state->xyz
-    !state     :atom
-    params     :params}]
-  [Comet
-   {:dimensions 3
-    :length 16
-    :color 0x3090ff
-    :size 10
-    :opacity 0.99
-    :path
-    (let [out #js [0 0 0]]
-      (fn [emit _ _]
-        (state->xyz (.-state !state) out params)
-        (emit (aget out 0)
-              (aget out 2)
-              (aget out 1))))}])

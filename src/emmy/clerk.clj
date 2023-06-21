@@ -147,9 +147,9 @@
   default viewers for Emmy.
 
   [[install!]] is required for any Mafs, MathBox etc code to render correctly."
-  []
+  [& viewers]
   (clerk/add-viewers!
-   [meta-viewer literal-viewer]))
+   (into [meta-viewer literal-viewer] viewers)))
 
 ;; ### Project Configuration
 

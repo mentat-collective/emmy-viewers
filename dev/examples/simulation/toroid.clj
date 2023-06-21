@@ -3,15 +3,16 @@
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial
              infinite? abs])
-  (:require [emmy.env :as e :refer :all]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
+            [emmy.leva :as leva]
             [emmy.mechanics.rotation :as rot]
-            [emmy.expression.compile :as xc]
+            [emmy.mathbox.physics :as ph]
+            [emmy.mathbox.plot :as plot]
             [emmy.structure :as s]
+            [emmy.viewer :as ev]
             [examples.expression :as d]
-            [mathbox.core :as-alias mathbox]
-            [mathbox.primitives :as-alias mb]
-            [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as-alias viewer]))
+            [nextjournal.clerk :as clerk]))
 
 ;; ## Geodesics of the Torus
 ;;
@@ -23,7 +24,8 @@
 ;;
 ;; First, prepare the viewers so that all literals render with the multiviewer:
 
-(clerk/add-viewers! [d/multiviewer])
+^{:nextjournal.clerk/visibility {:result :hide}}
+(clerk/add-viewers! [ec/meta-viewer d/multiviewer])
 
 ;; There is such a thing as toroidal coordinates--see
 ;; [Wikipedia](https://en.wikipedia.org/wiki/Toroidal_coordinates)--
@@ -100,55 +102,35 @@
 ;; there: this is $\alpha_0$, the direction of a unit vector in
 ;; $(\theta, \phi)$-space.
 
-^{::clerk/viewer
-  {:transform-fn
-   (comp clerk/mark-presented
-         (clerk/update-val
-          (fn [{:keys [L params initial-state state->xyz
-                      keys] :as m}]
-            (prn (xc/compile-state-fn
-                  state->xyz
-                  (mapv params keys)
-                  initial-state
-                  {:mode :js
-                   :calling-convention :primitive
-                   :generic-params? true}))
-            (assoc m
-                   :L
-                   (xc/compile-state-fn
-                    (compose e/Lagrangian->state-derivative L)
-                    (mapv params keys)
-                    initial-state
-                    {:mode :js
-                     :calling-convention :primitive
-                     :generic-params? true})
+^{::clerk/width :full}
+(ev/with-let [!params {:R 2 :r 0.5 :theta_0 1 :alpha_0 0 :steps 1500}]
+  (plot/scene
+   (leva/controls
+    {:atom !params
+     :folder {:name "Torus"}
+     :schema
+     {:R       {:min 0.5 :max 2 :step 0.01}
+      :r       {:min 0.5 :max 2 :step 0.01}
+      :theta_0 {:min 0 :max Math/PI :step 0.02}
+      :alpha_0 {:min 0 :max Math/PI :step 0.02}
+      :steps   {:min 500 :max 9000 :step 50}}})
 
-                   :state->xyz
-                   (xc/compile-state-fn
-                    state->xyz
-                    (mapv params keys)
-                    initial-state
-                    {:mode :js
-                     :calling-convention :primitive
-                     :generic-params? true})))))
-   :render-fn 'demo.mathbox/ToroidViewer}}
+   (ph/ode-curve
+    {:initial-state
+     [0
+      [(ev/get !params :theta_0) 0]
+      [(list 'Math/cos (ev/get !params :alpha_0))
+       (list 'Math/sin (ev/get !params :alpha_0))]]
+     :f' (ev/with-params {:atom !params :params [:R :r]}
+           (compose e/Lagrangian->state-derivative L-toroidal))
+     :state->xyz (ev/with-params {:atom !params :params [:R :r]}
+                   t->r)
+     :steps (ev/get !params :steps)
+     :width 2
+     :end? true})
 
-(let [R 2
-      r 0.5
-      theta_0 0
-      alpha_0 0]
-  {:params {:R R :r r :theta_0 theta_0 :alpha_0 alpha_0}
-   :schema
-   {:R   {:min 0.5 :max 2 :step 0.01}
-    :r   {:min 0.5 :max 2 :step 0.01}
-    :theta_0 {:min 0 :max Math/PI :step 0.02}
-    :alpha_0 {:min 0 :max Math/PI :step 0.02}}
-   :keys [:R :r]
-   :state->xyz t->r
-   :L L-toroidal
-   :initial-state [0 [0 0] [6 1]]
-   :cartesian
-   {:range [[-10 10]
-            [-10 10]
-            [-10 10]]
-    :scale [3 3 3]}})
+   (plot/parametric-surface
+    {:f (ev/with-params {:atom !params :params [:R :r]}
+          toroidal->rect)
+     :u [0 (* 2 Math/PI)]
+     :v [0 (* 2 Math/PI)]})))

@@ -26,6 +26,15 @@
   (and (map? m)
        (not (v/param-f? m))))
 
+(defn vectorize [f]
+  (if (v/param-f? f)
+    (update f :f
+            (fn [f]
+              (fn [& params]
+                (let [inner (apply f params)]
+                  (fn [[x]] (inner x))))))
+    (fn [[t]] (f t))))
+
 ;; ## Compile Functions
 
 (defn param-1d

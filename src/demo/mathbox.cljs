@@ -315,54 +315,6 @@
      :color 0xffffff
      :width 1}]])
 
-;; TODO good ideas!
-#_(defn Manifold [{[a1 b1 c1 body1] :point->xyz}]
-    (let [render-fn (js/Function. a1 b1 c1 body1)]
-      [:<>
-       [mb/Area
-        {:width 64
-         :height 64
-         :rangeX [0 two-pi]
-         :rangeY [0 two-pi]
-         :axes [1 3]
-         :live false
-         :expr
-         (let [out #js [0 0 0]]
-           (fn [emit theta phi _i _j _time]
-             (render-fn theta phi out)
-             (let [sin-theta (Math/sin theta)
-                   cos-theta (Math/cos theta)]
-               ;; xzy
-               (emit
-                (* a sin-theta (Math/cos phi))
-                (* c cos-theta)
-                (* b sin-theta (Math/sin phi))))))
-         :items 1
-         :channels 3}]
-       [mb/Surface
-        {:shaded true
-         :opacity 0.2
-         :lineX true
-         :lineY true
-         :points "<"
-         :color 0xffffff
-         :width 1}]]
-      [Comet
-       {:dimensions 3
-        :length 16
-        :color 0x3090ff
-        :size 10
-        :opacity 0.99
-        :path
-        (let [out #js [0 0 0]]
-          (fn [emit _ t]
-            (-> (my-updater t)
-                (render-fn out params))
-            (emit (aget out 0)
-                  (aget out 2)
-                  (aget out 1))))}])
-    )
-
 (defn DoubleMass
   "Obviously these should be merged!"
   [{:keys [state->xyz L initial-state]}]
@@ -391,51 +343,6 @@
 
 
 ;; ## Toroid Viewer
-
-(defn ToroidViewer
-  [{params     :params
-    keys       :keys
-    schema     :schema
-    state->xyz :state->xyz
-    :as opts}]
-  (reagent.core/with-let
-    [render-fn (apply js/Function state->xyz)
-     !params   (reagent.core/atom params)
-     ;; I had to move this here because reagent.core/reaction wasn't available
-     ;; in the SCI environment you have when writing viewers...
-     !arr      (reagent.core/reaction
-                (apply
-                 array
-                 (map @!params keys)))]
-    [:<>
-     [nextjournal.clerk.render/inspect @!arr]
-     [leva.core/Controls
-      {:atom !params
-       :schema schema}]
-     [mathbox.core/MathBox
-      {:container  {:style {:height "400px" :width "100%"}}
-       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-       :renderer   {:background-color 0xffffff}}
-      [mb/Cartesian (:cartesian opts)
-       [mb/Axis {:axis 1 :width 3}]
-       [mb/Axis {:axis 2 :width 3}]
-       [mb/Axis {:axis 3 :width 3}]
-       [demo.mathbox/Curve
-        {:state-derivative (apply js/Function (:L opts))
-         :state->xyz render-fn
-         :initial-state-fn (fn [] (println "i-params" !params)
-                             (let [st (.-state !params)
-                                   alpha_0 (:alpha_0 st)]
-                               ;; alpha_0 is the direction of the initial velocity
-                               ;; in (theta, phi)-space. Since we're not doing dynamics,
-                               ;; the speed doesn't matter, just the direction, so we do
-                               ;; it as a unit vector.
-                               [0
-                                (:theta_0 st) 0
-                                (Math/cos alpha_0) (Math/sin alpha_0)]))
-         :steps 1500
-         :params !arr}]
-       [Torus render-fn !arr]]]]))
 
 (defn ToroidPoint
   [{state      :initial-state
