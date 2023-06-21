@@ -1,6 +1,5 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.structure)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.structure
+  {:nextjournal.clerk/toc true})
 
 ;; ## Structure

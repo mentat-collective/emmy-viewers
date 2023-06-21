@@ -1,12 +1,5 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.modint)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.modint
+  {:nextjournal.clerk/toc true})
 
 ;; ## Modular Integers
-
-;; TODO remaining:
-;;
-;; Operator
-;; Structures
-;; Matrix

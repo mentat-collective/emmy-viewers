@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.polynomial)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.polynomial
+  {:nextjournal.clerk/toc true})
 
 ;; ## Polynomial
 ;;

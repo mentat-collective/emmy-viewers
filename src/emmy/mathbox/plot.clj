@@ -301,15 +301,8 @@
   - `:z-index`: zIndex of the curve. Defaults to 0.
 
   - `:z-bias`: zBias of the curve. Defaults to 0."
-  [{:keys [f] :as opts}]
-  (let [opts (if (ev/param-f? f)
-               (update opts :f
-                       update :f
-                       (fn [f]
-                         (fn [& params]
-                           (let [inner (apply f params)]
-                             (fn [[x]] (inner x))))))
-               (assoc opts :f (fn [[t]] (f t))))
+  [opts]
+  (let [opts          (update opts :f c/vectorize)
         [f-bind opts] (mc/compile-3d opts :f 1)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricCurve opts])
         (ev/fragment scene))))

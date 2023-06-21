@@ -1,4 +1,6 @@
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.symbolic.einstein
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])

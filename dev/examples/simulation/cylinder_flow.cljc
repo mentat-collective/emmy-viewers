@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.cylinder-flow
+  {:nextjournal.clerk/toc true}
   (:require
    [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
    [mentat.clerk-utils.show :refer [show-cljs]]

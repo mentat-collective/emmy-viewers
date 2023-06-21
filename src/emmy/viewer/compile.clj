@@ -26,6 +26,18 @@
   (and (map? m)
        (not (v/param-f? m))))
 
+(defn vectorize
+  "Given a function `f` (parametrized or not) of a single non-vector argument,
+  returns a similar version that takes `[x]` instead of `x`."
+  [f]
+  (if (v/param-f? f)
+    (update f :f
+            (fn [f]
+              (fn [& params]
+                (let [inner (apply f params)]
+                  (fn [[x]] (inner x))))))
+    (fn [[t]] (f t))))
+
 ;; ## Compile Functions
 
 (defn param-1d

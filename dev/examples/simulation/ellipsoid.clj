@@ -1,10 +1,11 @@
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.ellipsoid
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial])
   (:require [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
-
             [examples.expression :as d]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]

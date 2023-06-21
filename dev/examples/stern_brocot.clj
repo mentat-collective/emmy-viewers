@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.stern-brocot
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude
    [+ - * / = zero? compare numerator

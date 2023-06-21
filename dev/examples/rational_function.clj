@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.rational-function)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.rational-function
+  {:nextjournal.clerk/toc true})
 
 ;; ## Rational Function
 

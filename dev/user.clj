@@ -1,12 +1,9 @@
-(ns user
-  (:require [mentat.clerk-utils.build :as b]))
+(ns user)
 
 (try (requiring-resolve 'cljs.analyzer.api/ns-resolve) (catch Exception _ nil))
 (require '[emmy.env])
 (require '[emmy.expression.render :as xr])
 (require '[emmy.clerk :as ec])
-
-(ec/install-css!)
 
 (alter-var-root
  #'xr/*TeX-vertical-down-tuples*
@@ -25,10 +22,8 @@
   {:index index
    :browse? true
    :watch-paths ["src" "dev"]
-   :custom-js ec/custom-js
-
-   ;; Enable this and disable `:custom-js` to build new custom components.
-   ;; :cljs-namespaces '[emmy-viewers.sci-extensions]
+   ;; Enable this when working on new components.
+   :cljs-namespaces '[emmy-viewers.sci-extensions]
    })
 
 (def static-defaults
@@ -41,11 +36,11 @@
 (defn serve!
   ([] (serve! {}))
   ([opts]
-   (b/serve!
+   (ec/serve!
     (merge defaults opts))))
 
-(def halt! b/halt!)
+(def halt! ec/halt!)
 
 (defn build! [opts]
-  (b/build!
+  (ec/build!
    (merge static-defaults opts)))

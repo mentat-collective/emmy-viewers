@@ -1,7 +1,6 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.mafs
-  #:nextjournal.clerk
-  {:toc true}
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])

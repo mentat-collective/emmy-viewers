@@ -1,6 +1,5 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.operator)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.operator
+  {:nextjournal.clerk/toc true})
 
 ;; ## Operators

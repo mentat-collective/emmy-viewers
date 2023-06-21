@@ -1,7 +1,6 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.number
-  #:nextjournal.clerk
-  {:toc true}
+  {:nextjournal.clerk/toc true}
   (:require [emmy.clerk :as ec]
             [emmy.mafs :as mafs]
             [nextjournal.clerk :as clerk]))

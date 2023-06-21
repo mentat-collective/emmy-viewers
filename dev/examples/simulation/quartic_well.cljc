@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.quartic-well
+  {:nextjournal.clerk/toc true}
   (:require [emmy.env :as e]
             #?(:clj [emmy.expression.compile :as xc])
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
@@ -72,7 +71,7 @@
       :start true
       :end true}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.viewer.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -93,7 +92,7 @@
       :end true
       :zero false}]
     [mb/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.viewer.plot/format-number
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -172,7 +171,7 @@
       :start true
       :end true}]
     [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.viewer.plot/format-number
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff
@@ -192,7 +191,7 @@
       :end true
       :zero false}]
     [mathbox.primitives/Format
-     {:expr demo.mathbox/format-number
+     {:expr emmy.viewer.plot/format-number
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff
