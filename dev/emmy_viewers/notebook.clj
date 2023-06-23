@@ -4,22 +4,37 @@
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [emmy.env :as e :refer :all]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
+            [emmy.leva :as leva]
+            [emmy.mafs :as mafs]
+            [emmy.mathbox.plot :as plot]
+            [emmy.viewer :as ev]
             [mentat.clerk-utils.docs :as docs]
             [nextjournal.clerk :as clerk]))
 
-;; # Emmy-Viewers [ALPHA!]
-;;
-;; Visualizations over [Emmy](https://emmy.mentat.org).
+{:nextjournal.clerk/width :wide}
 
-{::clerk/visibility {:code :hide}}
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
+
+;; # Emmy-Viewers
+;;
+;; A library of functions for building high-performance interactive 2D and 3D
+;; mathematical scenes powered by
+;; the [Emmy](https://github.com/mentat-collective/emmy) computer algebra
+;; system.
+
+^{::clerk/visibility {:code :hide}}
 (clerk/html
  [:<>
   [:center
    (clerk/md
     "[![Build Status](https://github.com/mentat-collective/emmy/actions/workflows/kondo.yml/badge.svg?branch=main)](https://github.com/mentat-collective/emmy/actions/workflows/kondo.yml)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/mentat-collective/emmy/blob/main/LICENSE)
-[![cljdoc badge](https://cljdoc.org/badge/org.mentat/emmy)](https://cljdoc.org/d/org.mentat/emmy/CURRENT)")]])
+[![cljdoc badge](https://cljdoc.org/badge/org.mentat/emmy)](https://cljdoc.org/d/org.mentat/emmy/CURRENT)
+[![Clojars Project](https://img.shields.io/clojars/v/org.mentat/emmy-viewers.svg)](https://clojars.org/org.mentat/emmy-viewers)
+[![Discord Shield](https://img.shields.io/discord/731131562002743336?style=flat&colorA=000000&colorB=000000&label=&logo=discord)](https://discord.gg/hsRBqGEeQ4)")]])
 ;;
 ;; </div>
 ;;
@@ -37,15 +52,88 @@
 ;;
 ;; ## What is Emmy-Viewers?
 ;;
-;; TODO
+;; Emmy-Viewers is a library of tools for building interactive scenes for
+;; exploring physical and mathematical worlds.
+;;
+;; The first example uses the functions in
+;; the [`emmy.mafs`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mafs)
+;; namespace to plot
+;;
+;; - `((cube D) tanh)`, the third derivative of the [hyperbolic tangent
+;;   function](https://mathworld.wolfram.com/HyperbolicTangent.html), shifted by
+;;   the `x`-value of the (interactive, try sliding!) pink point in the scene, and
+;; - the inequality between that function and `(cos x)`:
+;;
+;; > The 'show code' link below will expand the example's source.
+
+^{::clerk/visibility {:code :fold}}
+(ev/with-let [!phase [0 0]]
+  (let [shifted (ev/with-params {:atom !phase :params [0]}
+                  (fn [shift]
+                    (((cube D) tanh) (- identity shift))))]
+    (mafs/mafs
+     {:height 400}
+     (mafs/cartesian)
+     (mafs/of-x shifted)
+     (mafs/inequality
+      {:y {:<= shifted :> cos} :color :blue})
+     (mafs/movable-point
+      {:atom !phase :constrain "horizontal"}))))
+
+;; The next example uses the functions
+;; in [`emmy.mathbox.plot`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.plot) and [`emmy.leva`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.leva)
+;; to plot the functions
+;;
+;; - $f(x, y) := D^3\tanh(x) + \sin(y-\texttt{phase})$
+;; - $g(y) := \texttt{shift} * \cos(y - \texttt{phase})$
+;;
+;; where $\texttt{phase}$ is supplied by the interactive slider hovering in the
+;; top right:
+
+^{::clerk/visibility {:code :fold}}
+(ev/with-let [!phase {:phase 0}]
+  (plot/scene
+   (leva/controls
+    {:folder {:name "Intro Demo"}
+     :schema {:phase {:min -4 :max 4 :step 0.01}}
+     :atom !phase})
+   (plot/of-y  {:z (ev/with-params {:atom !phase :params [:phase]}
+                     (fn [shift]
+                       (fn [y]
+                         (* shift (sin (- y shift))))))
+
+                :color "LimeGreen"})
+   (plot/of-xy {:color "#3090FF"
+                :z (ev/with-params {:atom !phase :params [:phase]}
+                     (fn [shift]
+                       (fn [[x y]]
+                         (+ (((cube D) tanh) x)
+                            (sin (- y shift))))))})))
+
+;; Emmy-Viewers uses either [Clerk](https://github.com/nextjournal/clerk) or
+;; [Portal](https://github.com/djblue/portal) as a presentation environment.
+
 ;;
 ;; ## Quickstart
+
+;;Install `Emmy-Viewers` into your Clojure project using the instructions at its
+;; Clojars page:
+
+;; [![Clojars
+;; Project](https://img.shields.io/clojars/v/org.mentat/emmy-viewers.svg)](https://clojars.org/org.mentat/emmy-viewers)
 ;;
-;; Grab the most recent code using a Git dependency:
+;; Or grab the most recent code using a Git dependency:
 
 ^{::clerk/visibility {:code :hide}}
-(docs/git-dependency
- "mentat-collective/emmy-viewers")
+(clerk/md
+ (format
+  "```clojure
+{org.mentat/emmy-viewers
+  {:git/url \"https://github.com/mentat-collective/emmy-viewers.git\"
+   :git/sha \"%s\"}}
+  ```" (docs/git-sha)))
+
+
 
 ;; ## Demos
 ;;

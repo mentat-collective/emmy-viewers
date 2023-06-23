@@ -20,7 +20,7 @@
 (def version "0.1.0")
 (def pom-deps
   {'org.babashka/sci
-   {:mvn/version "0.6.37"
+   {:mvn/version "0.7.39"
     :mvn/scope "provided"}})
 
 (defn- ->version

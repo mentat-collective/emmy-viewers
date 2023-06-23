@@ -238,13 +238,12 @@
   All remaining `opts` are forwarded to [[nextjournal.clerk/build!]]"
   [opts]
   (let [existing @css/custom-css
-        opts     (cond-> opts
-                   (or (:cljs-namespaces opts)
-                       (:custom-js opts))
-                   (assoc :custom-js custom-js))]
-
+        opts     (if (or (:cljs-namespaces opts)
+                         (:custom-js opts))
+                   opts
+                   (assoc opts :custom-js custom-js))]
     (try (install-css!)
-         (b/build! (merge opts))
+         (b/build! opts)
          (finally
            (apply css/set-css! existing)))))
 
