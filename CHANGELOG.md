@@ -2,6 +2,12 @@
 
 ## [unreleased]
 
+- #:
+
+  - prepare for first release.
+
+  - bump portal to enable leva
+
 - #44:
 
   - Adds `emmy.viewer.physics` and `emmy.mathbox.physics` in support of the new

@@ -1,10 +1,10 @@
 # emmy-viewers/clerk template
 
 This directory contains a [`deps-new`][deps-new-url] template that creates a new
-[Emmy-Viewers][emmy-viewers-url] project with everything described in the ["Emmy
-via Clerk"](https://emmy-viewers.mentat.org/#emmy-viewers-via-clerk) section of
-the [`Emmy-Viewers` documentation notebook][emmy-viewers-notebook] already
-configured.
+[Emmy-Viewers][emmy-viewers-url] project with everything described in the
+["Quickstart via Clerk"](https://emmy-viewers.mentat.org/#quickstart-via-clerk)
+section of the [`Emmy-Viewers` documentation notebook][emmy-viewers-notebook]
+already configured.
 
 To use the template, install the [`deps-new`][deps-new-url] tool:
 
@@ -49,16 +49,7 @@ following key-value pairs to the above command (See
   Clerk.)
 - `:clerk-port`: the port used by `clerk/serve!` during interactive development.
 - `:clerk-sha`: the hash of the Clerk version you'd like to use in the template.
-- `:shadow-port`: the port that [`shadow-cljs`][shadow-url] uses to serve
-  compiled JavaScript during interactive development.
-- `:shadow-version`: the version of [`shadow-cljs`][shadow-url] required by the
-  generated project.
 - `:clj-version`: the version of Clojure required by the generated project.
-- `:cljs-version`: the version of ClojureScript required by the generated
-  project. (_note that this needs to meet or exceed the version declared in the
-  [`shadow-cljs` `deps.edn`
-  file](https://github.com/thheller/shadow-cljs/blob/master/deps.edn) for the
-  `shadow-cljs` version you've chosen._)
 - `:http-server-port`: The port used by `bb serve` and `bb publish-local` to
   serve the local statically built site.
 - `:cname`: If you're serving your GitHub Pages build from a custom URL, pass

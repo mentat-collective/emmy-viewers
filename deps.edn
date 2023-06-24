@@ -18,17 +18,17 @@
     io.github.nextjournal/cas-client
     {:git/sha "84ab35c3321c1e51a589fddbeee058aecd055bf8"}
     io.github.nextjournal/clerk
-    {:git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"}
+    {:git/sha "70af0c7f6cf19bc69c816960c430e6c9e43ea530"}
     io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"
+     :git/sha "70af0c7f6cf19bc69c816960c430e6c9e43ea530"
      :deps/root "render"}}
    :exec-fn user/build!}
 
   :portal
   {:extra-paths ["dev"]
    :extra-deps
-   {djblue/portal {:mvn/version "0.42.0"}}}
+   {djblue/portal {:mvn/version "0.42.1"}}}
 
   :cljs
   {:extra-deps

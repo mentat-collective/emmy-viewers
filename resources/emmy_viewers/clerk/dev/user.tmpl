@@ -1,9 +1,5 @@
 (ns user
-  (:require [emmy.clerk :as ec]
-            [mentat.clerk-utils.build :as b]
-            [nextjournal.clerk :as clerk]))
-
-(ec/install-css!)
+  (:require [emmy.clerk :as ec]))
 
 (def index
   "notebooks/{{top/file}}/{{main/file}}.clj")
@@ -16,11 +12,6 @@
    ;; Comment out the following line to tell Clerk to generate its own index
    ;; with a list of all built pages.
    :index index
-
-   ;; Comment out the following line and enable the `:cljs-namespaces` line to
-   ;; build a custom JS bundle.
-   :custom-js ec/custom-js
-   ;; :cljs-namespaces '[{{top/ns}}.sci-extensions]
    })
 
 (def serve-defaults
@@ -37,24 +28,24 @@
          :git/url "https://github.com/{{raw-name}}"))
 
 (defn serve!
-  "Alias of [[mentat.clerk-utils.build/serve!]] with [[defaults]] supplied as
+  "Alias of [[emmy.clerk/serve!]] with [[defaults]] supplied as
   default arguments.
 
   Any supplied `opts` overrides the defaults."
   ([] (serve! {}))
   ([opts]
-   (b/serve!
+   (ec/serve!
     (merge serve-defaults opts))))
 
-(def ^{:doc "Alias for [[mentat.clerk-utils.build/halt!]]."}
+(def ^{:doc "Alias for [[emmy.clerk/halt!]]."}
   halt!
-  b/halt!)
+  ec/halt!)
 
 (defn build!
-  "Alias of [[mentat.clerk-utils.build/build!]] with [[static-defaults]] supplied
+  "Alias of [[emmy.clerk/build!]] with [[static-defaults]] supplied
   as default arguments.
 
   Any supplied `opts` overrides the defaults."
   [opts]
-  (b/build!
+  (ec/build!
    (merge static-defaults opts)))

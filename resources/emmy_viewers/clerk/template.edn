@@ -3,17 +3,11 @@
  :emmy-viewers-sha "034bc313d95df7ae8f304de263b9bcee01347df5"
  :clerk-sha "1f6c5331418aaf9c5a4335fc2e6e95f07dc3af6b"
  :clerk-utils-sha "b98b74fa025b5543318a6b5beb1622fd35b4906e"
- :shadow-port 8765
- :shadow-version "2.23.1"
  :clj-version "1.11.1"
- :cljs-version "1.11.60"
  :http-server-port 8080
  :cname ""
  :transform
- [["src" "src"
-   {"custom.tmpl" "{{top/file}}/custom.cljs"
-    "sci_extensions.tmpl" "{{top/file}}/sci_extensions.cljs"}]
-  ["notebooks" "notebooks"
+ [["notebooks" "notebooks"
    {"main.tmpl" "{{top/file}}/{{main/file}}.clj"}]
   ["dev" "dev"
    {"user.tmpl" "user.clj"}]]}

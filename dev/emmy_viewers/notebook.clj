@@ -20,8 +20,8 @@
 
 ;; # Emmy-Viewers
 ;;
-;; A library of functions for building high-performance interactive 2D and 3D
-;; mathematical scenes powered by
+;; A library of functions for building high-performance interactive symbolic
+;; representations and 2D and 3D mathematical scenes powered by
 ;; the [Emmy](https://github.com/mentat-collective/emmy) computer algebra
 ;; system.
 
@@ -52,8 +52,10 @@
 ;;
 ;; ## What is Emmy-Viewers?
 ;;
-;; Emmy-Viewers is a library of tools for building interactive scenes for
-;; exploring physical and mathematical worlds.
+;; Emmy-Viewers is a library of tools for visually rendering mathematical
+;; objects found in the [Emmy](https://github.com/mentat-collective/emmy)
+;; computer algebra system. These tools allow you to build interactive scenes
+;; for exploring physical and mathematical worlds.
 ;;
 ;; The first example uses the functions in
 ;; the [`emmy.mafs`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mafs)
@@ -67,17 +69,17 @@
 ;; > The 'show code' link below will expand the example's source.
 
 ^{::clerk/visibility {:code :fold}}
-(ev/with-let [!phase [0 0]]
-  (let [shifted (ev/with-params {:atom !phase :params [0]}
+(emmy.viewer/with-let [!phase [0 0]]
+  (let [shifted (emmy.viewer/with-params {:atom !phase :params [0]}
                   (fn [shift]
                     (((cube D) tanh) (- identity shift))))]
-    (mafs/mafs
+    (emmy.mafs/mafs
      {:height 400}
-     (mafs/cartesian)
-     (mafs/of-x shifted)
-     (mafs/inequality
+     (emmy.mafs/cartesian)
+     (emmy.mafs/of-x shifted)
+     (emmy.mafs/inequality
       {:y {:<= shifted :> cos} :color :blue})
-     (mafs/movable-point
+     (emmy.mafs/movable-point
       {:atom !phase :constrain "horizontal"}))))
 
 ;; The next example uses the functions
@@ -91,24 +93,26 @@
 ;; top right:
 
 ^{::clerk/visibility {:code :fold}}
-(ev/with-let [!phase {:phase 0}]
-  (plot/scene
-   (leva/controls
+(emmy.viewer/with-let [!phase {:phase 0}]
+  (emmy.mathbox.plot/scene
+   (emmy.leva/controls
     {:folder {:name "Intro Demo"}
      :schema {:phase {:min -4 :max 4 :step 0.01}}
      :atom !phase})
-   (plot/of-y  {:z (ev/with-params {:atom !phase :params [:phase]}
-                     (fn [shift]
-                       (fn [y]
-                         (* shift (sin (- y shift))))))
+   (emmy.mathbox.plot/of-y
+    {:z (ev/with-params {:atom !phase :params [:phase]}
+          (fn [shift]
+            (fn [y]
+              (* shift (sin (- y shift))))))
 
-                :color "LimeGreen"})
-   (plot/of-xy {:color "#3090FF"
-                :z (ev/with-params {:atom !phase :params [:phase]}
-                     (fn [shift]
-                       (fn [[x y]]
-                         (+ (((cube D) tanh) x)
-                            (sin (- y shift))))))})))
+     :color "LimeGreen"})
+   (emmy.mathbox.plot/of-xy
+    {:color "#3090FF"
+     :z (ev/with-params {:atom !phase :params [:phase]}
+          (fn [shift]
+            (fn [[x y]]
+              (+ (((cube D) tanh) x)
+                 (sin (- y shift))))))})))
 
 ;; Emmy-Viewers uses either [Clerk](https://github.com/nextjournal/clerk) or
 ;; [Portal](https://github.com/djblue/portal) as a presentation environment.
@@ -116,7 +120,7 @@
 ;;
 ;; ## Quickstart
 
-;;Install `Emmy-Viewers` into your Clojure project using the instructions at its
+;;Install Emmy-Viewers into your Clojure project using the instructions at its
 ;; Clojars page:
 
 ;; [![Clojars
@@ -133,7 +137,19 @@
    :git/sha \"%s\"}}
   ```" (docs/git-sha)))
 
+;; ### Quickstart via Clerk
+;;
+;; TODO Clerk Demo
 
+;; ### Quickstart via Portal
+
+;; ## Specific Guides
+;;
+;; TODO fill in specific guides.
+
+;; - mafs
+;; - mathbox
+;; - leva
 
 ;; ## Demos
 ;;
@@ -182,30 +198,11 @@
 ;; ```
 ;;
 ;; If you want more granular control, see the [cljdoc page for
-;; `emmy.sci`](https://cljdoc.org/d/org.mentat/emmy/CURRENT/api/emmy.sci)
+;; `emmy.viewer.sci`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.viewer.sci)
 ;; for an SCI config and distinct SCI namespace objects that you can piece
 ;; together.
 ;;
-;; > Note that `Emmy` does not ship with a dependency on SCI, so you'll
-;; > need to install your own version.
-;;
-;; ## Emmy-Viewers via Clerk
-;;
-;; Using `Emmy-Viewers` with Nextjournal's [Clerk](https://clerk.vision/) gives
-;; you the ability to write notebooks like this one.
-;;
-;; Doing this requires that you generate a custom ClojureScript build for your
-;; Clerk project. The easiest way to do this for an existing project is with
-;; the [`clerk-utils` project](https://clerk-utils.mentat.org/). Follow the
-;; instructions on the [`clerk-utils` guide for custom
-;; ClojureScript](https://clerk-utils.mentat.org/#custom-clojurescript-builds).
-;;
-;; If this is your first time using Clerk, use the [`emmy/clerk` template
-;; described below](#project-template) to generate a new project with all steps
-;; described in ["Emmy-Viewers via SCI"](#emmy-viewers-via-sci) already
-;; completed.
-;;
-;; ## Project Template
+;; ## Clerk Project Template
 ;;
 ;; `Emmy-Viewers` includes
 ;; a [`deps-new`](https://github.com/seancorfield/deps-new) template called
@@ -244,7 +241,7 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/emmy-viewers {:git/sha \"%s\
 
 ;; ## clj-kondo config
 
-;; `Emmy` ships with a configuration that allows
+;; `Emmy-Viewers` ships with a configuration that allows
 ;; [clj-kondo](https://github.com/clj-kondo/clj-kondo) to lint the library's
 ;; macros.
 
@@ -288,7 +285,12 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/emmy-viewers {:git/sha \"%s\
 ;; To support this work and my other open source projects, consider sponsoring
 ;; me via my [GitHub Sponsors page](https://github.com/sponsors/sritchie). Thank
 ;; you to my current sponsors!
-
+;;
+;; I'm grateful to [Clojurists Together](https://www.clojuriststogether.org/)
+;; for financial support during this library's creation. Please
+;; consider [becoming a member](https://www.clojuriststogether.org/developers/)
+;; to support this work and projects like it.
+;;
 ;; For more information on me and my work, visit https://samritchie.io.
 
 ;; ## License
