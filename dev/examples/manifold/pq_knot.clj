@@ -135,22 +135,15 @@
    (torus-knot R (+ r2 r3) p q)
    r3))
 
-(defn scene [& children]
-  (box/mathbox
-   {:container  {:style {:height "500px" :width "100%"}}
-    :renderer   {:background-opacity 0}
-    :scale 500 :focus 3}
-   (box/camera {:proxy true :position [1 3 1]})
-   (apply box/cartesian
-          {:range [[-1 1] [-1 1] [-1 1]]
-           :scale [1 1 1]}
-          children)))
-
 ^{:nextjournal.clerk/width :full
   :nextjournal.clerk/visibility {:code :fold}}
-
 (ev/with-let [!opts {:p 7 :q 8 :r1 1.791 :r2 0.95 :r3 0.1 :torus? false}]
-  (scene
+  (plot/scene
+   {:container {:style {:height "500px" :width "100%"}}
+    :camera [1 3 1]
+    :range [[-1 1] [-1 1] [-1 1]]
+    :axes []
+    :grids []}
    (leva/controls
     {:folder {:name "PQ Knot"}
      :atom !opts
@@ -171,6 +164,7 @@
      :v-samples 16
      :grid-color 0xffffff
      :grid-opacity 1
+     :grid-width 3
      :grid-u 100
      :grid-v 4
      :u [(- Math/PI) Math/PI]

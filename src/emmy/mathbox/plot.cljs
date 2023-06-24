@@ -5,9 +5,11 @@
   (:require [clojure.set :as cs]
             [emmy.mathbox.color :as color]
             [emmy.viewer.plot :as p]
+            [mathbox.core]
             [mathbox.primitives :as mb]
             ["katex" :as katex]
-            ["mathbox" :as box]))
+            ["mathbox" :as box]
+            ["three" :as three]))
 
 ;; ## Utilities
 
@@ -381,7 +383,7 @@
                     (assoc :axes grid))])))
           m)))
 
-(defn Scene
+(defn SceneContent
   "Component that renders a mathematical 3d plotting scene into MathBox.
   Takes any number of children and nests them into a
   configured [[mathbox.coordinates/Cartesian]] component.
@@ -431,6 +433,30 @@
      (into [:<>] children)
      [SceneAxes axes range]
      [SceneGrids grids]]))
+
+(def ^:no-doc box-defaults
+  {:container  {:style {:height "400px" :width "100%"}}
+   :renderer   {:background-opacity 0}
+   :threestrap {:camera {:up (three/Vector3. 0 0 1)}}})
+
+(def ^:no-doc content-keys
+  [:range :scale :camera :axes :grids])
+
+(defn Scene
+  "Takes an optional options map and any number of children and nests them into a
+  configured [[mathbox.coordinates/Cartesian]] component that renders a
+  mathematical 3d plotting scene into MathBox.
+
+  Any option supported by [[mathbox.core/MathBox]] is removed and passed along
+  to that component, after merging with [[box-defaults]].
+
+  See [[SceneContent]] for all other supported options."
+  [& children]
+  (let [[opts children] (split-opts children)
+        content-opts    (select-keys opts content-keys)
+        box-opts        (apply dissoc opts content-keys)]
+    [mathbox.core/MathBox (merge box-defaults box-opts)
+     (into [SceneContent content-opts] children)]))
 
 ;; ## Objects
 ;;

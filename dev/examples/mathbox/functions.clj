@@ -12,16 +12,14 @@
 
 {:nextjournal.clerk/width :wide}
 
-
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
-;; ## Function Viewer
+;; # Function Viewer
 
-;; ### Demo
+;; ## Demo
 ;;
 ;; Let's make a function to try!
-
 
 (defn my-fn [x]
   (+ -1

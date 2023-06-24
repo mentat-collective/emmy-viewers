@@ -3,30 +3,9 @@
   [`emmy.mathbox.plot`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.plot)
   namespace."
   (:refer-clojure :exclude [vector])
-  (:require [emmy.mathbox :as box]
-            [emmy.mathbox.compile :as mc]
+  (:require [emmy.mathbox.compile :as mc]
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as c]))
-
-;; ## Utilities
-
-(defn ^:no-doc split-opts
-  "Returns a pair of a parameters map and the rest of the children. Useful for
-  allowing a component to take a props map optionally.
-
-  TODO this is duplicated between the clj and cljs versions of this file. Find a
-  better place and consolidate."
-  [children]
-  (if (map? (first children))
-    [(first children) (rest children)]
-    [{} children]))
-
-(def ^:no-doc box-defaults
-  {:container  {:style {:height "400px" :width "100%"}}
-   :renderer   {:background-opacity 0}})
-
-(def ^:no-doc client-keys
-  [:range :scale :camera :axes :grids])
 
 ;; ## Scene Elements
 
@@ -119,7 +98,7 @@
   mathematical 3d plotting scene into MathBox.
 
   Any option supported by [[emmy.mathbox/mathbox]] is removed and passed along
-  to that functions.
+  to that function.
 
   Optional arguments:
 
@@ -152,12 +131,8 @@
 
     See [[grid]] for more detail on allowed configuration values."
   [& children]
-  (let [[opts children] (split-opts children)
-        client-opts (select-keys opts client-keys)
-        box-opts    (apply dissoc opts client-keys)]
-    (box/mathbox
-     (merge box-defaults box-opts)
-     (into ['emmy.mathbox.plot/Scene client-opts] children))))
+  (ev/fragment
+   (into ['emmy.mathbox.plot/Scene] children)))
 
 ;; ## Geometric Primitives
 
