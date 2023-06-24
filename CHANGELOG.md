@@ -8,6 +8,8 @@
 
   - bump portal to enable leva
 
+  - remove custom JS from emmy-viewers/clerk template
+
 - #44:
 
   - Adds `emmy.viewer.physics` and `emmy.mathbox.physics` in support of the new

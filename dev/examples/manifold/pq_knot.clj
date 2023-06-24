@@ -138,9 +138,9 @@
 (defn scene [& children]
   (box/mathbox
    {:container  {:style {:height "500px" :width "100%"}}
-    :renderer  {:background-opacity 0}
+    :renderer   {:background-opacity 0}
     :scale 500 :focus 3}
-   (box/camera {:proxy true :position [1 1 3]})
+   (box/camera {:proxy true :position [1 3 1]})
    (apply box/cartesian
           {:range [[-1 1] [-1 1] [-1 1]]
            :scale [1 1 1]}

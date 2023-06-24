@@ -20,17 +20,13 @@
     [{} children]))
 
 (def ^:no-doc axis->idx
-  "Map of axis keyword => the MathBox dimensions that represent the axis or axes.
-
-  MathBox's `emit` calls confusingly take inputs in 'xzy' order! Rather than
-  swizzle everything I'm using this map to track the actual indices and being
-  careful."
+  "Map of axis keyword => the MathBox dimensions that represent the axis or axes."
   {:x 1
-   :y 3
-   :z 2
-   :xy [1 3] :yx [3 1]
-   :yz [3 2] :zy [2 3]
-   :xz [1 2] :zx [2 1]})
+   :y 2
+   :z 3
+   :xy [1 2] :yx [2 1]
+   :yz [2 3] :zy [3 2]
+   :xz [1 3] :zx [3 1]})
 
 (def ^:no-doc latex-render
   "HTML renderer for MathBox that renders its children using katex."
@@ -153,9 +149,9 @@
         [mb/Format {:expr (fn [x] (label-fn x))}]
         [mb/Label
          {:offset
-          (if (= idx 2)
+          (if (= axis :z)
             [20 0 0]
-            [0 -20 0])}]])]))
+            [0 0 -20])}]])]))
 
 (defn AxisLabel
   "Component that renders an axis label above the referenced `axis`.
@@ -401,7 +397,7 @@
     given to each dimension in the rendering. Each entry defaults to 1.
 
   - `:camera`: Camera position in units I don't really understand yet! Defaults
-    to `[0.5 0.6 2]`.
+    to `[0.5 -2 0.6]`.
 
   - `:axes`: can be either
 
@@ -425,14 +421,13 @@
         {:keys [camera range scale axes grids]
          :or {range  [[-5 5] [-5 5] [-5 5]]
               scale  [1 1 1]
-              camera [0.5 2 0.6]
+              camera [0.5 -2 0.6]
               axes  [:x :y :z]
-              grids [:xy]}} opts
-        range [(range 0) (range 2) (range 1)]]
+              grids [:xy]}} opts]
     [mb/Cartesian
-     {:range range :scale [(nth scale 0) (nth scale 2) (nth scale 1)]}
+     {:range range :scale scale}
      [mb/Camera
-      {:proxy true :position [(nth camera 0) (nth camera 2) (nth camera 1)]}]
+      {:proxy true :position camera}]
      (into [:<>] children)
      [SceneAxes axes range]
      [SceneGrids grids]]))
@@ -476,7 +471,6 @@
          color color/default}}]
   [:<>
    [mb/Array {:items 1 :live false :channels 3 :data [coords]}]
-   [mb/Swizzle {:order "xzy"}]
    [mb/Point
     {:size size
      :opacity opacity
@@ -565,7 +559,7 @@
                       :else ["" label])]
        [:<>
         [mb/Format {:weight "bold" :data data}]
-        [mb/Label {:offset [0 40 0]}]]))])
+        [mb/Label {:offset [0 0 40]}]]))])
 
 (defn Vector
   "Component that renders a vector into the scene with the specified `tip` and
@@ -714,9 +708,9 @@
      (js/Error. (str "Error: specify only one of `:y` or `:z`, not both!"))))
   (let [expr (cond
                y (fn [emit x _i _time _delta]
-                   (emit x 0 (y x)))
+                   (emit x (y x) 0))
                z (fn [emit x _i _time _delta]
-                   (emit x (z x) 0))
+                   (emit x 0 (z x)))
                :else
                (throw
                 (js/Error.
@@ -771,9 +765,9 @@
     (throw (js/Error. (str "Error: specify only one of `:x` or `:z`, not both!"))))
   (let [expr (cond
                x (fn [emit y _i _time _delta]
-                   (emit (x y) 0 y))
+                   (emit (x y) y 0))
                z (fn [emit y _i _time _delta]
-                   (emit 0 (z y) y))
+                   (emit 0 y (z y)))
                :else
                (throw
                 (js/Error.
@@ -828,9 +822,9 @@
     (throw (js/Error. (str "Error: specify only one of `:x` or `:y`, not both!"))))
   (let [expr (cond
                x (fn [emit z _i _time _delta]
-                   (emit (x z) z 0))
+                   (emit (x z) 0 z))
                y (fn [emit z _i _time _delta]
-                   (emit 0 z (y z)))
+                   (emit 0 (y z) z))
                :else
                (throw
                 (js/Error.
@@ -1038,8 +1032,8 @@
                    (aset in 0 r)
                    (aset in 1 theta)
                    (emit (* r (Math/cos theta))
-                         (z in)
-                         (* r (Math/sin theta))))]
+                         (* r (Math/sin theta))
+                         (z in)))]
         [Surface2D
          (-> (dissoc opts :z)
              (assoc :axes [1 3]
@@ -1108,7 +1102,7 @@
       (let [expr (fn [emit x y _i _j _time]
                    (aset in 0 x)
                    (aset in 1 y)
-                   (emit x (z in) y))]
+                   (emit x y (z in)))]
         [Surface2D
          (-> (dissoc opts :z)
              (cs/rename-keys {:x-range :u-range
@@ -1174,7 +1168,7 @@
       (let [expr (fn [emit x z _i _j _time]
                    (aset in 0 x)
                    (aset in 1 z)
-                   (emit x z (y in)))]
+                   (emit x (y in) z))]
         [Surface2D
          (-> (dissoc opts :y)
              (cs/rename-keys {:x-range :u-range
@@ -1184,8 +1178,7 @@
                               :grid-x :grid-u
                               :grid-z :grid-v})
              (assoc :axes (axis->idx :xz)
-                    :expr expr))]
-        ))))
+                    :expr expr))]))))
 
 (defn OfYZ
   "Component that plots an explicit surface defined by `:x` into the scene along the
@@ -1241,7 +1234,7 @@
       (let [expr (fn [emit y z _i _j _time]
                    (aset in 0 y)
                    (aset in 1 z)
-                   (emit (x in) z y))]
+                   (emit (x in) y z))]
         [Surface2D
          (-> (dissoc opts :x)
              (cs/rename-keys {:y-range :u-range
@@ -1274,11 +1267,11 @@
          (assoc :expr
                 (let [scale 0.2]
                   (fn [emit x y z]
-                    (emit x z y)
-                    (f (fn [x' z' y']
+                    (emit x y z)
+                    (f (fn [x' y' z']
                          (emit (+ x (* scale x'))
-                               (+ z (* scale z'))
-                               (+ y (* scale y'))))
+                               (+ y (* scale y'))
+                               (+ z (* scale z'))))
                        x y z)))
                 :items 2
                 :channels 3

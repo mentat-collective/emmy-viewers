@@ -126,18 +126,79 @@
 ;; [![Clojars
 ;; Project](https://img.shields.io/clojars/v/org.mentat/emmy-viewers.svg)](https://clojars.org/org.mentat/emmy-viewers)
 ;;
-;; Or grab the most recent code using a Git dependency:
+;; Or grab the most recent code by adding a Git dependency to your `deps.edn`
+;; file:
 
 ^{::clerk/visibility {:code :hide}}
 (clerk/md
  (format
   "```clojure
-{org.mentat/emmy-viewers
-  {:git/url \"https://github.com/mentat-collective/emmy-viewers.git\"
-   :git/sha \"%s\"}}
+{:deps
+  {org.mentat/emmy-viewers
+    {:git/url \"https://github.com/mentat-collective/emmy-viewers.git\"
+     :git/sha \"%s\"}}}
   ```" (docs/git-sha)))
 
+;; Next visit ["Quickstart via Clerk"](#quickstart-via-clerk) to build scenes
+;; using [Clerk](http://github.com/nextjournal/clerk), or ["Quickstart via
+;; Portal"](#quickstart-via-portal) to
+;; use [Portal](https://github.com/djblue/portal).
+;;
+;;
 ;; ### Quickstart via Clerk
+;;
+;; Install Clerk: [![Clojars
+;; Project](https://img.shields.io/clojars/v/io.github.nextjournal/clerk.svg)](https://clojars.org/io.github.nextjournal/clerk)
+;;
+;; Require and start `emmy.clerk` in your `user.clj`:
+;;
+;; ```clojure
+;; (ns user
+;;   (:require [emmy.clerk :as ec]))
+
+;; ;; start Clerk's built-in webserver on the default port 7777, opening the
+;; ;; browser when done
+;; (ec/serve! {:browse true})
+;; ```
+;;
+;; > See Clerk's ["Using
+;; > Clerk"](https://github.com/nextjournal/clerk#-using-clerk) section for more
+;; > configuration options. Replace any call in that guide to
+;; > `nextjournal.clerk/{serve!,halt!,build!}` with
+;; > `emmy.clerk/{serve!,halt!,build!}`.
+
+;; Create a file called `emmy/demo.clj` and install our default Clerk viewers
+;; from `emmy.clerk`:
+
+;; ```clojure
+;; (ns emmy.demo
+;;   (:refer-clojure
+;;    :exclude [+ - * / zero? compare divide numerator denominator
+;;              infinite? abs ref partial =])
+;;   (:require [emmy.clerk :as ec]
+;;             [emmy.env :as e :refer :all]
+;;             [emmy.mafs :as mafs]
+;;             [emmy.mathbox.plot :as plot]
+;;             [emmy.viewer :as ev]
+;;             [nextjournal.clerk :as clerk]))
+
+;; ^{::clerk/visibility {:code :hide :result :hide}}
+;; (ec/install!)
+;; ```
+;;
+;; > This namespace imports every function
+;; > from [`emmy.env`](https://cljdoc.org/d/org.mentat/emmy/0.31.0/api/emmy.env).
+;; > You'll need to build your mathematical functions out of these `emmy.env`
+;; > functions to use them with Emmy-Viewers 2D and 3D plotting capabilities.
+;;
+;; Add this line to plot the sine function using
+;; the [Mafs.cljs](https://mafs.mentat.org/) 2D plotting library:
+
+(mafs/of-x sin {:color :blue})
+
+;;
+;;
+
 ;;
 ;; TODO Clerk Demo
 

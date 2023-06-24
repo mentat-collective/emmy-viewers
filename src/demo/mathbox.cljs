@@ -48,9 +48,7 @@
      #js {:absoluteTolerance epsilon
           :relativeTolerance epsilon
           :rawFunction true
-          :maxSteps 10000})
-    )
-  )
+          :maxSteps 10000})))
 
 (defn Lagrangian-collector
   "hardcoded at first for this use case."

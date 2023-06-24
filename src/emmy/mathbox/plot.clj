@@ -22,8 +22,8 @@
     [{} children]))
 
 (def ^:no-doc box-defaults
-  {:container {:style {:height "400px" :width "100%"}}
-   :renderer  {:background-opacity 0}})
+  {:container  {:style {:height "400px" :width "100%"}}
+   :renderer   {:background-opacity 0}})
 
 (def ^:no-doc client-keys
   [:range :scale :camera :axes :grids])

@@ -18,8 +18,8 @@ Emmy-Viewers makes it easy to use either [Clerk][clerk-url] or
 
 ## Quickstart with Clerk
 
-Install `emmy-viewers` into your Clojure project using the instructions at
-its Clojars page:
+Install `Emmy-Viewers` into your Clojure project using the instructions at its
+Clojars page:
 
 [![Clojars Project][clojars]][clojars-url]
 
