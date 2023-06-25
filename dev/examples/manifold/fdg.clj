@@ -63,7 +63,9 @@
 ;; Parametrized torus:
 
 (p/scene
- {:threestrap {:plugins  ["core" "controls" "cursor" "stats"]}}
+ {:threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+  :grids []
+  :axes []}
  (ev/with-let [!opts {:R Math/PI :r Math/PI}]
    [:<>
     (leva/controls

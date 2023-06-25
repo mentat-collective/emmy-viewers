@@ -195,10 +195,6 @@
 ;; the [Mafs.cljs](https://mafs.mentat.org/) 2D plotting library:
 
 (mafs/of-x sin {:color :blue})
-
-;;
-;;
-
 ;;
 ;; TODO Clerk Demo
 

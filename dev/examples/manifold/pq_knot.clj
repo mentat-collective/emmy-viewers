@@ -7,7 +7,6 @@
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
-            [emmy.mathbox :as box]
             [emmy.mathbox.plot :as plot]
             [emmy.viewer :as ev]))
 
@@ -139,7 +138,8 @@
   :nextjournal.clerk/visibility {:code :fold}}
 (ev/with-let [!opts {:p 7 :q 8 :r1 1.791 :r2 0.95 :r3 0.1 :torus? false}]
   (plot/scene
-   {:container {:style {:height "500px" :width "100%"}}
+   {:threestrap {:controls {:klass :trackball}}
+    :container {:style {:height "500px" :width "100%"}}
     :camera [1 3 1]
     :range [[-1 1] [-1 1] [-1 1]]
     :axes []

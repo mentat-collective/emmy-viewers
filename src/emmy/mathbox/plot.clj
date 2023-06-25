@@ -3,7 +3,8 @@
   [`emmy.mathbox.plot`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.plot)
   namespace."
   (:refer-clojure :exclude [vector])
-  (:require [emmy.mathbox.compile :as mc]
+  (:require [emmy.mathbox :as box]
+            [emmy.mathbox.compile :as mc]
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as c]))
 
@@ -92,13 +93,10 @@
   [opts]
   ['emmy.mathbox.plot/Grid opts])
 
-(defn scene
-  "Takes an optional options map and any number of children and nests them into a
-  configured [[mathbox.coordinates/Cartesian]] component that renders a
-  mathematical 3d plotting scene into MathBox.
-
-  Any option supported by [[emmy.mathbox/mathbox]] is removed and passed along
-  to that function.
+(defn cartesian
+  "Component that renders a mathematical 3d plotting scene into MathBox.
+  Takes any number of children and nests them into a
+  configured [[emmy.mathbox.plot/Cartesian]] component.
 
   Optional arguments:
 
@@ -111,7 +109,7 @@
     given to each dimension in the rendering. Each entry defaults to 1.
 
   - `:camera`: Camera position in units I don't really understand yet! Defaults
-    to `[0.5 0.6 2]`.
+    to `[0.5 -2 0.6]`.
 
   - `:axes`: can be either
 
@@ -130,6 +128,20 @@
     Any plane entries missing from `:grids` won't be rendered.
 
     See [[grid]] for more detail on allowed configuration values."
+  [& children]
+  (ev/fragment
+   (into ['emmy.mathbox.plot/Cartesian] children)
+   #(box/mathbox 'emmy.mathbox.plot/box-defaults %)))
+
+(defn scene
+  "Takes an optional options map and any number of children and nests them into a
+  configured [[emmy.mathbox.plot/Cartesian]] component that renders a
+  mathematical 3d plotting scene into MathBox.
+
+  Any option supported by [[emmy.mathbox/mathbox]] is removed and passed along
+  to that function.
+
+  See [[cartesian]] for all other supported options."
   [& children]
   (ev/fragment
    (into ['emmy.mathbox.plot/Scene] children)))
@@ -281,6 +293,8 @@
         [f-bind opts] (mc/compile-3d opts :f 1)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricCurve opts])
         (ev/fragment scene))))
+
+(defn polar-curve [])
 
 (defn of-x
   "Returns a fragment that plots a function in either the `y` or `z` directions as
@@ -491,13 +505,13 @@
   - `:f`: function of the form `(fn [[r theta]] [<z>])`, valid within the
     area specified by `:r-range` and `:theta-range`.
 
+  Optional arguments:
+
   - `:r-range`: 2-vector of the form `[<min-r> <max-r>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to `[0 3]`.
 
   - `:theta-range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying
-    the interval of the second input to `f`.
-
-  Optional arguments:
+    the interval of the second input to `f`. Defaults to `[0 (* 2 Math/PI)]`.
 
   - `:r-samples`: the number of r samples to use to generate the surface.
     Defaults to 64.
@@ -544,13 +558,13 @@
   - `:z`: function of the form `(fn [[x y]] [<z>])`, valid within the
     area specified by `:x-range` and `:y-range`.
 
+  Optional arguments:
+
   - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:x-samples`: the number of x samples to use to generate the surface.
     Defaults to 64.
@@ -597,13 +611,13 @@
   - `:y`: function of the form `(fn [[x z]] [<y>])`, valid within the
     area specified by `:x-range` and `:z-range`.
 
+  Optional arguments:
+
   - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:x-samples`: the number of x samples to use to generate the surface.
     Defaults to 64.
@@ -650,13 +664,13 @@
   - `:x`: function of the form `(fn [[y z]] [<x>])`, valid within the
     area specified by `:y-range` and `:z-range`.
 
+  Optional arguments:
+
   - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:y-samples`: the number of y samples to use to generate the surface.
     Defaults to 64.
@@ -697,7 +711,63 @@
 ;; ## Vector Fields
 
 (defn vector-field
-  "Currently in-progress component for displaying 3-dimensional vector fields."
+  "Returns a fragment that plots a vector field defined by `:f` into the scene
+  along the volume specified by `:x-range`, `:y-range` and `:z-range`.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [[x y z]] [<x> <y> <z>])`, valid within the
+    area specified by `:x-range`, `:y-range` and `:z-range`.
+
+    The function should return the coordinates of the tip of a vector with
+    origin at `[0 0 0]`; [[VectorField]] will translate each vector to start at
+    `[x y z]`.
+
+  Optional arguments:
+
+  - `:scale`: Optional scale factor to apply to each vector's magnitude.
+    Defaults to 1.0.
+
+  - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
+    of the first input to `f`. Defaults to the scene's range.
+
+  - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
+    of the first input to `f`. Defaults to the scene's range.
+
+  - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
+    of the second input to `f`. Defaults to the scene's range.
+
+  - `:x-samples`: the number of vectors to plot in the `x` direction. Defaults
+    to 10.
+
+  - `:y-samples`: the number of vectors to plot in the `y` direction. Defaults
+    to 10.
+
+  - `:z-samples`: the number of vectors to plot in the `z` direction. Defaults
+    to 10.
+
+  - `:start?` if `true`, renders an arrow at the start of each vector. Defaults
+    to `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of each vector. Defaults to
+    `true`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of each vector. Defaults to 2.
+
+  - `:opacity`: opacity of each vector. Defaults to 1.0.
+
+  - `:color`: color of each vector. This can be a `three.js` `Color` object
+    or [any valid input to its
+    constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the vector field.
+
+  - `:z-index`: zIndex of the vector field. Defaults to 0.
+
+  - `:z-bias`: zBias of the vector field. Defaults to 0."
   [opts]
   (let [[f-bind opts] (mc/compile-3d opts :f 3)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/VectorField opts])

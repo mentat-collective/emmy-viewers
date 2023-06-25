@@ -32,8 +32,7 @@
 
 ;; Then we'll call it with our new viewer:
 
-(plot/scene
- (plot/of-x {:z my-fn :samples 256}))
+(plot/of-x {:z my-fn :samples 256})
 
 (ev/with-let [!opts {:x-max 5
                      :color "#3090ff"}]

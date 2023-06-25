@@ -8,8 +8,7 @@
             [mathbox.core]
             [mathbox.primitives :as mb]
             ["katex" :as katex]
-            ["mathbox" :as box]
-            ["three" :as three]))
+            ["mathbox" :as box]))
 
 ;; ## Utilities
 
@@ -148,7 +147,9 @@
      [mb/Ticks {:width width}]
      (when labels?
        [:<>
-        [mb/Format {:expr (fn [x] (label-fn x))}]
+        [mb/Format
+         {:live false
+          :expr (fn [x] (label-fn x))}]
         [mb/Label
          {:offset
           (if (= axis :z)
@@ -187,7 +188,8 @@
            :live false
            :data [(assoc [0 0 0] (dec idx) position)]}]
          [mb/Text
-          {:weight "bold"
+          {:live false
+           :weight "bold"
            :data [label]}]
          [mb/Label
           {:size size
@@ -383,7 +385,7 @@
                     (assoc :axes grid))])))
           m)))
 
-(defn SceneContent
+(defn Cartesian
   "Component that renders a mathematical 3d plotting scene into MathBox.
   Takes any number of children and nests them into a
   configured [[mathbox.coordinates/Cartesian]] component.
@@ -413,6 +415,7 @@
   - `:grids`: either
 
     - a vector like `[:xy :yz]`
+
     - a map of `{<axis-key> <boolean-or-[[Grid]]-arguments>}`
 
     Any plane entries missing from `:grids` won't be rendered.
@@ -434,10 +437,15 @@
      [SceneAxes axes range]
      [SceneGrids grids]]))
 
-(def ^:no-doc box-defaults
+(def threestrap-defaults
+  "Default Threestrap options."
+  {:camera {:up [0 0 1]}})
+
+(def box-defaults
+  "Default MathBox options."
   {:container  {:style {:height "400px" :width "100%"}}
    :renderer   {:background-opacity 0}
-   :threestrap {:camera {:up (three/Vector3. 0 0 1)}}})
+   :threestrap threestrap-defaults})
 
 (def ^:no-doc content-keys
   [:range :scale :camera :axes :grids])
@@ -450,13 +458,16 @@
   Any option supported by [[mathbox.core/MathBox]] is removed and passed along
   to that component, after merging with [[box-defaults]].
 
-  See [[SceneContent]] for all other supported options."
+  See [[Cartesian]] for all other supported options."
   [& children]
   (let [[opts children] (split-opts children)
         content-opts    (select-keys opts content-keys)
-        box-opts        (apply dissoc opts content-keys)]
+        box-opts        (apply dissoc opts content-keys)
+        box-opts        (if-let [m (:threestrap box-opts)]
+                          (assoc box-opts :threestrap (merge threestrap-defaults m))
+                          box-opts)]
     [mathbox.core/MathBox (merge box-defaults box-opts)
-     (into [SceneContent content-opts] children)]))
+     (into [Cartesian content-opts] children)]))
 
 ;; ## Objects
 ;;
@@ -682,10 +693,11 @@
   - `:z-index`: zIndex of the curve. Defaults to 0.
 
   - `:z-bias`: zBias of the curve. Defaults to 0."
-  [{:keys [f t] :as opts}]
+  [opts]
   [Curve1D
-   (-> (dissoc opts :f :t)
-       (assoc :expr f :range t))])
+   (cs/rename-keys opts {:f :expr :r :range})])
+
+(defn PolarCurve [])
 
 (defn OfX
   "Component that plots a function in either the `y` or `z` directions as a
@@ -1009,13 +1021,13 @@
   - `:f`: function of the form `(fn [[r theta]] [<z>])`, valid within the
     area specified by `:r-range` and `:theta-range`.
 
+  Optional arguments:
+
   - `:r-range`: 2-vector of the form `[<min-r> <max-r>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to `[0 3]`.
 
   - `:theta-range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying
-    the interval of the second input to `f`.
-
-  Optional arguments:
+    the interval of the second input to `f`. Defaults to `[0 (* 2 Math/PI)]`.
 
   - `:r-samples`: the number of r samples to use to generate the surface.
     Defaults to 64.
@@ -1051,7 +1063,7 @@
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [z r-range theta-range]
-         :or {r-range [0 3]
+         :or {r-range     [0 3]
               theta-range [0 (* 2 Math/PI)]}
          :as opts}]
       (let [expr (fn [emit r theta _i _j _time]
@@ -1083,13 +1095,13 @@
   - `:z`: function of the form `(fn [[x y]] [<z>])`, valid within the
     area specified by `:x-range` and `:y-range`.
 
+  Optional arguments:
+
   - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:x-samples`: the number of x samples to use to generate the surface.
     Defaults to 64.
@@ -1149,13 +1161,13 @@
   - `:y`: function of the form `(fn [[x z]] [<y>])`, valid within the
     area specified by `:x-range` and `:z-range`.
 
+  Optional arguments:
+
   - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:x-samples`: the number of x samples to use to generate the surface.
     Defaults to 64.
@@ -1215,13 +1227,13 @@
   - `:x`: function of the form `(fn [[y z]] [<x>])`, valid within the
     area specified by `:y-range` and `:z-range`.
 
+  Optional arguments:
+
   - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:y-samples`: the number of y samples to use to generate the surface.
     Defaults to 64.
@@ -1272,39 +1284,108 @@
              (assoc :axes (axis->idx :yz)
                     :expr expr))]))))
 
-;; Finish getting info from
-;; https://github.com/ChristopherChudzicki/math3d-react/blob/master/client/src/components/MathBox/MathBoxComponents.js#L1424-L1435
-;;
-;; and make sure it feels like the mafs vectorfield example. Should we normalize
-;; down? Probably not, let the user do that.
-
 (defn VectorField
-  "Currently in-progress component for displaying 3-dimensional vector fields."
-  [{:keys [f x y z] :as opts}]
-  [:<>
-   [mb/Volume
-    (merge
-     {:live false
-      :width 10
-      :height 10
-      :depth 10}
-     (-> opts
-         (dissoc :f :x :y :z)
-         (assoc :expr
-                (let [scale 0.2]
-                  (fn [emit x y z]
-                    (emit x y z)
-                    (f (fn [x' y' z']
-                         (emit (+ x (* scale x'))
-                               (+ y (* scale y'))
-                               (+ z (* scale z'))))
-                       x y z)))
-                :items 2
-                :channels 3
-                :rangeX x
-                :rangeY y
-                :rangeZ z)))]
-   [mb/Vector {:points "<"
-               :color "blue"
-               :size 4
-               :end true}]])
+  "Component that plots a vector field defined by `:f` into the scene along the
+  volume specified by `:x-range`, `:y-range` and `:z-range`.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [[x y z]] [<x> <y> <z>])`, valid within the
+    area specified by `:x-range`, `:y-range` and `:z-range`.
+
+    The function should return the coordinates of the tip of a vector with
+    origin at `[0 0 0]`; [[VectorField]] will translate each vector to start at
+    `[x y z]`.
+
+  Optional arguments:
+
+  - `:scale`: Optional scale factor to apply to each vector's magnitude.
+    Defaults to 1.0.
+
+  - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
+    of the first input to `f`. Defaults to the scene's range.
+
+  - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
+    of the first input to `f`. Defaults to the scene's range.
+
+  - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
+    of the second input to `f`. Defaults to the scene's range.
+
+  - `:x-samples`: the number of vectors to plot in the `x` direction. Defaults
+    to 10.
+
+  - `:y-samples`: the number of vectors to plot in the `y` direction. Defaults
+    to 10.
+
+  - `:z-samples`: the number of vectors to plot in the `z` direction. Defaults
+    to 10.
+
+  - `:start?` if `true`, renders an arrow at the start of each vector. Defaults
+    to `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of each vector. Defaults to
+    `true`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of each vector. Defaults to 2.
+
+  - `:opacity`: opacity of each vector. Defaults to 1.0.
+
+  - `:color`: color of each vector. This can be a `three.js` `Color` object
+    or [any valid input to its
+    constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the vector field.
+
+  - `:z-index`: zIndex of the vector field. Defaults to 0.
+
+  - `:z-bias`: zBias of the vector field. Defaults to 0."
+  [{:keys [f scale
+           x-samples y-samples z-samples
+           x-range y-range z-range
+           arrow-size width start? end?
+           opacity color z-order z-index z-bias]
+    :or {scale 1
+         x-samples 10
+         y-samples 10
+         z-samples 10
+         z-index 0
+         z-bias 0
+         opacity 1
+         color "#3090ff"
+         arrow-size 6
+         width 2
+         start? false
+         end? true}}]
+  (let [x-range (or x-range (when (= 1 x-samples) [0 0]))
+        y-range (or y-range (when (= 1 y-samples) [0 0]))
+        z-range (or z-range (when (= 1 z-samples) [0 0]))]
+    [:<>
+     [mb/Volume
+      (cond-> {:expr
+               (fn [emit x y z]
+                 (emit x y z)
+                 (f (fn [x' y' z']
+                      (emit (+ x (* scale x'))
+                            (+ y (* scale y'))
+                            (+ z (* scale z'))))
+                    x y z))
+               :items 2
+               :channels 3
+               :live false
+               :width x-samples
+               :height y-samples
+               :depth z-samples}
+        x-range (assoc :rangeX x-range)
+        y-range (assoc :rangeY y-range)
+        z-range (assoc :rangeZ z-range))]
+     [mb/Vector
+      {:size arrow-size
+       :width width
+       :opacity opacity
+       :start start?
+       :end end?
+       :color color
+       :zOrder z-order :zIndex z-index :zBias z-bias}]]))
