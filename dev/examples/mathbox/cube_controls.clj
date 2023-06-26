@@ -40,8 +40,6 @@
    (box/camera {:position [2.5 1 2.5] :proxy true})
    (apply box/cartesian {} children)))
 
-
-
 (defn color-cube
   "Now THIS is some wild viewer writing!! This works with a dereferenced symbol OR
   with a literal..."

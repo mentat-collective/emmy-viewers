@@ -14,7 +14,7 @@
 
 {::clerk/width :wide}
 
-;; To enable rendering of the MathBox forms, install the Emmy viewers:
+;; To enable rendering of MathBox plots, install the Emmy viewers:
 
 ^{::clerk/visibility {:result :hide}}
 (ec/install!)

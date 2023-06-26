@@ -2,13 +2,22 @@
 
 ## [unreleased]
 
-- #:
+## [0.1.0]
 
-  - prepare for first release.
+- #49:
 
-  - bump portal to enable leva
+  - Performs a bunch of README etc updates in preparation for the `0.1.0`
+    release.
 
-  - remove custom JS from emmy-viewers/clerk template
+  - Bumps portal to `0.42.1` and enables the Leva portal viewers.
+
+  - Removes custom JS compilation from the `emmy-viewers/clerk` template, which
+    no longer needs it thanks to our precompiled JS.
+
+  - Sets a default camera `:up` direction of `[0 0 1]`, removing the need to
+    emit in `xzy` order. This would almost certainly have been ultra confusing
+    to anyone trying to extend the library. Thanks to @ChristopherChudzicki for
+    the suggestion here.
 
 - #44:
 

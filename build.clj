@@ -21,6 +21,12 @@
 (def pom-deps
   {'org.babashka/sci
    {:mvn/version "0.7.39"
+    :mvn/scope "provided"}
+   'io.github.nextjournal/clerk
+   {:mvn/version "0.14.919"
+    :mvn/scope "provided"}
+   'djblue/portal
+   {:mvn/version "0.42.1"
     :mvn/scope "provided"}})
 
 (defn- ->version

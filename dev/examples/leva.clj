@@ -12,7 +12,7 @@
             [emmy.env :as e :refer :all]
             [nextjournal.clerk :as clerk]))
 
-;; To enable rendering of the MathBox forms, install the Emmy viewers:
+;; To enable rendering of a Leva control panel, install the Emmy viewers:
 
 ^{::clerk/visibility {:result :hide}}
 (ec/install!)
