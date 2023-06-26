@@ -5,6 +5,7 @@
   (:require [clojure.set :as cs]
             [emmy.mathbox.color :as color]
             [emmy.viewer.plot :as p]
+            [mathbox.core]
             [mathbox.primitives :as mb]
             ["katex" :as katex]
             ["mathbox" :as box]))
@@ -20,17 +21,13 @@
     [{} children]))
 
 (def ^:no-doc axis->idx
-  "Map of axis keyword => the MathBox dimensions that represent the axis or axes.
-
-  MathBox's `emit` calls confusingly take inputs in 'xzy' order! Rather than
-  swizzle everything I'm using this map to track the actual indices and being
-  careful."
+  "Map of axis keyword => the MathBox dimensions that represent the axis or axes."
   {:x 1
-   :y 3
-   :z 2
-   :xy [1 3] :yx [3 1]
-   :yz [3 2] :zy [2 3]
-   :xz [1 2] :zx [2 1]})
+   :y 2
+   :z 3
+   :xy [1 2] :yx [2 1]
+   :yz [2 3] :zy [3 2]
+   :xz [1 3] :zx [3 1]})
 
 (def ^:no-doc latex-render
   "HTML renderer for MathBox that renders its children using katex."
@@ -150,12 +147,14 @@
      [mb/Ticks {:width width}]
      (when labels?
        [:<>
-        [mb/Format {:expr (fn [x] (label-fn x))}]
+        [mb/Format
+         {:live false
+          :expr (fn [x] (label-fn x))}]
         [mb/Label
          {:offset
-          (if (= idx 2)
+          (if (= axis :z)
             [20 0 0]
-            [0 -20 0])}]])]))
+            [0 0 -20])}]])]))
 
 (defn AxisLabel
   "Component that renders an axis label above the referenced `axis`.
@@ -189,7 +188,8 @@
            :live false
            :data [(assoc [0 0 0] (dec idx) position)]}]
          [mb/Text
-          {:weight "bold"
+          {:live false
+           :weight "bold"
            :data [label]}]
          [mb/Label
           {:size size
@@ -385,7 +385,7 @@
                     (assoc :axes grid))])))
           m)))
 
-(defn Scene
+(defn Cartesian
   "Component that renders a mathematical 3d plotting scene into MathBox.
   Takes any number of children and nests them into a
   configured [[mathbox.coordinates/Cartesian]] component.
@@ -401,7 +401,7 @@
     given to each dimension in the rendering. Each entry defaults to 1.
 
   - `:camera`: Camera position in units I don't really understand yet! Defaults
-    to `[0.5 0.6 2]`.
+    to `[0.5 -2 0.6]`.
 
   - `:axes`: can be either
 
@@ -415,6 +415,7 @@
   - `:grids`: either
 
     - a vector like `[:xy :yz]`
+
     - a map of `{<axis-key> <boolean-or-[[Grid]]-arguments>}`
 
     Any plane entries missing from `:grids` won't be rendered.
@@ -425,17 +426,48 @@
         {:keys [camera range scale axes grids]
          :or {range  [[-5 5] [-5 5] [-5 5]]
               scale  [1 1 1]
-              camera [0.5 2 0.6]
+              camera [0.5 -2 0.6]
               axes  [:x :y :z]
-              grids [:xy]}} opts
-        range [(range 0) (range 2) (range 1)]]
+              grids [:xy]}} opts]
     [mb/Cartesian
-     {:range range :scale [(nth scale 0) (nth scale 2) (nth scale 1)]}
+     {:range range :scale scale}
      [mb/Camera
-      {:proxy true :position [(nth camera 0) (nth camera 2) (nth camera 1)]}]
+      {:proxy true :position camera}]
      (into [:<>] children)
      [SceneAxes axes range]
      [SceneGrids grids]]))
+
+(def threestrap-defaults
+  "Default Threestrap options."
+  {:camera {:up [0 0 1]}})
+
+(def box-defaults
+  "Default MathBox options."
+  {:container  {:style {:height "400px" :width "100%"}}
+   :renderer   {:background-opacity 0}
+   :threestrap threestrap-defaults})
+
+(def ^:no-doc content-keys
+  [:range :scale :camera :axes :grids])
+
+(defn Scene
+  "Takes an optional options map and any number of children and nests them into a
+  configured [[mathbox.coordinates/Cartesian]] component that renders a
+  mathematical 3d plotting scene into MathBox.
+
+  Any option supported by [[mathbox.core/MathBox]] is removed and passed along
+  to that component, after merging with [[box-defaults]].
+
+  See [[Cartesian]] for all other supported options."
+  [& children]
+  (let [[opts children] (split-opts children)
+        content-opts    (select-keys opts content-keys)
+        box-opts        (apply dissoc opts content-keys)
+        box-opts        (if-let [m (:threestrap box-opts)]
+                          (assoc box-opts :threestrap (merge threestrap-defaults m))
+                          box-opts)]
+    [mathbox.core/MathBox (merge box-defaults box-opts)
+     (into [Cartesian content-opts] children)]))
 
 ;; ## Objects
 ;;
@@ -476,7 +508,6 @@
          color color/default}}]
   [:<>
    [mb/Array {:items 1 :live false :channels 3 :data [coords]}]
-   [mb/Swizzle {:order "xzy"}]
    [mb/Point
     {:size size
      :opacity opacity
@@ -565,7 +596,7 @@
                       :else ["" label])]
        [:<>
         [mb/Format {:weight "bold" :data data}]
-        [mb/Label {:offset [0 40 0]}]]))])
+        [mb/Label {:offset [0 0 40]}]]))])
 
 (defn Vector
   "Component that renders a vector into the scene with the specified `tip` and
@@ -662,10 +693,61 @@
   - `:z-index`: zIndex of the curve. Defaults to 0.
 
   - `:z-bias`: zBias of the curve. Defaults to 0."
-  [{:keys [f t] :as opts}]
+  [opts]
   [Curve1D
-   (-> (dissoc opts :f :t)
-       (assoc :expr f :range t))])
+   (cs/rename-keys opts {:f :expr :t :range})])
+
+(defn PolarCurve
+  "Component that plots a polar curve, ie, radius as a function of theta.
+
+  Required arguments:
+
+  - `:r`: function of the form `(fn [theta] <r>)`, valid within the range of
+    theta values specified by `:range`.
+
+    NOTE that you may only supply ONE of these two! Supplying both will trigger
+    an error.
+
+  Optional arguments:
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying the
+    range to feed into `:r`. Defaults to `[0 (* 2 Math/PI)]`.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
+  [{:keys [r range]
+    :or {range [0 (* 2 Math/PI)]}
+    :as opts}]
+  (let [expr (fn [emit theta _i _time]
+               (let [radius (r theta)]
+                 (emit (* radius (Math/cos theta))
+                       (* radius (Math/sin theta))
+                       0)))]
+    [Curve1D
+     (-> (dissoc opts :r)
+         (assoc :expr expr :range range))]))
 
 (defn OfX
   "Component that plots a function in either the `y` or `z` directions as a
@@ -684,7 +766,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-x> <max-x>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-x> <max-x>]` specifying the range to
     feed into `:y` or `:z`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -714,9 +796,9 @@
      (js/Error. (str "Error: specify only one of `:y` or `:z`, not both!"))))
   (let [expr (cond
                y (fn [emit x _i _time _delta]
-                   (emit x 0 (y x)))
+                   (emit x (y x) 0))
                z (fn [emit x _i _time _delta]
-                   (emit x (z x) 0))
+                   (emit x 0 (z x)))
                :else
                (throw
                 (js/Error.
@@ -742,7 +824,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-y> <max-y>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-y> <max-y>]` specifying the range to
     feed into `:x` or `:z`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -771,9 +853,9 @@
     (throw (js/Error. (str "Error: specify only one of `:x` or `:z`, not both!"))))
   (let [expr (cond
                x (fn [emit y _i _time _delta]
-                   (emit (x y) 0 y))
+                   (emit (x y) y 0))
                z (fn [emit y _i _time _delta]
-                   (emit 0 (z y) y))
+                   (emit 0 y (z y)))
                :else
                (throw
                 (js/Error.
@@ -799,7 +881,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-z> <max-z>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-z> <max-z>]` specifying the range to
     feed into `:x` or `:y`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -828,9 +910,9 @@
     (throw (js/Error. (str "Error: specify only one of `:x` or `:y`, not both!"))))
   (let [expr (cond
                x (fn [emit z _i _time _delta]
-                   (emit (x z) z 0))
+                   (emit (x z) 0 z))
                y (fn [emit z _i _time _delta]
-                   (emit 0 z (y z)))
+                   (emit 0 (y z) z))
                :else
                (throw
                 (js/Error.
@@ -972,13 +1054,11 @@
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
     `:color`."
-  [{:keys [f] :as opts}]
+  [opts]
   [Surface2D
-   (-> (dissoc opts :f)
-       (assoc :expr f)
-       (cs/rename-keys
-        {:u :u-range
-         :v :v-range}))])
+   (cs/rename-keys opts {:f :expr
+                         :u :u-range
+                         :v :v-range})])
 
 (defn PolarSurface
   "Component that plots a polar surface defined by `:f` into the scene along the
@@ -989,13 +1069,13 @@
   - `:f`: function of the form `(fn [[r theta]] [<z>])`, valid within the
     area specified by `:r-range` and `:theta-range`.
 
+  Optional arguments:
+
   - `:r-range`: 2-vector of the form `[<min-r> <max-r>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to `[0 3]`.
 
   - `:theta-range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying
-    the interval of the second input to `f`.
-
-  Optional arguments:
+    the interval of the second input to `f`. Defaults to `[0 (* 2 Math/PI)]`.
 
   - `:r-samples`: the number of r samples to use to generate the surface.
     Defaults to 64.
@@ -1031,15 +1111,15 @@
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [z r-range theta-range]
-         :or {r-range [0 3]
+         :or {r-range     [0 3]
               theta-range [0 (* 2 Math/PI)]}
          :as opts}]
       (let [expr (fn [emit r theta _i _j _time]
                    (aset in 0 r)
                    (aset in 1 theta)
                    (emit (* r (Math/cos theta))
-                         (z in)
-                         (* r (Math/sin theta))))]
+                         (* r (Math/sin theta))
+                         (z in)))]
         [Surface2D
          (-> (dissoc opts :z)
              (assoc :axes [1 3]
@@ -1063,13 +1143,13 @@
   - `:z`: function of the form `(fn [[x y]] [<z>])`, valid within the
     area specified by `:x-range` and `:y-range`.
 
+  Optional arguments:
+
   - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:x-samples`: the number of x samples to use to generate the surface.
     Defaults to 64.
@@ -1108,7 +1188,7 @@
       (let [expr (fn [emit x y _i _j _time]
                    (aset in 0 x)
                    (aset in 1 y)
-                   (emit x (z in) y))]
+                   (emit x y (z in)))]
         [Surface2D
          (-> (dissoc opts :z)
              (cs/rename-keys {:x-range :u-range
@@ -1129,13 +1209,13 @@
   - `:y`: function of the form `(fn [[x z]] [<y>])`, valid within the
     area specified by `:x-range` and `:z-range`.
 
+  Optional arguments:
+
   - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:x-samples`: the number of x samples to use to generate the surface.
     Defaults to 64.
@@ -1174,7 +1254,7 @@
       (let [expr (fn [emit x z _i _j _time]
                    (aset in 0 x)
                    (aset in 1 z)
-                   (emit x z (y in)))]
+                   (emit x (y in) z))]
         [Surface2D
          (-> (dissoc opts :y)
              (cs/rename-keys {:x-range :u-range
@@ -1184,8 +1264,7 @@
                               :grid-x :grid-u
                               :grid-z :grid-v})
              (assoc :axes (axis->idx :xz)
-                    :expr expr))]
-        ))))
+                    :expr expr))]))))
 
 (defn OfYZ
   "Component that plots an explicit surface defined by `:x` into the scene along the
@@ -1196,13 +1275,13 @@
   - `:x`: function of the form `(fn [[y z]] [<x>])`, valid within the
     area specified by `:y-range` and `:z-range`.
 
+  Optional arguments:
+
   - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
-    of the first input to `f`.
+    of the first input to `f`. Defaults to the scene's range.
 
   - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
-    of the second input to `f`.
-
-  Optional arguments:
+    of the second input to `f`. Defaults to the scene's range.
 
   - `:y-samples`: the number of y samples to use to generate the surface.
     Defaults to 64.
@@ -1241,7 +1320,7 @@
       (let [expr (fn [emit y z _i _j _time]
                    (aset in 0 y)
                    (aset in 1 z)
-                   (emit (x in) z y))]
+                   (emit (x in) y z))]
         [Surface2D
          (-> (dissoc opts :x)
              (cs/rename-keys {:y-range :u-range
@@ -1253,39 +1332,108 @@
              (assoc :axes (axis->idx :yz)
                     :expr expr))]))))
 
-;; Finish getting info from
-;; https://github.com/ChristopherChudzicki/math3d-react/blob/master/client/src/components/MathBox/MathBoxComponents.js#L1424-L1435
-;;
-;; and make sure it feels like the mafs vectorfield example. Should we normalize
-;; down? Probably not, let the user do that.
-
 (defn VectorField
-  "Currently in-progress component for displaying 3-dimensional vector fields."
-  [{:keys [f x y z] :as opts}]
-  [:<>
-   [mb/Volume
-    (merge
-     {:live false
-      :width 10
-      :height 10
-      :depth 10}
-     (-> opts
-         (dissoc :f :x :y :z)
-         (assoc :expr
-                (let [scale 0.2]
-                  (fn [emit x y z]
-                    (emit x z y)
-                    (f (fn [x' z' y']
-                         (emit (+ x (* scale x'))
-                               (+ z (* scale z'))
-                               (+ y (* scale y'))))
-                       x y z)))
-                :items 2
-                :channels 3
-                :rangeX x
-                :rangeY y
-                :rangeZ z)))]
-   [mb/Vector {:points "<"
-               :color "blue"
-               :size 4
-               :end true}]])
+  "Component that plots a vector field defined by `:f` into the scene along the
+  volume specified by `:x-range`, `:y-range` and `:z-range`.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [[x y z]] [<x> <y> <z>])`, valid within the
+    area specified by `:x-range`, `:y-range` and `:z-range`.
+
+    The function should return the coordinates of the tip of a vector with
+    origin at `[0 0 0]`; [[VectorField]] will translate each vector to start at
+    `[x y z]`.
+
+  Optional arguments:
+
+  - `:scale`: Optional scale factor to apply to each vector's magnitude.
+    Defaults to 1.0.
+
+  - `:x-range`: 2-vector of the form `[<min-x> <max-x>]` specifying the interval
+    of the first input to `f`. Defaults to the scene's range.
+
+  - `:y-range`: 2-vector of the form `[<min-y> <max-y>]` specifying the interval
+    of the first input to `f`. Defaults to the scene's range.
+
+  - `:z-range`: 2-vector of the form `[<min-z> <max-z>]` specifying the interval
+    of the second input to `f`. Defaults to the scene's range.
+
+  - `:x-samples`: the number of vectors to plot in the `x` direction. Defaults
+    to 10.
+
+  - `:y-samples`: the number of vectors to plot in the `y` direction. Defaults
+    to 10.
+
+  - `:z-samples`: the number of vectors to plot in the `z` direction. Defaults
+    to 10.
+
+  - `:start?` if `true`, renders an arrow at the start of each vector. Defaults
+    to `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of each vector. Defaults to
+    `true`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of each vector. Defaults to 2.
+
+  - `:opacity`: opacity of each vector. Defaults to 1.0.
+
+  - `:color`: color of each vector. This can be a `three.js` `Color` object
+    or [any valid input to its
+    constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the vector field.
+
+  - `:z-index`: zIndex of the vector field. Defaults to 0.
+
+  - `:z-bias`: zBias of the vector field. Defaults to 0."
+  [{:keys [f scale
+           x-samples y-samples z-samples
+           x-range y-range z-range
+           arrow-size width start? end?
+           opacity color z-order z-index z-bias]
+    :or {scale 1
+         x-samples 10
+         y-samples 10
+         z-samples 10
+         z-index 0
+         z-bias 0
+         opacity 1
+         color "#3090ff"
+         arrow-size 6
+         width 2
+         start? false
+         end? true}}]
+  (let [x-range (or x-range (when (= 1 x-samples) [0 0]))
+        y-range (or y-range (when (= 1 y-samples) [0 0]))
+        z-range (or z-range (when (= 1 z-samples) [0 0]))]
+    [:<>
+     [mb/Volume
+      (cond-> {:expr
+               (fn [emit x y z]
+                 (emit x y z)
+                 (f (fn [x' y' z']
+                      (emit (+ x (* scale x'))
+                            (+ y (* scale y'))
+                            (+ z (* scale z'))))
+                    x y z))
+               :items 2
+               :channels 3
+               :live false
+               :width x-samples
+               :height y-samples
+               :depth z-samples}
+        x-range (assoc :rangeX x-range)
+        y-range (assoc :rangeY y-range)
+        z-range (assoc :rangeZ z-range))]
+     [mb/Vector
+      {:size arrow-size
+       :width width
+       :opacity opacity
+       :start start?
+       :end end?
+       :color color
+       :zOrder z-order :zIndex z-index :zBias z-bias}]]))

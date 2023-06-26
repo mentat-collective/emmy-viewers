@@ -16,13 +16,6 @@ written with [`Emmy-Viewers`](https://emmy-viewers.mentat.org) and produce
 static builds of these notebooks ready for publication via [GitHub
 Pages](https://pages.github.com/) or [Clerk's Garden](https://clerk.garden/).
 
-The project is also configured to let you use `Emmy-Viewers` code, as well as
-other custom ClojureScript code that you write, inside of your Clerk project's
-[viewers](https://book.clerk.vision#viewers). To enable this feature, uncomment
-the two lines beginning with `:cljs-namespaces` to activate a custom
-ClojureScript build. See `dev/{{top/file}}/sci_extensions.cljs` for more
-information.
-
 > **Note**
 > This README contains a good amount of Getting Started material. Feel free to
 > delete anything that you don't want to keep, or move it to a file like
@@ -34,9 +27,6 @@ Install the following dependencies:
 
 - [Clojure CLI tools](https://clojure.org/guides/install_clojure)
 - [`babashka`](https://github.com/babashka/babashka#installation)
-
-You'll also need `node` installed, preferably via
-[`nvm`](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 Run the following command to see all of the [Babashka
 Tasks](https://book.babashka.org/#tasks) declared in `bb.edn`:
@@ -124,19 +114,6 @@ To show a file, pass it to `clerk/show!`:
 > **Note**
 > These commands work because dev/user.clj requires `nextjournal.clerk` under a
 > `clerk` alias, and defines a `serve!` function.
-
-## Custom ClojureScript and JavaScript
-
-All ClojureScript code you add to `src/{{top/file}}/custom.cljs` is available
-for use inside any [custom viewer code you
-write](https://book.clerk.vision/#writing-viewers).
-
-This is made possible by the code in `src/{{top/file}}/sci_viewers.cljs`. If you
-want to add more namespaces, follow the instructions in `sci_viewers.cljs` to
-get them into Clerk's SCI environment.
-
-That file also contains instructions on how to make JavaScript and NPM
-dependencies available to your viewers.
 
 ## Static Builds
 

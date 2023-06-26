@@ -3,7 +3,9 @@
 
   Use:
 
-  - [[install-css!]] for project configuration
+  - [[install-css!]] for project configuration (or use [[serve!]], [[halt!]]
+    and [[build!]] in place of the Clerk versions)
+
   - [[install!]] for notebook-specific configuration"
   {:nextjournal.clerk/toc true}
   (:require [clojure.walk :refer [postwalk]]
@@ -17,7 +19,7 @@
 (def custom-js
   "CDN address of a pre-built JS bundle for Clerk with support for all of this
   library's viewers."
-  "https://cas.clerk.garden/tree/8Vx3qnFoB2pE6Yk63LD14HRLNhXBapzwyjVaaxr4p4GiMf8QXiMc5kT4xePqWes8CkQaBBwqyPKCrYBzvd5XY8uGtX/.clerk/shadow-cljs/main.js")
+  "https://cas.clerk.garden/tree/8VtzzNQNgLi8tCtfjg3epG8AC4eLkodBppZFoyCrgfQSybHCky9BcT9PbYeoexpUmzRcQjPitiqqBa2UEXTkUguyRq/.clerk/shadow-cljs/main.js")
 
 ;; ## Viewers
 ;;
@@ -238,13 +240,12 @@
   All remaining `opts` are forwarded to [[nextjournal.clerk/build!]]"
   [opts]
   (let [existing @css/custom-css
-        opts     (cond-> opts
-                   (or (:cljs-namespaces opts)
-                       (:custom-js opts))
-                   (assoc :custom-js custom-js))]
-
+        opts     (if (or (:cljs-namespaces opts)
+                         (:custom-js opts))
+                   opts
+                   (assoc opts :custom-js custom-js))]
     (try (install-css!)
-         (b/build! (merge opts))
+         (b/build! opts)
          (finally
            (apply css/set-css! existing)))))
 

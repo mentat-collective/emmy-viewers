@@ -90,8 +90,8 @@
                      (fn [ys]
                        (state->xyz ys xyz)
                        (emit (aget xyz 0)
-                             (aget xyz 2)
-                             (aget xyz 1)))))}]
+                             (aget xyz 1)
+                             (aget xyz 2)))))}]
          [mb/Vector
           {:size arrow-size
            :width width

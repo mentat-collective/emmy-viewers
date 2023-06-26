@@ -35,8 +35,8 @@
                 syms)
          (~sym ~in out# psym#)
          (emit# (aget out# 0)
-                (aget out# 2)
-                (aget out# 1))))))
+                (aget out# 1)
+                (aget out# 2))))))
 
 (defn param-3d
   "Given:

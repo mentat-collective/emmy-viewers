@@ -3,11 +3,3 @@
   {:nextjournal.clerk/toc true})
 
 ;; ## Rational Function
-
-;; TODO remaining:
-;;
-;; Modular Int
-;; Function
-;; Operator
-;; Structures
-;; Matrix

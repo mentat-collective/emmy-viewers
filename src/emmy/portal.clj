@@ -13,9 +13,7 @@
   ["emmy/portal/tex.cljs"
    "emmy/portal/reagent.cljs"
    "emmy/portal/mafs.cljs"
-
-   ;; TODO: activate and bump Portal once 0.43.0 ships.
-   #_"emmy/portal/leva.cljs"
+   "emmy/portal/leva.cljs"
    "emmy/portal/jsxgraph.cljs"
    "emmy/portal/mathlive.cljs"])
 

@@ -1,11 +1,14 @@
-^{:nextjournal.clerk/visibility {:code :hide}}
+;; ## Mafs Viewers
+;;
+;; This namespace form makes use of a number of aliases that you'll want to use
+;; in your own namespace to follow these examples.
+
 (ns examples.mafs
   {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [emmy.mafs.core]
-            [emmy.clerk :as ec]
+  (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.mafs :as mafs]
             [emmy.polynomial :as poly]
@@ -15,12 +18,60 @@
 
 {::clerk/width :wide}
 
-;; ## Server-Side Mafs
+;; To enable rendering of the Mafs forms, install the Emmy viewers:
 
-^{::clerk/visibility {:code :hide :result :hide}}
+^{::clerk/visibility {:result :hide}}
 (ec/install!)
 
-;; parametrized function controlled by a stateful point:
+;; The page currently contains a bunch of representative demos. Read on, adapt,
+;; and be inspired!
+
+;; ## Non-Plots
+;;
+;; shorter vector and text on the same page:
+
+(mafs/mafs
+ {:height 300}
+ (mafs/cartesian)
+ (mafs/vector [1 2] {:color :blue})
+ (mafs/text "face" {:color :green}))
+
+;; ## Function Plots
+
+;; cartesian grid with nothing on it:
+
+(mafs/cartesian)
+
+;; ### Basics
+
+;; Plot of `sin`:
+
+(mafs/of-x {:y sin :color :blue})
+
+;; more fun with easy derivatives:
+
+(defn sigmoid1 [x]
+  (-> (/ 2 (+ 1 (exp (- x))))
+      (- 1)))
+
+(mafs/mafs {:zoom {:min 0.1 :max 2}}
+           (mafs/cartesian)
+           (mafs/of-x {:y sin :color :blue})
+           (mafs/of-x {:y (+ cos (D sin)) :color :green})
+           (mafs/of-y {:x sigmoid1 :color :pink}))
+
+;; ### Inequality
+
+(mafs/inequality
+ {:y {:<= sin :> cos} :color :blue})
+
+;; ### Param Function, Stateful Point
+;;
+;; Note that the function inside of `ev/with-params` takes `shift` and returns
+;; another function, built using Emmy's "function algebra".
+;;
+;; The inner function `(((cube D) tanh) (- identity shift))` is equivalent
+;; to `(fn [x] (((cube D) tanh) (- x shift)))`.
 
 (ev/with-let [!phase [0 0]]
   (let [shifted (ev/with-params {:atom !phase :params [0]}
@@ -34,7 +85,7 @@
      (mafs/movable-point
       {:atom !phase :constrain "horizontal"}))))
 
-;; same thing, different component:
+;; Similar idea with a parametric function:
 
 (ev/with-let [!phase [1 0]]
   (let [path (ev/with-params {:atom !phase :params [0 1]}
@@ -50,22 +101,8 @@
      (mafs/movable-point
       {:atom !phase}))))
 
-;; inequality:
+;; ### Vector field:
 
-(mafs/inequality
- {:y {:<= sin :> cos} :color :blue})
-
-;; shorter vector and text on the same page:
-
-(mafs/mafs
- {:height 300}
- (mafs/cartesian)
- (mafs/vector [1 2] {:color :blue})
- (mafs/text "face" {:color :green}))
-
-;; parametrized function running a vector field:
-
-^{::clerk/width :wide}
 (ev/with-let [!point [1 0]]
   (mafs/mafs
    (mafs/cartesian {:subdivisions 2})
@@ -81,9 +118,34 @@
                       10))})
    (mafs/movable-point {:atom !point})))
 
+;; ## Polynomials
+;;
+;; Emmy polynomials are functions, so are fair game for plotting:
+
+(mafs/of-x
+ (let [x (poly/identity)]
+   (+ (- x)
+      (square x)
+      (cube x))))
+
+;; ## Multiviewer
+;;
+;; tabbed viewer between TeX and plot:
+
+(def ->tex
+  (comp clerk/tex ->TeX simplify))
+
+(let [f ((expt D 5) tanh)]
+  (ec/multi
+   {:TeX  (->tex (f 'x))
+    :Mafs (mafs/mafs
+           {:zoom {:min 0.1 :max 2}}
+           (mafs/cartesian)
+           (mafs/of-x {:y f :color :blue}))}))
+
 ;; this one is a little more fun... I am building a quoted value for `:radius`,
 ;; but the backtick means that on the client-side we'll see `emmy.env/abs`. And
-;; Emmy is available over there so this works fine!
+;; Emmy is available in the SCI environment so this works fine!
 
 (ev/with-let [!point [1 1]]
   (mafs/mafs
@@ -92,6 +154,8 @@
     {:center [0 0]
      :radius `(abs @~!point)})
    (mafs/movable-point {:atom !point})))
+
+;; ## Combinators
 
 ;; Build up a more complex set of fragments with a combinators:
 
@@ -111,6 +175,8 @@
 
 (chain [1 2] [1 0] [-1 1])
 
+;; ## Compositional Scenes
+;;
 ;; This is the ellipse example from mafs as a higher-order function. Takes a
 ;; function of a state symbol and returns a reagent fragment.
 
@@ -155,8 +221,8 @@
            :path :translate
            :color :orange}))))))
 
-;;
-#_{:clj-kondo/ignore [:unused-binding]}
+;; Then use the function:
+
 (with-handles
   (fn [!state]
     [:<>
@@ -169,10 +235,6 @@
                 (let [{[x _] :width [_ y] :height} @~!state]
                   [(Math/abs x) (Math/abs y)]))})]))
 
-(defn sigmoid1 [x]
-  (-> (/ 2 (+ 1 (exp (- x))))
-      (- 1)))
-
 ;; function that generates fragments representing `n` derivatives of `f`:
 
 (defn derivatives [n f]
@@ -184,7 +246,7 @@
          (cycle
           [:red :orange :green :blue :indigo :violet :pink :yellow]))))
 
-;; `clerk/row` combinator works:
+;; `clerk/row` combinator works. Note that these can zoom!
 
 (clerk/row
  (mafs/mafs {:zoom {:min 0.1 :max 2}}
@@ -194,9 +256,8 @@
             (mafs/cartesian)
             (derivatives 5 tanh)))
 
-(def ->tex
-  (comp clerk/tex ->TeX simplify))
-
+;; ## Clerk Row and Column
+;;
 ;; show off a column of tex and then a graph of the same function:
 
 (let [f ((expt D 3) tanh)]
@@ -225,44 +286,3 @@
              (mafs/cartesian)
              (derivatives 5 tanh))
   (caption [:<> "Derivatives of " [:code "tanh"] "."])))
-
-;; cartesian works without a `mafs` wrapper:
-
-(mafs/cartesian)
-
-;; same here for `of-x`:
-
-(mafs/of-x {:y sin :color :blue})
-
-;; more fun with easy derivatives:
-
-(mafs/mafs {:zoom {:min 0.1 :max 2}}
-           (mafs/cartesian)
-           (mafs/of-x {:y sin :color :blue})
-           (mafs/of-x {:y (+ cos (D sin)) :color :green})
-           (mafs/of-y {:x sigmoid1 :color :pink}))
-
-;; ## Polynomials
-;;
-;; I think this can work out of the box for an Emmy Polynomial.
-
-(def my-poly
-  (let [x (poly/identity)]
-    (+ (- x)
-       (square x)
-       (cube x))))
-
-
-(mafs/of-x my-poly)
-
-;; ## Multiviewer
-;;
-;; tabbed viewer between TeX and plot:
-
-(let [f ((expt D 5) tanh)]
-  (ec/multi
-   {:TeX  (->tex (f 'x))
-    :Mafs (mafs/mafs
-           {:zoom {:min 0.1 :max 2}}
-           (mafs/cartesian)
-           (mafs/of-x {:y f :color :blue}))}))
