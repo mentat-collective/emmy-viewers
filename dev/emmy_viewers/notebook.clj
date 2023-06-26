@@ -147,6 +147,10 @@
 ;;
 ;; ### Quickstart via Clerk
 ;;
+;; The fastest way to get started with Clerk is to use the [`emmy-viewers/clerk`
+;; project template](#clerk-project-template). Jump there, or read on to set
+;; Clerk up manually.
+
 ;; Install Clerk: [![Clojars
 ;; Project](https://img.shields.io/clojars/v/io.github.nextjournal/clerk.svg)](https://clojars.org/io.github.nextjournal/clerk)
 ;;
@@ -191,61 +195,143 @@
 ;; > You'll need to build your mathematical functions out of these `emmy.env`
 ;; > functions to use them with Emmy-Viewers 2D and 3D plotting capabilities.
 ;;
+;; Thanks to the `ec/install!` call above, the return values of all Emmy-Viewers
+;; functions will be able to present themselves graphically.
+;;
 ;; Add this line to plot the sine function using
 ;; the [Mafs.cljs](https://mafs.mentat.org/) 2D plotting library:
 
 (mafs/of-x sin {:color :blue})
+
+;; Render it by calling `(nextjournal.clerk/show! "src/emmy/demo.clj")` at the
+;; REPL.
+
+;; > See the [Mafs Guide](/dev/examples/mafs) for 2D plotting examples.
+
+;; Use `plot/scene` to render multiple plots onto a 3D canvas:
+
+(plot/scene
+ (plot/of-x {:z sin})
+ (plot/parametric-curve
+  {:f (up sin cos (/ identity 3))
+   :t [-10 10]
+   :color :green}))
+
+;; > See the [MathBox Guide](/dev/examples/mafs) for 3D plotting examples.
 ;;
-;; TODO Clerk Demo
+;; Next, try clicking the 'show code' link for the examples at the top of the
+;; page and pasting their source into your namespace. Then visit the ["Specific
+;; Guides"](#specific-guides) section, and click through ["Demos"](#demos) for
+;; inspiration.
 
 ;; ### Quickstart via Portal
+;;
+;; Follow the [Portal Usage
+;; instructions](https://github.com/djblue/portal#usage) to the point where you
+;; have the Portal dependency installed and loadable.
+;;
+;; You'll also need to install [node.js](https://nodejs.org/en/) to download
+;; JavaScript dependencies.
+;;
+;; Test your installation by running this command at the REPL:
+
+;; ```clojure
+;; (require '[portal.api :as p])
+;; ```
+;;
+;; If this returns `nil` you're all set.
+
+;; Require `emmy.portal` in your `user.clj`, and call `prepare!` to make sure
+;; you've downloaded all JavaScript dependencies from `npm`:
+;;
+;; ```clojure
+;; (ns user
+;;   (:require [emmy.portal :as ep]))
+;;
+;; ;; This really only needs to be run once, but run it at each system start to
+;; ;; be safe.
+;; (ep/prepare!)
+;; ```
+;;
+;; Start the Emmy-Viewers customization of Portal:
+;;
+;; ```clojure
+;; (def portal
+;;   (ep/start!
+;;    {:emmy.portal/tex {:macros {"\\f" "#1f(#2)"}}
+;;     :theme :portal.colors/zenburn}))
+;; ```
+;;
+;; The options passed above are optional; `:emmy.portal/tex` customizes
+;; the [katex](https://katex.org/) viewer with any option allowed by [katex's
+;; option support](https://katex.org/docs/options.html), while `:theme` sets a
+;; custom theme. You can pass any [Portal
+;; theme](https://cljdoc.org/d/djblue/portal/0.42.1/doc/ui-concepts/themes) that
+;; you like, or remove this entry.
+;;
+;; Use `tap>` to send values to Portal:
+
+;; ```clojure
+;; (tap> (mafs/of-x sin {:color :indigo}))
+;; ```
+;;
+;; `tap>` an Emmy symbolic expression:
+;;
+;; ```clojure
+;; (tap> (((exp D) (literal-function 'f)) 'x))
+;; ```
+;;
+;; then click the cell in the Portal UI and choose `:emmy.portal/tex` from the
+;; viewer list at the bottom. You should see the expression transform into
+;; nicely typeset mathematics.
+;;
+;; > Currently anything from `emmy.mafs`, `emmy.leva`, `emmy.jsxgraph` and
+;; > `emmy.mathlive` will render. MathBox support is coming soon!
+
+;; Visit the ["Specific Guides"](#specific-guides) section, and click
+;; through ["Demos"](#demos) for inspiration.
 
 ;; ## Specific Guides
 ;;
-;; TODO fill in specific guides.
-
-;; - mafs
-;; - mathbox
-;; - leva
+;; - [MathBox Guide](/dev/examples/mathbox)
+;; - [Mafs Guide](/dev/examples/mafs)
+;; - [Leva Guide](/dev/examples/leva)
+;;
+;; [JSXGraph.cljs](https://github.com/mentat-collective/jsxgraph.cljs)
+;; and [MathLive.cljs](https://github.com/mentat-collective/jsxgraph.cljs)
+;; guides are coming soon.
 
 ;; ## Demos
 ;;
-;; - [examples.complex](/dev/examples/complex.html)
-;; - [examples.continued-fractions](/dev/examples/continued_fractions.html)
-;; - [examples.expression](/dev/examples/expression.html)
-;; - [examples.functions](/dev/examples/functions.html)
-;; - [examples.index.md](/dev/examples/index.md)
-;; - [examples.mafs](/dev/examples/mafs.html)
+;; These demos are in-progress, more advanced demonstrations of the capabilities
+;; of Emmy-Viewers. I'm using these as test cases to flesh out the more settled API, so please read them with that in mind!
+;;
+;; - [examples.manifold.fdg](/dev/examples/manifold/fdg)
+;; - [examples.manifold.klein](/dev/examples/manifold/klein)
 ;; - [examples.manifold.pq-knot](/dev/examples/manifold/pq_knot)
-;; - [examples.mathbox.cube-controls](/dev/examples/mathbox/cube_controls.html)
-;; - [examples.matrix](/dev/examples/matrix.html)
-;; - [examples.modint](/dev/examples/modint.html)
-;; - [examples.number](/dev/examples/number.html)
-;; - [examples.operator](/dev/examples/operator.html)
-;; - [examples.polynomial](/dev/examples/polynomial.html)
-;; - [examples.power-series](/dev/examples/power_series.html)
-;; - [examples.quaternion](/dev/examples/quaternion.html)
-;; - [examples.rational-function](/dev/examples/rational_function.html)
-;; - [examples.simulation.cylinder-flow](/dev/examples/simulation/cylinder_flow.html)
-;; - [examples.simulation.double-ellipsoid](/dev/examples/simulation/double_ellipsoid.html)
-;; - [examples.simulation.ellipsoid](/dev/examples/simulation/ellipsoid.html)
-;; - [examples.simulation.lorenz](/dev/examples/simulation/lorenz.html)
-;; - [examples.simulation.oscillator](/dev/examples/simulation/oscillator.html)
-;; - [examples.simulation.phase-portrait](/dev/examples/simulation/phase_portrait.html)
-;; - [examples.simulation.quartic-well](/dev/examples/simulation/quartic_well.html)
-;; - [examples.simulation.toroid](/dev/examples/simulation/toroid.html)
-;; - [examples.stern-brocot](/dev/examples/stern_brocot.html)
-;; - [examples.structure](/dev/examples/structure.html)
-;; - [examples.symbolic.einstein](/dev/examples/symbolic/einstein.html)
-;; - [examples.vega.pendulum](/dev/examples/vega/pendulum.html)
+;; - [examples.mathbox.cube-controls](/dev/examples/mathbox/cube_controls)
+;; - [examples.mathbox.functions](/dev/examples/mathbox/functions)
+;; - [examples.mathbox.geom](/dev/examples/mathbox/geom)
+;; - [examples.mathbox.ode](/dev/examples/mathbox/ode)
+;; - [examples.mathbox.quickstart](/dev/examples/mathbox/quickstart)
+;; - [examples.simulation.cylinder-flow](/dev/examples/simulation/cylinder_flow)
+;; - [examples.simulation.double-ellipsoid](/dev/examples/simulation/double_ellipsoid)
+;; - [examples.simulation.ellipsoid](/dev/examples/simulation/ellipsoid)
+;; - [examples.simulation.lorenz](/dev/examples/simulation/lorenz)
+;; - [examples.simulation.oscillator](/dev/examples/simulation/oscillator)
+;; - [examples.simulation.phase-portrait](/dev/examples/simulation/phase_portrait)
+;; - [examples.simulation.quartic-well](/dev/examples/simulation/quartic_well)
+;; - [examples.simulation.toroid](/dev/examples/simulation/toroid)
+;; - [examples.vega.pendulum](/dev/examples/vega/pendulum)
 
 ;; ## Emmy-Viewers via SCI
 ;;
-;; `Emmy` is compatible with [SCI, the Small Clojure
+;; `Emmy-Viewers` is compatible with [SCI, the Small Clojure
 ;; Interpreter](https://github.com/babashka/sci).
 ;;
-;; To install `Emmy-Viewers` into your SCI context, require the
-;; `emmy-viewers.sci` namespace and call `emmy-viewers.sci/install!`:
+;; To install the Reagent components and code defined in `Emmy-Viewers` into
+;; your SCI context, require the `emmy-viewers.sci` namespace and call
+;; `emmy-viewers.sci/install!`:
 
 ;; ```clj
 ;; (ns myproject.sci-extensions
@@ -332,10 +418,12 @@ clojure -Sdeps '{:deps {io.github.mentat-collective/emmy-viewers {:git/sha \"%s\
 ;; repo](https://github.com/clj-kondo/clj-kondo/blob/master/doc/config.md#importing).
 
 ;; ## Who is using Emmy-Viewers?
-
-;; If you want to show off your use of Emmy-Viewers, please [file a
-;; ticket](https://github.com/mentat-collective/emmy-viewers/issues/new) and let
-;; us know!
+;;
+;; - [The Road to Reality series](https://github.com/mentat-collective/road-to-reality)
+;;
+;; > If you want to show off your use of Emmy-Viewers, please [file a
+;; > ticket](https://github.com/mentat-collective/emmy-viewers/issues/new) and
+;; > let us know!
 
 ;; ## Thanks and Support
 

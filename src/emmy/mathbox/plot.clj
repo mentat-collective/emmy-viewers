@@ -294,7 +294,10 @@
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricCurve opts])
         (ev/fragment scene))))
 
-(defn polar-curve [])
+(defn polar-curve [opts]
+  (let [[r-bind opts] (c/compile-1d opts :r)]
+    (-> (c/wrap [r-bind] ['emmy.mathbox.plot/PolarCurve opts])
+        (ev/fragment scene))))
 
 (defn of-x
   "Returns a fragment that plots a function in either the `y` or `z` directions as
@@ -313,7 +316,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-x> <max-x>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-x> <max-x>]` specifying the range to
     feed into `:y` or `:z`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -361,7 +364,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-y> <max-y>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-y> <max-y>]` specifying the range to
     feed into `:x` or `:z`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -409,7 +412,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-z> <max-z>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-z> <max-z>]` specifying the range to
     feed into `:x` or `:y`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to

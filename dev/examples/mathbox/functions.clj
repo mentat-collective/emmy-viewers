@@ -34,16 +34,20 @@
 
 (plot/of-x {:z my-fn :samples 256})
 
-(ev/with-let [!opts {:x-max 5
-                     :color "#3090ff"}]
+(ev/with-let [!opts {:x-max 5 :color "#3090ff"}]
   (plot/scene
    {:range [[-5 (ev/get !opts :x-max)] [-5 5] [-5 5]]}
    (emmy.leva/controls
     {:folder {:name "Plot Color"}
      :atom !opts})
+
+   (plot/polar-curve
+    {:color "Salmon"
+     :r (fn [theta]
+          (* 2 (+ 1 (cos (* 3 theta)))))})
+
    (plot/polar-surface
-    {:shaded? true
-     :color (ev/get !opts :color)
+    {:color (ev/get !opts :color)
      :grid-r 8
      :grid-theta 8
      :z (fn [[r theta]]

@@ -17,5 +17,6 @@
 
 (mafs/mafs
  {:zoom {:min 0.1 :max 2}}
+
  (mafs/cartesian)
  (mafs/of-x ((expt D 3) tanh) {:color :blue}))

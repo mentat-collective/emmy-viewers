@@ -695,9 +695,59 @@
   - `:z-bias`: zBias of the curve. Defaults to 0."
   [opts]
   [Curve1D
-   (cs/rename-keys opts {:f :expr :r :range})])
+   (cs/rename-keys opts {:f :expr :t :range})])
 
-(defn PolarCurve [])
+(defn PolarCurve
+  "Component that plots a polar curve, ie, radius as a function of theta.
+
+  Required arguments:
+
+  - `:r`: function of the form `(fn [theta] <r>)`, valid within the range of
+    theta values specified by `:range`.
+
+    NOTE that you may only supply ONE of these two! Supplying both will trigger
+    an error.
+
+  Optional arguments:
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying the
+    range to feed into `:r`. Defaults to `[0 (* 2 Math/PI)]`.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
+  [{:keys [r range]
+    :or {range [0 (* 2 Math/PI)]}
+    :as opts}]
+  (let [expr (fn [emit theta _i _time]
+               (let [radius (r theta)]
+                 (emit (* radius (Math/cos theta))
+                       (* radius (Math/sin theta))
+                       0)))]
+    [Curve1D
+     (-> (dissoc opts :r)
+         (assoc :expr expr :range range))]))
 
 (defn OfX
   "Component that plots a function in either the `y` or `z` directions as a
@@ -716,7 +766,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-x> <max-x>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-x> <max-x>]` specifying the range to
     feed into `:y` or `:z`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -774,7 +824,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-y> <max-y>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-y> <max-y>]` specifying the range to
     feed into `:x` or `:z`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -831,7 +881,7 @@
   - `:samples`: the number of points to use to generate the curve. Defaults to
     256.
 
-  - `:range` 2-vector of the form `[<min-z> <max-z>]` specifying the range to
+  - `:range`: 2-vector of the form `[<min-z> <max-z>]` specifying the range to
     feed into `:x` or `:y`.
 
   - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
@@ -1004,13 +1054,11 @@
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
     `:color`."
-  [{:keys [f] :as opts}]
+  [opts]
   [Surface2D
-   (-> (dissoc opts :f)
-       (assoc :expr f)
-       (cs/rename-keys
-        {:u :u-range
-         :v :v-range}))])
+   (cs/rename-keys opts {:f :expr
+                         :u :u-range
+                         :v :v-range})])
 
 (defn PolarSurface
   "Component that plots a polar surface defined by `:f` into the scene along the
