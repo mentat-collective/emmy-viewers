@@ -3,7 +3,9 @@
 
   Use:
 
-  - [[install-css!]] for project configuration
+  - [[install-css!]] for project configuration (or use [[serve!]], [[halt!]]
+    and [[build!]] in place of the Clerk versions)
+
   - [[install!]] for notebook-specific configuration"
   {:nextjournal.clerk/toc true}
   (:require [clojure.walk :refer [postwalk]]
@@ -17,7 +19,7 @@
 (def custom-js
   "CDN address of a pre-built JS bundle for Clerk with support for all of this
   library's viewers."
-  "https://cas.clerk.garden/tree/8Vx3qnFoB2pE6Yk63LD14HRLNhXBapzwyjVaaxr4p4GiMf8QXiMc5kT4xePqWes8CkQaBBwqyPKCrYBzvd5XY8uGtX/.clerk/shadow-cljs/main.js")
+  "https://cas.clerk.garden/tree/8VtYpYuPgBpMG8Sxy5WG4JN3sbo6GdVFfnkLwhRsNdr87Sx2HFJWY77j8WcPhe4VTHoEErNFsEeQk9Zfsk9YnMsnpA/.clerk/shadow-cljs/main.js")
 
 ;; ## Viewers
 ;;

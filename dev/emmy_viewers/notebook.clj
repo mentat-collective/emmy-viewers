@@ -116,7 +116,7 @@
 
 ;; Emmy-Viewers uses either [Clerk](https://github.com/nextjournal/clerk) or
 ;; [Portal](https://github.com/djblue/portal) as a presentation environment.
-
+;;
 ;;
 ;; ## Quickstart
 
@@ -151,8 +151,13 @@
 ;; project template](#clerk-project-template). Jump there, or read on to set
 ;; Clerk up manually.
 
-;; Install Clerk: [![Clojars
-;; Project](https://img.shields.io/clojars/v/io.github.nextjournal/clerk.svg)](https://clojars.org/io.github.nextjournal/clerk)
+;; Install Clerk by adding the following entry to your `deps.edn`:
+;;
+;; ```clojure
+;; {:deps
+;;  {<your other dependencies>
+;;   io.github.nextjournal/clerk {:mvn/version "0.14.919"}}}
+;; ```
 ;;
 ;; Require and start `emmy.clerk` in your `user.clj`:
 ;;
