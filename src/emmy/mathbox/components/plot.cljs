@@ -164,7 +164,7 @@
        [:<>
         [mb/Format
          {:live true
-          :expr (fn [x] (label-fn x))}]
+          :expr label-fn}]
         [mb/Label
          {:color color
           :background background
