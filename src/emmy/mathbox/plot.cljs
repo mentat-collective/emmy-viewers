@@ -149,7 +149,7 @@
        [:<>
         [mb/Format
          {:live false
-          :expr (fn [x] (label-fn x))}]
+          :expr label-fn}]
         [mb/Label
          {:offset
           (if (= axis :z)
