@@ -11,10 +11,10 @@
   (:require [clojure.walk :refer [postwalk]]
             [emmy.expression :as x]
             [emmy.viewer :as ev]
-            [emmy.viewer.css :as vc]
-            [mentat.clerk-utils.build :as b]
-            [mentat.clerk-utils.css :as css]
-            [nextjournal.clerk :as clerk]))
+            #?(:clj [emmy.viewer.css :as vc])
+            #?(:clj [mentat.clerk-utils.build :as b])
+            #?(:clj [mentat.clerk-utils.css :as css])
+            [nextjournal.clerk.viewer :as viewer]))
 
 (def custom-js
   "CDN address of a pre-built JS bundle for Clerk with support for all of this
@@ -73,7 +73,7 @@
 
   Use the second form if you care about the order of your tabs."
   [xs]
-  (clerk/with-viewer tabbed-viewer xs))
+  (viewer/with-viewer tabbed-viewer xs))
 
 (def meta-viewer
   "Catch-all viewer that allows a metadata-carrying object to specify its viewer
@@ -88,15 +88,15 @@
   In the latter case, the transform will be applied to the value and the result
   will be rendered instead."
   {:name `meta-viewer
-   :pred #(-> % meta ::clerk/viewer)
+   :pred #(-> % meta :nextjournal.clerk/viewer)
    :transform-fn
-   (clerk/update-val
+   (viewer/update-val
     (fn [v]
-      (let [viewer (-> v meta ::clerk/viewer)]
+      (let [viewer (-> v meta :nextjournal.clerk/viewer)]
         (if (fn? viewer)
           (viewer v)
-          (clerk/with-viewer viewer
-            (vary-meta v dissoc ::clerk/viewer))))))})
+          (viewer/with-viewer viewer
+            (vary-meta v dissoc :nextjournal.clerk/viewer))))))})
 
 (defn ^:no-doc strip-meta
   "Given an unevaluated Reagent body, returns an identical form with all metadata
@@ -104,7 +104,7 @@
   [form]
   (postwalk (fn [x]
               (if (meta x)
-                (vary-meta x dissoc ::clerk/viewer)
+                (vary-meta x dissoc :nextjournal.clerk/viewer)
                 x))
             form))
 
@@ -116,9 +116,9 @@
   The Reagent body is treated as the body of a Clerk viewer's `:render-fn`."
   {:name `reagent-viewer
    :transform-fn
-   (clerk/update-val
+   (viewer/update-val
     (fn [form]
-      (clerk/with-viewer
+      (viewer/with-viewer
         {:render-fn
          (list 'fn [] (strip-meta form))}
         nil)))})
@@ -129,9 +129,12 @@
 ;; We do this because then [[emmy.viewer]] works well without any Clerk
 ;; dependency (if you are only using Portal, for example).
 
-(alter-var-root
- #'ev/reagent-viewer
- (constantly reagent-viewer))
+#?(:clj
+   (alter-var-root
+    #'ev/reagent-viewer
+    (constantly reagent-viewer))
+   :cljs
+   (set! ev/reagent-viewer reagent-viewer))
 
 ;; ### Emmy-specific viewers
 
@@ -143,7 +146,7 @@
   {:name `literal-viewer
    :pred x/literal?
    :transform-fn
-   (clerk/update-val x/expression-of)})
+   (viewer/update-val x/expression-of)})
 
 (defn install!
   "Calling this function at the top of a Clerk notebook installs all appropriate
@@ -153,7 +156,7 @@
   [& viewers]
   (let [high-priority [meta-viewer]
         low-priority  [literal-viewer]]
-    (clerk/add-viewers!
+    (viewer/add-viewers!
      (into high-priority
            (concat viewers low-priority)))))
 
@@ -163,19 +166,21 @@
   "Set of all plugins allowed by [[install-css!]]."
   #{:mafs :jsxgraph :mathbox :mathlive})
 
-(defn install-css!
-  "Calling this function once will configure Clerk to install the CSS for all
+#?(:clj
+   (defn install-css!
+     "Calling this function once will configure Clerk to install the CSS for all
   Emmy-Viewers dependencies into each Clerk page's header.
 
   Pass a subset (or the full set!) of [[plugins]] to install a more limited set
   of CSS files."
-  ([] (install-css! plugins))
-  ([packages]
-   (apply css/set-css! (mapcat vc/css-map packages))))
+     ([] (install-css! plugins))
+     ([packages]
+      (apply css/set-css! (mapcat vc/css-map packages)))))
 
-(defn serve!
-  "Version of [[nextjournal.clerk/serve!]] that swaps out the default JS bundle
-  for a custom Emmy-Viewers bundle and installs all custom CSS for
+#?(:clj
+   (defn serve!
+     "Version of [[nextjournal.clerk/serve!]] that swaps out the default JS
+  bundle for a custom Emmy-Viewers bundle and installs all custom CSS for
   emmy-viewers plugins.
 
   In addition to all options supported by Clerk's `serve!`, [[serve!]] supports
@@ -199,25 +204,27 @@
   provided.
 
   All remaining `opts` are forwarded to [[nextjournal.clerk/serve!]]."
-  ([] (serve! {}))
-  ([opts]
-   (let [opts (if (or (:cljs-namespaces opts)
-                      (:custom-js opts))
-                opts
-                (assoc opts :custom-js custom-js))]
-     (install-css!)
-     (b/serve! opts))))
+     ([] (serve! {}))
+     ([opts]
+      (let [opts (if (or (:cljs-namespaces opts)
+                         (:custom-js opts))
+                   opts
+                   (assoc opts :custom-js custom-js))]
+        (install-css!)
+        (b/serve! opts)))))
 
-(defn halt!
-  "Version of [[nextjournal.clerk/halt!]] that additionally kills any shadow-cljs
+#?(:clj
+   (defn halt!
+     "Version of [[nextjournal.clerk/halt!]] that additionally kills any shadow-cljs
   processes, if they are running, and resets all custom CSS entries."
-  []
-  (css/reset-css!)
-  (b/halt!))
+     []
+     (css/reset-css!)
+     (b/halt!)))
 
-(defn build!
-  "Version of [[nextjournal.clerk/build!]] that swaps out the default JS bundle
-  for a custom Emmy-Viewers bundle and makes sure that all custom CSS for
+#?(:clj
+   (defn build!
+     "Version of [[nextjournal.clerk/build!]] that swaps out the default JS
+  bundle for a custom Emmy-Viewers bundle and makes sure that all custom CSS for
   emmy-viewers plugins is available during the build.
 
   In addition to all options supported by Clerk's `build!`, [[build!]] supports
@@ -238,16 +245,16 @@
   been provided.
 
   All remaining `opts` are forwarded to [[nextjournal.clerk/build!]]"
-  [opts]
-  (let [existing @css/custom-css
-        opts     (if (or (:cljs-namespaces opts)
-                         (:custom-js opts))
-                   opts
-                   (assoc opts :custom-js custom-js))]
-    (try (install-css!)
-         (b/build! opts)
-         (finally
-           (apply css/set-css! existing)))))
+     [opts]
+     (let [existing @css/custom-css
+           opts     (if (or (:cljs-namespaces opts)
+                            (:custom-js opts))
+                      opts
+                      (assoc opts :custom-js custom-js))]
+       (try (install-css!)
+            (b/build! opts)
+            (finally
+              (apply css/set-css! existing))))))
 
 ;; ## State Utilities
 

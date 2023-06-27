@@ -4,7 +4,9 @@
   renderable by Clerk (see [[emmy.clerk]]) or Portal (see [[emmy.portal]])."
   {:nextjournal.clerk/toc true}
   (:refer-clojure :exclude [get get-in])
-  (:require [nextjournal.clerk :as-alias clerk]))
+  (:require [nextjournal.clerk :as-alias clerk])
+  #?(:cljs
+     (:require-macros [emmy.viewer])))
 
 ;; ## Emmy Viewers
 ;;

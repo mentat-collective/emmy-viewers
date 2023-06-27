@@ -146,6 +146,8 @@
 ;; but the backtick means that on the client-side we'll see `emmy.env/abs`. And
 ;; Emmy is available in the SCI environment so this works fine!
 
+;; NOTE this doesn't work yet with editor view.
+#_
 (ev/with-let [!point [1 1]]
   (mafs/mafs
    (mafs/cartesian)
@@ -222,6 +224,8 @@
 
 ;; Then use the function:
 
+;; NOTE this doesn't work yet with editor view.
+#_
 (with-handles
   (fn [!state]
     [:<>
