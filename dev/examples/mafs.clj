@@ -13,7 +13,6 @@
             [emmy.mafs :as mafs]
             [emmy.polynomial :as poly]
             [emmy.viewer :as ev]
-            [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
 {::clerk/width :wide}
@@ -193,8 +192,8 @@
          (mafs/transform
           {:translate (ev/get !state :translate)}
           (mafs/transform
-           {:rotate (q (let [[x y] (:rotate @~!state)]
-                         (Math/atan2 y x)))}
+           {:rotate `(let [[x# y#] (:rotate @~!state)]
+                       (~'Math/atan2 y# x#))}
            ;; Display a little hint that the point is meant to move radially
            (mafs/circle
             {:center [0 0]
@@ -231,9 +230,8 @@
        :radius [2 1]})
      (mafs/ellipse
       {:center [0 0]
-       :radius (q
-                (let [{[x _] :width [_ y] :height} @~!state]
-                  [(Math/abs x) (Math/abs y)]))})]))
+       :radius `(let [{[x# _] :width [_ y#] :height} @~!state]
+                  [(~'Math/abs x#) (~'Math/abs y#)])})]))
 
 ;; function that generates fragments representing `n` derivatives of `f`:
 
