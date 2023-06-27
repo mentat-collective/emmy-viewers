@@ -129,13 +129,6 @@
 ;; We do this because then [[emmy.viewer]] works well without any Clerk
 ;; dependency (if you are only using Portal, for example).
 
-#?(:clj
-   (alter-var-root
-    #'ev/reagent-viewer
-    (constantly reagent-viewer))
-   :cljs
-   (set! ev/reagent-viewer reagent-viewer))
-
 ;; ### Emmy-specific viewers
 
 (def literal-viewer
@@ -156,6 +149,8 @@
   [& viewers]
   (let [high-priority [meta-viewer]
         low-priority  [literal-viewer]]
+    #?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
+       :cljs (set! ev/reagent-viewer reagent-viewer))
     (viewer/add-viewers!
      (into high-priority
            (concat viewers low-priority)))))
