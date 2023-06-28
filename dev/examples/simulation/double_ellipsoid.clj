@@ -3,7 +3,7 @@
   {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare
-             numerator denominator ref partial])
+             numerator denominator ref partial infinite?])
   (:require [emmy.env :as e :refer :all]
             [examples.simulation.ellipsoid :as ell]
             [mathbox.core :as-alias mathbox]

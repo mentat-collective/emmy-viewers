@@ -17,10 +17,12 @@
     org.clojure/clojurescript {:mvn/version "1.11.60"}
     io.github.nextjournal/cas-client
     {:git/sha "84ab35c3321c1e51a589fddbeee058aecd055bf8"}
-    io.github.nextjournal/clerk {:mvn/version "0.14.919"}
+    io.github.nextjournal/clerk
+    {:git/sha "d80187013d7b7b96db3d8b114b8d99f687170668"}
+
     io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "4c4983182061abd24201cd43fab6ee55dc16b7e8"
+     :git/sha "d80187013d7b7b96db3d8b114b8d99f687170668"
      :deps/root "render"}}
    :exec-fn user/build!}
 

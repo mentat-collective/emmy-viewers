@@ -1,4 +1,4 @@
-(ns emmy.viewer.stopwatch
+(ns emmy.viewer.components.stopwatch
   "Stopwatch component, useful for various animations.
 
   NOTE that this is currently implemented with `goog.Timer`. For Portal

@@ -13,7 +13,6 @@
             [emmy.mafs :as mafs]
             [emmy.polynomial :as poly]
             [emmy.viewer :as ev]
-            [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]))
 
 {::clerk/width :wide}
@@ -147,6 +146,8 @@
 ;; but the backtick means that on the client-side we'll see `emmy.env/abs`. And
 ;; Emmy is available in the SCI environment so this works fine!
 
+;; NOTE this doesn't work yet with editor view.
+#_
 (ev/with-let [!point [1 1]]
   (mafs/mafs
    (mafs/cartesian)
@@ -193,8 +194,8 @@
          (mafs/transform
           {:translate (ev/get !state :translate)}
           (mafs/transform
-           {:rotate (q (let [[x y] (:rotate @~!state)]
-                         (Math/atan2 y x)))}
+           {:rotate `(let [[x# y#] (:rotate @~!state)]
+                       (~'Math/atan2 y# x#))}
            ;; Display a little hint that the point is meant to move radially
            (mafs/circle
             {:center [0 0]
@@ -223,6 +224,8 @@
 
 ;; Then use the function:
 
+;; NOTE this doesn't work yet with editor view.
+#_
 (with-handles
   (fn [!state]
     [:<>
@@ -231,9 +234,8 @@
        :radius [2 1]})
      (mafs/ellipse
       {:center [0 0]
-       :radius (q
-                (let [{[x _] :width [_ y] :height} @~!state]
-                  [(Math/abs x) (Math/abs y)]))})]))
+       :radius `(let [{[x# _] :width [_ y#] :height} @~!state]
+                  [(~'Math/abs x#) (~'Math/abs y#)])})]))
 
 ;; function that generates fragments representing `n` derivatives of `f`:
 
