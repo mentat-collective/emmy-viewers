@@ -148,7 +148,7 @@
      (when labels?
        [:<>
         [mb/Format
-         {:live false
+         {:live true
           :expr (fn [x] (label-fn x))}]
         [mb/Label
          {:offset

@@ -2,6 +2,8 @@
 
 ## [unreleased]
 
+- #55 fixes a bug with live-updating ranges not updating axis labels.
+
 - #53:
 
   - Consolidates `emmy.mafs.{core,coordinate,debug,line,plot}` into `emmy.mafs`.
