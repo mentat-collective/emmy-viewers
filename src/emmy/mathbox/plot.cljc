@@ -1,6 +1,6 @@
 (ns emmy.mathbox.plot
   "Server-side rendering functions for the components declared in the
-  [`emmy.mathbox.plot`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.plot)
+  [`emmy.mathbox.components.plot`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.components.plot)
   namespace."
   (:refer-clojure :exclude [vector])
   (:require [emmy.mathbox :as box]
@@ -53,7 +53,7 @@
   NOTE this is a hack, see the comment above the component for an alternate
   approach."
   [opts]
-  ['emmy.mathbox.plot/LabeledAxis opts])
+  ['emmy.mathbox.components.plot/LabeledAxis opts])
 
 (defn grid
   "Returns a fragment that takes a `k` equal to `:xy`, `:yz` or `:xz` and renders
@@ -91,12 +91,12 @@
 
   - `:z-bias`: zBias of the grid. Defaults to 0."
   [opts]
-  ['emmy.mathbox.plot/Grid opts])
+  ['emmy.mathbox.components.plot/Grid opts])
 
 (defn cartesian
   "Component that renders a mathematical 3d plotting scene into MathBox.
   Takes any number of children and nests them into a
-  configured [[emmy.mathbox.plot/Cartesian]] component.
+  configured [[emmy.mathbox.components.plot/Cartesian]] component.
 
   Optional arguments:
 
@@ -130,12 +130,12 @@
     See [[grid]] for more detail on allowed configuration values."
   [& children]
   (ev/fragment
-   (into ['emmy.mathbox.plot/Cartesian] children)
-   #(box/mathbox 'emmy.mathbox.plot/box-defaults %)))
+   (into ['emmy.mathbox.components.plot/Cartesian] children)
+   #(box/mathbox 'emmy.mathbox.components.plot/box-defaults %)))
 
 (defn scene
   "Takes an optional options map and any number of children and nests them into a
-  configured [[emmy.mathbox.plot/Cartesian]] component that renders a
+  configured [[emmy.mathbox.components.plot/Cartesian]] component that renders a
   mathematical 3d plotting scene into MathBox.
 
   Any option supported by [[emmy.mathbox/mathbox]] is removed and passed along
@@ -144,7 +144,7 @@
   See [[cartesian]] for all other supported options."
   [& children]
   (ev/fragment
-   (into ['emmy.mathbox.plot/Scene] children)))
+   (into ['emmy.mathbox.components.plot/Scene] children)))
 
 ;; ## Geometric Primitives
 
@@ -177,7 +177,7 @@
   - `:z-bias`: zBias of the point. Defaults to 0."
   [opts]
   (ev/fragment
-   ['emmy.mathbox.plot/Point opts]
+   ['emmy.mathbox.components.plot/Point opts]
    scene))
 
 (defn line
@@ -222,7 +222,7 @@
   - `:z-bias`: zBias of the point. Defaults to 0."
   [opts]
   (ev/fragment
-   ['emmy.mathbox.plot/Line opts]
+   ['emmy.mathbox.components.plot/Line opts]
    scene))
 
 (defn vector
@@ -243,7 +243,7 @@
   except `:end?` defaults to `true`."
   [opts]
   (ev/fragment
-   ['emmy.mathbox.plot/Vector opts]
+   ['emmy.mathbox.components.plot/Vector opts]
    scene))
 
 ;; ## Curves and Surfaces
@@ -291,12 +291,12 @@
   [opts]
   (let [opts          (update opts :f c/vectorize)
         [f-bind opts] (mc/compile-3d opts :f 1)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricCurve opts])
+    (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/ParametricCurve opts])
         (ev/fragment scene))))
 
 (defn polar-curve [opts]
   (let [[r-bind opts] (c/compile-1d opts :r)]
-    (-> (c/wrap [r-bind] ['emmy.mathbox.plot/PolarCurve opts])
+    (-> (c/wrap [r-bind] ['emmy.mathbox.components.plot/PolarCurve opts])
         (ev/fragment scene))))
 
 (defn of-x
@@ -344,7 +344,7 @@
   (let [[y-bind opts] (c/compile-1d opts :y)
         [z-bind opts] (c/compile-1d opts :z)]
     (-> (c/wrap [y-bind z-bind]
-                ['emmy.mathbox.plot/OfX opts])
+                ['emmy.mathbox.components.plot/OfX opts])
         (ev/fragment scene))))
 
 (defn of-y
@@ -392,7 +392,7 @@
   (let [[x-bind opts] (c/compile-1d opts :x)
         [z-bind opts] (c/compile-1d opts :z)]
     (-> (c/wrap [x-bind z-bind]
-                ['emmy.mathbox.plot/OfY opts])
+                ['emmy.mathbox.components.plot/OfY opts])
         (ev/fragment scene))))
 
 (defn of-z
@@ -440,7 +440,7 @@
   (let [[x-bind opts] (c/compile-1d opts :x)
         [y-bind opts] (c/compile-1d opts :y)]
     (-> (c/wrap [x-bind y-bind]
-                ['emmy.mathbox.plot/OfZ opts])
+                ['emmy.mathbox.components.plot/OfZ opts])
         (ev/fragment scene))))
 
 ;; ### Surfaces
@@ -495,7 +495,7 @@
     `:color`."
   [opts]
   (let [[f-bind opts] (mc/compile-3d opts :f 2)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ParametricSurface
+    (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/ParametricSurface
                           (dissoc opts :simplify?)])
         (ev/fragment scene))))
 
@@ -549,7 +549,7 @@
     `:color`."
   [opts]
   (let [[z-bind opts] (c/compile-2d opts :z)]
-    (-> (c/wrap [z-bind] ['emmy.mathbox.plot/PolarSurface opts])
+    (-> (c/wrap [z-bind] ['emmy.mathbox.components.plot/PolarSurface opts])
         (ev/fragment scene))))
 
 (defn of-xy
@@ -602,7 +602,7 @@
     `:color`."
   [opts]
   (let [[z-bind opts] (c/compile-2d opts :z)]
-    (-> (c/wrap [z-bind] ['emmy.mathbox.plot/OfXY opts])
+    (-> (c/wrap [z-bind] ['emmy.mathbox.components.plot/OfXY opts])
         (ev/fragment scene))))
 
 (defn of-xz
@@ -655,7 +655,7 @@
     `:color`."
   [opts]
   (let [[y-bind opts] (c/compile-2d opts :y)]
-    (-> (c/wrap [y-bind] ['emmy.mathbox.plot/OfXZ opts])
+    (-> (c/wrap [y-bind] ['emmy.mathbox.components.plot/OfXZ opts])
         (ev/fragment scene))))
 
 (defn of-yz
@@ -708,7 +708,7 @@
     `:color`."
   [opts]
   (let [[x-bind opts] (c/compile-2d opts :x)]
-    (-> (c/wrap [x-bind] ['emmy.mathbox.plot/OfYZ opts])
+    (-> (c/wrap [x-bind] ['emmy.mathbox.components.plot/OfYZ opts])
         (ev/fragment scene))))
 
 ;; ## Vector Fields
@@ -773,5 +773,5 @@
   - `:z-bias`: zBias of the vector field. Defaults to 0."
   [opts]
   (let [[f-bind opts] (mc/compile-3d opts :f 3)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/VectorField opts])
+    (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/VectorField opts])
         (ev/fragment scene))))

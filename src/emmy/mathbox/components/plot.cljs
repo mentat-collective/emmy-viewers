@@ -1,4 +1,4 @@
-(ns emmy.mathbox.plot
+(ns emmy.mathbox.components.plot
   "Higher-level mathematical plotting components built on the primitives provided
   by `Mathbox.cljs`."
   (:refer-clojure :exclude [max])

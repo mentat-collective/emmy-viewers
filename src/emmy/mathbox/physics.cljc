@@ -1,6 +1,6 @@
 (ns emmy.mathbox.physics
   "Server-side rendering functions for the components declared in the
-  [`emmy.mathbox.physics`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.physics)
+  [`emmy.mathbox.components.physics`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.components.physics)
   namespace."
   (:refer-clojure :exclude [vector])
   (:require [emmy.expression.compile :as xc]
@@ -103,5 +103,5 @@
   (let [[f-bind opts] (ode-compile opts :f' initial-state)
         [x-bind opts] (ode-compile opts :state->xyz initial-state)]
     (-> (vc/wrap [f-bind x-bind]
-                 ['emmy.mathbox.physics/ODECurve opts])
+                 ['emmy.mathbox.components.physics/ODECurve opts])
         (ev/fragment plot/scene))))

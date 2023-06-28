@@ -3,7 +3,7 @@
   [`mathbox.core`](https://cljdoc.org/d/org.mentat/mathbox.cljs/CURRENT/api/mathbox.core)
   and [`mathbox.primitives`](https://cljdoc.org/d/org.mentat/mathbox.cljs/CURRENT/api/mathbox.primitives)
   namespaces of the [`MathBox.cljs` project](https://mathbox.mentat.org)."
-  (:refer-clojure :exclude [format repeat vector])
+  (:refer-clojure :exclude [format repeat vector array spread])
   (:require [emmy.viewer :as ev]))
 
 (defn rawbox
