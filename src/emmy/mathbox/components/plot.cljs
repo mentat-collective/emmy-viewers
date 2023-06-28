@@ -7,6 +7,7 @@
             [emmy.viewer.plot :as p]
             [mathbox.core]
             [mathbox.primitives :as mb]
+            [reagent.core]
             ["katex" :as katex]
             ["mathbox" :as box]))
 
@@ -506,27 +507,39 @@
          z-bias 0
          opacity 1
          color color/default}}]
-  [:<>
-   [mb/Array {:items 1 :live false :channels 3 :data [coords]}]
-   [mb/Point
-    {:size size
-     :opacity opacity
-     :color color
-     :zIndex z-index
-     :zBias z-bias
-     :zOrder z-order}]
-   (when label
-     (let [opts (if (map? label)
-                  label
-                  {:label label})]
-       (if (:tex? opts)
-         [DomLabel
-          (assoc opts :offset [0 (+ (/ size 2) 10)])]
-         [:<>
-          [mb/Format
-           {:weight "bold"
-            :data [(:label opts)]}]
-          [mb/Label {:offset [0 (+ (/ size 2) 40)]}]])))])
+  ;; So the key thing for history is that the FUNCTION that is querying the
+  ;; history live up in a with-let, or in the outer bit of the form-2. If you do
+  ;; that then you can set `live` true and have the comet.
+  ;;
+  ;; In fact you could probably stick the `data` element into a hook and live
+  ;; emit it, no problem.
+  (reagent.core/with-let [expr (fn [emit] (apply emit (coords)))]
+    [:<>
+     (js/console.log size)
+     [mb/Array {:items 1
+                :live false
+                :channels 3
+                :expr expr
+                :history size}]
+     [mb/Point
+      {:size size
+       :opacity opacity
+       :color color
+       :zIndex z-index
+       :zBias z-bias
+       :zOrder z-order}]
+     (when label
+       (let [opts (if (map? label)
+                    label
+                    {:label label})]
+         (if (:tex? opts)
+           [DomLabel
+            (assoc opts :offset [0 (+ (/ size 2) 10)])]
+           [:<>
+            [mb/Format
+             {:weight "bold"
+              :data [(:label opts)]}]
+            [mb/Label {:offset [0 (+ (/ size 2) 40)]}]])))]))
 
 (defn Line
   "Component that renders a line segment into the scene as specified by `coords`.

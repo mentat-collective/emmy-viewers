@@ -20,10 +20,14 @@
         {:atom !size :schema {:size {:min 20 :max 100 :step 1}}})
    (p/scene
     (p/point
-     {:coords [0.5 -0.5 (ev/get !size :pos)]
+     {
+      ;; Here, this first one works great for showing history. But we probably
+      ;; want to do that on the component side if the user supplies something
+      ;; not a function??
+      :coords `(fn [] [0.5 -0.5 (get (.-state ~!size) :pos)])
+      ;; :coords [0.5 -0.5 (ev/get !size :pos)]
       :size (ev/get !size :size)
-
-      :color "LimeGreen"
+      :color   "LimeGreen"
       :label
       {:tex? true
        :label "e^{i x}"}})
