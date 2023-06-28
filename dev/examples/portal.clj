@@ -2,8 +2,7 @@
   (:refer-clojure
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
-  (:require [emmy.mafs.core]
-            [emmy.env :as e :refer :all]
+  (:require [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
             [emmy.mafs :as mafs]
             [emmy.mathlive :as ml]
@@ -24,7 +23,7 @@
    (ml/mathfield {:default-value "1+x"}))
 
   (tap>
-   (emmy.mafs.core/mafs-meta
+   (mafs/mafs-meta
     (ev/with-let [!phase [0 0]]
       (let [shifted (ev/with-params {:atom !phase :params [0]}
                       (fn [shift]

@@ -1,13 +1,15 @@
 (ns emmy.viewer.sci
-  (:require [demo.mathbox] [demo.mathlive]
+  (:require [demo.mathbox]
+            [demo.mathlive]
             [emmy.clerk]
             [emmy.jsxgraph]
             [emmy.leva]
             [emmy.mafs]
-            [emmy.mafs.coordinates] [emmy.mafs.core] [emmy.mafs.debug] [emmy.mafs.line] [emmy.mafs.plot]
             [emmy.mathbox]
-            [emmy.mathbox.components.physics] [emmy.mathbox.components.plot]
-            [emmy.mathbox.physics] [emmy.mathbox.plot]
+            [emmy.mathbox.components.physics]
+            [emmy.mathbox.components.plot]
+            [emmy.mathbox.physics]
+            [emmy.mathbox.plot]
             [emmy.mathlive]
             [emmy.viewer]
             [emmy.viewer.components.stopwatch]
@@ -44,11 +46,6 @@
      'emmy.leva                        (sci/copy-ns emmy.leva (sci/create-ns 'emmy.leva))
      'emmy.jsxgraph                    (sci/copy-ns emmy.jsxgraph (sci/create-ns 'emmy.jsxgraph))
      'emmy.mafs                        (sci/copy-ns emmy.mafs (sci/create-ns 'emmy.mafs))
-     'emmy.mafs.coordinates            (sci/copy-ns emmy.mafs.coordinates (sci/create-ns 'emmy.mafs.coordinates))
-     'emmy.mafs.core                   (sci/copy-ns emmy.mafs.core (sci/create-ns 'emmy.mafs.core))
-     'emmy.mafs.debug                  (sci/copy-ns emmy.mafs.debug (sci/create-ns 'emmy.mafs.debug))
-     'emmy.mafs.line                   (sci/copy-ns emmy.mafs.line (sci/create-ns 'emmy.mafs.line))
-     'emmy.mafs.plot                   (sci/copy-ns emmy.mafs.plot (sci/create-ns 'emmy.mafs.plot))
      'emmy.mathbox                     (sci/copy-ns emmy.mathbox (sci/create-ns 'emmy.mathbox))
      'emmy.mathbox.components.plot     (sci/copy-ns emmy.mathbox.components.plot
                                                     (sci/create-ns 'emmy.mathbox.components.plot))
