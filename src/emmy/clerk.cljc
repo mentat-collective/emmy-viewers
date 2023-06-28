@@ -141,6 +141,9 @@
    :transform-fn
    (viewer/update-val x/expression-of)})
 
+#?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
+   :cljs (set! ev/reagent-viewer reagent-viewer))
+
 (defn install!
   "Calling this function at the top of a Clerk notebook installs all appropriate
   default viewers for Emmy, along with any `viewers` supplied to [[install!]].
@@ -149,8 +152,6 @@
   [& viewers]
   (let [high-priority [meta-viewer]
         low-priority  [literal-viewer]]
-    #?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
-       :cljs (set! ev/reagent-viewer reagent-viewer))
     (viewer/add-viewers!
      (into high-priority
            (concat viewers low-priority)))))
