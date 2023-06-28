@@ -2,6 +2,20 @@
 
 ## [unreleased]
 
+- #53:
+
+  - Consolidates `emmy.mafs.{core,coordinate,debug,line,plot}` into `emmy.mafs`.
+    This allows docstrings to appear properly on the ClojureScript side when
+    using `emmy.mafs`, which all my documentation says to do.
+
+  - Moves the CLJS files for `emmy.mathbox.{plot,physics}`and
+    `emmy.viewer.stopwatch` over to `emmy.mathbox.components.{plot,physics}` and
+    `emmy.viewer.components.stopwatch`.
+
+  - All reagent-fragment-generating `.clj` files are now `cljc` files and
+    included by `emmy.viewer.sci`. This enables "editor mode" in the latest
+    Clerk builds.
+
 ## [0.1.0]
 
 - #49:
