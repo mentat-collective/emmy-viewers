@@ -122,10 +122,18 @@
 
   - `:label-fn`: `(fn [x] <string>)` for generating the printed representation
     of each tick mark's value. Defaults to [[emmy.viewer.plot/format-number]]. You
-    might also enjoy [[emmy.viewer.plot/label-pi]]."
+    might also enjoy [[emmy.viewer.plot/label-pi]].
+
+  - `:z-order`: z-order of the full labeled axis.
+
+  - `:z-index`: zIndex of the full labeled axis. Defaults to 0.
+
+  - `:z-bias`: zBias of the full labeled axis. Defaults to 0."
   [{:keys [axis divisions width
            snap? zero? start? end?
-           labels? label-fn]
+           labels? label-fn
+           color background text-size offset
+           z-order z-index z-bias]
     :or {divisions 10
          width 2
          labels? true
@@ -133,12 +141,21 @@
          snap? false
          zero? false
          start? true
-         end? true}}]
+         end? true
+         text-size 16
+         z-bias 0
+         z-index 0}}]
   {:pre [(#{:x :y :z} axis)]}
-  (let [idx (axis->idx axis)]
+  (let [idx    (axis->idx axis)
+        offset (or offset
+                   (if (= axis :z)
+                     [20 0 0]
+                     [0 0 -20]))]
     [:<>
      [mb/Scale
       {:divide divisions
+       :unit 1
+       :base 10
        :zero zero?
        :start start?
        :end end?
@@ -149,12 +166,15 @@
        [:<>
         [mb/Format
          {:live true
-          :expr (fn [x] (label-fn x))}]
+          :expr label-fn}]
         [mb/Label
-         {:offset
-          (if (= axis :z)
-            [20 0 0]
-            [0 0 -20])}]])]))
+         {:color color
+          :background background
+          :size text-size
+          :offset offset
+          :zIndex z-index
+          :zOrder z-order
+          :zBias z-bias}]])]))
 
 (defn AxisLabel
   "Component that renders an axis label above the referenced `axis`.
@@ -217,7 +237,7 @@
   - `:label`: either `true` (default) or a map of [[AxisLabel]] options.
     See [[AxisLabel]] for details on what's allowed.
 
-    `true` will include the default label, ticks, while `false` or `nil` will
+    `true` will include the default label and ticks, while `false` or `nil` will
     remove the label.
 
   - `:width`: width of the rendered axis line.
@@ -242,11 +262,13 @@
   NOTE this is a hack, see the comment above the component for an alternate
   approach."
   [{:keys [axis width opacity color z-order z-index z-bias
-           max]
+           max start? end?]
     :or {z-bias 0
          z-index 0
          opacity 1
          width 1
+         start? false
+         end? false
          color "#808080"}
     :as opts}]
   {:pre [(#{:x :y :z} axis)]}
@@ -257,11 +279,16 @@
      :width width
      :color color
      :zOrder z-order :zIndex z-index :zBias z-bias
-     :start false
-     :end false}]
+     :start start?
+     :end end?}]
    (when-let [ticks (:ticks opts true)]
-     (let [opts (if (map? ticks) ticks {})]
-       [Ticks (assoc opts :axis axis)]))
+     (let [base (if (map? ticks) ticks {})]
+       [Ticks (assoc base
+                     :color (:color base color)
+                     :axis axis
+                     :z-order z-order
+                     :z-index z-index
+                     :z-bias z-bias)]))
    (when-let [label (:label opts true)]
      (let [base (cond
                   (true? label) {:label (name axis)}
@@ -288,9 +315,9 @@
     \"snapping\" the grid means that gridlines will snap to nice numbers.
     `false` by default.
 
-  - `:divisions`: either `true`, `false`, a single number or a 2-vector of
-    numbers of the form `[<first-axis-divisions> <second-axis-divisions>]`. A
-    non-vector value becomes a pair with the same value in both slots.
+  - `:divisions`: either a single number or a 2-vector of numbers of the form
+    `[<first-axis-divisions> <second-axis-divisions>]`. A non-vector value becomes
+    a pair with the same value in both slots.
 
     divisions set the number of gridlines that appear in each dimension.
 
@@ -347,21 +374,23 @@
   NOTE: This argument is only used to fill in the `:max` argument
   to [[LabeledAxis]] for default label positioning. It should go away once we
   get a better strategy!"
-  [axes range]
-  (let [m (if (vector? axes)
-            (zipmap axes (repeat true))
-            axes)]
-    (into [:<>]
-          (map
-           (fn [[axis opts]]
-             (when opts
-               (let [idx  (axis->idx axis)
-                     opts (if (map? opts) opts {})]
-                 [LabeledAxis
-                  (assoc opts
-                         :axis axis
-                         :max (get-in range [(dec idx) 1]))]))))
-          m)))
+  ([axes]
+   [SceneAxes axes nil])
+  ([axes range]
+   (let [m (if (vector? axes)
+             (zipmap axes (repeat true))
+             axes)]
+     (into [:<>]
+           (map
+            (fn [[axis opts]]
+              (when opts
+                (let [idx  (axis->idx axis)
+                      opts (if (map? opts) opts {})]
+                  [LabeledAxis
+                   (assoc opts
+                          :axis axis
+                          :max (get-in range [(dec idx) 1]))]))))
+           m))))
 
 (defn SceneGrids
   "Component that renders multiple [[Grid]] objects into a scene.
@@ -423,16 +452,18 @@
     See [[Grid]] for more detail on allowed configuration values."
   [& children]
   (let [[opts children] (split-opts children)
-        {:keys [camera range scale axes grids]
+        {:keys [camera range scale position axes grids]
          :or {range  [[-5 5] [-5 5] [-5 5]]
+              position [0 0 0]
               scale  [1 1 1]
               camera [0.5 -2 0.6]
               axes  [:x :y :z]
               grids [:xy]}} opts]
     [mb/Cartesian
-     {:range range :scale scale}
-     [mb/Camera
-      {:proxy true :position camera}]
+     {:range range :scale scale :position position}
+     (when camera
+       [mb/Camera
+        {:proxy true :position camera}])
      (into [:<>] children)
      [SceneAxes axes range]
      [SceneGrids grids]]))
