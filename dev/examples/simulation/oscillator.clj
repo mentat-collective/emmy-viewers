@@ -25,6 +25,7 @@
                (* g m z))]
       (- T U))))
 
+
 ;; TODO note that we have some weird missing newlines.
 
 (def m 10)
@@ -55,17 +56,37 @@
    :render-fn
    (q
     (fn [value]
-      [mathbox/MathBox
-       {:container  {:style {:height "400px" :width "100%"}}
-        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-        :renderer   {:background-color 0xffffff}}
-       [mb/Cartesian (:cartesian value)
-        [mb/Axis {:axis 1 :width 3}]
-        [mb/Axis {:axis 2 :width 3}]
-        [mb/Axis {:axis 3 :width 3}]
-        [examples.simulation.utils/Mass
-         (select-keys
-          value [:L :state->xyz :initial-state :params])]]]))}}
+      (reagent.core/with-let
+        [!state (reagent.core/atom
+                 {:time 0 :state (:initial-state value)})]
+        [:<>
+         [examples.simulation.utils/Evolve
+          {:f' (:L value)
+           :atom   !state}]
+         [mathbox/MathBox
+          {:container  {:style {:height "400px" :width "100%"}}
+           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+           :renderer   {:background-color 0xffffff}}
+          [mb/Cartesian (:cartesian value)
+           [mb/Axis {:axis 1 :width 3}]
+           [mb/Axis {:axis 2 :width 3}]
+           [mb/Axis {:axis 3 :width 3}]
+           [examples.simulation.utils/Comet
+            {:dimensions 3
+             :length 16
+             :color 0x3090ff
+             :size 10
+             :opacity 0.99
+             :path
+             (let [[a b c d] (:state->xyz value)
+                   render-fn (js/Function. a b c d)
+                   out       (js/Array. 0 0 0)]
+               (fn [emit]
+                 (-> (:state (.-state !state))
+                     (render-fn out nil))
+                 (emit (aget out 0)
+                       (aget out 1)
+                       (aget out 2))))}]]]])))}}
 {:state->xyz coordinate
  :L L-harmonic
  :params [g m k]

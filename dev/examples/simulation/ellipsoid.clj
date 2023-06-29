@@ -9,6 +9,7 @@
             [examples.expression :as d]
             [mathbox.core :as-alias mathbox]
             [mathbox.primitives :as-alias mb]
+            [mentat.clerk-utils.show :refer [show-sci]]
             [mentat.clerk-utils.viewers :refer [q]]
             [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]))
@@ -87,17 +88,48 @@
 
 ;; And for the sphere:
 
-#_(clerk/with-viewer d/multiviewer
-    (let [L (L-central-triaxial 'm 'r 'r 'r)
-          theta (literal-function 'theta)
-          phi (literal-function 'phi)]
-      (((Lagrange-equations L) (up theta phi))
-       't)))
+
+(clerk/with-viewer d/multiviewer
+  (let [L (L-central-triaxial 'm 'r 'r 'r)
+        theta (literal-function 'theta)
+        phi (literal-function 'phi)]
+    (((Lagrange-equations L) (up theta phi))
+     't)))
 
 ;; This is fairly horrifying. This really demands animation, as I bet it looks
 ;; cool, but it's not comprehensible in this form.
 ;;
 ;; Lucky us!! Let's do it!
+
+(show-sci
+ ;; TODO make this generic?
+ (defn Ellipse [{:keys [a b c]}]
+   [:<>
+    [mathbox.primitives/Area
+     {:width 64
+      :height 64
+      :rangeX [0 (* 2 Math/PI)]
+      :rangeY [0 (* 2 Math/PI)]
+      :axes [1 3]
+      :live false
+      :expr (fn [emit theta phi _i _j _time]
+              (let [sin-theta (Math/sin theta)
+                    cos-theta (Math/cos theta)]
+                ;; xzy
+                (emit
+                 (* a sin-theta (Math/cos phi))
+                 (* b sin-theta (Math/sin phi))
+                 (* c cos-theta))))
+      :items 1
+      :channels 3}]
+    [mathbox.primitives/Surface
+     {:shaded true
+      :opacity 0.2
+      :lineX true
+      :lineY true
+      :points "<"
+      :color 0xffffff
+      :width 1}]]))
 
 ^{::clerk/viewer
   {:transform-fn
@@ -125,18 +157,38 @@
    :render-fn
    (q
     (fn [value]
-      [mathbox/MathBox
-       {:container  {:style {:height "400px" :width "100%"}}
-        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-        :renderer   {:background-color 0xffffff}}
-       [mb/Cartesian (:cartesian value)
-        [mb/Axis {:axis 1 :width 3}]
-        [mb/Axis {:axis 2 :width 3}]
-        [mb/Axis {:axis 3 :width 3}]
-        [examples.simulation.utils/Mass
-         (select-keys
-          value [:L :state->xyz :initial-state :params])]
-        [examples.simulation.utils/Ellipse (:ellipse value)]]]))}}
+      (reagent.core/with-let
+        [!state (reagent.core/atom {:time 0 :state (:initial-state value)})]
+        [:<>
+         [examples.simulation.utils/Evolve
+          {:f' (:L value)
+           :atom   !state}]
+         [mathbox/MathBox
+          {:container  {:style {:height "400px" :width "100%"}}
+           :threestrap {:plugins ["core" "controls" "cursor" "stats"]
+                        :camera {:up [0 0 1]}}
+           :renderer   {:background-color 0xffffff}}
+          [mathbox.primitives/Cartesian (:cartesian value)
+           [mathbox.primitives/Axis {:axis 1 :width 3}]
+           [mathbox.primitives/Axis {:axis 2 :width 3}]
+           [mathbox.primitives/Axis {:axis 3 :width 3}]
+           [examples.simulation.utils/Comet
+            {:dimensions 3
+             :length 16
+             :color 0x3090ff
+             :size 10
+             :opacity 0.99
+             :path
+             (let [[a b c d] (:state->xyz value)
+                   render-fn (js/Function. a b c d)
+                   out       (js/Array. 0 0 0)]
+               (fn [emit]
+                 (-> (:state (.-state !state))
+                     (render-fn out nil))
+                 (emit (aget out 0)
+                       (aget out 1)
+                       (aget out 2))))}]
+           [Ellipse (:ellipse value)]]]])))}}
 (let [m 10000
       a 3
       b 2

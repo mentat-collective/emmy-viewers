@@ -57,6 +57,7 @@
 
 ;; ## Phase Portrait
 
+
 (show-cljs
  ;; TODO okay this is ready to go, this works!
  (defn PhaseVectors
@@ -293,7 +294,7 @@
         [leva.core/Controls {:atom !params
                              :schema schema}]
         [examples.simulation.utils/Evolve
-         {:L (:f' opts)
+         {:f' (:f' opts)
           :params !arr
           :atom   !state}]
         [mathbox.core/MathBox
