@@ -1,7 +1,5 @@
 (ns emmy.viewer.sci
-  (:require [demo.mathbox]
-            [demo.mathlive]
-            [emmy.clerk]
+  (:require [emmy.clerk]
             [emmy.jsxgraph]
             [emmy.leva]
             [emmy.mafs]
@@ -40,9 +38,7 @@
   (sci.ctx-store/swap-ctx!
    sci/merge-opts
    {:namespaces
-    {'demo.mathbox                     (sci/copy-ns demo.mathbox (sci/create-ns 'demo.mathbox))
-     'demo.mathlive                    (sci/copy-ns demo.mathlive (sci/create-ns 'demo.mathlive))
-     'emmy.clerk                       (sci/copy-ns emmy.clerk (sci/create-ns 'emmy.clerk))
+    {'emmy.clerk                       (sci/copy-ns emmy.clerk (sci/create-ns 'emmy.clerk))
      'emmy.leva                        (sci/copy-ns emmy.leva (sci/create-ns 'emmy.leva))
      'emmy.jsxgraph                    (sci/copy-ns emmy.jsxgraph (sci/create-ns 'emmy.jsxgraph))
      'emmy.mafs                        (sci/copy-ns emmy.mafs (sci/create-ns 'emmy.mafs))

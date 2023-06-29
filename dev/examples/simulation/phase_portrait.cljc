@@ -6,7 +6,7 @@
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
-            #?@(:cljs [[demo.mathbox]
+            #?@(:cljs [[examples.simulation.utils]
                        [nextjournal.clerk.render]
                        [goog.events]
                        [mathbox.core]
@@ -110,7 +110,7 @@
   document!!"
    [{:keys [state-derivative initial-state params steps dt]
      :or {dt 3e-2}}]
-   (let [simulate (demo.mathbox/Lagrangian-collector
+   (let [simulate (examples.simulation.utils/Lagrangian-collector
                    state-derivative
                    initial-state
                    {:parameters params})]
@@ -148,7 +148,7 @@
         :initial-state initial-state
         :params params
         :steps steps}]
-      [demo.mathbox/Comet
+      [examples.simulation.utils/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
@@ -246,7 +246,7 @@
        {:V V-fn
         :!params params}]
       ;; this is the bead traveling with history along the potential.
-      [demo.mathbox/Comet
+      [examples.simulation.utils/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
@@ -316,7 +316,7 @@
         [leva.core/Controls
          {:atom !params
           :schema schema}]
-        [demo.mathbox/Evolve
+        [examples.simulation.utils/Evolve
          {:L (:L opts)
           :params !arr
           :atom   !state}]

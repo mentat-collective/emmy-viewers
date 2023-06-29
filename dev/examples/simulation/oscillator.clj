@@ -63,7 +63,7 @@
         [mb/Axis {:axis 1 :width 3}]
         [mb/Axis {:axis 2 :width 3}]
         [mb/Axis {:axis 3 :width 3}]
-        [demo.mathbox/Mass
+        [examples.simulation.utils/Mass
          (select-keys
           value [:L :state->xyz :initial-state :params])]]]))}}
 {:state->xyz coordinate

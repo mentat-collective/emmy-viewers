@@ -1,4 +1,4 @@
-(ns demo.mathbox
+(ns examples.simulation.utils
   (:require [emmy.expression.compile :as xc]
             [emmy.numerical.ode :as ode]
             [goog.events]
@@ -360,7 +360,7 @@
        [mb/Axis {:axis 1 :width 3}]
        [mb/Axis {:axis 2 :width 3}]
        [mb/Axis {:axis 3 :width 3}]
-       [demo.mathbox/Curve
+       [examples.simulation.utils/Curve
         {:state-derivative (apply js/Function (:L opts))
          :state->xyz render-fn
          :initial-state-fn

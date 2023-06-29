@@ -52,8 +52,8 @@
          [mb/Axis {:axis 1 :width 3}]
          [mb/Axis {:axis 2 :width 3}]
          [mb/Axis {:axis 3 :width 3}]
-         [demo.mathbox/Ellipse (:ellipse value)]
-         [demo.mathbox/DoubleMass
+         [examples.simulation.utils/Ellipse (:ellipse value)]
+         [examples.simulation.utils/DoubleMass
           (select-keys value [:L :state->xyz :initial-state])]]])))}
 
   (let [m 10 a 2 b 1 c 1]
