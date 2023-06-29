@@ -24,7 +24,7 @@
 
 (defn Evolve
   "ODE State evolving component."
-  [{L :L
+  [{f' :f'
     !state  :atom
     !params :params}]
 
@@ -36,7 +36,7 @@
   ;; TODO can I do `:params {:atom :keys}`?
   (let
       ;; TODO how can I wire in an array and have it not cause a re-render??
-      [state-deriv (apply js/Function L)
+      [state-deriv (apply js/Function f')
        update      (Lagrangian-updater state-deriv
                                        (:state @!state)
                                        {:parameters !params})]

@@ -122,7 +122,10 @@
        :dt dt}]))
 
  (defn Phase [{:keys [!state initial-state f' params steps]}]
-   [:<>
+   [mathbox.primitives/Cartesian
+    {:range [[-4 4] [-4 4]]
+     :scale [0.48 0.48]
+     :position [0.5 0.2]}
     [mb/Grid {:color 0x808080}]
     [PhaseAxes]
     [PhaseVectors
@@ -207,7 +210,11 @@
  (defn Well [{:keys [V !state params]}]
    (let [[a1 b1 c1 body1] V
          V-fn (js/Function. a1 b1 c1 body1)]
-     [:<>
+     [mathbox.primitives/Cartesian
+      {:id "well"
+       :range [[-3 3] [0 14]]
+       :scale [0.48 0.48]
+       :position [-0.5 0.2]}
       [mathbox.primitives/Grid
        {:color 0x808080}]
       [WellAxes]
@@ -235,7 +242,10 @@
  (defn Logger [{:keys [T V !state params]}]
    (let [T-fn (apply js/Function T)
          V-fn (apply js/Function V)]
-     [:<>
+     [mathbox.primitives/Cartesian
+      {:range [[-1 0] [0 6]]
+       :scale [0.98 0.1]
+       :position [0 -0.5]}
       [mathbox.primitives/Grid
        {:color 0x808080
         :divideX 0 :divideY 3}]
@@ -305,8 +315,8 @@
          V-fn (apply js/Function (:V opts))]
      (fn [_]
        [:<>
-        ;; so annoying...
-        [nextjournal.clerk.render/inspect @!arr]
+
+        [:div {:class "hidden"}[nextjournal.clerk.render/inspect @!arr]]
         [leva.core/Controls
          {:atom !params
           :schema
@@ -370,7 +380,7 @@
         ;;          );
         ;; TODO same evolution?
         [examples.simulation.utils/Evolve
-         {:L (:L opts)
+         {:f' (:f' opts)
           :params !arr
           :atom   !state}]
 
@@ -383,38 +393,23 @@
          [mathbox.primitives/Layer
 
           [mathbox.primitives/Unit {:scale 720 :focus 1}
-           [mathbox.primitives/Cartesian
-            {:id "well"
-             :range [[-3 3] [0 14]]
-             :scale [0.48 0.48]
-             :position [-0.5 0.2]}
-            [Well
-             {:!state !state
-              :V      (:V opts)
-              :params !arr}]]
+           [Well
+            {:!state !state
+             :V      (:V opts)
+             :params !arr}]
 
-           [mathbox.primitives/Cartesian
-            {:id "phase"
-             :range [[-4 4] [-4 4]]
-             :scale [0.48 0.48]
-             :position [0.5 0.2]}
-            [Phase
-             {:f' (:L opts)
-              :!state !state
-              :initial-state state
-              :params !params
-              :steps (:simSteps @!params)}]]
+           [Phase
+            {:f' (:f' opts)
+             :!state !state
+             :initial-state state
+             :params !params
+             :steps (:simSteps @!params)}]
 
-           [mathbox.primitives/Cartesian
-            {:id "logger"
-             :range [[-1 0] [0 6]]
-             :scale [0.98 0.1]
-             :position [0 -0.5]}
-            [Logger
-             {:!state !state
-              :T      (:T opts)
-              :V      (:V opts)
-              :params !arr}]]]]]]))))
+           [Logger
+            {:!state !state
+             :T      (:T opts)
+             :V      (:V opts)
+             :params !arr}]]]]]))))
 
 
 ;; ## Animate Well
@@ -426,8 +421,8 @@
       (comp clerk/mark-presented
             (clerk/update-val
              (fn [{:keys [L T V params keys initial-state] :as m}]
-               (assoc m
-                      :L
+               (assoc (dissoc m :L)
+                      :f'
                       (xc/compile-state-fn
                        (e/compose e/Lagrangian->state-derivative L)
                        (mapv params keys)
