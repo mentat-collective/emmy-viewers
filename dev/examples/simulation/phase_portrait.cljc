@@ -210,17 +210,20 @@
      {:color 0x3090ff}]])
 
  (defn Well [{:keys [V !state params]}]
-   (let [[a1 b1 c1 body1] V
-         V-fn (js/Function. a1 b1 c1 body1)]
-     [:<>
+   (let [V-fn (apply js/Function. V)]
+     [mathbox.primitives/Cartesian
+      {;; TODO fix our `normalize` so we don't map pi back to negative pi.
+       :range [[(- Math/PI) (- Math/PI 0.00001)]
+               [-10 10]]
+       :scale [0.48 0.25]
+       :position [-0.5 -0.25 0]}
       [mathbox.primitives/Grid
        {:color 0x808080
         :unitX Math/PI
         :baseX 2}]
       [WellAxes]
       [PotentialLine
-       {:V V-fn
-        :!params params}]
+       {:V V-fn :!params params}]
       ;; this is the bead traveling with history along the potential.
       [examples.simulation.utils/Comet
        {:dimensions 2
@@ -240,8 +243,19 @@
 ;; ## Animate Pendulum
 
 (show-cljs
- (defn Pendulum [{:keys [!state params]}]
+ (defn Pendulum []
    [:<>
+    [mathbox.primitives/Vector {:color 0xffffff :width 2}]
+    [mathbox.primitives/Slice {:items [0 1]}]
+    [mathbox.primitives/Point {:color 0x909090 :size 4}]
+    [mathbox.primitives/Slice {:items [1 2]}]
+    [mathbox.primitives/Point {:color 0xffffff :size 10}]])
+
+ (defn PendulumScene [{:keys [!state params]}]
+   [mathbox.primitives/Cartesian
+    {:range [[-1 1] [-1 1]]
+     :scale [0.25 0.25]
+     :position [-0.5 0.35 0]}
     [mathbox.primitives/Array
      {:channels 2
       :items 2
@@ -262,15 +276,9 @@
           (emit (* l (Math/sin theta))
                 (* l (- (Math/cos theta))))))
       }]
+    [Pendulum]
 
-    ;; attach a bob between the two.
-    [mathbox.primitives/Vector {:color 0xffffff :width 2}]
-
-    [mathbox.primitives/Slice {:items [0 1]}]
-    [mathbox.primitives/Point {:color 0x909090 :size 4}]
-
-    [mathbox.primitives/Slice {:items [1 2]}]
-    [mathbox.primitives/Point {:color 0xffffff :size 10}]])
+    ])
 
  (defn ^:export Hamilton
    [{state  :initial-state
@@ -304,25 +312,14 @@
          [mathbox.primitives/Layer
           [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
           [mathbox.primitives/Unit {:scale 720 :focus 1}
-           [mathbox.primitives/Cartesian
-            {:range [[-1 1] [-1 1]]
-             :scale [0.25 0.25]
-             :position [-0.5 0.35 0]}
-            [Pendulum
-             {:!state !state
-              :params !params}]]
+           [PendulumScene
+            {:!state !state
+             :params !params}]
 
-           [mathbox.primitives/Cartesian
-            {
-             ;; TODO fix our `normalize` so we don't map pi back to negative pi.
-             :range [[(- Math/PI) (- Math/PI 0.00001)]
-                     [-10 10]]
-             :scale [0.48 0.25]
-             :position [-0.5 -0.25 0]}
-            [Well
-             {:!state !state
-              :V      (:V opts)
-              :params !arr}]]
+           [Well
+            {:!state !state
+             :V      (:V opts)
+             :params !arr}]
 
            [Phase
             {:f' (:f' opts)
