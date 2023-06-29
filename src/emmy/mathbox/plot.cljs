@@ -923,6 +923,27 @@
     (assoc opts
            :z-order z-order
            :color color)]])
+(defn ImplicitSurface
+  "Component that plots an implicit surface `f(x,y,z)=0`
+  Required arguments:
+  - `:lhs`: the lhs of a function, in the form `f(x,y,z)`
+  - `:rhs`: the rhs of the function
+
+  Optional Arguments:
+
+  - points
+
+  "
+[{:keys [f] :as opts}]
+
+ (MarchingCubes (dissoc opts :lhs) (dissoc opts :rhs))
+;; Surface2d Takes and :expr...I think I want to send in points.
+  )
+
+(defn MarchingCubes [f x y z xStep yStep zStep c]
+
+
+  )
 
 (defn ParametricSurface
   "Component that plots a parametric surface defined by `f` into the scene along
