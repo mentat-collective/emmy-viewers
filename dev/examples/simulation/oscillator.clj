@@ -4,14 +4,19 @@
   (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial infinite?])
-  (:require [emmy.expression.compile :as xc]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
+            [emmy.expression.compile :as xc]
+            [emmy.mathbox.plot :as plot]
+            [emmy.viewer :as ev]
             [examples.expression :as d]
-            [mathbox.core :as-alias mathbox]
-            [mathbox.primitives :as-alias mb]
             [mentat.clerk-utils.viewers :refer [q]]
-            [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy.env :as e :refer :all]))
+            [nextjournal.clerk :as clerk]))
+
+{::clerk/width :wide}
+
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
 
 ;; ## Oscillator
 ;;
@@ -26,79 +31,42 @@
       (- T U))))
 
 
-;; TODO note that we have some weird missing newlines.
-
 (def m 10)
 (def k 200)
 (def g 9.8)
 
-^{::clerk/viewer
-  {:transform-fn
-   (comp clerk/mark-presented
-         (clerk/update-val
-          (fn [{:keys [L params initial-state state->xyz] :as m}]
-            (assoc m
-                   :L
-                   (xc/compile-state-fn
-                    (compose e/Lagrangian->state-derivative L)
-                    params
-                    initial-state
-                    {:mode :js
-                     :calling-convention :primitive
-                     :generic-params? false})
-
-                   :state->xyz
-                   (xc/compile-state-fn
-                    state->xyz false initial-state
-                    {:mode :js
-                     :calling-convention :primitive})))))
-   :render-fn
-   (q
-    (fn [value]
+(let [state->xyz coordinate
+      L L-harmonic
+      params [g m k]
+      initial-state [0 [1 2 0] [2 0 4]]]
+  (ev/with-let
+    [!state {:time 0 :state initial-state}]
+    (plot/scene
+     (q
+      [emmy.viewer.physics/Evolve
+       (reagent.core/with-let
+         [f' (apply js/Function
+                    ~(xc/compile-state-fn
+                      (compose e/Lagrangian->state-derivative L)
+                      params
+                      initial-state
+                      {:mode :js
+                       :calling-convention :primitive
+                       :generic-params? false}))]
+         {:f' f'
+          :atom ~!state})])
+     (q
       (reagent.core/with-let
-        [!state (reagent.core/atom
-                 {:time 0 :state (:initial-state value)})]
-        [:<>
-         [emmy.viewer.physics/Evolve
-          (reagent.core/with-let
-            [f' (apply js/Function (:L value))]
-            {:f' f'
-             :atom !state})]
-         [mathbox/MathBox
-          {:container  {:style {:height "400px" :width "100%"}}
-           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-           :renderer   {:background-color 0xffffff}}
-          [mb/Cartesian (:cartesian value)
-           [mb/Axis {:axis 1 :width 3}]
-           [mb/Axis {:axis 2 :width 3}]
-           [mb/Axis {:axis 3 :width 3}]
-           [emmy.mathbox.components.physics/Comet
-            {:dimensions 3
-             :length 16
-             :color 0x3090ff
-             :size 10
-             :opacity 0.99
-             :path
-             (let [[a b c d] (:state->xyz value)
-                   render-fn (js/Function. a b c d)
-                   out       (js/Array. 0 0 0)]
-               (fn [emit]
-                 (-> (:state (.-state !state))
-                     (render-fn out nil))
-                 (emit (aget out 0)
-                       (aget out 1)
-                       (aget out 2))))}]]]])))}}
-{:state->xyz coordinate
- :L L-harmonic
- :params [g m k]
- :initial-state [0
-                 [1 2 0]
-                 [2 0 4]]
- :cartesian
- {:range [[-10 10]
-          [-10 10]
-          [-10 10]]
-  :scale [3 3 3]}}
+        [state->xyz
+         (apply js/Function
+                ~(xc/compile-state-fn
+                  state->xyz false initial-state
+                  {:mode :js
+                   :calling-convention :primitive}))]
+        [emmy.mathbox.components.physics/Comet*
+         {:state->xyz (fn [in out]
+                        (state->xyz in out nil))
+          :atom ~!state}])))))
 
 ;; ## Equations of Motion:
 

@@ -145,8 +145,20 @@
 ;; TODO once we figure out how this works this should PROBABLY move over into
 ;; geometry... or be similar to point.
 
-(defn Tail [{:keys [length] :as opts}]
+(defn Comet
+  "Boring version that we need to fix."
+  [{:keys [dimensions path color size length items]
+    :or {items 1
+         dimensions 3
+         color 0x3090ff
+         length 16
+         size 10}}]
   [:<>
+   [mb/Array
+    {:history length
+     :items items
+     :channels dimensions
+     :expr path}]
    [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
    ;; Ah, this is the color channel, and fades out the tail as you go.
    [mb/Array
@@ -156,25 +168,44 @@
              (emit 1 1 1 (- 1 (/ i 16))))}]
    [mb/Transpose {:order "zxy"}]
    [mb/Point
-    (-> (dissoc opts :length)
-        (assoc :points "<<<"
-               :colors "<"))]])
+    {:points "<<<"
+     :colors "<"
+     :size size
+     :color color}]])
 
-(defn Comet
-  "Path is a function of i, t
-  dimensions is how many you want to emit
-  history is tail length,
-  rest of options go to the final point
+(defn Comet*
+  "Better version that makes more assumptions.
 
-  Note that i think we have to emit with xzy?? weird..."
-  [{:keys [dimensions path length items]
-    :or {items 1}
-    :as opts}]
+  NOTE: IN THEORY these can and should be emitting multiple items. That's
+  certainly what something like a double pendulum should be doing, right?"
+  [{:keys [atom state->xyz color size length items]
+    :or {items 1
+         state->xyz in->out
+         color 0x3090ff
+         length 16
+         size 10}}]
   [:<>
    [mb/Array
     {:history length
      :items items
-     :channels dimensions
-     :expr path}]
-   [Tail
-    (dissoc opts :dimensions :path :items)]])
+     :channels 3
+     :expr (let [out #js [0 0 0]]
+             (fn [emit]
+               (-> (:state (.-state atom))
+                   (state->xyz out))
+               (emit (aget out 0)
+                     (aget out 1)
+                     (aget out 2))))}]
+   [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
+   ;; Ah, this is the color channel, and fades out the tail as you go.
+   [mb/Array
+    {:width length
+     :channels 4
+     :expr (fn [emit i]
+             (emit 1 1 1 (- 1 (/ i 16))))}]
+   [mb/Transpose {:order "zxy"}]
+   [mb/Point
+    {:points "<<<"
+     :colors "<"
+     :size size
+     :color color}]])
