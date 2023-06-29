@@ -670,7 +670,8 @@
    [mb/Interval
     (cond-> {:axis axis
              :channels 3
-             :live false
+             ;; TODO this is not a good default but would work here.
+             :live true
              :expr expr
              :width samples}
       range (assoc :range range))]
