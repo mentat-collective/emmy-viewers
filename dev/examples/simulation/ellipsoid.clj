@@ -160,9 +160,11 @@
       (reagent.core/with-let
         [!state (reagent.core/atom {:time 0 :state (:initial-state value)})]
         [:<>
-         [examples.simulation.utils/Evolve
-          {:f' (:L value)
-           :atom   !state}]
+         [emmy.viewer.physics/Evolve
+          (reagent.core/with-let
+            [f' (apply js/Function (:L value))]
+            {:f' f'
+             :atom !state})]
          [mathbox/MathBox
           {:container  {:style {:height "400px" :width "100%"}}
            :threestrap {:plugins ["core" "controls" "cursor" "stats"]
@@ -172,7 +174,7 @@
            [mathbox.primitives/Axis {:axis 1 :width 3}]
            [mathbox.primitives/Axis {:axis 2 :width 3}]
            [mathbox.primitives/Axis {:axis 3 :width 3}]
-           [examples.simulation.utils/Comet
+           [emmy.mathbox.components.physics/Comet
             {:dimensions 3
              :length 16
              :color 0x3090ff

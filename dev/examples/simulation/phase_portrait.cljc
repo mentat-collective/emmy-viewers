@@ -6,8 +6,7 @@
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
-            #?@(:cljs [[examples.simulation.utils]
-                       [emmy.mathbox.components.plot :as plot]
+            #?@(:cljs [[emmy.mathbox.components.plot :as plot]
                        [nextjournal.clerk.render]
                        [goog.events]
                        [mathbox.core]
@@ -113,7 +112,7 @@
       :initial-state initial-state
       :params params
       :steps steps}]
-    [examples.simulation.utils/Comet
+    [emmy.mathbox.components.physics/Comet
      {:dimensions 2
       :length 16
       :color 0xa0d0ff
@@ -214,7 +213,7 @@
       [PotentialLine
        {:V V-fn :!params params}]
       ;; this is the bead traveling with history along the potential.
-      [examples.simulation.utils/Comet
+      [emmy.mathbox.components.physics/Comet
        {:dimensions 2
         :length 16
         :color 0xa0d0ff
@@ -293,10 +292,12 @@
         [nextjournal.clerk.render/inspect @!arr]
         [leva.core/Controls {:atom !params
                              :schema schema}]
-        [examples.simulation.utils/Evolve
-         {:f' (:f' opts)
-          :params !arr
-          :atom   !state}]
+        (reagent.core/with-let [f' (apply js/Function (:f' opts))]
+          [emmy.viewer.physics/Evolve
+           {:f' (let [psym (apply array (map @!params [:gravity :mass :length]))]
+                  (fn [in out]
+                    (f' in out psym)))
+            :atom !state}])
         [mathbox.core/MathBox
          {:container  {:style {:height "600px" :width "100%"}}
           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}

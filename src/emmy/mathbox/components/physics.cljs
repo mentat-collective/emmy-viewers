@@ -139,3 +139,42 @@
         {:color 0x3090ff
          :size 5
          :end true}]])))
+
+;; ## Entities
+;;
+;; TODO once we figure out how this works this should PROBABLY move over into
+;; geometry... or be similar to point.
+
+(defn Tail [{:keys [length] :as opts}]
+  [:<>
+   [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
+   ;; Ah, this is the color channel, and fades out the tail as you go.
+   [mb/Array
+    {:width length
+     :channels 4
+     :expr (fn [emit i]
+             (emit 1 1 1 (- 1 (/ i 16))))}]
+   [mb/Transpose {:order "zxy"}]
+   [mb/Point
+    (-> (dissoc opts :length)
+        (assoc :points "<<<"
+               :colors "<"))]])
+
+(defn Comet
+  "Path is a function of i, t
+  dimensions is how many you want to emit
+  history is tail length,
+  rest of options go to the final point
+
+  Note that i think we have to emit with xzy?? weird..."
+  [{:keys [dimensions path length items]
+    :or {items 1}
+    :as opts}]
+  [:<>
+   [mb/Array
+    {:history length
+     :items items
+     :channels dimensions
+     :expr path}]
+   [Tail
+    (dissoc opts :dimensions :path :items)]])

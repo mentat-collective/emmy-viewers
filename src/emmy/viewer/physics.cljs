@@ -1,6 +1,7 @@
 (ns emmy.viewer.physics
   "ODE and physics-aware utilities for all Emmy-Viewers plugins."
-  (:require ["odex" :as o]))
+  (:require [emmy.viewer.components.stopwatch :as sw]
+            ["odex" :as o]))
 
 ;; ## Simulation
 
@@ -69,3 +70,42 @@
                (.grid solver step-size
                       (fn [_ ys]
                         (emit ys))))))))
+
+(defn ^:no-doc ->arr
+  "TODO should we use `ode/flatten-into-primitive-array`?"
+  [xs]
+  (double-array
+   (if (array? xs)
+     xs
+     (flatten xs))))
+
+(defn monotonic-integrator
+  "Returns a function "
+  ([f' initial-state]
+   (monotonic-integrator f' initial-state {}))
+  ([f' initial-state opts]
+   (let [arr (->arr initial-state)]
+     (-> (make-solver f' (count arr) opts)
+         (.integrate 0 arr)))))
+
+(defn Evolve
+  "ODE State evolving component.
+
+  Differences: function comes in already good to go"
+  [{f'      :f'
+    !state  :atom
+    !params :params}]
+  (let [init   (:state @!state)
+        opts   {:parameters !params}
+        ;; TODO make this in a hook and call the no-arity function on the hook.
+        ;; exit.
+        update (monotonic-integrator f' init opts)]
+    (fn [_]
+      [sw/Stopwatch
+       {:onTick
+        (fn [t]
+          ;; TODO can we keep the output here mutable and provide an out to
+          ;; update?
+          (swap! !state assoc
+                 :time t
+                 :state (update t)))}])))

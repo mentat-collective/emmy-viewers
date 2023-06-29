@@ -6,17 +6,6 @@
             [examples.simulation.lorenz]
             [examples.simulation.phase-portrait]
             [examples.simulation.quartic-well]
-            [examples.simulation.utils]
-            [nextjournal.clerk.sci-env]
-
-            [sci.core :as sci]
-            [sci.ctx-store]))
+            [nextjournal.clerk.sci-env]))
 
 (emmy.viewer.sci/install!)
-
-(sci.ctx-store/swap-ctx!
- sci/merge-opts
- {:namespaces
-  {'examples.simulation.utils
-   (sci/copy-ns examples.simulation.utils
-                (sci/create-ns 'examples.simulation.utils))}})
