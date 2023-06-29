@@ -2,6 +2,16 @@
 
 ## [unreleased]
 
+- #56:
+
+  - removes `demo.mathbox` and `demo.mathlive` from the published jar, and
+    converts `demo.mathbox` into an examples-directory-only
+    `examples.simulation.utils`. The next step is to convert all remaining cljc
+    files into clj files using the new APIs.
+
+  - adds `hickory` and `deep-diff2` as provided dependencies to fix the cljdoc
+    build.
+
 - #55 fixes a bug with live-updating ranges not updating axis labels.
 
 - #53:

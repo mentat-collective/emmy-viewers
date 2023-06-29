@@ -27,6 +27,12 @@
     :mvn/scope "provided"}
    'djblue/portal
    {:mvn/version "0.42.1"
+    :mvn/scope "provided"}
+   'lambdaisland/deep-diff2
+   {:mvn/version "2.8.190"
+    :mvn/scope "provided"}
+   'hickory/hickory
+   {:mvn/version "0.7.1"
     :mvn/scope "provided"}})
 
 (defn- ->version
