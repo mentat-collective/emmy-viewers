@@ -104,59 +104,43 @@
       :offset [20 0]}]])
 
  (defn PhaseVectors
-   "Component that takes a simulator and builds an array of phase vectors... todo
-  document!!"
-   [{:keys [state-derivative initial-state params steps dt]
-     :or {dt 3e-2}}]
-   (let [simulate (examples.simulation.utils/Lagrangian-collector
-                   state-derivative
-                   initial-state
-                   {:parameters params})]
-     [:<>
-      [mb/Area
-       {:width 16
-        :height 16
-        :channels 2
-        :items steps
-        :centeredX true
-        :centeredY true
-        :live false
-        :expr
-        (let [in (js/Array. 0 0 0)]
-          (fn [emit x y _i _j _t]
-            (aset in 1 x)
-            (aset in 2 y)
-            (simulate in
-                      steps
-                      dt
-                      emit)))}]
-      [mb/Vector
-       {:color 0x3090ff
-        :size 3
-        :end true}]]))
+   "Okay, so THIS component is close to good to go. Unlike the ODE component, this
+  one is taking its cues from the ODE solver.
 
- (defn Phase [{:keys [!state initial-state L params steps]}]
-   (let [[a2 b2 c2 body2] L
-         state-deriv (js/Function. a2 b2 c2 body2)]
-     [:<>
-      [mb/Grid {:color 0x808080}]
-      [PhaseAxes]
-      [PhaseVectors
-       {:state-derivative state-deriv
-        :initial-state initial-state
-        :params params
-        :steps steps}]
-      [examples.simulation.utils/Comet
-       {:dimensions 2
-        :length 16
-        :color 0xa0d0ff
-        :size 10
-        :opacity 0.99
-        :path
-        (fn [emit _ _]
-          (let [state (:state (.-state !state))]
-            (emit (aget state 1)
-                  (aget state 2))))}]]))
+  TODO what we need to do is make a GENERIC thing that can emit pairs of y, y',
+  and then plot some vector. And do that across a grid based on some initial
+  state."
+   [{:keys [f' initial-state params steps dt]
+     :or {dt 3e-2}}]
+   (reagent.core/with-let [f' (apply js/Function. f')]
+     [emmy.mathbox.components.physics/PhasePortrait
+      {:f' (let [psym (apply array (map @params [:mass :alpha :beta :gamma]))]
+             (fn [in out]
+               (f' in out psym)))
+       :initial-state initial-state
+       :steps steps
+       :dt dt}]))
+
+ (defn Phase [{:keys [!state initial-state f' params steps]}]
+   [:<>
+    [mb/Grid {:color 0x808080}]
+    [PhaseAxes]
+    [PhaseVectors
+     {:f' f'
+      :initial-state initial-state
+      :params params
+      :steps steps}]
+    [examples.simulation.utils/Comet
+     {:dimensions 2
+      :length 16
+      :color 0xa0d0ff
+      :size 10
+      :opacity 0.99
+      :path
+      (fn [emit _ _]
+        (let [state (:state (.-state !state))]
+          (emit (aget state 1)
+                (aget state 2))))}]])
 
  (defn WellAxes []
    [:<>
@@ -415,10 +399,10 @@
              :scale [0.48 0.48]
              :position [0.5 0.2]}
             [Phase
-             {:L (:L opts)
+             {:f' (:L opts)
               :!state !state
               :initial-state state
-              :params !arr
+              :params !params
               :steps (:simSteps @!params)}]]
 
            [mathbox.primitives/Cartesian

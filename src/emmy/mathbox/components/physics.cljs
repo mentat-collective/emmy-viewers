@@ -118,10 +118,6 @@
           dimension (count state)
           solver    (ph/point-integrator f' dimension {:epsilon epsilon})
           y0        (clj->js state)]
-      #_[in       (apply array initial-state)
-         simulate (examples.simulation.utils/Lagrangian-collector
-                   initial-state
-                   {:parameters params})]
       [:<>
        [mb/Area
         {:width 16

@@ -1,16 +1,9 @@
 (ns examples.simulation.utils
   (:require [emmy.expression.compile :as xc]
             [emmy.numerical.ode :as ode]
-            [goog.events]
-            [goog.Timer :as timer]
-            [leva.core]
-            [mathbox.core]
+            [emmy.viewer.components.stopwatch :as sw]
             [mathbox.primitives :as mb]
-            [nextjournal.clerk.render]
-            ["odex" :as o]
-            ["react" :as react]
-            [reagent.core :as r])
-  (:import [goog Timer]))
+            [reagent.core :as r]))
 
 ;; ## Simulation
 
@@ -28,95 +21,6 @@
                      (fn [_ ys yps]
                        (state-derivative ys yps parameters)))]
      (ode/stream-integrator equations 0 flat-initial-state {:js? true}))))
-
-(defn make-solver
-  [derivative initial-state parameters epsilon]
-  (let [flat-initial-state (if (array? initial-state)
-                             initial-state
-                             (flatten initial-state))
-        ;; TODO get around the deref
-        f' (if (implements? IAtom parameters)
-             (let [p @parameters]
-               (fn [_ ys yps]
-                 (derivative ys yps p)))
-             (fn [_ ys yps]
-               (derivative ys yps parameters)))
-        dimension (count flat-initial-state)]
-    (o/Solver.
-     f'
-     dimension
-     #js {:absoluteTolerance epsilon
-          :relativeTolerance epsilon
-          :rawFunction true
-          :maxSteps 10000})))
-
-(defn Lagrangian-collector
-  "hardcoded at first for this use case."
-  ([state-derivative initial-state]
-   (Lagrangian-collector state-derivative initial-state {}))
-  ([state-derivative initial-state {:keys [parameters epsilon]
-                                    :or {epsilon 1e-6}}]
-   (let [solver (make-solver state-derivative initial-state parameters epsilon)]
-     (fn [state n step-size emit]
-       ;; TODO fix the case where we have issues at simSteps 5 on phase
-       ;; portrait.
-       (.solve solver 0 state (* n step-size)
-               (.grid solver step-size
-                      (fn [_ ys]
-                        (emit (aget ys 1) (aget ys 2)))))))))
-
-(defn Clock*
-  "Function component for a relative clock. onTick is called with a single arg for
-  seconds."
-  [{:keys [interval running? onTick]
-    :or   {running? true
-           interval 1}}]
-  ;; TODO move to outer??
-  (let [t   (Timer.)
-        now (goog/now)]
-    (react/useEffect
-     (fn mount []
-       (fn unmount []
-         (.dispose t)))
-     #js [])
-
-    (react/useEffect
-     (fn mount []
-       (if (.-enabled t)
-         (when-not running? (.stop t))
-         (when running? (.start t)))
-       js/undefined)
-     #js [running?])
-
-    (react/useEffect
-     (fn mount []
-       (when interval
-         (.setInterval t interval))
-       js/undefined)
-     #js [interval])
-
-    (react/useEffect
-     (fn mount []
-       (if onTick
-         ;; If I want to get fancy, this is everything that we should support
-         ;; https://github.com/unconed/mathbox/blob/master/src/primitives/types/time/clock.js
-
-         ;; TODO check if this is current for GCL?
-         (let [key (.-key
-                    (goog.events/listen
-                     t
-                     timer/TICK
-                     (fn []
-                       (onTick
-                        (/ (- (goog/now) now)
-                           1000)))))]
-           (fn []
-             (goog.events/unlistenByKey key)))
-         js/undefined))
-     #js [onTick])))
-
-(defn ^:export Clock [opts]
-  [:f> Clock* opts])
 
 (defn Evolve
   "ODE State evolving component."
@@ -137,7 +41,7 @@
                                        (:state @!state)
                                        {:parameters !params})]
     (fn [_]
-      [Clock
+      [sw/Stopwatch
        {:onTick
         (fn [seconds]
           ;; TODO can we keep the output here mutable and provide an out to
@@ -162,35 +66,6 @@
     (-> (dissoc opts :length)
         (assoc :points "<<<"
                :colors "<"))]])
-
-(defn Curve
-  "Component that takes a simulator and builds an array of points connected
-   into a curve."
-  [{:keys [state-derivative initial-state-fn params state->xyz steps dt]
-    :or {steps 1000 dt 3e-2}}]
-  [:<>
-   [mb/Array
-    {:channels 3
-     :id "sampler"
-     :data (let [y0  (initial-state-fn)
-                 s   (make-solver state-derivative y0 params 1e-5)
-                 ps  (.-state params)
-                 xyz (double-array 3)
-                 pts (atom [])]
-             (.solve s 0 (clj->js y0)
-                     (* steps dt)
-                     (.grid s dt
-                            (fn [_ ys]
-                              (state->xyz ys xyz ps)
-                              (swap! pts conj (js/Array. (aget xyz 0)
-                                                         (aget xyz 2)
-                                                         (aget xyz 1))))))
-             @pts)}]
-   [mb/Line
-    {:color 0xff3090
-     :size 8
-     :points "<"
-     :end true}]])
 
 (defn Comet
   "Path is a function of i, t
@@ -235,16 +110,14 @@
                 (aget out 2)
                 (aget out 1))))}]))
 
-(def ^:private two-pi (* 2 Math/PI))
-
 ;; TODO make this generic?
 (defn Ellipse [{:keys [a b c]}]
   [:<>
    [mb/Area
     {:width 64
      :height 64
-     :rangeX [0 two-pi]
-     :rangeY [0 two-pi]
+     :rangeX [0 (* 2 Math/PI)]
+     :rangeY [0 (* 2 Math/PI)]
      :axes [1 3]
      :live false
      :expr (fn [emit theta phi _i _j _time]
@@ -260,36 +133,6 @@
    [mb/Surface
     {:shaded true
      :opacity 0.2
-     :lineX true
-     :lineY true
-     :points "<"
-     :color 0xffffff
-     :width 1}]])
-
-(defn Torus [render-fn !params]
-  [:<>
-   [mb/Area
-    {:width 64
-     :height 64
-     :rangeX [0 two-pi]
-     :rangeY [0 two-pi]
-     :axes [1 3]
-     :live false
-     :expr (let [in  #js [0 0 0 0 0]
-                 out #js [0 0 0]
-                 p   @!params]
-             (fn [emit theta phi _i _j _time]
-               (aset in 1 theta)
-               (aset in 2 phi)
-               (render-fn in out p)
-               (emit (aget out 0)
-                     (aget out 2)
-                     (aget out 1))))
-     :items 1
-     :channels 3}]
-   [mb/Surface
-    {:shaded true
-     :opacity 0.5
      :lineX true
      :lineY true
      :points "<"
@@ -321,69 +164,3 @@
          :color 0x3090ff
          :size 10
          :zIndex 1}]])))
-
-
-;; ## Toroid Viewer
-
-(defn ToroidPoint
-  [{state      :initial-state
-    params     :params
-    keys       :keys
-    schema     :schema
-    state->xyz :state->xyz
-    :as opts}]
-  (reagent.core/with-let
-    [render-fn (apply js/Function state->xyz)
-     !state    (reagent.core/atom {:time 0 :state state})
-     !params   (reagent.core/atom params)
-     ;; I had to move this here because reagent.core/reaction wasn't available
-     ;; in the SCI environment you have when writing viewers...
-     !arr      (reagent.core/reaction
-                (apply
-                 array
-                 (map @!params keys)))]
-    [:<>
-     [nextjournal.clerk.render/inspect @!arr]
-     [nextjournal.clerk.render/inspect @!state]
-     [leva.core/Controls
-      {:atom !params
-       :schema schema}]
-     [Evolve
-      {:L      (:L opts)
-       :params !arr
-       :atom   !state}]
-     [mathbox.core/MathBox
-      {:container  {:style {:height "400px" :width "100%"}}
-       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-       :renderer   {:background-color 0xffffff}}
-      [mb/Cartesian (:cartesian opts)
-       [mb/Axis {:axis 1 :width 3}]
-       [mb/Axis {:axis 2 :width 3}]
-       [mb/Axis {:axis 3 :width 3}]
-       [examples.simulation.utils/Curve
-        {:state-derivative (apply js/Function (:L opts))
-         :state->xyz render-fn
-         :initial-state-fn
-         (fn []
-           (let [s (:state (.-state !state))]
-             (if (array? s)
-               s
-               (clj->js (flatten s)))))
-         :steps 200
-         :params !arr}]
-       [Comet
-        {:dimensions 3
-         :length 20
-         :color 0xa0d0ff
-         :size 10
-         :opacity 0.99
-         :path
-         (let [out #js [0 0 0]]
-           (fn [emit _ _]
-             (render-fn (:state (.-state !state))
-                        out
-                        (.-state !arr))
-             (emit (aget out 0)
-                   (aget out 2)
-                   (aget out 1))))}]
-       [Torus render-fn !arr]]]]))

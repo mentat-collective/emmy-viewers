@@ -58,6 +58,7 @@
 ;; ## Phase Portrait
 
 (show-cljs
+ ;; TODO okay this is ready to go, this works!
  (defn PhaseVectors
    "Okay, so THIS component is close to good to go. Unlike the ODE component, this
   one is taking its cues from the ODE solver.
@@ -67,33 +68,14 @@
   state."
    [{:keys [f' initial-state params steps dt]
      :or {dt 3e-2}}]
-   (let [in       (apply array initial-state)
-         f'       (apply js/Function. f')
-         simulate (examples.simulation.utils/Lagrangian-collector
-                   f'
-                   initial-state
-                   {:parameters params})]
-     [:<>
-      [mb/Area
-       {:width 16
-        :height 16
-        :channels 2
-        :items steps
-        :centeredX true
-        :centeredY true
-        :live false
-        :expr
-        (fn [emit x y _i _j _t]
-          (aset in 1 x)
-          (aset in 2 y)
-          (simulate in
-                    steps
-                    dt
-                    emit))}]
-      [mb/Vector
-       {:color 0x3090ff
-        :size 5
-        :end true}]]))
+   (reagent.core/with-let [f' (apply js/Function. f')]
+     [emmy.mathbox.components.physics/PhasePortrait
+      {:f' (let [psym (apply array (map @params [:gravity :mass :length]))]
+             (fn [in out]
+               (f' in out psym)))
+       :initial-state initial-state
+       :steps steps
+       :dt dt}]))
 
  (defn PhaseScene [& children]
    (into [plot/Cartesian
@@ -332,7 +314,7 @@
            {:f' (:f' opts)
             :!state !state
             :initial-state state
-            :params !arr
+            :params !params
             :steps (:simSteps @!params)}]]]]))))
 
 #?(:clj
