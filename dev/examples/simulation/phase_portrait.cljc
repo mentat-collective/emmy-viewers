@@ -59,35 +59,41 @@
 
 (show-cljs
  (defn PhaseVectors
-   "Okay, so THIS componen"
-   []
-   (let [in (js/Array. 0 0 0)]
-     (fn [{:keys [f' initial-state params steps dt]
-          :or {dt 3e-2}}]
-       (let [simulate (examples.simulation.utils/Lagrangian-collector
-                       (apply js/Function. f')
-                       initial-state {:parameters params})]
-         [:<>
-          [mb/Area
-           {:width 16
-            :height 16
-            :channels 2
-            :items steps
-            :centeredX true
-            :centeredY true
-            :live false
-            :expr
-            (fn [emit x y _i _j _t]
-              (aset in 1 x)
-              (aset in 2 y)
-              (simulate in
-                        steps
-                        dt
-                        emit))}]
-          [mb/Vector
-           {:color 0x3090ff
-            :size 5
-            :end true}]]))))
+   "Okay, so THIS component is close to good to go. Unlike the ODE component, this
+  one is taking its cues from the ODE solver.
+
+  TODO what we need to do is make a GENERIC thing that can emit pairs of y, y',
+  and then plot some vector. And do that across a grid based on some initial
+  state."
+   [{:keys [f' initial-state params steps dt]
+     :or {dt 3e-2}}]
+   (let [in       (apply array initial-state)
+         f'       (apply js/Function. f')
+         simulate (examples.simulation.utils/Lagrangian-collector
+                   f'
+                   initial-state
+                   {:parameters params})]
+     [:<>
+      [mb/Area
+       {:width 16
+        :height 16
+        :channels 2
+        :items steps
+        :centeredX true
+        :centeredY true
+        :live false
+        :expr
+        (fn [emit x y _i _j _t]
+          (aset in 1 x)
+          (aset in 2 y)
+          (simulate in
+                    steps
+                    dt
+                    emit))}]
+      [mb/Vector
+       {:color 0x3090ff
+        :size 5
+        :end true}]]))
 
  (defn PhaseScene [& children]
    (into [plot/Cartesian
@@ -243,13 +249,20 @@
 ;; ## Animate Pendulum
 
 (show-cljs
- (defn Pendulum []
-   [:<>
-    [mathbox.primitives/Vector {:color 0xffffff :width 2}]
-    [mathbox.primitives/Slice {:items [0 1]}]
-    [mathbox.primitives/Point {:color 0x909090 :size 4}]
-    [mathbox.primitives/Slice {:items [1 2]}]
-    [mathbox.primitives/Point {:color 0xffffff :size 10}]])
+ (defn Pendulum
+   "TODO this one can export!"
+   ([] [Pendulum {}])
+   ([{:keys [width base-size bob-size segments]
+      :or {bob-size  10
+           base-size 4
+           segments  1}}]
+    [:<>
+     [mathbox.primitives/Vector
+      {:color 0xffffff :width width}]
+     [mathbox.primitives/Slice {:items [0 1]}]
+     [mathbox.primitives/Point {:color 0x909090 :size base-size}]
+     [mathbox.primitives/Slice {:items [1 (inc segments)]}]
+     [mathbox.primitives/Point {:color 0xffffff :size bob-size}]]))
 
  (defn PendulumScene [{:keys [!state params]}]
    [mathbox.primitives/Cartesian
@@ -276,9 +289,7 @@
           (emit (* l (Math/sin theta))
                 (* l (- (Math/cos theta))))))
       }]
-    [Pendulum]
-
-    ])
+    [Pendulum]])
 
  (defn ^:export Hamilton
    [{state  :initial-state
@@ -297,36 +308,32 @@
      (fn [_]
        [:<>
         [nextjournal.clerk.render/inspect @!arr]
-        [leva.core/Controls
-         {:atom !params
-          :schema schema}]
+        [leva.core/Controls {:atom !params
+                             :schema schema}]
         [examples.simulation.utils/Evolve
          {:L (:f' opts)
           :params !arr
           :atom   !state}]
-
         [mathbox.core/MathBox
          {:container  {:style {:height "600px" :width "100%"}}
           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
           :renderer   {:background-color 0x000000}}
          [mathbox.primitives/Layer
-          [mathbox.primitives/Camera {:proxy true :position [0 0 20]}]
-          [mathbox.primitives/Unit {:scale 720 :focus 1}
-           [PendulumScene
-            {:!state !state
-             :params !params}]
+          [PendulumScene
+           {:!state !state
+            :params !params}]
 
-           [Well
-            {:!state !state
-             :V      (:V opts)
-             :params !arr}]
+          [Well
+           {:!state !state
+            :V      (:V opts)
+            :params !arr}]
 
-           [Phase
-            {:f' (:f' opts)
-             :!state !state
-             :initial-state state
-             :params !arr
-             :steps (:simSteps @!params)}]]]]]))))
+          [Phase
+           {:f' (:f' opts)
+            :!state !state
+            :initial-state state
+            :params !arr
+            :steps (:simSteps @!params)}]]]]))))
 
 #?(:clj
    ^{::clerk/width :wide
@@ -369,35 +376,6 @@
     :V V
     :initial-state [0 3 0]})
 
-
-
-;; Next steps:
-
-;; - TODO how do we do generic drawing?
-;; - TODO clerk/sync
-;; - how expensive is it to make these odex `.simulate` calls?
-;; - how expensive are the redundant array lookups?
-;; - convert potential to only need position
-
-#_
-(comment
-  (defn DoublePendulum
-    "For later, here's how to extend this."
-    []
-    [:<>
-     [mathbox.primitives/Array
-      {:width 2
-       :channels 2
-       :items 3
-       :expr (fn [emit _i now]
-               (emit -1 0)
-               (emit 0 0)
-               (emit (Math/sin now) (- (Math/cos now))))}]
-     ;; attach a bob between the two.
-     [mathbox.primitives/Vector {:color 0xffffff :width 2}]
-     ;; JUST attach a point to the second of the two items, ie [1, 2)
-     [mathbox.primitives/Slice {:items [0 1]}]
-     [mathbox.primitives/Point {:color 0x909090 :size 4}]
-
-     [mathbox.primitives/Slice {:items [1 3]}]
-     [mathbox.primitives/Point {:color 0xffffff :size 10}]]))
+;; - TODO how expensive is it to make these odex `.simulate` calls?
+;; - TODO how expensive are the redundant array lookups?
+;; - TODO convert potential to only need position

@@ -99,3 +99,47 @@
            :color color
            :start start? :end end?
            :zIndex z-index :zBias z-bias :zOrder z-order}]]))))
+
+(defn PhasePortrait
+  "Okay, so THIS component is close to good to go. Unlike the ODE component, this
+  one is taking its cues from the ODE solver.
+
+  TODO what we need to do is make a GENERIC thing that can emit pairs of y, y',
+  and then plot some vector. And do that across a grid based on some initial
+  state."
+  [_]
+  (fn [{:keys [f' initial-state #_params steps dt epsilon
+              x-idx v-idx]
+       :or {dt 3e-2
+            epsilon 1e-5
+            x-idx 1
+            v-idx 2}}]
+    (let [state     (flatten initial-state)
+          dimension (count state)
+          solver    (ph/point-integrator f' dimension {:epsilon epsilon})
+          y0        (clj->js state)]
+      #_[in       (apply array initial-state)
+         simulate (examples.simulation.utils/Lagrangian-collector
+                   initial-state
+                   {:parameters params})]
+      [:<>
+       [mb/Area
+        {:width 16
+         :height 16
+         :channels 2
+         :items steps
+         :centeredX true
+         :centeredY true
+         :live false
+         :expr
+         (fn [emit x v _i _j _t]
+           (aset y0 x-idx x)
+           (aset y0 v-idx v)
+           (solver y0 steps dt
+                   (fn [ys]
+                     (emit (aget ys x-idx)
+                           (aget ys v-idx)))))}]
+       [mb/Vector
+        {:color 0x3090ff
+         :size 5
+         :end true}]])))
