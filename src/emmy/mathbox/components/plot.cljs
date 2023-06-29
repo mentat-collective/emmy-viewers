@@ -129,7 +129,7 @@
     :or {divisions 10
          width 2
          labels? true
-         label-fn p/format-number
+         label-fn (fn [x] (p/format-number x))
          snap? false
          zero? false
          start? true

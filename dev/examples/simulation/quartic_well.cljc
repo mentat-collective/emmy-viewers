@@ -71,7 +71,7 @@
       :start true
       :end true}]
     [mb/Format
-     {:expr emmy.viewer.plot/format-number
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -92,7 +92,7 @@
       :end true
       :zero false}]
     [mb/Format
-     {:expr emmy.viewer.plot/format-number
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -171,7 +171,7 @@
       :start true
       :end true}]
     [mathbox.primitives/Format
-     {:expr emmy.viewer.plot/format-number
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff
@@ -191,7 +191,7 @@
       :end true
       :zero false}]
     [mathbox.primitives/Format
-     {:expr emmy.viewer.plot/format-number
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff

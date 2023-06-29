@@ -7,6 +7,7 @@
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
             #?@(:cljs [[examples.simulation.utils]
+
                        [nextjournal.clerk.render]
                        [goog.events]
                        [mathbox.core]
@@ -73,7 +74,7 @@
       :start true
       :end true}]
     [mb/Format
-     {:expr emmy.viewer.plot/format-number
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -94,7 +95,7 @@
       :end true
       :zero false}]
     [mb/Format
-     {:expr emmy.viewer.plot/format-number
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mb/Label
      {:color 0xffffff
@@ -203,7 +204,8 @@
       :end true
       :zero false}]
     [mathbox.primitives/Format
-     {:expr emmy.viewer.plot/format-number
+
+     {:expr (fn [x] (emmy.viewer.plot/format-number x))
       :font ["Helvetica"]}]
     [mathbox.primitives/Label
      {:color 0xffffff
