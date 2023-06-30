@@ -8,7 +8,6 @@
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
-            [emmy.mechanics.rotation :as rot]
             [emmy.mathbox.physics :as ph]
             [emmy.mathbox.plot :as plot]
             [emmy.structure :as s]
@@ -42,10 +41,10 @@
 (defn toroidal->rect [R r]
   (fn [[theta phi]]
     (*
-     (rot/rotate-z-matrix phi)
-     (s/up (+ R (* r (cos theta)))
-           0
-           (* r (sin theta))))))
+     (rotate-z-matrix phi)
+     (up (+ R (* r (cos theta)))
+         0
+         (* r (sin theta))))))
 
 (defn t->r [R r]
   (comp (toroidal->rect R r)
