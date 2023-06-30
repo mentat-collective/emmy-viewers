@@ -293,7 +293,7 @@
         [leva.core/Controls {:atom !params
                              :schema schema}]
         (reagent.core/with-let [f' (apply js/Function (:f' opts))]
-          [emmy.viewer.physics/Evolve
+          [emmy.viewer.components.physics/Evolve
            {:f' (let [psym (apply array (map @!params [:gravity :mass :length]))]
                   (fn [in out]
                     (f' in out psym)))

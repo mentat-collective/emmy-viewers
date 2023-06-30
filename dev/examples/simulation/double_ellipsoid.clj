@@ -106,7 +106,7 @@
        (reagent.core/with-let
          [!state (reagent.core/atom {:time 0 :state (:initial-state value)})]
          [:<>
-          [emmy.viewer.physics/Evolve
+          [emmy.viewer.components.physics/Evolve
            (reagent.core/with-let [f' (apply js/Function (:L value))]
              {:f' f'
               :atom !state})]

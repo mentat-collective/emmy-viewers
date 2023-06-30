@@ -1,6 +1,6 @@
 (ns emmy.mathbox.components.physics
   "ODE and physics-aware plotting functions using `MathBox`."
-  (:require [emmy.viewer.physics :as ph]
+  (:require [emmy.viewer.components.physics :as ph]
             [mathbox.primitives :as mb]))
 
 (defn- in->out

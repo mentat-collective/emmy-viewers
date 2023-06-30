@@ -1,4 +1,4 @@
-(ns emmy.viewer.physics
+(ns emmy.viewer.components.physics
   "ODE and physics-aware utilities for all Emmy-Viewers plugins."
   (:require [emmy.viewer.components.stopwatch :as sw]
             ["odex" :as o]))

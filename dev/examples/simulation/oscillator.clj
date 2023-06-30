@@ -42,15 +42,8 @@
   (ev/with-let
     [!state {:time 0 :state initial-state}]
     (plot/scene
-     (plot/parametric-curve
-      {:f (q (fn [emit t]
-               (let [state (:state @~!state)]
-                 (emit (+ -0.2 (* 0.2 (Math/cos (* 20 t))) (* (aget state 1) t))
-                       (+ (* 0.2 (Math/sin (* 20 t))) (* (aget state 2) t))
-                       (* (aget state 3) t)))))
-       :t [0 1]})
      (q
-      [emmy.viewer.physics/Evolve
+      [emmy.viewer.components.physics/Evolve
        (reagent.core/with-let
          [f' (apply js/Function
                     ~(xc/compile-state-fn
@@ -73,7 +66,7 @@
         [emmy.mathbox.components.physics/Comet*
          {:state->xyz (fn [in out]
                         (state->xyz in out nil))
-          :length 1
+          :length 16
           :atom ~!state}])))))
 
 ;; ## Equations of Motion:
