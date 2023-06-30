@@ -2,7 +2,7 @@
 (ns examples.simulation.oscillator
   {:nextjournal.clerk/toc true}
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
+   :exclude [+ - * / = zero? compare abs
              numerator denominator ref partial infinite?])
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
@@ -36,16 +36,18 @@
     (ev/with-let [!opts  {:m 10 :k 200 :g 9.8}]
       (plot/scene
        (leva/controls {:atom !opts})
+
        (emmy.viewer.physics/evolve
         {:atom !state
          :initial-state initial-state
          :f' (ev/with-params {:atom !opts :params [:g :m :k]}
                (comp e/Lagrangian->state-derivative L-harmonic))})
+
        (emmy.mathbox.physics/comet
-        {:length 16
+        {:length        16
          :state->xyz    coordinate
          :initial-state initial-state
-         :atom !state})))))
+         :atom          !state})))))
 
 ;; ## Equations of Motion:
 

@@ -74,6 +74,7 @@
   (comp
    (- T-free-particle
       V-free-particle)
+
    (F->C (t->r R r))))
 
 ;; Let's have a look:

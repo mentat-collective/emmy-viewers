@@ -2,7 +2,7 @@
 (ns examples.simulation.ellipsoid
   {:nextjournal.clerk/toc true}
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
+   :exclude [+ - * / = zero? compare abs
              numerator denominator ref partial infinite?])
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
