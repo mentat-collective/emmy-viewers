@@ -6,9 +6,7 @@
   (:require [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
             [emmy.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
-            [emmy.expression :as x]
             [emmy.clerk :as ec]
-            [emmy.value :as v]
             [reagent.core :as-alias reagent]))
 
 ;; ## Hello, Emmy!
@@ -39,31 +37,16 @@
   (+ (square (sin 'x))
      (square (cos 'x)))))
 
-;; And that's fine! Great for a built-in viewer. But now I've lost the original
-;; data structure!
-
-(defn transform-literal [l]
-  (let [simple (simplify l)]
-    [["simplified TeX" (clerk/tex (->TeX simple))]
-     [:simplified     (v/freeze simple)]
-     [:TeX            (clerk/tex (->TeX l))]
-     [:original       (v/freeze l)]]))
-
 ;; Try it out:
 
-
-(transform-literal
+(ec/transform-literal
  (+ (square (sin 'x)) (square (cos 'x))))
 
 ;; does it work with the multiviewer?
 
-(def multiviewer
-  {:pred x/literal?
-   :transform-fn
-   (clerk/update-val
-    (comp ec/multi transform-literal))})
 
-(clerk/with-viewer multiviewer
+
+(clerk/with-viewer ec/multiviewer
   (+ (square (sin 'x))
      (square (cos 'x))))
 

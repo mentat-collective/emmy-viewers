@@ -9,6 +9,7 @@
   - [[install!]] for notebook-specific configuration"
   {:nextjournal.clerk/toc true}
   (:require [clojure.walk :refer [postwalk]]
+            [emmy.env :as e]
             [emmy.expression :as x]
             [emmy.viewer :as ev]
             #?(:clj [emmy.viewer.css :as vc])
@@ -141,6 +142,19 @@
    :transform-fn
    (viewer/update-val x/expression-of)})
 
+(defn transform-literal [l]
+  (let [simple (e/simplify l)]
+    [["simplified TeX" (viewer/tex (e/->TeX simple))]
+     [:simplified     (e/freeze simple)]
+     [:TeX            (viewer/tex (e/->TeX l))]
+     [:original       (e/freeze l)]]))
+
+(def multiviewer
+  {:pred x/literal?
+   :transform-fn
+   (viewer/update-val
+    (comp multi transform-literal))})
+
 #?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
    :cljs (set! ev/reagent-viewer reagent-viewer))
 
@@ -251,6 +265,11 @@
             (b/build! opts)
             (finally
               (apply css/set-css! existing))))))
+
+(defn ->tex [v]
+  (viewer/tex
+   (e/->TeX
+    (e/simplify v))))
 
 ;; ## State Utilities
 

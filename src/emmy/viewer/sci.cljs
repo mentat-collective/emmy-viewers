@@ -12,6 +12,7 @@
             [emmy.viewer]
             [emmy.viewer.components.stopwatch]
             [emmy.viewer.components.physics]
+            [emmy.viewer.physics]
             [emmy.viewer.plot]
             [emmy.viewer.stopwatch]
             [leva.sci]
@@ -54,6 +55,7 @@
                                            (assoc 'with-let with-let))
      'emmy.viewer.components.physics   (sci/copy-ns emmy.viewer.components.physics
                                                     (sci/create-ns 'emmy.viewer.components.physics))
+     'emmy.viewer.physics              (sci/copy-ns emmy.viewer.physics (sci/create-ns 'emmy.viewer.physics))
      'emmy.viewer.plot                 (sci/copy-ns emmy.viewer.plot (sci/create-ns 'emmy.viewer.plot))
      'emmy.viewer.components.stopwatch (sci/copy-ns emmy.viewer.components.stopwatch
                                                     (sci/create-ns 'emmy.viewer.components.stopwatch))

@@ -9,7 +9,6 @@
             [emmy.leva :as leva]
             [emmy.mathbox.plot :as plot]
             [emmy.viewer :as ev]
-            [examples.expression :as d]
             [emmy.mathbox.physics]
             [emmy.viewer.physics]
             [nextjournal.clerk :as clerk]))
@@ -31,7 +30,7 @@
 ;; First, prepare the viewers so that all literals render with the multiviewer:
 
 ^{::clerk/visibility {:result :hide}}
-(ec/install! d/multiviewer)
+(ec/install! ec/multiviewer)
 
 ;; The transformation to elliptical coordinates is very similar to the spherical
 ;; coordinate transformation, but with a fixed $a$, $b$ and $c$ coefficient for
@@ -58,10 +57,10 @@
      (up 'theta 'phi)
      (up 'v_theta 'v_phi)))
 
-(defn L-central-triaxial [m a b c]
+(defn L-central-triaxial [m g a b c]
   (comp (- (L-free-particle m)
            (fn [[_ [_ _ z]]]
-             (* 9.8 m z)))
+             (* g m z)))
         (F->C (e->r a b c))))
 
 ;; Final Lagrangian:
@@ -69,7 +68,7 @@
 (let [local (up 't
                 (up 'theta 'phi)
                 (up 'thetadot 'phidot))]
-  ((L-central-triaxial 'm 'a 'b 'c) local))
+  ((L-central-triaxial 'm 'g 'a 'b 'c) local))
 
 ;; simpler if we use `'r` for everything, we'll get the Lagrangian for a
 ;; particle confined to a sphere:
@@ -77,27 +76,28 @@
 (let [local (up 't
                 (up 'theta 'phi)
                 (up 'thetadot 'phidot))]
-  ((L-central-triaxial 'm 'r 'r 'r) local))
+  ((L-central-triaxial 'm 'g 'r 'r 'r) local))
 
 ;; I'm sure there's some simplification in there for us. But why?
 ;;
 ;; Lagrange equations of motion for the ellipsoid:
 
-(clerk/with-viewer d/multiviewer
-  (let [L (L-central-triaxial 'm 'a 'b 'c)
-        theta (literal-function 'theta)
-        phi (literal-function 'phi)]
-    (((Lagrange-equations L) (up theta phi))
-     't)))
+
+(ec/->tex
+ (let [L (L-central-triaxial 'm 'g 'a 'b 'c)
+       theta (literal-function 'theta)
+       phi (literal-function 'phi)]
+   (((Lagrange-equations L) (up theta phi))
+    't)))
 
 ;; And for the sphere:
 
-(clerk/with-viewer d/multiviewer
-  (let [L (L-central-triaxial 'm 'r 'r 'r)
-        theta (literal-function 'theta)
-        phi (literal-function 'phi)]
-    (((Lagrange-equations L) (up theta phi))
-     't)))
+(ec/->tex
+ (let [L (L-central-triaxial 'm 'g 'r 'r 'r)
+       theta (literal-function 'theta)
+       phi (literal-function 'phi)]
+   (((Lagrange-equations L) (up theta phi))
+    't)))
 
 ;; This is fairly horrifying. This really demands animation, as I bet it looks
 ;; cool, but it's not comprehensible in this form.
@@ -106,15 +106,20 @@
 
 (let [initial-state [0 [0.001 0.001] [0 0]]]
   (ev/with-let   [!state {:time 0 :state initial-state}]
-    (ev/with-let [!opts {:m 10 :a 3 :b 2 :c 1.5}]
+    (ev/with-let [!opts {:m 10 :g 9.8 :a 3 :b 2 :c 1.5}]
       (plot/scene
-       {:threestrap {:plugins ["core" "controls" "cursor" "stats"]}}
-       (leva/controls {:atom !opts})
+       (leva/controls
+        {:atom !opts
+         :schema
+         {:g {:min 2 :max 20 :step 0.01}
+          :a {:min 1 :max 5 :step 0.01}
+          :b {:min 1 :max 5 :step 0.01}
+          :c {:min 1 :max 5 :step 0.01}}})
 
        (emmy.viewer.physics/evolve
         {:atom !state
          :initial-state initial-state
-         :f' (ev/with-params {:atom !opts :params [:m :a :b :c]}
+         :f' (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
                (comp Lagrangian->state-derivative
                      L-central-triaxial))})
 
@@ -132,13 +137,3 @@
          :state->xyz
          (ev/with-params {:atom !opts :params [:a :b :c]}
            e->r)})))))
-
-;; ## Equations of Motion:
-
-^{::clerk/visibility :hide}
-(clerk/with-viewer d/multiviewer
-  (let [L (L-central-triaxial 'm 'a 'b 'c)
-        theta (literal-function 'theta)
-        phi   (literal-function 'phi)]
-    (((Lagrange-equations L) (up theta phi))
-     't)))
