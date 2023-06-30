@@ -92,20 +92,20 @@
   "ODE State evolving component.
 
   Differences: function comes in already good to go"
-  [{f'      :f'
-    !state  :atom
-    !params :params}]
-  (let [init   (:state @!state)
-        opts   {:parameters !params}
-        ;; TODO make this in a hook and call the no-arity function on the hook.
-        ;; exit.
-        update (monotonic-integrator f' init opts)]
-    (fn [_]
-      [sw/Stopwatch
-       {:onTick
-        (fn [t]
-          ;; TODO can we keep the output here mutable and provide an out to
-          ;; update?
-          (swap! !state assoc
-                 :time t
-                 :state (update t)))}])))
+  [{f'     :f'
+    !state :atom
+    :as opts}]
+  ;; TODO make this in a hook and call the no-arity function on the hook.
+  ;; exit.
+  (let [update (monotonic-integrator
+                f'
+                (:state (.-state !state))
+                (select-keys opts [:epsilon :max-steps]))]
+    [sw/Stopwatch
+     {:onTick
+      (fn [t]
+        ;; TODO can we keep the output here mutable and provide an out to
+        ;; update?
+        (swap! !state assoc
+               :time t
+               :state (update t)))}]))
