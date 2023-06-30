@@ -9,7 +9,6 @@
             [emmy.leva :as leva]
             [emmy.mathbox.plot :as plot]
             [emmy.viewer :as ev]
-            [examples.expression :as d]
             [emmy.mathbox.physics]
             [emmy.viewer.physics]
             [nextjournal.clerk :as clerk]))
@@ -52,7 +51,7 @@
 ;; ## Equations of Motion:
 
 ^{::clerk/visibility :hide}
-(clerk/with-viewer d/multiviewer
+(clerk/with-viewer ec/multiviewer
   (let [L (L-harmonic 'g 'm 'k)
         x (e/literal-function 'x)
         y (e/literal-function 'y)

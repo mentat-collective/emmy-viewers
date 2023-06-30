@@ -5,7 +5,7 @@
    :exclude [+ - * / = zero? compare numerator denominator ref partial])
   (:require [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy.env :as e :refer [+ * / ->TeX cos expt simplify sin square]]
+            [emmy.env :as e :refer [+ * / ->TeX cos expt sin square]]
             [emmy.clerk :as ec]
             [reagent.core :as-alias reagent]))
 
