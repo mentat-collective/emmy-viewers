@@ -127,7 +127,7 @@
         {:opacity 0.2
          :f (ev/with-params {:atom !opts :params [:a :b :c]}
               elliptical->rect)
-         :u [0 (* 2 Math/PI)]
+         :u [0 Math/PI]
          :v [0 (* 2 Math/PI)]})
 
        (emmy.mathbox.physics/comet
