@@ -105,35 +105,35 @@
 ;; Lucky us!! Let's do it!
 
 (let [initial-state [0 [0.001 0.001] [0 0]]]
-  (ev/with-let   [!state {:time 0 :state initial-state}]
-    (ev/with-let [!opts {:m 10 :g 9.8 :a 3 :b 2 :c 1.5}]
-      (plot/scene
-       (leva/controls
-        {:atom !opts
-         :schema
-         {:g {:min 2 :max 20 :step 0.01}
-          :a {:min 1 :max 5 :step 0.01}
-          :b {:min 1 :max 5 :step 0.01}
-          :c {:min 1 :max 5 :step 0.01}}})
+  (ev/with-let [!state {:time 0 :state initial-state}
+                !opts  {:m 10 :g 9.8 :a 3 :b 2 :c 1.5}]
+    (plot/scene
+     (leva/controls
+      {:atom !opts
+       :schema
+       {:g {:min 2 :max 20 :step 0.01}
+        :a {:min 1 :max 5 :step 0.01}
+        :b {:min 1 :max 5 :step 0.01}
+        :c {:min 1 :max 5 :step 0.01}}})
 
-       (emmy.viewer.physics/evolve
-        {:atom !state
-         :initial-state initial-state
-         :f' (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
-               (comp Lagrangian->state-derivative
-                     L-central-triaxial))})
+     (emmy.viewer.physics/evolve
+      {:atom !state
+       :initial-state initial-state
+       :f' (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
+             (comp Lagrangian->state-derivative
+                   L-central-triaxial))})
 
-       (plot/parametric-surface
-        {:opacity 0.2
-         :f (ev/with-params {:atom !opts :params [:a :b :c]}
-              elliptical->rect)
-         :u [0 Math/PI]
-         :v [0 (* 2 Math/PI)]})
+     (plot/parametric-surface
+      {:opacity 0.2
+       :f (ev/with-params {:atom !opts :params [:a :b :c]}
+            elliptical->rect)
+       :u [0 Math/PI]
+       :v [0 (* 2 Math/PI)]})
 
-       (emmy.mathbox.physics/comet
-        {:length 16
-         :initial-state initial-state
-         :atom !state
-         :state->xyz
-         (ev/with-params {:atom !opts :params [:a :b :c]}
-           e->r)})))))
+     (emmy.mathbox.physics/comet
+      {:length 16
+       :initial-state initial-state
+       :atom !state
+       :state->xyz
+       (ev/with-params {:atom !opts :params [:a :b :c]}
+         e->r)}))))

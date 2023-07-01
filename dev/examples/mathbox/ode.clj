@@ -10,7 +10,6 @@
             [emmy.env :as e :refer :all]
             [emmy.viewer :as ev]
             [emmy.mathbox.physics :as ph]
-
             [emmy.mathbox.plot :as p]))
 
 {:nextjournal.clerk/width :full}

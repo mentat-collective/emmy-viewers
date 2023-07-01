@@ -19,7 +19,6 @@
 
 ;; ## Demo
 ;;
-
 ;; Let's make a function to try!
 
 (defn my-fn [x]

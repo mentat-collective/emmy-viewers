@@ -31,22 +31,22 @@
       (- T U))))
 
 (let [initial-state [0 [1 2 0] [2 0 4]]]
-  (ev/with-let   [!state {:time 0 :state initial-state}]
-    (ev/with-let [!opts  {:m 10 :k 200 :g 9.8}]
-      (plot/scene
-       (leva/controls {:atom !opts})
+  (ev/with-let [!state {:time 0 :state initial-state}
+                !opts  {:m 10 :k 200 :g 9.8}]
+    (plot/scene
+     (leva/controls {:atom !opts})
 
-       (emmy.viewer.physics/evolve
-        {:atom !state
-         :initial-state initial-state
-         :f' (ev/with-params {:atom !opts :params [:g :m :k]}
-               (comp e/Lagrangian->state-derivative L-harmonic))})
+     (emmy.viewer.physics/evolve
+      {:atom !state
+       :initial-state initial-state
+       :f' (ev/with-params {:atom !opts :params [:g :m :k]}
+             (comp e/Lagrangian->state-derivative L-harmonic))})
 
-       (emmy.mathbox.physics/comet
-        {:length        16
-         :state->xyz    coordinate
-         :initial-state initial-state
-         :atom          !state})))))
+     (emmy.mathbox.physics/comet
+      {:length        16
+       :state->xyz    coordinate
+       :initial-state initial-state
+       :atom          !state}))))
 
 ;; ## Equations of Motion:
 

@@ -2,6 +2,11 @@
 
 ## [unreleased]
 
+- #57:
+
+  - Modifies `emmy.viewer/with-let` to allow any number of binding pairs, not
+    just one.
+
 - #56:
 
   - removes `demo.mathbox` and `demo.mathlive` from the published jar, and
