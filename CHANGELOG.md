@@ -4,6 +4,15 @@
 
 - #57:
 
+  - Adds `emmy.viewer.physics/evolve`, for running realtime physics simulations
+    and updating state into a client-side atom.
+
+  - Adds `emmy.mathbox.physics/comet`, for rendering points with trailing,
+    fading-out history.
+
+  - Updates `examples.simulation.{oscillator,ellipsoid,double-ellipsoid}` to use
+    the new server-side style.
+
   - Modifies `emmy.viewer/with-let` to allow any number of binding pairs, not
     just one.
 

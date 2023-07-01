@@ -8,8 +8,6 @@
             [emmy.viewer.compile :as vc]
             [emmy.viewer.physics :as ph]))
 
-
-
 (defn ode-curve
   "Returns a fragment that plots a curve by integrating a system of ordinary
   differential equations represented by `f'` forward from the initial input
