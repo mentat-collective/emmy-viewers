@@ -25,9 +25,12 @@
             [sci.ctx-store]))
 
 (def with-let ^:sci/macro
-  (fn [_&form _&env [sym init] & body]
-    `(emmy.viewer/with-state ~init
-       (fn [~sym] ~@body))))
+  (fn [_&form _&env [sym init & more] & body]
+    (if (seq more)
+      `(emmy.viewer/with-let [~sym ~init]
+         (emmy.viewer/with-let [~@more] ~@body))
+      `(emmy.viewer/with-state ~init
+         (fn [~sym] ~@body)))))
 
 (defn install! []
   (leva.sci/install!)
