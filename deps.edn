@@ -44,6 +44,13 @@
    {io.github.cognitect-labs/test-runner
     {:git/tag "v0.5.0" :git/sha "b3fd0d2"}}}
 
+  ;; See https://github.com/cognitect-labs/test-runner for invocation
+  ;; instructions, or call `clojure -X:test:runner`.
+  :runner
+  {:main-opts ["-m" "cognitect.test-runner"]
+   :exec-fn cognitect.test-runner.api/test
+   :exec-args ["test"]}
+
   :build
   {:deps
    {io.github.clojure/tools.build {:git/tag "v0.9.4" :git/sha "76b78fe"}

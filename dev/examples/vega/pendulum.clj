@@ -13,8 +13,8 @@
   (:refer-clojure
    :exclude [+ - * / partial ref zero? numerator denominator compare = run!
              abs infinite?])
-  (:require [examples.expression :as d]
-            [nextjournal.clerk :as clerk]
+  (:require [nextjournal.clerk :as clerk]
+            [emmy.clerk :refer [multiviewer]]
             [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [emmy.expression.render :as xr]))
@@ -183,7 +183,7 @@
 
   ;; Looks good:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-chaotic-data))
 
   ;; Next, the regular initial condition:
@@ -194,7 +194,7 @@
 
   ;; Peek at the final state:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-regular-data))
 
   ;; ## Measurements, Data Transformation
@@ -509,7 +509,7 @@
 
   ;; Looks good:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-dd-chaotic-data))
 
   ;; Next, the regular initial condition:
@@ -519,6 +519,6 @@
 
   ;; Peek at the final state:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-dd-regular-data))
   )

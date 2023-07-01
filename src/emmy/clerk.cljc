@@ -9,6 +9,7 @@
   - [[install!]] for notebook-specific configuration"
   {:nextjournal.clerk/toc true}
   (:require [clojure.walk :refer [postwalk]]
+            [emmy.env :as e]
             [emmy.expression :as x]
             [emmy.viewer :as ev]
             #?(:clj [emmy.viewer.css :as vc])
@@ -74,6 +75,30 @@
   Use the second form if you care about the order of your tabs."
   [xs]
   (viewer/with-viewer tabbed-viewer xs))
+
+(defn ^:no-doc transform-literal
+  "Given an Emmy expression `x`, returns an ordered list of pairs to pass in
+  to [[multi]]."
+  [x]
+  (let [simple (e/simplify x)]
+    [["simplified TeX" (viewer/tex (e/->TeX simple))]
+     [:simplified     (e/freeze simple)]
+     [:TeX            (viewer/tex (e/->TeX x))]
+     [:original       (e/freeze x)]]))
+
+(def multiviewer
+  "Viewer that applies to Emmy literals by default and presents them with a tabbed
+  interface showing TeX and the original representation, simplified and
+  unsimplified.
+
+  NOTE: In its current state [[multiviewer]] doesn't apply to anything but
+  literals, but COULD be activated for anything that responds
+  to [[emmy.env/->TeX]]."
+  {:name `multiviewer
+   :pred x/literal?
+   :transform-fn
+   (viewer/update-val
+    (comp multi transform-literal))})
 
 (def meta-viewer
   "Catch-all viewer that allows a metadata-carrying object to specify its viewer

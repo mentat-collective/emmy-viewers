@@ -2,16 +2,21 @@
 (ns examples.simulation.oscillator
   {:nextjournal.clerk/toc true}
   (:refer-clojure
-   :exclude [+ - * / = zero? compare
+   :exclude [+ - * / = zero? compare abs
              numerator denominator ref partial infinite?])
-  (:require [emmy.expression.compile :as xc]
-            [examples.expression :as d]
-            [mathbox.core :as-alias mathbox]
-            [mathbox.primitives :as-alias mb]
-            [mentat.clerk-utils.viewers :refer [q]]
-            [nextjournal.clerk :as clerk]
-            [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy.env :as e :refer :all]))
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
+            [emmy.leva :as leva]
+            [emmy.mathbox.plot :as plot]
+            [emmy.viewer :as ev]
+            [emmy.mathbox.physics]
+            [emmy.viewer.physics]
+            [nextjournal.clerk :as clerk]))
+
+{::clerk/width :wide}
+
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
 
 ;; ## Oscillator
 ;;
@@ -25,63 +30,28 @@
                (* g m z))]
       (- T U))))
 
-;; TODO note that we have some weird missing newlines.
+(let [initial-state [0 [1 2 0] [2 0 4]]]
+  (ev/with-let [!state {:state initial-state}
+                !opts  {:m 10 :k 200 :g 9.8}]
+    (plot/scene
+     (leva/controls {:atom !opts})
 
-(def m 10)
-(def k 200)
-(def g 9.8)
+     (emmy.viewer.physics/evolve
+      {:atom !state
+       :initial-state initial-state
+       :f' (ev/with-params {:atom !opts :params [:g :m :k]}
+             (comp e/Lagrangian->state-derivative L-harmonic))})
 
-^{::clerk/viewer
-  {:transform-fn
-   (comp clerk/mark-presented
-         (clerk/update-val
-          (fn [{:keys [L params initial-state state->xyz] :as m}]
-            (assoc m
-                   :L
-
-                   (xc/compile-state-fn
-                    (compose e/Lagrangian->state-derivative L)
-                    params
-                    initial-state
-                    {:mode :js
-                     :calling-convention :primitive
-                     :generic-params? false})
-
-                   :state->xyz
-                   (xc/compile-state-fn
-                    state->xyz false initial-state
-                    {:mode :js
-                     :calling-convention :primitive})))))
-   :render-fn
-   (q
-    (fn [value]
-      [mathbox/MathBox
-       {:container  {:style {:height "400px" :width "100%"}}
-        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-        :renderer   {:background-color 0xffffff}}
-       [mb/Cartesian (:cartesian value)
-        [mb/Axis {:axis 1 :width 3}]
-        [mb/Axis {:axis 2 :width 3}]
-        [mb/Axis {:axis 3 :width 3}]
-        [examples.simulation.utils/Mass
-         (select-keys
-          value [:L :state->xyz :initial-state :params])]]]))}}
-{:state->xyz coordinate
- :L L-harmonic
- :params [g m k]
- :initial-state [0
-                 [1 2 0]
-                 [2 0 4]]
- :cartesian
- {:range [[-10 10]
-          [-10 10]
-          [-10 10]]
-  :scale [3 3 3]}}
+     (emmy.mathbox.physics/comet
+      {:length        1
+       :state->xyz    coordinate
+       :initial-state initial-state
+       :atom          !state}))))
 
 ;; ## Equations of Motion:
 
 ^{::clerk/visibility :hide}
-(clerk/with-viewer d/multiviewer
+(clerk/with-viewer ec/multiviewer
   (let [L (L-harmonic 'g 'm 'k)
         x (e/literal-function 'x)
         y (e/literal-function 'y)

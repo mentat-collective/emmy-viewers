@@ -114,18 +114,26 @@
 
   - `:size`: size of the label. Defaults to 12.
 
-  - `:offset`: `[<x-offset> <y-offset>]` for this label on the DOM. Defaults to
-    `[0 20]`.
+  - `:offset`: `[<x-offset> <y-offset>]` for the label on each tick. Defaults to
+    `[20 0]` if `:axis` equals `:z`, else `[0 -20]`.
 
   - `:labels?`: if `true` (default), renders a printed label underneath each
     tick for the `:x` and `:y` axes, or alongside the axis for `:z`.
 
   - `:label-fn`: `(fn [x] <string>)` for generating the printed representation
     of each tick mark's value. Defaults to [[emmy.viewer.plot/format-number]]. You
-    might also enjoy [[emmy.viewer.plot/label-pi]]."
+    might also enjoy [[emmy.viewer.plot/label-pi]].
+
+  - `:z-order`: z-order of the labeled axis.
+
+  - `:z-index`: zIndex of the labeled axis. Defaults to 0.
+
+  - `:z-bias`: zBias of the labeled axis. Defaults to 0."
   [{:keys [axis divisions width
            snap? zero? start? end?
-           labels? label-fn]
+           labels? label-fn
+           color background text-size offset
+           z-order z-index z-bias]
     :or {divisions 10
          width 2
          labels? true
@@ -133,9 +141,16 @@
          snap? false
          zero? false
          start? true
-         end? true}}]
+         end? true
+         text-size 16
+         z-bias 0
+         z-index 0}}]
   {:pre [(#{:x :y :z} axis)]}
-  (let [idx (axis->idx axis)]
+  (let [idx    (axis->idx axis)
+        offset (or offset
+                   (if (= axis :z)
+                     [20 0]
+                     [0 -20]))]
     [:<>
      [mb/Scale
       {:divide divisions
@@ -151,10 +166,13 @@
          {:live true
           :expr (fn [x] (label-fn x))}]
         [mb/Label
-         {:offset
-          (if (= axis :z)
-            [20 0 0]
-            [0 0 -20])}]])]))
+         {:color color
+          :background background
+          :size text-size
+          :offset offset
+          :zIndex z-index
+          :zOrder z-order
+          :zBias z-bias}]])]))
 
 (defn AxisLabel
   "Component that renders an axis label above the referenced `axis`.
@@ -217,10 +235,18 @@
   - `:label`: either `true` (default) or a map of [[AxisLabel]] options.
     See [[AxisLabel]] for details on what's allowed.
 
-    `true` will include the default label, ticks, while `false` or `nil` will
+    `true` will include the default label and ticks, while `false` or `nil` will
     remove the label.
 
   - `:width`: width of the rendered axis line.
+
+  - `:start?`: if `true`, renders an arrow at the start of the axis. Defaults
+    to `false`.
+
+  - `:end?`: if `true`, renders an arrow at the end of the segment. Defaults to
+    `false`.
+
+  - `:end?` if `true` (default), renders the ending tick.
 
   - `:opacity`: opacity of the axis (not currently passed on to ticks or
     labels). Defaults to 1.0.
@@ -242,26 +268,33 @@
   NOTE this is a hack, see the comment above the component for an alternate
   approach."
   [{:keys [axis width opacity color z-order z-index z-bias
-           max]
+           max start? end?]
     :or {z-bias 0
          z-index 0
          opacity 1
          width 1
+         start? false
+         end? false
          color "#808080"}
     :as opts}]
   {:pre [(#{:x :y :z} axis)]}
-  [mb/Group {:visible true :classes ["axis"]}
+  [:<>
    [mb/Axis
     {:axis (axis->idx axis)
      :opacity opacity
      :width width
      :color color
      :zOrder z-order :zIndex z-index :zBias z-bias
-     :start false
-     :end false}]
+     :start start?
+     :end end?}]
    (when-let [ticks (:ticks opts true)]
-     (let [opts (if (map? ticks) ticks {})]
-       [Ticks (assoc opts :axis axis)]))
+     (let [base (if (map? ticks) ticks {})]
+       [Ticks (assoc base
+                     :axis axis
+                     :color   (:color base color)
+                     :z-order (:z-order base z-order)
+                     :z-index (:z-index base z-index)
+                     :z-bias  (:z-bias base z-bias))]))
    (when-let [label (:label opts true)]
      (let [base (cond
                   (true? label) {:label (name axis)}
@@ -288,9 +321,9 @@
     \"snapping\" the grid means that gridlines will snap to nice numbers.
     `false` by default.
 
-  - `:divisions`: either `true`, `false`, a single number or a 2-vector of
-    numbers of the form `[<first-axis-divisions> <second-axis-divisions>]`. A
-    non-vector value becomes a pair with the same value in both slots.
+  - `:divisions`: either a single number or a 2-vector of numbers of the form
+    `[<first-axis-divisions> <second-axis-divisions>]`. A non-vector value becomes
+    a pair with the same value in both slots.
 
     divisions set the number of gridlines that appear in each dimension.
 
@@ -339,29 +372,31 @@
   - a vector like `[:x :y]`
   - a map of `{<axis-key> <boolean-or-[[LabeledAxis]]-arguments>}`
 
-  `range` is a 3-vector with the rendered ranges in the `x`, `y` and `z`
-  directions.
+  `range` (optional) is a 3-vector with the rendered ranges in the `x`, `y` and
+  `z` directions.
 
   Any axis entries missing from `axes` won't be rendered.
 
   NOTE: This argument is only used to fill in the `:max` argument
   to [[LabeledAxis]] for default label positioning. It should go away once we
   get a better strategy!"
-  [axes range]
-  (let [m (if (vector? axes)
-            (zipmap axes (repeat true))
-            axes)]
-    (into [:<>]
-          (map
-           (fn [[axis opts]]
-             (when opts
-               (let [idx  (axis->idx axis)
-                     opts (if (map? opts) opts {})]
-                 [LabeledAxis
-                  (assoc opts
-                         :axis axis
-                         :max (get-in range [(dec idx) 1]))]))))
-          m)))
+  ([axes]
+   [SceneAxes axes nil])
+  ([axes range]
+   (let [m (if (vector? axes)
+             (zipmap axes (repeat true))
+             axes)]
+     (into [:<>]
+           (map
+            (fn [[axis opts]]
+              (when opts
+                (let [idx  (axis->idx axis)
+                      opts (if (map? opts) opts {})]
+                  [LabeledAxis
+                   (assoc opts
+                          :axis axis
+                          :max (get-in range [(dec idx) 1]))]))))
+           m))))
 
 (defn SceneGrids
   "Component that renders multiple [[Grid]] objects into a scene.
@@ -400,6 +435,9 @@
   - `:scale`: `[<x-scale> <y-scale> <z-scale>]` for tuning the relative space
     given to each dimension in the rendering. Each entry defaults to 1.
 
+  - `:position`: `[<x> <y> <z>]` world position of this cartesian. Defaults to
+     `[0 0 0]`.
+
   - `:camera`: Camera position in units I don't really understand yet! Defaults
     to `[0.5 -2 0.6]`.
 
@@ -423,14 +461,15 @@
     See [[Grid]] for more detail on allowed configuration values."
   [& children]
   (let [[opts children] (split-opts children)
-        {:keys [camera range scale axes grids]
+        {:keys [camera range scale position axes grids]
          :or {range  [[-5 5] [-5 5] [-5 5]]
+              position [0 0 0]
               scale  [1 1 1]
               camera [0.5 -2 0.6]
               axes  [:x :y :z]
               grids [:xy]}} opts]
     [mb/Cartesian
-     {:range range :scale scale}
+     {:range range :scale scale :position position}
      [mb/Camera
       {:proxy true :position camera}]
      (into [:<>] children)
@@ -448,7 +487,7 @@
    :threestrap threestrap-defaults})
 
 (def ^:no-doc content-keys
-  [:range :scale :camera :axes :grids])
+  [:range :scale :position :camera :axes :grids])
 
 (defn Scene
   "Takes an optional options map and any number of children and nests them into a
@@ -549,10 +588,10 @@
 
   - `:width`: width of the line. Defaults to 4.
 
-  - `:start?` if `true`, renders an arrow at the start of the segment. Defaults
+  - `:start?`: if `true`, renders an arrow at the start of the segment. Defaults
     to `false`.
 
-  - `:end?` if `true`, renders an arrow at the end of the segment. Defaults to
+  - `:end?`: if `true`, renders an arrow at the end of the segment. Defaults to
     `false`.
 
   - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
@@ -624,7 +663,11 @@
 ;; ## One-Dimensional Plots
 
 (defn ^:no-doc Curve1D
-  "Component backing all of the 1-dimensional curve components below."
+  "Component backing all of the 1-dimensional curve components below.
+
+  NOTE that we may want to allow `:live?` to come through. This makes sense for
+  components that want to respond to state updates in, say, the position of a
+  moving physics object."
   [{:keys [samples range axis expr
            arrow-size width start? end?
            opacity color z-order z-index z-bias]
@@ -640,7 +683,6 @@
    [mb/Interval
     (cond-> {:axis axis
              :channels 3
-             :live false
              :expr expr
              :width samples}
       range (assoc :range range))]

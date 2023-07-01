@@ -8,12 +8,9 @@
   (:require [emmy.clerk :as ec]
             [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
-            [emmy.mechanics.rotation :as rot]
             [emmy.mathbox.physics :as ph]
             [emmy.mathbox.plot :as plot]
-            [emmy.structure :as s]
             [emmy.viewer :as ev]
-            [examples.expression :as d]
             [nextjournal.clerk :as clerk]))
 
 ;; ## Geodesics of the Torus
@@ -27,7 +24,7 @@
 ;; First, prepare the viewers so that all literals render with the multiviewer:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
-(clerk/add-viewers! [ec/meta-viewer d/multiviewer])
+(clerk/add-viewers! [ec/meta-viewer ec/multiviewer])
 
 ;; There is such a thing as toroidal coordinates--see
 ;; [Wikipedia](https://en.wikipedia.org/wiki/Toroidal_coordinates)-- but for our
@@ -43,10 +40,10 @@
 (defn toroidal->rect [R r]
   (fn [[theta phi]]
     (*
-     (rot/rotate-z-matrix phi)
-     (s/up (+ R (* r (cos theta)))
-           0
-           (* r (sin theta))))))
+     (rotate-z-matrix phi)
+     (up (+ R (* r (cos theta)))
+         0
+         (* r (sin theta))))))
 
 (defn t->r [R r]
   (comp (toroidal->rect R r)
@@ -88,7 +85,7 @@
 ;;
 ;; Lagrange equations of motion for the torus:
 
-(clerk/with-viewer d/multiviewer
+(clerk/with-viewer ec/multiviewer
   (let [L (L-toroidal 'R 'r)
         theta (literal-function 'theta)
         phi (literal-function 'phi)]

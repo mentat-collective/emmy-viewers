@@ -2,6 +2,37 @@
 
 ## [unreleased]
 
+- #57:
+
+  - Adds `emmy.viewer.physics/evolve`, for running realtime physics simulations
+    and updating state into a client-side atom.
+
+  - Adds `emmy.mathbox.physics/comet`, for rendering points with trailing,
+    fading-out history.
+
+  - Updates `examples.simulation.{oscillator,ellipsoid,double-ellipsoid}` to use
+    the new server-side style.
+
+  - Modifies `emmy.viewer/with-let` to allow any number of binding pairs, not
+    just one.
+
+  - Adds `emmy.clerk/multiviewer` for presenting literals via `emmy.clerk/multi`
+    with their TeX and original representations, both simplified and
+    unsimplified.
+
+  - Adds a missing `:offset` argument and `:z-index`, `:z-bias` and `:z-offset`
+    to `emmy.mathbox.components.plot/Ticks`.
+
+  - Adds `:start?` and `end?` arguments to to
+    `emmy.mathbox.components.plot/LabeledAxis`. Also, the `:z-index`, `:z-order`
+    and `:z-bias` arguments are now passed through to `Ticks` if not supplied
+    directly.
+
+  - Makes the `range` argument for `emmy.mathbox.components.plot/SceneAxes`
+    optional.
+
+  - Moves `ode-compile` from `emmy.mathbox.physics` to `emmy.viewer.physics`.
+
 - #56:
 
   - removes `demo.mathbox` and `demo.mathlive` from the published jar, and
