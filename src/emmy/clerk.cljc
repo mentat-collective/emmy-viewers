@@ -76,6 +76,30 @@
   [xs]
   (viewer/with-viewer tabbed-viewer xs))
 
+(defn ^:no-doc transform-literal
+  "Given an Emmy expression `x`, returns an ordered list of pairs to pass in
+  to [[multi]]."
+  [x]
+  (let [simple (e/simplify x)]
+    [["simplified TeX" (viewer/tex (e/->TeX simple))]
+     [:simplified     (e/freeze simple)]
+     [:TeX            (viewer/tex (e/->TeX x))]
+     [:original       (e/freeze x)]]))
+
+(def multiviewer
+  "Viewer that applies to Emmy literals by default and presents them with a tabbed
+  interface showing TeX and the original representation, simplified and
+  unsimplified.
+
+  NOTE: In its current state [[multiviewer]] doesn't apply to anything but
+  literals, but COULD be activated for anything that responds
+  to [[emmy.env/->TeX]]."
+  {:name `multiviewer
+   :pred x/literal?
+   :transform-fn
+   (viewer/update-val
+    (comp multi transform-literal))})
+
 (def meta-viewer
   "Catch-all viewer that allows a metadata-carrying object to specify its viewer
   via the `:nextjournal.clerk/viewer` slot metadata.
@@ -141,19 +165,6 @@
    :pred x/literal?
    :transform-fn
    (viewer/update-val x/expression-of)})
-
-(defn transform-literal [l]
-  (let [simple (e/simplify l)]
-    [["simplified TeX" (viewer/tex (e/->TeX simple))]
-     [:simplified     (e/freeze simple)]
-     [:TeX            (viewer/tex (e/->TeX l))]
-     [:original       (e/freeze l)]]))
-
-(def multiviewer
-  {:pred x/literal?
-   :transform-fn
-   (viewer/update-val
-    (comp multi transform-literal))})
 
 #?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
    :cljs (set! ev/reagent-viewer reagent-viewer))

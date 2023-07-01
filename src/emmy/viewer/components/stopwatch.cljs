@@ -47,8 +47,6 @@
            (if onTick
              ;; If I want to get fancy, this is everything that we should support
              ;; https://github.com/unconed/mathbox/blob/master/src/primitives/types/time/clock.js
-
-             ;; TODO check if this is current for GCL?
              (let [k (goog.events/listen
                       t
                       timer/TICK

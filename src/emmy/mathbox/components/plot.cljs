@@ -114,8 +114,8 @@
 
   - `:size`: size of the label. Defaults to 12.
 
-  - `:offset`: `[<x-offset> <y-offset>]` for this label on the DOM. Defaults to
-    `[0 20]`.
+  - `:offset`: `[<x-offset> <y-offset>]` for the label on each tick. Defaults to
+    `[20 0]` if `:axis` equals `:z`, else `[0 -20]`.
 
   - `:labels?`: if `true` (default), renders a printed label underneath each
     tick for the `:x` and `:y` axes, or alongside the axis for `:z`.
@@ -124,11 +124,11 @@
     of each tick mark's value. Defaults to [[emmy.viewer.plot/format-number]]. You
     might also enjoy [[emmy.viewer.plot/label-pi]].
 
-  - `:z-order`: z-order of the full labeled axis.
+  - `:z-order`: z-order of the labeled axis.
 
-  - `:z-index`: zIndex of the full labeled axis. Defaults to 0.
+  - `:z-index`: zIndex of the labeled axis. Defaults to 0.
 
-  - `:z-bias`: zBias of the full labeled axis. Defaults to 0."
+  - `:z-bias`: zBias of the labeled axis. Defaults to 0."
   [{:keys [axis divisions width
            snap? zero? start? end?
            labels? label-fn
@@ -137,7 +137,7 @@
     :or {divisions 10
          width 2
          labels? true
-         label-fn (fn [x] (p/format-number x))
+         label-fn p/format-number
          snap? false
          zero? false
          start? true
@@ -149,13 +149,11 @@
   (let [idx    (axis->idx axis)
         offset (or offset
                    (if (= axis :z)
-                     [20 0 0]
-                     [0 0 -20]))]
+                     [20 0]
+                     [0 -20]))]
     [:<>
      [mb/Scale
       {:divide divisions
-       :unit 1
-       :base 10
        :zero zero?
        :start start?
        :end end?
@@ -166,7 +164,7 @@
        [:<>
         [mb/Format
          {:live true
-          :expr label-fn}]
+          :expr (fn [x] (label-fn x))}]
         [mb/Label
          {:color color
           :background background
@@ -242,6 +240,14 @@
 
   - `:width`: width of the rendered axis line.
 
+  - `:start?`: if `true`, renders an arrow at the start of the axis. Defaults
+    to `false`.
+
+  - `:end?`: if `true`, renders an arrow at the end of the segment. Defaults to
+    `false`.
+
+  - `:end?` if `true` (default), renders the ending tick.
+
   - `:opacity`: opacity of the axis (not currently passed on to ticks or
     labels). Defaults to 1.0.
 
@@ -272,7 +278,7 @@
          color "#808080"}
     :as opts}]
   {:pre [(#{:x :y :z} axis)]}
-  [mb/Group {:visible true :classes ["axis"]}
+  [:<>
    [mb/Axis
     {:axis (axis->idx axis)
      :opacity opacity
@@ -284,11 +290,11 @@
    (when-let [ticks (:ticks opts true)]
      (let [base (if (map? ticks) ticks {})]
        [Ticks (assoc base
-                     :color (:color base color)
                      :axis axis
-                     :z-order z-order
-                     :z-index z-index
-                     :z-bias z-bias)]))
+                     :color   (:color base color)
+                     :z-order (:z-order base z-order)
+                     :z-index (:z-index base z-index)
+                     :z-bias  (:z-bias base z-bias))]))
    (when-let [label (:label opts true)]
      (let [base (cond
                   (true? label) {:label (name axis)}
@@ -366,8 +372,8 @@
   - a vector like `[:x :y]`
   - a map of `{<axis-key> <boolean-or-[[LabeledAxis]]-arguments>}`
 
-  `range` is a 3-vector with the rendered ranges in the `x`, `y` and `z`
-  directions.
+  `range` (optional) is a 3-vector with the rendered ranges in the `x`, `y` and
+  `z` directions.
 
   Any axis entries missing from `axes` won't be rendered.
 
@@ -429,6 +435,9 @@
   - `:scale`: `[<x-scale> <y-scale> <z-scale>]` for tuning the relative space
     given to each dimension in the rendering. Each entry defaults to 1.
 
+  - `:position`: `[<x> <y> <z>]` world position of this cartesian. Defaults to
+     `[0 0 0]`.
+
   - `:camera`: Camera position in units I don't really understand yet! Defaults
     to `[0.5 -2 0.6]`.
 
@@ -478,7 +487,7 @@
    :threestrap threestrap-defaults})
 
 (def ^:no-doc content-keys
-  [:range :scale :camera :axes :grids])
+  [:range :scale :position :camera :axes :grids])
 
 (defn Scene
   "Takes an optional options map and any number of children and nests them into a
@@ -579,10 +588,10 @@
 
   - `:width`: width of the line. Defaults to 4.
 
-  - `:start?` if `true`, renders an arrow at the start of the segment. Defaults
+  - `:start?`: if `true`, renders an arrow at the start of the segment. Defaults
     to `false`.
 
-  - `:end?` if `true`, renders an arrow at the end of the segment. Defaults to
+  - `:end?`: if `true`, renders an arrow at the end of the segment. Defaults to
     `false`.
 
   - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
@@ -654,7 +663,11 @@
 ;; ## One-Dimensional Plots
 
 (defn ^:no-doc Curve1D
-  "Component backing all of the 1-dimensional curve components below."
+  "Component backing all of the 1-dimensional curve components below.
+
+  NOTE that we may want to allow `:live?` to come through. This makes sense for
+  components that want to respond to state updates in, say, the position of a
+  moving physics object."
   [{:keys [samples range axis expr
            arrow-size width start? end?
            opacity color z-order z-index z-bias]
@@ -670,8 +683,6 @@
    [mb/Interval
     (cond-> {:axis axis
              :channels 3
-             ;; TODO this is not a good default but would work here.
-             :live true
              :expr expr
              :width samples}
       range (assoc :range range))]

@@ -131,18 +131,26 @@
 
 (defmacro with-let
   "Macro wrapper around [[with-state]] that allows you to provide the body
-  directly, vs providing a function `f` as in [[with-state]].
+  directly, vs providing a function `f` as in [[with-state]]. [[with-let]] takes
+  any number of binding pairs, and treats each as a separate wrapping
+  of [[with-state]].
+
+  For example:
 
   ```clojure
-  (with-let [sym {:k \"v\"}]
-    [:pre (get sym :k)])
+  (with-let [a {:k \"v\"}
+             b {:k2 \"v2\"}]
+    [:pre (merge @~a @~b)]`)
   ```
 
   is equivalent to
 
   ```clojure
   (with-state {:k \"v\"}
-    (fn [sym] [:pre (get sym :k)]))
+    (fn [a]
+      (with-state {:k2 \"v2\"}
+        (fn [b]
+          [:pre (merge @~a @~b)]))))
   ```"
   {:clj-kondo/lint-as 'clojure.core/let}
   [[sym init & more] & body]

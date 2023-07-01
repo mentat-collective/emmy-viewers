@@ -82,8 +82,9 @@
 ;;
 ;; Lagrange equations of motion for the ellipsoid:
 
+(def ->tex (comp clerk/tex ->TeX simplify))
 
-(ec/->tex
+(->tex
  (let [L (L-central-triaxial 'm 'g 'a 'b 'c)
        theta (literal-function 'theta)
        phi (literal-function 'phi)]
@@ -92,7 +93,7 @@
 
 ;; And for the sphere:
 
-(ec/->tex
+(->tex
  (let [L (L-central-triaxial 'm 'g 'r 'r 'r)
        theta (literal-function 'theta)
        phi (literal-function 'phi)]
