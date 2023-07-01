@@ -145,9 +145,12 @@
     (fn [sym] [:pre (get sym :k)]))
   ```"
   {:clj-kondo/lint-as 'clojure.core/let}
-  [[sym init] & body]
-  `(with-state ~init
-     (fn [~sym] ~@body)))
+  [[sym init & more] & body]
+  (if (seq more)
+    `(with-let [~sym ~init]
+       (with-let [~@more] ~@body))
+    `(with-state ~init
+       (fn [~sym] ~@body))))
 
 ;; ### Parameterized Functions
 ;;
