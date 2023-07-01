@@ -80,7 +80,27 @@
      (flatten xs))))
 
 (defn monotonic-integrator
-  "Returns a function "
+  "Given
+
+  - `f'`, a function of 2-arguments `state` and `output`, that populates
+    `output` with the derivatives for each entry in `state` when called
+
+  - `initial-state`, the (potentially structured, unflattened) initial value for
+    `f'`'s `state` argument
+
+  and an options map with the following optional entries:
+
+  - `:epsilon`: - `:epsilon`: error tolerance passed along
+    to [odex-js](https://github.com/littleredcomputer/odex-js). Defaults to 1e-6.
+
+  - `:max-steps`: the maximum number of steps that the ODE solver will take
+    before erroring out. Defaults to 10000.
+
+  Returns a function of `t` that returns the state evolved up from `0` to `t` at
+  each call. Successive calls to `t` must monotonically increase.
+
+  Call the returned function with no arguments when you're done to shut it down
+  and reclaim stored resources."
   ([f' initial-state]
    (monotonic-integrator f' initial-state {}))
   ([f' initial-state opts]
@@ -89,9 +109,28 @@
          (.integrate 0 arr)))))
 
 (defn Evolve
-  "ODE State evolving component.
+  "Component that uses the supplied derivative function `:f'` to evolve the state
+  value stored in `:atom`.
 
-  Differences: function comes in already good to go"
+  On every time tick, the component will swap a new JS array representing the
+  flattened state value into `:atom` under the `:state` key.
+
+  Required arguments:
+
+  - `:f'`: a function of 2-arguments `state` and `output`, that populates
+    `output` with the derivatives for each entry in `state` when called
+
+  - `:atom`: atom holding a map with a key `:state` populated with
+    the (potentially structured, unflattened) initial value for `:f'`'s `state`
+    argument
+
+  Optional arguments:
+
+  - `:epsilon`: - `:epsilon`: error tolerance passed along
+    to [odex-js](https://github.com/littleredcomputer/odex-js). Defaults to 1e-6.
+
+  - `:max-steps`: the maximum number of steps that the ODE solver will take
+    before erroring out. Defaults to 10000."
   [{f'     :f'
     !state :atom
     :as opts}]
@@ -106,6 +145,4 @@
       (fn [t]
         ;; TODO can we keep the output here mutable and provide an out to
         ;; update?
-        (swap! !state assoc
-               :time t
-               :state (update t)))}]))
+        (swap! !state assoc :state (update t)))}]))

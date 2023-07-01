@@ -281,7 +281,7 @@
      :as opts}]
    ;; TODO wire generic params into Lagrangian updater.
    ;; TODO cursor really screwing me here.
-   (let [!state  (reagent.core/atom {:time 0 :state state})
+   (let [!state  (reagent.core/atom {:state state})
          !params (reagent.core/atom params)
          !arr    (reagent.core/reaction
                   (apply

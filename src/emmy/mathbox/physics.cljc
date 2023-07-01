@@ -65,7 +65,39 @@
                  ['emmy.mathbox.components.physics/ODECurve opts])
         (ev/fragment plot/scene))))
 
-(defn comet [{:keys [initial-state] :as opts}]
+(defn comet
+  "Returns a fragment that renders a point that trails its historical positions
+  out behind it in a glowing tail.
+
+  Required arguments:
+
+  - `:atom`: atom holding a JS array representing some state. `:state->xyz` will
+    transform this into xyz coordinates to draw.
+
+  Optional arguments:
+
+  - `:state->xyz`: function from the contents of `:atom` to `[x y z]`
+    coordinates.
+
+  - `:initial-state`: structure in the shape of the state required by
+    `:state->xyz'`, used if `:state->xyz'` is a function that needs to be
+    compiled (ie not a quoted literal function).
+
+  - `:length`: the length of the comet tail. Defaults to 16.
+
+  - `:size`: size of the comet. Defaults to 10.
+
+  - `:opacity`: opacity of the leading point of the comet. Defaults to 1.0.
+
+  - `:color`: color of each curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the comet.
+
+  - `:z-index`: zIndex of the comet. Defaults to 0.
+
+  - `:z-bias`: zBias of the comet. Defaults to 0."
+  [{:keys [initial-state] :as opts}]
   (let [[x-bind opts] (ph/ode-compile opts :state->xyz initial-state)]
     (-> (vc/wrap [x-bind] ['emmy.mathbox.components.physics/Comet* opts])
         (ev/fragment plot/scene))))

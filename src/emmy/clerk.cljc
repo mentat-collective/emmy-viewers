@@ -277,11 +277,6 @@
             (finally
               (apply css/set-css! existing))))))
 
-(defn ->tex [v]
-  (viewer/tex
-   (e/->TeX
-    (e/simplify v))))
-
 ;; ## State Utilities
 
 (defn inspect-state

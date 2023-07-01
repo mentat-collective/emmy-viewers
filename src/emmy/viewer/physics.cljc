@@ -47,6 +47,32 @@
          (assoc opts k new-f)]))))
 
 (defn evolve
+  "Returns a fragment that uses the supplied derivative function `:f'` to evolve
+  the state value stored in `:atom`.
+
+  On every time tick, the component will swap a new JS array representing the
+  flattened state value into `:atom` under the `:state` key.
+
+  Required arguments:
+
+  - `:f'`: a function of 2-arguments `state` and `output`, that populates
+    `output` with the derivatives for each entry in `state` when called
+
+  - `:atom`: atom holding a map with a key `:state` populated with
+    the (potentially structured, unflattened) initial value for `:f'`'s `state`
+    argument
+
+  Optional arguments:
+
+  - `:initial-state`: structure in the shape of the state required by `:f'`,
+    used if `:f'` is a function that needs to be compiled (ie not a quoted literal
+    function).
+
+  - `:epsilon`: - `:epsilon`: error tolerance passed along
+    to [odex-js](https://github.com/littleredcomputer/odex-js). Defaults to 1e-6.
+
+  - `:max-steps`: the maximum number of steps that the ODE solver will take
+    before erroring out. Defaults to 10000."
   [{:keys [initial-state] :as opts}]
   (let [[f-bind opts] (ode-compile opts :f' initial-state)]
     (vc/wrap [f-bind]

@@ -106,7 +106,7 @@
 ;; Lucky us!! Let's do it!
 
 (let [initial-state [0 [0.001 0.001] [0 0]]]
-  (ev/with-let [!state {:time 0 :state initial-state}
+  (ev/with-let [!state {:state initial-state}
                 !opts  {:m 10 :g 9.8 :a 3 :b 2 :c 1.5}]
     (plot/scene
      (leva/controls

@@ -46,7 +46,7 @@
 (let [initial-state [0
                      [[0.1 0.1] [2 2]]
                      [[0.3 0.3] [0 0]]]]
-  (ev/with-let [!state {:time 0 :state initial-state}
+  (ev/with-let [!state {:state initial-state}
                 !opts {:m 10 :a 2 :b 1 :c 1 :k 10 :x0 0.3}]
     (plot/scene
      {:threestrap {:plugins ["core" "controls" "cursor" "stats"]}}

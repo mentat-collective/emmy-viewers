@@ -302,7 +302,7 @@
      schema :schema
      :as opts}]
    ;; TODO set initial time, state. maybe no params?
-   (let [!state  (reagent.core/atom {:time 0 :state state})
+   (let [!state  (reagent.core/atom {:state state})
          !params (reagent.core/atom params)
          !arr    (reagent.core/reaction
                   (apply

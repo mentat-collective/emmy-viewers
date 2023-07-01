@@ -31,7 +31,7 @@
       (- T U))))
 
 (let [initial-state [0 [1 2 0] [2 0 4]]]
-  (ev/with-let [!state {:time 0 :state initial-state}
+  (ev/with-let [!state {:state initial-state}
                 !opts  {:m 10 :k 200 :g 9.8}]
     (plot/scene
      (leva/controls {:atom !opts})
@@ -43,7 +43,7 @@
              (comp e/Lagrangian->state-derivative L-harmonic))})
 
      (emmy.mathbox.physics/comet
-      {:length        16
+      {:length        1
        :state->xyz    coordinate
        :initial-state initial-state
        :atom          !state}))))
