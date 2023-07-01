@@ -1,18 +1,22 @@
 ;; ## Stationary Integrals of a Simple Bézier Curve
 
-^{:nextjournal.clerk/toc true}
 (ns examples.minimal-bezier
-  #_(:refer-clojure
+  {:nextjournal.clerk/toc true}
+  (:refer-clojure
    :exclude [+ - * / = zero? compare
              numerator denominator ref partial
              infinite? abs])
-  (:require [mentat.clerk-utils.show :refer [show-sci]]
-            [emmy.env :as e]
-            [emmy.expression.compile :as xc]
-            [emmy.numerical.quadrature.bulirsch-stoer :as q]
-            [emmy.numerical.minimize :as min]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :refer :all :exclude [point]]
+            [emmy.mafs :as mafs]
             [nextjournal.clerk :as clerk]))
-(def show (comp clerk/tex e/->TeX e/simplify))
+
+{::clerk/width :wide}
+
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
+
+(def show (comp clerk/tex ->TeX simplify))
 
 ;; GJS has a demonstration in SICM using an interpolating
 ;; polynomial to represent an unknown path between two points.
@@ -34,8 +38,8 @@
 
 (defn lerp [v w]
   (fn [t]
-    (e/+ (e/* (e/- 1 t) (v t))
-         (e/* t (w t)))))
+    (+ (* (- 1 t) (v t))
+       (* t (w t)))))
 
 ;; We should expect that to create a smooth line between two
 ;; fixed points:
@@ -44,6 +48,7 @@
   (let [p (point [0 0])
         q (point [1 1])]
     (lerp p q)))
+
 
 (mapv l1 (range 0 1 0.1))
 
@@ -59,8 +64,6 @@
 
 (l1 't)
 
-(xc/compile-fn l1 1 {:mode :js})
-
 ;; making a bezier is basically a tableau of lerps.
 
 (defn bez [p1 c1 c2 p2]
@@ -73,10 +76,12 @@
 
 ;; it looks something like this:
 
-;; p1 l1 l12 l123.\
-;; c1 l2 l23.\
-;; c2 l3.\
+;; ```
+;; p1 l1 l12 l123.
+;; c1 l2 l23.
+;; c2 l3.
 ;; p2.
+;; ```
 
 ;; so we might consider making that explicit,
 ;; redoing it all as an iterated lazy sequence of the
@@ -87,10 +92,11 @@
 ;; goes from (0, 1) to (1, 0), with control points at
 ;; (0, 0) and (1, 1).
 
-(def bez1 (bez (point [0 1])
-               (point [0 0])
-               (point [1 1])
-               (point [1 0])))
+(def bez1
+  (bez (point [0 1])
+       (point [0 0])
+       (point [1 1])
+       (point [1 0])))
 
 (show (bez1 't))
 
@@ -98,39 +104,25 @@
 ;; start with something simple and non-interactive, just to see
 ;; if the curve we have computed makes any sense.
 
-(clerk/eval-cljs
- '(require '[reagent.core :as reagent])
- '(require '[mafs.core :as mafs]))
-
-(def bezier-viewer
-  {:transform-fn clerk/mark-presented
-   :render-fn
-   '(fn [{:keys [view-box p1 c1 c2 p2 f-source]}]
-      (reagent/with-let [[t body] f-source
-                         parametric_f (js/Function. t body)]
-        [:<>
-         [mafs/Mafs
-          {:view-box view-box}
-          [mafs.coordinates/Cartesian
-           {:subdivisions 4}]
-          [mafs/Point p1]
-          [mafs/Point c1]
-          [mafs/Point c2]
-          [mafs/Point p2]
-          [mafs.plot/Parametric
-           {:xy parametric_f
-            :t [0 1]}]
-          ]]))})
+(defn bezier-viewer
+  [{:keys [view-box p1 c1 c2 c2-color p2 f]
+    :or {c2-color :blue}}]
+  (mafs/mafs
+   {:view-box view-box}
+   (mafs/cartesian {:subdivisions 4})
+   (mafs/parametric {:xy f :t [0 1]})
+   (mafs/point p1 {:color :red})
+   (mafs/point c1 {:color :blue})
+   (mafs/point c2 {:color c2-color})
+   (mafs/point p2 {:color :red})))
 
 ;; We can apply it here:
-^{::clerk/viewer bezier-viewer}
-{:view-box {:x [-2 2]
-            :y [-2 2]}
- :p1 {:x 0 :y 1 :color "var(--mafs-red)"}
- :c1 {:x 0 :y 0 :color "var(--mafs-blue)"}
- :c2 {:x 1 :y 1 :color "var(--mafs-blue)"}
- :p2 {:x 1 :y 0 :color "var(--mafs-red)"}
- :f-source (xc/compile-fn bez1 1 {:cache? false :mode :js})}
+
+(bezier-viewer
+ {:view-box {:x [-2 2] :y [-2 2]}
+  :p1 [0 1] :p2 [1 0]
+  :c1 [0 0] :c2 [1 1]
+  :f bez1})
 
 ;; That looks right. The endpoints are in red, and the control points in blue
 ;; show how the Bézier curve has forced the tangent lines to be vertical at
@@ -147,8 +139,10 @@
 
 (defn objective [state]
   (let [f (bez2 state)
-        Df (e/D f)]
-    (:result (q/closed-integral #(e/sqrt (e/square (Df %))) 0 1))))
+        Df (D f)]
+    (definite-integral
+      #(sqrt (square (Df %))) 0 1
+      {:method :bulirsch-stoer-closed})))
 
 (objective [0 0 1 1])
 (objective [0.51 0.4 0.5 0.5])
@@ -156,19 +150,18 @@
 ;; That says the length of the curve with the control points as given is
 ;; about 1.68. We know the right answer is $\sqrt 2$. How to get there?
 
-(def result1 (min/multidimensional-minimize objective [0 0 1 1] {:info? true}))
+(def result1
+  (multidimensional-minimize objective [0 0 1 1] {:info? true}))
 
 ;; Let's plug that data back into the viewer and see what we find.
 
-^{::clerk/viewer bezier-viewer}
 (let [[c_1x c_1y c_2x c_2y] (:result result1)]
-  {:view-box {:x [-0.5 5]
-              :y [-0.5 2]}
-   :p1 {:x 0 :y 1 :color "var(--mafs-red)"}
-   :c1 {:x c_1x :y c_1y :color "var(--mafs-blue)"}
-   :c2 {:x c_2x :y c_2y :color "var(--mafs-blue)"}
-   :p2 {:x 1 :y 0 :color "var(--mafs-red)"}
-   :f-source (xc/compile-fn (bez2 (:result result1)) 1 {:cache? false :mode :js})})
+  (bezier-viewer
+   {:view-box {:x [-0.5 5] :y [-0.5 2]}
+    :p1 [0 1] :p2 [1 0]
+    :c1 [c_1x c_1y]
+    :c2 [c_2x c_2y]
+    :f (bez2 (:result result1))}))
 
 ;; That does look like a straight line, doesn't it.
 ;; Now, by changing the objective function, we should be able
@@ -194,34 +187,32 @@
        (point [4 1])))
 
 (def result2
-  (min/multidimensional-minimize
+  (multidimensional-minimize
    (fn [state]
      (let [f (bez3 state)
-           Df (e/D f)]
-       (:result (q/closed-integral
-                 (fn [t]
-                   (let [[x y] (f t)
-                         df (Df t)]
-                     (e/sqrt (e// (e/square df) y))
-                     ))
-                 0 1))))
+           Df (D f)]
+       (definite-integral
+         (fn [t]
+           (let [[_x y] (f t)
+                 df (Df t)]
+             (sqrt (/ (square df) y))
+             ))
+         0 1 {:method :bulirsch-stoer-closed})))
    [0.5 0.5 0.5 0.5]
    {:info? true
     :nonzero-delta 0.5
     :zero-delta 0.1}))
 
-
 ;; Let's see what happens when we plug that in:
 
-^{::clerk/viewer bezier-viewer}
 (let [[c_1x c_1y c_2x c_2y] (:result result2)]
-  {:view-box {:x [-0.5 5]
-              :y [-0.5 2]}
-   :p1 {:x 0 :y 2 :color "var(--mafs-red)"}
-   :c1 {:x c_1x :y c_1y :color "var(--mafs-blue)"}
-   :c2 {:x c_2x :y c_2y :color "var(--mafs-green)"}
-   :p2 {:x 4 :y 1 :color "var(--mafs-red)"}
-   :f-source (xc/compile-fn (bez3 (:result result2)) 1 {:cache? false :mode :js})})
+  (bezier-viewer
+   {:view-box {:x [-0.5 5] :y [-0.5 2]}
+    :p1 [0 2] :p2 [4 1]
+    :c1 [c_1x c_1y]
+    :c2 [c_2x c_2y]
+    :c2-color :green
+    :f (bez3 (:result result2))}))
 
 ;; The physics folks tell us the answer is a cycloid, and the picture
 ;; in Wikipedia shows that this 1:4 shape ought to dip below the zero
@@ -232,5 +223,4 @@
 ;; Let's grasp the nettle and make a function that will allow the
 ;; addition of another control point.
 
-;;
 ;; Alternately, we now have what we need to wire up movable points.
