@@ -10,7 +10,6 @@
             [emmy.leva :as leva]
             [emmy.mathbox.physics :as ph]
             [emmy.mathbox.plot :as plot]
-            [emmy.structure :as s]
             [emmy.viewer :as ev]
             [nextjournal.clerk :as clerk]))
 

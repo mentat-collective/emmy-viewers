@@ -82,5 +82,5 @@
          :v-lines 20
          :f (ev/with-params {:atom !opts :params [:a :b :c]}
               ell/elliptical->rect)
-         :u [0 (* 2 Math/PI)]
+         :u [0 Math/PI]
          :v [0 (* 2 Math/PI)]})))))
