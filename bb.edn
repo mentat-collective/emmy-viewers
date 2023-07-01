@@ -19,11 +19,19 @@
   {:doc "Runs `user/serve!` with a watcher process generating custom JS."
    :task (X "clojure -X:nextjournal/clerk user/serve!")}
 
+  test:clj
+  {:doc "Run CLJ tests."
+   :task (shell "clojure -X:test:runner")}
+
+  test:cljs
+  {:doc "Run CLJS tests."
+   :task (shell "npm run test")}
+
   build-static
   {:doc "Generate a fresh static build."
    :task
    (apply shell
-          "clojure -X:nextjournal/clerk"
+          "clojure -X:nextjournal/clerk:portal"
           *command-line-args*)}
 
   serve
@@ -57,7 +65,7 @@
    :task (kondo/run!
           {:lint [(with-out-str
                     (babashka.tasks/clojure
-                     "-Spath -A:nextjournal/clerk"))]
+                     "-Spath -A:nextjournal/clerk:portal"))]
            :dependencies true})}
 
   lint

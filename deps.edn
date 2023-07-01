@@ -1,14 +1,13 @@
 {:paths ["src" "resources"]
  :deps
- {io.github.nextjournal/clerk
-  {:git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"}
-  org.mentat/emmy {:mvn/version "0.30.0" :exclusions [org.babashka/sci]}
-  org.mentat/jsxgraph.cljs {:mvn/version "0.2.0"}
-  org.mentat/mathbox.cljs {:mvn/version "0.2.0"}
-  org.mentat/mathlive.cljs {:mvn/version "0.2.0"}
-  org.mentat/mafs.cljs {:mvn/version "0.2.1"}
-  org.mentat/leva.cljs {:mvn/version "0.2.2"}
-  org.mentat/clerk-utils {:mvn/version "0.5.0"}}
+ {org.clojure/data.json {:mvn/version "2.4.0"}
+  org.mentat/emmy {:mvn/version "0.31.0"}
+  org.mentat/jsxgraph.cljs {:mvn/version "0.2.1"}
+  org.mentat/leva.cljs {:mvn/version "0.3.0"}
+  org.mentat/mathbox.cljs {:mvn/version "0.2.2"}
+  org.mentat/mathlive.cljs {:mvn/version "0.2.1"}
+  org.mentat/mafs.cljs {:mvn/version "0.3.0"}
+  org.mentat/clerk-utils {:mvn/version "0.6.0"}}
 
  :aliases
  {:nextjournal/clerk
@@ -16,13 +15,44 @@
    :extra-deps
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
+    io.github.nextjournal/cas-client
+    {:git/sha "84ab35c3321c1e51a589fddbeee058aecd055bf8"}
+    io.github.nextjournal/clerk
+    {:git/sha "d80187013d7b7b96db3d8b114b8d99f687170668"}
+
     io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"
+     :git/sha "d80187013d7b7b96db3d8b114b8d99f687170668"
      :deps/root "render"}}
    :exec-fn user/build!}
 
+  :portal
+  {:extra-paths ["dev"]
+   :extra-deps
+   {djblue/portal {:mvn/version "0.42.1"}}}
+
+  :cljs
+  {:extra-deps
+   {thheller/shadow-cljs {:mvn/version "2.23.1"}
+    org.clojure/clojurescript {:mvn/version "1.11.60"}}}
+
+  :test
+  ;; layer this in to get access to everything in the test directory, plus the
+  ;; dependencies needed to run the tests.
+  {:extra-paths ["test"]
+   :extra-deps
+   {io.github.cognitect-labs/test-runner
+    {:git/tag "v0.5.0" :git/sha "b3fd0d2"}}}
+
+  ;; See https://github.com/cognitect-labs/test-runner for invocation
+  ;; instructions, or call `clojure -X:test:runner`.
+  :runner
+  {:main-opts ["-m" "cognitect.test-runner"]
+   :exec-fn cognitect.test-runner.api/test
+   :exec-args ["test"]}
+
   :build
-  {:deps {io.github.clojure/tools.build {:git/tag "v0.8.2" :git/sha "ba1a2bf"}
-          slipset/deps-deploy {:mvn/version "0.2.0"}}
+  {:deps
+   {io.github.clojure/tools.build {:git/tag "v0.9.4" :git/sha "76b78fe"}
+    slipset/deps-deploy {:mvn/version "0.2.0"}}
    :ns-default build}}}

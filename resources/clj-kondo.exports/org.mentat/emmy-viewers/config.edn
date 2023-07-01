@@ -1,0 +1,3 @@
+{:linters {:refer-all {:exclude [emmy.env]}}
+ :lint-as {emmy.viewer/with-let  clojure.core/let
+           reagent.core/with-let clojure.core/let}}

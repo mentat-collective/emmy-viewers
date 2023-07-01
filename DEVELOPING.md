@@ -65,6 +65,34 @@ bb release
 
 The new release will appear on Clojars.
 
+## Publishing JS
+
+> **Note**
+> To publish `emmy-viewers` JS, you must be part of the [Mentat Collective
+> GitHub organization](https://github.com/mentat-collective).
+
+- create a classic personal access token with `read:org` permissions.
+- Add a line like this to your bash profile:
+
+```bash
+export GITHUB_TOKEN="<your_token>"
+```
+
+Run the following code with the `:nextjournal/clerk` alias activated:
+
+```clojure
+(require '[mentat.clerk-utils.build :as b])
+
+(b/release->cas!
+ {:cljs-namespaces ['emmy-viewers.sci-extensions]
+  :cas-namespace "mentat-collective"
+  :prefix "emmy-viewers"
+  :token (System/getenv "GITHUB_TOKEN")})
+```
+
+- Take the resulting URL and replace the existing entry at
+  `emmy.clerk/custom-js` with the new URL that prints.
+
 ## Linting
 
 Code is linted with [`clj-kondo`](https://github.com/clj-kondo/clj-kondo):

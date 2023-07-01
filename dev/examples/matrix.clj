@@ -1,6 +1,5 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.matrix)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.matrix
+  {:nextjournal.clerk/toc true})
 
 ;; ## Matrices

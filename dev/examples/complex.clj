@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
-(ns examples.complex)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(ns examples.complex
+  {:nextjournal.clerk/toc true})
 
 ;; ## Complex Numbers
 ;;

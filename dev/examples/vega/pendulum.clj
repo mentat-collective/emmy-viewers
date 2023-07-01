@@ -7,12 +7,14 @@
 ;; the [Emmy](https://github.com/emmy/emmy) Clojure library and
 ;; the Clerk rendering environment.
 
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.vega.pendulum
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / partial ref zero? numerator denominator compare = run!
              abs infinite?])
-  (:require [examples.expression :as d]
-            [nextjournal.clerk :as clerk]
+  (:require [nextjournal.clerk :as clerk]
+            [emmy.clerk :refer [multiviewer]]
             [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [emmy.expression.render :as xr]))
@@ -181,7 +183,7 @@
 
   ;; Looks good:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-chaotic-data))
 
   ;; Next, the regular initial condition:
@@ -192,7 +194,7 @@
 
   ;; Peek at the final state:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-regular-data))
 
   ;; ## Measurements, Data Transformation
@@ -233,11 +235,11 @@
   (defn transform-data [xs]
     ;; compilation brings these down to like 30ms from 2.5seconds each
     (let [energy-fn (L-energy m1 m2 l1 l2 g)
-          monitor   (xc/compile-state-fn
-                     (energy-monitor energy-fn (first xs))
-                     false
-                     (first xs)
-                     {:calling-convention :structure})
+          monitor (xc/compile-state-fn
+                   (energy-monitor energy-fn (first xs))
+                   false
+                   (first xs)
+                   {:calling-convention :structure})
           xform     (xc/compile-state-fn
                      (angles->rect l1 l2)
                      false
@@ -507,7 +509,7 @@
 
   ;; Looks good:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-dd-chaotic-data))
 
   ;; Next, the regular initial condition:
@@ -517,6 +519,6 @@
 
   ;; Peek at the final state:
 
-  (clerk/with-viewer d/multiviewer
+  (clerk/with-viewer multiviewer
     (peek raw-dd-regular-data))
   )

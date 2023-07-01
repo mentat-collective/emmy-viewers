@@ -1,12 +1,10 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.cylinder-flow
+  {:nextjournal.clerk/toc true}
   (:require
    [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
    [mentat.clerk-utils.show :refer [show-cljs]]
-   #?@(:cljs [[demo.mathbox]
-              [mathbox.core]
+   #?@(:cljs [[mathbox.core]
               [reagent.core]
               [leva.core]
               [mathbox.primitives :as mb]])))
@@ -16,47 +14,6 @@
 ;; https://en.wikipedia.org/wiki/Taylor%E2%80%93Couette_flow
 
 (show-cljs
- (def vertexPassthrough "
-  // Enable STPQ mapping
-  #define POSITION_STPQ
-  void getPosition(inout vec4 xyzw, inout vec4 stpq) {
-    // Store XYZ per vertex in STPQ
-    stpq = xyzw;
-    xyzw.z = 0.0;
-  }")
-
- (def fragmentContourSurface
-   "
-  #extension GL_OES_standard_derivatives : enable
-
-  uniform float resolution;
-  uniform float levels;
-  uniform float alpha;
-
-  uniform float threshold;
-
-  float WIDTH = 1.0;
-
-  // Enable STPQ mapping from vertex shader so we can access the (lerped) data per pixel
-  #define POSITION_STPQ
-
-  // Draw surface with contour lines
-  vec4 getColor(vec4 rgba, inout vec4 stpq) {
-    float data = min(2.0, stpq.z);
-
-    // LEVELS of division per unit
-    float level = abs(fract(data * levels) - .5) * 2.0;
-
-    // Make line width uniform in screen space
-    float deriv = max(abs(dFdx(data)), abs(dFdy(data)));
-    float ratio = 1.0 / (4.0 * deriv * levels);
-    float grid = clamp(WIDTH - level * 2.0 * ratio, 0.0, 1.0);
-
-    vec3 color = stpq.z < threshold ? vec3(.5) : vec3(0.0);
-
-    return vec4(color + grid * alpha, rgba.a);
-  }")
-
  (defn clamp [x a b]
    (Math/max a (Math/min b x)))
 
@@ -170,7 +127,7 @@
               :origin outer-origin}]
             [mathbox.primitives/Format
              {:expr (fn [x]
-                      (str (demo.mathbox/format-number (/ x Math/PI))
+                      (str (emmy.viewer.plot/format-number (/ x Math/PI))
                            "π"))
               :font ["Helvetica"]}]
             [mathbox.primitives/Label
@@ -194,7 +151,7 @@
               :zero false
               :origin outer-origin}]
             [mathbox.primitives/Format
-             {:expr demo.mathbox/format-number
+             {:expr (fn [x] (emmy.viewer.plot/format-number x))
               :font ["Helvetica"]}]
             [mathbox.primitives/Label
              {:color 0xffffff

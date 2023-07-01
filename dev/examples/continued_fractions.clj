@@ -1,7 +1,6 @@
-^#:nextjournal.clerk
-{:toc true
- :visibility :hide-ns}
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.continued-fractions
+  {:nextjournal.clerk/toc true}
   (:require [emmy.generic :as g]
             [emmy.ratio :as r]))
 
