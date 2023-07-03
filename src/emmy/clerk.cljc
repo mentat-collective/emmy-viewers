@@ -20,7 +20,7 @@
 (def custom-js
   "CDN address of a pre-built JS bundle for Clerk with support for all of this
   library's viewers."
-  "https://cas.clerk.garden/tree/8VtzzNQNgLi8tCtfjg3epG8AC4eLkodBppZFoyCrgfQSybHCky9BcT9PbYeoexpUmzRcQjPitiqqBa2UEXTkUguyRq/.clerk/shadow-cljs/main.js")
+  "https://cas.clerk.garden/tree/8VtffPdJcGYYvix3HLSfUDXgEYVGoYD5hemBeehF8vw8CrNGRaF8B23QCsFR9Ffa4mpdmiAq6T8VssouL6W19YkXsC/.clerk/shadow-cljs/main.js")
 
 ;; ## Viewers
 ;;
