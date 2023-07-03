@@ -2,11 +2,7 @@
  :deps {org.clojure/clojure {:mvn/version "{{clj-version}}"}
         org.mentat/emmy-viewers
         {:git/url "https://github.com/mentat-collective/emmy-viewers.git"
-         :git/sha "{{emmy-viewers-sha}}"
-         ;; This is required because Clerk specifies SCI using a
-         ;; git dependency and `clojure` can't resolve the
-         ;; conflict.
-         :exclusions [org.babashka/sci]}
+         :git/sha "{{emmy-viewers-sha}}"}
         io.github.nextjournal/clerk {:git/sha "{{clerk-sha}}"}}
  :aliases
  {:nextjournal/clerk {:exec-fn user/build!}}}
