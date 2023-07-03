@@ -2,6 +2,8 @@
 
 ## [unreleased]
 
+## [0.2.0]
+
 - #57:
 
   - Adds `emmy.viewer.physics/evolve`, for running realtime physics simulations

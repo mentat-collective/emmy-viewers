@@ -17,7 +17,7 @@
 ;; ## Variables
 
 (def lib 'org.mentat/emmy-viewers)
-(def version "0.1.0")
+(def version "0.2.0")
 (def pom-deps
   {'org.babashka/sci
    {:mvn/version "0.7.39"
