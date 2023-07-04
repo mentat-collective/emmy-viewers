@@ -23,7 +23,7 @@
    :browse? true
    :watch-paths ["src" "dev"]
    ;; Enable this when working on new components.
-   ;; :cljs-namespaces '[emmy-viewers.sci-extensions]
+   :cljs-namespaces '[emmy-viewers.sci-extensions]
    })
 
 (def static-defaults
