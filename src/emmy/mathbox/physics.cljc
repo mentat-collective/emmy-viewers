@@ -64,6 +64,9 @@
                  ['emmy.mathbox.components.physics/ODECurve opts])
         (ev/fragment plot/scene))))
 
+;; TODO lagrangian evolution, hamiltonian evolution
+;; TODO try the foucault by combining the two coordinate xforms
+
 (defn- T-free-particle
   [[_ _ v]]
   (e/* (e// 1 2) (e/square v)))
