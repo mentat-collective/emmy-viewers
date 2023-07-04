@@ -5,6 +5,7 @@
    :exclude [+ - * / zero? compare divide numerator denominator
              infinite? abs ref partial =])
   (:require [emmy.clerk :as ec]
+            [emmy.mathbox.physics :as ph]
             [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
             [emmy.mathbox.plot :as p]
@@ -17,17 +18,10 @@
 
 ;; # Fun with Klein Bottles
 
-(defn slider-surface [name {:keys [u v] :as opts}]
+(defn slider-surface [name {:keys [u v] :as opts} & children]
   (ev/with-let [!opts {:u (peek u) :v (peek v)}]
-    (p/scene
-     {:axes
-      {:x {:divisions 10
-           :label {:position 3}}
-       :y {:divisions 10
-           :ticks {:labels? false}}
-       :z {:divisions 10
-           :label-ticks? false}}
-      :grids []}
+    (apply
+     p/scene
      (leva/controls
       {:folder {:name name}
        :schema
@@ -37,7 +31,8 @@
      (p/parametric-surface
       (assoc opts
              :u [(first u) (ev/get !opts :u)]
-             :v [(first v) (ev/get !opts :v)])))))
+             :v [(first v) (ev/get !opts :v)]))
+     children)))
 
 ;; ## Mobius Strip
 
@@ -67,18 +62,31 @@
 
 ;; Can you find the Emmy logo hidden inside?
 
-(ev/with-let [!r {:r 2}]
+(ev/with-let [!r {:r 2 :theta_0 1 :alpha_0 0 :steps 20}]
   [:<>
-   (leva/controls {:atom !r
-                   :folder {:name "Klein Bagel"}
-                   :schema {:r {:min 2 :max 6 :step 0.01}}})
+   (leva/controls
+    {:atom !r
+     :folder {:name "Klein Bagel"}
+     :schema {:r {:min 2 :max 6 :step 0.01}
+              :theta_0 {:label (->infix 'theta_0) :min 0 :max Math/PI :step 0.02}
+              :alpha_0 {:label (->infix 'alpha_0) :min 0 :max Math/PI :step 0.02}
+              :steps   {:min 500 :max 9000 :step 50}}})
    (slider-surface
     "Klein Bagel"
     {:f (ev/with-params {:atom !r :params [:r]}
           klein-bagel)
-     :opacity 0.75
      :u [0 (* 2 Math/PI)]
-     :v [0 (* 2 Math/PI)]})])
+     :v [0 (* 2 Math/PI)]}
+
+    (ph/geodesic
+     {:x0 [(ev/get !r :theta_0) 0]
+      :v0 [(list 'Math/cos (ev/get !r :alpha_0))
+           (list 'Math/sin (ev/get !r :alpha_0))]
+      :xform (ev/with-params {:atom !r :params [:r]}
+               klein-bagel)
+      :steps (ev/get !r :steps)
+      :width 2
+      :end? true}))])
 
 ;; ## Klein bottle:
 
@@ -102,11 +110,30 @@
    (* 2/15 (sin v)
       (+ 3 (* 5 (cos u) (sin u))))])
 
-(slider-surface
- "Klein"
- {:f klein-bottle
-  :u [0 Math/PI]
-  :v [0 (* 2 Math/PI)]})
+(ev/with-let [!r {:theta_0 1 :alpha_0 0 :steps 20}]
+  [:<>
+   (leva/controls
+    {:atom !r
+     :folder {:name "Klein"}
+     :schema {:theta_0 {:label (->infix 'theta_0) :min 0 :max Math/PI :step 0.02}
+              :alpha_0 {:label (->infix 'alpha_0) :min 0 :max Math/PI :step 0.02}
+              :steps   {:min 10 :max 9000 :step 50}}})
+
+   (slider-surface
+    "Klein"
+    {:f klein-bottle
+     :opacity 0.2
+     :u [0 Math/PI]
+     :v [0 (* 2 Math/PI)]}
+
+    (ph/geodesic
+     {:x0 [(ev/get !r :theta_0) 0]
+      :v0 [(list 'Math/cos (ev/get !r :alpha_0))
+           (list 'Math/sin (ev/get !r :alpha_0))]
+      :xform klein-bottle
+      :steps (ev/get !r :steps)
+      :width 2
+      :end? true}))])
 
 ;; ## Plucker's Conoid
 

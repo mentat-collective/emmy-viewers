@@ -3,7 +3,8 @@
   [`emmy.mathbox.components.physics`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.components.physics)
   namespace."
   (:refer-clojure :exclude [vector])
-  (:require [emmy.mathbox.plot :as plot]
+  (:require [emmy.env :as e]
+            [emmy.mathbox.plot :as plot]
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as vc]
             [emmy.viewer.physics :as ph]))
@@ -62,6 +63,39 @@
     (-> (vc/wrap [f-bind x-bind]
                  ['emmy.mathbox.components.physics/ODECurve opts])
         (ev/fragment plot/scene))))
+
+(defn- T-free-particle
+  [[_ _ v]]
+  (e/* (e// 1 2) (e/square v)))
+
+(defn L-params [xform]
+  (fn [& params]
+    (comp T-free-particle
+          (e/F->C
+           (comp (apply xform params)
+                 e/coordinate)))))
+
+(defn L-bare [xform]
+  ((L-params (fn [] xform))))
+
+(defn geodesic [{:keys [xform x0 v0] :as opts}]
+  (let [f' (if (ev/param-f? xform)
+             (update xform :f (fn [f]
+                                (comp e/Lagrangian->state-derivative
+                                      (L-params f))))
+             (e/Lagrangian->state-derivative (L-bare xform)))
+        state->xyz (if (ev/param-f? xform)
+                     (update xform :f (fn [f]
+                                        (fn [& params]
+                                          (comp (apply f params)
+                                                e/coordinate))))
+                     (comp xform e/coordinate))]
+    (ode-curve
+     (assoc (dissoc opts :xform :x0 :v0)
+            :simplify? (:simplify? opts false)
+            :initial-state [0 x0 v0]
+            :f' f'
+            :state->xyz state->xyz))))
 
 (defn comet
   "Returns a fragment that renders a point that trails its historical positions
