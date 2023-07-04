@@ -983,10 +983,10 @@
   ;; and then see updateColorExpr for what actually happens with that
   ;; colorExpr, it's not quite normal.
   (let [line-color (or grid-color
-                       ;; this is here for when we sub in fns.
-                       (if true
-                         (color/lighten color -0.75)
-                         "gray"))]
+                       ;; this is here for when we sub in fns. TODO we no longer
+                       ;; need a default "gray", the default internally will work.
+                       (when true
+                         (color/grid-color color)))]
     [:<>
      ;; TODO enable separate x and y lines, and disable if 0?? remember to
      ;; get sources right.
