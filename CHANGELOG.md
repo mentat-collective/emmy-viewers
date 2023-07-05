@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+- #63 adds
+  `emmy.mathbox.physics.{lagrangian-curve,hamiltonian-curve,routhian-curve,geodesic}`
+  to the existing `ode-curve` function.
+
 ## [0.2.0]
 
 - #57:

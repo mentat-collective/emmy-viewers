@@ -30,7 +30,7 @@
                           [(:f v) (:params v)]
                           [v false])
             sym          (gensym)
-            simplify?    (:simplify? opts true)
+            simplify?    (:simplify? opts false)
             [body new-f] [(xc/compile-state-fn
                            f' params initial-state
                            {:mode :js
