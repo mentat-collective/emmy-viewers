@@ -1,3 +1,4 @@
+
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.mathbox.color-test
   #:nextjournal.clerk{:toc true}
@@ -15,7 +16,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
-;; # Function Viewer
+;; # Color Testing
 
 ;; ## Demo
 ;;
@@ -27,7 +28,7 @@
    (plot/of-xy
     {:x-samples 128
      :y-samples 128
-     :color "LimeGreen"
+     #_#_:color "LimeGreen"
      :z (ev/with-params {:atom !state :params [:amplitude]}
           (fn [amplitude]
             (fn [[x y]]
