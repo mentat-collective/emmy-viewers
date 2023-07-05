@@ -131,8 +131,8 @@
   See [[evolve]] for more supported optional arguments."
   [{:keys [H] :as opts}]
   (let [f' (if (ev/param-f? H)
-             (update H :f #(comp l/Lagrangian->state-derivative %))
-             (l/Lagrangian->state-derivative H))]
+             (update H :f #(comp h/Hamiltonian->state-derivative %))
+             (h/Hamiltonian->state-derivative H))]
     (evolve
      (-> (dissoc opts :H)
          (assoc :f' f')))))
