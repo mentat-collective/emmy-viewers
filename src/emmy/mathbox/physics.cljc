@@ -4,6 +4,7 @@
   namespace."
   (:refer-clojure :exclude [vector])
   (:require [emmy.env :as e]
+            [emmy.mechanics.routhian :as r]
             [emmy.mathbox.plot :as plot]
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as vc]
@@ -13,6 +14,8 @@
   "Returns a fragment that plots a curve by integrating a system of ordinary
   differential equations represented by `f'` forward from the initial input
   state `initial-state` for `steps` steps of `dt` each.
+
+  TODO add :simplify? docs
 
   Required arguments:
 
@@ -64,40 +67,58 @@
                  ['emmy.mathbox.components.physics/ODECurve opts])
         (ev/fragment plot/scene))))
 
-;; TODO lagrangian evolution, hamiltonian evolution
-;; TODO try the foucault by combining the two coordinate xforms
+(defn lagrangian-curve [{:keys [L] :as opts}]
+  (let [f' (if (ev/param-f? L)
+             (update L :f #(comp e/Lagrangian->state-derivative %))
+             (e/Lagrangian->state-derivative L))]
+    (ode-curve
+     (-> (dissoc opts :L)
+         (assoc :f' f')))))
+
+(defn hamiltonian-curve [{:keys [H] :as opts}]
+  (let [f' (if (ev/param-f? H)
+             (update H :f #(comp e/Hamiltonian->state-derivative %))
+             (e/Hamiltonian->state-derivative H))]
+    (ode-curve
+     (-> (dissoc opts :H)
+         (assoc :f' f')))))
+
+(defn routhian-curve [{:keys [R] :as opts}]
+  (let [f' (if (ev/param-f? R)
+             (update R :f #(comp r/Routhian->state-derivative %))
+             (r/Routhian->state-derivative R))]
+    (ode-curve
+     (-> (dissoc opts :R)
+         (assoc :f' f')))))
 
 (defn- T-free-particle
   [[_ _ v]]
   (e/* (e// 1 2) (e/square v)))
 
-(defn L-params [xform]
+(defn- L-params [xform]
   (fn [& params]
     (comp T-free-particle
           (e/F->C
            (comp (apply xform params)
                  e/coordinate)))))
 
-(defn L-bare [xform]
+(defn- L-bare [xform]
   ((L-params (fn [] xform))))
 
 (defn geodesic [{:keys [xform x0 v0] :as opts}]
-  (let [f' (if (ev/param-f? xform)
-             (update xform :f (fn [f]
-                                (comp e/Lagrangian->state-derivative
-                                      (L-params f))))
-             (e/Lagrangian->state-derivative (L-bare xform)))
+  (let [L (if (ev/param-f? xform)
+            (update xform :f L-params)
+            (L-bare xform))
         state->xyz (if (ev/param-f? xform)
                      (update xform :f (fn [f]
                                         (fn [& params]
                                           (comp (apply f params)
                                                 e/coordinate))))
                      (comp xform e/coordinate))]
-    (ode-curve
+    (lagrangian-curve
      (assoc (dissoc opts :xform :x0 :v0)
-            :simplify? (:simplify? opts false)
+            :L L
             :initial-state [0 x0 v0]
-            :f' f'
             :state->xyz state->xyz))))
 
 (defn comet
