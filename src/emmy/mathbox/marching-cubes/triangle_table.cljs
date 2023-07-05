@@ -1,5 +1,6 @@
 (ns emmy.mathbox.marching-cubes.triangle-table)
 
+
 (def TriangleTable
   "Lookup table that defines the isosurface facets for determining where the isosurface point sits relative to the isosurface facet"
 

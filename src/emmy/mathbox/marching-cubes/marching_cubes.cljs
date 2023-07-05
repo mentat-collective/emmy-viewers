@@ -1,4 +1,5 @@
-(ns emmy.mathbox.marching-cubes.marching-cubes)
+(ns emmy.mathbox.marching-cubes.marching-cubes
+  (:require [emmy.mathbox.marching-cubes.triangle_table :as tt]))
 
 (defn CubeIndex
   "Returns index into 256 value Triangle Lookup Table"
@@ -51,14 +52,6 @@
     ;; (for [x xVals y yVals z zVals] '(x y z))  ; Flat list of permutation
     ))
 
-(defn MarchingCubes  [lhs  rhs  xMin  xMax  yMin  yMax  zMin  zMax  resolution]
-  (def points ())
-
-  (for x y z (GenerateGrid xMin xMax yMin yMax zMin zMax resolution)
-       (conj (MarchingCubesCore lhs rhs x y z xStep yStep zStep) points))
-
-  (points))
-
 (defn MarchingCubesCore [lhs rhs x y z xStep yStep zStep]
   (let [v1 (lhs x y z)
         v2 (lhs (+ x xStep) y z)
@@ -70,4 +63,14 @@
         v128 (lhs x (+ y yStep) (+ z zStep))]
 
     (let [IsosurfaceEdgePointsPartial (partial IsosurfaceEdgePoints x y z xStep yStep zStep v1 v2 v4 v8 v16 v32 v64 v128 lhs rhs)])
-    (map IsosurfaceEdgePoints (CubeIndex [v1 v2 v4 v8 v16 v32 v64 v128]))))
+    (map IsosurfaceEdgePoints (tt/TriangleTable (CubeIndex [v1 v2 v4 v8 v16 v32 v64 v128])))))
+
+
+(defn MarchingCubes  [lhs  rhs  xMin  xMax  yMin  yMax  zMin  zMax  resolution]
+  (def points ())
+
+  (for x y z (GenerateGrid xMin xMax yMin yMax zMin zMax resolution)
+       (conj (MarchingCubesCore lhs rhs x y z xStep yStep zStep) points))
+
+  (points))
+
