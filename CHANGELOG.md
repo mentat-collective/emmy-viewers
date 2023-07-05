@@ -8,6 +8,10 @@
     `emmy.mathbox.physics.{lagrangian-curve,hamiltonian-curve,routhian-curve,geodesic}`
     to the existing `ode-curve` function.
 
+  - Adds
+    `emmy.viewer.physics.{evolve-lagrangian,evolve-hamiltonian,evolve-routhian}`
+    to the existing `evolve` function.
+
   - Updates the `emmy.viewer.components.physics/Evolve` component to use a
     pre-allocated JS output array instead of forcing an allocation on each tick.
 
