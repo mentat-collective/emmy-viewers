@@ -1,3 +1,4 @@
+
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.ellipsoid
   {:nextjournal.clerk/toc true}
