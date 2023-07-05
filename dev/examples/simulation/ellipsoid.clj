@@ -120,8 +120,8 @@
      (emmy.viewer.physics/evolve-lagrangian
       {:atom !state
        :initial-state initial-state
-       :f' (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
-             L-central-triaxial)})
+       :L (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
+            L-central-triaxial)})
 
      (plot/parametric-surface
       {:opacity 0.2

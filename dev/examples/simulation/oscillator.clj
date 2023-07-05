@@ -38,9 +38,9 @@
 
      (emmy.viewer.physics/evolve-lagrangian
       {:atom !state
+       :initial-state initial-state
        :L (ev/with-params {:atom !opts :params [:g :m :k]}
-            L-harmonic)
-       :initial-state initial-state})
+            L-harmonic)})
 
      (emmy.mathbox.physics/comet
       {:length        10
