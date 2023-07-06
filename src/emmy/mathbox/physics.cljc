@@ -3,10 +3,10 @@
   [`emmy.mathbox.components.physics`](https://cljdoc.org/d/org.mentat/emmy-viewers/CURRENT/api/emmy.mathbox.components.physics)
   namespace."
   (:refer-clojure :exclude [vector])
-  (:require [emmy.mechanics.lagrange :as l]
+  (:require [emmy.mathbox.plot :as plot]
+            [emmy.mechanics.lagrange :as l]
             [emmy.mechanics.hamilton :as h]
             [emmy.mechanics.routhian :as r]
-            [emmy.mathbox.plot :as plot]
             [emmy.viewer :as ev]
             [emmy.viewer.compile :as vc]
             [emmy.viewer.physics :as ph]))
@@ -165,10 +165,10 @@
                                                 l/coordinate))))
                      (comp xform l/coordinate))]
     (lagrangian-curve
-     (assoc (dissoc opts :xform :x0 :v0)
-            :L L
-            :initial-state [0 x0 v0]
-            :state->xyz state->xyz))))
+     (-> (dissoc opts :xform :x0 :v0)
+         (assoc :L L
+                :initial-state [0 x0 v0]
+                :state->xyz state->xyz)))))
 
 ;; ## Visual Elements
 
