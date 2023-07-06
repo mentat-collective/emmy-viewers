@@ -36,14 +36,14 @@
     (plot/scene
      (leva/controls {:atom !opts})
 
-     (emmy.viewer.physics/evolve
+     (emmy.viewer.physics/evolve-lagrangian
       {:atom !state
        :initial-state initial-state
-       :f' (ev/with-params {:atom !opts :params [:g :m :k]}
-             (comp e/Lagrangian->state-derivative L-harmonic))})
+       :L (ev/with-params {:atom !opts :params [:g :m :k]}
+            L-harmonic)})
 
      (emmy.mathbox.physics/comet
-      {:length        1
+      {:length        10
        :state->xyz    coordinate
        :initial-state initial-state
        :atom          !state}))))
