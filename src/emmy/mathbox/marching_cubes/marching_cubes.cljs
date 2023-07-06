@@ -75,24 +75,20 @@
 (defn MarchingCubes [lhs rhs
                      & {:keys [xMin  xMax  yMin  yMax  zMin  zMax  resolution]
                         :or {xMin -1  xMax 1  yMin -1  yMax 1 zMin -1 zMax 1  resolution 100}}]
-  (println "starting marching cubes")
+  (let [
+   xStep (/ 1 resolution)
+   yStep (/ 1 resolution)
+   zStep (/ 1 resolution)
+   grid (GenerateGrid xMin xMax yMin yMax zMin zMax resolution)
+        ]
 
-  (def xStep (/ 1 resolution))
-  (def yStep (/ 1 resolution))
-  (def zStep (/ 1 resolution))
-
-  (def grid (GenerateGrid xMin xMax yMin yMax zMin zMax resolution))
-
-  (println "stepsizes defined: " zStep)
-  (println (type grid))
-  (println "10th grid point" (nth grid 10))
-
-  (filter not-empty  ;; XXX somehow some of these only return 'points' with 2 entries....they seem to mostly evaluate to the RHS though!
+    (filter not-empty  ;; XXX somehow some of these only return 'points' with 2 entries....they seem to mostly evaluate to the RHS though!
           (for [point grid]
             (let [x (point 0)
                   y (point 1)
                   z (point 2)]
               (MarchingCubesCore lhs rhs x y z xStep yStep zStep)))))
+  )
 
 (defn TestLhs [x y z]
   (reduce +
