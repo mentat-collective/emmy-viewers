@@ -4,7 +4,7 @@
   (:refer-clojure :exclude [max])
   (:require [clojure.set :as cs]
             [emmy.mathbox.color :as color]
-            [emmy.mathbox.marching_cubes :as mcubes]
+            [emmy.mathbox.marching-cubes.marching-cubes :as mcubes]
             [emmy.viewer.plot :as p]
             [mathbox.primitives :as mb]
             ["katex" :as katex]
@@ -925,27 +925,6 @@
            :z-order z-order
            :color color)]])
 
-(defn ImplicitSurface
- "Component that plots an implicit surface `f(x,y,z)=0`
-  Required arguments:
-  - `:lhs`: the lhs of a function, in the form `f(x,y,z)`
-  - `:rhs`: the rhs of the function
-
-  Optional Arguments:
-
-  - points
-
-  "
-[{:keys [f] :as opts}]
-
- (mcubes/MarchingCubes (dissoc opts :lhs) (dissoc opts :rhs))
-;; Surface2d Takes and :expr...I think I want to send in points.
-  )
-
-;; for Marching cubes we determin a bunch of isosurface facets, we then iterate of the xyz range
-;; and evaluate where that point sits on the function and where
-
-
 
 (defn ParametricSurface
   "Component that plots a parametric surface defined by `f` into the scene along
@@ -1312,3 +1291,22 @@
                :color "blue"
                :size 4
                :end true}]])
+
+
+
+(defn ImplicitSurface
+ "Component that plots an implicit surface `f(x,y,z)=0`
+  Required arguments:
+  - `:lhs`: the lhs of a function, in the form `f(x,y,z)`
+  - `:rhs`: the rhs of the function
+
+  Optional Arguments:
+
+  - points
+
+  "
+[{:keys [f] :as opts}]
+
+  [(mb/Point {:coords (mcubes/MarchingCubes (dissoc opts :lhs) (dissoc opts :rhs))
+           :label "marching-cube"} )]
+  )

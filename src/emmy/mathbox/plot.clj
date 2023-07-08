@@ -727,3 +727,10 @@
   (let [[f-bind opts] (mc/compile-3d opts :f 3)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/VectorField opts])
         (ev/fragment scene))))
+(defn implicit-surface
+  [opts]
+  (let [[f-bind opts] (mc/compile-3d opts :f 3)]
+    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ImplicitSurface opts])
+        (ev/fragment scene)
+        )
+    ))
