@@ -90,6 +90,14 @@
               (MarchingCubesCore lhs rhs x y z xStep yStep zStep)))))
   )
 
+(comment
+;; Some repl functions and data
+
 (defn TestLhs [x y z]
   (reduce +
           (map (fn [a] (Math/pow a 2)) [x y z])))
+
+(do
+  (def MarchingCubes TestLhs 1 )
+  nil)
+)
