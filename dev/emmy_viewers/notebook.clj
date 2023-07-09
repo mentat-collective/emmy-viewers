@@ -367,7 +367,7 @@
 
 ;; To create a new Clerk project based on
 ;; [`emmy-viewers/clerk`](https://github.com/mentat-collective/emmy/tree/main/resources/emmy/clerk)
-;; in a folder called `my-notebook-project`, run the following command:
+;; in a folder called `my-emmy-project`, run the following command:
 
 ^{::clerk/visibility {:code :hide}}
 (clerk/md
@@ -376,7 +376,7 @@
 clojure -Sdeps '{:deps {io.github.mentat-collective/emmy-viewers {:git/sha \"%s\"}}}' \\
 -Tnew create \\
 :template emmy-viewers/clerk \\
-:name myusername/my-notebook-project
+:name myusername/my-emmy-project
 ```" (docs/git-sha)))
 
 ;; The README.md file in the generated project contains information on how to
