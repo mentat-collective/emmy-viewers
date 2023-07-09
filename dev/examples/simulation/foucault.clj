@@ -46,6 +46,13 @@
 (def M 5.97e24);; kg (Earth mass)
 (def Omega (/ (* 2 pi) 86400)) ;; rad/s (Earth rotation rate)
 
+(def g
+  "gravitational acceleration at surface of Earth"
+  (/ (* G M) (expt R 2)))
+
+(def l 67.0)
+(def m 28.0)
+
 #_(defn abs* [q]
     (let [a (last q)]
       (* a (abs (/ q a)))))
@@ -101,46 +108,104 @@
   (Lagrangian->state-derivative
    (L-foucault-pendulum m (U-gravity G M m) R l Omega phi)))
 
-#_(defn ->xyz [l]
-    (pendulum->rectangular 0 l))
+(defn ->xyz [l]
+  (fn [[_ [theta lambda] _]]
+    (up (* l (sin theta) (cos lambda))
+        (* l (sin theta) (sin lambda))
+        (- l (* l (cos theta))))))
 
-(defn run! [step horizon]
+(defn run! [step horizon phi]
   (let [collector (atom (transient []))
-        initial-state [0 [(/ pi 20) 0] [0 0]]]
+        initial-state [0 [0.01 0] [0.0 0.0]]]
     ((evolve
       (fn [m l phi]
-        (foucault-state-derivative m G M R l (* Omega 10000) phi))
-      28.0
-      67.0
-      0.0)
+        (foucault-state-derivative m G M R l Omega phi))
+      m
+      l
+      phi)
      initial-state
      step
      horizon
      {:compile? true
-      :epsilon 1e-16
+      :epsilon 1e-13
       :observe (fn [_ state]
                  (swap! collector conj! state))})
     (persistent! @collector)))
 
-(def step 0.01)
-(def horizon 50)
+;; The expected period of the Foucault pendulum for small
+;; amplitude oscillation is about 16.5 seconds.
+(def T (* (* 2 pi) (sqrt (/ l g))))
 
-(def raw-data
-  (time
-   (run! step horizon)))
+
+(def step T #_300)
+(def horizon 100 #_90000)
 
 (defn transform-data [xs]
-  (let [pv (principal-value Math/PI)]
+  (let [pv (principal-value pi)]
     (map (fn [[t [theta lambda]]]
            {:t t
             :theta theta
             :lambda (pv lambda)})
          xs)))
 
-(def data
+(def pole-data
   (time
    (doall
-    (transform-data raw-data))))
+    (transform-data
+     (run! step horizon 0.0)))))
+
+(def equator-data
+  (time
+   (doall
+    (transform-data
+     (run! step horizon (/ pi 2))))))
+
+(defn ->rate [data]
+  (/ (- (:lambda (last (butlast data)))
+        (:lambda (last (butlast(butlast data)))))
+     T))
+
+;; these match pretty well at the pole and equator.
+
+(->rate pole-data)
+(->rate equator-data)
+
+;; To compute the actual rotation rate, subtract two
+;; phis at an interval of T and divide by T to get
+;; radians/second.
+
+(defn degrees->radians [deg]
+  (* 2 pi (/ deg 360)))
+
+(defn radians->degrees [rad]
+  (* 360 (/ rad 2 pi)))
+
+(def Paris-colat
+  (- (/ pi 2)
+     (degrees->radians
+      (+ 48.0 (/ 52.0 60.0)))))
+
+;; this is MAYBE a guess about, if you pass a in a latitude, not a colatitude,
+;; the angle of the local vertical off of the center of the earth line.
+(defn delta-t [omega r phi g]
+  (let [y (* (square omega) r (cos phi) (sin phi))
+        z (- g (* (square omega) r (square (cos phi))))]
+    (atan y z)))
+
+;; adjusted paris data.
+(def paris-data
+  (time
+   (doall
+    (transform-data
+     (run! step horizon (- Paris-colat (degrees->radians 12.8)))))))
+
+;; this is degrees/hour observed in paris...
+
+(* 3600
+   (radians->degrees
+    (->rate paris-data)))
+
+;; and then some more data to graph...
 
 (defn deep-merge [v & vs]
   (letfn [(rec-merge [v1 v2]
@@ -183,27 +248,35 @@
 (clerk/vl
  (angles-plot data))
 
-#_
-(ev/with-let [!params {:m 28.0  ;; kg
-                       :l 67.0  ;; m
-                       :phi 0.1 ;; rad
-                       :steps 10}]
-  (p/scene
-   (leva/controls
-    {:atom !params
-     :folder {:name "Foucault's Pendulum"}
-     :schema
-     {:m {:min 10 :max 30 :step 0.1}
-      :l {:min 10 :max 100 :step 0.1}
-      :phi {:min 0 :max pi :step 0.01}
-      :steps {:min 0 :max 5000 :step 10}}})
-   (ph/ode-curve
-    {:initial-state [0 [(/ pi 4) 0] [0 0]]
-     :f' (ev/with-params {:atom !params :params [:m :l :phi]}
-           (fn [m l phi]
-             (foucault-state-derivative m G M R l Omega phi)))
-     :state->xyz (->xyz 4)
-     :steps (ev/get !params :steps)
-     :dt 100
-     :end? true
-     :simplify? false})))
+(comment
+
+
+
+
+  #_
+  (ev/with-let [!params {:m 28.0  ;; kg
+                         :l 67.0  ;; m
+                         :phi 0.0 ;; rad
+                         :steps 10}]
+    (p/scene
+     (leva/controls
+      {:atom !params
+       :folder {:name "Foucault's Pendulum"}
+       :schema
+       {:m {:min 10 :max 30 :step 0.1}
+        :l {:min 10 :max 100 :step 0.1}
+        :phi {:min 0 :max pi :step 0.01}
+        :steps {:min 0 :max 5000 :step 1}}})
+     (ph/ode-curve
+      {:initial-state [0 [(/ pi 4) 0] [0 0]]
+       :f' (ev/with-params {:atom !params :params [:m :l :phi]}
+             (fn [m l phi]
+               (foucault-state-derivative m G M R l (* Omega 1000) phi)))
+       :state->xyz (->xyz 2)
+       :steps (ev/get !params :steps)
+       :dt 0.05
+       :end? true
+       :simplify? false})))
+
+
+  )
