@@ -727,10 +727,9 @@
   (let [[f-bind opts] (mc/compile-3d opts :f 3)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.plot/VectorField opts])
         (ev/fragment scene))))
+
 (defn implicit-surface
   [opts]
-  (let [[f-bind opts] (mc/compile-3d opts :f 3)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.plot/ImplicitSurface opts])
-        (ev/fragment scene)
-        )
-    ))
+  ;; wrap returns a with-let in reagent.core which is imported in cljs somehow.
+  (-> (c/wrap [['in opts]] '(fn [in] ('emmy.mathbox.plot/ImplicitSurface in)))
+              (ev/fragment scene)))

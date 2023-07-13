@@ -1306,7 +1306,7 @@
 
   "
 [{:keys [f] :as opts}]
-
-  [(mb/Point {:coords (mcubes/MarchingCubes (dissoc opts :lhs) (dissoc opts :rhs))
+(let [vals (mcubes/MarchingCubes (dissoc opts :lhs) (dissoc opts :rhs))])
+  [(mb/Point {:coords vals
            :label "marching-cube"} )]
   )
