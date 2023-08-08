@@ -1,19 +1,14 @@
 {:description "TODO replace me with a description of your project!"
  :clerk-port 7777
- :emmy-viewers-sha "a6a79daebb82f95a7239e5ad0e8477ac8a27e539"
- :clerk-sha "4329fa31b75bf26c04bdcc803a52fe642baec56e"
- :clerk-utils-sha "a508ab01d0fb04a44c0a6a1dd510207b2ca7135e"
- :shadow-port 8765
- :shadow-version "2.20.14"
+ :emmy-viewers-sha "218a5a27fc7ea01895cd33f888ca9d9061011b85"
+ :clerk-sha "d80187013d7b7b96db3d8b114b8d99f687170668"
+ :clerk-utils-sha "b98b74fa025b5543318a6b5beb1622fd35b4906e"
  :clj-version "1.11.1"
  :cljs-version "1.11.60"
  :http-server-port 8080
  :cname ""
  :transform
- [["src" "src"
-   {"custom.tmpl" "{{top/file}}/custom.cljs"
-    "sci_extensions.tmpl" "{{top/file}}/sci_extensions.cljs"}]
-  ["notebooks" "notebooks"
+ [["notebooks" "notebooks"
    {"main.tmpl" "{{top/file}}/{{main/file}}.clj"}]
   ["dev" "dev"
    {"user.tmpl" "user.clj"}]]}

@@ -2,7 +2,7 @@
 
 ## [unreleased]
 
-- #63:
+- #69:
 
   - Adds
     `emmy.mathbox.physics.{lagrangian-curve,hamiltonian-curve,routhian-curve,geodesic}`
