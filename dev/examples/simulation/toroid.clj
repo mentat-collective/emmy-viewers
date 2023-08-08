@@ -88,7 +88,7 @@
 (clerk/with-viewer ec/multiviewer
   (let [L (L-toroidal 'R 'r)
         theta (literal-function 'theta)
-        phi (literal-function 'phi)]
+        phi   (literal-function 'phi)]
     (((Lagrange-equations L) (up theta phi))
      't)))
 
@@ -113,14 +113,14 @@
       :alpha_0 {:label (->infix 'alpha_0) :min 0 :max Math/PI :step 0.02}
       :steps   {:min 500 :max 9000 :step 50}}})
 
-   (ph/ode-curve
+   (ph/lagrangian-curve
     {:initial-state
      [0
       [(ev/get !params :theta_0) 0]
       [(list 'Math/cos (ev/get !params :alpha_0))
        (list 'Math/sin (ev/get !params :alpha_0))]]
-     :f' (ev/with-params {:atom !params :params [:R :r]}
-           (compose e/Lagrangian->state-derivative L-toroidal))
+     :L (ev/with-params {:atom !params :params [:R :r]}
+          L-toroidal)
      :state->xyz (ev/with-params {:atom !params :params [:R :r]}
                    t->r)
      :steps (ev/get !params :steps)
