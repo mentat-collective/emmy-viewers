@@ -52,12 +52,11 @@
      {:threestrap {:plugins ["core" "controls" "cursor" "stats"]}}
      (leva/controls {:atom !opts})
 
-     (emmy.viewer.physics/evolve
+     (emmy.viewer.physics/evolve-lagrangian
       {:atom !state
        :initial-state initial-state
-       :f' (ev/with-params {:atom !opts :params [:m :k :x0 :a :b :c]}
-             (comp Lagrangian->state-derivative
-                   L-central-triaxial))})
+       :L (ev/with-params {:atom !opts :params [:m :k :x0 :a :b :c]}
+            L-central-triaxial)})
 
      (emmy.mathbox.physics/comet
       {:length 16

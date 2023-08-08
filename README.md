@@ -196,7 +196,7 @@ Use `plot/scene` to render multiple plots onto a 3D canvas:
 
 ![MathBox plot example](https://github.com/mentat-collective/emmy-viewers/assets/69635/3349cff0-744c-40fa-b996-1d324162b3d9)
 
-> See the [MathBox Guide](https://emmy-viewers.mentat.org/dev/examples/mafs) for 3D plotting examples.
+> See the [MathBox Guide](https://emmy-viewers.mentat.org/dev/examples/mathbox) for 3D plotting examples.
 
 Next, try clicking the 'show code' link for the examples at the top of the
 page and pasting their source into your namespace. Then visit the ["Specific

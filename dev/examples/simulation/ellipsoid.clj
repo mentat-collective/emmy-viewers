@@ -117,12 +117,11 @@
         :b {:min 1 :max 5 :step 0.01}
         :c {:min 1 :max 5 :step 0.01}}})
 
-     (emmy.viewer.physics/evolve
+     (emmy.viewer.physics/evolve-lagrangian
       {:atom !state
        :initial-state initial-state
-       :f' (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
-             (comp Lagrangian->state-derivative
-                   L-central-triaxial))})
+       :L (ev/with-params {:atom !opts :params [:m :g :a :b :c]}
+            L-central-triaxial)})
 
      (plot/parametric-surface
       {:opacity 0.2

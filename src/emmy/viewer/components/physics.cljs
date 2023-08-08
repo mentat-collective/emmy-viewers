@@ -136,13 +136,13 @@
     :as opts}]
   ;; TODO make this in a hook and call the no-arity function on the hook.
   ;; exit.
-  (let [update (monotonic-integrator
-                f'
-                (:state (.-state !state))
-                (select-keys opts [:epsilon :max-steps]))]
+  (let [initial (->arr (:state (.-state !state)))
+        update  (monotonic-integrator
+                 f'
+                 initial
+                 (select-keys opts [:epsilon :max-steps]))]
     [sw/Stopwatch
      {:onTick
-      (fn [t]
-        ;; TODO can we keep the output here mutable and provide an out to
-        ;; update?
-        (swap! !state assoc :state (update t)))}]))
+      (let [out (js/Array. (count initial))]
+        (fn [t]
+          (swap! !state assoc :state (update t out))))}]))
