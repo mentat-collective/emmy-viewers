@@ -222,7 +222,7 @@
    :t [-10 10]
    :color :green}))
 
-;; > See the [MathBox Guide](/dev/examples/mafs) for 3D plotting examples.
+;; > See the [MathBox Guide](/dev/examples/mathbox) for 3D plotting examples.
 ;;
 ;; Next, try clicking the 'show code' link for the examples at the top of the
 ;; page and pasting their source into your namespace. Then visit the ["Specific
