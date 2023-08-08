@@ -965,6 +965,23 @@
 
 ;; ## 2D Plotting
 
+;; TODO look here for how he is doing his targets for color https://github.com/ChristopherChudzicki/math3d-next/blob/c878574a306b1454dadf77656e7aada667bcfc88/packages/app/src/features/scene/graphics/ParametricSurface.tsx#L71-L218
+
+(def static-color-props
+  {
+   :classes ["colors"],
+   :channels 4
+   :items 1
+   ;; I don't think so...
+   ;; :axes [1, 2]
+   :live false
+
+   ;;
+   ;; :rangeX [0, 1]
+   ;; :rangeY [0, 1]
+   }
+
+  )
 (defn ^:no-doc SurfaceGrid
   "Component for rendering lines of constant `u` and `v` onto a 2D surface.
 

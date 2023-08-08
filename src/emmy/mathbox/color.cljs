@@ -41,6 +41,7 @@
 (defn to-fraction-rgb [r g b]
   [(/ r 255) (/ g 255) (/ b 255)])
 
+;; TODO look at vertexcolor.html
 (defn convert-to-percentage [_color]
   ;; TODO get a map of decimal values and convert to the percentage that we see
   ;; below. alpha gets left alone I believe??
