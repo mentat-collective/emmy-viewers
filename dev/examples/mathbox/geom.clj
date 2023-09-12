@@ -7,6 +7,7 @@
   (:require [emmy.clerk :as ec]
             [emmy.leva]
             [emmy.env :as e :refer :all]
+            [emmy.matrix]
             [emmy.viewer :as ev]
             [emmy.mathbox.plot :as p]))
 
