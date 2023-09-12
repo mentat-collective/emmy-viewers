@@ -178,7 +178,7 @@
       :size 10
       :offset [20 0]}]])
 
- (defn PotentialLine [{:keys [V !params]}]
+ (defn PotentialLine [{:keys [V atom Params]}]
    [:<>
     ;; This is the potential well. Gotta redo this to make more sense.
     [mathbox.primitives/Interval
@@ -187,12 +187,12 @@
       :live false
       :expr
       ;; TODO is this better or what??
-      (let [in  (js/Array. 0 0 0)
-            out (js/Array. 0)
-            p   @!params]
+      (let [in   (js/Array. 0 0 0)
+            out  (js/Array. 0)
+            psym (apply array (map @atom params))]
         (fn [emit theta]
           (aset in 1 theta)
-          (V in out p)
+          (V in out psym)
           (emit theta (aget out 0))))}]
     [mathbox.primitives/Line
      {:color 0x3090ff}]])
@@ -211,7 +211,9 @@
         :baseX 2}]
       [WellAxes]
       [PotentialLine
-       {:V V-fn :!params params}]
+       {:V V-fn
+        :params [:gravity :mass :length]
+        :atom params}]
       ;; this is the bead traveling with history along the potential.
       [emmy.mathbox.components.physics/Comet
        {:dimensions 2
@@ -276,20 +278,14 @@
  (defn ^:export Hamilton
    [{state  :initial-state
      params :params
-     keys   :keys
      schema :schema
      :as opts}]
    ;; TODO wire generic params into Lagrangian updater.
    ;; TODO cursor really screwing me here.
    (let [!state  (reagent.core/atom {:state state})
-         !params (reagent.core/atom params)
-         !arr    (reagent.core/reaction
-                  (apply
-                   array
-                   (map @!params keys)))]
+         !params (reagent.core/atom params)]
      (fn [_]
        [:<>
-        [nextjournal.clerk.render/inspect @!arr]
         [leva.core/Controls {:atom !params
                              :schema schema}]
         (reagent.core/with-let [f' (apply js/Function (:f' opts))]
@@ -310,7 +306,7 @@
           [Well
            {:!state !state
             :V      (:V opts)
-            :params !arr}]
+            :params !params}]
 
           [Phase
            {:f' (:f' opts)
