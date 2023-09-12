@@ -24,16 +24,17 @@
 
 ;; potential energy term:
 
-(defn T [_ m l]
+(defn T [m l]
   (fn [[_ _ thetadot]]
     (e/* (e// 1 2) m (e/square (e/* l thetadot)))))
 
 (defn V [g m l]
-  (fn [[_ theta]]
+  (fn [theta]
     (e/* -1 m g l (e/cos theta))))
 
-(def L-pendulum
-  (e/- T V))
+(defn L-pendulum [g m l]
+  (e/- (T m l)
+       (comp (V g m l) e/coordinate)))
 
 ;; ## Equations
 
@@ -55,7 +56,6 @@
     't))))
 
 ;; ## Phase Portrait
-
 
 (show-cljs
  ;; TODO okay this is ready to go, this works!
@@ -133,82 +133,42 @@
    "MathBox component for a 2d chart that would honestly look better in mafs."
    []
    [:<>
-    [mathbox.primitives/Axis
-     {:axis "x"
-      :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "x"
-      :divide 5
-      :unit Math/PI
-      :base 2
-      :start true
-      :end true}]
-    [mathbox.primitives/Format
-     {:expr
-      (fn [x]
-        (str (emmy.viewer.plot/format-number
-              (/ x Math/PI)) "π"))
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10}]
-    [mathbox.primitives/Axis
-     {:axis "y" :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "y"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true
-      :zero false}]
-    [mathbox.primitives/Format
-     {:expr (fn [x] (emmy.viewer.plot/format-number x))
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10
-      :offset [20 0]}]])
+    [emmy.mathbox.components.plot/Grid
+     {:axes :xy :divisions [16 20]}]
+    [emmy.mathbox.components.plot/SceneAxes
+     {:x {:label false
+          :end? true
+          :ticks {:divisions 8
+                  :width 0
+                  :text-size 10
+                  :label-fn #(emmy.viewer.plot/label-pi % 2)
+                  :background 0x000000}
+          :color 0xffffff}
+      :y {:label false :end? true
+          :ticks {:divisions 4
+                  :width 0
+                  :offset [20 0]
+                  :text-size 10
+                  :background 0x000000}
+          :color 0xffffff}}]])
 
- (defn PotentialLine [{:keys [V atom Params]}]
-   [:<>
-    ;; This is the potential well. Gotta redo this to make more sense.
-    [mathbox.primitives/Interval
-     {:width 128
-      :channels 2
-      :live false
-      :expr
-      ;; TODO is this better or what??
-      (let [in   (js/Array. 0 0 0)
-            out  (js/Array. 0)
-            psym (apply array (map @atom params))]
-        (fn [emit theta]
-          (aset in 1 theta)
-          (V in out psym)
-          (emit theta (aget out 0))))}]
-    [mathbox.primitives/Line
-     {:color 0x3090ff}]])
+ (defn PotentialLine [{:keys [V atom params]}]
+   [emmy.mathbox.components.plot/OfX
+    {:y (let [psym (apply array (map @atom params))]
+          (fn [x]
+            (V [x] psym)))
+     :width 1
+     :color 0x3090ff}])
 
- (defn Well [{:keys [V !state params]}]
-   (let [V-fn (apply js/Function. V)]
+ (defn Well [{:keys [V V-state !state params]}]
+   (let [V-fn (apply js/Function. V)
+         V-state-fn (apply js/Function. V-state)]
      [mathbox.primitives/Cartesian
       {;; TODO fix our `normalize` so we don't map pi back to negative pi.
        :range [[(- Math/PI) (- Math/PI 0.00001)]
                [-10 10]]
        :scale [0.48 0.25]
        :position [-0.5 -0.25 0]}
-      [mathbox.primitives/Grid
-       {:color 0x808080
-        :unitX Math/PI
-        :baseX 2}]
       [WellAxes]
       [PotentialLine
        {:V V-fn
@@ -222,11 +182,12 @@
         :size 5
         :opacity 0.99
         :path
-        (let [out (js/Array. 0)]
+        (let [out  (js/Array. 0)
+              psym (apply array (map @params [:gravity :mass :length]))]
           (fn [emit _ _]
             (let [state (:state (.-state !state))
                   theta (aget state 1)]
-              (V-fn state out (.-state params))
+              (V-state-fn state out psym)
               (emit (normalize theta)
                     (aget out 0)))))}]])))
 
@@ -275,6 +236,7 @@
       }]
     [Pendulum]])
 
+
  (defn ^:export Hamilton
    [{state  :initial-state
      params :params
@@ -305,7 +267,8 @@
 
           [Well
            {:!state !state
-            :V      (:V opts)
+            :V       (:V opts)
+            :V-state (:V-state opts)
             :params !params}]
 
           [Phase
@@ -332,12 +295,27 @@
                         :calling-convention :primitive
                         :generic-params? true})
                       :V (xc/compile-state-fn
-                          V
-                          (mapv params keys)
-                          initial-state
-                          {:mode :js
-                           :calling-convention :primitive
-                           :generic-params? true})))))
+                          (fn [& params]
+                            (let [inner (apply V params)]
+                              (fn [[x]] (inner x))))
+                          keys
+                          [0]
+                          {:mode :js})
+                      :V-state (xc/compile-state-fn
+                                (fn [& params]
+                                  (comp (apply V params) e/coordinate))
+                                (mapv params keys)
+                                initial-state
+                                {:mode :js
+                                 :calling-convention :primitive
+                                 :generic-params? true})
+                      :V (xc/compile-state-fn
+                          (fn [& params]
+                            (let [inner (apply V params)]
+                              (fn [[x]] (inner x))))
+                          keys
+                          [0]
+                          {:mode :js})))))
       :render-fn '(fn [opts]
                     (nextjournal.clerk.viewer/html
                      [js/examples.simulation.phase_portrait.Hamilton opts]))}}
@@ -355,7 +333,3 @@
     :f' L-pendulum
     :V V
     :initial-state [0 3 0]})
-
-;; - TODO how expensive is it to make these odex `.simulate` calls?
-;; - TODO how expensive are the redundant array lookups?
-;; - TODO convert potential to only need position

@@ -1,7 +1,6 @@
 (ns emmy.viewer.plot-test
   (:require [clojure.test :refer [is deftest testing]]
-            [emmy.viewer.plot :as plot]
-            ["three" :as three]))
+            [emmy.viewer.plot :as plot]))
 
 (deftest format-tests
   (testing "format-number"
@@ -22,6 +21,7 @@
 
   (testing "label-pi"
     (is (= "0"      (plot/label-pi 0)))
+    (is (= "0"      (plot/label-pi -0)))
     (is (= "π"      (plot/label-pi Math/PI)))
     (is (= "-π"     (plot/label-pi (- Math/PI))))
     (is (= "1.34π"  (plot/label-pi (* 1.34123 Math/PI) 2)))

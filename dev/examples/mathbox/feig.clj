@@ -32,6 +32,7 @@
      :expr `(fn [emit# i# j#]
               (apply emit# (nth ~tree (+ (* i# ~boundary) j#) nil)))})
    (mb/point
+
     {:color "#3090FF"
      :size 1})])
 

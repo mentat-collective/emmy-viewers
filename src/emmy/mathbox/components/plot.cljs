@@ -218,8 +218,8 @@
 ;; `copyCartesianRange` in math3d-react.
 
 (defn LabeledAxis
-  "Component that takes a `k` equal to `:x`, `:y` or `:z` and renders the
-  equivalent axis into the MathBox scene.
+  "Component that takes an `:axis` option equal to `:x`, `:y` or `:z` and renders
+  the equivalent axis into the MathBox scene.
 
   Required arguments:
 
@@ -260,7 +260,7 @@
 
   - `:z-bias`: zBias of the full labeled axis. Defaults to 0.
 
-  - `:label`: either true (default) or a map of options.
+  - `:label`: either `true` (default), `false`, or a map of options.
 
   - `:max`: the maximum value reached along this axis. This is used to pass a
   default `:position` argument to the [[AxisLabel]] component if one isn't set.
@@ -305,8 +305,8 @@
           max (assoc :position (:position base max)))]))])
 
 (defn Grid
-  "Component that takes a `k` equal to `:xy`, `:yz` or `:xz` and renders a grid in
-  the specified plane into the MathBox scene.
+  "Component that takes an `:axes` option equal to `:xy`, `:yz` or `:xz` and
+  renders a grid in the specified plane into the MathBox scene.
 
   Required arguments:
 

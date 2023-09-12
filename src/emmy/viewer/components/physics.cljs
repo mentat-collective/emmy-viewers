@@ -145,4 +145,6 @@
      {:onTick
       (let [out (js/Array. (count initial))]
         (fn [t]
-          (swap! !state assoc :state (update t out))))}]))
+          (swap! !state assoc
+                 :state (update t out)
+                 :tick t)))}]))
