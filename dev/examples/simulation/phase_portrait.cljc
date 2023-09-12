@@ -1,12 +1,17 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.phase-portrait
   {:nextjournal.clerk/toc true}
-  (:require [emmy.env :as e]
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e]
+            [emmy.leva :as leva]
+            [emmy.mathbox :as box]
+            [emmy.mathbox.plot :as plot]
+            [emmy.viewer :as ev]
             #?(:clj [emmy.expression.compile :as xc])
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
-            #?@(:cljs [[emmy.mathbox.components.plot :as plot]
+            #?@(:cljs [[emmy.mathbox.components.plot]
                        [nextjournal.clerk.render]
                        [goog.events]
                        [mathbox.core]
@@ -18,6 +23,9 @@
 ;;
 ;; TODO evolver doesn't reboot when you change a function value
 ;; TODO so many array creations for params
+
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
 
 (def normalize
   (e/principal-value Math/PI))
@@ -78,7 +86,7 @@
        :dt dt}]))
 
  (defn PhaseScene [& children]
-   (into [plot/Cartesian
+   (into [emmy.mathbox.components.plot/Cartesian
           {:range [[-4 4] [-8 8]]
            :scale [0.6 0.6]
            :position [0.6 0]
@@ -128,52 +136,70 @@
 
 ;; ## Axes
 
+(defn well-axes []
+  [:<>
+   ['emmy.mathbox.components.plot/Grid {:axes :xy :divisions [16 20]}]
+   ['emmy.mathbox.components.plot/SceneAxes
+    {:x {:label false
+         :end? true
+         :ticks {:divisions 8
+                 :width 0
+                 :text-size 10
+                 :label-fn '#(emmy.viewer.plot/label-pi % 2)
+                 :background 0x000000}
+         :color 0xffffff}
+     :y {:label false :end? true
+         :ticks {:divisions 4
+                 :width 0
+                 :offset [20 0]
+                 :text-size 10
+                 :background 0x000000}
+         :color 0xffffff}}]])
+
+(defn potential-line [{:keys [V atom params]}]
+  (plot/of-x
+   {:width 1
+    :color 0x3090ff
+    :y (ev/with-params {:atom atom :params params}
+         V)}))
+
+(defn well [{:keys [V atom params]}]
+  ['mathbox.primitives/Cartesian
+   {:range [[(- Math/PI) (- Math/PI 0.00001)]
+            [-10 10]]
+    :scale [0.48 0.25]
+    :position [-0.5 -0.25 0]}
+   (well-axes)
+   (potential-line
+    {:V V
+     :params params
+     :atom atom})
+   ;; this is the bead traveling with history along the potential.
+   #_[emmy.mathbox.components.physics/Comet
+      {:dimensions 2
+       :length 16
+       :color 0xa0d0ff
+       :size 5
+       :opacity 0.99
+       :path
+       (let [out  (js/Array. 0)
+             psym (apply array (map @params [:gravity :mass :length]))]
+         (fn [emit _ _]
+           (let [state (:state (.-state !state))
+                 theta (aget state 1)]
+             (V-state-fn state out psym)
+             (emit (normalize theta)
+                   (aget out 0)))))}]])
+
 (show-cljs
- (defn WellAxes
-   "MathBox component for a 2d chart that would honestly look better in mafs."
-   []
-   [:<>
-    [emmy.mathbox.components.plot/Grid
-     {:axes :xy :divisions [16 20]}]
-    [emmy.mathbox.components.plot/SceneAxes
-     {:x {:label false
-          :end? true
-          :ticks {:divisions 8
-                  :width 0
-                  :text-size 10
-                  :label-fn #(emmy.viewer.plot/label-pi % 2)
-                  :background 0x000000}
-          :color 0xffffff}
-      :y {:label false :end? true
-          :ticks {:divisions 4
-                  :width 0
-                  :offset [20 0]
-                  :text-size 10
-                  :background 0x000000}
-          :color 0xffffff}}]])
-
- (defn PotentialLine [{:keys [V atom params]}]
-   [emmy.mathbox.components.plot/OfX
-    {:y (let [psym (apply array (map @atom params))]
-          (fn [x]
-            (V [x] psym)))
-     :width 1
-     :color 0x3090ff}])
-
- (defn Well [{:keys [V V-state !state params]}]
-   (let [V-fn (apply js/Function. V)
-         V-state-fn (apply js/Function. V-state)]
+ (defn Well [{:keys [V-state !state params]}]
+   (let [V-state-fn (apply js/Function. V-state)]
      [mathbox.primitives/Cartesian
       {;; TODO fix our `normalize` so we don't map pi back to negative pi.
        :range [[(- Math/PI) (- Math/PI 0.00001)]
                [-10 10]]
        :scale [0.48 0.25]
        :position [-0.5 -0.25 0]}
-      [WellAxes]
-      [PotentialLine
-       {:V V-fn
-        :params [:gravity :mass :length]
-        :atom params}]
       ;; this is the bead traveling with history along the potential.
       [emmy.mathbox.components.physics/Comet
        {:dimensions 2
@@ -192,6 +218,20 @@
                     (aget out 0)))))}]])))
 
 ;; ## Animate Pendulum
+
+(defn Pendulum*
+  "TODO this one can export!"
+  ([] (Pendulum* {}))
+  ([{:keys [width base-size bob-size segments]
+     :or {bob-size  10
+          base-size 4
+          segments  1}}]
+   [:<>
+    ['mathbox.primitives/Vector {:color 0xffffff :width width}]
+    ['mathbox.primitives/Slice {:items [0 1]}]
+    ['mathbox.primitives/Point {:color 0x909090 :size base-size}]
+    ['mathbox.primitives/Slice {:items [1 (inc segments)]}]
+    ['mathbox.primitives/Point {:color 0xffffff :size bob-size}]]))
 
 (show-cljs
  (defn Pendulum
@@ -222,20 +262,8 @@
                   l     (:length @params)]
               [[0 0]
                [(* l (Math/sin theta))
-                (* l (- (Math/cos theta)))]])
-
-      ;; THIS WORKS TOO!
-      #_#_
-      :expr
-      (fn [emit _i]
-        (let [theta (aget (:state (.-state !state)) 1)
-              l     (:length (.-state params))]
-          (emit 0 0)
-          (emit (* l (Math/sin theta))
-                (* l (- (Math/cos theta))))))
-      }]
+                (* l (- (Math/cos theta)))]])}]
     [Pendulum]])
-
 
  (defn ^:export Hamilton
    [{state  :initial-state
@@ -278,6 +306,31 @@
             :params !params
             :steps (:simSteps @!params)}]]]]))))
 
+
+
+^{::clerk/width :wide}
+(ev/fragment
+ (ev/with-let [!params {:length 1 :gravity 9.8 :mass 1 :simSteps 10}]
+   [:<>
+    (leva/controls
+     {:atom !params
+      :folder "Cake"
+      :schema
+      {:length   {:min 0.5 :max 2 :step 0.01}
+       :gravity  {:min 5 :max 15 :step 0.01}
+       :mass     {:min 0.5 :max 2 :step 0.01}
+       :simSteps {:min 1 :max 50 :step 1}}})
+    (box/mathbox
+     {:container  {:style {:height "600px" :width "100%"}}
+      :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+      :renderer   {:background-color 0x000000}}
+     (box/layer
+      #_(Pendulum*)
+      (well
+       {:V V
+        :atom !params
+        :params [:gravity :mass :length]})))]))
+
 #?(:clj
    ^{::clerk/width :wide
      ::clerk/viewer
@@ -294,13 +347,6 @@
                        {:mode :js
                         :calling-convention :primitive
                         :generic-params? true})
-                      :V (xc/compile-state-fn
-                          (fn [& params]
-                            (let [inner (apply V params)]
-                              (fn [[x]] (inner x))))
-                          keys
-                          [0]
-                          {:mode :js})
                       :V-state (xc/compile-state-fn
                                 (fn [& params]
                                   (comp (apply V params) e/coordinate))
@@ -308,14 +354,7 @@
                                 initial-state
                                 {:mode :js
                                  :calling-convention :primitive
-                                 :generic-params? true})
-                      :V (xc/compile-state-fn
-                          (fn [& params]
-                            (let [inner (apply V params)]
-                              (fn [[x]] (inner x))))
-                          keys
-                          [0]
-                          {:mode :js})))))
+                                 :generic-params? true})))))
       :render-fn '(fn [opts]
                     (nextjournal.clerk.viewer/html
                      [js/examples.simulation.phase_portrait.Hamilton opts]))}}
