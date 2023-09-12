@@ -5,8 +5,7 @@
    :exclude [+ - * / = zero? compare abs
              numerator denominator ref partial infinite?])
   (:require [emmy.clerk :as ec]
-            [emmy.env :as e]
-            [emmy.expression.compile :as xc]
+            [emmy.env :refer :all]
             [emmy.leva :as leva]
             [emmy.mathbox :as box]
             [emmy.mathbox.plot :as plot]
@@ -15,20 +14,10 @@
             [emmy.viewer.physics]
             [emmy.mathbox.physics]
             [emmy.mechanics.lagrange :as l]
-            [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
-            [nextjournal.clerk.viewer :as viewer]
-            [mentat.clerk-utils.show :refer [show-cljs]]
-            #?@(:cljs [[nextjournal.clerk.render]
-                       [mathbox.core]
-                       [reagent.core]
-                       [leva.core]
-                       [mathbox.primitives :as mb]])))
+            [nextjournal.clerk :as clerk]))
 
 ;; ## Quartic Well
 ;; https://courses.physics.ucsd.edu/2019/Spring/physics142/Labs/Lab4/tunneling.pdf
-;;
-;; TODO here: Abstract out some of the components and get all four going in the
-;; same scene.
 
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
@@ -37,38 +26,38 @@
 
 (defn T [m]
   (fn [[_ _ v]]
-    (e/* (e// 1 2) m (e/square v))))
+    (* 1/2 m (square v))))
 
 ;; potential energy term:
 
 (defn V [alpha beta gamma]
   (fn [x]
-    (e/+ (e/* alpha (e/expt x 4))
-         (e/- (e/* beta (e/square x)))
+    (+ (* alpha (expt x 4))
+         (- (* beta (square x)))
          gamma)))
 
 (defn L-quartic [mass alpha beta gamma]
-  (e/- (T mass)
-       (comp (V alpha beta gamma)
-             e/coordinate)))
+  (- (T mass)
+     (comp (V alpha beta gamma)
+           coordinate)))
 
 ;; ## Equations
 
 ;; first step is show that there is some symbolic goodness.
 
-(viewer/tex
- (e/->TeX
-  (e/simplify
+(clerk/tex
+ (->TeX
+  (simplify
    ((L-quartic 'm 'alpha 'beta 'gamma)
-    (e/up 't 'x 'xdot)))))
+    (up 't 'x 'xdot)))))
 
 ;; Can we show eq of motion?
 
-(viewer/tex
- (e/->TeX
-  (e/simplify
-   (((e/Lagrange-equations (L-quartic 'm 'alpha 'beta 'gamma))
-     (e/literal-function 'x))
+(clerk/tex
+ (->TeX
+  (simplify
+   (((Lagrange-equations (L-quartic 'm 'alpha 'beta 'gamma))
+     (literal-function 'x))
     't))))
 
 (defn phase-scene [& children]
@@ -184,98 +173,54 @@
      :initial-state initial-state
      :atom          !state})])
 
-^{::clerk/visibility {:code :hide :result :hide}}
-(show-cljs
- (defn Logger [{:keys [T V !state params]}]
-   (let [T-fn (apply js/Function T)
-         V-fn (apply js/Function V)]
-     [mathbox.primitives/Cartesian
-      {:range [[-1 0] [0 6]]
-       :scale [0.98 0.1]
-       :position [0 -0.5]}
-      [mathbox.primitives/Grid
-       {:color 0x808080
-        :divideX 0 :divideY 3}]
-      [mathbox.primitives/Axis
-       {:axis "x"
-        :color 0xffffff}]
-      [mathbox.primitives/Axis
-       {:axis "y"
-        :color 0xffffff}]
-
-      ;; log potential
-      [mathbox.primitives/Array
-       {:width 1
-        :history 120
-        :channels 2
-        :expr
-        (let [out (js/Array. 0)]
-          (fn [emit _i]
-            (let [state (:state (.-state !state))]
-              (V-fn state out (.-state params))
-              (emit 0 (aget out 0)))))}]
-      [mathbox.primitives/Spread
+(defn log-fn [{:keys [color initial-state !state] :as opts}]
+  (let [[f-bind opts] (emmy.viewer.physics/ode-compile opts :f initial-state)]
+    (emmy.viewer.compile/wrap
+     [f-bind]
+     [:<>
+      ['mathbox.primitives/Array
+       (assoc (dissoc opts :f :!state :initial-state :color)
+              :width 1
+              :history 120
+              :channels 2
+              :expr
+              `(let [out# ~'(js/Array. 0)
+                     f#    ~(:f opts)]
+                 (fn [emit# _i#]
+                   (let [state# (:state (.-state ~!state))]
+                     (f# state# out#)
+                     (emit# 0 (aget out# 0))))))]
+      ['mathbox.primitives/Spread
        {:height [-1 0]
         :alignHeight 1}]
-      [mathbox.primitives/Transpose {:order "yx"}]
-      [mathbox.primitives/Line
+      ['mathbox.primitives/Transpose {:order "yx"}]
+      ['mathbox.primitives/Line
        {:points "<"
-        :color [0.7 0.4 0.4]
-        :width 3}]
+        :color color
+        :width 3}]])))
 
-      ;; log kinetic
-      [mathbox.primitives/Array
-       {:width 1
-        :history 120
-        :channels 2
-        :expr
-        (let [out (js/Array. 0)]
-          (fn [emit _i]
-            (let [state (:state (.-state !state))]
-              (T-fn state out (.-state params))
-              (emit 0 (aget out 0)))))}]
+(defn logger-scene [& children]
+  (into ['mathbox.primitives/Cartesian
+         {:range [[-1 0] [0 6]]
+          :scale [0.98 0.1]
+          :position [0 -0.5]}
+         ['mathbox.primitives/Grid
+          {:color 0x808080
+           :divideX 0 :divideY 3}]
+         ['mathbox.primitives/Axis
+          {:axis "x"
+           :color 0xffffff}]
+         ['mathbox.primitives/Axis
+          {:axis "y"
+           :color 0xffffff}]]
+        children))
 
-      [mathbox.primitives/Spread
-       {:height [-1 0]
-        :alignHeight 1}]
-      [mathbox.primitives/Transpose {:order "yx"}]
-      [mathbox.primitives/Line
-       {:points "<"
-        :color [0.4 0.9 1]
-        :width 3}]]))
-
- (defn ^:export Hamilton
-   [{state  :initial-state
-     params :params
-     keys   :keys
-     :as opts}]
-   ;; TODO set initial time, state. maybe no params?
-   (let [!state  (reagent.core/atom {:state state})
-         !params (reagent.core/atom params)
-         !arr    (reagent.core/reaction
-                  (apply
-                   array
-                   (map @!params keys)))]
-     (fn [_]
-       [:<>
-        (reagent.core/with-let [f' (apply js/Function (:f' opts))]
-          [emmy.viewer.components.physics/Evolve
-           {:f' (let [psym (apply array (map @!params [:mass :alpha :beta :gamma]))]
-                  (fn [in out]
-                    (f' in out psym)))
-            :atom !state}])
-        [mathbox.core/MathBox
-         {:container  {:style {:height "600px" :width "100%"}}
-          :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-          :renderer   {:background-color 0x000000}}
-         ;; camera above this time vs phase.
-
-         [mathbox.primitives/Layer
-          [Logger
-           {:!state !state
-            :T      (:T opts)
-            :V      (:V opts)
-            :params !arr}]]]]))))
+(defn logger [{:keys [T V !state initial-state]}]
+  (logger-scene
+   (log-fn {:f V :!state !state :initial-state initial-state
+            :color [0.7 0.4 0.4]})
+   (log-fn {:f T :!state !state :initial-state initial-state
+            :color [0.4 0.9 1]})))
 
 ^{::clerk/width :wide}
 (let [initial-state [0 0 2]]
@@ -309,12 +254,23 @@
        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
        :renderer   {:background-color 0x000000}}
       (box/layer
+       ;; TODO pull the with-params up!!
        (well
         {:V V
          :atom !opts
          :!state !state
          :initial-state initial-state
          :params [:alpha :beta :gamma]})
+
+       (logger
+        {:T (ev/with-params {:atom !opts :params [:mass]}
+              T)
+         :V (ev/with-params {:atom !opts :params [:alpha :beta :gamma]}
+              (fn [& params]
+                (let [V (apply V params)]
+                  (comp V coordinate))))
+         :!state !state
+         :initial-state initial-state})
 
        (phase-scene
         (lagrangian-phase-vectors
@@ -333,55 +289,6 @@
                            [x xdot 0])
           :initial-state initial-state
           :atom          !state}))))]))
-
-#?(:clj
-   ^{::clerk/width :wide
-     ::clerk/viewer
-     {:transform-fn
-      (comp clerk/mark-presented
-            (clerk/update-val
-             (fn [{:keys [L T V params initial-state] :as m}]
-               (assoc (dissoc m :L)
-                      :f'
-                      (xc/compile-state-fn
-                       (e/compose e/Lagrangian->state-derivative L)
-                       (mapv params [:mass :alpha :beta :gamma])
-                       initial-state
-                       {:mode :js
-                        :calling-convention :primitive
-                        :generic-params? true})
-                      :V
-                      (xc/compile-state-fn
-                       (fn [& params]
-                         (comp (apply V params)
-                               e/coordinate))
-                       (mapv params [:alpha :beta :gamma])
-                       initial-state
-                       {:mode :js
-                        :calling-convention :primitive
-                        :generic-params? true})
-                      :T
-                      (xc/compile-state-fn
-                       T
-                       (mapv params [:mass])
-                       initial-state
-                       {:mode :js
-                        :calling-convention :primitive
-                        :generic-params? true})))))
-      :render-fn '(fn [opts]
-                    [js/examples.simulation.quartic_well.Hamilton opts])}}
-   {:params
-    {:mass 1
-     :alpha 0.25
-     :beta 2
-     :gamma 4
-     :simSteps 10}
-    :keys [:mass :alpha :beta :gamma]
-    :L L-quartic
-    :T T
-    :V V
-    :initial-state [0 0 2]})
-
 
 (comment
   #_
@@ -441,7 +348,7 @@
                   (let [state (:state (.-state !state))]
                     (T-fn state ke (.-state !arr))
                     (V-fn state pe (.-state !arr))
-                    (clojure.core/+
+                    (+
                      (if (js/isNaN (aget ke 0))
                        0
                        (aget ke 0))
