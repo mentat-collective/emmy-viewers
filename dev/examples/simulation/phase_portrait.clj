@@ -31,7 +31,7 @@
 
 (defn T [m l]
   (fn [[_ _ thetadot]]
-    (* (/ 1 2) m (square (* l thetadot)))))
+    (* 1/2 m (square (* l thetadot)))))
 
 (defn V [g m l]
   (fn [theta]
@@ -109,7 +109,6 @@
                    (fn [& params]
                      (let [V (apply V params)]
                        (fn [[_ theta]]
-                         ;; TODO handle normalization
                          [theta (V theta) 0]))))
      :initial-state initial-state
      :atom          !state})])
@@ -199,56 +198,55 @@
          (assoc :f' f')))))
 
 ^{::clerk/width :wide}
-(ev/fragment
- (let [initial-state [0 3 0]]
-   (ev/with-let [!state  {:state initial-state}
-                 !opts   {:length 1 :gravity 9.8 :mass 1 :simSteps 10}]
-     [:<>
-      (leva/controls
-       {:atom !opts
-        :folder {:name "Cake"}
-        :schema
-        {:length   {:min 0.5 :max 2 :step 0.01}
-         :gravity  {:min 5 :max 15 :step 0.01}
-         :mass     {:min 0.5 :max 2 :step 0.01}
-         :simSteps {:min 1 :max 50 :step 1}}})
+(let [initial-state [0 3 0]]
+  (ev/with-let [!state  {:state initial-state}
+                !opts   {:length 1 :gravity 9.8 :mass 1 :simSteps 10}]
+    [:<>
+     (leva/controls
+      {:atom !opts
+       :folder {:name "Cake"}
+       :schema
+       {:length   {:min 0.5 :max 2 :step 0.01}
+        :gravity  {:min 5 :max 15 :step 0.01}
+        :mass     {:min 0.5 :max 2 :step 0.01}
+        :simSteps {:min 1 :max 50 :step 1}}})
 
-      (emmy.viewer.physics/evolve-lagrangian
-       {:atom !state
-        :initial-state initial-state
-        :L (ev/with-params {:atom !opts :params [:gravity :mass :length]}
-             L-pendulum)})
+     (emmy.viewer.physics/evolve-lagrangian
+      {:atom !state
+       :initial-state initial-state
+       :L (ev/with-params {:atom !opts :params [:gravity :mass :length]}
+            L-pendulum)})
 
-      (box/mathbox
-       {:container  {:style {:height "600px" :width "100%"}}
-        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
-        :renderer   {:background-color 0x000000}}
-       (box/layer
-        (pendulum-scene
-         {:!state !state
-          :params !opts})
+     (box/mathbox
+      {:container  {:style {:height "600px" :width "100%"}}
+       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+       :renderer   {:background-color 0x000000}}
+      (box/layer
+       (pendulum-scene
+        {:!state !state
+         :params !opts})
 
-        (well
-         {:V V
-          :atom !opts
-          :!state !state
+       (well
+        {:V V
+         :atom !opts
+         :!state !state
+         :initial-state initial-state
+         :params [:gravity :mass :length]})
+
+       (phase-scene
+        (lagrangian-phase-vectors
+         {:L (ev/with-params {:atom !opts :params [:gravity :mass :length]}
+               L-pendulum)
           :initial-state initial-state
-          :params [:gravity :mass :length]})
+          :steps (ev/get !opts :simSteps)})
 
-        (phase-scene
-         (lagrangian-phase-vectors
-          {:L (ev/with-params {:atom !opts :params [:gravity :mass :length]}
-                L-pendulum)
-           :initial-state initial-state
-           :steps (ev/get !opts :simSteps)})
-
-         (emmy.mathbox.physics/comet
-          {:length 16
-           :color 0xa0d0ff
-           :size 10
-           :opacity 0.99
-           :state->xyz (fn [[_ theta thetadot]]
-                         ;; TODO handle normalization
-                         [theta thetadot 0])
-           :initial-state initial-state
-           :atom          !state}))))])))
+        (emmy.mathbox.physics/comet
+         {:length 16
+          :color 0xa0d0ff
+          :size 10
+          :opacity 0.99
+          :state->xyz (fn [[_ theta thetadot]]
+                        ;; TODO handle normalization
+                        [theta thetadot 0])
+          :initial-state initial-state
+          :atom          !state}))))]))

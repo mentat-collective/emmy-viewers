@@ -206,5 +206,5 @@
   - `:z-bias`: zBias of the comet. Defaults to 0."
   [{:keys [initial-state] :as opts}]
   (let [[x-bind opts] (ph/ode-compile opts :state->xyz initial-state)]
-    (-> (vc/wrap [x-bind] ['emmy.mathbox.components.physics/Comet* opts])
+    (-> (vc/wrap [x-bind] ['emmy.mathbox.components.physics/Comet opts])
         (ev/fragment plot/scene))))

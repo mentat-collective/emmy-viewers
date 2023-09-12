@@ -1,8 +1,20 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.quartic-well
   {:nextjournal.clerk/toc true}
-  (:require [emmy.env :as e]
-            #?(:clj [emmy.expression.compile :as xc])
+  (:refer-clojure
+   :exclude [+ - * / = zero? compare abs
+             numerator denominator ref partial infinite?])
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e]
+            [emmy.expression.compile :as xc]
+            [emmy.leva :as leva]
+            [emmy.mathbox :as box]
+            [emmy.mathbox.plot :as plot]
+            [emmy.viewer :as ev]
+            [emmy.viewer.compile]
+            [emmy.viewer.physics]
+            [emmy.mathbox.physics]
+            [emmy.mechanics.lagrange :as l]
             [nextjournal.clerk #?(:clj :as :cljs :as-alias) clerk]
             [nextjournal.clerk.viewer :as viewer]
             [mentat.clerk-utils.show :refer [show-cljs]]
@@ -18,22 +30,27 @@
 ;; TODO here: Abstract out some of the components and get all four going in the
 ;; same scene.
 
+^{::clerk/visibility {:code :hide :result :hide}}
+(ec/install!)
+
 ;; Kinetic energy:
 
-(defn T [m _ _ _]
+(defn T [m]
   (fn [[_ _ v]]
     (e/* (e// 1 2) m (e/square v))))
 
 ;; potential energy term:
 
-(defn V [_ alpha beta gamma]
-  (fn [[_ x]]
+(defn V [alpha beta gamma]
+  (fn [x]
     (e/+ (e/* alpha (e/expt x 4))
          (e/- (e/* beta (e/square x)))
          gamma)))
 
-(def L-quartic
-  (e/- T V))
+(defn L-quartic [mass alpha beta gamma]
+  (e/- (T mass)
+       (comp (V alpha beta gamma)
+             e/coordinate)))
 
 ;; ## Equations
 
@@ -54,189 +71,121 @@
      (e/literal-function 'x))
     't))))
 
-^{::clerk/visibility {:code :hide :result :hide}}
-(show-cljs
- (defn PhaseAxes []
-   [:<>
-    [mb/Axis
-     {:axis "x"
-      :color 0xffffff}]
-    [mb/Scale
-     {:axis "x"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true}]
-    [mb/Format
-     {:expr (fn [x] (emmy.viewer.plot/format-number x))
-      :font ["Helvetica"]}]
-    [mb/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10}]
-    [mb/Axis
-     {:axis "y"
-      :color 0xffffff}]
-    [mb/Scale
-     {:axis "y"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true
-      :zero false}]
-    [mb/Format
-     {:expr (fn [x] (emmy.viewer.plot/format-number x))
-      :font ["Helvetica"]}]
-    [mb/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10
-      :offset [20 0]}]])
+(defn phase-scene [& children]
+  (apply plot/cartesian
+         {:range [[-4 4] [-4 4]]
+          :scale [0.48 0.48]
+          :position [0.5 0.2]
+          :grids {:xy {:color 0x808080 :divisions 16}}
+          :axes {:x {:label false
+                     :color 0xffffff
+                     :end? true
+                     :width 2
+                     :z-index 1
+                     :z-order 5
+                     :ticks {:divisions 8
+                             :text-size 10
+                             :offset [0 -20]
+                             :background 0x000000}}
+                 :y {:label false
+                     :end? true
+                     :width 2
+                     :z-index 1
+                     :z-order 5
+                     :color 0xffffff
+                     :ticks {:axis :y
+                             :divisions 8
+                             :text-size 10
+                             :offset [20 0]
+                             :background 0x000000}}}}
+         children))
 
- (defn PhaseVectors
-   "Okay, so THIS component is close to good to go. Unlike the ODE component, this
+(defn phase-vectors
+  "Okay, so THIS component is close to good to go. Unlike the ODE component, this
   one is taking its cues from the ODE solver.
 
   TODO what we need to do is make a GENERIC thing that can emit pairs of y, y',
   and then plot some vector. And do that across a grid based on some initial
   state."
-   [{:keys [f' initial-state params steps dt]
-     :or {dt 3e-2}}]
-   (reagent.core/with-let [f' (apply js/Function. f')]
-     [emmy.mathbox.components.physics/PhasePortrait
-      {:f' (let [psym (apply array (map @params [:mass :alpha :beta :gamma]))]
-             (fn [in out]
-               (f' in out psym)))
-       :initial-state initial-state
-       :steps steps
-       :dt dt}]))
+  [{:keys [initial-state] :as opts}]
+  (let [[f-bind opts] (emmy.viewer.physics/ode-compile opts :f' initial-state)]
+    (emmy.viewer.compile/wrap
+     [f-bind]
+     ['emmy.mathbox.components.physics/PhasePortrait opts])))
 
- (defn Phase [{:keys [!state initial-state f' params steps]}]
-   [mathbox.primitives/Cartesian
-    {:range [[-4 4] [-4 4]]
-     :scale [0.48 0.48]
-     :position [0.5 0.2]}
-    [mb/Grid {:color 0x808080}]
-    [PhaseAxes]
-    [PhaseVectors
-     {:f' f'
-      :initial-state initial-state
-      :params params
-      :steps steps}]
-    [emmy.mathbox.components.physics/Comet
-     {:dimensions 2
-      :length 16
-      :color 0xa0d0ff
-      :size 10
-      :opacity 0.99
-      :path
-      (fn [emit _ _]
-        (let [state (:state (.-state !state))]
-          (emit (aget state 1)
-                (aget state 2))))}]])
+(defn lagrangian-phase-vectors
+  [{:keys [L] :as opts}]
+  (let [f' (if (ev/param-f? L)
+             (update L :f #(comp l/Lagrangian->state-derivative %))
+             (l/Lagrangian->state-derivative L))]
+    (phase-vectors
+     (-> (dissoc opts :L)
+         (assoc :f' f')))))
 
- (defn WellAxes []
-   [:<>
-    [mathbox.primitives/Axis
-     {:axis "x"
-      :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "x"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true}]
-    [mathbox.primitives/Format
-     {:expr (fn [x] (emmy.viewer.plot/format-number x))
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10}]
-    [mathbox.primitives/Axis
-     {:axis "y" :color 0xffffff}]
-    [mathbox.primitives/Scale
-     {:axis "y"
-      :divide 5
-      :unit 1
-      :base 10
-      :start true
-      :end true
-      :zero false}]
-    [mathbox.primitives/Format
-     {:expr (fn [x] (emmy.viewer.plot/format-number x))
-      :font ["Helvetica"]}]
-    [mathbox.primitives/Label
-     {:color 0xffffff
-      :background 0x000000
-      :depth 0.5
-      :zIndex 1
-      :zOrder 5
-      :size 10
-      :offset [20 0]}]])
+;; ## Potential Well
 
- (defn PotentialLine [{:keys [V !params]}]
-   [:<>
-    ;; This is the potential well. Gotta redo this to make more sense.
-    [mathbox.primitives/Interval
-     {:width 128
-      :channels 2
-      :live false
-      :expr
-      (let [in  (js/Array. 0 0 0)
-            out (js/Array. 0)
-            p   @!params]
-        (fn [emit x]
-          (aset in 1 x)
-          (V in out p)
-          (emit x (aget out 0))))}]
-    [mathbox.primitives/Line
-     {:color 0x3090ff}]])
+(defn well-axes []
+  [:<>
+   ['emmy.mathbox.components.plot/Grid {:axes :xy :divisions [12 14]}]
+   ['emmy.mathbox.components.plot/SceneAxes
+    {:x {:label false
+         :end? true
+         :ticks {:divisions 6
+                 :width 0
+                 :text-size 10
+                 :background 0x000000}
+         :color 0xffffff}
+     :y {:label false :end? true
+         :ticks {:divisions 3
+                 :snap? true
+                 :width 0
+                 :offset [20 0]
+                 :text-size 10
+                 :background 0x000000}
+         :color 0xffffff}}]])
 
- (defn Well [{:keys [V !state params]}]
-   (let [[a1 b1 c1 body1] V
-         V-fn (js/Function. a1 b1 c1 body1)]
-     [mathbox.primitives/Cartesian
-      {:id "well"
-       :range [[-3 3] [0 14]]
-       :scale [0.48 0.48]
-       :position [-0.5 0.2]}
-      [mathbox.primitives/Grid
-       {:color 0x808080}]
-      [WellAxes]
-      [PotentialLine
-       {:V V-fn
-        :!params params}]
-      ;; this is the bead traveling with history along the potential.
-      [emmy.mathbox.components.physics/Comet
-       ;; TODO pass a width to the emitted area for how many points we have.
-       {:dimensions 2
-        :items 2
-        :length 16
-        :color 0xa0d0ff
-        :size 5
-        :opacity 0.99
-        :path
-        (let [out (js/Array. 0)]
-          (fn [emit i _]
-            (let [state (:state (.-state !state))
-                  x (aget state 1)]
-              (V-fn state out (.-state params))
-              (emit x (aget out 0))
-              (emit x (+ 7 i)))))}]]))
+(defn potential-line [{:keys [V atom params]}]
+  (plot/of-x
+   {:width 1
+    :color 0x3090ff
+    :y (ev/with-params {:atom atom :params params}
+         V)}))
 
+(defn well [{:keys [V !state initial-state atom params]}]
+  ['mathbox.primitives/Cartesian
+   {:range [[-3 3] [0 14]]
+    :scale [0.48 0.48]
+    :position [-0.5 0.2]}
+   (well-axes)
+   (potential-line
+    {:V V
+     :params params
+     :atom atom})
+   (emmy.mathbox.physics/comet
+    {:length 16
+     :color 0xa0d0ff
+     :size 5
+     :opacity 0.99
+     :state->xyz (ev/with-params {:atom atom :params params}
+                   (fn [& params]
+                     (let [V (apply V params)]
+                       (fn [[_ theta]]
+                         [theta (V theta) 0]))))
+     :initial-state initial-state
+     :atom          !state})
+
+   (emmy.mathbox.physics/comet
+    {:length 16
+     :color 0xa0d0ff
+     :size 5
+     :opacity 0.99
+     :state->xyz (fn [[_ x]]
+                   [x 7 0])
+     :initial-state initial-state
+     :atom          !state})])
+
+^{::clerk/visibility {:code :hide :result :hide}}
+(show-cljs
  (defn Logger [{:keys [T V !state params]}]
    (let [T-fn (apply js/Function T)
          V-fn (apply js/Function V)]
@@ -299,7 +248,6 @@
    [{state  :initial-state
      params :params
      keys   :keys
-     schema :schema
      :as opts}]
    ;; TODO set initial time, state. maybe no params?
    (let [!state  (reagent.core/atom {:state state})
@@ -307,76 +255,9 @@
          !arr    (reagent.core/reaction
                   (apply
                    array
-                   (map @!params keys)))
-         ;; TODO share all the V-fn compilation calls
-         T-fn (apply js/Function (:T opts))
-         V-fn (apply js/Function (:V opts))]
+                   (map @!params keys)))]
      (fn [_]
        [:<>
-
-        [:div {:class "hidden"}[nextjournal.clerk.render/inspect @!arr]]
-        [leva.core/Controls
-         {:atom !params
-          :schema
-          (assoc schema
-                 "Monitors (expand me!)"
-                 (leva.core/folder
-                  {"T"
-                   (leva.core/monitor
-                    (let [out (js/Array. 0)]
-                      (fn []
-                        (let [state (:state (.-state !state))]
-                          (T-fn state out (.-state !arr))
-                          (if (js/isNaN (aget out 0))
-                            0
-                            (aget out 0)))))
-                    {:graph true
-                     :interval 30})
-
-                   "V"
-                   (leva.core/monitor
-                    (let [out (js/Array. 0)]
-                      (fn []
-                        (let [state (:state (.-state !state))]
-                          (V-fn state out (.-state !arr))
-                          (if (js/isNaN (aget out 0))
-                            0
-                            (aget out 0)))))
-                    {:graph true
-                     :interval 30})
-
-                   "Energy (T+V)"
-                   (leva.core/monitor
-                    (let [ke (js/Array. 0)
-                          pe (js/Array. 0)]
-                      (fn []
-                        (let [state (:state (.-state !state))]
-                          (T-fn state ke (.-state !arr))
-                          (V-fn state pe (.-state !arr))
-                          (+ (if (js/isNaN (aget ke 0))
-                               0
-                               (aget ke 0))
-                             (if (js/isNaN (aget pe 0))
-                               0
-                               (aget pe 0))))))
-                    {:graph true
-                     :interval 30})}
-                  {:collapsed true}))}]
-
-
-        ;; let vs = sim.initial;
-        ;; let t = 0;
-        ;; let dt = 1 / 120;
-        ;; TODO parallel simulations, not connected
-        ;; let dt = 1 / 120;
-        ;; three.on(
-        ;;          "update",
-        ;;          (tick = () => {
-        ;;                         vs = vs.map((v) => sim.step(v, dt));
-        ;;                         t += dt;
-        ;;                         })
-        ;;          );
-        ;; TODO same evolution?
         (reagent.core/with-let [f' (apply js/Function (:f' opts))]
           [emmy.viewer.components.physics/Evolve
            {:f' (let [psym (apply array (map @!params [:mass :alpha :beta :gamma]))]
@@ -388,30 +269,70 @@
           :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
           :renderer   {:background-color 0x000000}}
          ;; camera above this time vs phase.
-         [mathbox.primitives/Camera {:proxy true :position [0 0 20] :fov 90}]
+
          [mathbox.primitives/Layer
+          [Logger
+           {:!state !state
+            :T      (:T opts)
+            :V      (:V opts)
+            :params !arr}]]]]))))
 
-          [mathbox.primitives/Unit {:scale 720 :focus 1}
-           [Well
-            {:!state !state
-             :V      (:V opts)
-             :params !arr}]
+^{::clerk/width :wide}
+(let [initial-state [0 0 2]]
+  (ev/with-let [!state {:state initial-state}
+                !opts {:mass     1
+                       :alpha    0.25
+                       :beta     2
+                       :gamma    4
+                       :simSteps 10}]
 
-           [Phase
-            {:f' (:f' opts)
-             :!state !state
-             :initial-state state
-             :params !params
-             :steps (:simSteps @!params)}]
+    [:<>
+     (leva/controls
+      {:atom   !opts
+       :folder {:name "Cake"}
+       :schema
+       {:mass     {:min 0.5 :max 2 :step 0.01}
+        :alpha    {:min 0.1 :max 2 :step 0.01}
+        :beta     {:min 0.5 :max 4 :step 0.01}
+        :gamma    {:min 2 :max 6 :step 0.01}
+        :simSteps {:min 1 :max 50 :step 1}}})
 
-           [Logger
-            {:!state !state
-             :T      (:T opts)
-             :V      (:V opts)
-             :params !arr}]]]]]))))
+     (emmy.viewer.physics/evolve-lagrangian
+      {:atom          !state
+       :initial-state initial-state
+       :L             (ev/with-params
+                        {:atom !opts :params [:mass :alpha :beta :gamma]}
+                        L-quartic)})
 
+     (box/mathbox
+      {:container  {:style {:height "600px" :width "100%"}}
+       :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
+       :renderer   {:background-color 0x000000}}
+      (box/layer
+       (well
+        {:V V
+         :atom !opts
+         :!state !state
+         :initial-state initial-state
+         :params [:alpha :beta :gamma]})
 
-;; ## Animate Well
+       (phase-scene
+        (lagrangian-phase-vectors
+         {:L             (ev/with-params
+                           {:atom !opts :params [:mass :alpha :beta :gamma]}
+                           L-quartic)
+          :initial-state initial-state
+          :steps         (ev/get !opts :simSteps)})
+
+        (emmy.mathbox.physics/comet
+         {:length        16
+          :color         0xa0d0ff
+          :size          10
+          :opacity       0.99
+          :state->xyz    (fn [[_ x xdot]]
+                           [x xdot 0])
+          :initial-state initial-state
+          :atom          !state}))))]))
 
 #?(:clj
    ^{::clerk/width :wide
@@ -419,20 +340,22 @@
      {:transform-fn
       (comp clerk/mark-presented
             (clerk/update-val
-             (fn [{:keys [L T V params keys initial-state] :as m}]
+             (fn [{:keys [L T V params initial-state] :as m}]
                (assoc (dissoc m :L)
                       :f'
                       (xc/compile-state-fn
                        (e/compose e/Lagrangian->state-derivative L)
-                       (mapv params keys)
+                       (mapv params [:mass :alpha :beta :gamma])
                        initial-state
                        {:mode :js
                         :calling-convention :primitive
                         :generic-params? true})
                       :V
                       (xc/compile-state-fn
-                       V
-                       (mapv params keys)
+                       (fn [& params]
+                         (comp (apply V params)
+                               e/coordinate))
+                       (mapv params [:alpha :beta :gamma])
                        initial-state
                        {:mode :js
                         :calling-convention :primitive
@@ -440,7 +363,7 @@
                       :T
                       (xc/compile-state-fn
                        T
-                       (mapv params keys)
+                       (mapv params [:mass])
                        initial-state
                        {:mode :js
                         :calling-convention :primitive
@@ -453,14 +376,78 @@
      :beta 2
      :gamma 4
      :simSteps 10}
-    :schema
-    {:mass     {:min 0.5 :max 2 :step 0.01}
-     :alpha     {:min 0.1 :max 2 :step 0.01}
-     :beta     {:min 0.5 :max 4 :step 0.01}
-     :gamma   {:min 2 :max 6 :step 0.01}
-     :simSteps {:min 1 :max 50 :step 1}}
     :keys [:mass :alpha :beta :gamma]
     :L L-quartic
     :T T
     :V V
     :initial-state [0 0 2]})
+
+
+(comment
+  #_
+  {:V
+   (xc/compile-state-fn
+    V
+    (mapv params keys)
+    initial-state
+    {:mode :js
+     :calling-convention :primitive
+     :generic-params? true})
+   :T
+   (xc/compile-state-fn
+    T
+    (mapv params keys)
+    initial-state
+    {:mode :js
+     :calling-convention :primitive
+     :generic-params? true})}
+
+  #_
+  [leva.core/Controls
+   {:atom !params
+    :schema
+    (assoc schema
+           "Monitors (expand me!)"
+           (leva.core/folder
+            {"T"
+             (leva.core/monitor
+              (let [out (js/Array. 0)]
+                (fn []
+                  (let [state (:state (.-state !state))]
+                    (T-fn state out (.-state !arr))
+                    (if (js/isNaN (aget out 0))
+                      0
+                      (aget out 0)))))
+              {:graph true
+               :interval 30})
+
+             "V"
+             (leva.core/monitor
+              (let [out (js/Array. 0)]
+                (fn []
+                  (let [state (:state (.-state !state))]
+                    (V-fn state out (.-state !arr))
+                    (if (js/isNaN (aget out 0))
+                      0
+                      (aget out 0)))))
+              {:graph true
+               :interval 30})
+
+             "Energy (T+V)"
+             (leva.core/monitor
+              (let [ke (js/Array. 0)
+                    pe (js/Array. 0)]
+                (fn []
+                  (let [state (:state (.-state !state))]
+                    (T-fn state ke (.-state !arr))
+                    (V-fn state pe (.-state !arr))
+                    (clojure.core/+
+                     (if (js/isNaN (aget ke 0))
+                       0
+                       (aget ke 0))
+                     (if (js/isNaN (aget pe 0))
+                       0
+                       (aget pe 0))))))
+              {:graph true
+               :interval 30})}
+            {:collapsed true}))}])

@@ -208,7 +208,7 @@
 ;; TODO once we figure out how this works this should PROBABLY move over into
 ;; geometry... or be similar to point.
 
-(defn Comet
+(defn OldComet
   "Boring, old version that we need to fix."
   [{:keys [dimensions path color size length items]
     :or {items 1
@@ -236,7 +236,7 @@
      :size size
      :color color}]])
 
-(defn Comet*
+(defn Comet
   "Point that trails its historical positions out behind it in a glowing tail.
 
   Required arguments:
