@@ -12,8 +12,6 @@
 
 ;; ## Server-Side MathBox
 
-(def ->tex (comp clerk/tex ->TeX simplify))
-
 {::clerk/width :wide}
 
 ^{::clerk/visibility {:code :hide :result :hide}}

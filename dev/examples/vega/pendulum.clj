@@ -14,7 +14,7 @@
    :exclude [+ - * / partial ref zero? numerator denominator compare = run!
              abs infinite?])
   (:require [nextjournal.clerk :as clerk]
-            [emmy.clerk :refer [multiviewer]]
+            [emmy.clerk :as ec :refer [multiviewer]]
             [emmy.env :as e :refer :all]
             [emmy.expression.compile :as xc]
             [emmy.expression.render :as xr]))
@@ -82,23 +82,19 @@
 
   (simplify symbolic-L)
 
-  ;; Better yet, let's render it as LaTeX, and create a helper function,
-  ;; `render-eq` to make it easier to render simplified equations:
+  ;; Better yet, let's render it as LaTeX:
 
-  (def render-eq
-    (comp clerk/tex ->TeX simplify))
-
-  (render-eq symbolic-L)
+  (ec/->TeX symbolic-L :simplify? true)
 
   ;; And here are the equations of motion for the system:
 
   (let [L (L-double-pendulum 'm_1 'm_2 'l_1 'l_2 'g)]
     (binding [xr/*TeX-vertical-down-tuples* true]
-      (render-eq
-       (((Lagrange-equations L)
-         (up (literal-function 'theta_1)
-             (literal-function 'theta_2)))
-        't))))
+      (-> (((Lagrange-equations L)
+            (up (literal-function 'theta_1)
+                (literal-function 'theta_2)))
+           't)
+          (ec/->TeX :simplify? true))))
 
   ;; What do these mean?
   ;;

@@ -13,7 +13,6 @@
             [emmy.viewer.compile]
             [emmy.viewer.physics]
             [emmy.mathbox.physics]
-            [emmy.mechanics.lagrange :as l]
             [nextjournal.clerk :as clerk]))
 
 ;; ## Quartic Well
@@ -21,6 +20,9 @@
 
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
+
+;; TODO
+;; - get the monitors back
 
 ;; Kinetic energy:
 
@@ -45,20 +47,18 @@
 
 ;; first step is show that there is some symbolic goodness.
 
-(clerk/tex
- (->TeX
-  (simplify
-   ((L-quartic 'm 'alpha 'beta 'gamma)
-    (up 't 'x 'xdot)))))
+(ec/->TeX
+ (simplify
+  ((L-quartic 'm 'alpha 'beta 'gamma)
+   (up 't 'x 'xdot))))
 
 ;; Can we show eq of motion?
 
-(clerk/tex
- (->TeX
-  (simplify
-   (((Lagrange-equations (L-quartic 'm 'alpha 'beta 'gamma))
-     (literal-function 'x))
-    't))))
+(ec/->TeX
+ (simplify
+  (((Lagrange-equations (L-quartic 'm 'alpha 'beta 'gamma))
+    (literal-function 'x))
+   't)))
 
 (defn phase-scene [& children]
   (apply plot/cartesian
@@ -88,28 +88,6 @@
                              :offset [20 0]
                              :background 0x000000}}}}
          children))
-
-(defn phase-vectors
-  "Okay, so THIS component is close to good to go. Unlike the ODE component, this
-  one is taking its cues from the ODE solver.
-
-  TODO what we need to do is make a GENERIC thing that can emit pairs of y, y',
-  and then plot some vector. And do that across a grid based on some initial
-  state."
-  [{:keys [initial-state] :as opts}]
-  (let [[f-bind opts] (emmy.viewer.physics/ode-compile opts :f' initial-state)]
-    (emmy.viewer.compile/wrap
-     [f-bind]
-     ['emmy.mathbox.components.physics/PhasePortrait opts])))
-
-(defn lagrangian-phase-vectors
-  [{:keys [L] :as opts}]
-  (let [f' (if (ev/param-f? L)
-             (update L :f #(comp l/Lagrangian->state-derivative %))
-             (l/Lagrangian->state-derivative L))]
-    (phase-vectors
-     (-> (dissoc opts :L)
-         (assoc :f' f')))))
 
 ;; ## Potential Well
 
@@ -273,7 +251,7 @@
          :initial-state initial-state})
 
        (phase-scene
-        (lagrangian-phase-vectors
+        (emmy.mathbox.physics/lagrangian-phase-vectors
          {:L             (ev/with-params
                            {:atom !opts :params [:mass :alpha :beta :gamma]}
                            L-quartic)
@@ -291,24 +269,6 @@
           :atom          !state}))))]))
 
 (comment
-  #_
-  {:V
-   (xc/compile-state-fn
-    V
-    (mapv params keys)
-    initial-state
-    {:mode :js
-     :calling-convention :primitive
-     :generic-params? true})
-   :T
-   (xc/compile-state-fn
-    T
-    (mapv params keys)
-    initial-state
-    {:mode :js
-     :calling-convention :primitive
-     :generic-params? true})}
-
   #_
   [leva.core/Controls
    {:atom !params

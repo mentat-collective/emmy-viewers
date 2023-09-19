@@ -76,7 +76,7 @@
 
   Required arguments:
 
-  - `:L'`: function of the form `(fn [[t q qdot]] <energy>)`
+  - `:L`: function of the form `(fn [[t q qdot]] <energy>)`
 
   - `:initial-state`: the initial input vector to `:L`.
 
@@ -169,6 +169,141 @@
          (assoc :L L
                 :initial-state [0 x0 v0]
                 :state->xyz state->xyz)))))
+
+(defn phase-vectors
+  "In-progress attempt at a proper phase portrait component.
+
+  Returns a fragment that plots a curve at each point on a grid by integrating a
+  system of ordinary differential equations represented by `f'` forward from the
+  initial input state `:initial-state` for `:steps` steps of `:dt` each.
+
+  Each point is initialized by swapping out `:x-idx` and `:v-idx` in
+  `:initial-state` with the $(x, \\vdot{x})$ coordinates of the phase portrait.
+
+  NOTE that this is kind of weird, and only works for second-order ODEs that
+  have been transformed. It might be that we want to allow this, but also just
+  call `:f` if the user doesn't supply `:v-idx`, for more general ODEs.
+
+  Required arguments:
+
+  - `:f'`: function of the form `(fn [[y0 y1 ...]] [<y0'> <y1'> ...])` that
+    returns a vector of the derivatives of each input variable.
+
+  - `:initial-state`: the initial input vector to `:f'`.
+
+  Optional arguments:
+
+  - `:x-idx`: index of the coordinate position in the state. Defaults to 1.
+
+  - `:v-idx` index of the derivative of `:x-idx` in the state. Defaults to 2.
+
+  - `:steps`: the number of `:dt`-spaced steps for the integrator to take.
+    Defaults to 10.
+
+  - `:dt`: the distance of each evenly spaced step taken by the integrator.
+    Defaults to 3e-2.
+
+  - `:epsilon`: error tolerance passed along
+    to [odex-js](https://github.com/littleredcomputer/odex-js). Defaults to 1e-5.
+
+  - `:width`: width of each curve. Defaults to 2.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `true`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 5.
+
+  - `:opacity`: opacity of each curve. Defaults to 1.0.
+
+  - `:color`: color of each curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the phase portrait.
+
+  - `:z-index`: zIndex of the phase portrait. Defaults to 0.
+
+  - `:z-bias`: zBias of the phase portrait. Defaults to 0."
+  [{:keys [initial-state] :as opts}]
+  (let [[f-bind opts] (emmy.viewer.physics/ode-compile opts :f' initial-state)]
+    (-> (vc/wrap [f-bind]
+                 ['emmy.mathbox.components.physics/PhaseVectors opts])
+        (ev/fragment plot/scene))))
+
+(defn lagrangian-phase-vectors
+  "Returns a fragment that plots a curve at each point on a grid by integrating a
+  system of ordinary differential equations generated from the Lagrangian passed
+  via `:L` forward from the initial input state `:initial-state` for `:steps`
+  steps of `:dt` each.
+
+  Each point is initialized by swapping out `:x-idx` and `:v-idx` in
+  `:initial-state` with the $(x, \\vdot{x})$ coordinates of the phase portrait.
+
+  Required arguments:
+
+  - `:L`: function of the form `(fn [[t q qdot]] <energy>)`
+
+  - `:initial-state`: the initial input vector to `:L`.
+
+  See [[phase-vectors]] for a description of all supported optional options."
+  [{:keys [L] :as opts}]
+  (let [f' (if (ev/param-f? L)
+             (update L :f #(comp l/Lagrangian->state-derivative %))
+             (l/Lagrangian->state-derivative L))]
+    (phase-vectors
+     (-> (dissoc opts :L)
+         (assoc :f' f')))))
+
+(defn hamiltonian-phase-vectors
+  "Returns a fragment that plots a curve at each point on a grid by integrating a
+  system of ordinary differential equations generated from the Hamiltonian
+  passed via `:H` forward from the initial input state `:initial-state` for
+  `:steps` steps of `:dt` each.
+
+  Each point is initialized by swapping out `:x-idx` and `:v-idx` in
+  `:initial-state` with the $(x, \\vdot{x})$ coordinates of the phase portrait.
+
+  Required arguments:
+
+  - `:H`: function of the form `(fn [[t q p]] <energy>)`
+
+  - `:initial-state`: the initial input vector to `:H`.
+
+  See [[phase-vectors]] for a description of all supported optional options."
+  [{:keys [H] :as opts}]
+  (let [f' (if (ev/param-f? H)
+             (update H :f #(comp h/Hamiltonian->state-derivative %))
+             (h/Hamiltonian->state-derivative H))]
+    (phase-vectors
+     (-> (dissoc opts :H)
+         (assoc :f' f')))))
+
+(defn routhian-phase-vectors
+  "Returns a fragment that plots a curve at each point on a grid by integrating a
+  system of ordinary differential equations generated from the Routhian passed
+  via `:R` forward from the initial input state `:initial-state` for `:steps`
+  steps of `:dt` each.
+
+  Each point is initialized by swapping out `:x-idx` and `:v-idx` in
+  `:initial-state` with the $(x, \\vdot{x})$ coordinates of the phase portrait.
+
+  Required arguments:
+
+  - `:R`: function of the form `(fn [[t q qdot-or-p]] <energy>)`
+
+  - `:initial-state`: the initial input vector to `:R`.
+
+  See [[phase-vectors]] for a description of all supported optional options."
+  [{:keys [R] :as opts}]
+  (let [f' (if (ev/param-f? R)
+             (update R :f #(comp r/Routhian->state-derivative %))
+             (r/Routhian->state-derivative R))]
+    (phase-vectors
+     (-> (dissoc opts :R)
+         (assoc :f' f')))))
 
 ;; ## Visual Elements
 

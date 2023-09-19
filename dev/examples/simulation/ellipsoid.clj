@@ -82,23 +82,23 @@
 ;;
 ;; Lagrange equations of motion for the ellipsoid:
 
-(def ->tex (comp clerk/tex ->TeX simplify))
-
-(->tex
+(ec/->TeX
  (let [L (L-central-triaxial 'm 'g 'a 'b 'c)
        theta (literal-function 'theta)
        phi (literal-function 'phi)]
-   (((Lagrange-equations L) (up theta phi))
-    't)))
+   (simplify
+    (((Lagrange-equations L) (up theta phi))
+     't))))
 
 ;; And for the sphere:
 
-(->tex
+(ec/->TeX
  (let [L (L-central-triaxial 'm 'g 'r 'r 'r)
        theta (literal-function 'theta)
        phi (literal-function 'phi)]
-   (((Lagrange-equations L) (up theta phi))
-    't)))
+   (simplify
+    (((Lagrange-equations L) (up theta phi))
+     't))))
 
 ;; This is fairly horrifying. This really demands animation, as I bet it looks
 ;; cool, but it's not comprehensible in this form.

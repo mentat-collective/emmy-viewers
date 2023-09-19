@@ -9,7 +9,6 @@
             [emmy.leva :as leva]
             [emmy.mathbox :as box]
             [emmy.mathbox.plot :as plot]
-            [emmy.mechanics.lagrange :as l]
             [emmy.viewer :as ev]
             [emmy.viewer.compile]
             [emmy.viewer.physics]
@@ -24,8 +23,7 @@
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
-(def normalize
-  (principal-value Math/PI))
+{::clerk/width :wide}
 
 ;; potential energy term:
 
@@ -45,20 +43,18 @@
 
 ;; first step is show that there is some symbolic goodness.
 
-(clerk/tex
- (->TeX
-  (simplify
-   ((L-pendulum 'g 'm 'l)
-    (up 't 'theta 'thetadot)))))
+(ec/->TeX
+ (simplify
+  ((L-pendulum 'g 'm 'l)
+   (up 't 'theta 'thetadot))))
 
 ;; Can we show eq of motion?
 
-(clerk/tex
- (->TeX
-  (simplify
-   (((Lagrange-equations (L-pendulum 'g 'm 'l))
-     (literal-function 'theta))
-    't))))
+(ec/->TeX
+ (simplify
+  (((Lagrange-equations (L-pendulum 'g 'm 'l))
+    (literal-function 'theta))
+   't)))
 
 ;; ## Axes
 
@@ -89,12 +85,17 @@
     :y (ev/with-params {:atom atom :params params}
          V)}))
 
+(def normalize
+  '(let [f (emmy.env/principal-value Math/PI)]
+     (fn [emit x y z]
+       (emit (f x) y z))))
+
 (defn well [{:keys [V !state initial-state atom params]}]
   ['mathbox.primitives/Cartesian
    {:range [[(- Math/PI) (- Math/PI 0.00001)]
             [-10 10]]
     :scale [0.48 0.25]
-    :position [-0.5 -0.25 0]}
+    :position [-0.5 -0.25]}
    (well-axes)
    (potential-line
     {:V V
@@ -105,6 +106,7 @@
      :color 0xa0d0ff
      :size 5
      :opacity 0.99
+     :post-fn normalize
      :state->xyz (ev/with-params {:atom atom :params params}
                    (fn [& params]
                      (let [V (apply V params)]
@@ -136,7 +138,6 @@
    ['mathbox.primitives/Point {:color 0x909090 :size base-size}]
    ['mathbox.primitives/Slice {:items [1 (inc segments)]}]
    ['mathbox.primitives/Point {:color 0xffffff :size bob-size}]])
-
 
 (defn pendulum-scene [{:keys [!state params]}]
   (box/cartesian
@@ -175,29 +176,6 @@
                              :background 0x000000}}}}
          children))
 
-(defn phase-vectors
-  "Okay, so THIS component is close to good to go. Unlike the ODE component, this
-  one is taking its cues from the ODE solver.
-
-  TODO what we need to do is make a GENERIC thing that can emit pairs of y, y',
-  and then plot some vector. And do that across a grid based on some initial
-  state."
-  [{:keys [initial-state] :as opts}]
-  (let [[f-bind opts] (emmy.viewer.physics/ode-compile opts :f' initial-state)]
-    (emmy.viewer.compile/wrap
-     [f-bind]
-     ['emmy.mathbox.components.physics/PhasePortrait opts])))
-
-(defn lagrangian-phase-vectors
-  [{:keys [L] :as opts}]
-  (let [f' (if (ev/param-f? L)
-             (update L :f #(comp l/Lagrangian->state-derivative %))
-             (l/Lagrangian->state-derivative L))]
-    (phase-vectors
-     (-> (dissoc opts :L)
-         (assoc :f' f')))))
-
-^{::clerk/width :wide}
 (let [initial-state [0 3 0]]
   (ev/with-let [!state  {:state initial-state}
                 !opts   {:length 1 :gravity 9.8 :mass 1 :simSteps 10}]
@@ -222,9 +200,7 @@
        :threestrap {:plugins ["core" "controls" "cursor" "stats"]}
        :renderer   {:background-color 0x000000}}
       (box/layer
-       (pendulum-scene
-        {:!state !state
-         :params !opts})
+       (pendulum-scene {:!state !state :params !opts})
 
        (well
         {:V V
@@ -234,7 +210,7 @@
          :params [:gravity :mass :length]})
 
        (phase-scene
-        (lagrangian-phase-vectors
+        (emmy.mathbox.physics/lagrangian-phase-vectors
          {:L (ev/with-params {:atom !opts :params [:gravity :mass :length]}
                L-pendulum)
           :initial-state initial-state
@@ -246,7 +222,7 @@
           :size 10
           :opacity 0.99
           :state->xyz (fn [[_ theta thetadot]]
-                        ;; TODO handle normalization
                         [theta thetadot 0])
+          :post-fn       normalize
           :initial-state initial-state
           :atom          !state}))))]))

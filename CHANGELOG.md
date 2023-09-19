@@ -5,15 +5,31 @@
 - #69:
 
   - Adds
-    `emmy.mathbox.physics.{lagrangian-curve,hamiltonian-curve,routhian-curve,geodesic}`
-    to the existing `ode-curve` function.
 
-  - Adds
-    `emmy.viewer.physics.{evolve-lagrangian,evolve-hamiltonian,evolve-routhian}`
-    to the existing `evolve` function.
+    - `emmy.mathbox.physics.{lagrangian-curve,hamiltonian-curve,routhian-curve,geodesic}`
+      on top of the existing `ode-curve` function.
+
+    - `emmy.mathbox.physics.{phase-vectors,lagrangian-phase-vectors,hamiltonian-phase-vectors,routhian-phase-vectors}`
+      for building out phase portraits like those in the Phase Portrait and
+      Quartic Well examples.
+
+    - `emmy.viewer.physics.{evolve-lagrangian,evolve-hamiltonian,evolve-routhian}`
+      to the existing `evolve` function.
+
+    - many geodesics to the Klein bottle examples.
+
+    - a matrix basis visualization example to `examples.mathbox.geom`.
+
+  - `ode-curve` now sets `:simplify?` to `false` by default.
 
   - Updates the `emmy.viewer.components.physics/Evolve` component to use a
     pre-allocated JS output array instead of forcing an allocation on each tick.
+
+  - `emmy.viewer.components.physics/Evolve` now reuses a single output array
+    instead of creating a new array on each tick.
+
+  - Converts the phase portrait and quartic well examples to use all server side
+    code and components.
 
 ## [0.2.0]
 
