@@ -97,11 +97,11 @@ Clojars page:
 Or grab the most recent code using a Git dependency:
 
 ```clj
-replace $GIT_SHA with the sha you'd like to target!
+;; replace $GIT_SHA with the sha you'd like to target!
 
-{io.github.mentat-collective/emmy-viewers
+{org.mentat/emmy-viewers
   {:git/url "https://github.com/mentat-collective/emmy-viewers.git"
-  :git/sha "$GIT_SHA"}}
+   :git/sha "$GIT_SHA"}}
 ```
 
 Next visit ["Quickstart via Clerk"](#quickstart-via-clerk) to build scenes using

@@ -7,6 +7,7 @@
 /target
 pom.xml
 pom.xml.asc
+!template/pom.xml
 /.lein-*
 /.nrepl-port
 .DS_Store
