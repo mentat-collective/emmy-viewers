@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.mentat</groupId>
+    <artifactId>emmy-viewers</artifactId>
+    <name>emmy-viewers</name>
+    <description>Clerk and Reagent viewers for the Emmy computer algebra system.</description>
+    <url>https://github.com/mentat-collective/emmy-viewers</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Sam Ritchie</name>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/mentat-collective/emmy-viewers</url>
+        <connection>scm:git:git://github.com/mentat-collective/emmy-viewers.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/mentat-collective/emmy-viewers.git</developerConnection>
+    </scm>
+</project>

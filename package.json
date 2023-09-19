@@ -44,7 +44,7 @@
     "punycode": "2.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "shadow-cljs": "2.23.1",
+    "shadow-cljs": "2.25.2",
     "three": "0.150.0",
     "threestrap": "0.5.1",
     "use-sync-external-store": "1.2.0",
