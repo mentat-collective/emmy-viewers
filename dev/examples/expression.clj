@@ -2,10 +2,11 @@
 (ns examples.expression
   {:nextjournal.clerk/toc true}
   (:refer-clojure
-   :exclude [+ - * / = zero? compare numerator denominator ref partial])
+   :exclude [+ - * / = zero? compare abs
+             numerator denominator ref partial infinite?])
   (:require [nextjournal.clerk :as clerk]
             [nextjournal.clerk.viewer :as-alias viewer]
-            [emmy.env :as e :refer [+ * / ->TeX cos expt sin square]]
+            [emmy.env :as e :refer :all]
             [emmy.clerk :as ec]
             [reagent.core :as-alias reagent]))
 
@@ -25,17 +26,16 @@
 ;; We can convert this to LaTeX, but clerk won't know what to do with the
 ;; string.
 
-(->TeX
+(ec/->TeX
  (+ (square (sin 'x))
     (square (cos 'x))))
 
-;; We can do better by invoking `clerk/tex` to tell Clerk to interpret this
-;; string as TeX:
+;; We can do better by invoking `emmy.clerk/->TeX` to tell Clerk to interpret
+;; this string as TeX:
 
-(clerk/tex
- (->TeX
-  (+ (square (sin 'x))
-     (square (cos 'x)))))
+(ec/->TeX
+ (+ (square (sin 'x))
+    (square (cos 'x))))
 
 ;; Try it out:
 

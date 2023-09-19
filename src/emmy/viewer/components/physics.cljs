@@ -113,7 +113,8 @@
   value stored in `:atom`.
 
   On every time tick, the component will swap a new JS array representing the
-  flattened state value into `:atom` under the `:state` key.
+  flattened state value into `:atom` under the `:state` key and update a `:tick`
+  entry with the new timestamp.
 
   Required arguments:
 
@@ -145,4 +146,6 @@
      {:onTick
       (let [out (js/Array. (count initial))]
         (fn [t]
-          (swap! !state assoc :state (update t out))))}]))
+          (swap! !state assoc
+                 :state (update t out)
+                 :tick t)))}]))

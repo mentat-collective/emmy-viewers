@@ -316,6 +316,7 @@
 ;; - [examples.manifold.pq-knot](/dev/examples/manifold/pq_knot)
 ;; - [examples.mathbox.cube-controls](/dev/examples/mathbox/cube_controls)
 ;; - [examples.mathbox.functions](/dev/examples/mathbox/functions)
+;; - [examples.mathbox.feig](/dev/examples/mathbox/feig)
 ;; - [examples.mathbox.geom](/dev/examples/mathbox/geom)
 ;; - [examples.mathbox.ode](/dev/examples/mathbox/ode)
 ;; - [examples.mathbox.quickstart](/dev/examples/mathbox/quickstart)

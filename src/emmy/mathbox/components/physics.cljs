@@ -100,10 +100,10 @@
            :start start? :end end?
            :zIndex z-index :zBias z-bias :zOrder z-order}]]))))
 
-(defn PhasePortrait
+(defn PhaseVectors
   "In-progress attempt at a proper phase portrait component.
 
-  [[PhasePortrait]] plots a curve at each point on a grid by integrating a
+  [[PhaseVectors]] plots a curve at each point on a grid by integrating a
   system of ordinary differential equations represented by `f'` forward from the
   initial input state `initial-state` for `steps` steps of `dt` each.
 
@@ -209,34 +209,6 @@
 ;; geometry... or be similar to point.
 
 (defn Comet
-  "Boring, old version that we need to fix."
-  [{:keys [dimensions path color size length items]
-    :or {items 1
-         dimensions 3
-         color 0x3090ff
-         length 16
-         size 10}}]
-  [:<>
-   [mb/Array
-    {:history length
-     :items items
-     :channels dimensions
-     :expr path}]
-   [mb/Spread {:height [0 0 -0.02] :alignHeight -1}]
-   ;; Ah, this is the color channel, and fades out the tail as you go.
-   [mb/Array
-    {:width length
-     :channels 4
-     :expr (fn [emit i]
-             (emit 1 1 1 (- 1 (/ i 16))))}]
-   [mb/Transpose {:order "zxy"}]
-   [mb/Point
-    {:points "<<<"
-     :colors "<"
-     :size size
-     :color color}]])
-
-(defn Comet*
   "Point that trails its historical positions out behind it in a glowing tail.
 
   Required arguments:
@@ -263,7 +235,7 @@
   - `:z-index`: zIndex of the comet. Defaults to 0.
 
   - `:z-bias`: zBias of the comet. Defaults to 0."
-  [{:keys [atom state->xyz
+  [{:keys [atom state->xyz post-fn
            length items
            size opacity color z-order z-index z-bias]
     :or {size 10
@@ -272,7 +244,9 @@
          color 0x3090ff
          length 16
          z-index 0
-         z-bias 0}}]
+         z-bias 0
+         post-fn (fn [emit x y z]
+                   (emit x y z))}}]
   [:<>
    [mb/Array
     {:history length
@@ -282,9 +256,10 @@
              (fn [emit]
                (-> (:state (.-state atom))
                    (state->xyz out))
-               (emit (aget out 0)
-                     (aget out 1)
-                     (aget out 2))))}]
+               (post-fn emit
+                        (aget out 0)
+                        (aget out 1)
+                        (aget out 2))))}]
    ;; TODO double check that this is a sane way to do things.
    (when (> length 1)
      [:<>

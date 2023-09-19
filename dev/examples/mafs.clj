@@ -131,12 +131,9 @@
 ;;
 ;; tabbed viewer between TeX and plot:
 
-(def ->tex
-  (comp clerk/tex ->TeX simplify))
-
 (let [f ((expt D 5) tanh)]
   (ec/multi
-   {:TeX  (->tex (f 'x))
+   {:TeX  (ec/->TeX (f 'x) :simplify? true)
     :Mafs (mafs/mafs
            {:zoom {:min 0.1 :max 2}}
            (mafs/cartesian)

@@ -2,6 +2,26 @@
 
 ## [unreleased]
 
+- #70:
+
+  - Adds
+
+    - `emmy.mathbox.physics.{phase-vectors,lagrangian-phase-vectors,hamiltonian-phase-vectors,routhian-phase-vectors}`
+      for building out phase portraits like those in the Phase Portrait and
+      Quartic Well examples.
+
+    - many geodesics to the Klein bottle examples.
+
+    - a matrix basis visualization example to `examples.mathbox.geom`.
+
+  - `ode-curve` now sets `:simplify?` to `false` by default.
+
+  - Converts the phase portrait and quartic well examples to use all server side
+    code and components.
+
+  - `emmy.viewer.components.physics/Evolve` now adds a `:tick` entry into its
+    state to force re-renders, since the `:state` array is mutable.
+
 - #69:
 
   - Adds

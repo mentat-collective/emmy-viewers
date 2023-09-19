@@ -156,6 +156,18 @@
 
 ;; ### Emmy-specific viewers
 
+(defn ->TeX
+  "Convert the given expression to TeX format and return a form that renders as
+  TeX via Clerk.
+
+  Optionally takes a key `:simplify?`; if true, renders a simplified form, else
+  renders the original input."
+  [expr & {:keys [simplify?]}]
+  (let [expr (if simplify?
+               expr
+               (e/simplify expr))]
+    (viewer/tex (e/->TeX expr))))
+
 (def literal-viewer
   "Default viewer for [[emmy.expression/literal?]] objects.
 

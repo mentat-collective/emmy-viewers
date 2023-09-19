@@ -4,8 +4,6 @@
   (:require [emmy.viewer.sci]
             [examples.simulation.cylinder-flow]
             [examples.simulation.lorenz]
-            [examples.simulation.phase-portrait]
-            [examples.simulation.quartic-well]
             [nextjournal.clerk.sci-env]))
 
 (emmy.viewer.sci/install!)

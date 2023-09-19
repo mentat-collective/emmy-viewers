@@ -3,7 +3,6 @@
    :nextjournal.clerk/doc-css-class [:overflow-hidden :p-0]}
   (:require [nextjournal.clerk :as clerk]))
 
-
 (clerk/with-viewer
   {:render-fn 'nextjournal.clerk.render.editor/view
    :transform-fn clerk/mark-presented}
