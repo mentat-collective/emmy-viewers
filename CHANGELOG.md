@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+## [0.3.1]
+
+- #74 adds resources to the published jar.
+
 ## [0.3.0]
 
 - #70:

@@ -17,7 +17,7 @@
 ;; ## Variables
 
 (def lib 'org.mentat/emmy-viewers)
-(def version "0.3.0")
+(def version "0.3.1")
 (def pom-deps
   {'org.babashka/sci
    {:mvn/version "0.7.39"
@@ -77,10 +77,11 @@
                    :url "https://github.com/mentat-collective/emmy-viewers"}
                   :basis basis
                   :src-pom "template/pom.xml"
-                  :src-dirs ["src"]})
+                  :src-dirs ["src"]
+                  :resource-dirs ["resources"]})
     (doseq [f ["README.md" "LICENSE" "deps.edn"]]
       (b/copy-file {:src f :target (format "%s/%s" class-dir f)}))
-    (b/copy-dir {:src-dirs ["src"]
+    (b/copy-dir {:src-dirs ["src" "resources"]
                  :target-dir class-dir})
     (b/jar {:class-dir class-dir
             :jar-file jar-file})

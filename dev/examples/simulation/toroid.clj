@@ -24,7 +24,7 @@
 ;; First, prepare the viewers so that all literals render with the multiviewer:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
-(clerk/add-viewers! [ec/meta-viewer ec/multiviewer])
+(ec/install! ec/multiviewer)
 
 ;; There is such a thing as toroidal coordinates--see
 ;; [Wikipedia](https://en.wikipedia.org/wiki/Toroidal_coordinates)-- but for our
