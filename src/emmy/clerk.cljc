@@ -11,6 +11,7 @@
   (:require [clojure.walk :refer [postwalk]]
             [emmy.env :as e]
             [emmy.expression :as x]
+            [emmy.expression.render :as render]
             [emmy.viewer :as ev]
             #?(:clj [emmy.viewer.css :as vc])
             #?(:clj [mentat.clerk-utils.build :as b])
@@ -164,8 +165,8 @@
   renders the original input."
   [expr & {:keys [simplify?]}]
   (let [expr (if simplify?
-               expr
-               (e/simplify expr))]
+               (e/simplify expr)
+               expr)]
     (viewer/tex (e/->TeX expr))))
 
 (def literal-viewer
@@ -178,6 +179,12 @@
    :transform-fn
    (viewer/update-val x/expression-of)})
 
+(def tex-viewer
+  {:name `tex-viewer
+   :pred render/tex?
+   :transform-fn (viewer/update-val
+                  #(viewer/tex (.-s %)))})
+
 #?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
    :cljs (set! ev/reagent-viewer reagent-viewer))
 
@@ -188,7 +195,7 @@
   [[install!]] is required for any Mafs, MathBox etc code to render correctly."
   [& viewers]
   (let [high-priority [meta-viewer]
-        low-priority  [literal-viewer]]
+        low-priority  [literal-viewer tex-viewer]]
     (viewer/add-viewers!
      (into high-priority
            (concat viewers low-priority)))))
