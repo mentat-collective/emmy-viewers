@@ -241,7 +241,7 @@
                      false
                      (first xs)
                      {:calling-convention :structure})
-          pv        (principal-value Math/PI)]
+          pv (principal-value Math/PI)]
       (map (fn [[t [theta1 theta2] [thetadot1 thetadot2] :as state]]
              (let [[x1 y1 x2 y2] (xform state)]
                {:t t
