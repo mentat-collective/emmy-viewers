@@ -137,3 +137,6 @@
        :state->xyz
        (ev/with-params {:atom !opts :params [:a :b :c]}
          e->r)}))))
+
+
+;; https://2.maria.cloud/gist/1b981499d785c4291ba83f8f7006ca35

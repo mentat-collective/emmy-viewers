@@ -26,7 +26,6 @@
 {::clerk/width :wide}
 
 ;; potential energy term:
-
 (defn T [m l]
   (fn [[_ _ thetadot]]
     (* 1/2 m (square (* l thetadot)))))
