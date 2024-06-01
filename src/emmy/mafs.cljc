@@ -52,10 +52,20 @@
 
   - `:pan`: If true (default), enable panning with the mouse and keyboard.
 
-  - `:view-box`: If true, enable zooming with the mouse and keyboard.
+  - `:zoom`: If true, enable zooming with the mouse and keyboard.
 
       can also be a map with keys `:min` (in range `(0, 1]`) and `:max` (in range
       `[1, ∞)`).
+
+  - `:view-box`: (optional)A way to declare the \"area of interest\" of your
+    visualizations. Mafs will center and zoom to this area. Supply `nil` or a map
+    with the following key-value pairs:
+
+    - `:x`: (optional) a 2-vector of `[<x-min> <x-max>]`
+
+    - `:y`: (optional) a 2-vector of `[<y-min> <y-max>]`
+
+    - `:padding`: (optional) number of pixels to pad
 
   - `:preserve-aspect-ratio`: boolean or \"contain\" (default). Whether to
     squish the graph to fill the Mafs viewport or to preserve the aspect ratio of
