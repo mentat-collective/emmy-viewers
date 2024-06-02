@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+## [0.3.2]
+
+- #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
+
 ## [0.3.1]
 
 - #74 adds resources to the published jar.
