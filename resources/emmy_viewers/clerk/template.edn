@@ -1,6 +1,6 @@
 {:description "TODO replace me with a description of your project!"
  :clerk-port 7777
- :emmy-viewers-sha "a4305edee1f04ebae1064d64f78502969b435387"
+ :emmy-viewers-sha "0a33ca99dc6d189b07bea50c484f2a3eaf2747b0"
  :clerk-sha "d80187013d7b7b96db3d8b114b8d99f687170668"
  :clerk-utils-sha "b98b74fa025b5543318a6b5beb1622fd35b4906e"
  :clj-version "1.11.1"

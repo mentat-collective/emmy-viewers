@@ -112,8 +112,9 @@ Portal"](#quickstart-via-portal) to use
 ### Quickstart via Clerk
 
 The fastest way to get started with Clerk is to use the [`emmy-viewers/clerk`
-project template](#clerk-project-template). Jump there, or read on to set
-Clerk up manually.
+project
+template](https://github.com/mentat-collective/emmy-viewers/tree/main/resources/emmy_viewers/clerk).
+Jump there, or read on to set Clerk up manually.
 
 Install Clerk by adding the following entry to your `deps.edn`:
 
