@@ -76,9 +76,9 @@
 
 ;; ```clj
 ;; (mentat.clerk-utils.css/set-css!
-;;  "https://unpkg.com/mafs@0.17.0/core.css"
+;;  "https://unpkg.com/mafs@0.18.8/core.css"
 ;;  "https://unpkg.com/computer-modern@0.1.2/cmu-serif.css"
-;;  "https://unpkg.com/mafs@0.17.0/font.css")
+;;  "https://unpkg.com/mafs@0.18.8/font.css")
 ;; ```
 ;;
 ;; Otherwise find some way to load these CSS files in your project's header.

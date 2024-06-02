@@ -10,7 +10,7 @@
   To use this viewer, first install the `mafs` npm package:
 
   ```bash
-  npm install mafs@0.17.0
+  npm install mafs@0.18.8
   ```
 
   Then install the viewer:
