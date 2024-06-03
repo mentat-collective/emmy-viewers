@@ -261,7 +261,7 @@
 
 (let [f ((expt D 3) tanh)]
   (clerk/col
-   (->tex (f 'x))
+   (ec/->TeX (f 'x))
    (mafs/mafs {:zoom {:min 0.1 :max 2}}
               (mafs/cartesian)
               (mafs/of-x f {:color :blue}))))
