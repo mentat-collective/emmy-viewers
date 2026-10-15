@@ -1,282 +1,245 @@
-;; # Evolving Foucault's Pendulum
+;; # Foucault's Pendulum
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (ns examples.simulation.foucault
+  {:nextjournal.clerk/toc true}
   (:refer-clojure
    :exclude [+ - * / = zero? compare numerator denominator
-             ref partial infinite? abs run!])
-  (:require [emmy.env :as e :refer :all :exclude [phi]]
-            [emmy.clerk :as ec]
-            [emmy.viewer :as ev]
-            [emmy.mafs :as mafs]
-            [emmy.mathbox.plot :as p]
-            [emmy.mathbox.physics :as ph]
+             ref partial infinite? abs])
+  (:require [emmy.clerk :as ec]
+            [emmy.env :as e :refer :all]
             [emmy.leva :as leva]
+            [emmy.mathbox.physics :as ph]
+            [emmy.mathbox.plot :as p]
+            [emmy.viewer :as ev]
             [nextjournal.clerk :as clerk]))
 
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ec/install!)
 
-^{::clerk/visibility {:code :hide :result :hide}}
-(defn render
-  "Render an s-expression to TeX."
-  [expr]
-  (-> expr
-      simplify
-      ->TeX
-      clerk/tex))
+;; In 1851 Léon Foucault hung a 28 kg bob from a 67 m wire under the dome of
+;; the Panthéon in Paris. As the pendulum swung, its plane of oscillation slowly
+;; turned clockwise, giving the first direct demonstration of the Earth's
+;; rotation. This notebook derives the motion from a Lagrangian, integrates it
+;; and checks the classic prediction: the swing plane precesses at a rate of
+;; $\Omega \sin \varphi$, where $\Omega$ is the Earth's sidereal rotation rate
+;; and $\varphi$ is the latitude.
 
-;; ## Constraints
+;; ## Parameters
 
-(defn pendulum->rectangular
-  "Pendulum constraints."
-  [R l Omega phi]
-  (fn [[t [theta lambda] _]]
-    (let [rotate (comp (Rz (* Omega t))
-                       (Ry phi))]
-      (rotate
-       (up (* l (sin theta) (cos lambda))
-           (* l (sin theta) (sin lambda))
-           (- (+ R l) (* l (cos theta))))))))
-
-;; ## Unconstrained Lagrangian
-
-(def R 6.37e6);; m (Earth radius)
-(def G 6.67e-11);; m^3 kg^-1 s^-2 (Gravitational constant
-(def M 5.97e24);; kg (Earth mass)
-(def Omega (/ (* 2 pi) 86400)) ;; rad/s (Earth rotation rate)
+(def Omega-earth
+  "Sidereal rotation rate of the Earth, in rad/s."
+  (/ (* 2 Math/PI) 86164.1))
 
 (def g
-  "gravitational acceleration at surface of Earth"
-  (/ (* G M) (expt R 2)))
+  "Effective gravitational acceleration at the surface, in m/s^2."
+  9.81)
 
-(def l 67.0)
-(def m 28.0)
+(def m
+  "Mass of the bob in the Panthéon, in kg."
+  28.0)
 
-#_(defn abs* [q]
-    (let [a (last q)]
-      (* a (abs (/ q a)))))
+(def l
+  "Length of the wire in the Panthéon, in m."
+  67.0)
 
-(defn U-gravity
-  "Gravitational potential energy."
-  [G M m]
-  (fn [q]
-    (/ (* -1 G M m)
-       (abs q))))
+(def Paris-latitude
+  "Latitude of the Panthéon, 48°51' N, in radians."
+  (* (+ 48 (/ 51 60.0)) (/ Math/PI 180)))
 
-(defn L
-  "Lagrangian."
-  [m U]
-  (fn [[_ q v]]
-    (- (* 1/2 m (square v))
-       (U q))))
+;; For small swings the period is $2\pi\sqrt{l/g}$, a little over 16 seconds.
 
-;; ## Constrained Lagrangian
+(def period
+  (* 2 Math/PI (Math/sqrt (/ l g))))
 
-(defn L-foucault-pendulum [m U R l Omega phi]
-  (compose (L m U)
-           (F->C (pendulum->rectangular R l Omega phi))))
+;; ## The Lagrangian
+;;
+;; We work in a frame attached to the Earth's surface, with the origin at the
+;; bottom of the swing. The $x$ axis points north, $y$ points west and $z$ points
+;; up. In this frame the Earth's angular velocity vector is
+;;
+;; $$\vec{\omega} = (\Omega \cos\varphi, 0, \Omega \sin\varphi).$$
+;;
+;; A particle at position $\vec{r}$ with velocity $\vec{v}$ relative to the
+;; rotating frame has inertial velocity $\vec{v} + \vec{\omega} \times \vec{r}$.
+;; The Lagrangian of a free particle in a uniform gravitational field, written
+;; in the rotating frame, is then:
 
-^{::clerk/visibility {:code :hide :result :hide}}
-(def q
-  (up (literal-function 'theta)
-      (literal-function 'lambda)))
+(defn L-rotating
+  "Lagrangian of a particle of mass `m` in uniform gravity `g`, in a frame
+  rotating at rate `Omega` about the axis of the Earth at latitude `lat`."
+  [m g Omega lat]
+  (let [omega (up (* Omega (cos lat)) 0 (* Omega (sin lat)))]
+    (fn [[_ r v]]
+      (- (* 1/2 m (square (+ v (cross-product omega r))))
+         (* m g (ref r 2))))))
+
+;; Gravity here is the effective surface gravity, which already folds in the
+;; small centrifugal correction; the centrifugal term left in the kinetic energy
+;; is of order $\Omega^2 l / g \approx 10^{-8}$ and has no visible effect.
+;;
+;; The bob is constrained to a sphere of radius $l$ around the suspension point.
+;; We use the horizontal displacement $(x, y)$ of the bob as generalized
+;; coordinates:
+
+(defn bob->local
+  "Coordinate transformation from the bob's horizontal displacement `(x, y)` to
+  its position in the local frame, for a pendulum of length `l`."
+  [l]
+  (fn [[_ [x y] _]]
+    (up x
+        y
+        (- l (sqrt (- (square l) (square x) (square y)))))))
+
+(defn L-foucault
+  "Lagrangian of a Foucault pendulum in terms of the horizontal displacement of
+  its bob."
+  [m g l Omega lat]
+  (compose (L-rotating m g Omega lat)
+           (F->C (bob->local l))))
+
+;; Here is the rotating-frame Lagrangian evaluated on a generic state; the
+;; pendulum Lagrangian is this one composed with `bob->local`:
 
 ^{::clerk/visibility {:code :hide}}
-(render
- ((compose
-   (L-foucault-pendulum 'm (U-gravity 'G 'M 'm) 'R 'l 'Omega 'phi)
-   (Gamma q)) 't))
-
-;; ## Lagrange equations
-
-
-#_^{::clerk/visibility {:code :hide}}
-(render
- (((Lagrange-equations
-    (L-foucault-pendulum 'm (U-gravity 'G 'M 'm) 'R 'l 'Omega 'phi))
-   q)
-  't))
-
-;; Quite long!
+(clerk/tex
+ (->TeX
+  (simplify
+   ((L-rotating 'm 'g 'Omega 'varphi)
+    (up 't
+        (up 'x 'y 'z)
+        (up 'xdot 'ydot 'zdot))))))
 
 ;; ## Evolving the system
 
-^{::clerk/visibility {:result :hide}}
-(defn foucault-state-derivative
-  [m G M R l Omega phi]
+(defn foucault-state-derivative [m g l Omega lat]
   (Lagrangian->state-derivative
-   (L-foucault-pendulum m (U-gravity G M m) R l Omega phi)))
+   (L-foucault m g l Omega lat)))
 
-(defn ->xyz [l]
-  (fn [[_ [theta lambda] _]]
-    (up (* l (sin theta) (cos lambda))
-        (* l (sin theta) (sin lambda))
-        (- l (* l (cos theta))))))
-
-(defn run! [step horizon phi]
-  (let [collector (atom (transient []))
-        initial-state [0 [0.01 0] [0.0 0.0]]]
-    ((evolve
-      (fn [m l phi]
-        (foucault-state-derivative m G M R l Omega phi))
-      m
-      l
-      phi)
-     initial-state
-     step
+(defn simulate
+  "Integrates the pendulum released from rest at displacement `(amplitude, 0)`
+  and returns every state at intervals of `dt` up to time `horizon`."
+  [{:keys [lat amplitude dt horizon]
+    :or {amplitude 1.0 dt 0.1}}]
+  (let [!states (atom [])]
+    ((evolve foucault-state-derivative m g l Omega-earth lat)
+     [0 [amplitude 0] [0 0]]
+     dt
      horizon
      {:compile? true
-      :epsilon 1e-13
+      :epsilon 1e-12
       :observe (fn [_ state]
-                 (swap! collector conj! state))})
-    (persistent! @collector)))
+                 (swap! !states conj state))})
+    @!states))
 
-;; The expected period of the Foucault pendulum for small
-;; amplitude oscillation is about 16.5 seconds.
-(def T (* (* 2 pi) (sqrt (/ l g))))
+;; To measure the precession, we split the trajectory into windows one period
+;; long and find the orientation of the swing plane in each window: the
+;; direction of the principal axis of the points the bob visits.
 
+(defn swing-angle
+  "Returns the orientation (in radians, modulo pi) of the swing plane traced out
+  by `states`."
+  [states]
+  (let [xs  (map (fn [[_ [x _]]] x) states)
+        ys  (map (fn [[_ [_ y]]] y) states)
+        sxx (reduce + (map * xs xs))
+        syy (reduce + (map * ys ys))
+        sxy (reduce + (map * xs ys))]
+    (* 0.5 (Math/atan2 (* 2 sxy) (- sxx syy)))))
 
-(def step T #_300)
-(def horizon 100 #_90000)
+(defn swing-angles
+  "Returns a sequence of `{:t <time> :angle <swing plane angle>}` maps, one per
+  period."
+  [states dt]
+  (let [n (long (Math/round (/ period dt)))]
+    (for [window (partition n states)]
+      {:t     (first (first window))
+       :angle (swing-angle window)})))
 
-(defn transform-data [xs]
-  (let [pv (principal-value pi)]
-    (map (fn [[t [theta lambda]]]
-           {:t t
-            :theta theta
-            :lambda (pv lambda)})
-         xs)))
+(defn precession-rate
+  "Least-squares slope of swing-plane angle against time, in rad/s."
+  [angles]
+  (let [k  (count angles)
+        ts (map :t angles)
+        as (map :angle angles)
+        mt (/ (reduce + ts) k)
+        ma (/ (reduce + as) k)]
+    (/ (reduce + (map (fn [t a] (* (- t mt) (- a ma))) ts as))
+       (reduce + (map (fn [t] (square (- t mt))) ts)))))
 
-(def pole-data
-  (time
-   (doall
-    (transform-data
-     (run! step horizon 0.0)))))
+;; Twenty minutes of swinging in Paris:
 
-(def equator-data
-  (time
-   (doall
-    (transform-data
-     (run! step horizon (/ pi 2))))))
+(def paris-angles
+  (swing-angles
+   (simulate {:lat Paris-latitude :horizon 1200})
+   0.1))
 
-(defn ->rate [data]
-  (/ (- (:lambda (last (butlast data)))
-        (:lambda (last (butlast(butlast data)))))
-     T))
-
-;; these match pretty well at the pole and equator.
-
-(->rate pole-data)
-(->rate equator-data)
-
-;; To compute the actual rotation rate, subtract two
-;; phis at an interval of T and divide by T to get
-;; radians/second.
-
-(defn degrees->radians [deg]
-  (* 2 pi (/ deg 360)))
-
-(defn radians->degrees [rad]
-  (* 360 (/ rad 2 pi)))
-
-(def Paris-colat
-  (- (/ pi 2)
-     (degrees->radians
-      (+ 48.0 (/ 52.0 60.0)))))
-
-;; this is MAYBE a guess about, if you pass a in a latitude, not a colatitude,
-;; the angle of the local vertical off of the center of the earth line.
-(defn delta-t [omega r phi g]
-  (let [y (* (square omega) r (cos phi) (sin phi))
-        z (- g (* (square omega) r (square (cos phi))))]
-    (atan y z)))
-
-;; adjusted paris data.
-(def paris-data
-  (time
-   (doall
-    (transform-data
-     (run! step horizon (- Paris-colat (degrees->radians 12.8)))))))
-
-;; this is degrees/hour observed in paris...
-
-(* 3600
-   (radians->degrees
-    (->rate paris-data)))
-
-;; and then some more data to graph...
-
-(defn deep-merge [v & vs]
-  (letfn [(rec-merge [v1 v2]
-            (if (and (map? v1) (map? v2))
-              (merge-with deep-merge v1 v2)
-              v2))]
-    (when (some identity vs)
-      (reduce #(rec-merge %1 %2) v vs))))
-
-(defn angles-plot [data]
-  (let [quarter-spec
-        {:encoding
-         {:x {:field :t :type "quantitative"}
-          :y {:field :unassigned :type "quantitative"}
-          :size {:value 5}
-          :tooltip [{:field :t :type "quantitative"}
-                    {:field :unassigned :type "quantitative"}]}
-         :mark {:type "circle"}
-         :width 400
-         :height 300
-         :data {:name :points}}]
-    {:config {:bar {:binSpacing 1 :discreteBandSize 5 :continuousBandSize 5}}
-     :datasets {:points data}
-     :width 800
-     :height 600
-     :vconcat
-     (mapv (partial deep-merge quarter-spec)
-           [{:encoding {:x {:field :t :type "quantitative"}
-                        :y {:field :theta
-                            :scale {:domain [(- Math/PI) Math/PI]}}
-                        :tooltip [{:field :t :type "quantitative"}
-                                  {:field :theta}]}}
-            {:encoding {:x {:field :t :type "quantitative"}
-                        :y {:field :lambda
-                            :scale {:domain [(- Math/PI) Math/PI]}}
-                        :size {:value 5}
-                        :tooltip [{:field :t :type "quantitative"}
-                                  {:field :lambda}]}}])}))
-
+^{::clerk/visibility {:code :hide}}
 (clerk/vl
- (angles-plot data))
+ {:width 600
+  :height 300
+  :data {:values (mapv (fn [{:keys [t angle]}]
+                         {:t t :degrees (* angle (/ 180 Math/PI))})
+                       paris-angles)}
+  :mark {:type "point"}
+  :encoding {:x {:field :t :type "quantitative" :title "time (s)"}
+             :y {:field :degrees :type "quantitative"
+                 :title "swing plane angle (degrees)"}}})
 
-(comment
+;; The plane turns clockwise as seen from above, at a steady rate. In degrees
+;; per hour:
 
+(* 3600 (/ 180 Math/PI) (precession-rate paris-angles))
 
+;; Foucault's prediction for Paris is $-\Omega \sin\varphi$:
 
+(* 3600 (/ 180 Math/PI) (- (* Omega-earth (sin Paris-latitude))))
 
-  #_
-  (ev/with-let [!params {:m 28.0  ;; kg
-                         :l 67.0  ;; m
-                         :phi 0.0 ;; rad
-                         :steps 10}]
-    (p/scene
-     (leva/controls
-      {:atom !params
-       :folder {:name "Foucault's Pendulum"}
-       :schema
-       {:m {:min 10 :max 30 :step 0.1}
-        :l {:min 10 :max 100 :step 0.1}
-        :phi {:min 0 :max pi :step 0.01}
-        :steps {:min 0 :max 5000 :step 1}}})
-     (ph/ode-curve
-      {:initial-state [0 [(/ pi 4) 0] [0 0]]
-       :f' (ev/with-params {:atom !params :params [:m :l :phi]}
-             (fn [m l phi]
-               (foucault-state-derivative m G M R l (* Omega 1000) phi)))
-       :state->xyz (->xyz 2)
-       :steps (ev/get !params :steps)
-       :dt 0.05
-       :end? true
-       :simplify? false})))
+;; That's about 11.3 degrees per hour, a full turn in about 32 hours.
+;;
+;; The same comparison at a few other latitudes, with both rates in rad/s:
 
+^{::clerk/visibility {:code :hide}}
+(clerk/table
+ {:head ["latitude (degrees)" "simulated" "Ω sin φ"]
+  :rows (for [deg [0 30 60 90]
+              :let [lat (* deg (/ Math/PI 180))]]
+          [deg
+           (- (precession-rate
+               (swing-angles (simulate {:lat lat :horizon 600}) 0.1)))
+           (* Omega-earth (sin lat))])})
 
-  )
+;; At the equator the plane doesn't turn at all; at the pole it turns once per
+;; sidereal day.
+
+;; ## Visualization
+;;
+;; At the real rotation rate the precession is far too slow to watch, so the
+;; scene below speeds the Earth up by the factor `:speedup`. The curve traces the
+;; bob's path as seen from above; drag the sliders to change the latitude and
+;; the speed of the Earth.
+
+^{::clerk/visibility {:code :fold}}
+(ev/with-let [!params {:latitude 49.0
+                       :speedup 1000
+                       :steps 2000}]
+  (p/scene
+   (leva/controls
+    {:atom !params
+     :folder {:name "Foucault's Pendulum"}
+     :schema
+     {:latitude {:min -90 :max 90 :step 0.1}
+      :speedup {:min 0 :max 3000 :step 1}
+      :steps {:min 0 :max 5000 :step 1}}})
+   (ph/lagrangian-curve
+    {:L (ev/with-params {:atom !params :params [:latitude :speedup]}
+          (fn [latitude speedup]
+            (L-foucault m g l
+                        (* speedup Omega-earth)
+                        (* latitude (/ Math/PI 180)))))
+     :initial-state [0 [2 0] [0 0]]
+     :state->xyz (fn [[_ [x y] _]]
+                   (up x y 0))
+     :steps (ev/get !params :steps)
+     :dt 0.1
+     :end? true})))
