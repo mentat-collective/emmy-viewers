@@ -164,7 +164,7 @@
        [:<>
         [mb/Format
          {:live true
-          :expr (fn [x] (label-fn x))}]
+          :expr label-fn}]
         [mb/Label
          {:color color
           :background background
@@ -746,9 +746,6 @@
 
   - `:r`: function of the form `(fn [theta] <r>)`, valid within the range of
     theta values specified by `:range`.
-
-    NOTE that you may only supply ONE of these two! Supplying both will trigger
-    an error.
 
   Optional arguments:
 
