@@ -7,6 +7,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # The Deploy step pushes to gh-pages with GITHUB_TOKEN.
+    permissions:
+      contents: write
     steps:
       - uses: actions/cache@v6
         with:
