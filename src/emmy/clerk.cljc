@@ -11,12 +11,12 @@
   (:require [clojure.walk :refer [postwalk]]
             [emmy.env :as e]
             [emmy.expression :as x]
-            [emmy.expression.render :as render]
             [emmy.viewer :as ev]
             #?(:clj [emmy.viewer.css :as vc])
             #?(:clj [mentat.clerk-utils.build :as b])
             #?(:clj [mentat.clerk-utils.css :as css])
-            [nextjournal.clerk.viewer :as viewer]))
+            [nextjournal.clerk.viewer :as viewer]
+            [emmy.expression.render]))
 
 (def custom-js
   "CDN address of a pre-built JS bundle for Clerk with support for all of this
@@ -82,9 +82,9 @@
   to [[multi]]."
   [x]
   (let [simple (e/simplify x)]
-    [["simplified TeX" (viewer/tex (e/->TeX simple))]
+    [["simplified TeX" (viewer/tex (str (e/->TeX simple)))]
      [:simplified     (e/freeze simple)]
-     [:TeX            (viewer/tex (e/->TeX x))]
+     [:TeX            (viewer/tex (str (e/->TeX x)))]
      [:original       (e/freeze x)]]))
 
 (def multiviewer
@@ -167,7 +167,7 @@
   (let [expr (if simplify?
                (e/simplify expr)
                expr)]
-    (viewer/tex (e/->TeX expr))))
+    (viewer/tex (str (e/->TeX expr)))))
 
 (def literal-viewer
   "Default viewer for [[emmy.expression/literal?]] objects.
@@ -179,11 +179,20 @@
    :transform-fn
    (viewer/update-val x/expression-of)})
 
+(def ^:no-doc tex?
+  "Predicate that returns true for TeX-wrapped values, as produced by
+  `emmy.expression.render/->TeX` in Emmy versions that ship
+  `emmy.expression.render/tex?`. Returns false for every value when the
+  installed Emmy has no such predicate."
+  (or #?(:clj (some-> (resolve 'emmy.expression.render/tex?) deref))
+      (constantly false)))
+
 (def tex-viewer
+  "Viewer for TeX-wrapped values (see [[tex?]]); renders the wrapped TeX string
+  with Clerk's TeX viewer."
   {:name `tex-viewer
-   :pred render/tex?
-   :transform-fn (viewer/update-val
-                  #(viewer/tex (.-s %)))})
+   :pred tex?
+   :transform-fn (viewer/update-val #(viewer/tex (str %)))})
 
 #?(:clj  (alter-var-root #'ev/reagent-viewer (constantly reagent-viewer))
    :cljs (set! ev/reagent-viewer reagent-viewer))
