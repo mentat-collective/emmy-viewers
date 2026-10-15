@@ -2,6 +2,21 @@
 
 ## [unreleased]
 
+- Supersedes #75:
+
+  - Fixes `emmy.clerk/->TeX`, which simplified the expression only when
+    `:simplify?` was falsy. It now simplifies only when `:simplify?` is true.
+
+  - Adds `emmy.clerk/tex-viewer`, which renders TeX-wrapped values
+    (`emmy.expression.render/tex?`) with Clerk's TeX viewer, and installs it
+    via `emmy.clerk/install!`. It is inert on Emmy versions without
+    `render/tex?`.
+
+  - `emmy.clerk/->TeX` and `emmy.clerk/multiviewer` accept either a string or a
+    TeX-wrapped value from `emmy.env/->TeX`.
+
+  - Adds a TeX rendering example at `dev/examples/tex.clj`.
+
 ## [0.3.2]
 
 - #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
