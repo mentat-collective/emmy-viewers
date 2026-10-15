@@ -1,4 +1,4 @@
-(ns emmy.mathbox.plot-test
+(ns emmy.mathbox.plot-implicit-test
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.walk :as walk]
             [emmy.env :as e]
