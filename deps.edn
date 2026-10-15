@@ -39,7 +39,8 @@
   :test
   ;; layer this in to get access to everything in the test directory, plus the
   ;; dependencies needed to run the tests.
-  {:extra-paths ["test"]}
+  {:extra-paths ["test"]
+   :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}}}
 
   ;; See https://github.com/cognitect-labs/test-runner for invocation
   ;; instructions, or call `clojure -X:test:runner`.

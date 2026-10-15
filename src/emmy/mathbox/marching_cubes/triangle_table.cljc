@@ -1,9 +1,15 @@
-(ns emmy.mathbox.marching-cubes.triangle-table)
+(ns ^:no-doc emmy.mathbox.marching-cubes.triangle-table
+  "The classic 256-case marching-cubes triangle table of Lorensen and Cline, as
+  tabulated by Paul Bourke (http://paulbourke.net/geometry/polygonise/).")
 
+(def triangle-table
+  "Vector of 256 entries indexed by a cube's corner bitmask, where bit `c` is set
+  when corner `c` lies below the level. Each entry is a vector of triangles, and
+  each triangle is a vector of three edge indices in `0..11`.
 
-(def TriangleTable
-  "Lookup table that defines the isosurface facets for determining where the isosurface point sits relative to the isosurface facet"
-
+  Corner and edge numbering follow
+  [[emmy.mathbox.marching-cubes/corner-offsets]] and
+  [[emmy.mathbox.marching-cubes/edge-corners]]."
   [
   []
   [[0  8  3]]

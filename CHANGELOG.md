@@ -2,6 +2,22 @@
 
 ## [unreleased]
 
+- Implicit surface plotting, finishing #58 by @vnredmon:
+
+  - Adds `emmy.mathbox.plot/implicit-surface` and the backing
+    `emmy.mathbox.components.plot/ImplicitSurface` component. Together they plot
+    the level set `f(x, y, z) = level` of an Emmy function inside a box.
+    `f` compiles to JavaScript through the same path as the other MathBox
+    plots, and `ev/with-params` works with it.
+
+  - Adds `emmy.mathbox.marching-cubes`, a pure `.cljc` marching-cubes
+    extractor (`isosurface`, `triangle-coords`). It returns an indexed
+    triangle mesh with shared vertices, and is tested on the JVM, including
+    property tests for closure and level-set accuracy.
+
+  - Adds the `examples.mathbox.implicit` notebook with a sphere, a torus, and a
+    parametrized "tangle cube" whose level is driven by a Leva slider.
+
 ## [0.3.2]
 
 - #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
