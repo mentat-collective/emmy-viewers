@@ -18,7 +18,11 @@
              :portal.viewer/default :emmy.portal/mathlive))
 
 (defn mathjson->expression
-  "Converts MathJSON to an expression or structure of expressions."
+  "Converts the [MathJSON](https://cortexjs.io/math-json/) value `j` (Clojure
+  data, or a JS value in ClojureScript) into an Emmy literal expression, or a
+  structure of literal expressions when `j` is a `List`.
+
+  See [[emmy.mathlive.interpreter/process]] for the supported forms."
   [j]
   (ss/mapr e/literal-number
            (process

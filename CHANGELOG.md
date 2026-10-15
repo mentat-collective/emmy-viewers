@@ -2,6 +2,13 @@
 
 ## [unreleased]
 
+- Supersedes #36: adds `emmy.mathlive.interpreter`, which converts MathLive's
+  [MathJSON](https://cortexjs.io/math-json/) into Emmy expressions. Covers
+  arithmetic, powers, roots, logarithms, trigonometric, hyperbolic and inverse
+  functions, constants, lists and literal function application.
+  `emmy.mathlive/mathjson->expression` exposes it, and
+  `dev/emmy_viewers/mathlive.clj` demonstrates it.
+
 ## [0.3.2]
 
 - #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
