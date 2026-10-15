@@ -2,6 +2,17 @@
 
 ## [unreleased]
 
+- #51 (finished in a superseding PR):
+
+  - Documents `emmy.mathbox.plot/polar-curve`, which plots a radius `:r` as a
+    function of `theta` into the `z = 0` plane, and fixes the
+    `emmy.mathbox.components.plot/PolarCurve` docstring.
+
+  - Axis tick labels pass `label-fn` straight through to `mb/Format`.
+
+  - Adds the `examples.mathbox.polar` notebook and CLJ tests for
+    `polar-curve`.
+
 ## [0.3.2]
 
 - #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
