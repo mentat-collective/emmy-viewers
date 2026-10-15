@@ -1,4 +1,4 @@
-(ns emmy.mathbox.plot-test
+(ns emmy.mathbox.plot-polar-test
   (:require [clojure.test :refer [deftest is testing]]
             [emmy.env :as e]
             [emmy.mathbox.plot :as plot]
