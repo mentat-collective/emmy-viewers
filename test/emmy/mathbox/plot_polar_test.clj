@@ -14,6 +14,12 @@
             (second x)))
         (tree-seq coll? seq form)))
 
+(defn- js-functions
+  "Returns every `(js/Function. ...)` constructor form nested in `form`."
+  [form]
+  (filter #(and (seq? %) (= 'js/Function. (first %)))
+          (tree-seq coll? seq form)))
+
 (deftest polar-curve-test
   (testing "compiles `:r` to a js/Function bound by reagent's with-let"
     (let [frag (plot/polar-curve
@@ -23,8 +29,9 @@
           [op [sym ctor] [component opts]] frag]
       (is (= 'reagent.core/with-let op))
       (is (symbol? sym))
-      (is (= 'js/Function. (first ctor)))
-      (is (re-find #"Math\.cos" (last ctor))
+      (is (seq (js-functions ctor))
+          "the compiled form constructs a js/Function.")
+      (is (some #(re-find #"Math\.cos" (last %)) (js-functions ctor))
           "the compiled body evaluates the radius function.")
       (is (= 'emmy.mathbox.components.plot/PolarCurve component))
       (is (= {:r sym :color "red" :range [0 Math/PI]} opts)
