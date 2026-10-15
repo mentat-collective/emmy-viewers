@@ -3,6 +3,7 @@
   by `Mathbox.cljs`."
   (:refer-clojure :exclude [max])
   (:require [clojure.set :as cs]
+            [emmy.mathbox.marching-cubes :as mcubes]
             [emmy.mathbox.color :as color]
             [emmy.viewer.plot :as p]
             [mathbox.core]
@@ -1479,3 +1480,80 @@
        :end end?
        :color color
        :zOrder z-order :zIndex z-index :zBias z-bias}]]))
+
+;; ## Implicit Surfaces
+
+(defn ImplicitSurface
+  "Component that plots the implicit surface `f(x, y, z) = level` into the scene,
+  extracted with marching cubes (see [[emmy.mathbox.marching-cubes/isosurface]])
+  over the box given by `:x-range`, `:y-range` and `:z-range`.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [emit x y z] ...)` that calls `emit` with
+    the scalar value of the surface's defining function at `[x y z]` as its
+    first argument. This is the shape [[emmy.mathbox.plot/implicit-surface]]
+    compiles Emmy functions to.
+
+  Optional arguments:
+
+  - `:level`: the value of the level set. Defaults to 0.
+
+  - `:x-range`, `:y-range`, `:z-range`: 2-vectors of the form `[<min> <max>]`
+    bounding the box to search. Each defaults to `[-1 1]`.
+
+  - `:samples`: grid points per axis, either an integer or `[nx ny nz]`.
+    Defaults to 32. The cost grows with the cube of this value.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  The mesh is recomputed only when `:f`, `:level`, the ranges or `:samples`
+  change. A level set that does not meet the box renders nothing."
+  [_]
+  (let [cache (atom nil)
+        mesh  (fn [{:keys [f] :as opts}]
+                (let [k (select-keys opts [:f :level :x-range :y-range :z-range :samples])]
+                  (if (= k (:key @cache))
+                    (:coords @cache)
+                    (let [out    (volatile! 0)
+                          emit   (fn [v & _] (vreset! out v))
+                          scalar (fn [x y z] (f emit x y z) @out)
+                          coords (mcubes/triangle-coords
+                                  (mcubes/isosurface
+                                   scalar
+                                   (select-keys opts [:level :x-range :y-range :z-range :samples])))]
+                      (reset! cache {:key k :coords coords})
+                      coords))))]
+    (fn [{:keys [shaded? opacity color z-order z-index z-bias]
+         :or {z-order 25
+              z-index 0
+              z-bias 0
+              opacity 0.75
+              color 0xffffff
+              shaded? true}
+         :as opts}]
+      (let [coords (mesh opts)]
+        (when (seq coords)
+          [:<>
+           [mb/Array {:items 3
+                      :channels 3
+                      :live false
+                      :width (count coords)
+                      :data coords}]
+           [mb/Face {:shaded shaded?
+                     :opacity opacity
+                     :color color
+                     :zIndex z-index
+                     :zBias z-bias
+                     :zOrder z-order}]])))))

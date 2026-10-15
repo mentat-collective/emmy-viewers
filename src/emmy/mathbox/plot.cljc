@@ -775,3 +775,76 @@
   (let [[f-bind opts] (mc/compile-3d opts :f 3)]
     (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/VectorField opts])
         (ev/fragment scene))))
+
+;; ## Implicit Surfaces
+
+(defn ^:no-doc scalar->state-fn
+  "Adapts `f`, a function `(f x y z)` of three numbers returning a number, into
+  the `(fn [[x y z]] [<value>])` shape that [[emmy.mathbox.compile/compile-3d]]
+  compiles. [[emmy.viewer/ParamF]] instances are adapted under their parameters.
+  Anything that should not be compiled (a quoted form, say) passes through."
+  [f]
+  (letfn [(adapt [g] (fn [[x y z]] [(g x y z)]))]
+    (cond (ev/param-f? f)
+          (update f :f (fn [pf]
+                         (fn [& params]
+                           (adapt (apply pf params)))))
+
+          (c/compile? f) (adapt f)
+          :else f)))
+
+(defn implicit-surface
+  "Returns a fragment that plots the implicit surface `f(x, y, z) = level` into
+  the scene, within the box specified by `:x-range`, `:y-range` and `:z-range`.
+
+  The surface is extracted in the browser with marching cubes
+  (see [[emmy.mathbox.marching-cubes/isosurface]]): `f` is sampled on a regular
+  grid and each grid cell is triangulated. Vertices land on the level set up to
+  linear interpolation along grid edges, so finer `:samples` give a closer fit.
+
+  Required arguments:
+
+  - `:f`: function of the form `(fn [x y z] <scalar>)`, defined throughout the
+    box. Emmy functions are compiled to JavaScript like the other plots' inputs;
+    [[emmy.viewer/with-params]] wraps a function of parameters that returns
+    such an `f`.
+
+  Optional arguments:
+
+  - `:level`: the value of the level set. Defaults to 0.
+
+  - `:x-range`: 2-vector of the form `[<min-x> <max-x>]`. Defaults to `[-1 1]`.
+
+  - `:y-range`: 2-vector of the form `[<min-y> <max-y>]`. Defaults to `[-1 1]`.
+
+  - `:z-range`: 2-vector of the form `[<min-z> <max-z>]`. Defaults to `[-1 1]`.
+
+  - `:samples`: grid points per axis, either an integer or `[nx ny nz]`, each
+    at least 2. Defaults to 32. Work grows with the cube of this value.
+
+  - `:shaded?` if `true` (default), MathBox will shade the surface.
+
+  - `:opacity`: opacity of the surface. Defaults to 0.75.
+
+  - `:color`: color of the surface. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the surface. Defaults to 25.
+
+  - `:z-index`: zIndex of the surface. Defaults to 0.
+
+  - `:z-bias`: zBias of the surface. Defaults to 0.
+
+  For example, the unit sphere:
+
+  ```clojure
+  (implicit-surface
+   {:f (fn [x y z] (+ (square x) (square y) (square z)))
+    :level 1
+    :x-range [-1.5 1.5] :y-range [-1.5 1.5] :z-range [-1.5 1.5]})
+  ```"
+  [opts]
+  (let [[f-bind opts] (mc/compile-3d (update opts :f scalar->state-fn) :f 3)]
+    (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/ImplicitSurface
+                          (dissoc opts :simplify?)])
+        (ev/fragment scene))))
