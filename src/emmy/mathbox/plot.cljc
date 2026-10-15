@@ -6,7 +6,8 @@
   (:require [emmy.mathbox :as box]
             [emmy.mathbox.compile :as mc]
             [emmy.viewer :as ev]
-            [emmy.viewer.compile :as c]))
+            [emmy.viewer.compile :as c]
+            [emmy.expression.compile :as xc]))
 
 ;; ## Scene Elements
 
@@ -445,6 +446,32 @@
 
 ;; ### Surfaces
 
+(defn ^:no-doc compile-color-fn
+  "Takes an options map `opts` and compiles its `:color-fn` entry, a function of
+  a single `[x y z u v]` argument returning a number (optionally wrapped
+  by [[emmy.viewer/with-params]]).
+
+  Returns a pair of
+
+  - a binding pair (empty if `:color-fn` is absent or not compilable)
+  - `opts` with `:color-fn` replaced by a quoted form that evaluates to a
+    function of a JS array `[x y z u v]`."
+  [opts]
+  (let [v (:color-fn opts)]
+    (if-not (c/compile? v)
+      [[] opts]
+      (let [sym  (gensym)
+            init [0 0 0 0 0]
+            [body new-f]
+            (if (ev/param-f? v)
+              (let [{:keys [f params atom]} v]
+                [(xc/compile-state-fn f params init {:mode :js})
+                 `(let [psym# (mapv @~atom ~params)]
+                    (fn [xs#] (~sym xs# psym#)))])
+              [(xc/compile-state-fn v false init {:mode :js}) sym])]
+        [[sym (list* 'js/Function. body)]
+         (assoc opts :color-fn new-f)]))))
+
 (defn parametric-surface
   "Returns a fragment that plots a parametric surface defined by `f` into the
   scene along the area specified by `u` and `v`.
@@ -492,10 +519,24 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of the form `(fn [[x y z u v]] <number>)`
+    (optionally wrapped by [[emmy.viewer/with-params]]), called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [opts]
-  (let [[f-bind opts] (mc/compile-3d opts :f 2)]
-    (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/ParametricSurface
+  (let [[f-bind opts]     (mc/compile-3d opts :f 2)
+        [color-bind opts] (compile-color-fn opts)]
+    (-> (c/wrap [f-bind color-bind] ['emmy.mathbox.components.plot/ParametricSurface
                           (dissoc opts :simplify?)])
         (ev/fragment scene))))
 
@@ -546,10 +587,24 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of the form `(fn [[x y z u v]] <number>)`
+    (optionally wrapped by [[emmy.viewer/with-params]]), called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [opts]
-  (let [[z-bind opts] (c/compile-2d opts :z)]
-    (-> (c/wrap [z-bind] ['emmy.mathbox.components.plot/PolarSurface opts])
+  (let [[z-bind opts]     (c/compile-2d opts :z)
+        [color-bind opts] (compile-color-fn opts)]
+    (-> (c/wrap [z-bind color-bind] ['emmy.mathbox.components.plot/PolarSurface opts])
         (ev/fragment scene))))
 
 (defn of-xy
@@ -599,10 +654,24 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of the form `(fn [[x y z u v]] <number>)`
+    (optionally wrapped by [[emmy.viewer/with-params]]), called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [opts]
-  (let [[z-bind opts] (c/compile-2d opts :z)]
-    (-> (c/wrap [z-bind] ['emmy.mathbox.components.plot/OfXY opts])
+  (let [[z-bind opts]     (c/compile-2d opts :z)
+        [color-bind opts] (compile-color-fn opts)]
+    (-> (c/wrap [z-bind color-bind] ['emmy.mathbox.components.plot/OfXY opts])
         (ev/fragment scene))))
 
 (defn of-xz
@@ -652,10 +721,24 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of the form `(fn [[x y z u v]] <number>)`
+    (optionally wrapped by [[emmy.viewer/with-params]]), called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [opts]
-  (let [[y-bind opts] (c/compile-2d opts :y)]
-    (-> (c/wrap [y-bind] ['emmy.mathbox.components.plot/OfXZ opts])
+  (let [[y-bind opts]     (c/compile-2d opts :y)
+        [color-bind opts] (compile-color-fn opts)]
+    (-> (c/wrap [y-bind color-bind] ['emmy.mathbox.components.plot/OfXZ opts])
         (ev/fragment scene))))
 
 (defn of-yz
@@ -705,10 +788,24 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of the form `(fn [[x y z u v]] <number>)`
+    (optionally wrapped by [[emmy.viewer/with-params]]), called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [opts]
-  (let [[x-bind opts] (c/compile-2d opts :x)]
-    (-> (c/wrap [x-bind] ['emmy.mathbox.components.plot/OfYZ opts])
+  (let [[x-bind opts]     (c/compile-2d opts :x)
+        [color-bind opts] (compile-color-fn opts)]
+    (-> (c/wrap [x-bind color-bind] ['emmy.mathbox.components.plot/OfYZ opts])
         (ev/fragment scene))))
 
 ;; ## Vector Fields
