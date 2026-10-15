@@ -173,8 +173,11 @@
 
 (defspec plane-vertices-are-exact 25
   (prop/for-all [[a b c] (gen/vector (gen-double 0.1 1.0) 3)
-                 level   (gen-double -0.5 0.5)]
-    (let [f    (fn [x y z] (+ (* a x) (* b y) (* c z)))
+                 t       (gen-double -0.9 0.9)]
+    ;; Over [-1, 1]^3 the plane's values span [-(a+b+c), a+b+c], so a level
+    ;; inside that span always crosses the box.
+    (let [level (* t (+ a b c))
+          f    (fn [x y z] (+ (* a x) (* b y) (* c z)))
           mesh (mc/isosurface f {:level level :samples 6})]
       (boolean
        (and (seq (:triangles mesh))
