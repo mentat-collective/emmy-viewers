@@ -5,10 +5,19 @@
             [emmy.viewer.kernel.backend :as backend]
             [emmy.viewer.kernel.plan :as plan]))
 
+(defn- missing-dependency?
+  "True when `e`, or any exception in its cause chain, is a FileNotFoundException:
+  a namespace that is not on the classpath. Requiring a namespace whose own
+  requires are missing raises a CompilerException wrapping one."
+  [e]
+  (boolean (some #(instance? java.io.FileNotFoundException %)
+                 (take-while some? (iterate ex-cause e)))))
+
 (def ^:private malli?
   (try (require 'emmy.viewer.kernel.schema 'malli.core)
        true
-       (catch java.io.FileNotFoundException _
+       (catch Exception e
+         (when-not (missing-dependency? e) (throw e))
          (when (System/getenv "EMMY_VIEWERS_REQUIRE_RASTER")
            (throw (ex-info "malli not on the classpath (EMMY_VIEWERS_REQUIRE_RASTER is set)" {})))
          (println "[kernel.schema-test] malli not on the classpath (use -M:test:raster); skipping")
