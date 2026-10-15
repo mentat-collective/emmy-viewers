@@ -2,6 +2,11 @@
 
 ## [unreleased]
 
+- Adds `examples.minimal-bezier`, a notebook that finds the cubic Bézier
+  curves closest to paths of stationary action (shortest path and
+  brachistochrone) by minimizing the action over their control points, with an
+  interactive Mafs demo of draggable control points. Supersedes #23.
+
 ## [0.3.2]
 
 - #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
