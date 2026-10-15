@@ -16,14 +16,20 @@
    {org.clojure/clojure       {:mvn/version "1.11.1"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}
     io.github.nextjournal/cas-client
-    {:git/sha "84ab35c3321c1e51a589fddbeee058aecd055bf8"}
+    {:git/sha "d9f838937ebc8b645fe5764949e72a6df8e344de"}
     io.github.nextjournal/clerk
-    {:git/sha "d80187013d7b7b96db3d8b114b8d99f687170668"}
+    {:git/sha "a67a5d1e25fc9601e9f8a6d8006aaf7eed1a7761"}
 
     io.github.nextjournal/clerk.render
     {:git/url "https://github.com/nextjournal/clerk"
-     :git/sha "d80187013d7b7b96db3d8b114b8d99f687170668"
-     :deps/root "render"}}
+     :git/sha "a67a5d1e25fc9601e9f8a6d8006aaf7eed1a7761"
+     :deps/root "render"}
+
+    ;; clerk.render pins SCI by git sha, while emmy brings it in from Maven;
+    ;; tools.deps cannot compare the two, so pin Clerk's coordinate here.
+    org.babashka/sci
+    {:git/url "https://github.com/babashka/sci"
+     :git/sha "c556f4474303c61da72e7a07eef496dcbf66a56e"}}
    :exec-fn user/build!}
 
   :portal
