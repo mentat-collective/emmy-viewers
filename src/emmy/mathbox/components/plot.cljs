@@ -747,9 +747,6 @@
   - `:r`: function of the form `(fn [theta] <r>)`, valid within the range of
     theta values specified by `:range`.
 
-    NOTE that you may only supply ONE of these two! Supplying both will trigger
-    an error.
-
   Optional arguments:
 
   - `:samples`: the number of points to use to generate the curve. Defaults to

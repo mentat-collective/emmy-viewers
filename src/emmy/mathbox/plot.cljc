@@ -294,7 +294,45 @@
     (-> (c/wrap [f-bind] ['emmy.mathbox.components.plot/ParametricCurve opts])
         (ev/fragment scene))))
 
-(defn polar-curve [opts]
+(defn polar-curve
+  "Returns a fragment that plots a polar curve into the `z = 0` plane of the
+  scene, ie, radius `:r` as a function of the angle `theta`.
+
+  Required arguments:
+
+  - `:r`: function of the form `(fn [theta] <r>)`, valid within the range of
+    theta values specified by `:range`.
+
+  Optional arguments:
+
+  - `:range`: 2-vector of the form `[<min-theta> <max-theta>]` specifying the
+    range to feed into `:r`. Defaults to `[0 (* 2 Math/PI)]`.
+
+  - `:samples`: the number of points to use to generate the curve. Defaults to
+    256.
+
+  - `:start?` if `true`, renders an arrow at the start of the curve. Defaults to
+    `false`.
+
+  - `:end?` if `true`, renders an arrow at the end of the curve. Defaults to
+    `false`.
+
+  - `:arrow-size`: size of the arrows toggled by `:start?` and `:end?`. Defaults
+    to 6.
+
+  - `:width`: width of the curve. Defaults to 4.
+
+  - `:opacity`: opacity of the curve. Defaults to 1.0.
+
+  - `:color`: color of the curve. This can be a `three.js` `Color` object or [any
+    valid input to its constructor](https://threejs.org/docs/#api/en/math/Color).
+
+  - `:z-order`: z-order of the curve.
+
+  - `:z-index`: zIndex of the curve. Defaults to 0.
+
+  - `:z-bias`: zBias of the curve. Defaults to 0."
+  [opts]
   (let [[r-bind opts] (c/compile-1d opts :r)]
     (-> (c/wrap [r-bind] ['emmy.mathbox.components.plot/PolarCurve opts])
         (ev/fragment scene))))
