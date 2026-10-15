@@ -6,9 +6,12 @@ on:
       - main  # Set a branch name to trigger deployment
 jobs:
   publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    # The Deploy step pushes to gh-pages with GITHUB_TOKEN.
+    permissions:
+      contents: write
     steps:
-      - uses: actions/cache@v3
+      - uses: actions/cache@v6
         with:
             path: |
               .cpcache
@@ -17,10 +20,16 @@ jobs:
             key: "1"
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'zulu'
+          java-version: '25'
 
       - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@master
+        uses: DeLaGuardo/setup-clojure@13.7.0
         with:
           cli: latest
           bb: latest
@@ -30,7 +39,7 @@ jobs:
         run: bb build-static
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

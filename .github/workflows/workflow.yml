@@ -9,23 +9,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
+      - name: Set up JDK 25
+        uses: actions/setup-java@v6
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '25'
 
-      - uses: DeLaGuardo/setup-clojure@master
+      - uses: DeLaGuardo/setup-clojure@13.7.0
         with:
           cli: latest
           bb: latest
 
-      - name: Cache Maven packages
-        uses: actions/cache@v2
+      - name: Cache Maven and git deps
+        uses: actions/cache@v6
         with:
-          path: ~/.m2
+          path: |
+            ~/.m2
+            ~/.gitlibs
           key: ${{ runner.os }}-m2-${{ hashFiles('**/deps.edn') }}
           restore-keys: ${{ runner.os }}-m2
 
