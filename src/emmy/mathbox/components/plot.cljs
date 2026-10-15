@@ -966,34 +966,23 @@
 ;; ## 2D Plotting
 
 (defn ^:no-doc SurfaceGrid
-  "Component for rendering lines of constant `u` and `v` onto a 2D surface.
+  "Component for rendering lines of constant `u` and `v` onto the 2D surface
+  whose data source immediately precedes it.
 
-  NOTE that this is in-progress and doesn't yet support custom color functions,
-  only constants! Once we get that fixed up we can properly generate the color
-  outside and not pass this color argument in."
-  [{:keys [color grid-u grid-v grid-opacity grid-width grid-color z-order]
+  Lines use `:grid-color` when supplied. Otherwise they use `:color` darkened
+  by [[emmy.mathbox.color/grid-color]], or [[emmy.mathbox.color/default]] when
+  `:color-fn` is set, since a per-vertex colored surface has no single color to
+  darken."
+  [{:keys [color color-fn grid-u grid-v grid-opacity grid-width grid-color z-order]
     :or {grid-u 8
          grid-v 8
          grid-width 1
          grid-opacity 0.5}}]
-  ;; TODO Ah! So if it's a color FUNCTION, then we go gray; otherwise, we
-  ;; really want a color node that takes the r, g, b off the Color. and 1.0
-  ;; for the final value, and then uses this lighten value for the lines.
-  ;;
-  ;; and then see updateColorExpr for what actually happens with that
-  ;; colorExpr, it's not quite normal.
   (let [line-color (or grid-color
-                       ;; this is here for when we sub in fns.
-                       (if true
-                         (color/lighten color -0.75)
-                         "gray"))]
+                       (if color-fn
+                         color/default
+                         (color/grid-color color)))]
     [:<>
-     ;; TODO enable separate x and y lines, and disable if 0?? remember to
-     ;; get sources right.
-     ;;
-     ;; TODO separate x and y colors? and call it u and v colors for SURE in
-     ;; parametric. TODO fix the data source... I think when opacity goes to
-     ;; 0 we target some new source?? CSS selector, select the data.
      [mb/Resample {:source "<" :height grid-v}]
      [mb/Line {:zBias 5 :zOrder (+ z-order 0.001)
                :color line-color
@@ -1008,10 +997,16 @@
                :opacity grid-opacity}]]))
 
 (defn ^:no-doc Surface2D
-  "Component backing all of the 2-dimensional surface components below."
+  "Component backing all of the 2-dimensional surface components below.
+
+  When `:color-fn` is supplied, the surface is colored per vertex by
+  [[emmy.mathbox.color/vertex-color-expr]] using `:color-fn`, `:color-map`
+  (default `:rainbow`) and `:color-range` (default `[0 1]`), and `:color` is
+  ignored."
   [{:keys [expr
            u-range v-range u-samples v-samples
            shaded?
+           color-fn color-map color-range
            opacity color z-order z-index z-bias]
     :or {u-samples 64
          v-samples 64
@@ -1020,33 +1015,42 @@
          z-bias 0
          opacity 0.75
          color 0xffffff
+         color-map :rainbow
+         color-range [0 1]
          shaded? true}
     :as opts}]
-  [:<>
-   [mb/Area
-    (cond->
-        {:live false
-         :items 1
-         :channels 3
-         :width u-samples
-         :height v-samples
-         :expr expr}
-      u-range (assoc :rangeX u-range)
-      v-range (assoc :rangeY v-range))]
-   [mb/Surface
-    {:shaded shaded?
-     :width 1
-     :lineX false
-     :lineY false
-     :opacity opacity
-     :color color
-     :zIndex z-index
-     :zBias z-bias
-     :zOrder z-order}]
-   [SurfaceGrid
-    (assoc opts
-           :z-order z-order
-           :color color)]])
+  (let [area (fn [m]
+               (cond-> (assoc m
+                              :live false
+                              :items 1
+                              :width u-samples
+                              :height v-samples)
+                 u-range (assoc :rangeX u-range)
+                 v-range (assoc :rangeY v-range)))]
+    [:<>
+     ;; The color source precedes the position source so that `"<"` (used by
+     ;; the surface's points and by SurfaceGrid) still resolves to positions.
+     (when color-fn
+       [mb/Area
+        (area {:channels 4
+               :expr (color/vertex-color-expr
+                      expr color-fn color-map color-range)})])
+     [mb/Area (area {:channels 3 :expr expr})]
+     [mb/Surface
+      (cond-> {:shaded shaded?
+               :width 1
+               :lineX false
+               :lineY false
+               :opacity opacity
+               :color (if color-fn 0xffffff color)
+               :zIndex z-index
+               :zBias z-bias
+               :zOrder z-order}
+        color-fn (assoc :points "<" :colors "<<"))]
+     [SurfaceGrid
+      (assoc opts
+             :z-order z-order
+             :color color)]]))
 
 (defn ParametricSurface
   "Component that plots a parametric surface defined by `f` into the scene along
@@ -1095,7 +1099,20 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of a single JS array `[x y z u v]`
+    returning a number, called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [opts]
   [Surface2D
    (cs/rename-keys opts {:f :expr
@@ -1149,7 +1166,20 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of a single JS array `[x y z u v]`
+    returning a number, called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [z r-range theta-range]
@@ -1223,7 +1253,20 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of a single JS array `[x y z u v]`
+    returning a number, called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [z] :as opts}]
@@ -1289,7 +1332,20 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of a single JS array `[x y z u v]`
+    returning a number, called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [y] :as opts}]
@@ -1355,7 +1411,20 @@
   - `:grid-width`: width of the grid lines.
 
   - `:grid-color`: color of the grid lines. Defaults to a darkened version of
-    `:color`."
+    `:color`, or to gray when `:color-fn` is set.
+
+  Optional arguments for per-vertex color:
+
+  - `:color-fn`: function of a single JS array `[x y z u v]`
+    returning a number, called at each vertex with its
+    position and the two surface inputs. When set, it replaces `:color`.
+
+  - `:color-map`: one of `:rainbow` (default), `:temperature` or `:bluered`, or
+    a function of a fraction in `[0, 1]` returning `[r g b]` with channels in
+    `[0, 1]`. See [[emmy.mathbox.color/color-maps]].
+
+  - `:color-range`: `[<min> <max>]` range of `:color-fn` values mapped onto the
+    color map; values outside it are clamped. Defaults to `[0 1]`."
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [x] :as opts}]
