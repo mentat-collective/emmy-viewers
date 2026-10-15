@@ -296,6 +296,95 @@ through ["Demos"](#demos) for inspiration.
 [MathLive.cljs](https://github.com/mentat-collective/jsxgraph.cljs) guides are
 coming soon.
 
+## Computational Backends
+
+Every function a viewer plots is compiled on the JVM before it reaches the
+browser. Every compiled **Kernel**, whichever backend produced it, is callable
+using Emmy's original calling convention (`:native`, `:structure`, or
+`:primitive`) and carries the same browser-side contract:
+
+- `f.batch(xs, n, ps, out)` evaluates `n` points from flattened row-major input
+  states `xs`, using parameters `ps`, into `out` (or an allocated output buffer).
+- `f.ready()` reports whether the kernel is ready to execute.
+- `f.dims` gives the scalar counts `{state, outputs, params}`.
+
+Viewers depend on the ClojureScript namespace `emmy.viewer.kernel`, not on a
+particular backend: `kernel?`, `ready?`, `dims`, `batch!`, `bind`, and `bind-1d`
+expose and preserve that contract. MathBox explicit surfaces sample their full
+grid through `batch!` when the function is a Kernel and both ranges are given;
+other functions retain per-point sampling.
+
+On the JVM, backends implement `emmy.viewer.kernel.backend/KernelBackend` with
+one method, `kernel-form`, and are added using `register-backend!`. The dynamic
+var `emmy.viewer.compile/*backend*` accepts either a registered keyword or a
+backend value:
+
+- `:js` (the default) emits Emmy JavaScript with a batch adapter attached to
+  the same per-point function.
+- `:raster` compiles to WebAssembly with
+  [raster](https://github.com/replikativ/raster). Emmy simplifies the function
+  symbolically and raster compiles the output to a kernel that evaluates many
+  points in one call. The module ships inside the fragment with Emmy's original
+  calling convention and a JavaScript fallback.
+
+```clojure
+(require '[emmy.viewer.compile :as vc])
+
+(binding [vc/*backend* :raster]
+  (emmy.mafs/of-x (fn [x] (* x (sin x)))))
+```
+
+**Upgrading:** Existing viewer call sites stay the same. Choosing `:raster`
+only changes the backend binding; introducing another backend means registering
+an implementation of `KernelBackend`, not editing viewers or compile call sites.
+
+Measured with `clojure -J-Xmx2g -M:raster:bench` (node 22, JDK 25, ns per
+point; see `bench/results/latest.edn`). Each batch pass evaluates all points;
+`surface-64` is a complete 64×64 grid on [-3, 3]² with two parameters.
+These numbers come from a shared, busy machine, so single per-point timings
+vary by up to 2x between runs; the batch columns are the stable result:
+
+| function | `:js` per point | `:js` batch | `:raster` per point | `:raster` batch |
+|---|---:|---:|---:|---:|
+| `x sin x` | 67.0 | 16.5 | 62.1 | 6.5 |
+| degree-7 polynomial | 280.5 | 291.5 | 43.7 | 4.0 |
+| parametric curve, 2 outputs | 78.5 | 49.4 | 131.6 | 10.5 |
+| `a sin(bx) + x²`, 2 params | 51.1 | 28.9 | 26.3 | 6.1 |
+| MathBox surface, 3 outputs | 64.7 | 55.2 | 36.8 | 32.4 |
+| `surface-64`: `a sin(bx) cos(y)` | 99.3 | 46.5 | 51.9 | 12.7 |
+| double-pendulum state derivative | 89.8 | 80.3 | 63.4 | 35.0 |
+
+What holds across runs: `:raster` batch is the fastest path for every case
+(4 to 35 ns per point, 2x to 70x faster than `:js` per point), and a MathBox
+`surface-64` grid evaluates in one call at about 13 ns per point. `:js` batch
+is faster than, or within noise of, `:js` per point, so a viewer can batch
+through the contract whichever backend compiled its function.
+
+The raster backend needs raster on the classpath (the `:raster` alias). Things
+to know:
+
+- Compiling is slower: 0.1 to 0.5 s per function on the JVM, against a few ms
+  for `:js`, and the fragment is 2 to 4 KB larger.
+
+- raster's wasm math approximates the transcendental functions: `sin`/`cos`
+  within 5e-6 and `atan`/`asin`/`acos` within 3e-5 of `java.lang.Math`. Plots
+  cannot show the difference; long ODE integrations can drift from the `:js`
+  result.
+- A function raster cannot compile (a literal function, an operator outside its
+  vocabulary) throws at build time and names the form. Bind `:js` for that
+  viewer.
+- The backend is layered: `emmy.viewer.kernel.plan` is backend-neutral;
+  `emmy.viewer.raster.lower` (raster's vocabulary) and
+  `emmy.viewer.raster.glue` (the browser side) are pure. Shared malli contracts
+  live in `emmy.viewer.kernel.schema`, raster-specific ones in
+  `emmy.viewer.raster.schema`; `emmy.viewer.raster` is the compilation boundary.
+- Each fragment also carries the `:js` function. A browser without WebAssembly
+  uses it, and so does any call made while a module larger than 4 KB is still
+  compiling asynchronously (`f.batch` returns null then).
+- Parameters are written to the module only when the caller passes a new
+  parameter object, which is what the viewers do when a slider moves. Mutating
+  the same array in place between calls is not seen.
+
 ## Demos
 
 These demos are in-progress, more advanced demonstrations of the capabilities of

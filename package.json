@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "playwright-core": "1.62.1"
   },
   "scripts": {
     "test": "shadow-cljs compile test && node target/main/node-tests.js;",

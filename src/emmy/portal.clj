@@ -9,8 +9,13 @@
 (def viewers
   "Vector of paths to the cljs files in this project that declare Portal viewers.
   Each of these is intended to be evaluated in Portal's SCI context,
-  via [[portal.api/eval-str]]."
-  ["emmy/portal/tex.cljs"
+  via [[portal.api/eval-str]].
+
+  `emmy/viewer/kernel.cljs` comes first: compiled viewer fragments call the
+  Kernel contract (e.g. `emmy.viewer.kernel/bind` for parameterized
+  functions), so it must be loaded before any of them is evaluated."
+  ["emmy/viewer/kernel.cljs"
+   "emmy/portal/tex.cljs"
    "emmy/portal/reagent.cljs"
    "emmy/portal/mafs.cljs"
    "emmy/portal/leva.cljs"

@@ -27,6 +27,15 @@
   {:doc "Run CLJS tests."
    :task (shell "npm run test")}
 
+  raster-e2e:build
+  {:doc "Static build of dev/backends/raster_vs_js.clj with a viewer bundle compiled here by shadow-cljs (needs JDK 24+)."
+   :task (shell "clojure -J-Xmx2g -X:nextjournal/clerk:cljs:raster:raster-e2e")}
+
+  raster-e2e
+  {:doc "Build the backends notebook, then check it in headless Chromium (dev/e2e/raster_render.mjs)."
+   :task (do (run 'raster-e2e:build)
+             (shell "node dev/e2e/raster_render.mjs"))}
+
   build-static
   {:doc "Generate a fresh static build."
    :task

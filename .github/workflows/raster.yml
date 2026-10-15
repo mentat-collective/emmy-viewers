@@ -1,0 +1,49 @@
+name: Raster backend
+
+# The suite with the :raster alias: the pure layers, the malli contracts, and
+# the end-to-end run of the compiled wasm modules in node. raster needs JDK 24+
+# (ClassFile API, Panama FFM).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+
+      - name: Set up Node.js (runs the wasm modules)
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - uses: DeLaGuardo/setup-clojure@13.7.0
+        with:
+          cli: latest
+
+      - name: Cache Maven and git deps
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.m2
+            ~/.gitlibs
+          key: ${{ runner.os }}-raster-${{ hashFiles('**/deps.edn') }}
+          restore-keys: ${{ runner.os }}-raster
+
+      - name: Install dependencies
+        run: clojure -P -M:test:raster:runner
+
+      - name: Tests with the raster backend
+        run: clojure -M:test:raster:runner
+        env:
+          # Here a missing raster, malli or node is a failure, not a skip.
+          EMMY_VIEWERS_REQUIRE_RASTER: '1'

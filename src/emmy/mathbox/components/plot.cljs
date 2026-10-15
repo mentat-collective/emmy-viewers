@@ -8,7 +8,8 @@
             [mathbox.core]
             [mathbox.primitives :as mb]
             ["katex" :as katex]
-            ["mathbox" :as box]))
+            ["mathbox" :as box]
+            [emmy.viewer.kernel :as kernel]))
 
 ;; ## Utilities
 
@@ -1227,10 +1228,7 @@
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [z] :as opts}]
-      (let [expr (fn [emit x y _i _j _time]
-                   (aset in 0 x)
-                   (aset in 1 y)
-                   (emit x y (z in)))]
+      (let [expr (kernel/area-expr z {:x-range (:x-range opts), :y-range (:y-range opts), :width (:x-samples opts), :height (:y-samples opts), :in in, :place (fn [emit x y v] (emit x y v))})]
         [Surface2D
          (-> (dissoc opts :z)
              (cs/rename-keys {:x-range :u-range
@@ -1293,10 +1291,7 @@
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [y] :as opts}]
-      (let [expr (fn [emit x z _i _j _time]
-                   (aset in 0 x)
-                   (aset in 1 z)
-                   (emit x (y in) z))]
+      (let [expr (kernel/area-expr y {:x-range (:x-range opts), :y-range (:z-range opts), :width (:x-samples opts), :height (:z-samples opts), :in in, :place (fn [emit x z v] (emit x v z))})]
         [Surface2D
          (-> (dissoc opts :y)
              (cs/rename-keys {:x-range :u-range
@@ -1359,10 +1354,7 @@
   [_]
   (let [in #js [0 0]]
     (fn [{:keys [x] :as opts}]
-      (let [expr (fn [emit y z _i _j _time]
-                   (aset in 0 y)
-                   (aset in 1 z)
-                   (emit (x in) y z))]
+      (let [expr (kernel/area-expr x {:x-range (:y-range opts), :y-range (:z-range opts), :width (:y-samples opts), :height (:z-samples opts), :in in, :place (fn [emit y z v] (emit v y z))})]
         [Surface2D
          (-> (dissoc opts :x)
              (cs/rename-keys {:y-range :u-range

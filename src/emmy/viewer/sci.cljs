@@ -22,7 +22,8 @@
             [mathbox.sci]
             [mathlive.sci]
             [sci.core :as sci]
-            [sci.ctx-store]))
+            [sci.ctx-store]
+            [emmy.viewer.kernel]))
 
 (def with-let ^:sci/macro
   (fn [_&form _&env [sym init & more] & body]
@@ -56,6 +57,7 @@
      'emmy.mathlive                    (sci/copy-ns emmy.mathlive (sci/create-ns 'emmy.mathlive))
      'emmy.viewer                      (-> (sci/copy-ns emmy.viewer (sci/create-ns 'emmy.viewer))
                                            (assoc 'with-let with-let))
+     'emmy.viewer.kernel               (sci/copy-ns emmy.viewer.kernel (sci/create-ns 'emmy.viewer.kernel))
      'emmy.viewer.components.physics   (sci/copy-ns emmy.viewer.components.physics
                                                     (sci/create-ns 'emmy.viewer.components.physics))
      'emmy.viewer.physics              (sci/copy-ns emmy.viewer.physics (sci/create-ns 'emmy.viewer.physics))

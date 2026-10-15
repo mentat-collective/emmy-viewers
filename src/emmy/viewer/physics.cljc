@@ -1,6 +1,5 @@
 (ns emmy.viewer.physics
-  (:require [emmy.expression.compile :as xc]
-            [emmy.mechanics.lagrange :as l]
+  (:require [emmy.mechanics.lagrange :as l]
             [emmy.mechanics.hamilton :as h]
             [emmy.mechanics.routhian :as r]
             [emmy.viewer :as ev]
@@ -34,19 +33,20 @@
                           [v false])
             sym          (gensym)
             simplify?    (:simplify? opts false)
-            [body new-f] [(xc/compile-state-fn
+            [form new-f] [(vc/compiled-fn
                            f' params initial-state
-                           {:mode :js
-                            :generic-params? params?
+                           {:generic-params? params?
                             :simplify? simplify?
                             :calling-convention :primitive})
+                          ;; Odex calls (fn [in out]); its primitive kernel needs
+                          ;; a mutable output and JS-array params, not bind's (state ps).
                           (if params?
                             `(let [psym# (apply ~'array (map @~(:atom v) ~params))]
                                (fn [in# out#]
                                  (~sym in# out# psym#)))
                             `(fn [in# out#]
                                (~sym in# out# nil)))]]
-        [[sym (list* 'js/Function. body)]
+        [[sym form]
          (assoc opts k new-f)]))))
 
 (defn evolve

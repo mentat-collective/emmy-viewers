@@ -4,7 +4,10 @@
 
   See [[emmy.mafs.plot]] and [[emmy.mathbox.plot]] for example uses."
   (:require [emmy.expression.compile :as xc]
-            [emmy.viewer :as v]))
+            [emmy.viewer :as v]
+            [emmy.viewer.kernel.adapter :as adapter]
+            [emmy.viewer.kernel.backend :as backend]
+            [emmy.viewer.kernel.plan :as plan]))
 
 (defn compile?
   "Returns true if `f` is an argument that should be compiled by Emmy, false
@@ -40,6 +43,48 @@
                     (fn [[x]] (inner x))))))
       (fn [[t]] (f t)))))
 
+;; ## Computational Backends
+
+(def ^:dynamic *backend*
+  "The computational backend that compiles Emmy functions for the viewers.
+  Accepts a registered keyword or a KernelBackend value; use
+  [[emmy.viewer.kernel.backend/register-backend!]] to register new backends.
+
+  - `:js` (default): JavaScript source, from Emmy's `:js` compile mode.
+  - `:raster`: WebAssembly, compiled by raster on the JVM. Needs raster on the
+    classpath; see [[emmy.viewer.raster]].
+
+  Bind it around the code that builds a viewer:
+
+  ```clojure
+  (binding [emmy.viewer.compile/*backend* :raster]
+    (emmy.mafs/of-x sin))
+  ```"
+  :js)
+
+(defrecord JsBackend []
+  backend/KernelBackend
+  (kernel-form [_ f params initial-state opts]
+    ;; The plan is only read for its shapes and counts, so it skips
+    ;; simplification; Emmy's own :js compile below does the real work.
+    (let [p (plan/plan f params initial-state (assoc opts :simplify? false))]
+      (list (list 'js/Function. "fb" (adapter/adapter-source p))
+            (list* 'js/Function.
+                   (xc/compile-state-fn f params initial-state (assoc opts :mode :js)))))))
+
+(defn compiled-fn
+  "Returns a form that evaluates, in the browser, to `f` compiled by
+  [[*backend*]].
+
+  The arguments are those of [[emmy.expression.compile/compile-state-fn]], minus
+  `:mode`, and the compiled function has the same calling convention whichever
+  backend compiles it."
+  [f params initial-state opts]
+  (backend/kernel-form (backend/resolve-backend *backend*)
+                       f params initial-state opts))
+
+(backend/register-backend! :js (->JsBackend))
+
 ;; ## Compile Functions
 
 (defn param-1d
@@ -50,21 +95,19 @@
 
   and returns a pair of
 
-  - a function body of the form `(js/Function. ...)`
+  - a form that evaluates to the compiled function (see [[compiled-fn]])
   - the NEW quoted form that should be passed along.
 
   See the body of [[compile-1d]] for more details."
   [sym {:keys [f params atom]}]
-  [(xc/compile-state-fn
+  [(compiled-fn
     (fn [& params]
       (let [inner (apply f params)]
         (fn [[x]] (inner x))))
     params
     [0]
-    {:mode :js})
-   `(let [psym# (mapv @~atom ~params)]
-      (fn [x#]
-        (~sym [x#] psym#)))])
+    {})
+   `(emmy.viewer.kernel/bind-1d ~sym (mapv @~atom ~params))])
 
 (defn compile-1d
   "Takes
@@ -81,10 +124,12 @@
     (if-not (compile? v)
       [[] opts]
       (let [sym          (gensym)
-            [body new-f] (if (v/param-f? v)
+            [form new-f] (if (v/param-f? v)
                            (param-1d sym v)
-                           [(xc/compile-fn v 1 {:mode :js}) sym])]
-        [[sym (list* 'js/Function. body)]
+                           [(compiled-fn v false [0] {:calling-convention :native
+                                                      :arity 1})
+                            sym])]
+        [[sym form]
          (assoc opts k new-f)]))))
 
 (defn param-2d
@@ -96,15 +141,13 @@
 
   and returns a pair of
 
-  - a function body of the form `(js/Function. ...)`
+  - a form that evaluates to the compiled function (see [[compiled-fn]])
   - the NEW quoted form that should be passed along.
 
   See the body of [[compile-2d]] for more details."
   [sym {:keys [f params atom]}]
-  [(xc/compile-state-fn f params [0 0] {:mode :js})
-   `(let [psym# (mapv @~atom ~params)]
-      (fn [xy#]
-        (~sym xy# psym#)))])
+  [(compiled-fn f params [0 0] {})
+   `(emmy.viewer.kernel/bind ~sym (mapv @~atom ~params))])
 
 (defn compile-2d
   "Takes
@@ -122,10 +165,10 @@
     (if-not (compile? v)
       [[] opts]
       (let [sym          (gensym)
-            [body new-f] (if (v/param-f? v)
+            [form new-f] (if (v/param-f? v)
                            (param-2d sym v)
-                           [(xc/compile-state-fn v false [0 0] {:mode :js}) sym])]
-        [[sym (list* 'js/Function. body)]
+                           [(compiled-fn v false [0 0] {}) sym])]
+        [[sym form]
          (assoc opts k new-f)]))))
 
 (defn wrap

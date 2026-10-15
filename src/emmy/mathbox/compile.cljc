@@ -1,7 +1,6 @@
 (ns ^:no-doc emmy.mathbox.compile
   "Utilities for compiling code into a form needed by MathBox's data primitives."
-  (:require [emmy.expression.compile :as xc]
-            [emmy.viewer :as v]
+  (:require [emmy.viewer :as v]
             [emmy.viewer.compile :as vc]))
 
 (defn frame
@@ -24,6 +23,8 @@
   (let [in      (gensym)
         syms    (repeatedly dimensions gensym)
         indices (range dimensions)]
+    ;; MathBox calls (fn [emit x y z]); the primitive kernel writes to a
+    ;; reusable output array before emit, unlike bind's (state ps) call.
     `(let [~in   (~'js/Array. ~@(repeat dimensions 0))
            out#  (~'js/Array. 0 0 0)
            psym# ~(when param-f
@@ -47,12 +48,14 @@
   - the `dimensions` of the function's input (1, 2 or 3)
   - `simplify?` a boolean to pass along to the compiler
 
-  Returns a pair of a compiled state function and the output of [[frame]]."
+  Returns a pair of a form that evaluates to the compiled state function (see
+  [[emmy.viewer.compile/compiled-fn]]) and the output of [[frame]]."
   [sym {:keys [f params] :as param-f} dimensions simplify?]
-  [(xc/compile-state-fn
+  ;; frame adapts the primitive (in out ps) kernel to MathBox's emit callback;
+  ;; bind only handles the structure-style (state ps) call shape.
+  [(vc/compiled-fn
     f params (into [] (repeat dimensions 0))
-    {:mode :js
-     :simplify? simplify?
+    {:simplify? simplify?
      :calling-convention :primitive})
    (frame
     {:sym sym
@@ -77,15 +80,14 @@
       [[] opts]
       (let [sym          (gensym)
             simplify?    (:simplify? opts true)
-            [body new-f] (if (v/param-f? v)
+            [form new-f] (if (v/param-f? v)
                            (param-3d sym v dimensions simplify?)
-                           [(xc/compile-state-fn
+                           [(vc/compiled-fn
                              v false (into [] (repeat dimensions 0))
-                             {:mode :js
-                              :generic-params? false
+                             {:generic-params? false
                               :simplify? simplify?
                               :calling-convention :primitive})
                             (frame
                              {:sym sym :dimensions dimensions})])]
-        [[sym (list* 'js/Function. body)]
+        [[sym form]
          (assoc opts k new-f)]))))

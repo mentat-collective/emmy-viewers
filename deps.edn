@@ -36,6 +36,46 @@
    {thheller/shadow-cljs {:mvn/version "2.25.2"}
     org.clojure/clojurescript {:mvn/version "1.11.60"}}}
 
+  ;; Opt-in computational backend: Emmy functions compiled to WebAssembly by
+  ;; raster (see `emmy.viewer.raster`). Its tests run the emitted modules in
+  ;; node, and skip without it.
+  ;;
+  ;;   clojure -M:test:raster:runner
+  :raster
+  {:extra-deps
+   {io.github.replikativ/raster {:git/tag "v0.2.258" :git/sha "d0fb8f7"}
+    org.typedclojure/typed.clj.runtime {:mvn/version "1.4.0"}
+    ;; Contracts of the backend (emmy.viewer.raster.schema); test.check
+    ;; backs malli.generator.
+    metosin/malli {:mvn/version "0.20.1"}
+    org.clojure/test.check {:mvn/version "1.1.1"}}
+   :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+              "--add-modules=jdk.incubator.vector"]}
+
+  ;; Static build of dev/backends/raster_vs_js.clj, the raster and :js
+  ;; backends side by side, with a viewer bundle compiled from this checkout
+  ;; (see `bb raster-e2e`). This alias goes last: raster needs Clojure 1.12
+  ;; and JDK 24+, so it overrides the Clojure 1.11 pinned by :nextjournal/clerk,
+  ;; and swaps the GraalJS 21.3 that Clerk's markdown parser uses (it calls a
+  ;; sun.misc.Unsafe method removed in JDK 22) for the GraalJS polyglot jars.
+  ;;
+  ;;   clojure -X:nextjournal/clerk:cljs:raster:raster-e2e
+  :raster-e2e
+  {:extra-deps
+   {org.clojure/clojure {:mvn/version "1.12.6"}
+    io.github.nextjournal/markdown {:mvn/version "0.5.144"
+                                    :exclusions [org.graalvm.js/js]}
+    org.graalvm.polyglot/polyglot {:mvn/version "24.2.2"}
+    org.graalvm.js/js-language {:mvn/version "24.2.2"}}
+   :exec-fn backends.build/build!}
+
+  ;; Benchmark of the raster backend against :js (needs node).
+  ;;
+  ;;   clojure -M:raster:bench
+  :bench
+  {:extra-paths ["bench"]
+   :main-opts ["-m" "emmy.viewer.raster.bench"]}
+
   :test
   ;; layer this in to get access to everything in the test directory, plus the
   ;; dependencies needed to run the tests.
