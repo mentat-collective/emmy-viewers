@@ -2,7 +2,10 @@
   "Server-side rendering functions for the components declared in the
   [`mathlive.core`](https://cljdoc.org/d/org.mentat/mathlive.cljs/CURRENT/api/mathlive.core)
   namespace of the [`MathLive.cljs` project](https://mathlive.mentat.org)."
-  (:require [emmy.viewer :as ev]))
+  (:require [emmy.env :as e]
+            [emmy.mathlive.interpreter :refer [process]]
+            [emmy.structure :as ss]
+            [emmy.viewer :as ev]))
 
 ;; ## MathLive Components
 ;;
@@ -13,6 +16,18 @@
   (vary-meta v assoc
              :portal.viewer/mathlive? true
              :portal.viewer/default :emmy.portal/mathlive))
+
+(defn mathjson->expression
+  "Converts the [MathJSON](https://cortexjs.io/math-json/) value `j` (Clojure
+  data, or a JS value in ClojureScript) into an Emmy literal expression, or a
+  structure of literal expressions when `j` is a `List`.
+
+  See [[emmy.mathlive.interpreter/process]] for the supported forms."
+  [j]
+  (ss/mapr e/literal-number
+           (process
+            #?(:cljs (js->clj j)
+               :clj j))))
 
 (def style
   "Place this fragment in a Clerk notebook to set the default styles
