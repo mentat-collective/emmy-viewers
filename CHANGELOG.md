@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+- Adds a Foucault pendulum example at `examples.simulation.foucault`, which
+  derives the motion from a rotating-frame Lagrangian and checks the simulated
+  precession rate against $\Omega \sin \varphi$.
+
 ## [0.3.2]
 
 - #80 bumps the Mafs.cljs and Mafs dependencies to Mafs 0.18.8, fixing #78.
